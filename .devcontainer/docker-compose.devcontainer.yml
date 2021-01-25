@@ -1,0 +1,13 @@
+# This file is used for local development (devcontainer)
+
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+      # add local ssh config
+      - ~/.ssh:/.ssh-localhost:ro

@@ -1,0 +1,13 @@
+# This file is used for local development (devcontainer)
+# when you don't want to sync the workspace with your local file system.
+# Requires ./docker-compose.devcontainer.yml to be chained before.
+
+version: '3'
+
+services:
+  app:
+    volumes:
+      - app:/workspace
+
+volumes:
+  app:
