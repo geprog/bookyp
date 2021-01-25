@@ -1,7 +1,8 @@
 {
   // List of extensions which should be recommended for users of this workspace.
   "recommendations": [
-    "octref.vetur",
+    "znck.vue-language-features",
+    "znck.vue",
     "editorconfig.editorconfig",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
