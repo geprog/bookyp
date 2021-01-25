@@ -1,2 +1,2 @@
-# bookyp
+# BOOKYP - Book your place
 
