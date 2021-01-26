@@ -1,6 +1,6 @@
-import { Application as FeathersApplication } from "@feathersjs/feathers";
+import { Application as FeathersApplication } from '@feathersjs/feathers';
 
-import ServiceTypes from "./services";
+import ServiceTypes from './services';
 
 type Application = FeathersApplication<ServiceTypes>;
 
