@@ -18,6 +18,7 @@
     "eamodio.gitlens",
     "mhutchie.git-graph",
     "editorconfig.editorconfig",
+    "vivaxy.vscode-conventional-commits",
     "arcanis.vscode-zipfs",
     "ms-vsliveshare.vsliveshare",
     "dbaeumer.vscode-eslint",
