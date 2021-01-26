@@ -3,6 +3,7 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
+    "composite": true,
     "alwaysStrict": true,
     "strict": true,
     "noUnusedLocals": true,

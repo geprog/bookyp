@@ -10,6 +10,7 @@ node_modules
 
 # Build directories
 dist
+*.tsbuildinfo
 
 # Yarn ignores for Zero-Installs. See https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 .yarn/*

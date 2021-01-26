@@ -2,18 +2,16 @@
   "extends": "../../tsconfig.json",
 
   "compilerOptions": {
-    "lib": ["esnext", "dom"],
-    "types": ["vite/client"],
-    "plugins": [{ "name": "@vuedx/typescript-plugin-vue" }],
-    "composite": false,
     "outDir": "dist",
     "rootDir": ".",
     "baseUrl": "src",
+    "composite": false,
     "paths": {
       "@/*": ["./*"],
       "$/*": ["../test/*"]
     }
   },
 
-  "include": ["src", "test"]
+  "include": ["src", "test"],
+  "references": [{ "path": "../../libs/core/tsconfig.build.json" }]
 }
