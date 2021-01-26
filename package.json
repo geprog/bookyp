@@ -12,7 +12,7 @@
     "build": "lerna run build",
     "lint": "yarn lint:globals && lerna run lint",
     "lint:globals": "eslint --report-unused-disable-directives --cache .",
-    "lint:changed": "lerna run --since origin/master --include-dependents lint",
+    "lint:changed": "yarn lint:globals && lerna run --since origin/master --include-dependents lint",
     "test": "lerna run test",
     "test:changed": "lerna run --since origin/master --include-dependents test",
     "typecheck": "lerna run typecheck",
@@ -56,9 +56,9 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "echo HUSKY_GIT_PARAMS && commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn test:changed"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn test"
     }
   },
   "lint-staged": {
