@@ -4,6 +4,7 @@
     "znck.vue-language-features",
     "znck.vue",
     "editorconfig.editorconfig",
+    "vivaxy.vscode-conventional-commits",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "arcanis.vscode-zipfs",
