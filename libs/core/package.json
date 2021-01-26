@@ -9,6 +9,7 @@
     "build": "ttsc -p tsconfig.build.json",
     "test": "jest --forceExit --detectOpenHandles",
     "lint": "eslint --report-unused-disable-directives --cache .",
+    "typecheck": "ttsc --noEmit",
     "clean": "shx rm -rf dist/ *.tsbuildinfo"
   },
   "dependencies": {
