@@ -10,7 +10,7 @@
     "test": "jest --forceExit --detectOpenHandles",
     "lint": "eslint --report-unused-disable-directives --cache .",
     "typecheck": "ttsc --noEmit",
-    "clean": "shx rm -rf dist/ *.tsbuildinfo"
+    "clean": "shx rm -rf dist/ *.tsbuildinfo || true"
   },
   "dependencies": {
     "@feathersjs/authentication": "4.5.11",

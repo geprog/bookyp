@@ -3,7 +3,7 @@ module.exports = {
   extends: ['../../.eslintrc.js'],
 
   env: {
-    'shared-node-browser': true,
+    node: true,
   },
 
   parserOptions: {
