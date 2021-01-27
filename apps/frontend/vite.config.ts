@@ -3,7 +3,6 @@ import vue from '@vitejs/plugin-vue';
 
 const config = defineConfig({
   plugins: [vue()],
-  logLevel: 'info',
   server: {
     proxy: {
       '/api': {
@@ -12,9 +11,6 @@ const config = defineConfig({
         changeOrigin: true,
       },
     },
-  },
-  optimizeDeps: {
-    exclude: ['@feathersjs/*', 'socket.io-client'],
   },
 });
 
