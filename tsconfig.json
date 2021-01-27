@@ -3,6 +3,8 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
+    "lib": ["esnext"],
+    "composite": true,
     "alwaysStrict": true,
     "strict": true,
     "noUnusedLocals": true,
@@ -28,5 +30,5 @@
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ]
   },
-  "exclude": ["dist"],
+  "exclude": ["node_modules", "dist"],
 }

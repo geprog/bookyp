@@ -4,4 +4,4 @@ type ServiceTypes = {
   authentication: AuthenticationService;
 };
 
-export default ServiceTypes;
+export { ServiceTypes };
