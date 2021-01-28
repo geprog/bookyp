@@ -1,6 +1,6 @@
 import { createApplication } from '@bookyp/core';
 import socketio from '@feathersjs/socketio-client';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 
 const app = createApplication();
 
