@@ -4,8 +4,7 @@
   "author": "GEPROG GmbH",
   "private": true,
   "workspaces": [
-    "apps/*",
-    "libs/*"
+    "packages/*"
   ],
   "scripts": {
     "start": "dotenv -- lerna run --include-dependencies --scope @bookyp/frontend --scope @bookyp/backend --parallel start",

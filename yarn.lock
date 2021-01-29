@@ -420,9 +420,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bookyp/backend@workspace:apps/backend":
+"@bookyp/backend@workspace:packages/backend":
   version: 0.0.0-use.local
-  resolution: "@bookyp/backend@workspace:apps/backend"
+  resolution: "@bookyp/backend@workspace:packages/backend"
   dependencies:
     "@bookyp/core": 0.0.1
     "@feathersjs/authentication": 5.0.0-pre.1
@@ -456,9 +456,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@bookyp/core@0.0.1, @bookyp/core@workspace:libs/core":
+"@bookyp/core@0.0.1, @bookyp/core@workspace:packages/core":
   version: 0.0.0-use.local
-  resolution: "@bookyp/core@workspace:libs/core"
+  resolution: "@bookyp/core@workspace:packages/core"
   dependencies:
     "@feathersjs/authentication": 5.0.0-pre.1
     "@feathersjs/feathers": 5.0.0-pre.1
@@ -485,9 +485,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@bookyp/frontend@workspace:apps/frontend":
+"@bookyp/frontend@workspace:packages/frontend":
   version: 0.0.0-use.local
-  resolution: "@bookyp/frontend@workspace:apps/frontend"
+  resolution: "@bookyp/frontend@workspace:packages/frontend"
   dependencies:
     "@bookyp/core": 0.0.1
     "@feathersjs/feathers": 5.0.0-pre.1
