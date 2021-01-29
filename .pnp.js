@@ -753,7 +753,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["socket.io-client", "npm:3.1.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=cc6730"],
             ["typescript-transform-paths", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:2.2.2"],
-            ["vite", "npm:2.0.0-beta.51"],
+            ["vite", "npm:2.0.0-beta.55"],
             ["vue", "npm:3.0.5"],
             ["vue-eslint-parser", "virtual:bdaf04524359367c0ecea39707d2e5a6828f7efe378c1ab7a6a1066c15f8252c6618acc3309166fd33c948e680e5dd2fb5956fba5633d67ca23b76812825b76a#npm:7.4.1"]
           ],
@@ -3436,7 +3436,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitejs/plugin-vue", "virtual:bdaf04524359367c0ecea39707d2e5a6828f7efe378c1ab7a6a1066c15f8252c6618acc3309166fd33c948e680e5dd2fb5956fba5633d67ca23b76812825b76a#npm:1.1.2"],
             ["@types/vue__compiler-sfc", null],
             ["@vue/compiler-sfc", "virtual:bdaf04524359367c0ecea39707d2e5a6828f7efe378c1ab7a6a1066c15f8252c6618acc3309166fd33c948e680e5dd2fb5956fba5633d67ca23b76812825b76a#npm:3.0.5"],
-            ["vite", "npm:2.0.0-beta.51"]
+            ["vite", "npm:2.0.0-beta.55"]
           ],
           "packagePeers": [
             "@types/vue__compiler-sfc",
@@ -15590,10 +15590,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["vite", [
-        ["npm:2.0.0-beta.51", {
-          "packageLocation": "./.yarn/cache/vite-npm-2.0.0-beta.51-d38d1493e3-f1fcba1cf9.zip/node_modules/vite/",
+        ["npm:2.0.0-beta.55", {
+          "packageLocation": "./.yarn/cache/vite-npm-2.0.0-beta.55-f063ded40d-a54c3e6950.zip/node_modules/vite/",
           "packageDependencies": [
-            ["vite", "npm:2.0.0-beta.51"],
+            ["vite", "npm:2.0.0-beta.55"],
             ["esbuild", "npm:0.8.36"],
             ["fsevents", "patch:fsevents@npm%3A2.1.3#builtin<compat/fsevents>::version=2.1.3&hash=11e9ea"],
             ["postcss", "npm:8.2.4"],

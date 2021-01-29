@@ -13684,9 +13684,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"vite@npm:2.0.0-beta.51":
-  version: 2.0.0-beta.51
-  resolution: "vite@npm:2.0.0-beta.51"
+"vite@npm:2.0.0-beta.55":
+  version: 2.0.0-beta.55
+  resolution: "vite@npm:2.0.0-beta.55"
   dependencies:
     esbuild: ^0.8.34
     fsevents: ~2.1.2
@@ -13698,7 +13698,7 @@ fsevents@~2.1.2:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: f1fcba1cf9f9bec298f790ab6c94c00af5addb929c6b43c6522b9e5aa9e7e9aa4d5e5756953cf4f366d96b30080fb0da32bb3bcd2ff194d95ba39682a65ed676
+  checksum: a54c3e69503504ba0be0975d1aabab43e811e4bcf68b4bbd482674f3c3d77e4c04347b3b13e2b39e1e0c90005df9cd57b8f3a521e8a6f88dd6698cae3f11e0d7
   languageName: node
   linkType: hard
 

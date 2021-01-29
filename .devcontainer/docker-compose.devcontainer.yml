@@ -8,8 +8,8 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 9300:3000
-      - 9301:4000
+      - 3000:3000
+      - 4000:4000
     volumes:
       - ..:/workspace:cached
       # add local ssh config
