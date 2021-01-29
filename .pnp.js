@@ -703,7 +703,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@jest/types", "npm:26.6.2"],
             ["@types/jest", "npm:26.0.20"],
             ["@types/node", "npm:14.14.22"],
-            ["@types/uuid", "npm:7.0.3"],
+            ["@types/uuid", "npm:8.3.0"],
             ["@types/uuid-validate", "npm:0.0.1"],
             ["@typescript-eslint/eslint-plugin", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:4.14.0"],
             ["@typescript-eslint/parser", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:4.14.0"],
@@ -719,8 +719,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ttypescript", "virtual:d3e991517abaf368b2d4b862c614765d10e6bb6d4e0bc0d40e941ce93476d39545251adaa7ef7a36e83d89c9d2fdeda7c804ec460a0007af6745ba988485a777#npm:1.5.12"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=cc6730"],
             ["typescript-transform-paths", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:2.2.2"],
-            ["uuid", "npm:7.0.3"],
-            ["uuid-validate", "npm:0.0.3"]
+            ["uuid", "npm:8.3.2"]
           ],
           "linkType": "SOFT",
         }]
@@ -3108,6 +3107,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-uuid-npm-7.0.3-b20d66f343-153b22d8ab.zip/node_modules/@types/uuid/",
           "packageDependencies": [
             ["@types/uuid", "npm:7.0.3"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:8.3.0", {
+          "packageLocation": "./.yarn/cache/@types-uuid-npm-8.3.0-60b441a3d7-620985aed8.zip/node_modules/@types/uuid/",
+          "packageDependencies": [
+            ["@types/uuid", "npm:8.3.0"]
           ],
           "linkType": "HARD",
         }]
@@ -15446,15 +15452,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/uuid-npm-8.3.2-eca0baba53-aed2bcef34.zip/node_modules/uuid/",
           "packageDependencies": [
             ["uuid", "npm:8.3.2"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["uuid-validate", [
-        ["npm:0.0.3", {
-          "packageLocation": "./.yarn/cache/uuid-validate-npm-0.0.3-729c40cbcc-88694629e0.zip/node_modules/uuid-validate/",
-          "packageDependencies": [
-            ["uuid-validate", "npm:0.0.3"]
           ],
           "linkType": "HARD",
         }]
