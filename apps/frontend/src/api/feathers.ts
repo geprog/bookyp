@@ -5,7 +5,7 @@ import { io } from 'socket.io-client';
 const app = createApplication();
 
 const socket = io({
-  path: 'api/v1/socket',
+  path: '/api/v1/socket',
   transports: ['websocket'],
   autoConnect: true,
 });
