@@ -7,17 +7,17 @@
   "scripts": {
     "start": "nodemon",
     "build": "node buildscript.js",
-    "test": "jest --forceExit --detectOpenHandles",
+    "test": "jest --passWithNoTests --forceExit --detectOpenHandles",
     "lint": "eslint --report-unused-disable-directives --cache .",
     "typecheck": "ttsc --noEmit",
     "clean": "shx rm -rf dist/"
   },
   "dependencies": {
     "@bookyp/core": "0.0.1",
-    "@feathersjs/authentication": "4.5.11",
-    "@feathersjs/express": "4.5.11",
-    "@feathersjs/feathers": "4.5.11",
-    "@feathersjs/socketio": "4.5.11",
+    "@feathersjs/authentication": "5.0.0-pre.1",
+    "@feathersjs/express": "5.0.0-pre.1",
+    "@feathersjs/feathers": "5.0.0-pre.1",
+    "@feathersjs/socketio": "5.0.0-pre.1",
     "uuid": "7.0.3"
   },
   "devDependencies": {

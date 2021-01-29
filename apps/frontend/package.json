@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@bookyp/core": "0.0.1",
-    "@feathersjs/feathers": "4.5.11",
-    "@feathersjs/socketio-client": "4.5.11",
+    "@feathersjs/feathers": "5.0.0-pre.1",
+    "@feathersjs/socketio-client": "5.0.0-pre.1",
     "socket.io-client": "3.1.0",
     "vue": "3.0.5"
   },
@@ -35,7 +35,7 @@
     "shx": "0.3.3",
     "typescript": "4.1.3",
     "typescript-transform-paths": "2.2.2",
-    "vite": "2.0.0-beta.51",
+    "vite": "2.0.0-beta.55",
     "vue-eslint-parser": "7.4.1"
   }
 }
