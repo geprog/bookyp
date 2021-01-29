@@ -1,8 +1,5 @@
 {
-  "eslint.workingDirectories": [
-    "./apps/*/",
-    "./libs/*/"
-  ],
+  "eslint.workingDirectories": ["./apps/*/", "./libs/*/"],
   "eslint.validate": [
     {
       "language": "vue",
