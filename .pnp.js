@@ -899,7 +899,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@commitlint/read", "npm:11.0.0"],
             ["@commitlint/top-level", "npm:11.0.0"],
             ["fs-extra", "npm:9.1.0"],
-            ["git-raw-commits", "npm:2.0.9"]
+            ["git-raw-commits", "npm:2.0.10"]
           ],
           "linkType": "HARD",
         }]
@@ -2375,7 +2375,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@nodelib/fs.walk", "npm:1.2.6"],
             ["@nodelib/fs.scandir", "npm:2.1.4"],
-            ["fastq", "npm:1.10.0"]
+            ["fastq", "npm:1.10.1"]
           ],
           "linkType": "HARD",
         }]
@@ -7369,10 +7369,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["fastq", [
-        ["npm:1.10.0", {
-          "packageLocation": "./.yarn/cache/fastq-npm-1.10.0-f4846e7dd0-706546e7fb.zip/node_modules/fastq/",
+        ["npm:1.10.1", {
+          "packageLocation": "./.yarn/cache/fastq-npm-1.10.1-d4a56f5b46-7606ad72f2.zip/node_modules/fastq/",
           "packageDependencies": [
-            ["fastq", "npm:1.10.0"],
+            ["fastq", "npm:1.10.1"],
             ["reusify", "npm:1.0.4"]
           ],
           "linkType": "HARD",
@@ -7888,12 +7888,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["npm:2.0.9", {
-          "packageLocation": "./.yarn/cache/git-raw-commits-npm-2.0.9-b8359db32c-8824db4732.zip/node_modules/git-raw-commits/",
+        ["npm:2.0.10", {
+          "packageLocation": "./.yarn/cache/git-raw-commits-npm-2.0.10-66e3a843dd-8c8769db98.zip/node_modules/git-raw-commits/",
           "packageDependencies": [
-            ["git-raw-commits", "npm:2.0.9"],
+            ["git-raw-commits", "npm:2.0.10"],
             ["dargs", "npm:7.0.0"],
-            ["lodash.template", "npm:4.5.0"],
+            ["lodash", "npm:4.17.20"],
             ["meow", "npm:8.1.2"],
             ["split2", "npm:3.2.2"],
             ["through2", "npm:4.0.2"]
@@ -8309,10 +8309,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["npm:3.0.7", {
-          "packageLocation": "./.yarn/cache/hosted-git-info-npm-3.0.7-1e5a6cf744-010f06d5a6.zip/node_modules/hosted-git-info/",
+        ["npm:3.0.8", {
+          "packageLocation": "./.yarn/cache/hosted-git-info-npm-3.0.8-e1d95672ef-686512459c.zip/node_modules/hosted-git-info/",
           "packageDependencies": [
-            ["hosted-git-info", "npm:3.0.7"],
+            ["hosted-git-info", "npm:3.0.8"],
             ["lru-cache", "npm:6.0.0"]
           ],
           "linkType": "HARD",
@@ -11366,7 +11366,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/normalize-package-data-npm-3.0.0-ac75fb58ce-1a7d7a2f98.zip/node_modules/normalize-package-data/",
           "packageDependencies": [
             ["normalize-package-data", "npm:3.0.0"],
-            ["hosted-git-info", "npm:3.0.7"],
+            ["hosted-git-info", "npm:3.0.8"],
             ["resolve", "patch:resolve@npm%3A1.19.0#builtin<compat/resolve>::version=1.19.0&hash=3388aa"],
             ["semver", "npm:7.3.4"],
             ["validate-npm-package-license", "npm:3.0.4"]
@@ -13387,10 +13387,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["rollup", [
-        ["npm:2.38.0", {
-          "packageLocation": "./.yarn/cache/rollup-npm-2.38.0-231a42d133-253664a16e.zip/node_modules/rollup/",
+        ["npm:2.38.1", {
+          "packageLocation": "./.yarn/cache/rollup-npm-2.38.1-795aac8cff-56c3fde76e.zip/node_modules/rollup/",
           "packageDependencies": [
-            ["rollup", "npm:2.38.0"],
+            ["rollup", "npm:2.38.1"],
             ["fsevents", "patch:fsevents@npm%3A2.1.3#builtin<compat/fsevents>::version=2.1.3&hash=11e9ea"]
           ],
           "linkType": "HARD",
@@ -15528,7 +15528,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fsevents", "patch:fsevents@npm%3A2.1.3#builtin<compat/fsevents>::version=2.1.3&hash=11e9ea"],
             ["postcss", "npm:8.2.4"],
             ["resolve", "patch:resolve@npm%3A1.19.0#builtin<compat/resolve>::version=1.19.0&hash=3388aa"],
-            ["rollup", "npm:2.38.0"]
+            ["rollup", "npm:2.38.1"]
           ],
           "linkType": "HARD",
         }]

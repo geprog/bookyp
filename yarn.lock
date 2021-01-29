@@ -6228,11 +6228,11 @@ __metadata:
   linkType: hard
 
 "fastq@npm:^1.6.0":
-  version: 1.10.0
-  resolution: "fastq@npm:1.10.0"
+  version: 1.10.1
+  resolution: "fastq@npm:1.10.1"
   dependencies:
     reusify: ^1.0.4
-  checksum: 706546e7fb2fbb5dbc98df821abfa258e93a1162663af6f1e491207229e91a72c7391920e9567a8b02d342e01d670ffbbee2ebb5f034993080ac9fa9895e3b2f
+  checksum: 7606ad72f22fe81996006f032e7fee4d50005ac0521c39b8d2eb22c5f7a6dc880dd301cbf6755b00136bf500c857d3be9d867685fc1cd31a89e76fa9b170e9fb
   languageName: node
   linkType: hard
 
@@ -6722,17 +6722,17 @@ fsevents@~2.1.2:
   linkType: hard
 
 "git-raw-commits@npm:^2.0.0":
-  version: 2.0.9
-  resolution: "git-raw-commits@npm:2.0.9"
+  version: 2.0.10
+  resolution: "git-raw-commits@npm:2.0.10"
   dependencies:
     dargs: ^7.0.0
-    lodash.template: ^4.0.2
+    lodash: ^4.17.15
     meow: ^8.0.0
     split2: ^3.0.0
     through2: ^4.0.0
   bin:
     git-raw-commits: cli.js
-  checksum: 8824db4732ea0a74dc74adc120e1cd98515e2bd253125621e89a66f10a77e126fbb207c3f60132936603736c508b15cd09172edee27237b34622462713e4c3f9
+  checksum: 8c8769db98108a40c978c028680e798499b3aa0a560ac2fc02544aa75c8541fc07fb92cffd8041b7ed68e06db1041c2ada33c3d6ba2f520328813ebe741521ea
   languageName: node
   linkType: hard
 
@@ -7110,11 +7110,11 @@ fsevents@~2.1.2:
   linkType: hard
 
 "hosted-git-info@npm:^3.0.6":
-  version: 3.0.7
-  resolution: "hosted-git-info@npm:3.0.7"
+  version: 3.0.8
+  resolution: "hosted-git-info@npm:3.0.8"
   dependencies:
     lru-cache: ^6.0.0
-  checksum: 010f06d5a6ac76d9b4b258e3719fc7cd9cc9beea51478afd7db0648f6a6019d8410aef560e09bae6bfc4ba572aa4ed52e62a0a8ae0267c645519e852b9087f42
+  checksum: 686512459ccb7e7eac7833fc4e8e35a0533c0dda5f516025f276ecb620b316010b853c785439ac63702e044ab56b2485cf7e1b088c1f9a46675b9496f7a45683
   languageName: node
   linkType: hard
 
@@ -11713,8 +11713,8 @@ fsevents@~2.1.2:
   linkType: hard
 
 "rollup@npm:^2.35.1":
-  version: 2.38.0
-  resolution: "rollup@npm:2.38.0"
+  version: 2.38.1
+  resolution: "rollup@npm:2.38.1"
   dependencies:
     fsevents: ~2.1.2
   dependenciesMeta:
@@ -11722,7 +11722,7 @@ fsevents@~2.1.2:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 253664a16eaa741506c417e0bb801b17aae655ecb11a50bbc7d578acb7d613a196e06132ce4c38185ab1a6e72f0ca3bef81865992e9062928934eb8faeebcf18
+  checksum: 56c3fde76ed000de1ed64d8c2142c178af54e2759dd68fe0e7a0a07826b8748558c27e959f9195e529c3011b01091f43218a4c8b9e10be759a6037c0e1df8c46
   languageName: node
   linkType: hard
 
