@@ -9,9 +9,9 @@
   "scripts": {
     "start": "dotenv -- lerna run --include-dependencies --scope @bookyp/frontend --scope @bookyp/backend --parallel start",
     "build": "lerna run build",
-    "lint": "yarn lint:globals && lerna run lint",
-    "lint:globals": "eslint --report-unused-disable-directives --cache .",
-    "lint:changed": "yarn lint:globals && lerna run --since origin/master --include-dependents lint",
+    "lint": "yarn lint:formatting && lerna run lint",
+    "lint:formatting": "prettier -c .",
+    "lint:changed": "yarn lint:formatting && lerna run --since origin/master --include-dependents lint",
     "test": "lerna run test",
     "test:changed": "lerna run --since origin/master --include-dependents test",
     "typecheck": "lerna run typecheck",
