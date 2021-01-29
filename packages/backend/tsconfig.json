@@ -13,5 +13,5 @@
   },
 
   "include": ["src", "test"],
-  "references": [{ "path": "../../libs/core/tsconfig.build.json" }]
+  "references": [{ "path": "../core/tsconfig.build.json" }]
 }
