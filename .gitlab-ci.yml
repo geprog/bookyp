@@ -25,7 +25,7 @@ variables:
   - .yarnrc.yml
 
 .node-template:
-  image: registry.geprog.com/docker.io/library/node:12.19.1-alpine
+  image: registry.geprog.com/geprog/node-builder:0.0.1
   cache:
     key: ${CI_COMMIT_REF_SLUG} # re-use cache for all jobs on the same branch
     paths:
@@ -40,6 +40,7 @@ build:
   stage: build
   before_script:
     - yarn install --immutable --immutable-cache
+    - yarn rebuild
   script:
     - NODE_ENV=production yarn build # build dependencies
   cache:

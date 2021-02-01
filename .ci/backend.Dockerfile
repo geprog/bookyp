@@ -1,7 +1,8 @@
-FROM registry.geprog.com/docker.io/library/node:12.19.1-alpine AS build
+FROM registry.geprog.com/geprog/node-builder:0.0.1 AS build
 WORKDIR /app
 COPY . ./
 RUN ls -la
+RUN yarn rebuild
 RUN yarn lerna run --scope @bookyp/backend --include-dependencies build
 
 FROM registry.geprog.com/docker.io/library/node:12.19.1-alpine
