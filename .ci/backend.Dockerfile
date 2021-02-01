@@ -1,11 +1,11 @@
-FROM registry.geprog.com/docker.io/node:alpine AS build
+FROM registry.geprog.com/docker.io/library/node:12.19.1-alpine AS build
 WORKDIR /app
 COPY . ./
 RUN ls -la
 RUN yarn install
 RUN yarn workspace @bookyp/backend run build
 
-FROM registry.geprog.com/docker.io/node:alpine
+FROM registry.geprog.com/docker.io/library/node:12.19.1-alpine
 ENV NODE_ENV=production
 RUN apk --no-cache add ca-certificates
 WORKDIR /app
