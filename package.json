@@ -15,6 +15,7 @@
     "test": "lerna run test",
     "test:changed": "lerna run --since origin/master --include-dependents test",
     "typecheck": "lerna run typecheck",
+    "typecheck:changed": "lerna run --since origin/master --include-dependents typecheck",
     "clean": "lerna run clean"
   },
   "devDependencies": {

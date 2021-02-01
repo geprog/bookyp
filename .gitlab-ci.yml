@@ -1,0 +1,351 @@
+stages:
+  - build
+  - build-docker
+  - test
+  - deploy
+
+variables:
+  # CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/.cache/cypress"
+  GIT_DEPTH: 10
+  REGISTRY: registry.geprog.com
+  REGISTRY_NAMESPACE: geprog
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1 # enable Buildkit for docker-compose
+
+.main-pipeline-files: &main_pipeline_files
+  - .gitlab-ci.yml
+  - packages/**/*
+  - docker/**/*
+  - .eslintrc.js
+  - .prettierrc.js
+  - .prettierignore
+  - lerna.json
+  - package.json
+  - tsconfig.json
+  - yarn.lock
+  - .yarnrc.yml
+
+.node-template:
+  image: registry.geprog.com/docker.io/library/node:12.19.1-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG} # re-use cache for all jobs on the same branch
+    paths:
+      - node_modules
+      - packages/*/node_modules
+    policy: pull # cache should normally only be read to save time
+
+build:
+  extends: .node-template
+  stage: build
+  before_script:
+    - yarn install --frozen-lockfile
+  script:
+    - NODE_ENV=production yarn build # build dependencies
+  cache:
+    policy: pull-push # fetch data from previous installs and update them
+  artifacts:
+    paths:
+      - packages/*/dist
+    expire_in: 1 day
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+      changes: *main_pipeline_files
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request and has changes in test/e2e/
+      changes:
+        - packages/e2e/**/*
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  interruptible: true
+
+build-release:
+  extends: .node-template
+  stage: build
+  script:
+    - yarn install --frozen-lockfile
+    - NODE_ENV=production yarn build # build dependencies
+  cache:
+    policy: pull-push # fetch data from previous installs and update them
+  artifacts:
+    paths:
+      - packages/*/dist
+    expire_in: 1 day
+  rules:
+    - if: '$CI_COMMIT_TAG' # check if pipeline runs on tag
+  interruptible: true
+
+typechecking:
+  extends: .node-template
+  stage: test
+  needs:
+    - build
+  variables:
+    NODE_ENV: 'test'
+  before_script:
+    - yarn install --frozen-lockfile
+  script:
+    - yarn lint:changed
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+      changes: *main_pipeline_files
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  interruptible: true
+
+linting:
+  extends: .node-template
+  stage: test
+  needs:
+    - build
+  variables:
+    NODE_ENV: 'test'
+  before_script:
+    - yarn install --frozen-lockfile
+  script:
+    - yarn lint:changed
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  interruptible: true
+
+unit-tests:
+  extends: .node-template
+  stage: test
+  needs:
+    - build
+  variables:
+    NODE_ENV: 'test'
+  before_script:
+    - yarn install --frozen-lockfile
+  script:
+    - yarn test:changed
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+      changes: *main_pipeline_files
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  interruptible: true
+
+build-docker-frontend:
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: ['']
+  stage: build-docker
+  needs:
+    - build
+  script:
+    - cp $CI_PROJECT_DIR/.ci/frontend.Dockerfile.dockerignore $CI_PROJECT_DIR/.dockerignore # workaround https://github.com/GoogleContainerTools/kaniko/issues/1451
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$REGISTRY\":{\"username\":\"$REGISTRY_USER\",\"password\":\"$REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/frontend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/bookyp-frontend:$CI_COMMIT_REF_SLUG
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+      changes: *main_pipeline_files
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  interruptible: true
+
+build-docker-backend:
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: ['']
+  stage: build-docker
+  needs:
+    - build
+  script:
+    - cp $CI_PROJECT_DIR/.ci/backend.Dockerfile.dockerignore $CI_PROJECT_DIR/.dockerignore # workaround https://github.com/GoogleContainerTools/kaniko/issues/1451
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$REGISTRY\":{\"username\":\"$REGISTRY_USER\",\"password\":\"$REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/backend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/bookyp-backend:$CI_COMMIT_REF_SLUG
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+      changes: *main_pipeline_files
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  interruptible: true
+
+# e2e test with ci production image (bookyp) docker image
+# e2e-tests:
+#   stage: test
+#   needs:
+#     - build-docker-frontend
+#     - build-docker-backend
+#   image: registry.geprog.com/docker.io/docker/compose:1.27.4
+#   dependencies: [] # don't load any artifacts
+#   artifacts:
+#     paths:
+#       - test/e2e/results
+#     when: always
+#     expire_in: 1 day
+#   variables:
+#     IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/bookyp'
+#     IMAGE_VERSION: '$CI_COMMIT_REF_SLUG'
+#     PROJECT_NAME: 'bookyp-e2e-$CI_COMMIT_REF_SLUG'
+#   before_script:
+#     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
+#   script:
+#     - docker-compose -f test/test-base-ci.docker-compose.yml -f test/cypress-ci.docker-compose.yml pull
+#     - docker-compose -f test/test-base-ci.docker-compose.yml -f test/cypress-ci.docker-compose.yml -p $PROJECT_NAME up --exit-code-from cypress --build --remove-orphans --abort-on-container-exit
+#   after_script:
+#     - docker cp ${PROJECT_NAME}-cypress:/results $CI_PROJECT_DIR/test/e2e/results || true
+#     - docker-compose -f test/test-base-ci.docker-compose.yml -f test/cypress-ci.docker-compose.yml -p $PROJECT_NAME down --volumes --remove-orphans
+#   tags:
+#     - dood
+#   rules:
+#     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+#       changes: *main_pipeline_files
+#     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request and has changes in test/e2e/
+#       changes:
+#         - test/e2e/**/*
+#     - if: '$CI_COMMIT_BRANCH == "master"'
+
+# integration test with ci production image docker image
+# integration-tests:
+#   stage: test
+#   needs:
+#     - build-docker-frontend
+#     - build-docker-backend
+#   image: registry.geprog.com/docker.io/docker/compose:1.27.4
+#   dependencies: [] # don't load any artifacts
+#   variables:
+#     IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/bookyp'
+#     IMAGE_VERSION: '$CI_COMMIT_REF_SLUG'
+#     PROJECT_NAME: 'bookyp-integration-$CI_COMMIT_REF_SLUG'
+#   before_script:
+#     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
+#   script:
+#     - docker-compose -f test/test-base-ci.docker-compose.yml -f test/integration-ci.docker-compose.yml pull
+#     - docker-compose -f test/test-base-ci.docker-compose.yml -f test/integration-ci.docker-compose.yml -p $PROJECT_NAME up --exit-code-from integration --build --remove-orphans --abort-on-container-exit
+#   after_script:
+#     - docker-compose -f test/test-base-ci.docker-compose.yml -f test/integration-ci.docker-compose.yml -p $PROJECT_NAME down --volumes --remove-orphans
+#   tags:
+#     - dood
+#   rules:
+#     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+#       changes: *main_pipeline_files
+#     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request and has changes in test/integration/
+#       changes:
+#         - test/integration/**/*
+#     - if: '$CI_COMMIT_BRANCH == "master"'
+
+.review-template:
+  stage: deploy
+  needs:
+    - build-docker-frontend
+    - build-docker-backend
+  image: registry.geprog.com/docker.io/docker/compose:1.27.4
+  dependencies: [] # don't load any artifacts
+  variables:
+    BASE_DOMAIN: 'bookyp.geprog.com'
+    URL_FRONTEND: '${CI_ENVIRONMENT_SLUG}.${BASE_DOMAIN}'
+    URL_BACKEND: 'api.${CI_ENVIRONMENT_SLUG}.${BASE_DOMAIN}'
+    FRONTEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/bookyp-frontend'
+    FRONTEND_IMAGE_VERSION: '$CI_COMMIT_REF_SLUG'
+    BACKEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/bookyp-backend'
+    BACKEND_IMAGE_VERSION: '$CI_COMMIT_REF_SLUG'
+    PROJECT_NAME: 'bookyp-review-$CI_COMMIT_REF_SLUG'
+  tags:
+    - dood
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+      changes: *main_pipeline_files
+      when: manual
+      allow_failure: true
+
+deploy-review:
+  extends: .review-template
+  before_script:
+    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
+    - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME stop # stop old deployments
+  script:
+    - docker-compose -f .ci/docker-compose.yml pull
+    - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME up -d --build --remove-orphans
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    url: 'https://${CI_ENVIRONMENT_SLUG}.${BASE_DOMAIN}/'
+    on_stop: stop-review
+
+stop-review:
+  extends: .review-template
+  variables:
+    GIT_DEPTH: 0
+  script:
+    - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME down -v --remove-orphans --rmi all
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    action: stop
+
+.production-template:
+  stage: deploy
+  image: registry.geprog.com/docker.io/docker/compose:1.27.4
+  needs:
+    - build-docker-frontend
+    - build-docker-backend
+  dependencies: [] # don't load any artifacts
+  variables:
+    BASE_DOMAIN: 'bookyp.geprog.com'
+    URL_FRONTEND: '${BASE_DOMAIN}'
+    URL_BACKEND: 'api.${BASE_DOMAIN}'
+    FRONTEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/bookyp-frontend'
+    FRONTEND_IMAGE_VERSION: '$CI_COMMIT_REF_SLUG'
+    BACKEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/bookyp-backend'
+    BACKEND_IMAGE_VERSION: '$CI_COMMIT_REF_SLUG'
+    PROJECT_NAME: 'bookyp-$CI_COMMIT_REF_SLUG'
+  tags:
+    - dood
+
+production-deployment:
+  extends: .production-template
+  before_script:
+    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
+    - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME stop # stop old deployments
+  script:
+    - docker-compose -f .ci/docker-compose.yml pull
+    - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME up -d --build --remove-orphans
+  environment:
+    name: production
+    url: https://${BASE_DOMAIN}/
+    on_stop: stop-production-deployment
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+stop-production-deployment:
+  extends: .production-template
+  variables:
+    GIT_DEPTH: 0
+  script:
+    - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME down --remove-orphans --rmi all
+  environment:
+    name: production
+    action: stop
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: manual
+      allow_failure: true
+
+renovate-config-validator:
+  stage: test
+  needs: []
+  image: registry.geprog.com/docker.io/renovate/renovate:23.55.2
+  script:
+    - renovate-config-validator
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+      changes:
+        - .gitlab-ci.yml
+        - renovate.json
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  interruptible: true
+
+dummy:
+  stage: build
+  image: registry.geprog.com/docker.io/library/docker:latest
+  script:
+    - echo "I'm creating a successful pipeline for changes in files that otherwise don't create a pipeline."
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+      changes: # ideally each of these files would have a job i.e. a linter doing something useful
+        - README.md
+        - docker-compose.yml
+        - docs/**/*
+        - .gitlab/**/*
+        - .devcontainer/**/*
+        - .vscode/**/*
+        - .editorconfig
+        - .gitignore
+        - .eslintignore
+  interruptible: true
