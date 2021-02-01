@@ -7,7 +7,7 @@ variables:
   # CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/.cache/cypress"
   GIT_DEPTH: 10
   REGISTRY: registry.geprog.com
-  REGISTRY_NAMESPACE: geprog
+  REGISTRY_NAMESPACE: bookyp
   DOCKER_BUILDKIT: 1
   COMPOSE_DOCKER_CLI_BUILD: 1 # enable Buildkit for docker-compose
 
@@ -64,7 +64,7 @@ build-docker-frontend:
     - cp $CI_PROJECT_DIR/.ci/frontend.Dockerfile.dockerignore $CI_PROJECT_DIR/.dockerignore # workaround https://github.com/GoogleContainerTools/kaniko/issues/1451
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$REGISTRY\":{\"username\":\"$REGISTRY_USER\",\"password\":\"$REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/frontend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/bookyp-frontend:$CI_COMMIT_REF_SLUG
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/frontend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/frontend:$CI_COMMIT_REF_SLUG
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -80,7 +80,7 @@ build-docker-backend:
     - cp $CI_PROJECT_DIR/.ci/backend.Dockerfile.dockerignore $CI_PROJECT_DIR/.dockerignore # workaround https://github.com/GoogleContainerTools/kaniko/issues/1451
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$REGISTRY\":{\"username\":\"$REGISTRY_USER\",\"password\":\"$REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/backend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/bookyp-backend:$CI_COMMIT_REF_SLUG
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/backend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/backend:$CI_COMMIT_REF_SLUG
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -227,10 +227,8 @@ renovate-config-validator:
     BASE_DOMAIN: 'bookyp.geprog.com'
     URL_FRONTEND: '${CI_ENVIRONMENT_SLUG}.${BASE_DOMAIN}'
     URL_BACKEND: 'api.${CI_ENVIRONMENT_SLUG}.${BASE_DOMAIN}'
-    FRONTEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/bookyp-frontend'
-    FRONTEND_IMAGE_VERSION: '$CI_COMMIT_REF_SLUG'
-    BACKEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/bookyp-backend'
-    BACKEND_IMAGE_VERSION: '$CI_COMMIT_REF_SLUG'
+    FRONTEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/frontend:$CI_COMMIT_REF_SLUG'
+    BACKEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/backend:$CI_COMMIT_REF_SLUG'
     PROJECT_NAME: 'bookyp-review-$CI_COMMIT_REF_SLUG'
   tags:
     - dood
@@ -274,10 +272,8 @@ stop-review:
     BASE_DOMAIN: 'bookyp.geprog.com'
     URL_FRONTEND: '${BASE_DOMAIN}'
     URL_BACKEND: 'api.${BASE_DOMAIN}'
-    FRONTEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/bookyp-frontend'
-    FRONTEND_IMAGE_VERSION: '$CI_COMMIT_REF_SLUG'
-    BACKEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/bookyp-backend'
-    BACKEND_IMAGE_VERSION: '$CI_COMMIT_REF_SLUG'
+    FRONTEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/frontend:$CI_COMMIT_REF_SLUG'
+    BACKEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/backend:$CI_COMMIT_REF_SLUG'
     PROJECT_NAME: 'bookyp-$CI_COMMIT_REF_SLUG'
   tags:
     - dood
