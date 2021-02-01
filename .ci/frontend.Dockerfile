@@ -2,8 +2,7 @@ FROM registry.geprog.com/docker.io/library/node:12.19.1-alpine AS build
 WORKDIR /app
 COPY . ./
 RUN ls -la
-RUN yarn install
-RUN yarn workspace @bookyp/frontend run build
+RUN yarn lerna run --scope @bookyp/frontend --include-dependencies build
 
 FROM registry.geprog.com/docker.io/library/nginx:1.19.6-alpine
 EXPOSE 80

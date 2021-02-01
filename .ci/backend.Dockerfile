@@ -2,8 +2,7 @@ FROM registry.geprog.com/docker.io/library/node:12.19.1-alpine AS build
 WORKDIR /app
 COPY . ./
 RUN ls -la
-RUN yarn install
-RUN yarn workspace @bookyp/backend run build
+RUN yarn lerna run --scope @bookyp/backend --include-dependencies build
 
 FROM registry.geprog.com/docker.io/library/node:12.19.1-alpine
 ENV NODE_ENV=production
