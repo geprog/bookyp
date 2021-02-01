@@ -38,7 +38,7 @@ build:
   extends: .node-template
   stage: build
   before_script:
-    - yarn install --frozen-lockfile
+    - yarn install --immutable --immutable-cache --check-cache
   script:
     - NODE_ENV=production yarn build # build dependencies
   cache:
@@ -60,7 +60,7 @@ build-release:
   extends: .node-template
   stage: build
   script:
-    - yarn install --frozen-lockfile
+    - yarn install --immutable --immutable-cache --check-cache
     - NODE_ENV=production yarn build # build dependencies
   cache:
     policy: pull-push # fetch data from previous installs and update them
@@ -80,7 +80,7 @@ typechecking:
   variables:
     NODE_ENV: 'test'
   before_script:
-    - yarn install --frozen-lockfile
+    - yarn install --immutable --immutable-cache --check-cache
   script:
     - yarn lint:changed
   rules:
@@ -97,7 +97,7 @@ linting:
   variables:
     NODE_ENV: 'test'
   before_script:
-    - yarn install --frozen-lockfile
+    - yarn install --immutable --immutable-cache --check-cache
   script:
     - yarn lint:changed
   rules:
@@ -113,7 +113,7 @@ unit-tests:
   variables:
     NODE_ENV: 'test'
   before_script:
-    - yarn install --frozen-lockfile
+    - yarn install --immutable --immutable-cache --check-cache
   script:
     - yarn test:changed
   rules:
