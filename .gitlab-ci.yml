@@ -99,7 +99,7 @@ typechecking:
   before_script:
     - yarn install --immutable --immutable-cache
   script:
-    - yarn lint:changed
+    - yarn typecheck
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -116,7 +116,7 @@ linting:
   before_script:
     - yarn install --immutable --immutable-cache
   script:
-    - yarn lint:changed
+    - yarn lint
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
     - if: '$CI_COMMIT_BRANCH == "master"'
@@ -132,7 +132,7 @@ unit-tests:
   before_script:
     - yarn install --immutable --immutable-cache
   script:
-    - yarn test:changed
+    - yarn test
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
       changes: *main_pipeline_files
