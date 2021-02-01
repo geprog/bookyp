@@ -220,9 +220,6 @@ renovate-config-validator:
 
 .review-template:
   stage: deploy
-  needs:
-    - build-docker-frontend
-    - build-docker-backend
   image: registry.geprog.com/docker.io/docker/compose:1.27.4
   dependencies: [] # don't load any artifacts
   variables:
@@ -244,6 +241,9 @@ renovate-config-validator:
 
 deploy-review:
   extends: .review-template
+  needs:
+    - build-docker-frontend
+    - build-docker-backend
   before_script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
     - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME stop # stop old deployments
@@ -268,9 +268,6 @@ stop-review:
 .production-template:
   stage: deploy
   image: registry.geprog.com/docker.io/docker/compose:1.27.4
-  needs:
-    - build-docker-frontend
-    - build-docker-backend
   dependencies: [] # don't load any artifacts
   variables:
     BASE_DOMAIN: 'bookyp.geprog.com'
@@ -286,6 +283,9 @@ stop-review:
 
 production-deployment:
   extends: .production-template
+  needs:
+    - build-docker-frontend
+    - build-docker-backend
   before_script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
     - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME stop # stop old deployments
