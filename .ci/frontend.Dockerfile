@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . ./
 RUN ls -la
 RUN yarn install
-RUN yarn workspace @bookyp/backend run build
+RUN yarn workspace @bookyp/frontend run build
 
 FROM registry.geprog.com/docker.io/library/nginx:1.19.6-alpine
 EXPOSE 80
