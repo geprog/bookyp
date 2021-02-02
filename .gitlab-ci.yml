@@ -12,17 +12,24 @@ variables:
   COMPOSE_DOCKER_CLI_BUILD: 1 # enable Buildkit for docker-compose
 
 .main-pipeline-files: &main_pipeline_files
-  - .gitlab-ci.yml
+  - .ci/**/*
+  - .yarn/**/*
   - packages/**/*
-  - docker/**/*
+  - .commitlintrc.js
+  - .eslintignore
   - .eslintrc.js
-  - .prettierrc.js
+  - .gitlab-ci.yml
+  - .huskyrc.js
+  - .lintstagedrc.js
+  - .pnp.js
   - .prettierignore
+  - .prettierrc.js
+  - .yarnrc.yml
   - lerna.json
   - package.json
+  - tsconfig.eslint.json
   - tsconfig.json
   - yarn.lock
-  - .yarnrc.yml
 
 .node-template:
   image: registry.geprog.com/geprog/node-builder:0.0.1
@@ -33,7 +40,7 @@ variables:
       - packages/*/node_modules
     policy: pull # cache should normally only be read to save time
 
-################# TEST #################
+################# BUILD #################
 
 build:
   extends: .node-template
@@ -96,8 +103,6 @@ typechecking:
     - build
   variables:
     NODE_ENV: 'test'
-  before_script:
-    - yarn install --immutable --immutable-cache
   script:
     - yarn typecheck
   rules:
@@ -113,8 +118,6 @@ linting:
     - build
   variables:
     NODE_ENV: 'test'
-  before_script:
-    - yarn install --immutable --immutable-cache
   script:
     - yarn lint
   rules:
@@ -129,8 +132,6 @@ unit-tests:
     - build
   variables:
     NODE_ENV: 'test'
-  before_script:
-    - yarn install --immutable --immutable-cache
   script:
     - yarn test
   rules:
