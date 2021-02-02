@@ -1,0 +1,42 @@
+# This file is used for review and production deployments
+
+version: '3'
+
+networks:
+  web-proxy:
+    external: true
+
+services:
+  frontend:
+    image: ${FRONTEND_IMAGE}
+    container_name: ${PROJECT_NAME}-frontend
+    networks:
+      - web-proxy
+      - default
+    restart: always
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=web-proxy'
+      - 'traefik.http.routers.${PROJECT_NAME}-frontend.entryPoints=web-secure'
+      - 'traefik.http.routers.${PROJECT_NAME}-frontend.rule=Host(`${URL_FRONTEND}`)'
+      - 'traefik.http.routers.${PROJECT_NAME}-frontend.tls.certresolver=dnschallenge'
+      - 'traefik.http.routers.${PROJECT_NAME}-frontend.tls.domains[0].main=${BASE_DOMAIN}'
+      - 'traefik.http.routers.${PROJECT_NAME}-frontend.tls.domains[0].sans=*.${BASE_DOMAIN}'
+      - 'traefik.http.services.${PROJECT_NAME}-frontend.loadbalancer.server.port=80'
+
+  backend:
+    image: ${BACKEND_IMAGE}
+    container_name: ${PROJECT_NAME}-backend
+    networks:
+      - web-proxy
+      - default
+    restart: always
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=web-proxy'
+      - 'traefik.http.routers.${PROJECT_NAME}-backend.entryPoints=web-secure'
+      - 'traefik.http.routers.${PROJECT_NAME}-backend.rule=Host(`${URL_BACKEND}`)'
+      - 'traefik.http.routers.${PROJECT_NAME}-backend.tls.certresolver=dnschallenge'
+      - 'traefik.http.routers.${PROJECT_NAME}-backend.tls.domains[0].main=${BASE_DOMAIN}'
+      - 'traefik.http.routers.${PROJECT_NAME}-backend.tls.domains[0].sans=*.${BASE_DOMAIN}'
+      - 'traefik.http.services.${PROJECT_NAME}-backend.loadbalancer.server.port=3000'
