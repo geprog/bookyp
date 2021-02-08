@@ -8,12 +8,13 @@ const moduleNameMapper = {
     prefix: '<rootDir>/' + compilerOptions.baseUrl + '/',
   }),
   '@bookyp/core': '<rootDir>/../core/mocks',
+  '@feathersjs/transport-commons/src/client': '<rootDir>/test/__mocks__/feathersjs-transport-commons-client.ts',
 };
 
 const config: Config.InitialOptions = {
   roots: ['<rootDir>/test'],
   moduleNameMapper,
-  testEnvironment: 'jest-environment-node',
+  testEnvironment: 'jest-environment-jsdom',
   transform: {},
   extensionsToTreatAsEsm: ['.ts'],
 };
