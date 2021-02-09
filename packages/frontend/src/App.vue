@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app flex m-auto w-full">
     <img alt="Vue logo" src="./assets/logo.png" />
     <hello-world msg="Hello Vue 3 + Vite" />
   </div>
