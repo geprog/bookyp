@@ -1,8 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import app from './api/feathers';
+import router from './router';
+import './api/feathers';
 import './assets/index.css';
 
-createApp(App).mount('#app');
-
-console.log(app);
+createApp(App).use(router).mount('#app');

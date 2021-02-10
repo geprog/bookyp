@@ -954,7 +954,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["typescript-transform-paths", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:2.2.2"],
             ["vite", "npm:2.0.0-beta.55"],
             ["vue", "npm:3.0.5"],
-            ["vue-eslint-parser", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:7.4.1"]
+            ["vue-eslint-parser", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:7.4.1"],
+            ["vue-router", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:4.0.3"]
           ],
           "linkType": "SOFT",
         }]
@@ -17169,6 +17170,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [
             "@types/eslint",
             "eslint"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["vue-router", [
+        ["npm:4.0.3", {
+          "packageLocation": "./.yarn/cache/vue-router-npm-4.0.3-ca9f71400a-4ef0de5b18.zip/node_modules/vue-router/",
+          "packageDependencies": [
+            ["vue-router", "npm:4.0.3"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:4.0.3", {
+          "packageLocation": "./.yarn/$$virtual/vue-router-virtual-ea75fd72c1/0/cache/vue-router-npm-4.0.3-ca9f71400a-4ef0de5b18.zip/node_modules/vue-router/",
+          "packageDependencies": [
+            ["vue-router", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:4.0.3"],
+            ["@types/vue", null],
+            ["vue", "npm:3.0.5"]
+          ],
+          "packagePeers": [
+            "@types/vue",
+            "vue"
           ],
           "linkType": "HARD",
         }]
