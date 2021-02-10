@@ -534,6 +534,7 @@ __metadata:
     vite: 2.0.0-beta.55
     vue: 3.0.5
     vue-eslint-parser: 7.4.1
+    vue-router: 4.0.3
   languageName: unknown
   linkType: soft
 
@@ -14921,6 +14922,15 @@ fsevents@~2.1.2:
   peerDependencies:
     eslint: ">=5.0.0"
   checksum: 6dc836d39049d88d732f6dfcccc13e6c1fa0ad391fde194c25cbb06ce50b46862ab6877586286fe812697b6f01a9baf941533241ca5bcf756719610616c55b30
+  languageName: node
+  linkType: hard
+
+"vue-router@npm:4.0.3":
+  version: 4.0.3
+  resolution: "vue-router@npm:4.0.3"
+  peerDependencies:
+    vue: ^3.0.0
+  checksum: 4ef0de5b18a9d76ba29dc23c68ea4ed6d02347a1dc19887f8a328ffa088dd90a62e2bc8279507a844c9dd4a70545d97325cfa9a66bc6b0cf0ddf6aa520abfe5f
   languageName: node
   linkType: hard
 
