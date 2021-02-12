@@ -219,6 +219,16 @@ renovate-config-validator:
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
 
+lint-merge-request-title:
+  extends: .node-template
+  stage: test
+  needs: []
+  script:
+    - echo ${CI_MERGE_REQUEST_TITLE} | yarn commitlint
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+  interruptible: true
+
 ################# DEPLOY #################
 
 .review-template:
