@@ -513,7 +513,7 @@ __metadata:
     "@vue/compiler-sfc": 3.0.5
     "@vue/eslint-config-prettier": 6.0.0
     "@vue/eslint-config-typescript": 7.0.0
-    "@vuedx/typecheck": 0.6.0
+    "@vuedx/typecheck": 0.6.3
     "@vuedx/typescript-plugin-vue": 0.6.0
     autoprefixer: 10.2.4
     eslint: 7.18.0
@@ -3220,6 +3220,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vuedx/analyze@npm:0.6.3":
+  version: 0.6.3
+  resolution: "@vuedx/analyze@npm:0.6.3"
+  dependencies:
+    "@babel/code-frame": ^7.10.4
+    "@babel/generator": ^7.12.1
+    "@babel/parser": ^7.12.3
+    "@babel/template": ^7.12.7
+    "@babel/traverse": 7.12.1
+    "@babel/types": 7.12.1
+    "@types/micromatch": ^4.0.1
+    "@vuedx/compiler-sfc": 0.6.2
+    "@vuedx/compiler-tsx": 0.6.3
+    "@vuedx/projectconfig": 0.6.2
+    "@vuedx/shared": 0.6.2
+    "@vuedx/template-ast-types": 0.6.2
+    cli-highlight: ^2.1.4
+    commander: ^6.1.0
+    fast-glob: ^3.2.4
+    hash-sum: ^2.0.0
+    micromatch: ^4.0.2
+  bin:
+    vuedx-analyze: bin/analyze.js
+  checksum: a74635008015e166654bd9e50d4810a987dec337fa2f8f2f1c2a09fca75d94823ed8c00f75ae9974c13e1206bcd74e1bf1b00cf3b9097f068de5b1ffd610e44a
+  languageName: node
+  linkType: hard
+
 "@vuedx/compiler-sfc@npm:0.6.0":
   version: 0.6.0
   resolution: "@vuedx/compiler-sfc@npm:0.6.0"
@@ -3228,6 +3255,17 @@ __metadata:
     lru-cache: ^6.0.0
     source-map: ^0.6.1
   checksum: 5af1af9f0b44c80f060b157f979651ec979c63789b08c975ae204863dd649b0c777a4cc224a850ff324ab5632d840ad70dd08cfccd6b7c1d4dc7f486a0b50b0b
+  languageName: node
+  linkType: hard
+
+"@vuedx/compiler-sfc@npm:0.6.2":
+  version: 0.6.2
+  resolution: "@vuedx/compiler-sfc@npm:0.6.2"
+  dependencies:
+    "@vue/compiler-core": ^3.0.2
+    lru-cache: ^6.0.0
+    source-map: ^0.6.1
+  checksum: d9ede5d5e5c699934c45d08ecfe23b89381a4ab3477c67ba6c6b543a3dd5b7b84416989686c2837ca0f4381abf8fd2b1527a446b643abf039852991a2fd5c3d9
   languageName: node
   linkType: hard
 
@@ -3244,10 +3282,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vuedx/compiler-tsx@npm:0.6.3":
+  version: 0.6.3
+  resolution: "@vuedx/compiler-tsx@npm:0.6.3"
+  dependencies:
+    "@babel/parser": 7.12.3
+    "@babel/types": 7.12.1
+    "@vue/compiler-core": ^3.0.1
+    "@vuedx/shared": 0.6.2
+    "@vuedx/template-ast-types": 0.6.2
+  checksum: 099a03e2b001d3c3b0c083e06899653be9ff0708f00bf5ab9cb14a536ae1169cec0ba48b5447ecc9f09f15539a6e24d5cfcfc81b11f276b0ec7b6b02cc298786
+  languageName: node
+  linkType: hard
+
 "@vuedx/projectconfig@npm:0.6.0":
   version: 0.6.0
   resolution: "@vuedx/projectconfig@npm:0.6.0"
   checksum: 488711bd2a26c26c0350ae7b763c84fd16edd92ed9aea08a1da14a9156cd8cfa372ab963ee6ad535a87dcbed1b0ccd40c4bfb9b6bd9c54bf5dc03dfec29735e8
+  languageName: node
+  linkType: hard
+
+"@vuedx/projectconfig@npm:0.6.2":
+  version: 0.6.2
+  resolution: "@vuedx/projectconfig@npm:0.6.2"
+  checksum: a041adb513a1197ee25a0c4e64f70af4afbdec5e52a64b3c777b2b2db279649cc821fce5886d2e894ac33ed6afaa626bb1a74ce380bdae7368428562aea445db
   languageName: node
   linkType: hard
 
@@ -3262,6 +3320,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vuedx/shared@npm:0.6.2":
+  version: 0.6.2
+  resolution: "@vuedx/shared@npm:0.6.2"
+  dependencies:
+    "@sentry/node": ^5.30.0
+    node-unique-machine-id: ^1.1.0
+    uuid: ^8.3.2
+  checksum: c8bba643e9a656113fee7f91372e1fd5d4d84f6959b1f895ebf9fd09d51347e66a8dbd4949db9d5b82f2acb31dac1272bb2612941d36f2b1c62442a2803d8550
+  languageName: node
+  linkType: hard
+
 "@vuedx/template-ast-types@npm:0.6.0":
   version: 0.6.0
   resolution: "@vuedx/template-ast-types@npm:0.6.0"
@@ -3271,13 +3340,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vuedx/typecheck@npm:0.6.0":
-  version: 0.6.0
-  resolution: "@vuedx/typecheck@npm:0.6.0"
+"@vuedx/template-ast-types@npm:0.6.2":
+  version: 0.6.2
+  resolution: "@vuedx/template-ast-types@npm:0.6.2"
   dependencies:
-    "@vuedx/shared": 0.6.0
-    "@vuedx/typescript-plugin-vue": 0.6.0
-    "@vuedx/vue-virtual-textdocument": 0.6.0
+    "@vue/compiler-core": ^3.0.0
+  checksum: eb5b164d127ec8082966392a03d1970508403dd333b6586899e6e1063b2f6519e1d640c5f9e0b76ddac1374a2afaae3dcab94b1e8bbdc2d7bcfdae76519f6af4
+  languageName: node
+  linkType: hard
+
+"@vuedx/typecheck@npm:0.6.3":
+  version: 0.6.3
+  resolution: "@vuedx/typecheck@npm:0.6.3"
+  dependencies:
+    "@vuedx/shared": 0.6.2
+    "@vuedx/typescript-plugin-vue": 0.6.3
+    "@vuedx/vue-virtual-textdocument": 0.6.3
     chalk: ^4.1.0
     fast-glob: ^3.2.4
     minimist: ^1.2.5
@@ -3285,7 +3363,7 @@ __metadata:
     typescript: ^4.0.3
   bin:
     vuedx-typecheck: bin/typecheck.js
-  checksum: 8f921bce59f8997694429830a404c9dcd6e9838833ecb2f7bee09b5a422c01fa3197a34d4290743b52e365e04843b2dc3855acab611e1ccb33aa5754dcbc9e74
+  checksum: 033b4c26e462216a3dff42f68be742a956e49e6943c06fe2d5cc473ad05bd435e9091cf77ec4083071b475be97ee427593b0b7a8a9aea0d81a235b28ef039975
   languageName: node
   linkType: hard
 
@@ -3309,6 +3387,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vuedx/typescript-plugin-vue@npm:0.6.3":
+  version: 0.6.3
+  resolution: "@vuedx/typescript-plugin-vue@npm:0.6.3"
+  dependencies:
+    "@intlify/core": ^9.0.0-beta.15
+    "@vuedx/analyze": 0.6.3
+    "@vuedx/compiler-sfc": 0.6.2
+    "@vuedx/projectconfig": 0.6.2
+    "@vuedx/shared": 0.6.2
+    "@vuedx/template-ast-types": 0.6.2
+    "@vuedx/vue-virtual-textdocument": 0.6.3
+    de-indent: ^1.0.2
+    json5: ^2.1.3
+    quick-lru: ^5.1.1
+    vscode-uri: ^2.1.2
+    vscode-web-custom-data: ^0.3.2
+  checksum: 683d2e82dccc1c7168863e769066a8740cc2f3fa6f753fbbf74af7f72a9a991e4f9d01c4e526236813de80d50ddbee33dbc0798ad8f852529284993dfb627a40
+  languageName: node
+  linkType: hard
+
 "@vuedx/vue-virtual-textdocument@npm:0.6.0":
   version: 0.6.0
   resolution: "@vuedx/vue-virtual-textdocument@npm:0.6.0"
@@ -3321,6 +3419,21 @@ __metadata:
     vscode-languageserver-textdocument: ^1.0.1
     vscode-uri: ^2.1.2
   checksum: 1b16d2c7d644da4dd1b8fde1c1a0beed009902e066f0851da464e5df9a829428a9e32cb6f7e4a65478f6348d899056659e938dead32bae5b185794c55f01f12f
+  languageName: node
+  linkType: hard
+
+"@vuedx/vue-virtual-textdocument@npm:0.6.3":
+  version: 0.6.3
+  resolution: "@vuedx/vue-virtual-textdocument@npm:0.6.3"
+  dependencies:
+    "@vuedx/analyze": 0.6.3
+    "@vuedx/compiler-sfc": 0.6.2
+    "@vuedx/compiler-tsx": 0.6.3
+    "@vuedx/shared": 0.6.2
+    source-map: ^0.6.1
+    vscode-languageserver-textdocument: ^1.0.1
+    vscode-uri: ^2.1.2
+  checksum: b060d1b46d47e88af137ed05350cf8dc75181e512c2bd8f844ff954e55e097311a3ef61529cb5e01644b2c630af7e1b60d667049685b241ee58f79160c0d7d5e
   languageName: node
   linkType: hard
 
