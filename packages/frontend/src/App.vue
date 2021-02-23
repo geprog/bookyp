@@ -1,5 +1,5 @@
 <template>
-  <div id="app flex m-auto w-full">
+  <div class="app flex m-auto w-full">
     <router-view />
   </div>
 </template>
@@ -13,7 +13,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#app {
+.app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
