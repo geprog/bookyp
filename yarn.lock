@@ -531,7 +531,7 @@ __metadata:
     ts-jest: 26.4.4
     typescript: 4.1.3
     typescript-transform-paths: 2.2.2
-    vite: 2.0.0-beta.55
+    vite: 2.0.2
     vue: 3.0.5
     vue-eslint-parser: 7.4.1
     vue-router: 4.0.3
@@ -6223,6 +6223,15 @@ __metadata:
   bin:
     esbuild: bin/esbuild
   checksum: dede3673b670a66c0db4b4d47020364c27d88ed002a3bb14d4519e2b6070384f272aef7f8eb9b34d8abfb1eee1ed898b994058066f9b7911e50ce4b0411f5d5e
+  languageName: node
+  linkType: hard
+
+"esbuild@npm:^0.8.47":
+  version: 0.8.51
+  resolution: "esbuild@npm:0.8.51"
+  bin:
+    esbuild: bin/esbuild
+  checksum: 857d40db1ddaf0a0a941131322332f7e583420b294835e2d9750644652ce3b73919a8238d18cd3fbd4cf5b53c16c764e14891e1a0703763b48335fe5d17e49ae
   languageName: node
   linkType: hard
 
@@ -13035,6 +13044,20 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"rollup@npm:^2.38.5":
+  version: 2.39.1
+  resolution: "rollup@npm:2.39.1"
+  dependencies:
+    fsevents: ~2.3.1
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    rollup: dist/bin/rollup
+  checksum: c2d33255949d1cb86f8119f2457e81cdd7f7e6406532080cba63390183140759b5705e7a0602fca1415e1df7a575df1947c94dde2c334b87fd0e004757d4dda2
+  languageName: node
+  linkType: hard
+
 "rsvp@npm:^4.8.4":
   version: 4.8.5
   resolution: "rsvp@npm:4.8.5"
@@ -14998,6 +15021,24 @@ fsevents@~2.1.2:
   bin:
     vite: bin/vite.js
   checksum: a54c3e69503504ba0be0975d1aabab43e811e4bcf68b4bbd482674f3c3d77e4c04347b3b13e2b39e1e0c90005df9cd57b8f3a521e8a6f88dd6698cae3f11e0d7
+  languageName: node
+  linkType: hard
+
+"vite@npm:2.0.2":
+  version: 2.0.2
+  resolution: "vite@npm:2.0.2"
+  dependencies:
+    esbuild: ^0.8.47
+    fsevents: ~2.3.1
+    postcss: ^8.2.1
+    resolve: ^1.19.0
+    rollup: ^2.38.5
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: f4e80a56bc9825c4c808ea9f7e44a1386eb7b9dccfe91acb2913ac36485731c3920d68441659d9a0719af67c824799e93bf68a0e9dae601151f832afd420d882
   languageName: node
   linkType: hard
 
