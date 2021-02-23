@@ -934,7 +934,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vue/compiler-sfc", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:3.0.5"],
             ["@vue/eslint-config-prettier", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:6.0.0"],
             ["@vue/eslint-config-typescript", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:7.0.0"],
-            ["@vuedx/typecheck", "npm:0.6.0"],
+            ["@vuedx/typecheck", "npm:0.6.3"],
             ["@vuedx/typescript-plugin-vue", "npm:0.6.0"],
             ["autoprefixer", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:10.2.4"],
             ["eslint", "npm:7.18.0"],
@@ -4010,6 +4010,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["micromatch", "npm:4.0.2"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:0.6.3", {
+          "packageLocation": "./.yarn/cache/@vuedx-analyze-npm-0.6.3-7333a523ad-a746350080.zip/node_modules/@vuedx/analyze/",
+          "packageDependencies": [
+            ["@vuedx/analyze", "npm:0.6.3"],
+            ["@babel/code-frame", "npm:7.12.11"],
+            ["@babel/generator", "npm:7.12.11"],
+            ["@babel/parser", "npm:7.12.11"],
+            ["@babel/template", "npm:7.12.7"],
+            ["@babel/traverse", "npm:7.12.1"],
+            ["@babel/types", "npm:7.12.1"],
+            ["@types/micromatch", "npm:4.0.1"],
+            ["@vuedx/compiler-sfc", "npm:0.6.2"],
+            ["@vuedx/compiler-tsx", "npm:0.6.3"],
+            ["@vuedx/projectconfig", "npm:0.6.2"],
+            ["@vuedx/shared", "npm:0.6.2"],
+            ["@vuedx/template-ast-types", "npm:0.6.2"],
+            ["cli-highlight", "npm:2.1.10"],
+            ["commander", "npm:6.2.1"],
+            ["fast-glob", "npm:3.2.5"],
+            ["hash-sum", "npm:2.0.0"],
+            ["micromatch", "npm:4.0.2"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@vuedx/compiler-sfc", [
@@ -4017,6 +4041,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@vuedx-compiler-sfc-npm-0.6.0-ed37188d77-5af1af9f0b.zip/node_modules/@vuedx/compiler-sfc/",
           "packageDependencies": [
             ["@vuedx/compiler-sfc", "npm:0.6.0"],
+            ["@vue/compiler-core", "npm:3.0.5"],
+            ["lru-cache", "npm:6.0.0"],
+            ["source-map", "npm:0.6.1"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:0.6.2", {
+          "packageLocation": "./.yarn/cache/@vuedx-compiler-sfc-npm-0.6.2-5d549fdd15-d9ede5d5e5.zip/node_modules/@vuedx/compiler-sfc/",
+          "packageDependencies": [
+            ["@vuedx/compiler-sfc", "npm:0.6.2"],
             ["@vue/compiler-core", "npm:3.0.5"],
             ["lru-cache", "npm:6.0.0"],
             ["source-map", "npm:0.6.1"]
@@ -4036,6 +4070,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vuedx/template-ast-types", "npm:0.6.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:0.6.3", {
+          "packageLocation": "./.yarn/cache/@vuedx-compiler-tsx-npm-0.6.3-6fa35b32cd-099a03e2b0.zip/node_modules/@vuedx/compiler-tsx/",
+          "packageDependencies": [
+            ["@vuedx/compiler-tsx", "npm:0.6.3"],
+            ["@babel/parser", "npm:7.12.3"],
+            ["@babel/types", "npm:7.12.1"],
+            ["@vue/compiler-core", "npm:3.0.5"],
+            ["@vuedx/shared", "npm:0.6.2"],
+            ["@vuedx/template-ast-types", "npm:0.6.2"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@vuedx/projectconfig", [
@@ -4045,6 +4091,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vuedx/projectconfig", "npm:0.6.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:0.6.2", {
+          "packageLocation": "./.yarn/cache/@vuedx-projectconfig-npm-0.6.2-c9fe659054-a041adb513.zip/node_modules/@vuedx/projectconfig/",
+          "packageDependencies": [
+            ["@vuedx/projectconfig", "npm:0.6.2"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@vuedx/shared", [
@@ -4052,6 +4105,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@vuedx-shared-npm-0.6.0-caa364b9f7-90047f8f1e.zip/node_modules/@vuedx/shared/",
           "packageDependencies": [
             ["@vuedx/shared", "npm:0.6.0"],
+            ["@sentry/node", "npm:5.30.0"],
+            ["node-unique-machine-id", "npm:1.1.0"],
+            ["uuid", "npm:8.3.2"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:0.6.2", {
+          "packageLocation": "./.yarn/cache/@vuedx-shared-npm-0.6.2-83363d7d90-c8bba643e9.zip/node_modules/@vuedx/shared/",
+          "packageDependencies": [
+            ["@vuedx/shared", "npm:0.6.2"],
             ["@sentry/node", "npm:5.30.0"],
             ["node-unique-machine-id", "npm:1.1.0"],
             ["uuid", "npm:8.3.2"]
@@ -4067,16 +4130,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vue/compiler-core", "npm:3.0.5"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:0.6.2", {
+          "packageLocation": "./.yarn/cache/@vuedx-template-ast-types-npm-0.6.2-96530777e7-eb5b164d12.zip/node_modules/@vuedx/template-ast-types/",
+          "packageDependencies": [
+            ["@vuedx/template-ast-types", "npm:0.6.2"],
+            ["@vue/compiler-core", "npm:3.0.5"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@vuedx/typecheck", [
-        ["npm:0.6.0", {
-          "packageLocation": "./.yarn/cache/@vuedx-typecheck-npm-0.6.0-cd15964c68-8f921bce59.zip/node_modules/@vuedx/typecheck/",
+        ["npm:0.6.3", {
+          "packageLocation": "./.yarn/cache/@vuedx-typecheck-npm-0.6.3-9567ecf31c-033b4c26e4.zip/node_modules/@vuedx/typecheck/",
           "packageDependencies": [
-            ["@vuedx/typecheck", "npm:0.6.0"],
-            ["@vuedx/shared", "npm:0.6.0"],
-            ["@vuedx/typescript-plugin-vue", "npm:0.6.0"],
-            ["@vuedx/vue-virtual-textdocument", "npm:0.6.0"],
+            ["@vuedx/typecheck", "npm:0.6.3"],
+            ["@vuedx/shared", "npm:0.6.2"],
+            ["@vuedx/typescript-plugin-vue", "npm:0.6.3"],
+            ["@vuedx/vue-virtual-textdocument", "npm:0.6.3"],
             ["chalk", "npm:4.1.0"],
             ["fast-glob", "npm:3.2.5"],
             ["minimist", "npm:1.2.5"],
@@ -4105,6 +4176,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["vscode-web-custom-data", "npm:0.3.3"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:0.6.3", {
+          "packageLocation": "./.yarn/cache/@vuedx-typescript-plugin-vue-npm-0.6.3-6768ba9c2f-683d2e82dc.zip/node_modules/@vuedx/typescript-plugin-vue/",
+          "packageDependencies": [
+            ["@vuedx/typescript-plugin-vue", "npm:0.6.3"],
+            ["@intlify/core", "npm:9.0.0-rc.4"],
+            ["@vuedx/analyze", "npm:0.6.3"],
+            ["@vuedx/compiler-sfc", "npm:0.6.2"],
+            ["@vuedx/projectconfig", "npm:0.6.2"],
+            ["@vuedx/shared", "npm:0.6.2"],
+            ["@vuedx/template-ast-types", "npm:0.6.2"],
+            ["@vuedx/vue-virtual-textdocument", "npm:0.6.3"],
+            ["de-indent", "npm:1.0.2"],
+            ["json5", "npm:2.1.3"],
+            ["quick-lru", "npm:5.1.1"],
+            ["vscode-uri", "npm:2.1.2"],
+            ["vscode-web-custom-data", "npm:0.3.3"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@vuedx/vue-virtual-textdocument", [
@@ -4116,6 +4206,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vuedx/compiler-sfc", "npm:0.6.0"],
             ["@vuedx/compiler-tsx", "npm:0.6.0"],
             ["@vuedx/shared", "npm:0.6.0"],
+            ["source-map", "npm:0.6.1"],
+            ["vscode-languageserver-textdocument", "npm:1.0.1"],
+            ["vscode-uri", "npm:2.1.2"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:0.6.3", {
+          "packageLocation": "./.yarn/cache/@vuedx-vue-virtual-textdocument-npm-0.6.3-861981ac13-b060d1b46d.zip/node_modules/@vuedx/vue-virtual-textdocument/",
+          "packageDependencies": [
+            ["@vuedx/vue-virtual-textdocument", "npm:0.6.3"],
+            ["@vuedx/analyze", "npm:0.6.3"],
+            ["@vuedx/compiler-sfc", "npm:0.6.2"],
+            ["@vuedx/compiler-tsx", "npm:0.6.3"],
+            ["@vuedx/shared", "npm:0.6.2"],
             ["source-map", "npm:0.6.1"],
             ["vscode-languageserver-textdocument", "npm:1.0.1"],
             ["vscode-uri", "npm:2.1.2"]
