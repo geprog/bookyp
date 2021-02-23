@@ -509,7 +509,7 @@ __metadata:
     "@types/socket.io-client": 1.4.35
     "@typescript-eslint/eslint-plugin": 4.14.0
     "@typescript-eslint/parser": 4.14.0
-    "@vitejs/plugin-vue": 1.1.2
+    "@vitejs/plugin-vue": 1.1.4
     "@vue/compiler-sfc": 3.0.5
     "@vue/eslint-config-prettier": 6.0.0
     "@vue/eslint-config-typescript": 7.0.0
@@ -3061,12 +3061,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-vue@npm:1.1.2":
-  version: 1.1.2
-  resolution: "@vitejs/plugin-vue@npm:1.1.2"
+"@vitejs/plugin-vue@npm:1.1.4":
+  version: 1.1.4
+  resolution: "@vitejs/plugin-vue@npm:1.1.4"
   peerDependencies:
     "@vue/compiler-sfc": ^3.0.4
-  checksum: b45df07fabf510af883e6eb2ba5001ca8816e19839fe3239951c4fb77638679ddc14f41de1f353d90288af4f26d34fde07834b733b0f03f7a8ecfad303c1ba66
+  checksum: 8c40b5bfef712f2e0a589e00fc4fa778e2afe90f438297a523daa3280f013261b317907b9e0ef2d8cb0f92203a9392b5a30892bd0be77bae070323a14e2f776a
   languageName: node
   linkType: hard
 
