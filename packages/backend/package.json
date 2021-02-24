@@ -23,7 +23,7 @@
     "@jest/globals": "27.0.0-next.1",
     "@jest/types": "27.0.0-next.1",
     "@types/jest": "26.0.20",
-    "@types/node": "14.14.22",
+    "@types/node": "14.14.31",
     "@types/uuid-validate": "0.0.1",
     "@typescript-eslint/eslint-plugin": "4.14.0",
     "@typescript-eslint/parser": "4.14.0",
