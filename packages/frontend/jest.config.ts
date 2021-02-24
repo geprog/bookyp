@@ -1,5 +1,5 @@
 import { Config } from '@jest/types';
-import { pathsToModuleNameMapper } from 'ts-jest';
+import { pathsToModuleNameMapper } from 'ts-jest/utils';
 
 import { compilerOptions } from './tsconfig.json';
 
@@ -9,14 +9,16 @@ const moduleNameMapper = {
   }),
   '@bookyp/core': '<rootDir>/../core/mocks',
   '@feathersjs/transport-commons/src/client': '<rootDir>/test/__mocks__/feathersjs-transport-commons-client.ts',
-};
+} as Config.InitialOptions['moduleNameMapper'];
 
 const config: Config.InitialOptions = {
+  preset: 'ts-jest',
   roots: ['<rootDir>/test'],
   moduleNameMapper,
   testEnvironment: 'jest-environment-jsdom',
-  transform: {},
-  extensionsToTreatAsEsm: ['.ts'],
+  transform: {
+    '^.+\\.vue$': 'vue-jest',
+  },
 };
 
 export default config;

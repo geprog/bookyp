@@ -1,5 +1,3 @@
-import { jest } from '@jest/globals';
-
 describe('feathers api initialization', () => {
   beforeEach(() => {
     jest.resetAllMocks();
