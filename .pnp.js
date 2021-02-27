@@ -54,7 +54,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@commitlint/cli", "npm:11.0.0"],
             ["@commitlint/config-conventional", "npm:11.0.0"],
-            ["@types/node", "npm:14.14.22"],
+            ["@types/node", "npm:14.14.31"],
             ["@typescript-eslint/eslint-plugin", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:4.14.0"],
             ["@typescript-eslint/parser", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:4.14.0"],
             ["@yarnpkg/pnpify", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:2.4.0"],
@@ -1374,7 +1374,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@jest/globals", "npm:27.0.0-next.1"],
             ["@jest/types", "npm:27.0.0-next.1"],
             ["@types/jest", "npm:26.0.20"],
-            ["@types/node", "npm:14.14.22"],
+            ["@types/node", "npm:14.14.31"],
             ["@types/uuid-validate", "npm:0.0.1"],
             ["@typescript-eslint/eslint-plugin", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:4.14.0"],
             ["@typescript-eslint/parser", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:4.14.0"],
@@ -1408,7 +1408,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@jest/globals", "npm:27.0.0-next.1"],
             ["@jest/types", "npm:27.0.0-next.1"],
             ["@types/jest", "npm:26.0.20"],
-            ["@types/node", "npm:14.14.22"],
+            ["@types/node", "npm:14.14.31"],
             ["@types/uuid", "npm:8.3.0"],
             ["@types/uuid-validate", "npm:0.0.1"],
             ["@typescript-eslint/eslint-plugin", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:4.14.0"],
@@ -3911,6 +3911,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:14.14.22"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:14.14.31", {
+          "packageLocation": "./.yarn/cache/@types-node-npm-14.14.31-4f1a9dff64-635dc8a089.zip/node_modules/@types/node/",
+          "packageDependencies": [
+            ["@types/node", "npm:14.14.31"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@types/normalize-package-data", [
@@ -5957,7 +5964,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["bookyp", "workspace:."],
             ["@commitlint/cli", "npm:11.0.0"],
             ["@commitlint/config-conventional", "npm:11.0.0"],
-            ["@types/node", "npm:14.14.22"],
+            ["@types/node", "npm:14.14.31"],
             ["@typescript-eslint/eslint-plugin", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:4.14.0"],
             ["@typescript-eslint/parser", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:4.14.0"],
             ["@yarnpkg/pnpify", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:2.4.0"],
@@ -7083,7 +7090,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["core-js", [
         ["npm:3.8.3", {
-          "packageLocation": "./.yarn/unplugged/core-js-npm-3.8.3-f6bf459c9f/node_modules/core-js/",
+          "packageLocation": "./.yarn/cache/core-js-npm-3.8.3-f6bf459c9f-3c67d1732d.zip/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:3.8.3"]
           ],
@@ -8037,14 +8044,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["esbuild", [
         ["npm:0.8.36", {
-          "packageLocation": "./.yarn/unplugged/esbuild-npm-0.8.36-2aef594cc9/node_modules/esbuild/",
+          "packageLocation": "./.yarn/cache/esbuild-npm-0.8.36-2aef594cc9-dede3673b6.zip/node_modules/esbuild/",
           "packageDependencies": [
             ["esbuild", "npm:0.8.36"]
           ],
           "linkType": "HARD",
         }],
         ["npm:0.8.51", {
-          "packageLocation": "./.yarn/unplugged/esbuild-npm-0.8.51-32e1fb9fd8/node_modules/esbuild/",
+          "packageLocation": "./.yarn/cache/esbuild-npm-0.8.51-32e1fb9fd8-857d40db1d.zip/node_modules/esbuild/",
           "packageDependencies": [
             ["esbuild", "npm:0.8.51"]
           ],
@@ -9927,7 +9934,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["husky", [
         ["npm:4.3.8", {
-          "packageLocation": "./.yarn/unplugged/husky-npm-4.3.8-f7cd00e56d/node_modules/husky/",
+          "packageLocation": "./.yarn/cache/husky-npm-4.3.8-f7cd00e56d-1ac4fb51ff.zip/node_modules/husky/",
           "packageDependencies": [
             ["husky", "npm:4.3.8"],
             ["chalk", "npm:4.1.0"],
@@ -13371,7 +13378,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["nodemon", [
         ["npm:2.0.7", {
-          "packageLocation": "./.yarn/unplugged/nodemon-npm-2.0.7-7b95e46511/node_modules/nodemon/",
+          "packageLocation": "./.yarn/cache/nodemon-npm-2.0.7-7b95e46511-e1e8acb584.zip/node_modules/nodemon/",
           "packageDependencies": [
             ["nodemon", "npm:2.0.7"],
             ["chokidar", "npm:3.5.1"],
