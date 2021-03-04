@@ -11,16 +11,16 @@ const moduleNameMapper = {
 } as Config.InitialOptions['moduleNameMapper'];
 
 const config: Config.InitialOptions = {
-  preset: 'ts-jest/presets/js-with-ts-esm',
   roots: ['<rootDir>/test'],
   moduleNameMapper,
   testEnvironment: 'jest-environment-node',
-  transform: {},
-  extensionsToTreatAsEsm: ['.ts'],
-  globals: {
-    'ts-jest': {
-      useESM: true,
-    },
+  transform: {
+    '^.+\\.tsx?$': [
+      'esbuild-jest',
+      {
+        sourcemap: true,
+      },
+    ],
   },
 };
 

@@ -2,7 +2,7 @@
 # when you don't want to sync the workspace with your local file system.
 # Requires ./docker-compose.devcontainer.yml to be chained before.
 
-version: '3'
+version: '3.8'
 
 services:
   app:

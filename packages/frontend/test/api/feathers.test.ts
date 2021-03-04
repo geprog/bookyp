@@ -8,8 +8,10 @@ describe('feathers api initialization', () => {
     // given
     jest.mock('@bookyp/core');
     const bookypCore = await import('@bookyp/core');
+
     // when
-    await import('@/api/feathers');
+    await import('~/api/feathers');
+
     // then
     expect(bookypCore.createApplication).toBeCalledTimes(1);
   });
@@ -20,8 +22,10 @@ describe('feathers api initialization', () => {
     const feathersSocketioClient = await import('@feathersjs/socketio-client');
     jest.mock('socket.io-client');
     const socketioClient = await import('socket.io-client');
+
     // when
-    await import('@/api/feathers');
+    await import('~/api/feathers');
+
     // then
     expect(feathersSocketioClient.default).toBeCalledTimes(1);
     expect(socketioClient.default).toBeCalledWith({

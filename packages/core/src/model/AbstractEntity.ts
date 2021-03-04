@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 export default abstract class AbstractEntity {
-  readonly id: string = uuidv4();
+  readonly _id!: string;
 }

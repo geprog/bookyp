@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Icon from '@/components/Icon.vue';
+import Icon from '~/components/Icon.vue';
 
 describe('Hello-World component', () => {
   it('works', () => {

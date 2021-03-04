@@ -32,7 +32,7 @@ variables:
   - yarn.lock
 
 .node-template:
-  image: registry.geprog.com/geprog/node-builder:0.0.1
+  image: registry.geprog.com/geprog/node-builder:0.0.2
   cache:
     key: ${CI_COMMIT_REF_SLUG} # re-use cache for all jobs on the same branch
     paths:
@@ -54,6 +54,7 @@ build:
     policy: pull-push # fetch data from previous installs and update them
   artifacts:
     paths:
+      - .yarn/unplugged
       - packages/*/dist
     expire_in: 1 day
   rules:

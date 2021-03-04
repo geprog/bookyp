@@ -1,7 +1,8 @@
 import { AuthenticationService } from '@feathersjs/authentication';
+import { Service } from '@feathersjs/feathers';
+import { User } from '~/model';
 
-type ServiceTypes = {
+export type ServiceTypes = {
   authentication: AuthenticationService;
+  users: Service<User>;
 };
-
-export { ServiceTypes };

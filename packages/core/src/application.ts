@@ -2,9 +2,7 @@ import feathers, { Application as FeathersApplication } from '@feathersjs/feathe
 
 import { ServiceTypes } from './services';
 
-type Application = FeathersApplication<ServiceTypes>;
-
-export type { Application };
+export type Application = FeathersApplication<ServiceTypes>;
 
 export function createApplication(): Application {
   return feathers<ServiceTypes>();
