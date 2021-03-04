@@ -31,6 +31,8 @@ services:
       - web-proxy
       - default
     restart: always
+    depends_on:
+      - db
     labels:
       - 'traefik.enable=true'
       - 'traefik.docker.network=web-proxy'
@@ -40,3 +42,12 @@ services:
       - 'traefik.http.routers.${PROJECT_NAME}-backend.tls.domains[0].main=${BASE_DOMAIN}'
       - 'traefik.http.routers.${PROJECT_NAME}-backend.tls.domains[0].sans=*.${BASE_DOMAIN}'
       - 'traefik.http.services.${PROJECT_NAME}-backend.loadbalancer.server.port=3000'
+  db:
+    image: mongo:4.4-bionic
+    restart: always
+    networks:
+      - default
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MONGO_INIT_DATABASE: feathers

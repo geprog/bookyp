@@ -7,7 +7,7 @@
     "baseUrl": "src",
     "composite": false,
     "paths": {
-      "@/*": ["./*"],
+      "~/*": ["./*"],
       "$/*": ["../test/*"]
     }
   },

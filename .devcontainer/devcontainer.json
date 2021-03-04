@@ -1,7 +1,7 @@
 {
   "name": "bookyp",
   // add compose file "docker-compose.nomount.yml" to the list below to use named volumes instead of local file system mounts
-  "dockerComposeFile": ["docker-compose.devcontainer.yml"],
+  "dockerComposeFile": ["docker-compose.devcontainer.yml", "docker-compose.database.yml"],
   "service": "app",
   "remoteUser": "node",
   "workspaceFolder": "/workspace",

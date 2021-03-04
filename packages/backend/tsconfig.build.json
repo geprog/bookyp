@@ -7,7 +7,7 @@
     "baseUrl": "src",
     "noEmit": false,
     "paths": {
-      "@/*": ["./*"]
+      "~/*": ["./*"]
     }
   },
 

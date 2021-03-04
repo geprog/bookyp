@@ -8,7 +8,7 @@
       "skipFiles": ["<node_internals>/**"],
       "cwd": "${workspaceFolder}/packages/backend",
       "runtimeExecutable": "yarn",
-      "runtimeArgs": ["run", "--inspect-brk", "jest", "--forceExit", "--detectOpenHandles"],
+      "runtimeArgs": ["run", "--inspect-brk", "jest", "--forceExit", "--detectOpenHandles", "--runInBand"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "port": 9229,

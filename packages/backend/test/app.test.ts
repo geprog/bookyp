@@ -10,8 +10,10 @@ describe('app initialization', () => {
     // given
     jest.mock('@bookyp/core');
     const bookypCore = await import('@bookyp/core');
+
     // when
-    await import('@/app');
+    await import('~/app');
+
     // then
     expect(bookypCore.createApplication).toBeCalledTimes(1);
   });
@@ -20,8 +22,10 @@ describe('app initialization', () => {
     // given
     jest.mock('@feathersjs/socketio');
     const socketio = await import('@feathersjs/socketio');
+
     // when
-    await import('@/app');
+    await import('~/app');
+
     // then
     expect(socketio.default).toBeCalledWith({
       path: '/api/v1/socket',

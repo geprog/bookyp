@@ -8,6 +8,8 @@
   ],
   "scripts": {
     "start": "dotenv -- lerna run --include-dependencies --scope @bookyp/frontend --scope @bookyp/backend --parallel start",
+    "docker-compose": "docker-compose -f .devcontainer/docker-compose.without-devcontainer.yml -f .devcontainer/docker-compose.database.yml -p bookyp",
+    "docker:up": "yarn docker-compose up -d",
     "build": "lerna run build",
     "lint": "yarn lint:formatting && lerna run lint",
     "lint:formatting": "prettier -c .",
