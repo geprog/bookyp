@@ -209,7 +209,7 @@ unit-tests:
 renovate-config-validator:
   stage: test
   needs: []
-  image: registry.geprog.com/docker.io/renovate/renovate:23.55.2
+  image: registry.geprog.com/docker.io/renovate/renovate:24.74.0
   script:
     - renovate-config-validator
   rules:
