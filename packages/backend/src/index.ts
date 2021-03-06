@@ -1,4 +1,5 @@
 import express from '@feathersjs/express';
+
 import app from './app';
 import config from './config';
 import { connect as databaseConnect } from './database';
