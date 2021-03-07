@@ -47,7 +47,7 @@
     "typescript-transform-paths": "2.2.2",
     "vite": "2.0.0-beta.55",
     "vite-plugin-windicss": "0.4.7",
-    "vue-eslint-parser": "7.4.1",
+    "vue-eslint-parser": "7.6.0",
     "vue-jest": "5.0.0-alpha.8",
     "windicss": "2.1.19"
   }
