@@ -880,7 +880,7 @@ __metadata:
     vite: 2.0.0-beta.55
     vite-plugin-windicss: 0.4.7
     vue: 3.0.7
-    vue-eslint-parser: 7.4.1
+    vue-eslint-parser: 7.6.0
     vue-jest: 5.0.0-alpha.8
     vue-router: 4.0.4
     windicss: 2.1.19
@@ -15758,23 +15758,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"vue-eslint-parser@npm:7.4.1, vue-eslint-parser@npm:^7.0.0":
-  version: 7.4.1
-  resolution: "vue-eslint-parser@npm:7.4.1"
-  dependencies:
-    debug: ^4.1.1
-    eslint-scope: ^5.0.0
-    eslint-visitor-keys: ^1.1.0
-    espree: ^6.2.1
-    esquery: ^1.0.1
-    lodash: ^4.17.15
-  peerDependencies:
-    eslint: ">=5.0.0"
-  checksum: 6dc836d39049d88d732f6dfcccc13e6c1fa0ad391fde194c25cbb06ce50b46862ab6877586286fe812697b6f01a9baf941533241ca5bcf756719610616c55b30
-  languageName: node
-  linkType: hard
-
-"vue-eslint-parser@npm:^7.6.0":
+"vue-eslint-parser@npm:7.6.0, vue-eslint-parser@npm:^7.6.0":
   version: 7.6.0
   resolution: "vue-eslint-parser@npm:7.6.0"
   dependencies:
@@ -15787,6 +15771,22 @@ fsevents@~2.1.2:
   peerDependencies:
     eslint: ">=5.0.0"
   checksum: 27d6bc4acaafe897af8eee41512d0cd2812b533883d7ecbfda30c263533ebf486fdd76cb65f546f3c3737df383fb4bc33ecb358d7397b8b731c161c89db72bcd
+  languageName: node
+  linkType: hard
+
+"vue-eslint-parser@npm:^7.0.0":
+  version: 7.4.1
+  resolution: "vue-eslint-parser@npm:7.4.1"
+  dependencies:
+    debug: ^4.1.1
+    eslint-scope: ^5.0.0
+    eslint-visitor-keys: ^1.1.0
+    espree: ^6.2.1
+    esquery: ^1.0.1
+    lodash: ^4.17.15
+  peerDependencies:
+    eslint: ">=5.0.0"
+  checksum: 6dc836d39049d88d732f6dfcccc13e6c1fa0ad391fde194c25cbb06ce50b46862ab6877586286fe812697b6f01a9baf941533241ca5bcf756719610616c55b30
   languageName: node
   linkType: hard
 
