@@ -795,7 +795,7 @@ __metadata:
     esbuild-jest: 0.4.0
     esbuild-plugin-pnp: 0.3.0
     eslint: 7.18.0
-    eslint-config-prettier: 7.2.0
+    eslint-config-prettier: 8.1.0
     eslint-plugin-jest: 24.1.5
     eslint-plugin-prettier: 3.3.1
     feathers-mongoose: 8.3.1
@@ -828,7 +828,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 4.14.0
     "@typescript-eslint/parser": 4.14.0
     eslint: 7.18.0
-    eslint-config-prettier: 7.2.0
+    eslint-config-prettier: 8.1.0
     eslint-plugin-jest: 24.1.5
     eslint-plugin-prettier: 3.3.1
     jest: 27.0.0-next.2
@@ -865,7 +865,7 @@ __metadata:
     autoprefixer: 10.2.4
     babel-jest: 26.6.3
     eslint: 7.18.0
-    eslint-config-prettier: 7.2.0
+    eslint-config-prettier: 8.1.0
     eslint-plugin-jest: 24.1.5
     eslint-plugin-prettier: 3.3.1
     eslint-plugin-vue: 7.7.0
@@ -4809,7 +4809,7 @@ __metadata:
     "@yarnpkg/pnpify": 2.4.0
     dotenv-cli: 4.0.0
     eslint: 7.18.0
-    eslint-config-prettier: 7.2.0
+    eslint-config-prettier: 8.1.0
     eslint-plugin-jest: 24.1.5
     eslint-plugin-prettier: 3.3.1
     husky: 4.3.8
@@ -6634,14 +6634,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:7.2.0":
-  version: 7.2.0
-  resolution: "eslint-config-prettier@npm:7.2.0"
+"eslint-config-prettier@npm:8.1.0":
+  version: 8.1.0
+  resolution: "eslint-config-prettier@npm:8.1.0"
   peerDependencies:
     eslint: ">=7.0.0"
   bin:
     eslint-config-prettier: bin/cli.js
-  checksum: 6812150ea49703cd64035527205b4905bc1edcd34646e71f71665e1acff9ab4648f872598389bdb209964093ad73993830a2c821ba12642764a5293513b92a58
+  checksum: 409d3a071f8228d4c958a6a9be9d5ec2b357ce21b7b6cbb137096cade2c31f008a0a3c3533dee8979c0cd944f220a959710b30fd86f8b96f0ef1f4f557d740b3
   languageName: node
   linkType: hard
 
