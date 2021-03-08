@@ -1031,7 +1031,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vue/test-utils", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:2.0.0-rc.3"],
             ["@vuedx/typecheck", "npm:0.6.3"],
             ["@vuedx/typescript-plugin-vue", "npm:0.6.0"],
-            ["autoprefixer", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:10.2.4"],
+            ["autoprefixer", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:10.2.5"],
             ["babel-jest", "virtual:caddf51df4928b33a437ca87b8f5ddfb6205ebd6d8231f74d4ee7223f3866e6f815b221aa1e2bd33e98915f701e95bae72a93d2288b49a34a6246bdbc2a4a132#npm:26.6.3"],
             ["eslint", "npm:7.21.0"],
             ["eslint-config-prettier", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:8.1.0"],
@@ -4996,20 +4996,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["autoprefixer", [
-        ["npm:10.2.4", {
-          "packageLocation": "./.yarn/cache/autoprefixer-npm-10.2.4-502274fae7-c07fb325ee.zip/node_modules/autoprefixer/",
+        ["npm:10.2.5", {
+          "packageLocation": "./.yarn/cache/autoprefixer-npm-10.2.5-a7ce73048f-bd346dd75b.zip/node_modules/autoprefixer/",
           "packageDependencies": [
-            ["autoprefixer", "npm:10.2.4"]
+            ["autoprefixer", "npm:10.2.5"]
           ],
           "linkType": "SOFT",
         }],
-        ["virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:10.2.4", {
-          "packageLocation": "./.yarn/$$virtual/autoprefixer-virtual-806f53a9fe/0/cache/autoprefixer-npm-10.2.4-502274fae7-c07fb325ee.zip/node_modules/autoprefixer/",
+        ["virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:10.2.5", {
+          "packageLocation": "./.yarn/$$virtual/autoprefixer-virtual-b8266ee2ae/0/cache/autoprefixer-npm-10.2.5-a7ce73048f-bd346dd75b.zip/node_modules/autoprefixer/",
           "packageDependencies": [
-            ["autoprefixer", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:10.2.4"],
+            ["autoprefixer", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:10.2.5"],
             ["@types/postcss", null],
             ["browserslist", "npm:4.16.3"],
-            ["caniuse-lite", "npm:1.0.30001191"],
+            ["caniuse-lite", "npm:1.0.30001197"],
             ["colorette", "npm:1.2.2"],
             ["fraction.js", "npm:4.0.13"],
             ["normalize-range", "npm:0.1.2"],
@@ -5507,7 +5507,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/browserslist-npm-4.16.3-e6f20ea590-dfab0d3c3d.zip/node_modules/browserslist/",
           "packageDependencies": [
             ["browserslist", "npm:4.16.3"],
-            ["caniuse-lite", "npm:1.0.30001191"],
+            ["caniuse-lite", "npm:1.0.30001197"],
             ["colorette", "npm:1.2.2"],
             ["electron-to-chromium", "npm:1.3.672"],
             ["escalade", "npm:3.1.1"],
@@ -5769,10 +5769,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["caniuse-lite", [
-        ["npm:1.0.30001191", {
-          "packageLocation": "./.yarn/cache/caniuse-lite-npm-1.0.30001191-d67f963ab6-7b9e1d0c16.zip/node_modules/caniuse-lite/",
+        ["npm:1.0.30001197", {
+          "packageLocation": "./.yarn/cache/caniuse-lite-npm-1.0.30001197-eced3e984c-2c3edb8fbb.zip/node_modules/caniuse-lite/",
           "packageDependencies": [
-            ["caniuse-lite", "npm:1.0.30001191"]
+            ["caniuse-lite", "npm:1.0.30001197"]
           ],
           "linkType": "HARD",
         }]

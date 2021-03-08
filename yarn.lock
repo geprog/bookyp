@@ -585,7 +585,7 @@ __metadata:
     "@vue/test-utils": 2.0.0-rc.3
     "@vuedx/typecheck": 0.6.3
     "@vuedx/typescript-plugin-vue": 0.6.0
-    autoprefixer: 10.2.4
+    autoprefixer: 10.2.5
     babel-jest: 26.6.3
     eslint: 7.21.0
     eslint-config-prettier: 8.1.0
@@ -4068,13 +4068,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:10.2.4":
-  version: 10.2.4
-  resolution: "autoprefixer@npm:10.2.4"
+"autoprefixer@npm:10.2.5":
+  version: 10.2.5
+  resolution: "autoprefixer@npm:10.2.5"
   dependencies:
-    browserslist: ^4.16.1
-    caniuse-lite: ^1.0.30001181
-    colorette: ^1.2.1
+    browserslist: ^4.16.3
+    caniuse-lite: ^1.0.30001196
+    colorette: ^1.2.2
     fraction.js: ^4.0.13
     normalize-range: ^0.1.2
     postcss-value-parser: ^4.1.0
@@ -4082,7 +4082,7 @@ __metadata:
     postcss: ^8.1.0
   bin:
     autoprefixer: bin/autoprefixer
-  checksum: c07fb325ee63e535a2246be4ac0d6afc9e9e43e66386e39c495015bdc8d83547ffdc0797be22d88781d044d3eecbbcb13d8a550ef94eb684091b24a05eb0c83e
+  checksum: bd346dd75b7cb3bc8edca6e36edf1f4e0ae5bf0a51b2ac6d07523efd21d272d8932643f9a9410b4ee2ff36936531f7b6fa9d30d87b044579612f249fb96b9c78
   languageName: node
   linkType: hard
 
@@ -4453,7 +4453,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.14.5, browserslist@npm:^4.16.1":
+"browserslist@npm:^4.14.5, browserslist@npm:^4.16.3":
   version: 4.16.3
   resolution: "browserslist@npm:4.16.3"
   dependencies:
@@ -4693,10 +4693,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001181":
-  version: 1.0.30001191
-  resolution: "caniuse-lite@npm:1.0.30001191"
-  checksum: 7b9e1d0c16d285800f32bf1f5a2028987b434502f56d4f6549f0648bb240e5528452d0212c49e56ce8f44719ccf43073456291b58fc763f72ff954aa2fb107e8
+"caniuse-lite@npm:^1.0.30001181, caniuse-lite@npm:^1.0.30001196":
+  version: 1.0.30001197
+  resolution: "caniuse-lite@npm:1.0.30001197"
+  checksum: 2c3edb8fbb5396d744ef753917b5219e2de2f43fb239aa880dd3c47cfa8bd337839b50b478e8c7a29967f3bce612810f39981064ee418962f301e3395dba6998
   languageName: node
   linkType: hard
 
