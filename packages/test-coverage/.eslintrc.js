@@ -1,6 +1,6 @@
 /* eslint-env node */
 module.exports = {
-  extends: ['../../.eslintrc.js', '../../.eslintrc-jest.js'],
+  extends: ['../../.eslintrc.js'],
 
   env: {
     node: true,

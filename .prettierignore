@@ -3,3 +3,4 @@ lerna.json
 .yarnrc.yml
 .pnp.js
 dist
+coverage/
