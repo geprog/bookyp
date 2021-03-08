@@ -600,7 +600,7 @@ __metadata:
     ts-jest: 26.5.2
     typescript: 4.1.3
     typescript-transform-paths: 2.2.3
-    vite: 2.0.0-beta.55
+    vite: 2.0.5
     vite-plugin-windicss: 0.4.7
     vue: 3.0.7
     vue-eslint-parser: 7.6.0
@@ -6100,12 +6100,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:0.8.54, esbuild@npm:^0.8.34, esbuild@npm:^0.8.50":
+"esbuild@npm:0.8.54":
   version: 0.8.54
   resolution: "esbuild@npm:0.8.54"
   bin:
     esbuild: bin/esbuild
   checksum: 6efe01549da8c49d707806b6788c6ae59ae5c18dbfd6e6f0def626deb005978275af634d1b44f224517665d1f61af9998f51a533615afb207cebc6c905e9fbd8
+  languageName: node
+  linkType: hard
+
+"esbuild@npm:^0.8.34, esbuild@npm:^0.8.50, esbuild@npm:^0.8.52":
+  version: 0.8.57
+  resolution: "esbuild@npm:0.8.57"
+  bin:
+    esbuild: bin/esbuild
+  checksum: 0942950a21a30b57a324380cfedcb425cc1245412e720593415afa0d4f1b7c5f931aa6330937dc1353c754d45c1e5ff7dbc52eb514f54d85517114971300b454
   languageName: node
   linkType: hard
 
@@ -12635,17 +12644,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"rollup@npm:^2.35.1":
-  version: 2.38.1
-  resolution: "rollup@npm:2.38.1"
+"rollup@npm:^2.35.1, rollup@npm:^2.38.5":
+  version: 2.40.0
+  resolution: "rollup@npm:2.40.0"
   dependencies:
-    fsevents: ~2.1.2
+    fsevents: ~2.3.1
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 56c3fde76ed000de1ed64d8c2142c178af54e2759dd68fe0e7a0a07826b8748558c27e959f9195e529c3011b01091f43218a4c8b9e10be759a6037c0e1df8c46
+  checksum: c512236087c32f661181d65489341a01fdd8a41ff3992479d049e999d9070387b20c8b37a5fbdda6af9507fce435e0b9dc510dbf058573575a157d3e61bd2bd4
   languageName: node
   linkType: hard
 
@@ -14558,6 +14567,24 @@ fsevents@~2.1.2:
   bin:
     vite: bin/vite.js
   checksum: a54c3e69503504ba0be0975d1aabab43e811e4bcf68b4bbd482674f3c3d77e4c04347b3b13e2b39e1e0c90005df9cd57b8f3a521e8a6f88dd6698cae3f11e0d7
+  languageName: node
+  linkType: hard
+
+"vite@npm:2.0.5":
+  version: 2.0.5
+  resolution: "vite@npm:2.0.5"
+  dependencies:
+    esbuild: ^0.8.52
+    fsevents: ~2.3.1
+    postcss: ^8.2.1
+    resolve: ^1.19.0
+    rollup: ^2.38.5
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 0738d3526a92f448233aaa48aa06e00e39e8c8aa5739bdae11ccfb3e1351be1cf6095f4d6fc2c2ab9463402e3d56cf7899e6e5bea59c2c151912304016cb17c2
   languageName: node
   linkType: hard
 
