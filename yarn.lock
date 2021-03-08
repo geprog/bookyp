@@ -533,7 +533,7 @@ __metadata:
     tsconfig-paths: 3.9.0
     ttypescript: 1.5.12
     typescript: 4.1.3
-    typescript-transform-paths: 2.2.2
+    typescript-transform-paths: 2.2.3
   languageName: unknown
   linkType: soft
 
@@ -561,7 +561,7 @@ __metadata:
     ts-node: 9.1.1
     ttypescript: 1.5.12
     typescript: 4.1.3
-    typescript-transform-paths: 2.2.2
+    typescript-transform-paths: 2.2.3
   languageName: unknown
   linkType: soft
 
@@ -599,7 +599,7 @@ __metadata:
     socket.io-client: 3.1.0
     ts-jest: 26.5.2
     typescript: 4.1.3
-    typescript-transform-paths: 2.2.2
+    typescript-transform-paths: 2.2.3
     vite: 2.0.0-beta.55
     vite-plugin-windicss: 0.4.7
     vue: 3.0.7
@@ -4389,7 +4389,7 @@ __metadata:
     prettier: 2.2.1
     ts-node: 9.1.1
     typescript: 4.1.3
-    typescript-transform-paths: 2.2.2
+    typescript-transform-paths: 2.2.3
   languageName: unknown
   linkType: soft
 
@@ -14218,14 +14218,14 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"typescript-transform-paths@npm:2.2.2":
-  version: 2.2.2
-  resolution: "typescript-transform-paths@npm:2.2.2"
+"typescript-transform-paths@npm:2.2.3":
+  version: 2.2.3
+  resolution: "typescript-transform-paths@npm:2.2.3"
   dependencies:
     minimatch: ^3.0.4
   peerDependencies:
     typescript: ">=3.6.5"
-  checksum: d0b00732116d72fbbc9106f28387d23f4a31e3d4ba6ca08ee9c5140e49a4b8af1f471dee9442e171a34f8ab0bd5eae0f00cba5bd0052459b566c00757efebe43
+  checksum: efbbc9a1fa4a64a377face7f6035c768a0aace7711850cbe6dc15eb762c1e0449f5a13f0360da80a60ed045f8b8361e3d3a7e2649bda45a2a2c142c7a7ee81ab
   languageName: node
   linkType: hard
 
