@@ -1,4 +1,4 @@
-FROM registry.geprog.com/geprog/node-builder:0.0.1 AS build
+FROM registry.geprog.com/docker.io/library/node:14.16.0-buster AS build
 WORKDIR /app
 COPY . ./
 RUN ls -la

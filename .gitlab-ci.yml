@@ -32,7 +32,7 @@ variables:
   - yarn.lock
 
 .node-template:
-  image: registry.geprog.com/geprog/node-builder:0.0.2
+  image: registry.geprog.com/docker.io/library/node:14.16.0-buster
   cache:
     key: ${CI_COMMIT_REF_SLUG} # re-use cache for all jobs on the same branch
     paths:
