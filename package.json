@@ -41,7 +41,7 @@
     "typescript-transform-paths": "2.2.3"
   },
   "resolutions": {
-    "postcss": "8.2.5",
+    "postcss": "8.2.7",
     "@vue/compiler-core": "3.0.5"
   }
 }
