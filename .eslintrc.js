@@ -8,7 +8,7 @@ module.exports = {
     ecmaVersion: 2018,
     tsconfigRootDir: __dirname,
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'simple-import-sort'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -22,6 +22,8 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-non-null-assertion': 'error',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
   },
   overrides: [
     {

@@ -1,6 +1,6 @@
-import { model, Schema, Document } from 'mongoose';
 import { Application, Model } from '@bookyp/core';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
+import { Document, model, Schema } from 'mongoose';
 
 const UserSchema = new Schema<Model.User>({
   username: { type: String, required: true, unique: true },

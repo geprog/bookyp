@@ -1,4 +1,5 @@
 import { Service as MongooseService } from 'feathers-mongoose';
+
 import serviceIndex from '~/services';
 import UsersService from '~/services/users/users.service';
 
