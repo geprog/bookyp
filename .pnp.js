@@ -1042,7 +1042,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "npm:26.6.3"],
             ["prettier", "npm:2.2.1"],
             ["shx", "npm:0.3.3"],
-            ["socket.io-client", "npm:3.1.0"],
+            ["socket.io-client", "npm:3.1.2"],
             ["ts-jest", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:26.5.2"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=cc6730"],
             ["typescript-transform-paths", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:2.2.3"],
@@ -15197,10 +15197,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["socket.io-client", [
-        ["npm:3.1.0", {
-          "packageLocation": "./.yarn/cache/socket.io-client-npm-3.1.0-dffbfbf152-943cfd1b65.zip/node_modules/socket.io-client/",
+        ["npm:3.1.2", {
+          "packageLocation": "./.yarn/cache/socket.io-client-npm-3.1.2-13958b267c-5b498bca84.zip/node_modules/socket.io-client/",
           "packageDependencies": [
-            ["socket.io-client", "npm:3.1.0"],
+            ["socket.io-client", "npm:3.1.2"],
             ["@types/component-emitter", "npm:1.2.10"],
             ["backo2", "npm:1.0.2"],
             ["component-emitter", "npm:1.3.0"],

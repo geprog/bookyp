@@ -13,7 +13,7 @@
     "@bookyp/core": "0.0.1",
     "@feathersjs/feathers": "5.0.0-pre.1",
     "@feathersjs/socketio-client": "5.0.0-pre.1",
-    "socket.io-client": "3.1.0",
+    "socket.io-client": "3.1.2",
     "vue": "3.0.7",
     "vue-router": "4.0.4"
   },
