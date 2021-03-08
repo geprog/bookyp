@@ -19,6 +19,8 @@ const config: Config.InitialOptions = {
       useESM: true,
     },
   },
+  collectCoverage: true,
+  coverageReporters: ['json'],
 };
 
 export default config;

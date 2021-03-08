@@ -1,0 +1,23 @@
+{
+  "name": "@bookyp/test-coverage",
+  "version": "0.0.1",
+  "scripts": {
+    "coverage": "yarn node src/",
+    "lint": "eslint --report-unused-disable-directives --cache ."
+  },
+  "dependencies": {
+    "istanbul-lib-coverage": "3.0.0",
+    "istanbul-lib-report": "3.0.0",
+    "istanbul-reports": "3.0.2"
+  },
+  "devDependencies": {
+    "@types/eslint": "7",
+    "@types/eslint-plugin-prettier": "3",
+    "@types/istanbul-lib-coverage": "2.0.3",
+    "@types/istanbul-lib-report": "3",
+    "@types/istanbul-reports": "3",
+    "@typescript-eslint/eslint-plugin": "4.17.0",
+    "eslint": "7.21.0",
+    "eslint-plugin-prettier": "3.3.1"
+  }
+}

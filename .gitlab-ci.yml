@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - coverage
   - deploy
 
 variables:
@@ -132,6 +133,10 @@ unit-tests:
   stage: test
   needs:
     - build
+  artifacts:
+    paths:
+      - packages/*/coverage
+    expire_in: 1 day
   variables:
     NODE_ENV: 'test'
   script:
@@ -228,6 +233,26 @@ lint-merge-request-title:
     - echo ${CI_MERGE_REQUEST_TITLE} | yarn commitlint
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+  interruptible: true
+
+################# COVERAGE #################
+
+code-coverage:
+  extends: .node-template
+  stage: coverage
+  needs:
+    - unit-tests
+    # - e2e-tests
+    # - integration-tests
+  variables:
+    NODE_ENV: 'test'
+  script:
+    - yarn lerna run --scope @bookyp/test-coverage coverage
+  coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+      changes: *main_pipeline_files
+    - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
 
 ################# DEPLOY #################

@@ -1,4 +1,12 @@
 {
   "extends": "./tsconfig.json",
-  "include": [".eslintrc.js", "jest.config.js", "vetur.config.js", ".commitlintrc.js", ".prettierrc.js", ".huskyrc.js"]
+  "include": [
+    ".eslintrc.js",
+    ".eslintrc-jest.js",
+    "jest.config.js",
+    "vetur.config.js",
+    ".commitlintrc.js",
+    ".prettierrc.js",
+    ".huskyrc.js"
+  ]
 }

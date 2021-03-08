@@ -19,6 +19,8 @@ const config: Config.InitialOptions = {
   transform: {
     '^.+\\.vue$': 'vue-jest',
   },
+  collectCoverage: true,
+  coverageReporters: ['json'],
 };
 
 export default config;

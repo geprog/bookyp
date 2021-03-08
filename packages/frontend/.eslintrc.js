@@ -15,6 +15,7 @@ module.exports = {
 
   extends: [
     '../../.eslintrc.js',
+    '../../.eslintrc-jest.js',
 
     'plugin:vue/vue3-recommended',
     '@vue/typescript/recommended',

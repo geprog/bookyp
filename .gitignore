@@ -22,3 +22,6 @@ dist
 
 # eslint stuff
 .eslintcache
+
+# Coverage reports
+coverage/

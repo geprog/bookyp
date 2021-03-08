@@ -1,6 +1,6 @@
 /* eslint-env node */
 module.exports = {
-  extends: ['../../.eslintrc.js'],
+  extends: ['../../.eslintrc.js', '../../.eslintrc-jest.js'],
 
   env: {
     'shared-node-browser': true,

@@ -22,6 +22,8 @@ const config: Config.InitialOptions = {
       },
     ],
   },
+  collectCoverage: true,
+  coverageReporters: ['json'],
 };
 
 export default config;
