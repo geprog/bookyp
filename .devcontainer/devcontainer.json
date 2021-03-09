@@ -26,6 +26,6 @@
     "ms-azuretools.vscode-docker",
     "gitlab.gitlab-workflow",
     "stylelint.vscode-stylelint",
-    "bradlc.vscode-tailwindcss"
+    "voorjaar.windicss-intellisense"
   ]
 }

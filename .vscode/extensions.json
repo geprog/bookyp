@@ -14,7 +14,7 @@
     "ms-azuretools.vscode-docker",
     "gitlab.gitlab-workflow",
     "stylelint.vscode-stylelint",
-    "bradlc.vscode-tailwindcss"
+    "voorjaar.windicss-intellisense"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []
