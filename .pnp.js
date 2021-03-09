@@ -1079,6 +1079,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:7df5a4cc43e6e6cd07ed81a595f271f87a2f7e4483701496e6081a19a7aebc643086208af308ad76fadb7116d92328c1b7bf671471e5ac8354a45fd11b3325f9#npm:4.17.0"],
             ["eslint", "npm:7.21.0"],
             ["eslint-plugin-prettier", "virtual:7df5a4cc43e6e6cd07ed81a595f271f87a2f7e4483701496e6081a19a7aebc643086208af308ad76fadb7116d92328c1b7bf671471e5ac8354a45fd11b3325f9#npm:3.3.1"],
+            ["eslint-plugin-simple-import-sort", "virtual:7df5a4cc43e6e6cd07ed81a595f271f87a2f7e4483701496e6081a19a7aebc643086208af308ad76fadb7116d92328c1b7bf671471e5ac8354a45fd11b3325f9#npm:7.0.0"],
             ["istanbul-lib-coverage", "npm:3.0.0"],
             ["istanbul-lib-report", "npm:3.0.0"],
             ["istanbul-reports", "npm:3.0.2"]
@@ -7818,12 +7819,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "SOFT",
         }],
+        ["virtual:7df5a4cc43e6e6cd07ed81a595f271f87a2f7e4483701496e6081a19a7aebc643086208af308ad76fadb7116d92328c1b7bf671471e5ac8354a45fd11b3325f9#npm:7.0.0", {
+          "packageLocation": "./.yarn/$$virtual/eslint-plugin-simple-import-sort-virtual-000cf977cf/0/cache/eslint-plugin-simple-import-sort-npm-7.0.0-45d08a8927-51fc6b6752.zip/node_modules/eslint-plugin-simple-import-sort/",
+          "packageDependencies": [
+            ["eslint-plugin-simple-import-sort", "virtual:7df5a4cc43e6e6cd07ed81a595f271f87a2f7e4483701496e6081a19a7aebc643086208af308ad76fadb7116d92328c1b7bf671471e5ac8354a45fd11b3325f9#npm:7.0.0"],
+            ["@types/eslint", "npm:7.2.7"],
+            ["eslint", "npm:7.21.0"]
+          ],
+          "packagePeers": [
+            "@types/eslint",
+            "eslint"
+          ],
+          "linkType": "HARD",
+        }],
         ["virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:7.0.0", {
           "packageLocation": "./.yarn/$$virtual/eslint-plugin-simple-import-sort-virtual-eeee17dbd9/0/cache/eslint-plugin-simple-import-sort-npm-7.0.0-45d08a8927-51fc6b6752.zip/node_modules/eslint-plugin-simple-import-sort/",
           "packageDependencies": [
             ["eslint-plugin-simple-import-sort", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:7.0.0"],
             ["@types/eslint", null],
-            ["eslint", "npm:7.18.0"]
+            ["eslint", "npm:7.21.0"]
           ],
           "packagePeers": [
             "@types/eslint",
