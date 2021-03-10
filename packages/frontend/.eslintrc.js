@@ -41,6 +41,12 @@ module.exports = {
     'vue/no-useless-mustaches': 'error',
     'vue/no-useless-concat': 'error',
     'vue/no-boolean-default': 'error',
+    'vue/no-unused-properties': [
+      'error',
+      {
+        groups: ['props', 'data', 'computed', 'methods', 'setup'],
+      },
+    ],
     // css rules
     'vue-scoped-css/no-unused-selector': 'error',
     'vue-scoped-css/no-parsing-error': 'error',
