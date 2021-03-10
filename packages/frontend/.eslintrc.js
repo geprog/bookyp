@@ -45,5 +45,7 @@ module.exports = {
     'vue-scoped-css/no-unused-selector': 'error',
     'vue-scoped-css/no-parsing-error': 'error',
     'vue-scoped-css/require-scoped': 'error',
+    // set this again because some extended config disabled it
+    curly: ['error'],
   },
 };
