@@ -26,6 +26,7 @@
     "ms-azuretools.vscode-docker",
     "gitlab.gitlab-workflow",
     "stylelint.vscode-stylelint",
-    "voorjaar.windicss-intellisense"
+    "voorjaar.windicss-intellisense",
+    "lokalise.i18n-ally"
   ]
 }
