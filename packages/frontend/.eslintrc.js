@@ -34,7 +34,7 @@ module.exports = {
         },
       },
     ],
-    'vue/component-name-in-template-casing': ['error', 'kebab-case'],
+    'vue/component-name-in-template-casing': ['error'],
     'vue/no-static-inline-styles': 'error',
     'vue/v-on-function-call': 'error',
     'vue/no-useless-v-bind': 'error',
