@@ -24,6 +24,9 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'error',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    'no-console': 'warn',
+    'no-useless-concat': 'error',
+    curly: ['error'],
   },
   overrides: [
     {
