@@ -529,7 +529,7 @@ __metadata:
     pkg-dir: 5.0.0
     prettier: 2.2.1
     shx: 0.3.3
-    ts-jest: 27.0.0-next.6
+    ts-jest: 27.0.0-next.8
     ts-node: 9.1.1
     tsconfig-paths: 3.9.0
     ttypescript: 1.5.12
@@ -561,7 +561,7 @@ __metadata:
     jest: 27.0.0-next.2
     prettier: 2.2.1
     shx: 0.3.3
-    ts-jest: 27.0.0-next.6
+    ts-jest: 27.0.0-next.8
     ts-node: 9.1.1
     ttypescript: 1.5.12
     typescript: 4.2.3
@@ -1008,28 +1008,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/core-base@npm:9.0.0-rc.4":
-  version: 9.0.0-rc.4
-  resolution: "@intlify/core-base@npm:9.0.0-rc.4"
-  dependencies:
-    "@intlify/message-compiler": 9.0.0-rc.4
-    "@intlify/message-resolver": 9.0.0-rc.4
-    "@intlify/runtime": 9.0.0-rc.4
-    "@intlify/shared": 9.0.0-rc.4
-  checksum: 51688f245e153e17ca6590e8eb62e2a5b5088e8c26b745510d27396f5970b2c729289894f21bf508abfe29e095b1c79e6afe30a33b9838356c2422a1a72f1e50
-  languageName: node
-  linkType: hard
-
-"@intlify/core@npm:^9.0.0-beta.15":
-  version: 9.0.0-rc.4
-  resolution: "@intlify/core@npm:9.0.0-rc.4"
-  dependencies:
-    "@intlify/core-base": 9.0.0-rc.4
-  checksum: 638cb76ae496342d2ec5e34ebd39081b27d16ad5d618140c9a9e86042bb3f131328cfd058bd8cd2d31b168197bd97feb9a18745c36344d280aa8e23c5bf374f0
-  languageName: node
-  linkType: hard
-
-"@intlify/core@npm:^9.0.0-beta.16":
+"@intlify/core@npm:^9.0.0-beta.15, @intlify/core@npm:^9.0.0-beta.16":
   version: 9.0.0
   resolution: "@intlify/core@npm:9.0.0"
   dependencies:
@@ -1049,28 +1028,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/message-compiler@npm:9.0.0-rc.4":
-  version: 9.0.0-rc.4
-  resolution: "@intlify/message-compiler@npm:9.0.0-rc.4"
-  dependencies:
-    "@intlify/message-resolver": 9.0.0-rc.4
-    "@intlify/shared": 9.0.0-rc.4
-    source-map: 0.6.1
-  checksum: 5f7d8f64df0d7d88e319050b9c4c8a28aeb61f9688b165da0ea0bcd7e53aa75159327e8566ef82afdb84a0997e087f13722eaaba5e13cd836fad5cc407ed65b4
-  languageName: node
-  linkType: hard
-
 "@intlify/message-resolver@npm:9.0.0":
   version: 9.0.0
   resolution: "@intlify/message-resolver@npm:9.0.0"
   checksum: 540708eec7ee0ba2334d9e151942edf672ddaa0cc74b1f97d59200a195968d1278f052980b98ff120531ba341ed2cc93b16ba56a5ae16a14ef8abe572addb3fe
-  languageName: node
-  linkType: hard
-
-"@intlify/message-resolver@npm:9.0.0-rc.4":
-  version: 9.0.0-rc.4
-  resolution: "@intlify/message-resolver@npm:9.0.0-rc.4"
-  checksum: 977945722a4887d00b751ea354a78bf49892d36e42d23654df4335fd9c0932256bc59a292ab3d1b7ffcb3814fcb2b9dafd760093375619879da7ddf5c8d7bd15
   languageName: node
   linkType: hard
 
@@ -1085,28 +1046,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/runtime@npm:9.0.0-rc.4":
-  version: 9.0.0-rc.4
-  resolution: "@intlify/runtime@npm:9.0.0-rc.4"
-  dependencies:
-    "@intlify/message-compiler": 9.0.0-rc.4
-    "@intlify/message-resolver": 9.0.0-rc.4
-    "@intlify/shared": 9.0.0-rc.4
-  checksum: d8408638d2a138e8375dcf3bcf9814676cad43520b6e90c5145d89468ff73e5c5c2460cb3dc68832606063c4d8d580343e6d2f1a80a2719a713bed58d3258e6f
-  languageName: node
-  linkType: hard
-
 "@intlify/shared@npm:9.0.0, @intlify/shared@npm:^9.0.0, @intlify/shared@npm:^9.0.0-beta.16":
   version: 9.0.0
   resolution: "@intlify/shared@npm:9.0.0"
   checksum: d20f2074a99ea9a6eb858dfc9fb665feec85860366fea73f9dac2b7d83e32c10218a0042d5812197b969fe5cf981d1e4e81b9c6a5f0954de1072f1a4094cc1a6
-  languageName: node
-  linkType: hard
-
-"@intlify/shared@npm:9.0.0-rc.4":
-  version: 9.0.0-rc.4
-  resolution: "@intlify/shared@npm:9.0.0-rc.4"
-  checksum: 54a979bccd787c83943cdcb899e4efdae9421fe630726c67603f4db72ee5af5dd5c078bb0dfe0c41d222efc5a72d6210668cc1e951657773252874e31ec44cd1
   languageName: node
   linkType: hard
 
@@ -14157,11 +14100,10 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:27.0.0-next.6":
-  version: 27.0.0-next.6
-  resolution: "ts-jest@npm:27.0.0-next.6"
+"ts-jest@npm:27.0.0-next.8":
+  version: 27.0.0-next.8
+  resolution: "ts-jest@npm:27.0.0-next.8"
   dependencies:
-    "@types/jest": 26.x
     bs-logger: 0.x
     buffer-from: 1.x
     fast-json-stable-stringify: 2.x
@@ -14173,11 +14115,11 @@ fsevents@~2.1.2:
     semver: 7.x
     yargs-parser: 20.x
   peerDependencies:
-    jest: 27.0.0-next.2
+    jest: 27.0.0-next.4
     typescript: ">=3.8 <5.0"
   bin:
     ts-jest: cli.js
-  checksum: 9f2a1f8b84d7c286bf540476f4f52bbe297a32291474c19de8cff0db82cc127b837eb118f927e8918cb2fece11e2bf1673a066ab35c837c1ecd5976ef1b5a851
+  checksum: e336c2c272fb3f5dc4b828cc4d0a2d50abd4bcf5e9f07b34e7ffb6aba176f72f6215e1e8f541ac6ab0372c26b88cfa301f3279df647c33c2a7b1ca707b72055f
   languageName: node
   linkType: hard
 

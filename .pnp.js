@@ -977,7 +977,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pkg-dir", "npm:5.0.0"],
             ["prettier", "npm:2.2.1"],
             ["shx", "npm:0.3.3"],
-            ["ts-jest", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:27.0.0-next.6"],
+            ["ts-jest", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:27.0.0-next.8"],
             ["ts-node", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:9.1.1"],
             ["tsconfig-paths", "npm:3.9.0"],
             ["ttypescript", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:1.5.12"],
@@ -1011,7 +1011,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "npm:27.0.0-next.2"],
             ["prettier", "npm:2.2.1"],
             ["shx", "npm:0.3.3"],
-            ["ts-jest", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:27.0.0-next.6"],
+            ["ts-jest", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:27.0.0-next.8"],
             ["ts-node", "virtual:dc3f408c041d363181f34afd3e2d92d1621641f45f3c9d71a6a32691f996f4e4aacea510e7d626c77ab9c8e734e57d1e9d1bdfa70b18309dfa1856fb7952255d#npm:9.1.1"],
             ["ttypescript", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:1.5.12"],
             ["typescript", "patch:typescript@npm%3A4.2.3#builtin<compat/typescript>::version=4.2.3&hash=a45b0e"],
@@ -1488,14 +1488,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@intlify/core-base", "npm:9.0.0"]
           ],
           "linkType": "HARD",
-        }],
-        ["npm:9.0.0-rc.4", {
-          "packageLocation": "./.yarn/cache/@intlify-core-npm-9.0.0-rc.4-e0ce3ee9aa-638cb76ae4.zip/node_modules/@intlify/core/",
-          "packageDependencies": [
-            ["@intlify/core", "npm:9.0.0-rc.4"],
-            ["@intlify/core-base", "npm:9.0.0-rc.4"]
-          ],
-          "linkType": "HARD",
         }]
       ]],
       ["@intlify/core-base", [
@@ -1507,17 +1499,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@intlify/message-resolver", "npm:9.0.0"],
             ["@intlify/runtime", "npm:9.0.0"],
             ["@intlify/shared", "npm:9.0.0"]
-          ],
-          "linkType": "HARD",
-        }],
-        ["npm:9.0.0-rc.4", {
-          "packageLocation": "./.yarn/cache/@intlify-core-base-npm-9.0.0-rc.4-87c01a3cb8-51688f245e.zip/node_modules/@intlify/core-base/",
-          "packageDependencies": [
-            ["@intlify/core-base", "npm:9.0.0-rc.4"],
-            ["@intlify/message-compiler", "npm:9.0.0-rc.4"],
-            ["@intlify/message-resolver", "npm:9.0.0-rc.4"],
-            ["@intlify/runtime", "npm:9.0.0-rc.4"],
-            ["@intlify/shared", "npm:9.0.0-rc.4"]
           ],
           "linkType": "HARD",
         }]
@@ -1532,16 +1513,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["source-map", "npm:0.6.1"]
           ],
           "linkType": "HARD",
-        }],
-        ["npm:9.0.0-rc.4", {
-          "packageLocation": "./.yarn/cache/@intlify-message-compiler-npm-9.0.0-rc.4-9863f2f85c-5f7d8f64df.zip/node_modules/@intlify/message-compiler/",
-          "packageDependencies": [
-            ["@intlify/message-compiler", "npm:9.0.0-rc.4"],
-            ["@intlify/message-resolver", "npm:9.0.0-rc.4"],
-            ["@intlify/shared", "npm:9.0.0-rc.4"],
-            ["source-map", "npm:0.6.1"]
-          ],
-          "linkType": "HARD",
         }]
       ]],
       ["@intlify/message-resolver", [
@@ -1549,13 +1520,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@intlify-message-resolver-npm-9.0.0-b7b8ede21c-540708eec7.zip/node_modules/@intlify/message-resolver/",
           "packageDependencies": [
             ["@intlify/message-resolver", "npm:9.0.0"]
-          ],
-          "linkType": "HARD",
-        }],
-        ["npm:9.0.0-rc.4", {
-          "packageLocation": "./.yarn/cache/@intlify-message-resolver-npm-9.0.0-rc.4-11b7079c05-977945722a.zip/node_modules/@intlify/message-resolver/",
-          "packageDependencies": [
-            ["@intlify/message-resolver", "npm:9.0.0-rc.4"]
           ],
           "linkType": "HARD",
         }]
@@ -1570,16 +1534,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@intlify/shared", "npm:9.0.0"]
           ],
           "linkType": "HARD",
-        }],
-        ["npm:9.0.0-rc.4", {
-          "packageLocation": "./.yarn/cache/@intlify-runtime-npm-9.0.0-rc.4-003a2cc91a-d8408638d2.zip/node_modules/@intlify/runtime/",
-          "packageDependencies": [
-            ["@intlify/runtime", "npm:9.0.0-rc.4"],
-            ["@intlify/message-compiler", "npm:9.0.0-rc.4"],
-            ["@intlify/message-resolver", "npm:9.0.0-rc.4"],
-            ["@intlify/shared", "npm:9.0.0-rc.4"]
-          ],
-          "linkType": "HARD",
         }]
       ]],
       ["@intlify/shared", [
@@ -1587,13 +1541,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@intlify-shared-npm-9.0.0-fd3ecf72be-d20f2074a9.zip/node_modules/@intlify/shared/",
           "packageDependencies": [
             ["@intlify/shared", "npm:9.0.0"]
-          ],
-          "linkType": "HARD",
-        }],
-        ["npm:9.0.0-rc.4", {
-          "packageLocation": "./.yarn/cache/@intlify-shared-npm-9.0.0-rc.4-756beca033-54a979bccd.zip/node_modules/@intlify/shared/",
-          "packageDependencies": [
-            ["@intlify/shared", "npm:9.0.0-rc.4"]
           ],
           "linkType": "HARD",
         }]
@@ -4526,7 +4473,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@vuedx-typescript-plugin-vue-npm-0.6.3-6768ba9c2f-683d2e82dc.zip/node_modules/@vuedx/typescript-plugin-vue/",
           "packageDependencies": [
             ["@vuedx/typescript-plugin-vue", "npm:0.6.3"],
-            ["@intlify/core", "npm:9.0.0-rc.4"],
+            ["@intlify/core", "npm:9.0.0"],
             ["@vuedx/analyze", "npm:0.6.3"],
             ["@vuedx/compiler-sfc", "npm:0.6.2"],
             ["@vuedx/projectconfig", "npm:0.6.2"],
@@ -16477,10 +16424,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "SOFT",
         }],
-        ["npm:27.0.0-next.6", {
-          "packageLocation": "./.yarn/cache/ts-jest-npm-27.0.0-next.6-6866e138c0-9f2a1f8b84.zip/node_modules/ts-jest/",
+        ["npm:27.0.0-next.8", {
+          "packageLocation": "./.yarn/cache/ts-jest-npm-27.0.0-next.8-351bf9529e-e336c2c272.zip/node_modules/ts-jest/",
           "packageDependencies": [
-            ["ts-jest", "npm:27.0.0-next.6"]
+            ["ts-jest", "npm:27.0.0-next.8"]
           ],
           "linkType": "SOFT",
         }],
@@ -16511,10 +16458,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:27.0.0-next.6", {
-          "packageLocation": "./.yarn/$$virtual/ts-jest-virtual-64a31a5ee5/0/cache/ts-jest-npm-27.0.0-next.6-6866e138c0-9f2a1f8b84.zip/node_modules/ts-jest/",
+        ["virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:27.0.0-next.8", {
+          "packageLocation": "./.yarn/$$virtual/ts-jest-virtual-9ac3f036d6/0/cache/ts-jest-npm-27.0.0-next.8-351bf9529e-e336c2c272.zip/node_modules/ts-jest/",
           "packageDependencies": [
-            ["ts-jest", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:27.0.0-next.6"],
+            ["ts-jest", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:27.0.0-next.8"],
             ["@types/jest", "npm:26.0.20"],
             ["@types/typescript", null],
             ["bs-logger", "npm:0.2.6"],
