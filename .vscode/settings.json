@@ -1,23 +1,5 @@
 {
   "eslint.workingDirectories": ["./packages/*/"],
-  "eslint.validate": [
-    {
-      "language": "vue",
-      "autoFix": false
-    },
-    {
-      "language": "html",
-      "autoFix": false
-    },
-    {
-      "language": "javascript",
-      "autoFix": false
-    },
-    {
-      "language": "typescript",
-      "autoFix": false
-    }
-  ],
   "javascript.updateImportsOnFileMove.enabled": "never",
   "typescript.updateImportsOnFileMove.enabled": "never",
   "liveshare.populateGitCoAuthors": "never",
