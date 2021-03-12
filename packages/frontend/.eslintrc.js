@@ -34,7 +34,19 @@ module.exports = {
         },
       },
     ],
-    'vue/component-name-in-template-casing': ['error'],
+    'vue/html-button-has-type': 'error',
+    'vue/component-name-in-template-casing': 'error',
+    'vue/match-component-file-name': [
+      'error',
+      {
+        extensions: ['vue'],
+        shouldMatchCase: true,
+      },
+    ],
+    'vue/require-name-property': 'error',
+    'vue/v-for-delimiter-style': 'error',
+    'vue/no-empty-component-block': 'error',
+    'vue/no-duplicate-attr-inheritance': 'error',
     'vue/no-static-inline-styles': 'error',
     'vue/v-on-function-call': 'error',
     'vue/no-useless-v-bind': 'error',
@@ -47,11 +59,13 @@ module.exports = {
         groups: ['props', 'data', 'computed', 'methods', 'setup'],
       },
     ],
+    'vue/new-line-between-multi-line-property': 'error',
+    'vue/padding-line-between-blocks': 'error',
     // css rules
     'vue-scoped-css/no-unused-selector': 'error',
     'vue-scoped-css/no-parsing-error': 'error',
     'vue-scoped-css/require-scoped': 'error',
     // set this again because some extended config disabled it
-    curly: ['error'],
+    curly: 'error',
   },
 };

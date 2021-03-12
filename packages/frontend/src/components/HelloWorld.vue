@@ -19,7 +19,7 @@
     <a href="https://github.com/znck/vue-developer-experience" target="_blank">@vuedx</a>. <br />Note @vuedx is still
     experimental and this setup is provided for early feedback.
   </p>
-  <button @click="count++">count is: {{ count }}</button>
+  <button type="button" @click="count++">count is: {{ count }}</button>
   <p>
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.
@@ -37,6 +37,7 @@ export default defineComponent({
       required: true,
     },
   },
+
   setup: () => {
     const count = ref(0);
     return { count };
