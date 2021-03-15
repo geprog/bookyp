@@ -1,6 +1,5 @@
 /* eslint-env node */
 module.exports = {
-  root: true,
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: ['./tsconfig.eslint.json'],
@@ -24,6 +23,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'error',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    'prettier/prettier': 'error',
     'no-console': 'warn',
     'no-useless-concat': 'error',
     curly: ['error'],
@@ -39,4 +39,5 @@ module.exports = {
       },
     },
   ],
+  reportUnusedDisableDirectives: true,
 };

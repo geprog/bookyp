@@ -64,7 +64,8 @@
     "autoremove",
     "lerna",
     "outfile",
-    "interruptible"
+    "interruptible",
+    "rushstack"
   ],
   "ignorePaths": [
     "**/node_modules/**/*",
