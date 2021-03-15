@@ -6,7 +6,8 @@
     "build": "vite build",
     "test": "NODE_OPTIONS=--experimental-vm-modules yarn jest --forceExit --detectOpenHandles",
     "lint": "eslint --report-unused-disable-directives --cache --ext .js,.ts,.vue .",
-    "typecheck": "vuedx-typecheck .",
+    "typecheck": "vti diagnostics .",
+    "typecheck:vuedx": "vuedx-typecheck .",
     "clean": "shx rm -rf dist/ node_modules"
   },
   "dependencies": {
@@ -50,6 +51,7 @@
     "typescript-transform-paths": "2.2.3",
     "vite": "2.0.0-beta.55",
     "vite-plugin-windicss": "0.4.7",
+    "vti": "0.1.1",
     "vue-eslint-parser": "7.6.0",
     "vue-jest": "5.0.0-alpha.8",
     "windicss": "2.1.19"
