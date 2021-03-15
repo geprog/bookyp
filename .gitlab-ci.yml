@@ -240,7 +240,7 @@ spell-check:
   stage: test
   needs: []
   script:
-    - yarn cspell "{**,.*}/{*,.*}"
+    - yarn spellcheck
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
     - if: '$CI_COMMIT_BRANCH == "master"'

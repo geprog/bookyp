@@ -14,6 +14,7 @@
     "lint": "yarn lint:formatting && lerna run lint",
     "lint:formatting": "prettier -c .",
     "lint:changed": "yarn lint:formatting && lerna run --since origin/master --include-dependents lint",
+    "spellcheck": "cspell '{**,.*}/{*,.*}'",
     "test": "lerna run test",
     "test:changed": "lerna run --since origin/master --include-dependents test",
     "typecheck": "lerna run typecheck",
