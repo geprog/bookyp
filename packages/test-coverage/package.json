@@ -13,9 +13,6 @@
   "devDependencies": {
     "@bookyp/eslint-config": "*",
     "@rushstack/eslint-patch": "1.0.6",
-    "@types/istanbul-lib-coverage": "2.0.3",
-    "@types/istanbul-lib-report": "3",
-    "@types/istanbul-reports": "3",
     "eslint": "7.21.0"
   }
 }

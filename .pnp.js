@@ -977,8 +977,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@rushstack/eslint-patch", "npm:1.0.6"],
             ["@types/jest", "npm:26.0.20"],
             ["@types/mongoose", "npm:5.10.3"],
-            ["@types/node", "npm:14.14.31"],
-            ["@types/uuid-validate", "npm:0.0.1"],
             ["esbuild", "npm:0.8.54"],
             ["esbuild-jest", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:0.4.0"],
             ["esbuild-plugin-pnp", "virtual:4d1f09e7b1c54f295ad8ba6893f58becbb534bf17099c962fb9c6e6ac1674fac3795ad8b663ff9f1ee68f7d1b9e3d9206597efe42f834341beb52835f22889e9#npm:0.3.0"],
@@ -1011,8 +1009,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@jest/types", "npm:27.0.0-next.1"],
             ["@rushstack/eslint-patch", "npm:1.0.6"],
             ["@types/jest", "npm:26.0.20"],
-            ["@types/node", "npm:14.14.31"],
-            ["@types/uuid-validate", "npm:0.0.1"],
             ["esbuild", "npm:0.8.54"],
             ["esbuild-jest", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:0.4.0"],
             ["eslint", "npm:7.21.0"],
@@ -1096,9 +1092,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@bookyp/test-coverage", "workspace:packages/test-coverage"],
             ["@bookyp/eslint-config", "workspace:packages/eslint-config"],
             ["@rushstack/eslint-patch", "npm:1.0.6"],
-            ["@types/istanbul-lib-coverage", "npm:2.0.3"],
-            ["@types/istanbul-lib-report", "npm:3.0.0"],
-            ["@types/istanbul-reports", "npm:3.0.0"],
             ["eslint", "npm:7.21.0"],
             ["istanbul-lib-coverage", "npm:3.0.0"],
             ["istanbul-lib-report", "npm:3.0.0"],
@@ -4140,15 +4133,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-treeify-npm-1.0.0-b5e04e9cd3-f7b82d91a4.zip/node_modules/@types/treeify/",
           "packageDependencies": [
             ["@types/treeify", "npm:1.0.0"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["@types/uuid-validate", [
-        ["npm:0.0.1", {
-          "packageLocation": "./.yarn/cache/@types-uuid-validate-npm-0.0.1-5aa8b4b814-dad272bf12.zip/node_modules/@types/uuid-validate/",
-          "packageDependencies": [
-            ["@types/uuid-validate", "npm:0.0.1"]
           ],
           "linkType": "HARD",
         }]

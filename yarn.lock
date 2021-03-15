@@ -532,8 +532,6 @@ __metadata:
     "@rushstack/eslint-patch": 1.0.6
     "@types/jest": 26.0.20
     "@types/mongoose": 5.10.3
-    "@types/node": 14.14.31
-    "@types/uuid-validate": 0.0.1
     esbuild: 0.8.54
     esbuild-jest: 0.4.0
     esbuild-plugin-pnp: 0.3.0
@@ -564,8 +562,6 @@ __metadata:
     "@jest/types": 27.0.0-next.1
     "@rushstack/eslint-patch": 1.0.6
     "@types/jest": 26.0.20
-    "@types/node": 14.14.31
-    "@types/uuid-validate": 0.0.1
     esbuild: 0.8.54
     esbuild-jest: 0.4.0
     eslint: 7.21.0
@@ -643,9 +639,6 @@ __metadata:
   dependencies:
     "@bookyp/eslint-config": "*"
     "@rushstack/eslint-patch": 1.0.6
-    "@types/istanbul-lib-coverage": 2.0.3
-    "@types/istanbul-lib-report": 3
-    "@types/istanbul-reports": 3
     eslint: 7.21.0
     istanbul-lib-coverage: 3.0.0
     istanbul-lib-report: 3.0.0
@@ -3137,14 +3130,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/istanbul-lib-coverage@npm:*, @types/istanbul-lib-coverage@npm:2.0.3, @types/istanbul-lib-coverage@npm:^2.0.0, @types/istanbul-lib-coverage@npm:^2.0.1":
+"@types/istanbul-lib-coverage@npm:*, @types/istanbul-lib-coverage@npm:^2.0.0, @types/istanbul-lib-coverage@npm:^2.0.1":
   version: 2.0.3
   resolution: "@types/istanbul-lib-coverage@npm:2.0.3"
   checksum: d6f6dbf66d2d2d7d80d093329f0428ac279440510030bfd0080545bba6882433444430905e6e31eba299b890e50ccf2b6a7de9345d7d0ed52ff174f8ead48855
   languageName: node
   linkType: hard
 
-"@types/istanbul-lib-report@npm:*, @types/istanbul-lib-report@npm:3":
+"@types/istanbul-lib-report@npm:*":
   version: 3.0.0
   resolution: "@types/istanbul-lib-report@npm:3.0.0"
   dependencies:
@@ -3153,7 +3146,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/istanbul-reports@npm:3, @types/istanbul-reports@npm:^3.0.0":
+"@types/istanbul-reports@npm:^3.0.0":
   version: 3.0.0
   resolution: "@types/istanbul-reports@npm:3.0.0"
   dependencies:
@@ -3254,7 +3247,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:14.14.31, @types/node@npm:^14.14.10":
+"@types/node@npm:*, @types/node@npm:^14.14.10":
   version: 14.14.31
   resolution: "@types/node@npm:14.14.31"
   checksum: 635dc8a0898a923621e02ca179e17baa39fdfa44f0096fcc1b7046c9b32317e74a99956a7b45ca0e8069874f51f4e7873a418239a318a4b6e7936f6510ac5992
@@ -3361,13 +3354,6 @@ __metadata:
   version: 1.0.0
   resolution: "@types/treeify@npm:1.0.0"
   checksum: f7b82d91a4be51d5b93fb1e245ea71768e06a567daa1ff84fe075c3e62ce90f2703fa8258f0f093f92816416fe2f41c3177e5005114613adbdddabe2ddc3e593
-  languageName: node
-  linkType: hard
-
-"@types/uuid-validate@npm:0.0.1":
-  version: 0.0.1
-  resolution: "@types/uuid-validate@npm:0.0.1"
-  checksum: dad272bf1223adca1b8041817390760890f1c4bee28f08af5571d05476cac32f9fd903e3f6892a6a3de72e32dfed15fe5e4da6e268e915ca68b5801f75572021
   languageName: node
   linkType: hard
 
