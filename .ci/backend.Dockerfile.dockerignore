@@ -13,6 +13,8 @@
 !packages/core/tsconfig.json
 !packages/core/tsconfig.build.json
 
+!packages/eslint-config/package.json
+
 !packages/backend/config/
 !packages/backend/public/
 !packages/backend/src/

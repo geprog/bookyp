@@ -1,16 +1,10 @@
 /* eslint-env node */
 
-require('@rushstack/eslint-patch/modern-module-resolution');
-
 module.exports = {
-  extends: ['@bookyp'],
-
-  env: {
-    node: true,
-  },
-
   parserOptions: {
     project: ['./tsconfig.eslint.json'],
     tsconfigRootDir: __dirname,
   },
+
+  extends: ['./index.js'],
 };
