@@ -75,6 +75,7 @@
     ".eslintcache",
     ".git/**/*",
     "**/dist/**/*",
+    "**/*.snap",
     "*.tsbuildinfo",
     "package.json",
     ".devcontainer/devcontainer.json",
