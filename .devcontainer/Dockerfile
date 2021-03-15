@@ -35,11 +35,13 @@ RUN apt-get update \
     #
     # add needed tools for git make
     && apt-get -y install --no-install-recommends \
+    # cSpell:disable
         gettext \
         libssl-dev \
         libghc-zlib-dev \
         libcurl4-gnutls-dev \
         libexpat1-dev \
+    # cSpell:enable
     #
     # Download and build git
     && wget https://github.com/git/git/archive/v$GIT_VERSION.tar.gz -O git.tar.gz \

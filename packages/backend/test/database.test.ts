@@ -33,7 +33,7 @@ describe('database', () => {
     const dbConfig = {
       host: '127.0.0.1',
       port: 1234,
-      name: 'test-databae',
+      name: 'test-database',
     };
     const expectedUri = `mongodb://${dbConfig.host}:${dbConfig.port}/${dbConfig.name}`;
 
@@ -60,7 +60,7 @@ describe('database', () => {
     const dbConfig = {
       host: '127.0.0.1',
       port: 1234,
-      name: 'test-databae',
+      name: 'test-database',
       user: 'test-user',
       password: 'test-password',
     };
