@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component renders correctly 1`] = `"<header class=\\"border-b-1 shadow-md flex flex-col\\"><div class=\\"flex items-center p-4\\"><icon-stub data-test=\\"back-button\\" name=\\"arrow-left\\"></icon-stub><span class=\\"ml-8 mr-auto\\">Home</span></div></header>"`;
