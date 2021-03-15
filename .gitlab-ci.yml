@@ -235,6 +235,17 @@ lint-merge-request-title:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
   interruptible: true
 
+spell-check:
+  extends: .node-template
+  stage: test
+  needs: []
+  script:
+    - yarn cspell "{**,.*}/{*,.*}"
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  interruptible: true
+
 ################# COVERAGE #################
 
 code-coverage:
