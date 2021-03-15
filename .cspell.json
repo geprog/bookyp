@@ -71,13 +71,14 @@
     "**/node_modules/**/*",
     "yarn.lock",
     ".pnp.js",
+    ".yarn/**/*",
     ".eslintcache",
     ".git/**/*",
     "**/dist/**/*",
     "*.tsbuildinfo",
-    "build-state.yml",
     "package.json",
     ".devcontainer/devcontainer.json",
-    ".vscode/extensions.json"
+    ".vscode/extensions.json",
+    "coverage-final.json"
   ]
 }
