@@ -3,8 +3,6 @@ import toDiffableHtml from 'diffable-html';
 
 import FloatingButton from '~/components/FloatingButton.vue';
 
-jest.mock('vue-router');
-
 describe('FloatingButton component', () => {
   it('should render correctly', () => {
     // given
