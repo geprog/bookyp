@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --cache ."
+    "lint": "eslint --cache --max-warnings 0 ."
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "4.17.0",
