@@ -5,6 +5,7 @@ describe('database', () => {
   });
 
   it('shall successfully connect with uri', async () => {
+    expect.assertions(2);
     // given
     const uri = 'fake-uri';
 
@@ -24,11 +25,12 @@ describe('database', () => {
     await connectDatabase();
 
     // then
-    expect(mongoose.connect).toBeCalledTimes(1);
-    expect(mongoose.connect).toBeCalledWith(uri, expect.anything());
+    expect(mongoose.connect).toHaveBeenCalledTimes(1);
+    expect(mongoose.connect).toHaveBeenCalledWith(uri, expect.anything());
   });
 
   it('shall successfully connect with separate settings', async () => {
+    expect.assertions(2);
     // given
     const dbConfig = {
       host: '127.0.0.1',
@@ -51,11 +53,12 @@ describe('database', () => {
     await connectDatabase();
 
     // then
-    expect(mongoose.connect).toBeCalledTimes(1);
-    expect(mongoose.connect).toBeCalledWith(expectedUri, expect.anything());
+    expect(mongoose.connect).toHaveBeenCalledTimes(1);
+    expect(mongoose.connect).toHaveBeenCalledWith(expectedUri, expect.anything());
   });
 
   it('shall successfully connect with separate settings and credentials', async () => {
+    expect.assertions(2);
     // given
     const dbConfig = {
       host: '127.0.0.1',
@@ -80,7 +83,7 @@ describe('database', () => {
     await connectDatabase();
 
     // then
-    expect(mongoose.connect).toBeCalledTimes(1);
-    expect(mongoose.connect).toBeCalledWith(expectedUri, expect.anything());
+    expect(mongoose.connect).toHaveBeenCalledTimes(1);
+    expect(mongoose.connect).toHaveBeenCalledWith(expectedUri, expect.anything());
   });
 });

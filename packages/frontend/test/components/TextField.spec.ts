@@ -21,7 +21,7 @@ describe('TextField component', () => {
     expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
   });
 
-  describe('Internal input field', () => {
+  describe('internal input field', () => {
     it('should render HTML input element', () => {
       // when
       const wrapper = shallowMount(TextField);
@@ -46,6 +46,7 @@ describe('TextField component', () => {
     });
 
     it('should emit changes as update:modelValue', async () => {
+      expect.assertions(2);
       // given
       const wrapper = shallowMount(TextField);
       const inputElement = wrapper.get<HTMLInputElement>('input[type=text]');
@@ -56,12 +57,12 @@ describe('TextField component', () => {
 
       // then
       const emittedValues = wrapper.emitted()['update:modelValue'];
-      expect(emittedValues.length).toBe(1);
-      expect(emittedValues[0]).toEqual([newValue]);
+      expect(emittedValues).toHaveLength(1);
+      expect(emittedValues[0]).toStrictEqual([newValue]);
     });
   });
 
-  describe('Input placeholder', () => {
+  describe('input placeholder', () => {
     it('should not have a placeholder', () => {
       // when
       const wrapper = shallowMount(TextField);

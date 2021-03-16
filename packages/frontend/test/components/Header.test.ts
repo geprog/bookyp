@@ -89,6 +89,7 @@ describe('Header component', () => {
   });
 
   it('should go back when pressing the back button', async () => {
+    expect.assertions(1);
     // given
     const { useRouter } = await import('vue-router');
     const router = useRouter();
@@ -103,8 +104,7 @@ describe('Header component', () => {
     header.find<HTMLElement>('*[data-test=back-button]').element.click();
 
     // then
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(router.go).toBeCalled();
+    expect(router.go).toHaveBeenCalledWith(-1);
   });
 
   it('should include the title text', () => {

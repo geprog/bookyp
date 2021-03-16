@@ -10,6 +10,7 @@ describe("'users' service", () => {
   });
 
   it('configured the service', async () => {
+    expect.assertions(1);
     // given
     jest.mock('@bookyp/core');
     const bookypCore = await import('@bookyp/core');
@@ -19,11 +20,11 @@ describe("'users' service", () => {
     serviceIndex(app);
 
     // then
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(app.configure).toBeCalledWith(UsersService);
+    expect(app.configure).toHaveBeenCalledWith(UsersService);
   });
 
   it('registered the service', async () => {
+    expect.assertions(2);
     // given
     jest.mock('@bookyp/core');
     const bookypCore = await import('@bookyp/core');
@@ -33,9 +34,7 @@ describe("'users' service", () => {
     UsersService(app);
 
     // then
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(app.use).toBeCalledTimes(1);
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(app.use).toBeCalledWith('users', expect.any(MongooseService));
+    expect(app.use).toHaveBeenCalledTimes(1);
+    expect(app.use).toHaveBeenCalledWith('users', expect.any(MongooseService));
   });
 });
