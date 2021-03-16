@@ -587,7 +587,7 @@ __metadata:
     "@jest/types": 26.6.2
     "@rushstack/eslint-patch": 1.0.6
     "@types/jest": 26.0.20
-    "@types/socket.io-client": 1.4.35
+    "@types/socket.io-client": 1.4.36
     "@vitejs/plugin-vue": 1.1.5
     "@vue/compiler-sfc": 3.0.7
     "@vue/test-utils": 2.0.0-rc.3
@@ -3302,10 +3302,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/socket.io-client@npm:1.4.35":
-  version: 1.4.35
-  resolution: "@types/socket.io-client@npm:1.4.35"
-  checksum: 367bceb6edd3491898cf9eebbec9f6663737a470047573a262462f0492f7171a59fa79113f494dfdd4c37548d05e45284d88d8881a692417900b82df869c8ced
+"@types/socket.io-client@npm:1.4.36":
+  version: 1.4.36
+  resolution: "@types/socket.io-client@npm:1.4.36"
+  checksum: 0390cf533d40ae91742ac06ccef8ce6f519cda58c89ddf940af749f0d811744f7e2d450dc26056e4d70266a639866683a92b08e920eeb51453759862f5d9bae5
   languageName: node
   linkType: hard
 

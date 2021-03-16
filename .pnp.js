@@ -1040,7 +1040,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@jest/types", "npm:26.6.2"],
             ["@rushstack/eslint-patch", "npm:1.0.6"],
             ["@types/jest", "npm:26.0.20"],
-            ["@types/socket.io-client", "npm:1.4.35"],
+            ["@types/socket.io-client", "npm:1.4.36"],
             ["@vitejs/plugin-vue", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:1.1.5"],
             ["@vue/compiler-sfc", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:3.0.7"],
             ["@vue/test-utils", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:2.0.0-rc.3"],
@@ -4075,10 +4075,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/socket.io-client", [
-        ["npm:1.4.35", {
-          "packageLocation": "./.yarn/cache/@types-socket.io-client-npm-1.4.35-4ae93397ba-367bceb6ed.zip/node_modules/@types/socket.io-client/",
+        ["npm:1.4.36", {
+          "packageLocation": "./.yarn/cache/@types-socket.io-client-npm-1.4.36-8392e6cc54-0390cf533d.zip/node_modules/@types/socket.io-client/",
           "packageDependencies": [
-            ["@types/socket.io-client", "npm:1.4.35"]
+            ["@types/socket.io-client", "npm:1.4.36"]
           ],
           "linkType": "HARD",
         }]
