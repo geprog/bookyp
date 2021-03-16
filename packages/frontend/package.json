@@ -5,7 +5,7 @@
     "start": "vite",
     "build": "vite build",
     "test": "NODE_OPTIONS=--experimental-vm-modules yarn jest --forceExit --detectOpenHandles",
-    "lint": "eslint --cache --ext .js,.ts,.vue .",
+    "lint": "eslint --cache --max-warnings 0 --ext .js,.ts,.vue .",
     "typecheck": "vti diagnostics .",
     "typecheck:vuedx": "vuedx-typecheck .",
     "clean": "shx rm -rf dist/ node_modules"
