@@ -21,6 +21,7 @@ const config: Config.InitialOptions = {
   },
   collectCoverage: true,
   coverageReporters: ['json'],
+  setupFilesAfterEnv: ['<rootDir>/test/__setup__/console.ts'],
 };
 
 export default config;
