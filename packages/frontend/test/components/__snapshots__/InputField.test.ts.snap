@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputField component should render correctly 1`] = `
+"
+<div class=\\"flex my-2\\">
+  <icon-stub data-test=\\"input-field-icon\\"
+             name=\\"settings\\"
+             class=\\"mr-4\\"
+  >
+  </icon-stub>
+  <div class=\\"flex flex-col w-full border-b-1 py-2\\">
+    <stub>
+    </stub>
+  </div>
+</div>
+"
+`;
