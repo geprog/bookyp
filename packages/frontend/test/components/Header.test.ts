@@ -3,8 +3,6 @@ import toDiffableHtml from 'diffable-html';
 
 import Header from '~/components/Header.vue';
 
-jest.mock('vue-router');
-
 describe('Header component', () => {
   it('should render correctly', () => {
     // given
