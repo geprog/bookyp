@@ -1036,7 +1036,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@bookyp/eslint-config", "workspace:packages/eslint-config"],
             ["@feathersjs/feathers", "npm:5.0.0-pre.1"],
             ["@feathersjs/socketio-client", "npm:5.0.0-pre.1"],
-            ["@intlify/vite-plugin-vue-i18n", "npm:2.0.1"],
+            ["@intlify/vite-plugin-vue-i18n", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:2.0.3"],
             ["@jest/types", "npm:26.6.2"],
             ["@rushstack/eslint-patch", "npm:1.0.6"],
             ["@types/jest", "npm:26.0.20"],
@@ -1895,16 +1895,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@intlify/vite-plugin-vue-i18n", [
-        ["npm:2.0.1", {
-          "packageLocation": "./.yarn/cache/@intlify-vite-plugin-vue-i18n-npm-2.0.1-e5bdf8f3bf-1cae45c37c.zip/node_modules/@intlify/vite-plugin-vue-i18n/",
+        ["npm:2.0.3", {
+          "packageLocation": "./.yarn/cache/@intlify-vite-plugin-vue-i18n-npm-2.0.3-bfa4a34fa3-1954af1640.zip/node_modules/@intlify/vite-plugin-vue-i18n/",
           "packageDependencies": [
-            ["@intlify/vite-plugin-vue-i18n", "npm:2.0.1"],
+            ["@intlify/vite-plugin-vue-i18n", "npm:2.0.3"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:2.0.3", {
+          "packageLocation": "./.yarn/$$virtual/@intlify-vite-plugin-vue-i18n-virtual-f64f0ce353/0/cache/@intlify-vite-plugin-vue-i18n-npm-2.0.3-bfa4a34fa3-1954af1640.zip/node_modules/@intlify/vite-plugin-vue-i18n/",
+          "packageDependencies": [
+            ["@intlify/vite-plugin-vue-i18n", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:2.0.3"],
             ["@intlify/cli", "npm:0.2.0"],
             ["@intlify/shared", "npm:9.0.0"],
-            ["@rollup/pluginutils", "virtual:e5bdf8f3bf75374b2baf4856b95f876279ced38ce09caf5bc878a71189bf56c56eee605b813cc77e2d960493dc0a6e7cf491355d82aa68ea08b2d57e7220dea4#npm:4.1.0"],
+            ["@rollup/pluginutils", "virtual:f64f0ce353340e78d3cd4d6b52b8758cb8f6b9ad403bdf2f693693a1aa43b51a82d3c97d77043c4f264848ae028a0d7b24e898da35fdad4c8ed4f395717cb1f1#npm:4.1.0"],
+            ["@types/vite", null],
             ["debug", "virtual:901e1408cc8bfef5550e648cc3ee4f1ec6e307e3f5baab3ad60f0ba461a3df0a2fb4207ed57f6ec68edeacbb88063dcc84f3c35bb45638ba421a021eb350b42b#npm:4.3.2"],
             ["fast-glob", "npm:3.2.5"],
             ["vite", "npm:2.0.0-beta.55"]
+          ],
+          "packagePeers": [
+            "@types/vite",
+            "vite"
           ],
           "linkType": "HARD",
         }]
@@ -3490,10 +3502,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "SOFT",
         }],
-        ["virtual:e5bdf8f3bf75374b2baf4856b95f876279ced38ce09caf5bc878a71189bf56c56eee605b813cc77e2d960493dc0a6e7cf491355d82aa68ea08b2d57e7220dea4#npm:4.1.0", {
-          "packageLocation": "./.yarn/$$virtual/@rollup-pluginutils-virtual-762cd67c22/0/cache/@rollup-pluginutils-npm-4.1.0-d00c3a42d6-566b8d2bcc.zip/node_modules/@rollup/pluginutils/",
+        ["virtual:f64f0ce353340e78d3cd4d6b52b8758cb8f6b9ad403bdf2f693693a1aa43b51a82d3c97d77043c4f264848ae028a0d7b24e898da35fdad4c8ed4f395717cb1f1#npm:4.1.0", {
+          "packageLocation": "./.yarn/$$virtual/@rollup-pluginutils-virtual-7c5e65fd99/0/cache/@rollup-pluginutils-npm-4.1.0-d00c3a42d6-566b8d2bcc.zip/node_modules/@rollup/pluginutils/",
           "packageDependencies": [
-            ["@rollup/pluginutils", "virtual:e5bdf8f3bf75374b2baf4856b95f876279ced38ce09caf5bc878a71189bf56c56eee605b813cc77e2d960493dc0a6e7cf491355d82aa68ea08b2d57e7220dea4#npm:4.1.0"],
+            ["@rollup/pluginutils", "virtual:f64f0ce353340e78d3cd4d6b52b8758cb8f6b9ad403bdf2f693693a1aa43b51a82d3c97d77043c4f264848ae028a0d7b24e898da35fdad4c8ed4f395717cb1f1#npm:4.1.0"],
             ["@types/rollup", null],
             ["estree-walker", "npm:2.0.2"],
             ["picomatch", "npm:2.2.2"],
