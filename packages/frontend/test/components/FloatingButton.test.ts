@@ -1,11 +1,12 @@
 import { shallowMount } from '@vue/test-utils';
+import toDiffableHtml from 'diffable-html';
 
 import FloatingButton from '~/components/FloatingButton.vue';
 
 jest.mock('vue-router');
 
 describe('FloatingButton component', () => {
-  it('renders correctly', () => {
+  it('should render correctly', () => {
     // given
     const iconName = 'settings';
 
@@ -17,7 +18,7 @@ describe('FloatingButton component', () => {
     });
 
     // then
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
   });
 
   it('should load the correct icon', () => {

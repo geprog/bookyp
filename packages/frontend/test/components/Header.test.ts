@@ -1,11 +1,12 @@
 import { mount, shallowMount } from '@vue/test-utils';
+import toDiffableHtml from 'diffable-html';
 
 import Header from '~/components/Header.vue';
 
 jest.mock('vue-router');
 
 describe('Header component', () => {
-  it('renders correctly', () => {
+  it('should render correctly', () => {
     // given
     const title = 'Home';
 
@@ -18,7 +19,7 @@ describe('Header component', () => {
     });
 
     // then
-    expect(header.html()).toMatchSnapshot();
+    expect(toDiffableHtml(header.html())).toMatchSnapshot();
   });
 
   it('should include content for right side', () => {

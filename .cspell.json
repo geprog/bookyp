@@ -65,7 +65,8 @@
     "lerna",
     "outfile",
     "interruptible",
-    "rushstack"
+    "rushstack",
+    "diffable"
   ],
   "ignorePaths": [
     "**/node_modules/**/*",

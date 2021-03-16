@@ -1048,6 +1048,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vuedx/typescript-plugin-vue", "npm:0.6.3"],
             ["autoprefixer", "virtual:b37c0c7e4dc31b1690e3b65797a3b9e8580e0f796c878e5cfcdb4f9e10a45dcdd5863d9e8fed60f9f197e7637b6058a11d7d98688288a0d259adf81ded7e01fb#npm:10.2.5"],
             ["babel-jest", "virtual:caddf51df4928b33a437ca87b8f5ddfb6205ebd6d8231f74d4ee7223f3866e6f815b221aa1e2bd33e98915f701e95bae72a93d2288b49a34a6246bdbc2a4a132#npm:26.6.3"],
+            ["diffable-html", "https://github.com/anbraten/diffable-html.git#commit=23e46c8f58d57ee843e49d263e2b4eb437be1037"],
             ["eslint", "npm:7.22.0"],
             ["jest", "npm:26.6.3"],
             ["shx", "npm:0.3.3"],
@@ -7450,6 +7451,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["diffable-html", [
+        ["https://github.com/anbraten/diffable-html.git#commit=23e46c8f58d57ee843e49d263e2b4eb437be1037", {
+          "packageLocation": "./.yarn/cache/diffable-html-https-4c6343c7b2-2dc20c78fa.zip/node_modules/diffable-html/",
+          "packageDependencies": [
+            ["diffable-html", "https://github.com/anbraten/diffable-html.git#commit=23e46c8f58d57ee843e49d263e2b4eb437be1037"],
+            ["htmlparser2", "npm:3.10.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["dir-glob", [
         ["npm:3.0.1", {
           "packageLocation": "./.yarn/cache/dir-glob-npm-3.0.1-1aea628b1b-687fa3bd60.zip/node_modules/dir-glob/",
@@ -7470,12 +7481,60 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["dom-serializer", [
+        ["npm:0.2.2", {
+          "packageLocation": "./.yarn/cache/dom-serializer-npm-0.2.2-2e24969c0e-598e05e71b.zip/node_modules/dom-serializer/",
+          "packageDependencies": [
+            ["dom-serializer", "npm:0.2.2"],
+            ["domelementtype", "npm:2.1.0"],
+            ["entities", "npm:2.2.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["domelementtype", [
+        ["npm:1.3.1", {
+          "packageLocation": "./.yarn/cache/domelementtype-npm-1.3.1-87c4b5f9f4-a4791788de.zip/node_modules/domelementtype/",
+          "packageDependencies": [
+            ["domelementtype", "npm:1.3.1"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:2.1.0", {
+          "packageLocation": "./.yarn/cache/domelementtype-npm-2.1.0-4c546c753e-c3e63b6c94.zip/node_modules/domelementtype/",
+          "packageDependencies": [
+            ["domelementtype", "npm:2.1.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["domexception", [
         ["npm:2.0.1", {
           "packageLocation": "./.yarn/cache/domexception-npm-2.0.1-81b20626ae-bde9f50cb5.zip/node_modules/domexception/",
           "packageDependencies": [
             ["domexception", "npm:2.0.1"],
             ["webidl-conversions", "npm:5.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["domhandler", [
+        ["npm:2.4.2", {
+          "packageLocation": "./.yarn/cache/domhandler-npm-2.4.2-497ea9cea1-dbe99b096a.zip/node_modules/domhandler/",
+          "packageDependencies": [
+            ["domhandler", "npm:2.4.2"],
+            ["domelementtype", "npm:1.3.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["domutils", [
+        ["npm:1.7.0", {
+          "packageLocation": "./.yarn/cache/domutils-npm-1.7.0-7a1529fcfc-a5b2f01fb3.zip/node_modules/domutils/",
+          "packageDependencies": [
+            ["domutils", "npm:1.7.0"],
+            ["dom-serializer", "npm:0.2.2"],
+            ["domelementtype", "npm:1.3.1"]
           ],
           "linkType": "HARD",
         }]
@@ -7708,6 +7767,22 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["enquirer", "npm:2.3.6"],
             ["ansi-colors", "npm:4.1.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["entities", [
+        ["npm:1.1.2", {
+          "packageLocation": "./.yarn/cache/entities-npm-1.1.2-78e77a4b6d-3a4259db35.zip/node_modules/entities/",
+          "packageDependencies": [
+            ["entities", "npm:1.1.2"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:2.2.0", {
+          "packageLocation": "./.yarn/cache/entities-npm-2.2.0-0fc8d5b2f7-ebd62621a1.zip/node_modules/entities/",
+          "packageDependencies": [
+            ["entities", "npm:2.2.0"]
           ],
           "linkType": "HARD",
         }]
@@ -9494,6 +9569,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/html-escaper-npm-2.0.2-38e51ef294-a216ae96fa.zip/node_modules/html-escaper/",
           "packageDependencies": [
             ["html-escaper", "npm:2.0.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["htmlparser2", [
+        ["npm:3.10.1", {
+          "packageLocation": "./.yarn/cache/htmlparser2-npm-3.10.1-1bc462e640-94fa6312e6.zip/node_modules/htmlparser2/",
+          "packageDependencies": [
+            ["htmlparser2", "npm:3.10.1"],
+            ["domelementtype", "npm:1.3.1"],
+            ["domhandler", "npm:2.4.2"],
+            ["domutils", "npm:1.7.0"],
+            ["entities", "npm:1.1.2"],
+            ["inherits", "npm:2.0.4"],
+            ["readable-stream", "npm:3.6.0"]
           ],
           "linkType": "HARD",
         }]
