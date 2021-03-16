@@ -15,6 +15,6 @@ describe('Hello-World component', () => {
     });
 
     // then
-    expect(icon.find('img').attributes('src')).toBe(`./src/assets/icons/${iconName}.svg`);
+    expect(icon.find('img').attributes('src')).toBe(`/src/assets/icons/${iconName}.svg`);
   });
 });

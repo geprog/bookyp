@@ -10,6 +10,16 @@ const routes: RouteRecordRaw[] = [
     component: (): Component => import('./views/Home.vue'),
   },
   {
+    path: '/settings/bookables',
+    name: 'settings-bookables',
+    component: (): Component => import('./views/settings/Bookables.vue'),
+  },
+  {
+    path: '/settings/bookable',
+    name: 'settings-bookable',
+    component: (): Component => import('./views/settings/Bookable.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: NotFound,

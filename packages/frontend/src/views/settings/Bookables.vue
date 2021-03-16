@@ -1,13 +1,11 @@
 <template>
-  <Header title="Home" has-back>
-    <Icon name="settings" @click="router.push({ name: 'settings-bookables' })" />
-
-    <template #second>
-      <div class="w-full bg-red-500">Mega nice</div>
-    </template>
-  </Header>
-  <div class="home">
-    <p>{{ t('hello') }} ;-)</p>
+  <Header :title="t('settings')" has-back />
+  <div class="bookables">
+    <FloatingButton
+      class="fixed bottom-8 right-8"
+      icon-name="add"
+      @click="router.replace({ name: 'settings-bookable' })"
+    />
   </div>
 </template>
 
@@ -16,12 +14,16 @@ import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
+import FloatingButton from '~/components/FloatingButton.vue';
 import Header from '~/components/Header.vue';
-import Icon from '~/components/Icon.vue';
 
 export default defineComponent({
-  name: 'Home',
-  components: { Header, Icon },
+  name: 'Bookables',
+  components: {
+    FloatingButton,
+    Header,
+  },
+
   setup() {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
