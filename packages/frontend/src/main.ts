@@ -1,11 +1,13 @@
-import './api/feathers';
 import 'windi.css';
 
 import { createApp } from 'vue';
 
 import App from './App.vue';
+import { connect } from './compositions/useFeathers';
 import i18n from './i18n';
 import router from './router';
+
+connect();
 
 const app = createApp(App);
 

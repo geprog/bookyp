@@ -10,7 +10,7 @@ describe('feathers api initialization', () => {
     const bookypCore = await import('@bookyp/core');
 
     // when
-    await import('~/api/feathers');
+    await import('~/compositions/useFeathers');
 
     // then
     expect(bookypCore.createApplication).toBeCalledTimes(1);
@@ -24,14 +24,29 @@ describe('feathers api initialization', () => {
     const socketioClient = await import('socket.io-client');
 
     // when
-    await import('~/api/feathers');
+    await import('~/compositions/useFeathers');
 
     // then
     expect(feathersSocketioClient.default).toBeCalledTimes(1);
-    expect(socketioClient.default).toBeCalledWith({
+    expect(socketioClient.io).toBeCalledWith({
       path: '/api/v1/socket',
       transports: ['websocket'],
-      autoConnect: true,
+      autoConnect: false,
     });
+  });
+
+  it('shall connect to the socket', async () => {
+    // given
+    jest.mock('socket.io-client');
+    const { io } = await import('socket.io-client');
+    const socket = io();
+
+    // when
+    const { connect } = await import('~/compositions/useFeathers');
+    connect();
+
+    // then
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(socket.connect).toBeCalled();
   });
 });
