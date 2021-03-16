@@ -80,6 +80,7 @@
     "package.json",
     ".devcontainer/devcontainer.json",
     ".vscode/extensions.json",
-    "coverage-final.json"
+    "**/coverage/**/*",
+    "**/*.log"
   ]
 }
