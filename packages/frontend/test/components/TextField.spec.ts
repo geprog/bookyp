@@ -1,9 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
+import toDiffableHtml from 'diffable-html';
 
 import TextField from '~/components/TextField.vue';
 
 describe('TextField component', () => {
-  it('renders correctly', () => {
+  it('should render correctly', () => {
     // given
     const modelValue = 'my-value';
     const placeholder = 'my-placeholder';
@@ -17,7 +18,7 @@ describe('TextField component', () => {
     });
 
     // then
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
   });
 
   describe('Internal input field', () => {
