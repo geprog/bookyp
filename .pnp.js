@@ -959,7 +959,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@rushstack/eslint-patch", "npm:1.0.6"],
             ["@types/jest", "npm:26.0.20"],
             ["@types/mongoose", "npm:5.10.3"],
-            ["esbuild", "npm:0.8.54"],
+            ["esbuild", "npm:0.9.2"],
             ["esbuild-jest", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:0.4.0"],
             ["esbuild-plugin-pnp", "virtual:4d1f09e7b1c54f295ad8ba6893f58becbb534bf17099c962fb9c6e6ac1674fac3795ad8b663ff9f1ee68f7d1b9e3d9206597efe42f834341beb52835f22889e9#npm:0.3.0"],
             ["eslint", "npm:7.22.0"],
@@ -991,7 +991,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@jest/types", "npm:27.0.0-next.1"],
             ["@rushstack/eslint-patch", "npm:1.0.6"],
             ["@types/jest", "npm:26.0.20"],
-            ["esbuild", "npm:0.8.54"],
+            ["esbuild", "npm:0.9.2"],
             ["esbuild-jest", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:0.4.0"],
             ["eslint", "npm:7.22.0"],
             ["jest", "npm:27.0.0-next.2"],
@@ -7791,6 +7791,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["esbuild", "npm:0.8.54"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:0.9.2", {
+          "packageLocation": "./.yarn/unplugged/esbuild-npm-0.9.2-a2f69bdcd9/node_modules/esbuild/",
+          "packageDependencies": [
+            ["esbuild", "npm:0.9.2"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["esbuild-jest", [
@@ -7806,7 +7813,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["esbuild-jest", "virtual:beac5e9d10a55211f65bbab957f439b0b651c5cd79ddd7243c808716eb8db131336fa0a6994c6a87f972d123277e88342e31fe24a09d0db90fe99839e9a9cada#npm:0.4.0"],
             ["@types/esbuild", null],
-            ["esbuild", "npm:0.8.54"]
+            ["esbuild", "npm:0.9.2"]
           ],
           "packagePeers": [
             "@types/esbuild",
@@ -7828,7 +7835,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["esbuild-plugin-pnp", "virtual:4d1f09e7b1c54f295ad8ba6893f58becbb534bf17099c962fb9c6e6ac1674fac3795ad8b663ff9f1ee68f7d1b9e3d9206597efe42f834341beb52835f22889e9#npm:0.3.0"],
             ["@types/esbuild", null],
-            ["esbuild", "npm:0.8.54"]
+            ["esbuild", "npm:0.9.2"]
           ],
           "packagePeers": [
             "@types/esbuild",
