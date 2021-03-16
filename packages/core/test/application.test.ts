@@ -1,5 +1,6 @@
 describe('Application', () => {
   it('shall create an application', async () => {
+    expect.assertions(1);
     // given
     jest.mock('@feathersjs/feathers');
     const feathers = await import('@feathersjs/feathers');
@@ -9,6 +10,6 @@ describe('Application', () => {
     application.createApplication();
 
     // then
-    expect(feathers).toBeCalledTimes(1);
+    expect(feathers).toHaveBeenCalledTimes(1);
   });
 });

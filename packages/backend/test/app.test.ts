@@ -7,6 +7,7 @@ describe('app initialization', () => {
   });
 
   it('shall use @bookyp/core createApplication', async () => {
+    expect.assertions(1);
     // given
     jest.mock('@bookyp/core');
     const bookypCore = await import('@bookyp/core');
@@ -15,10 +16,11 @@ describe('app initialization', () => {
     await import('~/app');
 
     // then
-    expect(bookypCore.createApplication).toBeCalledTimes(1);
+    expect(bookypCore.createApplication).toHaveBeenCalledTimes(1);
   });
 
   it('shall init a socket with @feathersjs/socketio', async () => {
+    expect.assertions(1);
     // given
     jest.mock('@feathersjs/socketio');
     const socketio = await import('@feathersjs/socketio');
@@ -27,7 +29,7 @@ describe('app initialization', () => {
     await import('~/app');
 
     // then
-    expect(socketio.default).toBeCalledWith({
+    expect(socketio.default).toHaveBeenCalledWith({
       path: '/api/v1/socket',
       serveClient: false,
     });
