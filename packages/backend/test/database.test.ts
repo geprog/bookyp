@@ -1,10 +1,10 @@
-describe('database', () => {
+describe('Database', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     jest.resetModules();
   });
 
-  it('shall successfully connect with uri', async () => {
+  it('should successfully connect with an uri', async () => {
     expect.assertions(2);
     // given
     const uri = 'fake-uri';
@@ -29,7 +29,7 @@ describe('database', () => {
     expect(mongoose.connect).toHaveBeenCalledWith(uri, expect.anything());
   });
 
-  it('shall successfully connect with separate settings', async () => {
+  it('should successfully connect with separate settings', async () => {
     expect.assertions(2);
     // given
     const dbConfig = {
@@ -57,7 +57,7 @@ describe('database', () => {
     expect(mongoose.connect).toHaveBeenCalledWith(expectedUri, expect.anything());
   });
 
-  it('shall successfully connect with separate settings and credentials', async () => {
+  it('should successfully connect with separate settings and credentials', async () => {
     expect.assertions(2);
     // given
     const dbConfig = {

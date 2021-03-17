@@ -1,12 +1,12 @@
 import { jest } from '@jest/globals';
 
-describe('app initialization', () => {
+describe('App', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     jest.resetModules();
   });
 
-  it('shall use @bookyp/core createApplication', async () => {
+  it('should use @bookyp/core createApplication', async () => {
     expect.assertions(1);
     // given
     jest.mock('@bookyp/core');
@@ -19,7 +19,7 @@ describe('app initialization', () => {
     expect(bookypCore.createApplication).toHaveBeenCalledTimes(1);
   });
 
-  it('shall init a socket with @feathersjs/socketio', async () => {
+  it('should init a socket with @feathersjs/socketio', async () => {
     expect.assertions(1);
     // given
     jest.mock('@feathersjs/socketio');

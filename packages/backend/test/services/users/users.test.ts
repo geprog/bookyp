@@ -3,13 +3,13 @@ import { Service as MongooseService } from 'feathers-mongoose';
 import serviceIndex from '~/services';
 import UsersService from '~/services/users/users.service';
 
-describe("'users' service", () => {
+describe('Users service', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     jest.resetModules();
   });
 
-  it('configured the service', async () => {
+  it('should configure the service', async () => {
     expect.assertions(1);
     // given
     jest.mock('@bookyp/core');
@@ -23,7 +23,7 @@ describe("'users' service", () => {
     expect(app.configure).toHaveBeenCalledWith(UsersService);
   });
 
-  it('registered the service', async () => {
+  it('should register the service', async () => {
     expect.assertions(2);
     // given
     jest.mock('@bookyp/core');

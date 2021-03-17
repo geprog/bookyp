@@ -16,7 +16,7 @@ module.exports = {
         '@typescript-eslint/unbound-method': 'off',
         'jest/unbound-method': 'error',
         'jest/prefer-expect-assertions': ['error', { onlyFunctionsWithAsyncKeyword: true }],
-        'jest/lowercase-name': ['error', { ignoreTopLevelDescribe: true }],
+        'jest/lowercase-name': ['error', { ignore: ['describe'] }],
         'jest/no-hooks': 'off',
       },
     },

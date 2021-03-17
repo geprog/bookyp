@@ -1,10 +1,10 @@
-describe('feathers api initialization', () => {
+describe('Feathers composition', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     jest.resetModules();
   });
 
-  it('shall use @bookyp/core createApplication', async () => {
+  it('should use @bookyp/core createApplication', async () => {
     expect.assertions(1);
     // given
     jest.mock('@bookyp/core');
@@ -17,7 +17,7 @@ describe('feathers api initialization', () => {
     expect(bookypCore.createApplication).toHaveBeenCalledTimes(1);
   });
 
-  it('shall init a socket with socket.io-client with @feathersjs/socketio-client', async () => {
+  it('should init a socket with socket.io-client with @feathersjs/socketio-client', async () => {
     expect.assertions(2);
     // given
     jest.mock('@feathersjs/socketio-client');
@@ -37,7 +37,7 @@ describe('feathers api initialization', () => {
     });
   });
 
-  it('shall connect to the socket', async () => {
+  it('should connect to the socket', async () => {
     expect.assertions(1);
     // given
     jest.mock('socket.io-client');
