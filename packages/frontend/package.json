@@ -20,7 +20,7 @@
     "vue-router": "4.0.4"
   },
   "devDependencies": {
-    "@babel/core": "7.13.8",
+    "@babel/core": "7.13.10",
     "@bookyp/eslint-config": "*",
     "@intlify/vite-plugin-vue-i18n": "2.0.1",
     "@jest/types": "26.6.2",
