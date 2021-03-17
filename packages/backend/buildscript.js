@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /** eslint-env node */
 const esbuild = require('esbuild');
 const pnpPlugin = require('esbuild-plugin-pnp');
