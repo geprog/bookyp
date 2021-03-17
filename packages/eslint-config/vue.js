@@ -23,6 +23,7 @@ module.exports = {
     '@vue/prettier',
     '@vue/prettier/@typescript-eslint',
     'plugin:vue-scoped-css/recommended',
+    'plugin:@intlify/vue-i18n/recommended',
   ],
 
   rules: {
@@ -63,6 +64,18 @@ module.exports = {
     'vue/new-line-between-multi-line-property': 'error',
     'vue/padding-line-between-blocks': 'error',
 
+    // i18n rules
+    '@intlify/vue-i18n/valid-message-syntax': 'error',
+    '@intlify/vue-i18n/no-missing-keys': 'error',
+    '@intlify/vue-i18n/key-format-style': ['error', 'snake_case'],
+    '@intlify/vue-i18n/no-unused-keys': [
+      'error',
+      {
+        src: './src',
+        extensions: ['.ts', '.vue'],
+      },
+    ],
+
     // css rules
     'vue-scoped-css/no-unused-selector': 'error',
     'vue-scoped-css/no-parsing-error': 'error',
@@ -72,4 +85,21 @@ module.exports = {
     'prettier/prettier': 'error',
     curly: 'error',
   },
+
+  settings: {
+    'vue-i18n': {
+      localeDir: './src/locales/*.json',
+
+      // Specify the version of `vue-i18n` you are using.
+      // If not specified, the message will be parsed twice.
+      messageSyntaxVersion: '^9.0.0',
+    },
+  },
+
+  overrides: [
+    {
+      files: ['*.json'],
+      extends: ['plugin:@intlify/vue-i18n/base'],
+    },
+  ],
 };

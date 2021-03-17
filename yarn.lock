@@ -559,6 +559,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@bookyp/eslint-config@workspace:packages/eslint-config"
   dependencies:
+    "@intlify/eslint-plugin-vue-i18n": 0.11.0
     "@typescript-eslint/eslint-plugin": 4.17.0
     "@typescript-eslint/parser": 4.17.0
     "@vue/eslint-config-prettier": 6.0.0
@@ -1295,7 +1296,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/message-compiler@npm:9.0.0, @intlify/message-compiler@npm:^9.0.0-beta.16":
+"@intlify/eslint-plugin-vue-i18n@npm:0.11.0":
+  version: 0.11.0
+  resolution: "@intlify/eslint-plugin-vue-i18n@npm:0.11.0"
+  dependencies:
+    "@intlify/message-compiler": ^9.0.0-rc.5
+    "@intlify/message-resolver": ^9.0.0-rc.5
+    glob: ^7.1.3
+    ignore: ^5.0.5
+    js-yaml: ^4.0.0
+    json5: ^2.1.3
+    jsonc-eslint-parser: ^0.6.2
+    lodash: ^4.17.11
+    parse5: ^6.0.0
+    semver: ^7.3.4
+    vue-eslint-parser: ^7.3.0
+    yaml-eslint-parser: ^0.3.0
+  peerDependencies:
+    eslint: ^5.0.0 || ^6.0.0 || ^7.0.0
+  checksum: 290af4444f9144c04528750aa6a207a6affffe8fb8b89364b19fdc070b5bf956d5a68cd0e918e5e9e16cd5099cc14f2c5fb765248f5f000169d258f8f1fb815e
+  languageName: node
+  linkType: hard
+
+"@intlify/message-compiler@npm:9.0.0, @intlify/message-compiler@npm:^9.0.0-beta.16, @intlify/message-compiler@npm:^9.0.0-rc.5":
   version: 9.0.0
   resolution: "@intlify/message-compiler@npm:9.0.0"
   dependencies:
@@ -1306,7 +1329,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@intlify/message-resolver@npm:9.0.0":
+"@intlify/message-resolver@npm:9.0.0, @intlify/message-resolver@npm:^9.0.0-rc.5":
   version: 9.0.0
   resolution: "@intlify/message-resolver@npm:9.0.0"
   checksum: 540708eec7ee0ba2334d9e151942edf672ddaa0cc74b1f97d59200a195968d1278f052980b98ff120531ba341ed2cc93b16ba56a5ae16a14ef8abe572addb3fe
@@ -4175,6 +4198,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"argparse@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "argparse@npm:2.0.1"
+  checksum: 160b7a25d2a7097fd5fdf25eb8a99e037340078f70e6c7cfdef305837ed14d54570b2b13261bcae26c8cd44ad6e9a7136a0110d815ac65a7891c69c7bf2f4afd
+  languageName: node
+  linkType: hard
+
 "arr-diff@npm:^4.0.0":
   version: 4.0.0
   resolution: "arr-diff@npm:4.0.0"
@@ -5850,6 +5880,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:*, debug@npm:4, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.2.0, debug@npm:^4.3.1, debug@npm:~4.3.1":
+  version: 4.3.2
+  resolution: "debug@npm:4.3.2"
+  dependencies:
+    ms: 2.1.2
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 5543570879e2274f6725d4285a034d6e0822d35faefc6f55965933fb440e8c21eb3a0bef934e66f4b6b491f898ee2de37cab980e9d4fd61372136c19d3ce4527
+  languageName: node
+  linkType: hard
+
 "debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -5865,18 +5907,6 @@ __metadata:
   dependencies:
     ms: 2.0.0
   checksum: 1295acd5e0531761255661d325cd0a80ac8c5f6de8942a53bb23c2197ccb97526972de662ed0e5d9393be83f3428a298a6e7185ecb02f0da6282019cd2ffb4a8
-  languageName: node
-  linkType: hard
-
-"debug@npm:4, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.2.0, debug@npm:^4.3.1, debug@npm:~4.3.1":
-  version: 4.3.2
-  resolution: "debug@npm:4.3.2"
-  dependencies:
-    ms: 2.1.2
-  peerDependenciesMeta:
-    supports-color:
-      optional: true
-  checksum: 5543570879e2274f6725d4285a034d6e0822d35faefc6f55965933fb440e8c21eb3a0bef934e66f4b6b491f898ee2de37cab980e9d4fd61372136c19d3ce4527
   languageName: node
   linkType: hard
 
@@ -8157,7 +8187,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"ignore@npm:^5.1.4":
+"ignore@npm:^5.0.5, ignore@npm:^5.1.4":
   version: 5.1.8
   resolution: "ignore@npm:5.1.8"
   checksum: b08e3d5b5d94eca13475f29a5d47d221060e9cdd7e38d7647088e29d90130669a970fecbc4cdb41b8fa295c6673740c729d3dc05dadc381f593efb42282cbf9f
@@ -9774,6 +9804,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"js-yaml@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "js-yaml@npm:4.0.0"
+  dependencies:
+    argparse: ^2.0.1
+  bin:
+    js-yaml: bin/js-yaml.js
+  checksum: ee9b16cdbba690ec70f46d61737b28b35e26e6d51606c466de7fa876d3517de0cfdffd2e1ef21263d5ca3b32659d2e4c65255f50d6e236f022305bce72242d46
+  languageName: node
+  linkType: hard
+
 "jsbn@npm:~0.1.0":
   version: 0.1.1
   resolution: "jsbn@npm:0.1.1"
@@ -9927,7 +9968,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"jsonc-eslint-parser@npm:^0.6.0":
+"jsonc-eslint-parser@npm:^0.6.0, jsonc-eslint-parser@npm:^0.6.2":
   version: 0.6.2
   resolution: "jsonc-eslint-parser@npm:0.6.2"
   dependencies:
@@ -10391,7 +10432,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.x, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
+"lodash@npm:4.x, lodash@npm:^4.17.11, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 4983720b9abca930a4a46f18db163d7dad8dd00dbed6db0cc7b499b33b717cce69f80928b27bbb1ff2cbd3b19d251ee90669a8b5ea466072ca81c2ebe91e7468
@@ -11935,7 +11976,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"parse5@npm:^6.0.1":
+"parse5@npm:^6.0.0, parse5@npm:^6.0.1":
   version: 6.0.1
   resolution: "parse5@npm:6.0.1"
   checksum: e312014edd76a6dc2eac35248ad53477b2594a7b92b7a00f66169483bb87c3d1d36660daddeb720457418dfe0893eb3ad1043085047fc3699167afa6834cb4c4
@@ -15154,7 +15195,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"vue-eslint-parser@npm:7.6.0, vue-eslint-parser@npm:^7.0.0, vue-eslint-parser@npm:^7.6.0":
+"vue-eslint-parser@npm:7.6.0, vue-eslint-parser@npm:^7.0.0, vue-eslint-parser@npm:^7.3.0, vue-eslint-parser@npm:^7.6.0":
   version: 7.6.0
   resolution: "vue-eslint-parser@npm:7.6.0"
   dependencies:
@@ -15568,6 +15609,17 @@ fsevents@~2.1.2:
     yaml: ^1.10.0
     yaml-unist-parser: ^1.2.1
   checksum: 78bcac61cf345c4f80e7f66d1403694c50e5b5530fddbf1f44c14c6293c51ee70b9ff99f446f78c40bb44f4fdfb4461b9dc42a9cdd4e7cf4d598261cf05f0758
+  languageName: node
+  linkType: hard
+
+"yaml-eslint-parser@npm:^0.3.0":
+  version: 0.3.2
+  resolution: "yaml-eslint-parser@npm:0.3.2"
+  dependencies:
+    eslint-visitor-keys: ^1.3.0
+    lodash: ^4.17.20
+    yaml: ^1.10.0
+  checksum: e1deffdb7eec1bd8723e67a707d1635731b5d34025bf3737e340af53ed67b27a69cec39686e7575e4dec4209de7dc60d0dc276fd9657ea74a8ec303879d95240
   languageName: node
   linkType: hard
 
