@@ -1,13 +1,9 @@
 <template>
   <Header title="Home" has-back>
     <Icon name="settings" @click="router.push({ name: 'settings-bookables' })" />
-
-    <template #second>
-      <div class="w-full bg-red-500">Mega nice</div>
-    </template>
   </Header>
   <div class="home">
-    <p>{{ t('hello') }} ;-)</p>
+    <p>{{ t('hello') }}</p>
   </div>
 </template>
 

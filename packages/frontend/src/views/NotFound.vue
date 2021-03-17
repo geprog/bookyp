@@ -1,14 +1,21 @@
 <template>
   <div class="not-found">
-    <p>Whoa 404, either we broke something or you had a typing mishap :-/</p>
-    <router-link :to="{ name: 'home' }">Back to home</router-link>
+    <p>{{ t('not_found_message') }}</p>
+    <router-link :to="{ name: 'home' }">{{ t('back_to_home') }}</router-link>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
   name: 'NotFound',
+
+  setup() {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const { t } = useI18n();
+    return { t };
+  },
 });
 </script>
