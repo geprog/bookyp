@@ -604,7 +604,7 @@ __metadata:
     typescript: 4.2.3
     typescript-transform-paths: 2.2.3
     vite: 2.0.0-beta.55
-    vite-plugin-windicss: 0.4.7
+    vite-plugin-windicss: 0.9.0
     vti: 0.1.1
     vue: 3.0.7
     vue-i18n: 9.0.0
@@ -3749,16 +3749,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@windicss/plugin-utils@npm:0.4.7":
-  version: 0.4.7
-  resolution: "@windicss/plugin-utils@npm:0.4.7"
+"@windicss/plugin-utils@npm:0.9.0":
+  version: 0.9.0
+  resolution: "@windicss/plugin-utils@npm:0.9.0"
   dependencies:
-    esbuild: ^0.8.50
-    esbuild-register: ^2.0.0
     fast-glob: ^3.2.5
     micromatch: ^4.0.2
-    windicss: ^2.1.19
-  checksum: a40e8ed0073f807c11fc05e96f64b4ec82373fc4eb7a4a7c8ccbd2de17879aba5fc3108eaa03a16cdc7b22614bdbdbc0a56bd1993064abd0af47fc0136125d12
+    sucrase: ^3.17.1
+    windicss: ^2.4.7
+  checksum: fbee13d4e6218b10f0f29ebc4ed0ad22d002fe8d8b8b17c27b0abdeb7bdc2e616eb1e6ab95b494a778717fa83b8e56e71c8754e48ea0a5a5c20e2e542cb4ade4
   languageName: node
   linkType: hard
 
@@ -4599,7 +4598,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"body-parser@npm:1.19.0":
+"body-parser@npm:1.19.0, body-parser@npm:^1.19.0":
   version: 1.19.0
   resolution: "body-parser@npm:1.19.0"
   dependencies:
@@ -5299,6 +5298,13 @@ __metadata:
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
   checksum: b73428e97de7624323f81ba13f8ed9271de487017432d18b4da3f07cfc528ad754bbd199004bd5d14e0ccd67d1fdfe0ec8dbbd4c438b401df3c4cc387bfd1daa
+  languageName: node
+  linkType: hard
+
+"commander@npm:^4.0.0":
+  version: 4.1.1
+  resolution: "commander@npm:4.1.1"
+  checksum: 448585071bf8fb4c0bf9dd52abaee43dea086f801334caec2c8e8c9f456f8abc224c1614ccbbdbf7da5ac2524d230f13cf1fc86c233cf8a041ebecea7df106e9
   languageName: node
   linkType: hard
 
@@ -6500,20 +6506,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-register@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "esbuild-register@npm:2.0.0"
-  dependencies:
-    joycon: ^2.2.5
-    pirates: ^4.0.1
-    source-map-support: ^0.5.19
-    strip-json-comments: ^3.1.1
-  peerDependencies:
-    esbuild: ">=0.8.31"
-  checksum: 0238fda04eaa843cf0b684250061c797b0394f1103032987cbd3612c9ce56b6ca782afa6b955f2658a5949bb71766168e319362ce3bc96067cce556e1fb881a3
-  languageName: node
-  linkType: hard
-
 "esbuild@npm:0.9.2":
   version: 0.9.2
   resolution: "esbuild@npm:0.9.2"
@@ -6523,7 +6515,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.8.34, esbuild@npm:^0.8.50":
+"esbuild@npm:^0.8.34":
   version: 0.8.54
   resolution: "esbuild@npm:0.8.54"
   bin:
@@ -7650,7 +7642,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"glob@npm:^7.0.0, glob@npm:^7.1.1, glob@npm:^7.1.2, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6":
+"glob@npm:7.1.6, glob@npm:^7.0.0, glob@npm:^7.1.1, glob@npm:^7.1.2, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6":
   version: 7.1.6
   resolution: "glob@npm:7.1.6"
   dependencies:
@@ -9760,13 +9752,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"joycon@npm:^2.2.5":
-  version: 2.2.5
-  resolution: "joycon@npm:2.2.5"
-  checksum: 7908f551e05aa754d1068053ec1304c12f3abc9c812f7c5a58bef7d35d247c3b1da14e508970bd411191099949756e2190e24c24b3382f818e7cda83e8ea1899
-  languageName: node
-  linkType: hard
-
 "js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -11056,7 +11041,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"mz@npm:^2.4.0":
+"mz@npm:^2.4.0, mz@npm:^2.7.0":
   version: 2.7.0
   resolution: "mz@npm:2.7.0"
   dependencies:
@@ -13629,7 +13614,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.17, source-map-support@npm:^0.5.19, source-map-support@npm:^0.5.6":
+"source-map-support@npm:^0.5.17, source-map-support@npm:^0.5.6":
   version: 0.5.19
   resolution: "source-map-support@npm:0.5.19"
   dependencies:
@@ -14109,6 +14094,23 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"sucrase@npm:^3.17.1":
+  version: 3.17.1
+  resolution: "sucrase@npm:3.17.1"
+  dependencies:
+    commander: ^4.0.0
+    glob: 7.1.6
+    lines-and-columns: ^1.1.6
+    mz: ^2.7.0
+    pirates: ^4.0.1
+    ts-interface-checker: ^0.1.9
+  bin:
+    sucrase: bin/sucrase
+    sucrase-node: bin/sucrase-node
+  checksum: 7e0bf20b1ecf1bb0a363062bb85a2a007be0bad984abb12767bc094ecea57093e59ff47ebdb9380347d6c0b3c5b529ef831be08e25a005a2795201d906322d82
+  languageName: node
+  linkType: hard
+
 "supports-color@npm:*, supports-color@npm:^8.0.0":
   version: 8.1.1
   resolution: "supports-color@npm:8.1.1"
@@ -14463,6 +14465,13 @@ fsevents@~2.1.2:
   version: 1.0.1
   resolution: "trim-off-newlines@npm:1.0.1"
   checksum: c590b9e8c1d91ac1b57b65f8ed7cc7837e702d86f47c725462cc7e03f3850dfa92a32f956d350632208aa78e9be03917a21d9ef5d139c30be13bb51bf576209f
+  languageName: node
+  linkType: hard
+
+"ts-interface-checker@npm:^0.1.9":
+  version: 0.1.13
+  resolution: "ts-interface-checker@npm:0.1.13"
+  checksum: df3e240963951b9fdcb6c89fe7cbbf3facac2f8202dec7d6854f136ac50ddbee8f4783bc233940a7c033eed0f1fec8272ed4a12ec505b333d69b58388267d37a
   languageName: node
   linkType: hard
 
@@ -15057,15 +15066,16 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"vite-plugin-windicss@npm:0.4.7":
-  version: 0.4.7
-  resolution: "vite-plugin-windicss@npm:0.4.7"
+"vite-plugin-windicss@npm:0.9.0":
+  version: 0.9.0
+  resolution: "vite-plugin-windicss@npm:0.9.0"
   dependencies:
-    "@windicss/plugin-utils": 0.4.7
-    windicss: ^2.1.19
+    "@windicss/plugin-utils": 0.9.0
+    body-parser: ^1.19.0
+    windicss: ^2.4.7
   peerDependencies:
     vite: ^2.0.1
-  checksum: 50f152795dba4fcf5794f0eea72107ac7e6d7ca8724a1b9e9ef0d752cd337cc9ce0247dbf8acb30af5cc40e561acd8ec49927bfa74e0c10bd41b95452f145f85
+  checksum: f87be86629438baac3aea56b3df137f49ff375ebe646f074c072646c2f3e6cfb3f03609e84ae3cbc94040ba3142f8130271797755ede316d9dabb597767c1c75
   languageName: node
   linkType: hard
 
@@ -15356,12 +15366,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"windicss@npm:^2.1.19":
-  version: 2.2.0
-  resolution: "windicss@npm:2.2.0"
+"windicss@npm:^2.4.7":
+  version: 2.4.7
+  resolution: "windicss@npm:2.4.7"
   bin:
     windicss: cli/index.js
-  checksum: e0ab052fbdfa89d69ec2931b716c573014f268b37ca7d83ca15fafbbc4ed9684b3765e44029e4b7c4e20a992ebd8dc6d3c639329ace53b8ecf948a567e016c28
+  checksum: 233b27555e1b53a8ba26ccbf65e977e066d35a9892540f52949ae8fbfed73505af0724349d584d3c80e9816d2271145ec9568f9dc13e1d96dd16aa59d533a9af
   languageName: node
   linkType: hard
 
