@@ -22,7 +22,7 @@
   "devDependencies": {
     "@babel/core": "7.13.10",
     "@bookyp/eslint-config": "*",
-    "@intlify/vite-plugin-vue-i18n": "2.0.1",
+    "@intlify/vite-plugin-vue-i18n": "2.0.3",
     "@jest/types": "26.6.2",
     "@rushstack/eslint-patch": "1.0.6",
     "@types/jest": "26.0.20",
