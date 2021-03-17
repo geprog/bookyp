@@ -3,7 +3,7 @@ import { Service as MongooseService } from 'feathers-mongoose';
 import serviceIndex from '~/services';
 import BookablesService from '~/services/bookables/bookables.service';
 
-describe('bookables service', () => {
+describe('Bookables service', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     jest.resetModules();

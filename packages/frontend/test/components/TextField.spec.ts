@@ -21,7 +21,7 @@ describe('TextField component', () => {
     expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
   });
 
-  describe('internal input field', () => {
+  describe('Internal input field', () => {
     it('should render HTML input element', () => {
       // when
       const wrapper = shallowMount(TextField);
@@ -62,7 +62,7 @@ describe('TextField component', () => {
     });
   });
 
-  describe('input placeholder', () => {
+  describe('Input placeholder', () => {
     it('should not have a placeholder', () => {
       // when
       const wrapper = shallowMount(TextField);

@@ -2,8 +2,8 @@ import { mount } from '@vue/test-utils';
 
 import Icon from '~/components/Icon.vue';
 
-describe('Hello-World component', () => {
-  it('works', () => {
+describe('Icon component', () => {
+  it('should use specified icon', () => {
     // given
     const iconName = 'It works!';
 
