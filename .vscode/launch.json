@@ -30,6 +30,21 @@
       "env": {
         "NODE_OPTIONS": "--experimental-vm-modules"
       }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug - Frontend - Jest",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/packages/frontend",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["run", "--inspect-brk", "jest", "--forceExit", "--detectOpenHandles", "--runInBand"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "NODE_OPTIONS": "--experimental-vm-modules"
+      }
     }
   ]
 }
