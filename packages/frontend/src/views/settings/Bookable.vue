@@ -1,12 +1,16 @@
 <template>
-  <Header :title="t('settings')" has-back>
+  <Header :title="t('bookable_details')" has-back>
     <button type="submit" form="bookable">
       <Icon name="check-mark" />
     </button>
   </Header>
-  <form id="bookable" class="bookable" @submit.prevent="submit">
-    <input v-model="bookableName" type="text" />
-    <input v-model="description" type="text" />
+  <form id="bookable" class="bookable mx-4" @submit.prevent="submit">
+    <InputField icon-name="edit">
+      <TextField v-model="bookableName" :placeholder="t('name')" />
+    </InputField>
+    <InputField icon-name="description">
+      <TextField v-model="description" :placeholder="t('description')" />
+    </InputField>
   </form>
 </template>
 
@@ -17,12 +21,14 @@ import { useRouter } from 'vue-router';
 
 import Header from '~/components/Header.vue';
 import Icon from '~/components/Icon.vue';
+import InputField from '~/components/InputField.vue';
+import TextField from '~/components/TextField.vue';
 import useFeathers from '~/compositions/useFeathers';
 
 export default defineComponent({
   name: 'Bookable',
 
-  components: { Header, Icon },
+  components: { Header, TextField, InputField, Icon },
 
   setup() {
     // eslint-disable-next-line @typescript-eslint/unbound-method

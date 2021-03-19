@@ -1,7 +1,6 @@
-import AbstractEntity from '~/model/AbstractEntity';
+import AbstractEntity, { Ref } from '~/model/AbstractEntity';
 import User from '~/model/auth/User';
 import Bookable from '~/model/Bookable';
-import Ref from '~/model/Ref';
 
 export default class Booking extends AbstractEntity {
   start!: Date;

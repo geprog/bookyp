@@ -1,6 +1,6 @@
-import AbstractEntity from './AbstractEntity';
+import AbstractEntity, { Ref } from './AbstractEntity';
 import User from './auth/User';
 import Bookable from './Bookable';
 import Booking from './Booking';
 
-export { AbstractEntity, Bookable, Booking, User };
+export { AbstractEntity, Bookable, Booking, Ref, User };
