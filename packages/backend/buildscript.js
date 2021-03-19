@@ -32,7 +32,7 @@ esbuild
     plugins: [
       resolveRootAlias,
       pnpPlugin({
-        external: ['mongodb-client-encryption', 'aws4'],
+        external: ['mongodb-client-encryption', 'aws4', 'request-defaults', 'request-logs'],
       }),
     ],
   })

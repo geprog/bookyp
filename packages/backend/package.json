@@ -9,12 +9,14 @@
     "build": "node buildscript.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules yarn jest --forceExit --detectOpenHandles",
     "lint": "eslint --cache --max-warnings 0 .",
+    "lint-fix": "eslint --cache --max-warnings 0 . --fix",
     "typecheck": "ttsc --noEmit",
     "clean": "shx rm -rf dist/"
   },
   "dependencies": {
     "@bookyp/core": "0.0.1",
     "@feathersjs/authentication": "5.0.0-pre.1",
+    "@feathersjs/authentication-oauth": "raphaelschwinger/feathers#feathersjs-authentication-oauth-v5.0.0-pre.1-gitpkg",
     "@feathersjs/express": "5.0.0-pre.1",
     "@feathersjs/feathers": "5.0.0-pre.1",
     "@feathersjs/socketio": "5.0.0-pre.1",
