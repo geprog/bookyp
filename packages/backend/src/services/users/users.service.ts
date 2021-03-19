@@ -3,7 +3,8 @@ import { MongooseServiceOptions, Service } from 'feathers-mongoose';
 import { Document, model, Schema } from 'mongoose';
 
 const UserSchema = new Schema<Model.User>({
-  username: { type: String, required: true, unique: true },
+  name: { type: String },
+  email: { type: String, required: true, unique: true },
 });
 
 export const name = 'users';

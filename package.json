@@ -38,6 +38,8 @@
   },
   "resolutions": {
     "postcss": "8.2.8",
+    "@feathersjs/authentication-oauth/grant": "raphaelschwinger/grant#fix-dynamic-import",
+    "grant/request-compose": "raphaelschwinger/request-compose#fix-dynamic-import",
     "@vue/compiler-core": "3.0.5"
   }
 }

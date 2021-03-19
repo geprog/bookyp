@@ -1,5 +1,3 @@
-import express from '@feathersjs/express';
-
 import app from './app';
 import config from './config';
 import { connect as databaseConnect } from './database';
@@ -12,8 +10,7 @@ async function start(): Promise<void> {
 
   await databaseConnect();
 
-  const server = express(app);
-  server.listen(port);
+  app.listen(port);
 
   // eslint-disable-next-line no-console
   console.log('🚀 Backend running at:');
