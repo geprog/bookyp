@@ -569,6 +569,7 @@ __metadata:
     eslint-config-prettier: 8.1.0
     eslint-plugin-jest: 24.3.1
     eslint-plugin-prettier: 3.3.1
+    eslint-plugin-promise: 4.3.1
     eslint-plugin-simple-import-sort: 7.0.0
     eslint-plugin-vue: 7.7.0
     eslint-plugin-vue-scoped-css: 1.1.0
@@ -7179,6 +7180,13 @@ __metadata:
     eslint-config-prettier:
       optional: true
   checksum: cf35b0f0e9ef30782fe82913db92f6874181723d77f0c4613f9d69c87069f73d0dc420ef850ebc844613c00a8e87eb9762a36b7d028334c5c7b091763118347b
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-promise@npm:4.3.1":
+  version: 4.3.1
+  resolution: "eslint-plugin-promise@npm:4.3.1"
+  checksum: 01aa61c2bea6cfd2e612cda9aaaf079c7652503dd613248a251c99b58414245ee999a8f5ca0a15f62c6b1605aca4dcbace272d67f22d79aac3f698547eb75d9a
   languageName: node
   linkType: hard
 
