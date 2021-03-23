@@ -2,7 +2,7 @@
   "name": "@bookyp/test-coverage",
   "version": "0.0.1",
   "scripts": {
-    "coverage": "yarn node src/",
+    "coverage": "node src/",
     "lint": "eslint --cache ."
   },
   "dependencies": {
@@ -11,7 +11,7 @@
     "istanbul-reports": "3.0.2"
   },
   "devDependencies": {
-    "@bookyp/eslint-config": "*",
+    "@bookyp/eslint-config": "workspace:*",
     "@rushstack/eslint-patch": "1.0.6",
     "eslint": "7.22.0"
   }

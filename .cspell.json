@@ -48,6 +48,7 @@
     "noninteractive",
     "outfile",
     "pnpify",
+    "pnpm",
     "prettierignore",
     "prettierrc",
     "raphaelschwinger",
@@ -65,16 +66,12 @@
     "vuedx",
     "windi",
     "windicss",
-    "WORKDIR",
-    "yarnpkg",
-    "yarnrc"
+    "WORKDIR"
   ],
   "ignorePaths": [
     "**/node_modules/**/*",
-    "yarn.lock",
-    ".yarnrc.yml",
-    ".pnp.js",
-    ".yarn/**/*",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
     ".eslintcache",
     ".git/**/*",
     "**/dist/**/*",

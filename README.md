@@ -4,5 +4,5 @@
 
 - set `.env` file
 - open VS Code Dev Container
-- install dependencies: `yarn`
-- start backend and frontend: `yarn start`
+- install dependencies: `pnpm`
+- start backend and frontend: `pnpm run start`
