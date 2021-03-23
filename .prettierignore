@@ -1,6 +1,6 @@
-lerna.json
 .yarn
-.yarnrc.yml
+pnpm-lock.yaml
+pnpm-workspace.yaml
 .pnp.js
 dist
 coverage/

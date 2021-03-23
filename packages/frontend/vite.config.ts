@@ -5,6 +5,11 @@ import { defineConfig } from 'vite';
 import WindiCSS from 'vite-plugin-windicss';
 
 const config = defineConfig({
+  resolve: {
+    alias: {
+      '~/': `${path.resolve(__dirname, 'src')}/`,
+    },
+  },
   plugins: [
     vue(),
     WindiCSS(),
@@ -20,9 +25,6 @@ const config = defineConfig({
         changeOrigin: true,
       },
     },
-  },
-  alias: {
-    '~': path.resolve(__dirname, 'src'),
   },
 });
 

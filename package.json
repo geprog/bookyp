@@ -7,39 +7,41 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "dotenv -- lerna run --include-dependencies --scope @bookyp/frontend --scope @bookyp/backend --parallel start",
+    "start": "dotenv -- pnpm --filter @bookyp/frontend --filter @bookyp/backend start",
+    "start:frontend": "dotenv -- pnpm --filter @bookyp/frontend start",
+    "start:backend": "dotenv -- pnpm --filter @bookyp/backend start",
     "docker-compose": "docker-compose -f .devcontainer/docker-compose.without-devcontainer.yml -f .devcontainer/docker-compose.database.yml -p bookyp",
-    "docker:up": "yarn docker-compose up -d",
-    "build": "lerna run build",
-    "lint": "yarn lint:formatting && lerna run lint",
+    "docker:up": "pnpm --filter . -- docker-compose up -d",
+    "build": "pnpm --filter @bookyp/frontend... --filter @bookyp/backend... build",
+    "lint": "pnpm --filter . lint:formatting && pnpm --filter ./packages lint",
     "lint:formatting": "prettier -c .",
-    "lint:changed": "yarn lint:formatting && lerna run --since origin/master --include-dependents lint",
+    "lint:changed": "pnpm lint:formatting && pnpm --filter \"...[master]\" lint",
     "spellcheck": "cspell '{**,.*}/{*,.*}'",
-    "test": "lerna run test",
-    "test:changed": "lerna run --since origin/master --include-dependents test",
-    "typecheck": "lerna run typecheck",
-    "typecheck:changed": "lerna run --since origin/master --include-dependents typecheck",
-    "clean": "lerna run clean"
+    "test": "pnpm --filter ./packages test",
+    "test:changed": "pnpm --filter \"...[master]\" --filter=!./ test",
+    "typecheck": "pnpm --filter ./packages typecheck",
+    "typecheck:changed": "pnpm --filter \"...[master]\" --filter=!./ typecheck",
+    "clean": "pnpm --filter ./packages clean"
   },
   "devDependencies": {
     "@commitlint/cli": "12.0.1",
     "@commitlint/config-conventional": "12.0.1",
-    "@yarnpkg/pnpify": "2.4.0",
     "cspell": "5.3.7",
     "dotenv-cli": "4.0.0",
     "eslint": "7.22.0",
     "husky": "4.3.8",
-    "lerna": "4.0.0",
     "lint-staged": "10.5.4",
     "prettier": "2.2.1",
     "ts-node": "9.1.1",
     "typescript": "4.2.3",
     "typescript-transform-paths": "2.2.3"
   },
-  "resolutions": {
-    "postcss": "8.2.8",
-    "@feathersjs/authentication-oauth/grant": "raphaelschwinger/grant#fix-dynamic-import",
-    "grant/request-compose": "raphaelschwinger/request-compose#fix-dynamic-import",
-    "@vue/compiler-core": "3.0.5"
+  "pnpm": {
+    "overrides": {
+      "grant": "5.4.12"
+    },
+    "neverBuiltDependencies": [
+      "fsevents"
+    ]
   }
 }

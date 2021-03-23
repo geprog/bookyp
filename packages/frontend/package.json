@@ -4,14 +4,14 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "test": "NODE_OPTIONS=--experimental-vm-modules yarn jest --forceExit --detectOpenHandles",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --forceExit --detectOpenHandles",
     "lint": "eslint --cache --max-warnings 0 --ext .js,.ts,.vue,.json .",
     "typecheck": "vti diagnostics .",
     "typecheck:vuedx": "vuedx-typecheck .",
     "clean": "shx rm -rf dist/ node_modules"
   },
   "dependencies": {
-    "@bookyp/core": "0.0.1",
+    "@bookyp/core": "workspace:*",
     "@feathersjs/feathers": "5.0.0-pre.1",
     "@feathersjs/socketio-client": "5.0.0-pre.1",
     "socket.io-client": "3.1.3",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.13.10",
-    "@bookyp/eslint-config": "*",
+    "@bookyp/eslint-config": "workspace:*",
     "@intlify/vite-plugin-vue-i18n": "2.0.3",
     "@jest/types": "26.6.2",
     "@rushstack/eslint-patch": "1.0.6",
@@ -41,7 +41,7 @@
     "ts-jest": "26.5.2",
     "typescript": "4.2.3",
     "typescript-transform-paths": "2.2.3",
-    "vite": "2.0.0-beta.55",
+    "vite": "2.1.2",
     "vite-plugin-windicss": "0.9.0",
     "vti": "0.1.1",
     "vue-jest": "5.0.0-alpha.8",
