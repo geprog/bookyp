@@ -1,12 +1,7 @@
 import { Config } from '@jest/types';
-import { pathsToModuleNameMapper } from 'ts-jest/utils';
-
-import { compilerOptions } from './tsconfig.json';
 
 const moduleNameMapper = {
-  ...pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: '<rootDir>/' + compilerOptions.baseUrl + '/',
-  }),
+  '^~/(.*)': '<rootDir>/src/$1',
   '@bookyp/core': '<rootDir>/../core/mocks',
 } as Config.InitialOptions['moduleNameMapper'];
 

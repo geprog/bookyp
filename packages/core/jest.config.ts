@@ -1,15 +1,10 @@
 import { Config } from '@jest/types';
-import { pathsToModuleNameMapper } from 'ts-jest/utils';
-
-import { compilerOptions } from './tsconfig.json';
-
-const moduleNameMapper = pathsToModuleNameMapper(compilerOptions.paths, {
-  prefix: '<rootDir>/' + compilerOptions.baseUrl + '/',
-}) as Config.InitialOptions['moduleNameMapper'];
 
 const config: Config.InitialOptions = {
   roots: ['<rootDir>/test'],
-  moduleNameMapper,
+  moduleNameMapper: {
+    '^~/(.*)': '<rootDir>/src/$1',
+  },
   testEnvironment: 'jest-environment-node',
   transform: {
     '^.+\\.tsx?$': [
