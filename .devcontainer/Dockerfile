@@ -27,37 +27,6 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && apt-get clean -y
 
-# Install current version of Git
-ENV GIT_VERSION 2.30.0
-
-RUN apt-get update \
-    && apt-get -y upgrade \
-    #
-    # add needed tools for git make
-    && apt-get -y install --no-install-recommends \
-    # cSpell:disable
-        gettext \
-        libssl-dev \
-        libghc-zlib-dev \
-        libcurl4-gnutls-dev \
-        libexpat1-dev \
-    # cSpell:enable
-    #
-    # Download and build git
-    && wget https://github.com/git/git/archive/v$GIT_VERSION.tar.gz -O git.tar.gz \
-    && tar -xf git.tar.gz \
-    && cd git-* \
-    && make prefix=/usr/local all \
-    && make prefix=/usr/local install \
-    #
-    # cleanup
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get autoremove -y \
-    && apt-get clean -y \
-    && cd .. \
-    && rm git.tar.gz \
-    && rm -R git-*
-
 # dependency manager
 RUN npm i -g pnpm
 
