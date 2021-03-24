@@ -62,7 +62,6 @@ install-dependencies:
   #   expire_in: 1 day
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
-      changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
 
