@@ -7,6 +7,7 @@ logs
 
 # Dependency directories
 node_modules
+.pnpm-store
 
 # Build directories
 dist
