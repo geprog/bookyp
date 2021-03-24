@@ -58,6 +58,9 @@ RUN apt-get update \
     && rm git.tar.gz \
     && rm -R git-*
 
+# dependency manager
+RUN npm i -g pnpm
+
 # enable bash completion
 RUN echo "if [ -f /etc/bash_completion ]; \n then . /etc/bash_completion \nfi" >> ~/.bashrc
 
