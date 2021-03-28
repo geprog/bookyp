@@ -4,3 +4,4 @@ pnpm-workspace.yaml
 .pnp.js
 dist
 coverage/
+.pnpm-store/
