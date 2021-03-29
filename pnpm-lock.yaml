@@ -160,6 +160,7 @@ importers:
       '@bookyp/core': link:../core
       '@feathersjs/feathers': 5.0.0-pre.1
       '@feathersjs/socketio-client': 5.0.0-pre.1
+      dayjs: 1.10.4
       socket.io-client: 3.1.3
       vue: 3.0.7
       vue-i18n: 9.0.0_vue@3.0.7
@@ -209,6 +210,7 @@ importers:
       '@vuedx/typescript-plugin-vue': 0.6.3
       autoprefixer: 10.2.5
       babel-jest: 26.6.3
+      dayjs: 1.10.4
       diffable-html: anbraten/diffable-html#built
       eslint: 7.22.0
       jest: 26.6.3
@@ -3722,6 +3724,10 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-X5eWTSXO/BJmpdIKCRuKUgSCgAN0OwliVK3yPKbwIWU1Tdw5BRajxlzMidvh+gwko9AfQ9zIj52pzF91Q3YAvQ==
+  /dayjs/1.10.4:
+    dev: false
+    resolution:
+      integrity: sha512-RI/Hh4kqRc1UKLOAf/T5zdMMX5DQIlDxwUe3wSyMMnEbGunnpENCdbUgM+dW7kXidZqCttBrmw7BhN4TMddkCw==
   /de-indent/1.0.2:
     dev: true
     resolution:

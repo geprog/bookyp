@@ -20,6 +20,12 @@ const routes: RouteRecordRaw[] = [
     component: (): Component => import('./views/settings/Bookable.vue'),
   },
   {
+    path: '/bookable/:bookableId/book',
+    name: 'booking-create',
+    component: (): Component => import('./views/Booking.vue'),
+    props: true,
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: NotFound,
