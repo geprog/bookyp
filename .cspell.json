@@ -81,6 +81,7 @@
     ".devcontainer/devcontainer.json",
     ".vscode/extensions.json",
     "**/coverage/**/*",
-    "**/*.log"
+    "**/*.log",
+    "**/*.svg"
   ]
 }
