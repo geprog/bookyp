@@ -5,10 +5,6 @@
   "liveshare.populateGitCoAuthors": "never",
   "gitlab.instanceUrl": "https://git.geprog.com",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
-  },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "conventionalCommits.scopes": ["frontend", "backend", "core"],
   "i18n-ally.keystyle": "nested",
