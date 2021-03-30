@@ -1,9 +1,8 @@
 import useFeathers from '~/compositions/useFeathers';
 import useFindOriginal, { UseFind } from '~/compositions/useFind';
-
-import { mountComposition } from '../helpers/composition';
-import { eventHelper } from '../helpers/events';
-import TestModel from '../helpers/TestModel';
+import { mountComposition } from '$/helpers/composition';
+import { eventHelper } from '$/helpers/events';
+import TestModel from '$/helpers/TestModel';
 
 jest.mock('~/compositions/useFeathers');
 
