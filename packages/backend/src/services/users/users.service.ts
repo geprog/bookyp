@@ -1,8 +1,8 @@
 import { Application, Model } from '@bookyp/core';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
-import { Document, model, Schema } from 'mongoose';
+import { Document, Model as MongooseModel, model, Schema } from 'mongoose';
 
-const UserSchema = new Schema<Model.User>({
+const UserSchema = new Schema<Document, MongooseModel<Document, unknown>, Model.User>({
   name: { type: String },
   email: { type: String, required: true, unique: true },
 });
