@@ -32,8 +32,8 @@ importers:
       '@feathersjs/express': 5.0.0-pre.1
       '@feathersjs/feathers': 5.0.0-pre.1
       '@feathersjs/socketio': 5.0.0-pre.1
-      feathers-mongoose: 8.3.1_mongoose@5.10.18
-      mongoose: github.com/raphaelschwinger/mongoose/734e82191feb2f9b51a946c5b2589f4f55ff61af
+      feathers-mongoose: 8.3.1_mongoose@5.12.2
+      mongoose: github.com/raphaelschwinger/mongoose/a1f74a70b8b72769b274857e52331d25001492b4
     devDependencies:
       '@babel/core': 7.13.10
       '@babel/plugin-transform-modules-commonjs': 7.13.8_@babel+core@7.13.10
@@ -43,7 +43,6 @@ importers:
       '@jest/types': 27.0.0-next.1
       '@rushstack/eslint-patch': 1.0.6
       '@types/jest': 26.0.21
-      '@types/mongoose': 5.10.3
       esbuild: 0.9.6
       esbuild-jest: 0.5.0_esbuild@0.9.6
       eslint: 7.22.0
@@ -69,13 +68,12 @@ importers:
       '@jest/types': 27.0.0-next.1
       '@rushstack/eslint-patch': 1.0.6
       '@types/jest': 26.0.21
-      '@types/mongoose': 5.10.3
       esbuild: 0.9.6
       esbuild-jest: 0.5.0
       eslint: 7.22.0
       feathers-mongoose: 8.3.1
       jest: 27.0.0-next.2
-      mongoose: raphaelschwinger/mongoose#fix-import
+      mongoose: github:raphaelschwinger/mongoose#fix-import
       nodemon: 2.0.7
       shx: 0.3.3
       tsconfig-paths: 3.9.0
@@ -1928,7 +1926,7 @@ packages:
   /@types/bson/4.0.3:
     dependencies:
       '@types/node': 14.14.35
-    dev: true
+    dev: false
     resolution:
       integrity: sha512-mVRvYnTOZJz3ccpxhr3wgxVmSeiYinW+zlzQz3SXWaJmD1DuL05Jeq7nKw3SnbKmbleW5qrLG5vdyWe/A9sXhw==
   /@types/component-emitter/1.2.10:
@@ -2034,16 +2032,9 @@ packages:
     dependencies:
       '@types/bson': 4.0.3
       '@types/node': 14.14.35
-    dev: true
+    dev: false
     resolution:
       integrity: sha512-BkwAHFiZSSWdTIqbUVGmgvIsiXXjqAketeK7Izy7oSs6G3N8Bn993tK9eq6QEovQDx6OQ2FGP2KWDDxBzdlJ6Q==
-  /@types/mongoose/5.10.3:
-    dependencies:
-      '@types/mongodb': 3.6.10
-      '@types/node': 14.14.35
-    dev: true
-    resolution:
-      integrity: sha512-VfdnaFImXEJZZiuL2ID/ysZs4inOIjxwrAnUgkr5eum2O2BLhFkiSI0i87AwignVva1qWTJ3H3DyM0Rf4USJ4A==
   /@types/node/14.14.35:
     resolution:
       integrity: sha512-Lt+wj8NVPx0zUmUwumiVXapmaLUcAk3yPuHCFVXras9k5VT9TdhJqKqGVUQCD60OTMCl0qxJ57OiTL0Mic3Iag==
@@ -4639,12 +4630,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-DkPJKQeY6kKwmuMretBhr7G6Vodr7bFwDYTXIkfG1gjvNpaxBTQV3PbXg6bR1c1UP4jPOX0jHUbbHANL9vRjVg==
-  /feathers-mongoose/8.3.1_mongoose@5.10.18:
+  /feathers-mongoose/8.3.1_mongoose@5.12.2:
     dependencies:
       '@feathersjs/adapter-commons': 4.5.11
       '@feathersjs/commons': 4.5.11
       '@feathersjs/errors': 4.5.11
-      mongoose: github.com/raphaelschwinger/mongoose/734e82191feb2f9b51a946c5b2589f4f55ff61af
+      mongoose: github.com/raphaelschwinger/mongoose/a1f74a70b8b72769b274857e52331d25001492b4
     dev: false
     engines:
       node: '>= 6'
@@ -4999,7 +4990,7 @@ packages:
       integrity: sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==
   /grant/5.4.12:
     dependencies:
-      qs: 6.10.0
+      qs: 6.10.1
       request-compose: 2.1.3
       request-oauth: 1.0.1
     dev: false
@@ -6881,10 +6872,10 @@ packages:
     optional: true
     resolution:
       integrity: sha512-KDncfTmOZoOMTFG4mBlG0qUIOlc03fmzH+ru6RgYVZhPkyiy/92Owlt/8UEN+a4TXR1FQetfIpJE8ApdvdVxTg==
-  /kareem/2.3.1:
+  /kareem/2.3.2:
     dev: false
     resolution:
-      integrity: sha512-l3hLhffs9zqoDe8zjmb/mAN4B8VT3L56EUvKNqLFVs9YlFA+zx7ke1DO8STAdDyYNkeSo1nKmjuvQeI12So8Xw==
+      integrity: sha512-STHz9P7X2L4Kwn72fA4rGyqyXdmrMSdxqHx9IXon/FXluXieaFA6KJ2upcHAHxQPQ0LeM/OjLrhFxifHewOALQ==
   /keyv/3.1.0:
     dependencies:
       json-buffer: 3.0.0
@@ -7339,7 +7330,7 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
-  /mongodb/3.6.3:
+  /mongodb/3.6.5:
     dependencies:
       bl: 2.2.1
       bson: 1.1.6
@@ -7372,22 +7363,22 @@ packages:
       snappy:
         optional: true
     resolution:
-      integrity: sha512-rOZuR0QkodZiM+UbQE5kDsJykBqWi0CL4Ec2i1nrGrUI3KO11r6Fbxskqmq3JK2NH7aW4dcccBuUujAP0ERl5w==
-  /mongoose-legacy-pluralize/1.0.2_mongoose@5.10.18:
+      integrity: sha512-mQlYKw1iGbvJJejcPuyTaytq0xxlYbIoVDm2FODR+OHxyEiMR021vc32bTvamgBjCswsD54XIRwhg3yBaWqJjg==
+  /mongoose-legacy-pluralize/1.0.2_mongoose@5.12.2:
     dependencies:
-      mongoose: github.com/raphaelschwinger/mongoose/734e82191feb2f9b51a946c5b2589f4f55ff61af
+      mongoose: github.com/raphaelschwinger/mongoose/a1f74a70b8b72769b274857e52331d25001492b4
     dev: false
     peerDependencies:
       mongoose: '*'
     resolution:
       integrity: sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
-  /mpath/0.7.0:
+  /mpath/0.8.3:
     dev: false
     engines:
       node: '>=4.0.0'
     resolution:
-      integrity: sha512-Aiq04hILxhz1L+f7sjGyn7IxYzWm1zLNNXcfhDtx04kZ2Gk7uvFdgZ8ts1cWa/6d0TQmag2yR8zSGZUmp0tFNg==
-  /mquery/3.2.2:
+      integrity: sha512-eb9rRvhDltXVNL6Fxd2zM9D4vKBxjVVQNLNijlj7uoXUy19zNDsIif5zR+pWmPCWNKwAtqyo4JveQm4nfD5+eA==
+  /mquery/3.2.4:
     dependencies:
       bluebird: 3.5.1
       debug: 3.1.0
@@ -7398,7 +7389,7 @@ packages:
     engines:
       node: '>=4.0.0'
     resolution:
-      integrity: sha512-XB52992COp0KP230I3qloVUbkLUxJIu328HBP2t2EsxSFtf4W1HPSOBWOXf1bqxK4Xbb66lfMJ+Bpfd9/yZE1Q==
+      integrity: sha512-uOLpp7iRX0BV1Uu6YpsqJ5b42LwYnmu0WeF/f8qgD/On3g0XDaQM6pfn0m6UxO6SM8DioZ9Bk6xxbWIGHm2zHg==
   /ms/2.0.0:
     resolution:
       integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
@@ -8138,14 +8129,14 @@ packages:
       teleport: '>=0.2.0'
     resolution:
       integrity: sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
-  /qs/6.10.0:
+  /qs/6.10.1:
     dependencies:
       side-channel: 1.0.4
     dev: false
     engines:
       node: '>=0.6'
     resolution:
-      integrity: sha512-yjACOWijC6L/kmPZZAsVBNY2zfHSIbpdpL977quseu56/8BZ2LoF5axK2bGhbzhVKt7V9xgWTtpyLbxwIoER0Q==
+      integrity: sha512-M528Hph6wsSVOBiYUnGf+K/7w0hNshs/duGsNXPUCLH5XAqjEtiPGwNONLV0tBH8NoGb0mvD5JubnUTrujKDTg==
   /qs/6.5.2:
     dev: true
     engines:
@@ -8339,7 +8330,7 @@ packages:
   /request-oauth/1.0.1:
     dependencies:
       oauth-sign: 0.9.0
-      qs: 6.10.0
+      qs: 6.10.1
       uuid: 8.3.2
     dev: false
     engines:
@@ -10161,14 +10152,15 @@ packages:
     resolution:
       tarball: https://codeload.github.com/raphaelschwinger/feathers/tar.gz/07fac6e9a5d087e86bed6bbe7575c25e8208dc5c
     version: 5.0.0-pre.1
-  github.com/raphaelschwinger/mongoose/734e82191feb2f9b51a946c5b2589f4f55ff61af:
+  github.com/raphaelschwinger/mongoose/a1f74a70b8b72769b274857e52331d25001492b4:
     dependencies:
+      '@types/mongodb': 3.6.10
       bson: 1.1.6
-      kareem: 2.3.1
-      mongodb: 3.6.3
-      mongoose-legacy-pluralize: 1.0.2_mongoose@5.10.18
-      mpath: 0.7.0
-      mquery: 3.2.2
+      kareem: 2.3.2
+      mongodb: 3.6.5
+      mongoose-legacy-pluralize: 1.0.2_mongoose@5.12.2
+      mpath: 0.8.3
+      mquery: 3.2.4
       ms: 2.1.2
       regexp-clone: 1.0.0
       safe-buffer: 5.2.1
@@ -10179,5 +10171,5 @@ packages:
       node: '>=4.0.0'
     name: mongoose
     resolution:
-      tarball: https://codeload.github.com/raphaelschwinger/mongoose/tar.gz/734e82191feb2f9b51a946c5b2589f4f55ff61af
-    version: 5.10.18
+      tarball: https://codeload.github.com/raphaelschwinger/mongoose/tar.gz/a1f74a70b8b72769b274857e52331d25001492b4
+    version: 5.12.2

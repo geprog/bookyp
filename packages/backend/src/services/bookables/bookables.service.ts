@@ -1,8 +1,8 @@
 import { Application, Model } from '@bookyp/core';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
-import { Document, model, Schema } from 'mongoose';
+import { Document, Model as MongooseModel, model, Schema } from 'mongoose';
 
-const BookableSchema = new Schema<Model.Bookable>({
+const BookableSchema = new Schema<Document, MongooseModel<Document, unknown>, Model.Bookable>({
   name: { type: String, required: true },
   description: { type: String },
 });

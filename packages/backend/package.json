@@ -21,7 +21,7 @@
     "@feathersjs/feathers": "5.0.0-pre.1",
     "@feathersjs/socketio": "5.0.0-pre.1",
     "feathers-mongoose": "8.3.1",
-    "mongoose": "raphaelschwinger/mongoose#fix-import"
+    "mongoose": "github:raphaelschwinger/mongoose#fix-import"
   },
   "devDependencies": {
     "@babel/core": "7.13.10",
@@ -32,7 +32,6 @@
     "@jest/types": "27.0.0-next.1",
     "@rushstack/eslint-patch": "1.0.6",
     "@types/jest": "26.0.21",
-    "@types/mongoose": "5.10.3",
     "esbuild": "0.9.6",
     "esbuild-jest": "0.5.0",
     "eslint": "7.22.0",
