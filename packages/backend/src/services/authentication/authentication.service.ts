@@ -4,9 +4,10 @@ import { expressOauth } from '@feathersjs/authentication-oauth';
 import { ServiceAddons } from '@feathersjs/feathers';
 
 import getConfig from '~/config';
-const config = getConfig();
 
 import { KeycloakStrategy } from './keycloak.auth-strategy';
+
+const config = getConfig();
 
 declare module '@bookyp/core' {
   interface ServiceTypes {

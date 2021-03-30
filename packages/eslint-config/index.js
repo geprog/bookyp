@@ -7,11 +7,14 @@ module.exports = {
     ecmaVersion: 2018,
     tsconfigRootDir: __dirname,
   },
-  plugins: ['@typescript-eslint', 'simple-import-sort'],
+  plugins: ['@typescript-eslint', 'import', 'simple-import-sort'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
     'plugin:promise/recommended',
   ],
   rules: {
@@ -20,6 +23,14 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-non-null-assertion': 'error',
+
+    'import/no-unresolved': 'off', // disable as this is handled by tsc itself
+    'import/first': 'error',
+    'import/newline-after-import': 'error',
+    'import/no-cycle': 'error',
+    'import/no-relative-parent-imports': 'error',
+    'import/no-duplicates': 'error',
+    'import/no-extraneous-dependencies': 'error',
 
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
