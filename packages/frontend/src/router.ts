@@ -16,8 +16,8 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/settings/bookable',
-    name: 'settings-bookable',
-    component: (): Component => import('./views/settings/Bookable.vue'),
+    name: 'settings-bookable-create',
+    component: (): Component => import('./views/settings/BookableCreate.vue'),
   },
   {
     path: '/bookable/:bookableId/book',
