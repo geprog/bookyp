@@ -3,6 +3,7 @@
 ## Development
 
 ### Without devcontainer
+
 - install pnpm globally: `npm -g install pnpm`
 - copy `.env.example` to `.env` file
 - set properties in `.env` file
@@ -11,6 +12,7 @@
 - run `pnpm start` or `pnpm start:frontend` & `pnpm start:backend`
 
 ### With devcontainer
+
 - copy `.devcontainer/.env.example` to `.devcontainer/.env` file
 - set properties in `.devcontainer/.env` file
 - open VS Code Dev Container
