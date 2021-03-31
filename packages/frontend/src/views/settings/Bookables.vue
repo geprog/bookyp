@@ -12,7 +12,7 @@
     <FloatingButton
       class="fixed bottom-8 right-8"
       icon-name="add"
-      @click="router.replace({ name: 'settings-bookable' })"
+      @click="router.replace({ name: 'settings-bookable-create' })"
     />
   </div>
 </template>
