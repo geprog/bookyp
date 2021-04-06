@@ -15,7 +15,6 @@
 </template>
 
 <script lang="ts">
-import { Model } from '@bookyp/core';
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -29,7 +28,7 @@ export default defineComponent({
   components: { Header, ListItem, Icon },
   setup() {
     const router = useRouter();
-    const { data: bookables } = useFind<Model.Bookable>('bookables');
+    const { data: bookables } = useFind('bookables');
 
     return { router, bookables };
   },

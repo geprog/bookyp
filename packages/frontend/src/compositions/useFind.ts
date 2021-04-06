@@ -46,16 +46,17 @@ export type UseFind<T extends Model.AbstractEntity> = {
   isLoading: Ref<boolean>;
 };
 
-export default <T extends Model.AbstractEntity>(serviceName: keyof Service.ServiceTypes): UseFind<T> => {
+export default <T extends keyof Service.ServiceModels>(serviceName: T): UseFind<Service.ServiceModels[T]> => {
+  type M = Service.ServiceModels[T];
+
   const feathers = useFeathers();
 
   // type cast is fine here (source: https://github.com/vuejs/vue-next/issues/2136#issuecomment-693524663)
-  const data = ref<T[]>([]) as Ref<T[]>;
+  const data = ref<M[]>([]) as Ref<M[]>;
   const isLoading = ref(false);
 
-  // TODO improve type
-  const service = (feathers.service(serviceName) as unknown) as FeathersService<T>;
-  const unloadEventHandlers = loadServiceEventHandlers<T>(service, data);
+  const service = feathers.service(serviceName) as FeathersService<M>;
+  const unloadEventHandlers = loadServiceEventHandlers<M>(service, data);
 
   const find = async () => {
     isLoading.value = true;
