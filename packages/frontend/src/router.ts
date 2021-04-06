@@ -20,6 +20,11 @@ const routes: RouteRecordRaw[] = [
     component: (): Component => import('./views/settings/BookableCreate.vue'),
   },
   {
+    path: '/settings/space',
+    name: 'settings-space',
+    component: (): Component => import('./views/settings/Space.vue'),
+  },
+  {
     path: '/bookable/:bookableId/book',
     name: 'booking-create',
     component: (): Component => import('./views/Booking.vue'),
