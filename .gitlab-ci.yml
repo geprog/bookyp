@@ -35,7 +35,7 @@ variables:
 .node-template:
   image: registry.geprog.com/docker.io/library/node:14.16.0-buster
   before_script:
-    - npm i -g pnpm
+    - npm i -g pnpm@5.18.9
     - pnpm install
   cache:
     key: bookyp # re-use cache for all jobs
@@ -51,7 +51,7 @@ install-dependencies:
   extends: .node-template
   stage: prepare
   before_script:
-    - npm i -g pnpm
+    - npm i -g pnpm@5.18.9
   script:
     - pnpm install # install dependencies
   cache:
