@@ -47,15 +47,19 @@ export type UseGet<T extends Model.AbstractEntity> = {
   isLoading: Ref<boolean>;
 };
 
-export default <T extends Model.AbstractEntity>(serviceName: keyof Service.ServiceTypes, _id: Ref<Id>): UseGet<T> => {
+export default <T extends keyof Service.ServiceModels>(
+  serviceName: T,
+  _id: Ref<Id>,
+): UseGet<Service.ServiceModels[T]> => {
+  type M = Service.ServiceModels[T];
+
   const feathers = useFeathers();
 
-  const data = ref<T>();
+  const data = ref<M>();
   const isLoading = ref(false);
 
-  // TODO improve type
-  const service = (feathers.service(serviceName) as unknown) as FeathersService<T>;
-  const unloadEventHandlers = loadServiceEventHandlers<T>(service, _id, data);
+  const service = feathers.service(serviceName) as FeathersService<M>;
+  const unloadEventHandlers = loadServiceEventHandlers<M>(service, _id, data);
 
   const get = async () => {
     isLoading.value = true;

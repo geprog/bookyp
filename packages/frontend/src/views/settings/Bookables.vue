@@ -18,7 +18,6 @@
 </template>
 
 <script lang="ts">
-import { Model } from '@bookyp/core';
 import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -40,7 +39,7 @@ export default defineComponent({
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
     const router = useRouter();
-    const { data: bookables } = useFind<Model.Bookable>('bookables');
+    const { data: bookables } = useFind('bookables');
 
     return { router, t, bookables };
   },
