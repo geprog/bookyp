@@ -10,7 +10,7 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --forceExit --detectOpenHandles",
     "lint": "eslint --cache --max-warnings 0 .",
     "typecheck": "ttsc --noEmit",
-    "clean": "shx rm -rf dist/ *.tsbuildinfo || true"
+    "clean": "rm -rf dist/ node_modules/ *.tsbuildinfo"
   },
   "dependencies": {
     "@feathersjs/authentication": "5.0.0-pre.1",
@@ -29,7 +29,6 @@
     "esbuild-jest": "0.5.0",
     "eslint": "7.22.0",
     "jest": "27.0.0-next.2",
-    "shx": "0.3.3",
     "ts-node": "9.1.1",
     "ttypescript": "1.5.12",
     "typescript": "4.2.3",

@@ -5,7 +5,7 @@
     "start": "start-storybook -p 6006 --ci",
     "build": "build-storybook",
     "lint": "eslint --cache --max-warnings 0 .",
-    "clean": "shx rm -rf dist/ node_modules"
+    "clean": "rm -rf storybook-static/ node_modules/"
   },
   "dependencies": {
     "@bookyp/frontend": "workspace:*"
