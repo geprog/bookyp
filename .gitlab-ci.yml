@@ -36,13 +36,14 @@ variables:
   image: registry.geprog.com/docker.io/library/node:14.16.0-buster
   before_script:
     - npm i -g pnpm@5.18.9
-    - pnpm install
+    - pnpm config set store-dir .pnpm-store
+    - time pnpm install
   cache:
     key: bookyp # re-use cache for all jobs
     paths:
       # - node_modules
       # - packages/*/node_modules
-      - ~/.pnpm-store
+      - .pnpm-store
     policy: pull # cache should normally only be read to save time
 
 ################# PREPARE #################
@@ -52,8 +53,10 @@ install-dependencies:
   stage: prepare
   before_script:
     - npm i -g pnpm@5.18.9
+    - pnpm config set store-dir .pnpm-store
   script:
-    - pnpm install # install dependencies
+    - time pnpm install # install dependencies
+    - du -sh .pnpm-store
   cache:
     policy: pull-push # fetch data from previous installs and update them
   # artifacts:
