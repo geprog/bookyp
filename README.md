@@ -4,7 +4,7 @@
 
 ### Without devcontainer
 
-- install pnpm globally: `npm -g install pnpm`
+- install pnpm globally: `npm i -g pnpm@5.18.9`
 - copy `.env.example` to `.env` file
 - set properties in `.env` file
 - install project dependencies: `pnpm install`
