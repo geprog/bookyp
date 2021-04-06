@@ -21,7 +21,8 @@
     "test:changed": "pnpm --filter \"...[master]\" --filter=!./ test",
     "typecheck": "pnpm --filter ./packages typecheck",
     "typecheck:changed": "pnpm --filter \"...[master]\" --filter=!./ typecheck",
-    "clean": "pnpm --filter ./packages clean"
+    "clean": "pnpm --filter ./packages clean",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@commitlint/cli": "12.0.1",
@@ -29,7 +30,7 @@
     "cspell": "5.3.7",
     "dotenv-cli": "4.0.0",
     "eslint": "7.22.0",
-    "husky": "4.3.8",
+    "husky": "6.0.0",
     "lint-staged": "10.5.4",
     "prettier": "2.2.1",
     "ts-node": "9.1.1",
