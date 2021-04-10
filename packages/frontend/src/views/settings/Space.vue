@@ -1,5 +1,9 @@
 <template>
-  <Header :title="t('space')" has-back />
+  <Header :title="t('settings')" has-back>
+    <template #second>
+      <SettingsTabs />
+    </template>
+  </Header>
   <div class="mx-4 mt-4">
     <svg class="w-full h-128" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path v-for="path in floorPlan" :key="path" :d="path" stroke="#323130" stroke-width="2" />
@@ -13,13 +17,14 @@ import { computed, defineComponent, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import Header from '~/components/Header.vue';
+import SettingsTabs from '~/components/SettingsTabs.vue';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
   name: 'Space',
 
-  components: { Header },
+  components: { Header, SettingsTabs },
 
   setup() {
     // eslint-disable-next-line @typescript-eslint/unbound-method

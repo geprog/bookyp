@@ -1,5 +1,9 @@
 <template>
-  <Header :title="t('settings')" has-back />
+  <Header :title="t('settings')" has-back>
+    <template #second>
+      <SettingsTabs />
+    </template>
+  </Header>
   <div class="bookables">
     <ListItem
       v-for="bookable in bookables"
@@ -25,11 +29,13 @@ import { useRouter } from 'vue-router';
 import FloatingButton from '~/components/FloatingButton.vue';
 import Header from '~/components/Header.vue';
 import ListItem from '~/components/ListItem.vue';
+import SettingsTabs from '~/components/SettingsTabs.vue';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
   name: 'Bookables',
   components: {
+    SettingsTabs,
     FloatingButton,
     Header,
     ListItem,

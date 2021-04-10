@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabButton component should render correctly when active 1`] = `
+"
+<button type=\\"button\\"
+        class=\\"p-2 w-full flex items-center justify-center focus:outline-none border-yellow-400 border-b-4 text-yellow-400\\"
+>
+</button>
+"
+`;
+
+exports[`TabButton component should render correctly when not active 1`] = `
+"
+<button type=\\"button\\"
+        class=\\"p-2 w-full flex items-center justify-center focus:outline-none border-yellow-400\\"
+>
+</button>
+"
+`;

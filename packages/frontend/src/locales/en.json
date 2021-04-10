@@ -6,6 +6,7 @@
   "bookable_details": "Bookable details",
   "name": "Name",
   "description": "Description",
+  "bookables": "Bookables",
   "start": "Start",
   "end": "End",
   "space": "Floor plan"
