@@ -61,14 +61,14 @@
     "ttsc",
     "ttypescript",
     "typecheck",
+    "unmount",
     "Vetur",
     "vite",
     "vitejs",
     "vuedx",
     "windi",
     "windicss",
-    "WORKDIR",
-    "unmount"
+    "WORKDIR"
   ],
   "ignorePaths": [
     "**/node_modules/**/*",

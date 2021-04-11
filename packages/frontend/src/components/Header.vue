@@ -3,7 +3,9 @@
     <div class="flex items-center p-4">
       <Icon v-if="hasBack" data-test="back-button" name="arrow-left" @click="router.go(-1)" />
       <span class="ml-8 mr-auto">{{ title }}</span>
-      <slot />
+      <div class="flex space-x-2">
+        <slot />
+      </div>
     </div>
     <slot name="second" />
   </header>

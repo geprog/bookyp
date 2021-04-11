@@ -154,6 +154,8 @@ importers:
   packages/frontend:
     dependencies:
       '@bookyp/core': link:../core
+      '@feathersjs/authentication-client': 5.0.0-pre.1
+      '@feathersjs/errors': 5.0.0-pre.1
       '@feathersjs/feathers': 5.0.0-pre.1
       '@feathersjs/socketio-client': 5.0.0-pre.1
       dayjs: 1.10.4
@@ -191,6 +193,8 @@ importers:
       '@babel/core': 7.13.10
       '@bookyp/core': workspace:*
       '@bookyp/eslint-config': workspace:*
+      '@feathersjs/authentication-client': 5.0.0-pre.1
+      '@feathersjs/errors': 5.0.0-pre.1
       '@feathersjs/feathers': 5.0.0-pre.1
       '@feathersjs/socketio-client': 5.0.0-pre.1
       '@intlify/vite-plugin-vue-i18n': 2.0.3
@@ -2041,6 +2045,18 @@ packages:
       node: '>= 10'
     resolution:
       integrity: sha512-qJ+P/6GLR3KfXhzgRkvl3p66YmaTxLO1js1Jzs+d5QnnUYx+jWSV7tzYVZoVjQSlF8ht/zh9N5qfh0RV9w1E+w==
+  /@feathersjs/authentication-client/5.0.0-pre.1:
+    dependencies:
+      '@feathersjs/authentication': 5.0.0-pre.1
+      '@feathersjs/commons': 5.0.0-pre.1
+      '@feathersjs/errors': 5.0.0-pre.1
+      '@feathersjs/feathers': 5.0.0-pre.1
+      debug: 4.3.1
+    dev: false
+    engines:
+      node: '>= 10'
+    resolution:
+      integrity: sha512-npg1qT1YoqoUpZzghzB5k572E98/AEh+DD1+zAAbkimJzPdWR2aa+Wm1pJ1NKWaad/rrCaSnRHBxQGirMbTxEg==
   /@feathersjs/authentication/5.0.0-pre.1:
     dependencies:
       '@feathersjs/errors': 5.0.0-pre.1

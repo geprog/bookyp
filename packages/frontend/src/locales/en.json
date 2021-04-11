@@ -9,5 +9,8 @@
   "bookables": "Bookables",
   "start": "Start",
   "end": "End",
+  "hello": "Hello",
+  "bookyp": "bookyp",
+  "bookyp_name": "Book your place, easily!",
   "space": "Floor plan"
 }

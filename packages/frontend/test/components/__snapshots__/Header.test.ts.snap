@@ -11,6 +11,8 @@ exports[`Header component should render correctly 1`] = `
     <span class=\\"ml-8 mr-auto\\">
       Home
     </span>
+    <div class=\\"flex space-x-2\\">
+    </div>
   </div>
 </header>
 "
