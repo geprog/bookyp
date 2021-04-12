@@ -1,6 +1,6 @@
 import { Model, Service } from '@bookyp/core';
 import { Id, Service as FeathersService } from '@feathersjs/feathers';
-import { onMounted, onUnmounted, Ref, ref, watch } from 'vue';
+import { onBeforeUnmount, onMounted, Ref, ref, watch } from 'vue';
 
 import useFeathers from './useFeathers';
 
@@ -79,7 +79,7 @@ export default <T extends keyof Service.ServiceModels>(
     await get();
   });
 
-  onUnmounted(() => {
+  onBeforeUnmount(() => {
     unloadEventHandlers();
   });
 
