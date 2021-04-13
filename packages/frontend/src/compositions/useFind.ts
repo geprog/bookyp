@@ -1,6 +1,6 @@
 import { Model, Service } from '@bookyp/core';
 import { Service as FeathersService } from '@feathersjs/feathers';
-import { onMounted, onUnmounted, Ref, ref } from 'vue';
+import { onBeforeUnmount, onMounted, Ref, ref } from 'vue';
 
 import useFeathers from './useFeathers';
 
@@ -73,7 +73,7 @@ export default <T extends keyof Service.ServiceModels>(serviceName: T): UseFind<
     void find();
   });
 
-  onUnmounted(() => {
+  onBeforeUnmount(() => {
     unloadEventHandlers();
   });
 
