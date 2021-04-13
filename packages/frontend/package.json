@@ -8,7 +8,7 @@
     "lint": "eslint --cache --max-warnings 0 --ext .js,.ts,.vue,.json .",
     "typecheck": "vti diagnostics .",
     "typecheck:vuedx": "vuedx-typecheck .",
-    "clean": "rm -rf dist/ node_modules/"
+    "clean": "rm -rf dist/ node_modules/ .eslintcache"
   },
   "dependencies": {
     "@bookyp/core": "workspace:*",

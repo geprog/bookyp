@@ -10,7 +10,7 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --forceExit --detectOpenHandles",
     "lint": "eslint --cache --max-warnings 0 .",
     "typecheck": "ttsc --noEmit",
-    "clean": "rm -rf dist/ node_modules/ *.tsbuildinfo"
+    "clean": "rm -rf dist/ node_modules/ *.tsbuildinfo .eslintcache"
   },
   "dependencies": {
     "@feathersjs/authentication": "5.0.0-pre.1",
