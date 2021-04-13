@@ -9,9 +9,9 @@
     "build": "node buildscript.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --forceExit --detectOpenHandles",
     "lint": "eslint --cache --max-warnings 0 .",
-    "lint-fix": "eslint --cache --max-warnings 0 . --fix",
+    "lint-fix": "pnpm lint -- --fix",
     "typecheck": "ttsc --noEmit",
-    "clean": "rm -rf dist/ node_modules/"
+    "clean": "rm -rf dist/ node_modules/ .eslintcache"
   },
   "dependencies": {
     "@bookyp/core": "workspace:*",
