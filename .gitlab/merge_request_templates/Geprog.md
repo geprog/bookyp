@@ -4,4 +4,4 @@
 
 ## TODO
 
-- What is planed?
+- What is planned?
