@@ -9,4 +9,14 @@ module.exports = {
   },
 
   extends: ['@bookyp'],
+
+  rules: {
+    // allow importing frontend components from `src` folder
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: ['dist'],
+      },
+    ],
+  },
 };
