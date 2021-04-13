@@ -10,13 +10,11 @@ describe('Database', () => {
     const uri = 'fake-uri';
 
     jest.mock('mongoose');
-    jest.mock('~/config', () => {
-      return () => ({
-        db: {
-          uri,
-        },
-      });
-    });
+    jest.mock('~/config', () => () => ({
+      db: {
+        uri,
+      },
+    }));
 
     const mongoose = await import('mongoose');
     const { connect: connectDatabase } = await import('~/database');
@@ -40,11 +38,9 @@ describe('Database', () => {
     const expectedUri = `mongodb://${dbConfig.host}:${dbConfig.port}/${dbConfig.name}`;
 
     jest.mock('mongoose');
-    jest.mock('~/config', () => {
-      return () => ({
-        db: dbConfig,
-      });
-    });
+    jest.mock('~/config', () => () => ({
+      db: dbConfig,
+    }));
 
     const mongoose = await import('mongoose');
     const { connect: connectDatabase } = await import('~/database');
@@ -70,11 +66,9 @@ describe('Database', () => {
     const expectedUri = `mongodb://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.name}?authSource=admin`;
 
     jest.mock('mongoose');
-    jest.mock('~/config', () => {
-      return () => ({
-        db: dbConfig,
-      });
-    });
+    jest.mock('~/config', () => () => ({
+      db: dbConfig,
+    }));
 
     const mongoose = await import('mongoose');
     const { connect: connectDatabase } = await import('~/database');

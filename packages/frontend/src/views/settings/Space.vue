@@ -41,8 +41,8 @@ export default defineComponent({
 
     onMounted(async () => {
       // TODO: remove seed when editor exists
-      let spaces = (await feathers.service('spaces').find({})) as Model.Space[];
-      if (!spaces.length) {
+      let { length } = (await feathers.service('spaces').find({})) as Model.Space[];
+      if (length) {
         await feathers.service('spaces').create({
           floorPlan: [
             'M288 325H30.2315V226.738H1V1H288V325Z',

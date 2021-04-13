@@ -23,6 +23,8 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-non-null-assertion': 'error',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
 
     'import/no-unresolved': 'off', // disable as this is handled by tsc itself
     'import/first': 'error',
@@ -38,6 +40,17 @@ module.exports = {
     'promise/prefer-await-to-then': 'error',
     'promise/prefer-await-to-callbacks': 'error',
 
+    'no-else-return': ['error', { allowElseIf: false }],
+    'no-return-assign': ['error', 'always'],
+    'no-return-await': 'error',
+    'no-useless-return': 'error',
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: ['src', 'dist'],
+      },
+    ],
+    'arrow-body-style': 'error',
     'prettier/prettier': 'error',
     'no-console': 'warn',
     'no-useless-concat': 'error',

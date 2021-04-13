@@ -66,13 +66,15 @@ router.beforeEach(async (to, _, next) => {
   if (to.meta.requiresAuth && !isAuthenticated.value) {
     next({ name: 'loading-screen' });
     return;
-  } else if (to.meta.authEndpoint && isAuthenticated.value) {
+  }
+
+  if (to.meta.authEndpoint && isAuthenticated.value) {
     // user is already authenticated, to prevent unnecessary authentication redirect to home
     next({ name: 'home' });
     return;
-  } else {
-    next();
   }
+
+  next();
 });
 
 export default router;
