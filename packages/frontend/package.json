@@ -5,6 +5,7 @@
     "start": "vite",
     "build": "vite build",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --forceExit --detectOpenHandles",
+    "test:watch": "pnpm test -- --watchAll",
     "lint": "eslint --cache --max-warnings 0 --ext .js,.ts,.vue,.json .",
     "typecheck": "vti diagnostics .",
     "typecheck:vuedx": "vuedx-typecheck .",

@@ -8,6 +8,7 @@
     "start": "ttsc -p tsconfig.build.json --watch",
     "build": "ttsc -p tsconfig.build.json",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --forceExit --detectOpenHandles",
+    "test:watch": "pnpm test -- --watchAll",
     "lint": "eslint --cache --max-warnings 0 .",
     "typecheck": "ttsc --noEmit",
     "clean": "rm -rf dist/ node_modules/ *.tsbuildinfo .eslintcache"

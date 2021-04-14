@@ -8,6 +8,7 @@
     "start": "nodemon",
     "build": "node buildscript.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --forceExit --detectOpenHandles",
+    "test:watch": "pnpm test -- --watchAll",
     "lint": "eslint --cache --max-warnings 0 .",
     "lint-fix": "pnpm lint -- --fix",
     "typecheck": "ttsc --noEmit",
