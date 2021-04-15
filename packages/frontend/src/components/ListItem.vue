@@ -24,7 +24,7 @@ export default defineComponent({
 
     statusColor: {
       type: String,
-      default: 'bg-yellow-500',
+      default: 'bg-primary-normal',
     },
 
     description: {

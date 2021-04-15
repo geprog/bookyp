@@ -11,7 +11,7 @@
       v-for="bookable in bookables"
       :key="bookable._id"
       :label="bookable.name"
-      status-color="bg-yellow-500"
+      status-color="bg-primary-normal"
       :description="bookable.description"
     />
   </div>

@@ -25,15 +25,15 @@ export const General = Template.bind({});
 
 export const SuccessItem = Template.bind({});
 SuccessItem.args = {
-  statusColor: 'bg-green-500',
+  statusColor: 'bg-green-text',
 };
 
 export const CautionItem = Template.bind({});
 CautionItem.args = {
-  statusColor: 'bg-yellow-500',
+  statusColor: 'bg-primary-normal',
 };
 
 export const ErrorItem = Template.bind({});
 ErrorItem.args = {
-  statusColor: 'bg-red-500',
+  statusColor: 'bg-red-text',
 };
