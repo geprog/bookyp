@@ -4,6 +4,8 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import WindiCSS from 'vite-plugin-windicss';
 
+import viteAppConfig from './vite-plugin-app-config';
+
 const config = defineConfig({
   resolve: {
     alias: {
@@ -16,6 +18,7 @@ const config = defineConfig({
     vueI18n({
       include: path.resolve(__dirname, 'src/locales/**'),
     }),
+    viteAppConfig(),
   ],
   server: {
     proxy: {

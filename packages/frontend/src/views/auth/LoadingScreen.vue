@@ -23,6 +23,8 @@
 import { defineComponent, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { getConfig } from '~/compositions/useAppConfig';
+
 export default defineComponent({
   name: 'LoadingScreen',
   components: {},
@@ -30,9 +32,8 @@ export default defineComponent({
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
 
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
     onMounted(() => {
-      window.location.href = `${BACKEND_URL}/oauth/keycloak?redirect=auth/callback`;
+      window.location.href = `${getConfig('BACKEND_URL') || ''}/oauth/keycloak?redirect=auth/callback`;
     });
 
     return { t };
