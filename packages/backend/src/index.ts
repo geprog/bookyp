@@ -10,7 +10,7 @@ async function start(): Promise<void> {
 
   const lightship = createLightship();
 
-  const { port } = config().app;
+  const { port, host } = config().app;
 
   await databaseConnect();
 
@@ -20,8 +20,14 @@ async function start(): Promise<void> {
 
       // eslint-disable-next-line no-console
       console.log('🚀 Backend running at:');
+
       // eslint-disable-next-line no-console
       console.log(`> Local: http://localhost:${port}`);
+
+      if (host !== 'localhost') {
+        // eslint-disable-next-line no-console
+        console.log(`> Public: https://${host}`);
+      }
     })
     .on('error', () => {
       void lightship.shutdown();

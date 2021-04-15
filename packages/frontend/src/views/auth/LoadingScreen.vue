@@ -29,10 +29,12 @@ export default defineComponent({
   setup() {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
+
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
     onMounted(() => {
-      window.location.href = `${BACKEND_URL}/oauth/keycloak`;
+      window.location.href = `${BACKEND_URL}/oauth/keycloak?redirect=auth/callback`;
     });
+
     return { t };
   },
 });
