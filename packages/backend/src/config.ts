@@ -17,8 +17,8 @@ const config = {
     host: process.env.DB_HOST || 'db',
     port: parseInt(process.env.DB_PORT || '27017'),
     name: process.env.DB_NAME || 'bookyp',
-    user: process.env.DB_ROOT_USERNAME,
-    password: process.env.DB_ROOT_PASSWORD,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
   },
 };
 
