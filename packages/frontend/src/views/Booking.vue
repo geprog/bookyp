@@ -28,6 +28,7 @@ import Header from '~/components/Header.vue';
 import Icon from '~/components/Icon.vue';
 import InputField from '~/components/InputField.vue';
 import TextField from '~/components/TextField.vue';
+import { user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 
 export default defineComponent({
@@ -63,7 +64,7 @@ export default defineComponent({
         end: dayjs(end.value).toDate(),
         description: description.value,
         bookable: props.bookableId,
-        bookedBy: '42d5573a-ff96-4e72-9f72-67b27712089d', // TODO: use actual user id
+        bookedBy: user.value?._id,
       });
       router.back();
     };

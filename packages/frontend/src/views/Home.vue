@@ -13,6 +13,7 @@
       :label="bookable.name"
       status-color="bg-primary-normal"
       :description="bookable.description"
+      @click="router.push({ name: 'booking-create', params: { bookableId: bookable._id } })"
     />
   </div>
 </template>
