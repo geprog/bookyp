@@ -1,18 +1,45 @@
+import * as bookypCore from '@bookyp/core';
+
+import getConfig from '~/config';
 import serviceIndex from '~/services';
 import AuthenticationService from '~/services/authentication/authentication.service';
 
+jest.mock('~/config');
+jest.mock('@bookyp/core');
+
+const configMockReturnValue = {
+  app: {
+    host: 'localhost',
+    port: 4000,
+    secret: 'i-wont-tell-you',
+  },
+  oauth: {
+    redirect_url: 'http://localhost:3000/',
+    keycloak: {
+      secret: 'i-wont-tell-you',
+      client: 'bookyp',
+      subdomain: 'auth.example.org/auth/realms/main',
+    },
+  },
+  db: {
+    uri: undefined,
+    host: 'db',
+    port: '27017',
+    name: 'bookyp',
+    user: 'admin',
+    password: 'i-wont-tell-you',
+  },
+};
+
 describe('Authentication service', () => {
   beforeEach(() => {
-    jest.resetAllMocks();
+    // jest.resetAllMocks();
     jest.resetModules();
   });
 
-  it('should configure the service', async () => {
-    expect.assertions(1);
-
+  it('should configure the service', () => {
     // given
-    jest.mock('@bookyp/core');
-    const bookypCore = await import('@bookyp/core');
+    (getConfig as jest.Mock).mockReturnValueOnce(configMockReturnValue);
     const app = bookypCore.createApplication();
 
     // when
@@ -22,12 +49,9 @@ describe('Authentication service', () => {
     expect(app.configure).toHaveBeenCalledWith(AuthenticationService);
   });
 
-  it('should set auth config', async () => {
-    expect.assertions(1);
-
+  it('should set auth config', () => {
     // given
-    jest.mock('@bookyp/core');
-    const bookypCore = await import('@bookyp/core');
+    (getConfig as jest.Mock).mockReturnValueOnce(configMockReturnValue);
     const app = bookypCore.createApplication();
 
     // when
@@ -38,12 +62,9 @@ describe('Authentication service', () => {
   });
 
   describe('Configuration', () => {
-    it('should match snapshot', async () => {
-      expect.assertions(1);
-
+    it('should match snapshot', () => {
       // given
-      jest.mock('@bookyp/core');
-      const bookypCore = await import('@bookyp/core');
+      (getConfig as jest.Mock).mockReturnValueOnce(configMockReturnValue);
       const app = bookypCore.createApplication();
       const spy = jest.spyOn(app, 'set');
 
