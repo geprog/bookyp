@@ -17,13 +17,13 @@ Object {
   },
   "oauth": Object {
     "keycloak": Object {
-      "client_id": undefined,
-      "secret": undefined,
-      "subdomain": undefined,
+      "client_id": "bookyp",
+      "secret": "i-wont-tell-you",
+      "subdomain": "auth.example.org/auth/realms/main",
     },
-    "redirect": undefined,
+    "redirect": "http://localhost:3000/",
   },
-  "secret": undefined,
+  "secret": "i-wont-tell-you",
   "service": "users",
 }
 `;

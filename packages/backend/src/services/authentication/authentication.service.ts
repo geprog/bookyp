@@ -7,8 +7,6 @@ import getConfig from '~/config';
 
 import { KeycloakStrategy } from './keycloak.auth-strategy';
 
-const config = getConfig();
-
 declare module '@bookyp/core' {
   interface ServiceTypes {
     authentication: AuthenticationService & ServiceAddons<unknown>;
@@ -16,6 +14,8 @@ declare module '@bookyp/core' {
 }
 
 export default function (app: Application): void {
+  const config = getConfig();
+
   // configure oauth
   app.set('authentication', {
     entity: 'user',
