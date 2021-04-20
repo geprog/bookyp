@@ -1,7 +1,7 @@
 <template>
   <header class="border-b-1 shadow-md flex flex-col">
     <div class="flex items-center p-4">
-      <Icon v-if="hasBack" data-test="back-button" name="arrow-left" @click="router.go(-1)" />
+      <Button v-if="hasBack" data-test="back-button" icon-name="arrow-left" @click="router.go(-1)" />
       <span class="ml-8 mr-auto">{{ title }}</span>
       <div class="flex space-x-2">
         <slot />
@@ -15,13 +15,13 @@
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
-import Icon from './Icon.vue';
+import Button from '~/components/Button.vue';
 
 export default defineComponent({
   name: 'Header',
 
   components: {
-    Icon,
+    Button,
   },
 
   props: {

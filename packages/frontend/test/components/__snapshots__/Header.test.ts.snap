@@ -4,10 +4,10 @@ exports[`Header component should render correctly 1`] = `
 "
 <header class=\\"border-b-1 shadow-md flex flex-col\\">
   <div class=\\"flex items-center p-4\\">
-    <icon-stub data-test=\\"back-button\\"
-               name=\\"arrow-left\\"
+    <button-stub data-test=\\"back-button\\"
+                 icon-name=\\"arrow-left\\"
     >
-    </icon-stub>
+    </button-stub>
     <span class=\\"ml-8 mr-auto\\">
       Home
     </span>
