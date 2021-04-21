@@ -23,4 +23,8 @@ app.configure(
 // Set up our services (see `services/index.js`)
 app.configure(services);
 
+app.get('/', (_req, res) => {
+  res.send('You found the backend of Bookyp! ;-)');
+});
+
 export default app;
