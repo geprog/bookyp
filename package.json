@@ -6,6 +6,10 @@
   "workspaces": [
     "packages/*"
   ],
+  "engines": {
+    "node": "14",
+    "pnpm": "5"
+  },
   "scripts": {
     "start": "dotenv -- pnpm --filter @bookyp/frontend --filter @bookyp/backend start",
     "start:frontend": "dotenv -- pnpm --filter @bookyp/frontend start",
