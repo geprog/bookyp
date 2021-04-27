@@ -1,0 +1,15 @@
+environment:
+  type: review
+
+imagePullSecrets:
+  - name: bookyp-registry-secret
+
+frontend:
+  ingress:
+    tls:
+      secretName: bookyp-review-frontend-tls
+
+backend:
+  ingress:
+    tls:
+      secretName: bookyp-review-backend-tls

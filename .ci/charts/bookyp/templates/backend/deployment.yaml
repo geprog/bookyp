@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ include "bookyp.fullname" . }}-backend"
+  labels:
+    {{- include "bookyp.labels" . | nindent 4 }}
+  {{- if or (and .Values.gitlab.app .Values.gitlab.env) .Values.backend.deploymentAnnotations }}
+  annotations:
+    {{- with .Values.backend.deploymentAnnotations }}
+      {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- include "bookyp.gitlabAnnotations" . | nindent 8 }}
+  {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "bookyp.selectorLabelsBackend" . | nindent 6 }}
+  template:
+    metadata:
+      {{- if or (and .Values.gitlab.app .Values.gitlab.env) .Values.backend.podAnnotations }}
+      annotations:
+        {{- with .Values.backend.podAnnotations }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- include "bookyp.gitlabAnnotations" . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "bookyp.selectorLabelsBackend" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "bookyp.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.backend.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.backend.securityContext | nindent 12 }}
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 4000
+              protocol: TCP
+            - name: health
+              containerPort: 9000
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: "{{ include "bookyp.fullname" . }}-backend-config"
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: health
+            failureThreshold: 1
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /live
+              port: health
+            initialDelaySeconds: 10
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}

@@ -1,0 +1,7 @@
+apiVersion: v2
+name: bookyp
+description: A Helm chart for Kubernetes to deploy the bookyp app and api
+type: application
+version: 0.0.1 # chart semver2 version
+appVersion: "0.0.1" # app version
+icon: https://git.geprog.com/uploads/-/system/appearance/header_logo/1/geprog_transparent_white_bigger.png

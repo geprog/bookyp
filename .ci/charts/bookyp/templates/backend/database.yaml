@@ -1,0 +1,11 @@
+apiVersion: anbraten.github.io/v1alpha1
+kind: Database
+metadata:
+  name: "{{ include "bookyp.fullname" . }}-backend"
+  labels:
+    {{- include "bookyp.labels" . | nindent 4 }}
+spec:
+  type: mongo
+  database: {{ default (include "bookyp.fullname" .) .Values.backend.database.name }}
+  username: {{ default (include "bookyp.fullname" .) .Values.backend.database.username }}
+  password: {{ .Values.backend.database.password | quote }}
