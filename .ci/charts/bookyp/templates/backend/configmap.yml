@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ include "bookyp.fullname" . }}-backend-config"
+  labels:
+    {{- include "bookyp.labels" . | nindent 4 }}
+data:
+  APP_HOST: {{ include "bookyp.backendURL" . }}
+  APP_SECRET: {{ .Values.backend.jwtSecret | quote }}
+  OAUTH_REDIRECT_URL: "https://{{ include "bookyp.frontendURL" . }}/"
+  KEYCLOAK_SUBDOMAIN: {{ .Values.backend.keycloak.subdomain | quote }}
+  KEYCLOAK_CLIENT: {{ .Values.backend.keycloak.client | quote }}
+  KEYCLOAK_SECRET: {{ .Values.backend.keycloak.secret | quote }}
+  DB_URI: {{ include "bookyp.backendDatabaseURI" . | quote }}

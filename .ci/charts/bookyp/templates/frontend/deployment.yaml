@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ include "bookyp.fullname" . }}-frontend"
+  labels:
+    {{- include "bookyp.labels" . | nindent 4 }}
+  {{- if or (and .Values.gitlab.app .Values.gitlab.env) .Values.frontend.deploymentAnnotations }}
+  annotations:
+    {{- with .Values.frontend.deploymentAnnotations }}
+      {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- include "bookyp.gitlabAnnotations" . | nindent 8 }}
+  {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "bookyp.selectorLabelsFrontend" . | nindent 6 }}
+  template:
+    metadata:
+      {{- if or (and .Values.gitlab.app .Values.gitlab.env) .Values.frontend.podAnnotations }}
+      annotations:
+        {{- with .Values.frontend.podAnnotations }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- include "bookyp.gitlabAnnotations" . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "bookyp.selectorLabelsFrontend" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "bookyp.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.frontend.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.frontend.securityContext | nindent 12 }}
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: "{{ include "bookyp.fullname" . }}-frontend-config"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.frontend.resources | nindent 12 }}

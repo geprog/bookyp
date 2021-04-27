@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: bookyp-production-certificate
+spec:
+  secretName: bookyp-production-tls
+  commonName: app.bookyp.de
+  dnsNames:
+    - app.bookyp.de
+    - api.bookyp.de
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer

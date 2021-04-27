@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ include "bookyp.fullname" . }}-frontend-config"
+  labels:
+    {{- include "bookyp.labels" . | nindent 4 }}
+data:
+  APP_BACKEND_URL: "https://{{ include "bookyp.backendURL" . }}"

@@ -1,0 +1,29 @@
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: bookyp-review-frontend-certificate
+spec:
+  secretName: bookyp-review-frontend-tls
+  commonName: '*.app.bookyp.de'
+  dnsNames:
+    - app.bookyp.de
+    - '*.app.bookyp.de'
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: bookyp-review-backend-certificate
+spec:
+  secretName: bookyp-review-backend-tls
+  commonName: '*.api.bookyp.de'
+  dnsNames:
+    - api.bookyp.de
+    - '*.api.bookyp.de'
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer

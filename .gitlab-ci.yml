@@ -4,7 +4,10 @@ stages:
   - build-docker
   - test
   - coverage
+  - deploy-prepare
   - deploy
+  - deploy-test
+  - cleanup
 
 variables:
   # CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/.cache/cypress"
@@ -13,6 +16,7 @@ variables:
   REGISTRY_NAMESPACE: bookyp
   DOCKER_BUILDKIT: 1
   COMPOSE_DOCKER_CLI_BUILD: 1 # enable Buildkit for docker-compose
+  BASE_DOMAIN: 'bookyp.de'
 
 .main-pipeline-files: &main_pipeline_files
   - .ci/**/*
@@ -128,7 +132,7 @@ build-docker-frontend:
     - cp $CI_PROJECT_DIR/.ci/frontend.Dockerfile.dockerignore $CI_PROJECT_DIR/.dockerignore # workaround https://github.com/GoogleContainerTools/kaniko/issues/1451
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$REGISTRY\":{\"username\":\"$REGISTRY_USER\",\"password\":\"$REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/frontend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/frontend:$CI_COMMIT_REF_SLUG
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/frontend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/frontend:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -146,7 +150,7 @@ build-docker-backend:
     - cp $CI_PROJECT_DIR/.ci/backend.Dockerfile.dockerignore $CI_PROJECT_DIR/.dockerignore # workaround https://github.com/GoogleContainerTools/kaniko/issues/1451
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$REGISTRY\":{\"username\":\"$REGISTRY_USER\",\"password\":\"$REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/backend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/backend:$CI_COMMIT_REF_SLUG
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/backend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/backend:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -243,6 +247,21 @@ spell-check:
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
 
+helm-lint:
+  stage: test
+  needs: []
+  image:
+    name: registry.geprog.com/docker.io/alpine/helm:3.5.3
+    entrypoint: ['']
+  script:
+    - helm lint .ci/charts/bookyp
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+      changes:
+        - .ci/charts/bookyp/**/*
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  interruptible: true
+
 ################# COVERAGE #################
 
 code-coverage:
@@ -265,92 +284,160 @@ code-coverage:
 
 ################# DEPLOY #################
 
-.review-template:
+.deploy-base:
   stage: deploy
-  image: registry.geprog.com/docker.io/docker/compose:1.27.4
+  image:
+    name: registry.geprog.com/docker.io/alpine/helm:3.5.3
+    entrypoint: ['']
   dependencies: [] # don't load any artifacts
-  variables:
-    BASE_DOMAIN: 'bookyp.geprog.com'
-    URL_FRONTEND: '${CI_ENVIRONMENT_SLUG}.${BASE_DOMAIN}'
-    URL_BACKEND: 'api.${CI_ENVIRONMENT_SLUG}.${BASE_DOMAIN}'
-    FRONTEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/frontend:$CI_COMMIT_REF_SLUG'
-    BACKEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/backend:$CI_COMMIT_REF_SLUG'
-    PROJECT_NAME: 'bookyp-review-$CI_COMMIT_REF_SLUG'
-  tags:
-    - dood
+
+.review-environment:
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    url: https://${CI_ENVIRONMENT_SLUG}.app.${BASE_DOMAIN}/
+    on_stop: review-stop
+    auto_stop_in: 3 days # stop after 3 days without new commits
+    kubernetes:
+      namespace: bookyp-review
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+      changes: *main_pipeline_files
+      # when: manual
+      # allow_failure: true
+
+review-prepare:
+  extends: .review-environment
+  stage: deploy-prepare
+  needs: []
+  image:
+    name: registry.geprog.com/docker.io/bitnami/kubectl:1.20.5
+    entrypoint: ['']
+  script:
+    - >
+      kubectl -n $KUBE_NAMESPACE create secret docker-registry bookyp-registry-secret
+      --docker-server=$REGISTRY
+      --docker-username=$REGISTRY_USER
+      --docker-password=$REGISTRY_PASSWORD
+      --save-config --dry-run=client
+      -o yaml | kubectl apply -f -
+    - kubectl -n $KUBE_NAMESPACE apply -f .ci/kube/review-certificate.yml
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+      changes: *main_pipeline_files
+
+review-deployment:
+  extends:
+    - .deploy-base
+    - .review-environment
+  needs:
+    - build-docker-frontend
+    - build-docker-backend
+    - review-prepare
+  script:
+    - >
+      helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
+      --values .ci/charts/bookyp/review-helm-values.yaml
+      --set environment.name=$CI_ENVIRONMENT_SLUG
+      --set frontend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
+      --set backend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
+      --set backend.database.password=$DEPLOY_DATABASE_PASSWORD
+      --set backend.keycloak.secret=$KEYCLOAK_SECRET
+      --set backend.jwtSecret=$BACKEND_JWT_SECRET
+      --set gitlab.app=$CI_PROJECT_PATH_SLUG
+      --set gitlab.env=$CI_ENVIRONMENT_SLUG
+      bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/bookyp
+
+review-deployment-test:
+  extends:
+    - .deploy-base
+    - .review-environment
+  stage: deploy-test
+  needs:
+    - review-deployment
+  script:
+    - helm test --namespace $KUBE_NAMESPACE bookyp-${CI_ENVIRONMENT_SLUG} --logs
+
+review-stop:
+  extends:
+    - .deploy-base
+    - .review-environment
+  stage: cleanup
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
       changes: *main_pipeline_files
       when: manual
       allow_failure: true
-
-deploy-review:
-  extends: .review-template
-  needs:
-    - build-docker-frontend
-    - build-docker-backend
-  before_script:
-    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
-    - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME stop # stop old deployments
   script:
-    - docker-compose -f .ci/docker-compose.yml pull
-    - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME up -d --build --remove-orphans
-  environment:
-    name: review/$CI_COMMIT_REF_SLUG
-    url: 'https://${CI_ENVIRONMENT_SLUG}.${BASE_DOMAIN}/'
-    on_stop: stop-review
-
-stop-review:
-  extends: .review-template
-  variables:
-    GIT_DEPTH: 0
-  script:
-    - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME down -v --remove-orphans --rmi all
+    - helm uninstall --namespace $KUBE_NAMESPACE bookyp-${CI_ENVIRONMENT_SLUG}
   environment:
     name: review/$CI_COMMIT_REF_SLUG
     action: stop
 
-.production-template:
-  stage: deploy
-  image: registry.geprog.com/docker.io/docker/compose:1.27.4
-  dependencies: [] # don't load any artifacts
-  variables:
-    BASE_DOMAIN: 'bookyp.geprog.com'
-    URL_FRONTEND: '${BASE_DOMAIN}'
-    URL_BACKEND: 'api.${BASE_DOMAIN}'
-    FRONTEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/frontend:$CI_COMMIT_REF_SLUG'
-    BACKEND_IMAGE: '${REGISTRY}/${REGISTRY_NAMESPACE}/backend:$CI_COMMIT_REF_SLUG'
-    PROJECT_NAME: 'bookyp-$CI_COMMIT_REF_SLUG'
-  tags:
-    - dood
-
-production-deployment:
-  extends: .production-template
-  needs:
-    - build-docker-frontend
-    - build-docker-backend
-  before_script:
-    - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD" $REGISTRY
-    - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME stop # stop old deployments
-  script:
-    - docker-compose -f .ci/docker-compose.yml pull
-    - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME up -d --build --remove-orphans
+.production-environment:
   environment:
     name: production
-    url: https://${BASE_DOMAIN}/
-    on_stop: stop-production-deployment
+    url: https://app.${BASE_DOMAIN}/
+    kubernetes:
+      namespace: bookyp-production
+
+production-prepare:
+  extends:
+    - .production-environment
+  stage: deploy-prepare
+  needs:
+    # require tests to pass before starting production deployment
+    - unit-tests
+    - typechecking
+    - linting
+    - helm-lint
+    - spell-check
+  image:
+    name: registry.geprog.com/docker.io/bitnami/kubectl:1.20.5
+    entrypoint: ['']
+  script:
+    - >
+      kubectl -n $KUBE_NAMESPACE create secret docker-registry bookyp-registry-secret
+      --docker-server=$REGISTRY
+      --docker-username=$REGISTRY_USER
+      --docker-password=$REGISTRY_PASSWORD
+      --save-config --dry-run=client
+      -o yaml | kubectl apply -f -
+    - kubectl -n $KUBE_NAMESPACE apply -f .ci/kube/production-certificate.yml
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
 
-stop-production-deployment:
-  extends: .production-template
-  variables:
-    GIT_DEPTH: 0
+production-deployment:
+  extends:
+    - .deploy-base
+    - .production-environment
+  needs:
+    - build-docker-frontend
+    - build-docker-backend
+    - production-prepare
   script:
-    - docker-compose -f .ci/docker-compose.yml -p $PROJECT_NAME down --remove-orphans --rmi all
-  environment:
-    name: production
-    action: stop
+    - >
+      helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
+      --values .ci/charts/bookyp/production-helm-values.yaml
+      --set frontend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
+      --set backend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
+      --set backend.database.password=$DEPLOY_DATABASE_PASSWORD
+      --set backend.keycloak.secret=$KEYCLOAK_SECRET
+      --set backend.jwtSecret=$BACKEND_JWT_SECRET
+      --set gitlab.app=$CI_PROJECT_PATH_SLUG
+      --set gitlab.env=$CI_ENVIRONMENT_SLUG
+      bookyp-production .ci/charts/bookyp
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+production-rollback:
+  extends:
+    - .deploy-base
+    - .production-environment
+  stage: cleanup
+  needs:
+    - production-deployment
+  script:
+    - helm rollback --namespace $KUBE_NAMESPACE bookyp-production 0 # SOURCE: https://github.com/helm/helm/issues/1796
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: manual

@@ -1,0 +1,99 @@
+# Default values for bookyp.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+environment:
+  # The type of the environment. review or production
+  type: review
+  # A name for the environment. Typically review-xyz or production
+  name: review-xyz
+
+imagePullSecrets:
+  - name: bookyp-registry-secret
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ''
+
+gitlab:
+  app: ''
+  env: ''
+
+###############################################################################
+# FRONTEND
+frontend:
+  image:
+    repository: registry.geprog.com/bookyp/frontend
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: master
+
+  podAnnotations: {}
+  deploymentAnnotations: {}
+
+  ingress:
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: 'true'
+    tls:
+      secretName: bookyp-tls
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+###############################################################################
+# BACKEND
+backend:
+  image:
+    repository: registry.geprog.com/bookyp/backend
+    pullPolicy: IfNotPresent
+    tag: master
+
+  jwtSecret: ''
+
+  database:
+    host: '10.0.0.200'
+    name: ''
+    username: ''
+    password: ''
+
+  keycloak:
+    subdomain: 'auth.geprog.com/auth/realms/bookyp'
+    client: 'bookyp'
+    secret: ''
+
+  podAnnotations: {}
+  deploymentAnnotations: {}
+
+  ingress:
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: 'true'
+    tls:
+      secretName: bookyp-tls
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi

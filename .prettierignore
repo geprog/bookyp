@@ -4,3 +4,4 @@ dist
 coverage/
 storybook-static/
 .pnpm-store/
+.ci/charts/

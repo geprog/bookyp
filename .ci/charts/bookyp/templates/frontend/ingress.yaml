@@ -1,0 +1,21 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: "{{ include "bookyp.fullname" . }}-frontend"
+  labels:
+    {{- include "bookyp.labels" . | nindent 4 }}
+  {{- with .Values.frontend.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ include "bookyp.frontendURL" . }}`)
+      kind: Rule
+      services:
+        - name: "{{ include "bookyp.fullname" . }}-frontend"
+          port: 80
+  tls:
+    secretName: {{ .Values.frontend.ingress.tls.secretName }}
