@@ -28,7 +28,7 @@ RUN apt-get update \
     && apt-get clean -y
 
 # dependency manager
-RUN npm i -g pnpm@5.18.9
+RUN curl -f https://get.pnpm.io/v6.js | node - add --global pnpm@6
 
 # enable bash completion
 RUN echo "if [ -f /etc/bash_completion ]; \n then . /etc/bash_completion \nfi" >> ~/.bashrc
