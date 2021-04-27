@@ -313,6 +313,7 @@ review-prepare:
     name: registry.geprog.com/docker.io/bitnami/kubectl:1.20.5
     entrypoint: ['']
   script:
+    - kubectl create namespace $KUBE_NAMESPACE || true
     - >
       kubectl -n $KUBE_NAMESPACE create secret docker-registry bookyp-registry-secret
       --docker-server=$REGISTRY
@@ -395,6 +396,7 @@ production-prepare:
     name: registry.geprog.com/docker.io/bitnami/kubectl:1.20.5
     entrypoint: ['']
   script:
+    - kubectl create namespace $KUBE_NAMESPACE || true
     - >
       kubectl -n $KUBE_NAMESPACE create secret docker-registry bookyp-registry-secret
       --docker-server=$REGISTRY
