@@ -4,7 +4,7 @@
 
 ### Without devcontainer
 
-- install pnpm globally: `npm i -g pnpm@5.18.9`
+- install pnpm globally: `curl -f https://get.pnpm.io/v6.js | node - add --global pnpm@6`
 - copy `.env.example` to `.env` file
 - set properties in `.env` file
 - install project dependencies: `pnpm install`
