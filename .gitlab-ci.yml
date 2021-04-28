@@ -123,13 +123,12 @@ build-core:
 
 build-docker-frontend:
   image:
-    name: gcr.io/kaniko-project/executor:debug
+    name: gcr.io/kaniko-project/executor:v1.6.0-debug
     entrypoint: ['']
   stage: build-docker
   needs:
     - build-frontend
   script:
-    - cp $CI_PROJECT_DIR/.ci/frontend.Dockerfile.dockerignore $CI_PROJECT_DIR/.dockerignore # workaround https://github.com/GoogleContainerTools/kaniko/issues/1451
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$REGISTRY\":{\"username\":\"$REGISTRY_USER\",\"password\":\"$REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/frontend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/frontend:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
@@ -141,13 +140,12 @@ build-docker-frontend:
 
 build-docker-backend:
   image:
-    name: gcr.io/kaniko-project/executor:debug
+    name: gcr.io/kaniko-project/executor:v1.6.0-debug
     entrypoint: ['']
   stage: build-docker
   needs:
     - build-backend
   script:
-    - cp $CI_PROJECT_DIR/.ci/backend.Dockerfile.dockerignore $CI_PROJECT_DIR/.dockerignore # workaround https://github.com/GoogleContainerTools/kaniko/issues/1451
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$REGISTRY\":{\"username\":\"$REGISTRY_USER\",\"password\":\"$REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/backend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/backend:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
