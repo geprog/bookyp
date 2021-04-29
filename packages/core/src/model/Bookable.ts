@@ -1,4 +1,4 @@
-import AbstractEntity from '~/model/AbstractEntity';
+import AbstractEntity from './AbstractEntity';
 
 export default class Bookable extends AbstractEntity {
   name!: string;
