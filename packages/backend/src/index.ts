@@ -1,5 +1,7 @@
 import { createLightship } from 'lightship';
 
+import seed from '~/seed';
+
 import app from './app';
 import config from './config';
 import { connect as databaseConnect } from './database';
@@ -36,6 +38,10 @@ async function start(): Promise<void> {
   lightship.registerShutdownHandler(() => {
     server.close();
   });
+
+  // TODO remove / alter seeds
+  // add some basic seeds to speed up development
+  await seed(app);
 }
 
 void start();

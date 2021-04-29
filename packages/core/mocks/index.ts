@@ -1,5 +1,8 @@
 import { jest } from '@jest/globals';
 
+// eslint-disable-next-line no-restricted-imports, import/no-relative-parent-imports
+import { MapObjectTypes } from '../src/model/TemplateGenerator';
+
 export const createApplication = jest.fn().mockImplementation(() => ({
   configure: jest.fn(),
   service: jest.fn(),
@@ -9,3 +12,13 @@ export const createApplication = jest.fn().mockImplementation(() => ({
   get: jest.fn(),
   version: '4.0.0',
 }));
+
+/*
+ * TODO: #116
+ * at runtime some of models properties are needed
+ *  add them here
+ *  the other ones are just needed for type checking and are not needed in tests
+ */
+export const Model = {
+  MapObjectTypes: MapObjectTypes,
+};
