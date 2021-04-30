@@ -10,28 +10,21 @@ stages:
   - cleanup
 
 variables:
-  # CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/.cache/cypress"
   GIT_DEPTH: 10
   REGISTRY: registry.geprog.com
   REGISTRY_NAMESPACE: bookyp
-  DOCKER_BUILDKIT: 1
-  COMPOSE_DOCKER_CLI_BUILD: 1 # enable Buildkit for docker-compose
   BASE_DOMAIN: 'bookyp.de'
 
 .main-pipeline-files: &main_pipeline_files
   - .ci/**/*
   - packages/**/*
   - .commitlintrc.js
-  - .eslintignore
-  - .eslintrc.js
   - .gitlab-ci.yml
   - .huskyrc.js
   - .lintstagedrc.js
   - .prettierignore
   - .prettierrc.js
-  - lerna.json
   - package.json
-  - tsconfig.eslint.json
   - tsconfig.json
   - pnpm-lock.yaml
   - pnpm-workspace.yaml
@@ -77,6 +70,8 @@ install-dependencies:
 build-frontend:
   extends: .node-template
   stage: build
+  needs:
+    - install-dependencies
   script:
     - pnpm --filter @bookyp/frontend... build
   artifacts:
@@ -92,6 +87,8 @@ build-frontend:
 build-backend:
   extends: .node-template
   stage: build
+  needs:
+    - install-dependencies
   script:
     - pnpm --filter @bookyp/backend... build
   artifacts:
@@ -267,8 +264,6 @@ code-coverage:
   stage: coverage
   needs:
     - unit-tests
-    # - e2e-tests
-    # - integration-tests
   variables:
     NODE_ENV: 'test'
   script:
@@ -283,7 +278,6 @@ code-coverage:
 ################# DEPLOY #################
 
 .deploy-base:
-  stage: deploy
   image:
     name: registry.geprog.com/docker.io/alpine/helm:3.5.3
     entrypoint: ['']
@@ -298,10 +292,14 @@ code-coverage:
     kubernetes:
       namespace: bookyp-review
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    # check if pipeline runs on merge request and is triggered by renovate
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
       changes: *main_pipeline_files
-      # when: manual
-      # allow_failure: true
+      when: manual
+      allow_failure: true
+    # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
+      changes: *main_pipeline_files
 
 review-prepare:
   extends: .review-environment
@@ -320,14 +318,12 @@ review-prepare:
       --save-config --dry-run=client
       -o yaml | kubectl apply -f -
     - kubectl -n $KUBE_NAMESPACE apply -f .ci/kube/review-certificate.yml
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
-      changes: *main_pipeline_files
 
 review-deployment:
   extends:
     - .deploy-base
     - .review-environment
+  stage: deploy
   needs:
     - build-docker-frontend
     - build-docker-backend
@@ -361,16 +357,22 @@ review-stop:
     - .deploy-base
     - .review-environment
   stage: cleanup
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    action: stop
+    kubernetes:
+      namespace: bookyp-review
+  variables:
+    GIT_STRATEGY: none # Source: https://docs.gitlab.com/ee/ci/yaml/#environmentaction
+  script:
+    - helm uninstall --namespace $KUBE_NAMESPACE bookyp-${CI_ENVIRONMENT_SLUG}
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
       changes: *main_pipeline_files
       when: manual
       allow_failure: true
-  script:
-    - helm uninstall --namespace $KUBE_NAMESPACE bookyp-${CI_ENVIRONMENT_SLUG}
-  environment:
-    name: review/$CI_COMMIT_REF_SLUG
-    action: stop
+
+### Production deployment
 
 .production-environment:
   environment:
@@ -378,6 +380,8 @@ review-stop:
     url: https://app.${BASE_DOMAIN}/
     kubernetes:
       namespace: bookyp-production
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
 
 production-prepare:
   extends:
@@ -403,13 +407,12 @@ production-prepare:
       --save-config --dry-run=client
       -o yaml | kubectl apply -f -
     - kubectl -n $KUBE_NAMESPACE apply -f .ci/kube/production-certificate.yml
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
 
 production-deployment:
   extends:
     - .deploy-base
     - .production-environment
+  stage: deploy
   needs:
     - build-docker-frontend
     - build-docker-backend
@@ -426,8 +429,6 @@ production-deployment:
       --set gitlab.app=$CI_PROJECT_PATH_SLUG
       --set gitlab.env=$CI_ENVIRONMENT_SLUG
       bookyp-production .ci/charts/bookyp
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
 
 production-rollback:
   extends:
@@ -454,7 +455,6 @@ dummy:
     - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
       changes: # ideally each of these files would have a job i.e. a linter doing something useful
         - README.md
-        - docker-compose.yml
         - docs/**/*
         - .gitlab/**/*
         - .devcontainer/**/*
