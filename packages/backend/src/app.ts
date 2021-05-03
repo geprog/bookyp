@@ -2,6 +2,7 @@ import { createApplication } from '@bookyp/core';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
 
+import channels from '~/channels';
 import config from '~/config';
 // TODO only import '~/services'
 import services from '~/services/index';
@@ -22,6 +23,8 @@ app.configure(
 
 // Set up our services (see `services/index.js`)
 app.configure(services);
+
+app.configure(channels);
 
 app.get('/', (_req, res) => {
   res.send('You found the backend of Bookyp! ;-)');

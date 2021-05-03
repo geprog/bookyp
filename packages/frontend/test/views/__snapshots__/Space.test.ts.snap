@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Space component should render correctly 1`] = `
+"
+<header-stub title=\\"Mock translation\\"
+             has-back
+>
+</header-stub>
+<div class=\\"mx-4 mt-4\\">
+  <svg class=\\"w-full h-128\\"
+       fill=\\"none\\"
+       xmlns=\\"http://www.w3.org/2000/svg\\"
+  >
+  </svg>
+  <floating-button-stub data-test=\\"add-button\\"
+                        class=\\"fixed bottom-8 right-8\\"
+                        icon-name=\\"table\\"
+  >
+  </floating-button-stub>
+</div>
+"
+`;
