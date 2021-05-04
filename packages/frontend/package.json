@@ -29,6 +29,7 @@
     "@intlify/vite-plugin-vue-i18n": "2.0.3",
     "@jest/types": "26.6.2",
     "@rushstack/eslint-patch": "1.0.6",
+    "@rollup/plugin-replace": "2.4.2",
     "@types/jest": "26.0.20",
     "@types/socket.io-client": "1.4.36",
     "@vitejs/plugin-vue": "1.1.5",
