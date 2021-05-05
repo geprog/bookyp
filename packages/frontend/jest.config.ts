@@ -20,7 +20,7 @@ const config: Config.InitialOptions = {
     '^.+\\.vue$': 'vue-jest',
   },
   collectCoverage: true,
-  coverageReporters: ['json'],
+  coverageReporters: ['json', 'text'],
   setupFilesAfterEnv: ['<rootDir>/test/__setup__/console.ts'],
 };
 
