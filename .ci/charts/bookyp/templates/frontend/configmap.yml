@@ -5,4 +5,4 @@ metadata:
   labels:
     {{- include "bookyp.labels" . | nindent 4 }}
 data:
-  APP_BACKEND_URL: "https://{{ include "bookyp.backendURL" . }}"
+  FRONTEND_BACKEND_URL: "https://{{ include "bookyp.backendURL" . }}"

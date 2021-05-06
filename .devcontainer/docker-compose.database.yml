@@ -8,7 +8,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME:-root}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD:-supersecret}
-      MONGO_INIT_DATABASE: feathers
 
   mongo-express:
     image: mongo-express
