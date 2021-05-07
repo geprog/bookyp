@@ -9,7 +9,7 @@ interface AuthenticationResult {
   user: Model.User;
 }
 
-type ClientApplication = Application & {
+export type ClientApplication = Application & {
   get(key: 'authentication'): Promise<AuthenticationResult | null>;
 };
 

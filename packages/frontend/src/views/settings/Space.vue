@@ -6,12 +6,26 @@
     </template>
   </Header>
   <div class="mx-4 mt-4">
-    <svg class="w-full h-128" fill="none" xmlns="http://www.w3.org/2000/svg" @click="positionNewMapObject">
+    <svg
+      class="w-full h-128"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-test="space-map"
+      @click="positionNewMapObject"
+    >
       <path v-for="path in floorPlan" :key="path" :d="path" stroke="#323130" stroke-width="2" />
-      <g v-for="mapObject in mapObjects" :key="mapObject" :transform="`translate(${mapObject.xPos},${mapObject.yPos})`">
+      <g
+        v-for="mapObject in mapObjects"
+        :key="mapObject._id"
+        :transform="`translate(${mapObject.xPos},${mapObject.yPos})`"
+      >
         <path v-for="path in mapObject.paths" :key="path" :d="path" stroke="#323130" stroke-width="1" />
       </g>
-      <g v-if="newMapObject" :transform="`translate(${newMapObject.xPos},${newMapObject.yPos})`">
+      <g
+        v-if="newMapObject"
+        data-test="new-map-object"
+        :transform="`translate(${newMapObject.xPos},${newMapObject.yPos})`"
+      >
         <path
           v-for="path in newMapObject.paths"
           :key="path"
@@ -77,7 +91,6 @@ export default defineComponent({
     };
 
     async function saveNewMapObject(): Promise<void> {
-      // save newMapObject
       if (newMapObject.value) {
         await feathers.service('mapObjects').create(newMapObject.value);
         newMapObject.value = null;
@@ -85,7 +98,16 @@ export default defineComponent({
     }
 
     function positionNewMapObject(event: MouseEvent) {
-      const svg = event.target as SVGSVGElement;
+      // skip if we are not currently in editing mode
+      if (!editing.value) {
+        return;
+      }
+
+      // TODO: workaround to use mocked SVG element if executed in test as JSDom does not support SVG
+      // Related issue: https://github.com/jsdom/jsdom/issues/2647
+      type MockedSVGClickedEvent = MouseEvent & { mockedSVG: SVGSVGElement };
+      const svg = (event as MockedSVGClickedEvent).mockedSVG || (event.target as SVGSVGElement);
+
       const pt = svg.createSVGPoint();
 
       // pass event coordinates
