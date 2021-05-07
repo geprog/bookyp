@@ -1,5 +1,5 @@
 <template>
-  <div class="app flex flex-col m-auto w-full">
+  <div class="app flex flex-col m-auto w-full h-full">
     <router-view />
   </div>
 </template>
