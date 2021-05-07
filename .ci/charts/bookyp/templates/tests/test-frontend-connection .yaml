@@ -5,7 +5,8 @@ metadata:
   labels:
     {{- include "bookyp.labels" . | nindent 4 }}
   annotations:
-    "helm.sh/hook": test
+    helm.sh/hook: test
+    helm.sh/hook-delete-policy: hook-succeeded
 spec:
   {{- with .Values.imagePullSecrets }}
   imagePullSecrets:
