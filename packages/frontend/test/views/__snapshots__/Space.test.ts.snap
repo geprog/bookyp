@@ -10,6 +10,7 @@ exports[`Space component should render correctly 1`] = `
   <svg class=\\"w-full h-128\\"
        fill=\\"none\\"
        xmlns=\\"http://www.w3.org/2000/svg\\"
+       data-test=\\"space-map\\"
   >
   </svg>
   <floating-button-stub data-test=\\"add-button\\"
