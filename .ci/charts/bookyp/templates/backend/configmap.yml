@@ -5,10 +5,10 @@ metadata:
   labels:
     {{- include "bookyp.labels" . | nindent 4 }}
 data:
-  APP_HOST: {{ include "bookyp.backendURL" . }}
-  APP_SECRET: {{ .Values.backend.jwtSecret | quote }}
-  OAUTH_REDIRECT_URL: "https://{{ include "bookyp.frontendURL" . }}/"
-  KEYCLOAK_SUBDOMAIN: {{ .Values.backend.keycloak.subdomain | quote }}
-  KEYCLOAK_CLIENT: {{ .Values.backend.keycloak.client | quote }}
-  KEYCLOAK_SECRET: {{ .Values.backend.keycloak.secret | quote }}
-  DB_URI: {{ include "bookyp.backendDatabaseURI" . | quote }}
+  BACKEND_HOST: {{ include "bookyp.backendURL" . }}
+  BACKEND_SECRET: {{ .Values.backend.jwtSecret | quote }}
+  BACKEND_OAUTH_REDIRECT_URL: "https://{{ include "bookyp.frontendURL" . }}/"
+  BACKEND_KEYCLOAK_SUBDOMAIN: {{ .Values.backend.keycloak.subdomain | quote }}
+  BACKEND_KEYCLOAK_CLIENT: {{ .Values.backend.keycloak.client | quote }}
+  BACKEND_KEYCLOAK_SECRET: {{ .Values.backend.keycloak.secret | quote }}
+  BACKEND_DB_URI: {{ include "bookyp.backendDatabaseURI" . | quote }}

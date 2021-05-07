@@ -1,24 +1,24 @@
 const config = {
   app: {
-    host: process.env.APP_HOST || 'localhost',
-    port: parseInt(process.env.APP_PORT || '4000'),
-    secret: process.env.APP_SECRET,
+    host: process.env.BACKEND_HOST || 'localhost',
+    port: parseInt(process.env.BACKEND_PORT || '4000'),
+    secret: process.env.BACKEND_SECRET,
   },
   oauth: {
-    redirect_url: process.env.OAUTH_REDIRECT_URL,
+    redirect_url: process.env.BACKEND_OAUTH_REDIRECT_URL,
     keycloak: {
-      secret: process.env.KEYCLOAK_SECRET,
-      client: process.env.KEYCLOAK_CLIENT,
-      subdomain: process.env.KEYCLOAK_SUBDOMAIN,
+      secret: process.env.BACKEND_KEYCLOAK_SECRET,
+      client: process.env.BACKEND_KEYCLOAK_CLIENT,
+      subdomain: process.env.BACKEND_KEYCLOAK_SUBDOMAIN,
     },
   },
   db: {
-    uri: process.env.DB_URI,
-    host: process.env.DB_HOST || 'db',
-    port: parseInt(process.env.DB_PORT || '27017'),
-    name: process.env.DB_NAME || 'bookyp',
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
+    uri: process.env.BACKEND_DB_URI,
+    host: process.env.BACKEND_DB_HOST || 'db',
+    port: parseInt(process.env.BACKEND_DB_PORT || '27017'),
+    name: process.env.BACKEND_DB_NAME || 'bookyp',
+    user: process.env.BACKEND_DB_USERNAME,
+    password: process.env.BACKEND_DB_PASSWORD,
   },
 };
 
