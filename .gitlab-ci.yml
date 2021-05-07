@@ -350,7 +350,7 @@ review-deployment-test:
   needs:
     - review-deployment
   script:
-    - helm test --namespace $KUBE_NAMESPACE bookyp-${CI_ENVIRONMENT_SLUG} --logs
+    - helm test --namespace $KUBE_NAMESPACE bookyp-${CI_ENVIRONMENT_SLUG}
 
 review-stop:
   extends:
