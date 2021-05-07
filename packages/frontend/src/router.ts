@@ -61,6 +61,12 @@ const router = createRouter({
 
 // auth middleware
 router.beforeEach(async (to, _, next) => {
+  // do not load authentication in callback
+  if (to.name === 'auth-callback') {
+    next();
+    return;
+  }
+
   await loadAuthentication();
 
   if (to.meta.requiresAuth && !isAuthenticated.value) {

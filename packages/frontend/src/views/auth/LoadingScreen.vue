@@ -1,20 +1,16 @@
 <template>
-  <div>
-    <div class="h-screen flex flex-col justify-between">
-      <div class="flex-shrink">
-        <h1 class="mt-10 text-center text-3xl">{{ t('bookyp').toUpperCase() }}</h1>
-        <p class="mt-5 text-center">{{ t('bookyp_name') }}</p>
-      </div>
-      <div class="flex-shrink">
-        <div class="flex justify-center">
-          <img src="/src/assets/img/bookyp-logo.svg" />
-        </div>
-      </div>
-      <div class="mb-15 flex-shrink">
-        <div class="flex justify-center">
-          <img src="/src/assets/img/geprog-logo.svg" />
-        </div>
-      </div>
+  <div class="h-full max-h-xl m-auto flex flex-col">
+    <div class="mt-8 flex flex-col items-center">
+      <h1 class="text-center text-3xl">{{ t('bookyp').toUpperCase() }}</h1>
+      <p class="mt-4 text-center">{{ t('bookyp_name') }}</p>
+    </div>
+
+    <div class="flex my-auto justify-center">
+      <img class="w-48 h-auto ml-8" src="/src/assets/img/bookyp-logo.svg" />
+    </div>
+
+    <div class="mb-8 flex justify-center">
+      <img class="w-24 h-auto" src="/src/assets/img/geprog-logo.svg" />
     </div>
   </div>
 </template>
