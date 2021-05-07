@@ -3,7 +3,7 @@
 exports[`FloatingButton component should render correctly 1`] = `
 "
 <button type=\\"button\\"
-        class=\\"rounded-full h-12 w-12 flex items-center justify-center bg-primary-normal shadow-lg\\"
+        class=\\"flex items-center justify-center rounded-full h-12 w-12 cursor-pointer focus:outline-transparent hover:bg-primary-dark disabled:bg-gray-background disabled:cursor-not-allowed bg-primary-normal shadow-lg\\"
 >
   <icon-stub data-test=\\"floating-button-icon\\"
              name=\\"settings\\"

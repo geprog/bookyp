@@ -1,17 +1,17 @@
 import { shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 
-import FloatingButton from '~/components/FloatingButton.vue';
+import FloatingButton from '~/components/buttons/FloatingButton.vue';
 
 describe('FloatingButton component', () => {
   it('should render correctly', () => {
     // given
-    const iconName = 'settings';
+    const icon = 'settings';
 
     // when
     const wrapper = shallowMount(FloatingButton, {
       props: {
-        iconName,
+        icon,
       },
     });
 
@@ -21,16 +21,16 @@ describe('FloatingButton component', () => {
 
   it('should load the correct icon', () => {
     // given
-    const iconName = 'settings';
+    const icon = 'settings';
 
     // when
     const wrapper = shallowMount(FloatingButton, {
       props: {
-        iconName,
+        icon,
       },
     });
 
     // then
-    expect(wrapper.find('[data-test=floating-button-icon]').attributes('name')).toBe(iconName);
+    expect(wrapper.find('[data-test=floating-button-icon]').attributes('name')).toBe(icon);
   });
 });

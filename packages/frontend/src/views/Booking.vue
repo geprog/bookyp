@@ -1,8 +1,6 @@
 <template>
   <Header :title="t('book_a_bookable', { bookable: bookable?.name })" has-back>
-    <button type="submit" form="booking">
-      <Icon name="check-mark" />
-    </button>
+    <IconButton type="submit" form="booking" icon="check-mark" />
   </Header>
   <form id="booking" class="booking mx-4" @submit.prevent="submit">
     <InputField icon-name="play-circle">
@@ -24,8 +22,8 @@ import { defineComponent, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
+import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/Header.vue';
-import Icon from '~/components/Icon.vue';
 import InputField from '~/components/InputField.vue';
 import TextField from '~/components/TextField.vue';
 import { user } from '~/compositions/useAuthentication';
@@ -34,7 +32,7 @@ import useFeathers from '~/compositions/useFeathers';
 export default defineComponent({
   name: 'Booking',
 
-  components: { Header, Icon, InputField, TextField },
+  components: { Header, IconButton, InputField, TextField },
 
   props: {
     bookableId: {

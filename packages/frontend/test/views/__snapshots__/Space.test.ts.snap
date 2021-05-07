@@ -14,7 +14,7 @@ exports[`Space component should render correctly 1`] = `
   </svg>
   <floating-button-stub data-test=\\"add-button\\"
                         class=\\"fixed bottom-8 right-8\\"
-                        icon-name=\\"table\\"
+                        icon=\\"table\\"
   >
   </floating-button-stub>
 </div>

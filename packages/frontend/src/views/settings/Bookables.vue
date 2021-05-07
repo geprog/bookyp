@@ -15,7 +15,7 @@
 
     <FloatingButton
       class="fixed bottom-8 right-8"
-      icon-name="add"
+      icon="add"
       @click="router.replace({ name: 'settings-bookable-create' })"
     />
   </div>
@@ -26,7 +26,7 @@ import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
-import FloatingButton from '~/components/FloatingButton.vue';
+import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import Header from '~/components/Header.vue';
 import ListItem from '~/components/ListItem.vue';
 import SettingsTabs from '~/components/SettingsTabs.vue';
