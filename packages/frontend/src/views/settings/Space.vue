@@ -1,8 +1,6 @@
 <template>
   <Header :title="t('settings')" has-back>
-    <button v-if="editing" data-test="save-button" type="submit" @click="saveNewMapObject">
-      <Icon name="check-mark" />
-    </button>
+    <IconButton v-if="editing" data-test="save-button" type="submit" icon="check-mark" @click="saveNewMapObject" />
     <template #second>
       <SettingsTabs />
     </template>
@@ -24,7 +22,7 @@
         />
       </g>
     </svg>
-    <FloatingButton data-test="add-button" class="fixed bottom-8 right-8" icon-name="table" @click="addMapObject" />
+    <FloatingButton data-test="add-button" class="fixed bottom-8 right-8" icon="table" @click="addMapObject" />
   </div>
 </template>
 
@@ -33,9 +31,9 @@ import { Model } from '@bookyp/core';
 import { computed, defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import FloatingButton from '~/components/FloatingButton.vue';
+import FloatingButton from '~/components/buttons/FloatingButton.vue';
+import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/Header.vue';
-import Icon from '~/components/Icon.vue';
 import SettingsTabs from '~/components/SettingsTabs.vue';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
@@ -43,7 +41,7 @@ import useFind from '~/compositions/useFind';
 export default defineComponent({
   name: 'Space',
 
-  components: { FloatingButton, Icon, Header, SettingsTabs },
+  components: { FloatingButton, IconButton, Header, SettingsTabs },
 
   setup() {
     // eslint-disable-next-line @typescript-eslint/unbound-method

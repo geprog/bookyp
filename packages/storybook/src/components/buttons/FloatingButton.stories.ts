@@ -1,13 +1,13 @@
-import FloatingButton from '@bookyp/frontend/src/components/FloatingButton.vue';
+import FloatingButton from '@bookyp/frontend/src/components/buttons/FloatingButton.vue';
 import { Meta, Story } from '@storybook/vue3';
 
 const icons = ['add', 'arrow-left', 'check-mark', 'description', 'edit', 'settings'];
 
 export default {
-  title: 'Components/FloatingButton',
+  title: 'Components/Buttons/FloatingButton',
   component: FloatingButton,
   argTypes: {
-    iconName: { defaultValue: 'add', control: { type: 'select', options: icons } },
+    icon: { defaultValue: 'add', control: { type: 'select', options: icons } },
   },
 } as Meta;
 
@@ -23,3 +23,6 @@ const Template: Story = (args) => ({
 });
 
 export const General = Template.bind({});
+
+export const Disabled = Template.bind({});
+Disabled.args = { disabled: true };

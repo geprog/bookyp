@@ -1,17 +1,17 @@
 import { shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 
-import Button from '~/components/Button.vue';
+import IconButton from '~/components/buttons/IconButton.vue';
 
-describe('Button component', () => {
+describe('IconButton component', () => {
   it('should render correctly', () => {
     // given
-    const iconName = 'testIcon';
+    const icon = 'testIcon';
 
     // when
-    const wrapper = shallowMount(Button, {
+    const wrapper = shallowMount(IconButton, {
       props: {
-        iconName,
+        icon,
       },
     });
 
@@ -21,16 +21,16 @@ describe('Button component', () => {
 
   it('should load the correct icon', () => {
     // given
-    const iconName = 'settings';
+    const icon = 'settings';
 
     // when
-    const wrapper = shallowMount(Button, {
+    const wrapper = shallowMount(IconButton, {
       props: {
-        iconName,
+        icon,
       },
     });
 
     // then
-    expect(wrapper.find('[data-test=button-icon]').attributes('name')).toBe(iconName);
+    expect(wrapper.find('[data-test=button-icon]').attributes('name')).toBe(icon);
   });
 });

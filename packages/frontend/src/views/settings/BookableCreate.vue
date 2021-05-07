@@ -1,8 +1,6 @@
 <template>
   <Header :title="t('bookable_details')" has-back>
-    <button type="submit" form="bookable">
-      <Icon name="check-mark" />
-    </button>
+    <IconButton type="submit" form="bookable" icon="check-mark" />
   </Header>
   <form id="bookable" class="bookable mx-4" @submit.prevent="submit">
     <InputField icon-name="edit">
@@ -20,8 +18,8 @@ import { defineComponent, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
+import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/Header.vue';
-import Icon from '~/components/Icon.vue';
 import InputField from '~/components/InputField.vue';
 import TextField from '~/components/TextField.vue';
 import useFeathers from '~/compositions/useFeathers';
@@ -29,7 +27,7 @@ import useFeathers from '~/compositions/useFeathers';
 export default defineComponent({
   name: 'BookableCreate',
 
-  components: { Header, TextField, InputField, Icon },
+  components: { Header, TextField, InputField, IconButton },
 
   setup() {
     // eslint-disable-next-line @typescript-eslint/unbound-method
