@@ -1,6 +1,6 @@
 <template>
   <Header title="Home" has-back>
-    <IconButton icon="settings" @click="router.push({ name: 'settings-bookables' })" />
+    <IconButton icon="settings" @click="$router.push({ name: 'settings-bookables' })" />
     <IconButton icon="logout" @click="logoutFunc" />
   </Header>
   <div class="home">
@@ -13,7 +13,7 @@
       :label="bookable.name"
       status-color="bg-primary-normal"
       :description="bookable.description"
-      @click="router.push({ name: 'booking-create', params: { bookableId: bookable._id } })"
+      @click="$router.push({ name: 'booking-create', params: { bookableId: bookable._id } })"
     />
   </div>
 </template>
@@ -42,7 +42,7 @@ export default defineComponent({
       await logout();
       await router.push({ name: 'loading-screen' });
     };
-    return { router, t, user, logoutFunc, bookables };
+    return { t, user, logoutFunc, bookables };
   },
 });
 </script>

@@ -88,11 +88,12 @@ describe('Header component', () => {
     expect(header.find('[data-test=back-button]').exists()).toBe(false);
   });
 
-  it('should go back when pressing the back button', async () => {
-    expect.assertions(1);
+  it('should go back when pressing the back button', () => {
     // given
-    const { useRouter } = await import('vue-router');
-    const router = useRouter();
+    const goMock = jest.fn();
+    const mockRouter = {
+      go: goMock,
+    };
 
     // when
     const header = shallowMount(Header, {
@@ -100,11 +101,16 @@ describe('Header component', () => {
         title: '',
         hasBack: true,
       },
+      global: {
+        mocks: {
+          $router: mockRouter,
+        },
+      },
     });
     header.find<HTMLElement>('*[data-test=back-button]').element.click();
 
     // then
-    expect(router.go).toHaveBeenCalledWith(-1);
+    expect(goMock).toHaveBeenCalledWith(-1);
   });
 
   it('should include the title text', () => {
