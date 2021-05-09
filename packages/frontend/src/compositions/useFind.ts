@@ -65,16 +65,19 @@ export default <T extends keyof Service.ServiceModels>(serviceName: T): UseFind<
     isLoading.value = false;
   };
 
+  const connectListener = () => {
+    void find();
+  };
+
+  feathers.on('connect', connectListener);
+
   onMounted(async () => {
     await find();
   });
 
-  feathers.on('connect', () => {
-    void find();
-  });
-
   onBeforeUnmount(() => {
     unloadEventHandlers();
+    feathers.off('connect', connectListener);
   });
 
   return { data, isLoading };

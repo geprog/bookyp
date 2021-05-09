@@ -67,20 +67,23 @@ export default <T extends keyof Service.ServiceModels>(
     isLoading.value = false;
   };
 
-  onMounted(async () => {
+  watch(_id, async () => {
     await get();
   });
 
-  feathers.on('connect', () => {
+  const connectListener = () => {
     void get();
-  });
+  };
 
-  watch(_id, async () => {
+  feathers.on('connect', connectListener);
+
+  onMounted(async () => {
     await get();
   });
 
   onBeforeUnmount(() => {
     unloadEventHandlers();
+    feathers.off('connect', connectListener);
   });
 
   return { isLoading, data };
