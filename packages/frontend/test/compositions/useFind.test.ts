@@ -60,6 +60,7 @@ describe('Find composition', () => {
         off: jest.fn(),
       }),
       on: emitter.on,
+      off: jest.fn(),
     };
     (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
     let findComposition = null as UseFind<TestModel> | null;
@@ -89,6 +90,7 @@ describe('Find composition', () => {
         off: jest.fn(),
       }),
       on: jest.fn(),
+      off: jest.fn(),
     };
     (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
     let findComposition = null as UseFind<TestModel> | null;
@@ -121,6 +123,7 @@ describe('Find composition', () => {
         off: jest.fn(),
       }),
       on: jest.fn(),
+      off: jest.fn(),
     };
     (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
     let findComposition = null as UseFind<TestModel> | null;
@@ -150,6 +153,7 @@ describe('Find composition', () => {
           off: jest.fn(),
         }),
         on: jest.fn(),
+        off: jest.fn(),
       };
       (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
@@ -178,6 +182,7 @@ describe('Find composition', () => {
           off: jest.fn(),
         }),
         on: jest.fn(),
+        off: jest.fn(),
       };
       (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
@@ -206,6 +211,7 @@ describe('Find composition', () => {
           off: jest.fn(),
         }),
         on: jest.fn(),
+        off: jest.fn(),
       };
       (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
@@ -234,6 +240,7 @@ describe('Find composition', () => {
           off: jest.fn(),
         }),
         on: jest.fn(),
+        off: jest.fn(),
       };
       (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
@@ -251,10 +258,11 @@ describe('Find composition', () => {
     });
 
     it('should unmount the event handlers', async () => {
-      expect.assertions(6);
+      expect.assertions(7);
 
       // given
       const serviceOff = jest.fn();
+      const feathersOff = jest.fn();
       const useFeathersMock = {
         service: () => ({
           find: jest.fn(),
@@ -262,6 +270,7 @@ describe('Find composition', () => {
           off: serviceOff,
         }),
         on: jest.fn(),
+        off: feathersOff,
       };
       (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
@@ -275,6 +284,7 @@ describe('Find composition', () => {
 
       // then
       expect(findComposition).toBeTruthy();
+      expect(feathersOff).toHaveBeenCalledTimes(1);
       expect(serviceOff).toHaveBeenCalledTimes(4);
       expect(serviceOff).toHaveBeenCalledWith('created', expect.anything());
       expect(serviceOff).toHaveBeenCalledWith('updated', expect.anything());
