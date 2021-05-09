@@ -1,7 +1,8 @@
 import { Id } from '@feathersjs/feathers';
+import { mocked } from 'ts-jest/utils';
 import { Ref, ref } from 'vue';
 
-import useFeathers from '~/compositions/useFeathers';
+import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useGetOriginal, { UseGet } from '~/compositions/useGet';
 import { mountComposition } from '$/helpers/composition';
 import { eventHelper } from '$/helpers/events';
@@ -27,7 +28,7 @@ describe('Get composition', () => {
 
     // given
     const serviceGet = jest.fn(() => testModel);
-    const useFeathersMock = {
+    const useFeathersMock = ({
       service: () => ({
         get: serviceGet,
         on: jest.fn(),
@@ -35,8 +36,8 @@ describe('Get composition', () => {
       }),
       on: jest.fn(),
       off: jest.fn(),
-    };
-    (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+    } as unknown) as ClientApplication;
+    mocked(useFeathers).mockReturnValue(useFeathersMock);
 
     // when
     let getComposition = null as UseGet<TestModel> | null;
@@ -56,7 +57,7 @@ describe('Get composition', () => {
     // given
     const serviceGet = jest.fn(() => testModel);
     const emitter = eventHelper();
-    const useFeathersMock = {
+    const useFeathersMock = ({
       service: () => ({
         get: serviceGet,
         on: jest.fn(),
@@ -64,8 +65,8 @@ describe('Get composition', () => {
       }),
       on: emitter.on,
       off: jest.fn(),
-    };
-    (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+    } as unknown) as ClientApplication;
+    mocked(useFeathers).mockReturnValue(useFeathersMock);
     let getComposition = null as UseGet<TestModel> | null;
     const wrapper = await mountComposition(() => {
       getComposition = useGet('testModels', ref(testModel._id));
@@ -86,7 +87,7 @@ describe('Get composition', () => {
     expect.assertions(2);
 
     // given
-    const useFeathersMock = {
+    const useFeathersMock = ({
       service: () => ({
         get: jest.fn(() => new Promise(() => null)),
         on: jest.fn(),
@@ -94,8 +95,8 @@ describe('Get composition', () => {
       }),
       on: jest.fn(),
       off: jest.fn(),
-    };
-    (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+    } as unknown) as ClientApplication;
+    mocked(useFeathers).mockReturnValue(useFeathersMock);
     let getComposition = null as UseGet<TestModel> | null;
     const wrapper = await mountComposition(() => {
       getComposition = useGet('testModels', ref(testModel._id));
@@ -119,7 +120,7 @@ describe('Get composition', () => {
         serviceGetPromiseResolve = resolve;
       });
     });
-    const useFeathersMock = {
+    const useFeathersMock = ({
       service: () => ({
         get: serviceGet,
         on: jest.fn(),
@@ -127,8 +128,8 @@ describe('Get composition', () => {
       }),
       on: jest.fn(),
       off: jest.fn(),
-    };
-    (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+    } as unknown) as ClientApplication;
+    mocked(useFeathers).mockReturnValue(useFeathersMock);
     let getComposition = null as UseGet<TestModel> | null;
     const wrapper = await mountComposition(() => {
       getComposition = useGet('testModels', ref(testModel._id));
@@ -154,7 +155,7 @@ describe('Get composition', () => {
       }
       return additionalTestModel;
     });
-    const useFeathersMock = {
+    const useFeathersMock = ({
       service: () => ({
         get: serviceGet,
         on: jest.fn(),
@@ -162,8 +163,8 @@ describe('Get composition', () => {
       }),
       on: jest.fn(),
       off: jest.fn(),
-    };
-    (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+    } as unknown) as ClientApplication;
+    mocked(useFeathers).mockReturnValue(useFeathersMock);
     let getComposition = null as UseGet<TestModel> | null;
     const wrapper = await mountComposition(() => {
       getComposition = useGet('testModels', testModelId);
@@ -188,7 +189,7 @@ describe('Get composition', () => {
 
       // given
       const emitter = eventHelper();
-      const useFeathersMock = {
+      const useFeathersMock = ({
         service: () => ({
           get: jest.fn(),
           on: emitter.on,
@@ -196,8 +197,8 @@ describe('Get composition', () => {
         }),
         on: jest.fn(),
         off: jest.fn(),
-      };
-      (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
       let getComposition = null as UseGet<TestModel> | null;
       const wrapper = await mountComposition(() => {
         getComposition = useGet('testModels', ref(additionalTestModel._id));
@@ -217,7 +218,7 @@ describe('Get composition', () => {
 
       // given
       const emitter = eventHelper();
-      const useFeathersMock = {
+      const useFeathersMock = ({
         service: () => ({
           get: jest.fn(),
           on: emitter.on,
@@ -225,8 +226,8 @@ describe('Get composition', () => {
         }),
         on: jest.fn(),
         off: jest.fn(),
-      };
-      (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
       let getComposition = null as UseGet<TestModel> | null;
       const wrapper = await mountComposition(() => {
         getComposition = useGet('testModels', ref(testModel._id));
@@ -246,7 +247,7 @@ describe('Get composition', () => {
 
       // given
       const emitter = eventHelper();
-      const useFeathersMock = {
+      const useFeathersMock = ({
         service: () => ({
           get: jest.fn(),
           on: emitter.on,
@@ -254,8 +255,8 @@ describe('Get composition', () => {
         }),
         on: jest.fn(),
         off: jest.fn(),
-      };
-      (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
       let getComposition = null as UseGet<TestModel> | null;
       const wrapper = await mountComposition(() => {
         getComposition = useGet('testModels', ref(testModel._id));
@@ -275,7 +276,7 @@ describe('Get composition', () => {
 
       // given
       const emitter = eventHelper();
-      const useFeathersMock = {
+      const useFeathersMock = ({
         service: () => ({
           get: jest.fn(),
           on: emitter.on,
@@ -283,8 +284,8 @@ describe('Get composition', () => {
         }),
         on: jest.fn(),
         off: jest.fn(),
-      };
-      (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
       let getComposition = null as UseGet<TestModel> | null;
       const wrapper = await mountComposition(() => {
         getComposition = useGet('testModels', ref(testModel._id));
@@ -305,7 +306,7 @@ describe('Get composition', () => {
       // given
       const serviceOff = jest.fn();
       const feathersOff = jest.fn();
-      const useFeathersMock = {
+      const useFeathersMock = ({
         service: () => ({
           get: jest.fn(),
           on: jest.fn(),
@@ -313,8 +314,8 @@ describe('Get composition', () => {
         }),
         on: jest.fn(),
         off: feathersOff,
-      };
-      (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
       let getComposition = null as UseGet<TestModel> | null;
       const wrapper = await mountComposition(() => {
         getComposition = useGet('testModels', ref(testModel._id));
