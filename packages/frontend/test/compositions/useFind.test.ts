@@ -1,4 +1,6 @@
-import useFeathers from '~/compositions/useFeathers';
+import { mocked } from 'ts-jest/utils';
+
+import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useFindOriginal, { UseFind } from '~/compositions/useFind';
 import { mountComposition } from '$/helpers/composition';
 import { eventHelper } from '$/helpers/events';
@@ -25,15 +27,17 @@ describe('Find composition', () => {
 
     // given
     const serviceFind = jest.fn(() => testModels);
-    const useFeathersMock = {
+
+    const useFeathersMock = ({
       service: () => ({
         find: serviceFind,
         on: jest.fn(),
         off: jest.fn(),
       }),
       on: jest.fn(),
-    };
-    (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+      off: jest.fn(),
+    } as unknown) as ClientApplication;
+    mocked(useFeathers).mockReturnValue(useFeathersMock);
 
     // when
     let findComposition = null as UseFind<TestModel> | null;
@@ -53,7 +57,7 @@ describe('Find composition', () => {
     // given
     const serviceFind = jest.fn(() => testModels);
     const emitter = eventHelper();
-    const useFeathersMock = {
+    const useFeathersMock = ({
       service: () => ({
         find: serviceFind,
         on: jest.fn(),
@@ -61,8 +65,8 @@ describe('Find composition', () => {
       }),
       on: emitter.on,
       off: jest.fn(),
-    };
-    (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+    } as unknown) as ClientApplication;
+    mocked(useFeathers).mockReturnValue(useFeathersMock);
     let findComposition = null as UseFind<TestModel> | null;
     const wrapper = await mountComposition(() => {
       findComposition = useFind('testModels');
@@ -83,7 +87,7 @@ describe('Find composition', () => {
     expect.assertions(2);
 
     // given
-    const useFeathersMock = {
+    const useFeathersMock = ({
       service: () => ({
         find: jest.fn(() => new Promise(() => null)),
         on: jest.fn(),
@@ -91,8 +95,8 @@ describe('Find composition', () => {
       }),
       on: jest.fn(),
       off: jest.fn(),
-    };
-    (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+    } as unknown) as ClientApplication;
+    mocked(useFeathers).mockReturnValue(useFeathersMock);
     let findComposition = null as UseFind<TestModel> | null;
     const wrapper = await mountComposition(() => {
       findComposition = useFind('testModels');
@@ -116,7 +120,7 @@ describe('Find composition', () => {
         serviceFindPromiseResolve = resolve;
       });
     });
-    const useFeathersMock = {
+    const useFeathersMock = ({
       service: () => ({
         find: serviceFind,
         on: jest.fn(),
@@ -124,8 +128,8 @@ describe('Find composition', () => {
       }),
       on: jest.fn(),
       off: jest.fn(),
-    };
-    (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+    } as unknown) as ClientApplication;
+    mocked(useFeathers).mockReturnValue(useFeathersMock);
     let findComposition = null as UseFind<TestModel> | null;
     const wrapper = await mountComposition(() => {
       findComposition = useFind('testModels');
@@ -146,7 +150,7 @@ describe('Find composition', () => {
 
       // given
       const emitter = eventHelper();
-      const useFeathersMock = {
+      const useFeathersMock = ({
         service: () => ({
           find: jest.fn(() => []),
           on: emitter.on,
@@ -154,8 +158,8 @@ describe('Find composition', () => {
         }),
         on: jest.fn(),
         off: jest.fn(),
-      };
-      (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
       const wrapper = await mountComposition(() => {
         findComposition = useFind('testModels');
@@ -175,7 +179,7 @@ describe('Find composition', () => {
 
       // given
       const emitter = eventHelper();
-      const useFeathersMock = {
+      const useFeathersMock = ({
         service: () => ({
           find: jest.fn(() => testModels),
           on: emitter.on,
@@ -183,8 +187,8 @@ describe('Find composition', () => {
         }),
         on: jest.fn(),
         off: jest.fn(),
-      };
-      (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
       const wrapper = await mountComposition(() => {
         findComposition = useFind('testModels');
@@ -204,7 +208,7 @@ describe('Find composition', () => {
 
       // given
       const emitter = eventHelper();
-      const useFeathersMock = {
+      const useFeathersMock = ({
         service: () => ({
           find: jest.fn(() => testModels),
           on: emitter.on,
@@ -212,8 +216,8 @@ describe('Find composition', () => {
         }),
         on: jest.fn(),
         off: jest.fn(),
-      };
-      (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
       const wrapper = await mountComposition(() => {
         findComposition = useFind('testModels');
@@ -233,7 +237,7 @@ describe('Find composition', () => {
 
       // given
       const emitter = eventHelper();
-      const useFeathersMock = {
+      const useFeathersMock = ({
         service: () => ({
           find: jest.fn(() => testModels),
           on: emitter.on,
@@ -241,8 +245,8 @@ describe('Find composition', () => {
         }),
         on: jest.fn(),
         off: jest.fn(),
-      };
-      (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
       const wrapper = await mountComposition(() => {
         findComposition = useFind('testModels');
@@ -263,7 +267,7 @@ describe('Find composition', () => {
       // given
       const serviceOff = jest.fn();
       const feathersOff = jest.fn();
-      const useFeathersMock = {
+      const useFeathersMock = ({
         service: () => ({
           find: jest.fn(),
           on: jest.fn(),
@@ -271,8 +275,8 @@ describe('Find composition', () => {
         }),
         on: jest.fn(),
         off: feathersOff,
-      };
-      (useFeathers as jest.Mock).mockReturnValue(useFeathersMock);
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
       const wrapper = await mountComposition(() => {
         findComposition = useFind('testModels');
