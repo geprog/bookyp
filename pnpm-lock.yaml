@@ -41,11 +41,11 @@ importers:
       '@babel/preset-typescript': 7.13.0
       '@bookyp/core': workspace:*
       '@bookyp/eslint-config': workspace:*
-      '@feathersjs/authentication': 5.0.0-pre.1
-      '@feathersjs/authentication-oauth': raphaelschwinger/feathers#feathersjs-authentication-oauth-v5.0.0-pre.1-gitpkg
-      '@feathersjs/express': 5.0.0-pre.1
-      '@feathersjs/feathers': 5.0.0-pre.1
-      '@feathersjs/socketio': 5.0.0-pre.1
+      '@feathersjs/authentication': 5.0.0-pre.3
+      '@feathersjs/authentication-oauth': 5.0.0-pre.3
+      '@feathersjs/express': 5.0.0-pre.3
+      '@feathersjs/feathers': 5.0.0-pre.3
+      '@feathersjs/socketio': 5.0.0-pre.3
       '@jest/globals': 27.0.0-next.1
       '@jest/types': 27.0.0-next.1
       '@rushstack/eslint-patch': 1.0.6
@@ -53,7 +53,7 @@ importers:
       esbuild: 0.9.6
       esbuild-jest: 0.5.0
       eslint: 7.22.0
-      feathers-mongoose: 8.3.1
+      feathers-mongoose: github:GEPROG/feathers-mongoose#upgrade-feathers
       jest: 27.0.0-next.2
       lightship: 6.7.2
       mongoose: github:raphaelschwinger/mongoose#fix-import
@@ -64,12 +64,12 @@ importers:
       typescript-transform-paths: 2.2.3
     dependencies:
       '@bookyp/core': link:../core
-      '@feathersjs/authentication': 5.0.0-pre.1
-      '@feathersjs/authentication-oauth': github.com/raphaelschwinger/feathers/07fac6e9a5d087e86bed6bbe7575c25e8208dc5c
-      '@feathersjs/express': 5.0.0-pre.1
-      '@feathersjs/feathers': 5.0.0-pre.1
-      '@feathersjs/socketio': 5.0.0-pre.1
-      feathers-mongoose: 8.3.1_mongoose@5.12.2
+      '@feathersjs/authentication': 5.0.0-pre.3
+      '@feathersjs/authentication-oauth': 5.0.0-pre.3
+      '@feathersjs/express': 5.0.0-pre.3
+      '@feathersjs/feathers': 5.0.0-pre.3
+      '@feathersjs/socketio': 5.0.0-pre.3
+      feathers-mongoose: github.com/GEPROG/feathers-mongoose/5e5fb2fc7678a0c1bd05ef16f331082e0bc7ba69_mongoose@5.12.2
       lightship: 6.7.2
       mongoose: github.com/raphaelschwinger/mongoose/a1f74a70b8b72769b274857e52331d25001492b4
     devDependencies:
@@ -97,8 +97,9 @@ importers:
       '@babel/plugin-transform-modules-commonjs': 7.13.8
       '@babel/preset-typescript': 7.13.0
       '@bookyp/eslint-config': workspace:*
-      '@feathersjs/authentication': 5.0.0-pre.1
-      '@feathersjs/feathers': 5.0.0-pre.1
+      '@feathersjs/adapter-commons': 5.0.0-pre.3
+      '@feathersjs/authentication': 5.0.0-pre.3
+      '@feathersjs/feathers': 5.0.0-pre.3
       '@jest/globals': 27.0.0-next.1
       '@jest/types': 27.0.0-next.1
       '@rushstack/eslint-patch': 1.0.6
@@ -112,8 +113,9 @@ importers:
       typescript: 4.2.3
       typescript-transform-paths: 2.2.3
     dependencies:
-      '@feathersjs/authentication': 5.0.0-pre.1
-      '@feathersjs/feathers': 5.0.0-pre.1
+      '@feathersjs/adapter-commons': 5.0.0-pre.3
+      '@feathersjs/authentication': 5.0.0-pre.3
+      '@feathersjs/feathers': 5.0.0-pre.3
     devDependencies:
       '@babel/core': 7.13.10
       '@babel/plugin-transform-modules-commonjs': 7.13.8_@babel+core@7.13.10
@@ -171,10 +173,11 @@ importers:
       '@babel/core': 7.13.10
       '@bookyp/core': workspace:*
       '@bookyp/eslint-config': workspace:*
-      '@feathersjs/authentication-client': 5.0.0-pre.1
-      '@feathersjs/errors': 5.0.0-pre.1
-      '@feathersjs/feathers': 5.0.0-pre.1
-      '@feathersjs/socketio-client': 5.0.0-pre.1
+      '@feathersjs/adapter-commons': 5.0.0-pre.3
+      '@feathersjs/authentication-client': 5.0.0-pre.3
+      '@feathersjs/errors': 5.0.0-pre.3
+      '@feathersjs/feathers': 5.0.0-pre.3
+      '@feathersjs/socketio-client': 5.0.0-pre.3
       '@intlify/vite-plugin-vue-i18n': 2.0.3
       '@jest/types': 26.6.2
       '@rollup/plugin-replace': 2.4.2
@@ -206,10 +209,11 @@ importers:
       windicss: 2.1.19
     dependencies:
       '@bookyp/core': link:../core
-      '@feathersjs/authentication-client': 5.0.0-pre.1
-      '@feathersjs/errors': 5.0.0-pre.1
-      '@feathersjs/feathers': 5.0.0-pre.1
-      '@feathersjs/socketio-client': 5.0.0-pre.1
+      '@feathersjs/adapter-commons': 5.0.0-pre.3
+      '@feathersjs/authentication-client': 5.0.0-pre.3
+      '@feathersjs/errors': 5.0.0-pre.3
+      '@feathersjs/feathers': 5.0.0-pre.3
+      '@feathersjs/socketio-client': 5.0.0-pre.3
       dayjs: 1.10.4
       socket.io-client: 3.1.3
       vue: 3.0.7
@@ -2081,155 +2085,116 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@feathersjs/adapter-commons/4.5.11:
-    resolution: {integrity: sha512-qJ+P/6GLR3KfXhzgRkvl3p66YmaTxLO1js1Jzs+d5QnnUYx+jWSV7tzYVZoVjQSlF8ht/zh9N5qfh0RV9w1E+w==}
-    engines: {node: '>= 10'}
+  /@feathersjs/adapter-commons/5.0.0-pre.3:
+    resolution: {integrity: sha512-4nOl3S3Ms2r8E9SpgxgU2KR4GthoAiocxekjcxzXk70kuxnSFz8/Mbbb92m7rA8r+Bc22M+lRvb/9uQfLXUk8Q==}
+    engines: {node: '>= 12'}
     dependencies:
-      '@feathersjs/commons': 4.5.11
-      '@feathersjs/errors': 4.5.11
-      '@feathersjs/feathers': 4.5.11
-    transitivePeerDependencies:
-      - supports-color
+      '@feathersjs/commons': 5.0.0-pre.3
+      '@feathersjs/errors': 5.0.0-pre.3
+      '@feathersjs/feathers': 5.0.0-pre.3
     dev: false
 
-  /@feathersjs/authentication-client/5.0.0-pre.1:
-    resolution: {integrity: sha512-npg1qT1YoqoUpZzghzB5k572E98/AEh+DD1+zAAbkimJzPdWR2aa+Wm1pJ1NKWaad/rrCaSnRHBxQGirMbTxEg==}
-    engines: {node: '>= 10'}
+  /@feathersjs/authentication-client/5.0.0-pre.3:
+    resolution: {integrity: sha512-7WCF08qThVeWXYnng/8Ks6ifyMK+LBlv9ddq/uW7O/lvGIOf4/sgN+VXm/BINj8PqOxgfCmUTF+3zz6R+0hOmA==}
+    engines: {node: '>= 12'}
     dependencies:
-      '@feathersjs/authentication': 5.0.0-pre.1
-      '@feathersjs/commons': 5.0.0-pre.1
-      '@feathersjs/errors': 5.0.0-pre.1
-      '@feathersjs/feathers': 5.0.0-pre.1
-      debug: 4.3.1
-    transitivePeerDependencies:
-      - supports-color
+      '@feathersjs/authentication': 5.0.0-pre.3
+      '@feathersjs/commons': 5.0.0-pre.3
+      '@feathersjs/errors': 5.0.0-pre.3
+      '@feathersjs/feathers': 5.0.0-pre.3
     dev: false
 
-  /@feathersjs/authentication/5.0.0-pre.1:
-    resolution: {integrity: sha512-7KljxcIkYxVhcGgAKcoQov5sJX85+qZuL25dM8bky3vybbzMOjXJUhA3AQTLAaOXVFoFRlFuQVS4UlsBCVZ9Xw==}
-    engines: {node: '>= 10'}
+  /@feathersjs/authentication-oauth/5.0.0-pre.3:
+    resolution: {integrity: sha512-r5mgKh2FJKsiMJQ038L2lC0o1RT8TWrc2LNxi1+30rQ5h1XH72MYmkLamLOrueHbIWgYjiPt3K3pM+5WGql4Ug==}
+    engines: {node: '>= 12'}
     dependencies:
-      '@feathersjs/errors': 5.0.0-pre.1
-      '@feathersjs/feathers': 5.0.0-pre.1
-      '@feathersjs/transport-commons': 5.0.0-pre.1
+      '@feathersjs/authentication': 5.0.0-pre.3
+      '@feathersjs/commons': 5.0.0-pre.3
+      '@feathersjs/errors': 5.0.0-pre.3
+      '@feathersjs/express': 5.0.0-pre.3
+      '@feathersjs/feathers': 5.0.0-pre.3
+      express-session: 1.17.1
+      grant: 5.4.12
+      lodash: 4.17.21
+    dev: false
+
+  /@feathersjs/authentication/5.0.0-pre.3:
+    resolution: {integrity: sha512-r9qa5eKOiKKQu2symSlakPhpkKHnwy9nZlUPjifXo1NxqVECPNohKM1Fzqmwf54m3zYBK1jSV1MxmXzlsJWUxQ==}
+    engines: {node: '>= 12'}
+    dependencies:
+      '@feathersjs/commons': 5.0.0-pre.3
+      '@feathersjs/errors': 5.0.0-pre.3
+      '@feathersjs/feathers': 5.0.0-pre.3
+      '@feathersjs/transport-commons': 5.0.0-pre.3
       '@types/jsonwebtoken': 8.5.1
-      debug: 4.3.1
       jsonwebtoken: 8.5.1
       lodash: 4.17.21
       long-timeout: 0.1.1
       uuid: 8.3.2
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
-  /@feathersjs/commons/4.5.11:
-    resolution: {integrity: sha512-it/9lc0OER36+2zidopWo6Z4xRqNImQ+qegyQdHEuIDpEsYLXAv6MVHuDccaW2x2UmW5pce75UB7DhQ8yh8J/Q==}
-    engines: {node: '>= 10'}
-    dev: false
-
-  /@feathersjs/commons/5.0.0-pre.1:
-    resolution: {integrity: sha512-n1IrDjZ/dsz9A7dKPAThu5tOzD67yktrEGos++t8AMW0n6sGsl9QqICGfy+fKoxrXTo63ORcS4MNNlLd9GK9dQ==}
-    engines: {node: '>= 10'}
-    dev: false
-
-  /@feathersjs/errors/4.5.11:
-    resolution: {integrity: sha512-KzkUqmaV7/SGK6SM/ILXjMI/EHOGKQE4GgDHCsB4+mcIwb8IZboeHL6IkYjh6MvwjKNDyS728McZvcflDGn/fA==}
-    engines: {node: '>= 10'}
-    dependencies:
-      debug: 4.3.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /@feathersjs/errors/5.0.0-pre.1:
-    resolution: {integrity: sha512-DRbO3QtvixT3ZKMPO+ttraQ2Cx9uWDRwp/PgvYS+0Mg2ftR22oJjXc/so61kNFAhGDPzNfTMKp0QhUYb35lPRw==}
-    engines: {node: '>= 10'}
-    dev: false
-
-  /@feathersjs/errors/5.0.0-pre.2:
-    resolution: {integrity: sha512-rYEGimXzyI3eFvueaDm3m/Uj+e13grYOIc2a/Sw6NHJMgBe48Y1tFaD5RMTXRq2ZsyGWyGD4dYr4WKs5++ukzw==}
+  /@feathersjs/commons/5.0.0-pre.3:
+    resolution: {integrity: sha512-OR3mUqTFfDWJxyL5IU/N+AKopVxHStpKUxxw/WK4H6LsB8JZIXc1W5S3U39pevsZMtLqCLBSBPSHpw97MUGciw==}
     engines: {node: '>= 12'}
     dev: false
 
-  /@feathersjs/express/5.0.0-pre.1:
-    resolution: {integrity: sha512-+sVAJ09Z+jdL6GXC3joYrGKku4LYM9JC4+JgccAaH4PmOXDtCbGle5NV22yzYHYkkwZrWmWT82PQdgl7zglwpA==}
-    engines: {node: '>= 10'}
+  /@feathersjs/errors/5.0.0-pre.3:
+    resolution: {integrity: sha512-3EIuvm3UBhOOOJgwSoHFuuFe915RqbwmnsgFA6jyRtIjsZoKhQrylr2lHUhEx/NySXkh1Og8MpMpkOg09hz0Aw==}
+    engines: {node: '>= 12'}
+    dev: false
+
+  /@feathersjs/express/5.0.0-pre.3:
+    resolution: {integrity: sha512-GmoM6l0J2HudH8cN1x6p1eKRNmnXn3nvqlMK/8NMRd9XhT+LWeDs6FIY2SgJs4pSxj33+AJV3pzdPPRx5Codew==}
+    engines: {node: '>= 12'}
     dependencies:
-      '@feathersjs/commons': 5.0.0-pre.1
-      '@feathersjs/errors': 5.0.0-pre.1
+      '@feathersjs/commons': 5.0.0-pre.3
+      '@feathersjs/errors': 5.0.0-pre.3
       '@types/express': 4.17.11
-      debug: 4.3.1
       express: 4.17.1
       lodash: 4.17.21
-      uberproto: 2.0.6
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
-  /@feathersjs/feathers/4.5.11:
-    resolution: {integrity: sha512-13zorhzi9eOwAW+l3oT4K8+CGCljpd9yPkx1XOZZyG5J1RSENWpPhgJ5Oe+qWw6Iqk768UBYp3+W1hLCQa6t2g==}
-    engines: {node: '>= 10'}
-    dependencies:
-      '@feathersjs/commons': 4.5.11
-      debug: 4.3.1
-      events: 3.3.0
-      uberproto: 2.0.6
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /@feathersjs/feathers/5.0.0-pre.1:
-    resolution: {integrity: sha512-BQ/XsIxp2bF5zXeubloXfE0iAaQILO7sOo4szHXOM2xQC+hVogvmLCgguqV0RsFLWtI/Pz4h8L3RKyteXuZnLQ==}
+  /@feathersjs/feathers/5.0.0-pre.3:
+    resolution: {integrity: sha512-eWR2YqxA3dKTAJC7h0rBkdtAGxJhrTUSoNkrrTUHxv5orFURkrwGN22Yupi7Zow75Db+6Ddd6y2l9WJuxHB+Qw==}
     engines: {node: '>= 12'}
     dependencies:
-      '@feathersjs/commons': 5.0.0-pre.1
-      '@feathersjs/hooks': 0.6.2
-      debug: 4.3.1
+      '@feathersjs/commons': 5.0.0-pre.3
+      '@feathersjs/hooks': 0.6.5
       events: 3.3.0
-      uberproto: 2.0.6
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
-  /@feathersjs/hooks/0.6.2:
-    resolution: {integrity: sha512-Pd9AvjM/UVzQKr1dQ4iI8RhR1cxcp57LL1MJFkCayH87XZr9RinVaT2p39FGs4jdL4PFjkCR9MxNGTAXsLrp8g==}
+  /@feathersjs/hooks/0.6.5:
+    resolution: {integrity: sha512-WtcEoG/imdHRvC3vofGi/OcgH+cjHHhO0AfEeTlsnrKLjVKKBXV6aoIrB2nHZPpE7iW5sA7AZMR6bPD8ytxN+w==}
     engines: {node: '>= 10'}
     dev: false
 
-  /@feathersjs/socketio-client/5.0.0-pre.1:
-    resolution: {integrity: sha512-syu2B5BcjTp/pGvFNlhtKDK+FFctS2iQcPdFXcCGpPb5HZ3MbbccR9yqRZW9bKlCrgtP8mvUMoq6hDm/4nPoiQ==}
-    engines: {node: '>= 10'}
+  /@feathersjs/socketio-client/5.0.0-pre.3:
+    resolution: {integrity: sha512-bIOyw0jnaOKYUtb5S5DIe9D66QNX7q2QDOvjKMT+TSdJn4ijaL9RxoQ6DsmWCZDJWJPeCBW67up+wB2OKqdELA==}
+    engines: {node: '>= 12'}
     dependencies:
-      '@feathersjs/transport-commons': 5.0.0-pre.1
-    transitivePeerDependencies:
-      - supports-color
+      '@feathersjs/transport-commons': 5.0.0-pre.3
     dev: false
 
-  /@feathersjs/socketio/5.0.0-pre.1:
-    resolution: {integrity: sha512-OMAjMAx+3MN4ALq9WaEb28OwekVE0qmfbpFASyEOlA8ycczL1abFFQEgmwn70u47TyuS/x9+U3QhZusOqTDxHA==}
-    engines: {node: '>= 10'}
+  /@feathersjs/socketio/5.0.0-pre.3:
+    resolution: {integrity: sha512-cEwVL3Nsk/ym0PeW03ft7fFvCKDEazDFx6yKKVPOYxOMKBXYwCQkbrs64jxFaNE8GHgB3vhov0JQ6KscS+s8jw==}
+    engines: {node: '>= 12'}
     dependencies:
-      '@feathersjs/transport-commons': 5.0.0-pre.1
-      debug: 4.3.1
-      socket.io: 3.1.2
-      uberproto: 2.0.6
+      '@feathersjs/commons': 5.0.0-pre.3
+      '@feathersjs/transport-commons': 5.0.0-pre.3
+      socket.io: 4.0.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
     dev: false
 
-  /@feathersjs/transport-commons/5.0.0-pre.1:
-    resolution: {integrity: sha512-dJIYOovzvliPp3DIWunlDtCGOhPhtI2lkTOMabb4MTv8rcU8eEzUgoQ2Xal2rAIWMBR6L27BEqvkuvixhPE2/g==}
-    engines: {node: '>= 10'}
+  /@feathersjs/transport-commons/5.0.0-pre.3:
+    resolution: {integrity: sha512-7D0/2QLuhWRuOsUVoZ2WVxEBmIsAin1OaeMA7whyoceRmT8D2jA8OWxAocDWqpPTn5GAZN5bDuRe9ryZ/pQBQA==}
+    engines: {node: '>= 12'}
     dependencies:
-      '@feathersjs/commons': 5.0.0-pre.1
-      '@feathersjs/errors': 5.0.0-pre.1
-      debug: 4.3.1
+      '@feathersjs/commons': 5.0.0-pre.3
+      '@feathersjs/errors': 5.0.0-pre.3
       lodash: 4.17.21
-      radix-router: 3.0.1
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@intlify/cli/0.2.0:
@@ -4595,7 +4560,7 @@ packages:
     resolution: {integrity: sha512-W98JrE0j2K78swW4ukqMleo8R7h/pFETjM2DQ90MF6XK2i4LO4W3gQ71Lt4w3bfm2EvVSyWHplECvB5sK22yFQ==}
     dependencies:
       '@types/connect': 3.4.34
-      '@types/node': 14.14.35
+      '@types/node': 14.14.37
     dev: false
 
   /@types/braces/3.0.0:
@@ -4625,7 +4590,7 @@ packages:
   /@types/connect/3.4.34:
     resolution: {integrity: sha512-ePPA/JuI+X0vb+gSWlPKOY0NdNAie/rPUqX2GUPpbZwiKTkSPhjXWuee47E4MtE54QVzGCQMQkAL6JhV2E1+cQ==}
     dependencies:
-      '@types/node': 14.14.35
+      '@types/node': 14.14.37
     dev: false
 
   /@types/cookie/0.4.0:
@@ -4643,7 +4608,7 @@ packages:
   /@types/express-serve-static-core/4.17.19:
     resolution: {integrity: sha512-DJOSHzX7pCiSElWaGR8kCprwibCB/3yW6vcT8VG3P0SJjnv19gnWG/AZMfM60Xj/YJIp/YCaDHyvzsFVeniARA==}
     dependencies:
-      '@types/node': 14.14.35
+      '@types/node': 14.14.37
       '@types/qs': 6.9.6
       '@types/range-parser': 1.2.3
     dev: false
@@ -4727,7 +4692,7 @@ packages:
   /@types/jsonwebtoken/8.5.1:
     resolution: {integrity: sha512-rNAPdomlIUX0i0cg2+I+Q1wOUr531zHBQ+cV/28PJ39bSPKjahatZZ2LMuhiguETkCgLVzfruw/ZvNMNkKoSzw==}
     dependencies:
-      '@types/node': 14.14.35
+      '@types/node': 14.14.37
     dev: false
 
   /@types/markdown-to-jsx/6.11.3:
@@ -4776,6 +4741,7 @@ packages:
 
   /@types/node/14.14.35:
     resolution: {integrity: sha512-Lt+wj8NVPx0zUmUwumiVXapmaLUcAk3yPuHCFVXras9k5VT9TdhJqKqGVUQCD60OTMCl0qxJ57OiTL0Mic3Iag==}
+    dev: true
 
   /@types/node/14.14.37:
     resolution: {integrity: sha512-XYmBiy+ohOR4Lh5jE379fV2IU+6Jn4g5qASinhitfyO71b/sCo6MKsMLF5tc7Zf2CE8hViVQyYSobJNke8OvUw==}
@@ -4847,7 +4813,7 @@ packages:
     resolution: {integrity: sha512-ZFqF6qa48XsPdjXV5Gsz0Zqmux2PerNd3a/ktL45mHpa19cuMi/cL8tcxdAx497yRh+QtYPuofjT9oWw9P7nkA==}
     dependencies:
       '@types/mime': 1.3.2
-      '@types/node': 14.14.35
+      '@types/node': 14.14.37
     dev: false
 
   /@types/socket.io-client/1.4.36:
@@ -8019,8 +7985,8 @@ packages:
       base64-arraybuffer: 0.1.4
     dev: false
 
-  /engine.io/4.1.1:
-    resolution: {integrity: sha512-t2E9wLlssQjGw0nluF6aYyfX8LwYU8Jj0xct+pAhfWfv/YrBn6TSNtEYsgxHIfaMqfrLx07czcMg9bMN6di+3w==}
+  /engine.io/5.0.0:
+    resolution: {integrity: sha512-BATIdDV3H1SrE9/u2BAotvsmjJg0t1P4+vGedImSs1lkFAtQdvk4Ev1y4LDiPF7BPWgXWEG+NDY+nLvW3UrMWw==}
     engines: {node: '>=10.0.0'}
     dependencies:
       accepts: 1.3.7
@@ -8710,20 +8676,6 @@ packages:
     dependencies:
       bser: 2.1.1
     dev: true
-
-  /feathers-mongoose/8.3.1_mongoose@5.12.2:
-    resolution: {integrity: sha512-N89kOOp06PaYwyK2REI56fDSPDBKYuJc/E6uqCUu4+nQ6wvM3m+L4aX6lfXWBowD7MWpFzNDG/T9GOGjzrQ55g==}
-    engines: {node: '>= 6'}
-    peerDependencies:
-      mongoose: ^5.8.7
-    dependencies:
-      '@feathersjs/adapter-commons': 4.5.11
-      '@feathersjs/commons': 4.5.11
-      '@feathersjs/errors': 4.5.11
-      mongoose: github.com/raphaelschwinger/mongoose/a1f74a70b8b72769b274857e52331d25001492b4
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   /figgy-pudding/3.5.2:
     resolution: {integrity: sha512-0btnI/H8f2pavGMN8w40mlSKOfTK2SVJmBfBeVIj3kNw0swwgzyRq0d5TJVOwodFmtvpPeWPN/MCcfuWF0Ezbw==}
@@ -13791,10 +13743,6 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /radix-router/3.0.1:
-    resolution: {integrity: sha512-jpHXHgP+ZmVzEfmZ7WVRSvc/EqMoAqYuMtBsHd9s47Hs9Iy8FDJhkweMrDH0wmdxanLzVIWhq0UpomLXNpW8tg==}
-    dev: false
-
   /ramda/0.21.0:
     resolution: {integrity: sha1-oAGr7bP/YQd9T/HVd9RN536NCjU=}
     dev: true
@@ -14961,8 +14909,8 @@ packages:
       use: 3.1.1
     dev: true
 
-  /socket.io-adapter/2.1.0:
-    resolution: {integrity: sha512-+vDov/aTsLjViYTwS9fPy5pEtTkrbEKsw2M+oVSoFGw6OD1IpvlV1VPhUzNbofCQ8oyMbdYJqDtGdmHQK6TdPg==}
+  /socket.io-adapter/2.2.0:
+    resolution: {integrity: sha512-rG49L+FwaVEwuAdeBRq49M97YI3ElVabJPzvHT9S6a2CWhDKnjSFasvwAwSYPRhQzfn4NtDIbCaGYgOCOU/rlg==}
     dev: false
 
   /socket.io-client/3.1.3:
@@ -14993,18 +14941,18 @@ packages:
       - supports-color
     dev: false
 
-  /socket.io/3.1.2:
-    resolution: {integrity: sha512-JubKZnTQ4Z8G4IZWtaAZSiRP3I/inpy8c/Bsx2jrwGrTbKeVU5xd6qkKMHpChYeM3dWZSO0QACiGK+obhBNwYw==}
+  /socket.io/4.0.1:
+    resolution: {integrity: sha512-g8eZB9lV0f4X4gndG0k7YZAywOg1VxYgCUspS4V+sDqsgI/duqd0AW84pKkbGj/wQwxrqrEq+VZrspRfTbHTAQ==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@types/cookie': 0.4.0
       '@types/cors': 2.8.10
-      '@types/node': 14.14.35
+      '@types/node': 14.14.37
       accepts: 1.3.7
       base64id: 2.0.0
       debug: 4.3.1
-      engine.io: 4.1.1
-      socket.io-adapter: 2.1.0
+      engine.io: 5.0.0
+      socket.io-adapter: 2.2.0
       socket.io-parser: 4.0.4
     transitivePeerDependencies:
       - bufferutil
@@ -16008,10 +15956,6 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
-
-  /uberproto/2.0.6:
-    resolution: {integrity: sha512-68H97HffZoFaa3HFtpstahWorN9dSp5uTU6jo3GjIQ6JkJBR3hC2Nx/e/HFOoYHdUyT/Z1MRWfxN1EiQJZUyCQ==}
-    dev: false
 
   /uid-safe/2.1.5:
     resolution: {integrity: sha512-KPHm4VL5dDXKz01UuEd88Df+KzynaohSL9fBh096KWAxSKZQDI2uBrVqtvRM4rwrIrRRKsdLNML/lnaaVSRioA==}
@@ -17089,6 +17033,21 @@ packages:
     resolution: {integrity: sha512-V50KMwwzqJV0NpZIZFwfOD5/lyny3WlSzRiXgA0G7VUnRlqttta1L6UQIHzd6EuBY/cHGfwTIck7w1yH6Q5zUw==}
     dev: true
 
+  github.com/GEPROG/feathers-mongoose/5e5fb2fc7678a0c1bd05ef16f331082e0bc7ba69_mongoose@5.12.2:
+    resolution: {tarball: https://codeload.github.com/GEPROG/feathers-mongoose/tar.gz/5e5fb2fc7678a0c1bd05ef16f331082e0bc7ba69}
+    id: github.com/GEPROG/feathers-mongoose/5e5fb2fc7678a0c1bd05ef16f331082e0bc7ba69
+    name: feathers-mongoose
+    version: 8.3.3
+    engines: {node: '>= 6'}
+    peerDependencies:
+      mongoose: ^5.8.7
+    dependencies:
+      '@feathersjs/adapter-commons': 5.0.0-pre.3
+      '@feathersjs/commons': 5.0.0-pre.3
+      '@feathersjs/errors': 5.0.0-pre.3
+      mongoose: github.com/raphaelschwinger/mongoose/a1f74a70b8b72769b274857e52331d25001492b4
+    dev: false
+
   github.com/anbraten/diffable-html/23e46c8f58d57ee843e49d263e2b4eb437be1037:
     resolution: {tarball: https://codeload.github.com/anbraten/diffable-html/tar.gz/23e46c8f58d57ee843e49d263e2b4eb437be1037}
     name: diffable-html
@@ -17096,24 +17055,6 @@ packages:
     dependencies:
       htmlparser2: 3.10.1
     dev: true
-
-  github.com/raphaelschwinger/feathers/07fac6e9a5d087e86bed6bbe7575c25e8208dc5c:
-    resolution: {tarball: https://codeload.github.com/raphaelschwinger/feathers/tar.gz/07fac6e9a5d087e86bed6bbe7575c25e8208dc5c}
-    name: '@feathersjs/authentication-oauth'
-    version: 5.0.0-pre.1
-    engines: {node: '>= 10'}
-    dependencies:
-      '@feathersjs/authentication': 5.0.0-pre.1
-      '@feathersjs/errors': 5.0.0-pre.2
-      '@feathersjs/express': 5.0.0-pre.1
-      '@feathersjs/feathers': 5.0.0-pre.1
-      debug: 4.3.1
-      express-session: 1.17.1
-      grant: 5.4.12
-      lodash: 4.17.21
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   github.com/raphaelschwinger/mongoose/a1f74a70b8b72769b274857e52331d25001492b4:
     resolution: {tarball: https://codeload.github.com/raphaelschwinger/mongoose/tar.gz/a1f74a70b8b72769b274857e52331d25001492b4}

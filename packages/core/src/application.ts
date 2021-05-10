@@ -1,4 +1,4 @@
-import feathers, { Application as FeathersApplication } from '@feathersjs/feathers';
+import { Application as FeathersApplication, feathers } from '@feathersjs/feathers';
 
 import { ServiceTypes } from './services';
 

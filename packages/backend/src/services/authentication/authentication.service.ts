@@ -9,7 +9,7 @@ import { KeycloakStrategy } from './keycloak.auth-strategy';
 
 declare module '@bookyp/core' {
   interface ServiceTypes {
-    authentication: AuthenticationService & ServiceAddons<unknown>;
+    authentication: AuthenticationService & ServiceAddons<unknown, AuthenticationService>;
   }
 }
 
@@ -44,6 +44,6 @@ export default function (app: Application): void {
   authentication.register('jwt', new JWTStrategy());
   authentication.register('keycloak', new KeycloakStrategy());
 
-  app.use('/authentication', authentication);
+  app.use('authentication', authentication);
   app.configure(expressOauth());
 }
