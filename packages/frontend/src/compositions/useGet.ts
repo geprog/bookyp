@@ -1,28 +1,27 @@
-import { Model, Service } from '@bookyp/core';
-import { Id, Service as FeathersService } from '@feathersjs/feathers';
+import { FeathersService, Id, ServiceMethods } from '@feathersjs/feathers';
 import { onBeforeUnmount, onMounted, Ref, ref, watch } from 'vue';
 
-import useFeathers from './useFeathers';
+import useFeathers, { ClientApplication, getId, ServiceModel, ServiceTypes } from './useFeathers';
 
-function loadServiceEventHandlers<T extends Model.AbstractEntity>(
-  service: FeathersService<T>,
+function loadServiceEventHandlers<T extends keyof ServiceTypes, M>(
+  service: FeathersService<ClientApplication, ServiceTypes[T]>,
   _id: Ref<Id>,
-  data: Ref<T | undefined>,
+  data: Ref<M | undefined>,
 ): () => void {
-  const onCreated = (item: T): void => {
-    if (_id.value === item._id) {
+  const onCreated = (item: M): void => {
+    if (_id.value === getId(item)) {
       data.value = item;
     }
   };
 
-  const onRemoved = (item: T): void => {
-    if (_id.value === item._id) {
+  const onRemoved = (item: M): void => {
+    if (_id.value === getId(item)) {
       data.value = undefined;
     }
   };
 
-  const onItemChanged = (item: T): void => {
-    if (_id.value === item._id) {
+  const onItemChanged = (item: M): void => {
+    if (_id.value === getId(item)) {
       data.value = item;
     }
   };
@@ -42,28 +41,26 @@ function loadServiceEventHandlers<T extends Model.AbstractEntity>(
   return unloadEventHandlers;
 }
 
-export type UseGet<T extends Model.AbstractEntity> = {
+export type UseGet<T> = {
   data: Ref<T | undefined>;
   isLoading: Ref<boolean>;
 };
 
-export default <T extends keyof Service.ServiceModels>(
-  serviceName: T,
-  _id: Ref<Id>,
-): UseGet<Service.ServiceModels[T]> => {
-  type M = Service.ServiceModels[T];
-
+export default <T extends keyof ServiceTypes, M = ServiceModel<T>>(serviceName: T, _id: Ref<Id>): UseGet<M> => {
   const feathers = useFeathers();
 
   const data = ref<M>();
   const isLoading = ref(false);
 
-  const service = feathers.service(serviceName) as FeathersService<M>;
-  const unloadEventHandlers = loadServiceEventHandlers<M>(service, _id, data);
+  const service = feathers.service(serviceName);
+
+  const unloadEventHandlers = loadServiceEventHandlers(service, _id, data);
 
   const get = async () => {
     isLoading.value = true;
-    data.value = await service.get(_id.value);
+    // TODO: the typecast below is necessary due to the prerelease state of feathers v5. The problem there is
+    // that the AdapterService interface is not yet updated and is not compatible with the ServiceMethods interface.
+    data.value = await ((service as unknown) as ServiceMethods<M>).get(_id.value);
     isLoading.value = false;
   };
 

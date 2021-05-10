@@ -1,5 +1,5 @@
+import { AdapterService } from '@feathersjs/adapter-commons';
 import { AuthenticationService } from '@feathersjs/authentication';
-import { Service } from '@feathersjs/feathers';
 
 import { Bookable, Booking, MapObject, Space, User } from '~/model';
 
@@ -13,9 +13,9 @@ export type ServiceModels = {
 
 export type ServiceTypes = {
   authentication: AuthenticationService;
-  users: Service<User>;
-  bookables: Service<Bookable>;
-  bookings: Service<Booking>;
-  spaces: Service<Space>;
-  mapObjects: Service<MapObject>;
+  users: AdapterService<User>;
+  bookables: AdapterService<Bookable>;
+  bookings: AdapterService<Booking>;
+  spaces: AdapterService<Space>;
+  mapObjects: AdapterService<MapObject>;
 };

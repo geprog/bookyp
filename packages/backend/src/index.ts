@@ -16,24 +16,24 @@ async function start(): Promise<void> {
 
   await databaseConnect();
 
-  const server = app
-    .listen(port, () => {
-      lightship.signalReady();
+  const server = await app.listen(port, () => {
+    lightship.signalReady();
 
+    // eslint-disable-next-line no-console
+    console.log('🚀 Backend running at:');
+
+    // eslint-disable-next-line no-console
+    console.log(`> Local: http://localhost:${port}`);
+
+    if (host !== 'localhost') {
       // eslint-disable-next-line no-console
-      console.log('🚀 Backend running at:');
+      console.log(`> Public: https://${host}`);
+    }
+  });
 
-      // eslint-disable-next-line no-console
-      console.log(`> Local: http://localhost:${port}`);
-
-      if (host !== 'localhost') {
-        // eslint-disable-next-line no-console
-        console.log(`> Public: https://${host}`);
-      }
-    })
-    .on('error', () => {
-      void lightship.shutdown();
-    });
+  server.on('error', () => {
+    void lightship.shutdown();
+  });
 
   lightship.registerShutdownHandler(() => {
     server.close();

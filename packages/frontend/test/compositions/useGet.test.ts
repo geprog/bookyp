@@ -2,7 +2,7 @@ import { Id } from '@feathersjs/feathers';
 import { mocked } from 'ts-jest/utils';
 import { Ref, ref } from 'vue';
 
-import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
+import useFeathers, { ClientApplication, getId } from '~/compositions/useFeathers';
 import useGetOriginal, { UseGet } from '~/compositions/useGet';
 import { mountComposition } from '$/helpers/composition';
 import { eventHelper } from '$/helpers/events';
@@ -203,6 +203,7 @@ describe('Get composition', () => {
       const wrapper = await mountComposition(() => {
         getComposition = useGet('testModels', ref(additionalTestModel._id));
       });
+      mocked(getId).mockReturnValue(additionalTestModel._id);
 
       // when
       emitter.emit('created', additionalTestModel);
@@ -232,6 +233,7 @@ describe('Get composition', () => {
       const wrapper = await mountComposition(() => {
         getComposition = useGet('testModels', ref(testModel._id));
       });
+      mocked(getId).mockReturnValue(testModel._id);
 
       // when
       emitter.emit('patched', changedTestModel);
@@ -261,6 +263,7 @@ describe('Get composition', () => {
       const wrapper = await mountComposition(() => {
         getComposition = useGet('testModels', ref(testModel._id));
       });
+      mocked(getId).mockReturnValue(testModel._id);
 
       // when
       emitter.emit('updated', changedTestModel);
