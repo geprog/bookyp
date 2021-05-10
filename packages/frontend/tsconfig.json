@@ -3,8 +3,7 @@
 
   "compilerOptions": {
     "lib": ["esnext", "dom"],
-    "types": ["vite/client", "jest"],
-    "plugins": [{ "name": "@vuedx/typescript-plugin-vue" }],
+    "typeRoots": ["src/@types", "node_modules/@types"],
     "composite": false,
     "outDir": "dist",
     "rootDir": ".",

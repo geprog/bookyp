@@ -1,13 +1,10 @@
 {
   // List of extensions which should be recommended for users of this workspace.
   "recommendations": [
-    "znck.vue-language-features",
-    "znck.vue",
     "editorconfig.editorconfig",
     "vivaxy.vscode-conventional-commits",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "arcanis.vscode-zipfs",
     "mhutchie.git-graph",
     "eamodio.gitlens",
     "ms-vsliveshare.vsliveshare",
@@ -15,7 +12,8 @@
     "gitlab.gitlab-workflow",
     "stylelint.vscode-stylelint",
     "voorjaar.windicss-intellisense",
-    "lokalise.i18n-ally"
+    "lokalise.i18n-ally",
+    "johnsoncodehk.volar"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []

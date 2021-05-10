@@ -7,6 +7,7 @@ import { ref } from 'vue';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 import Space from '~/views/settings/Space.vue';
+import { mockSvg } from '$/helpers/svg';
 
 jest.mock('~/compositions/useFeathers');
 jest.mock('~/compositions/useFind');
@@ -238,17 +239,7 @@ describe('Space component', () => {
       push: jest.fn(),
     };
 
-    const position = { x: 11, y: 22 };
-
     // simple mock for the SVGSVGElement received by the click event
-    const mockedSVG = {
-      createSVGPoint: jest.fn(() => ({
-        x: 0,
-        y: 0,
-        matrixTransform: jest.fn(() => position),
-      })),
-      getScreenCTM: jest.fn(),
-    };
 
     const wrapper = mount(Space, {
       global: {
@@ -261,8 +252,17 @@ describe('Space component', () => {
     await wrapper.find('[data-test=add-button]').trigger('click');
     await wrapper.vm.$nextTick();
 
+    const position = { x: 11, y: 22 } as SVGPoint;
+    const svgPoint = {
+      x: 0,
+      y: 0,
+      matrixTransform: () => position,
+    } as SVGPoint;
+    const svg = mockSvg(wrapper.find('[data-test=space-map]'));
+    mocked(svg.element.createSVGPoint).mockReturnValueOnce(svgPoint);
+
     // when
-    await wrapper.find('[data-test=space-map]').trigger('click', { clientX: 0, clientY: 0, mockedSVG });
+    await svg.trigger('click', { clientX: 0, clientY: 0 });
     await wrapper.vm.$nextTick();
 
     // then

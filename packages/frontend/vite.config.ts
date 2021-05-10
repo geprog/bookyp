@@ -38,6 +38,11 @@ const config = defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      external: ['vite/client'],
+    },
+  },
 });
 
 export default config;

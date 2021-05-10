@@ -103,11 +103,7 @@ export default defineComponent({
         return;
       }
 
-      // TODO: workaround to use mocked SVG element if executed in test as JSDom does not support SVG
-      // Related issue: https://github.com/jsdom/jsdom/issues/2647
-      type MockedSVGClickedEvent = MouseEvent & { mockedSVG: SVGSVGElement };
-      const svg = (event as MockedSVGClickedEvent).mockedSVG || (event.target as SVGSVGElement);
-
+      const svg = event.target as SVGSVGElement;
       const pt = svg.createSVGPoint();
 
       // pass event coordinates
