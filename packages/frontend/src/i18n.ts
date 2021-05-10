@@ -1,3 +1,5 @@
+import 'vite/client';
+
 import { createI18n } from 'vue-i18n';
 
 // import i18n resources

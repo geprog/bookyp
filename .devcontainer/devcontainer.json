@@ -13,13 +13,10 @@
   // Copy the contents to the correct location and set permissions
   "postCreateCommand": "mkdir -p ~/.ssh && cp -r /.ssh-localhost/* ~/.ssh && chmod 700 ~/.ssh && chmod 600 ~/.ssh/*",
   "extensions": [
-    "znck.vue-language-features",
-    "znck.vue",
     "eamodio.gitlens",
     "mhutchie.git-graph",
     "editorconfig.editorconfig",
     "vivaxy.vscode-conventional-commits",
-    "arcanis.vscode-zipfs",
     "ms-vsliveshare.vsliveshare",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
@@ -27,6 +24,7 @@
     "gitlab.gitlab-workflow",
     "stylelint.vscode-stylelint",
     "voorjaar.windicss-intellisense",
-    "lokalise.i18n-ally"
+    "lokalise.i18n-ally",
+    "johnsoncodehk.volar"
   ]
 }

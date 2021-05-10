@@ -10,5 +10,8 @@
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": "packages/frontend/src/locales",
   "i18n-ally.sortKeys": true,
-  "i18n-ally.enabledFrameworks": ["vue"]
+  "i18n-ally.enabledFrameworks": ["vue"],
+  "volar.tsPlugin": true,
+  "volar.codeLens.pugTools": false,
+  "volar.codeLens.references": false
 }
