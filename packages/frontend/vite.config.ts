@@ -38,14 +38,6 @@ const config = defineConfig({
       },
     },
   },
-  optimizeDeps: {
-    exclude: ['vite/client'],
-  },
-  build: {
-    rollupOptions: {
-      external: ['vite/client'],
-    },
-  },
 });
 
 export default config;
