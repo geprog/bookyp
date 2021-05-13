@@ -3,3 +3,4 @@ dist
 coverage/
 package.json
 tsconfig.eslint.json
+tailwind.config.ts

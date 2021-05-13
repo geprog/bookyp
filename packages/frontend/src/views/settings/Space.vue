@@ -1,25 +1,39 @@
 <template>
   <Header :title="t('settings')" has-back>
+    <IconButton v-if="!editing" data-test="add-button" icon="table" @click="addMapObject" />
     <IconButton v-if="editing" data-test="save-button" type="submit" icon="check-mark" @click="saveNewMapObject" />
     <template #second>
       <SettingsTabs />
     </template>
   </Header>
-  <div class="mx-4 mt-4">
+  <div class="mx-4 mt-4 h-full m-auto flex flex-col">
     <svg
-      class="w-full h-128"
+      class="w-full h-100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       data-test="space-map"
       @click="positionNewMapObject"
     >
-      <path v-for="path in floorPlan" :key="path" :d="path" stroke="#323130" stroke-width="2" />
+      <path v-for="path in floorPlan" :key="path" :d="path" class="stroke-black" stroke-width="2" />
       <g
         v-for="mapObject in mapObjects"
         :key="mapObject._id"
+        data-test="mapObject"
         :transform="`translate(${mapObject.xPos},${mapObject.yPos})`"
+        class="cursor-pointer"
       >
-        <path v-for="path in mapObject.paths" :key="path" :d="path" stroke="#323130" stroke-width="1" />
+        <path
+          v-for="path in mapObject.paths"
+          :key="path"
+          :d="path"
+          :class="
+            selectedMapObjectId === mapObject._id
+              ? 'stroke-current text-primary-dark fill-orange'
+              : 'stroke-black fill-white'
+          "
+          stroke-width="1"
+          @click.stop="toggleSelectedMapObject(mapObject)"
+        />
       </g>
       <g
         v-if="newMapObject"
@@ -30,13 +44,20 @@
           v-for="path in newMapObject.paths"
           :key="path"
           :d="path"
-          fill="#FDE68A"
-          stroke="#F59E0B"
-          stroke-width="2"
+          class="stroke-current text-primary-dark fill-orange"
+          stroke-width="1"
         />
       </g>
     </svg>
-    <FloatingButton data-test="add-button" class="fixed bottom-8 right-8" icon="table" @click="addMapObject" />
+    <div class="mt-auto mb-4 flex flex-row-reverse">
+      <FloatingButton
+        v-if="selectedMapObjectId !== null"
+        data-test="delete-button"
+        type="submit"
+        icon="delete"
+        @click="removeSelectedMapObject"
+      />
+    </div>
   </div>
 </template>
 
@@ -62,10 +83,7 @@ export default defineComponent({
     const { t } = useI18n();
     const feathers = useFeathers();
 
-    // flag to show if we are currently editing the map
-    const editing = computed(() => !!newMapObject.value);
-    const { data: mapObjects } = useFind('mapObjects');
-
+    // load space
     const { data: spaces } = useFind('spaces');
     const floorPlan = computed(() => {
       if (!spaces.value.length) {
@@ -74,9 +92,26 @@ export default defineComponent({
       return spaces.value[0].floorPlan;
     });
 
+    // flag to show if we are currently editing the map
+    const editing = computed(() => !!newMapObject.value);
+    // load mapObjects
+    const { data: mapObjects } = useFind('mapObjects');
+
+    // if a mapObject is selected this contains its id
+    const selectedMapObjectId = ref<string | null>(null);
+
+    function toggleSelectedMapObject(mapObject: Model.MapObject) {
+      selectedMapObjectId.value = mapObject._id;
+    }
+
+    async function removeSelectedMapObject(): Promise<void> {
+      await feathers.service('mapObjects').remove(selectedMapObjectId.value);
+      selectedMapObjectId.value = null;
+    }
+
     let newMapObject = ref<null | Omit<Model.MapObject, '_id'>>(null);
 
-    const addMapObject = () => {
+    function addMapObject() {
       newMapObject.value = {
         xPos: 0,
         yPos: 0,
@@ -88,7 +123,9 @@ export default defineComponent({
 
         type: Model.MapObjectTypes.table,
       };
-    };
+      // deselect any mapObject
+      selectedMapObjectId.value = null;
+    }
 
     async function saveNewMapObject(): Promise<void> {
       if (newMapObject.value) {
@@ -98,6 +135,7 @@ export default defineComponent({
     }
 
     function positionNewMapObject(event: MouseEvent) {
+      selectedMapObjectId.value = null;
       // skip if we are not currently in editing mode
       if (!editing.value) {
         return;
@@ -119,7 +157,19 @@ export default defineComponent({
       }
     }
 
-    return { t, editing, floorPlan, mapObjects, addMapObject, newMapObject, positionNewMapObject, saveNewMapObject };
+    return {
+      t,
+      editing,
+      floorPlan,
+      mapObjects,
+      addMapObject,
+      newMapObject,
+      positionNewMapObject,
+      saveNewMapObject,
+      toggleSelectedMapObject,
+      selectedMapObjectId,
+      removeSelectedMapObject,
+    };
   },
 });
 </script>
