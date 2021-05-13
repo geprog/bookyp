@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import colors from 'windicss/colors';
 import typography from 'windicss/plugin/typography';
 
@@ -36,6 +38,13 @@ export default {
         full: '0px 0px 4.8px rgb(0, 0, 0, 0.1), 0px 0px 20.8px rgb(0, 0, 0, 0.13)',
       },
     },
+    stroke: (_theme) => ({
+      black: '#323130',
+    }),
+    fill: (theme) => ({
+      orange: theme('colors.primary.light'),
+      white: theme('colors.white'),
+    }),
   },
   plugins: [typography],
 };
