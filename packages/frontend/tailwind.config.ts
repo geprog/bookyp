@@ -38,8 +38,8 @@ export default {
         full: '0px 0px 4.8px rgb(0, 0, 0, 0.1), 0px 0px 20.8px rgb(0, 0, 0, 0.13)',
       },
     },
-    stroke: (_theme) => ({
-      black: '#323130',
+    stroke: (theme) => ({
+      black: theme('colors.gray.active'),
     }),
     fill: (theme) => ({
       orange: theme('colors.primary.light'),
