@@ -1,11 +1,13 @@
 <template>
   <div class="flex">
-    <TabButton :active="$route.name === 'settings-space'" @click="$router.push({ name: 'settings-space' })">{{
+    <TabButton :active="$route.name === 'settings-space'" @click="$router.replace({ name: 'settings-space' })">{{
       t('space')
     }}</TabButton>
-    <TabButton :active="$route.name === 'settings-bookables'" @click="$router.push({ name: 'settings-bookables' })">{{
-      t('bookables')
-    }}</TabButton>
+    <TabButton
+      :active="$route.name === 'settings-bookables'"
+      @click="$router.replace({ name: 'settings-bookables' })"
+      >{{ t('bookables') }}</TabButton
+    >
   </div>
 </template>
 
