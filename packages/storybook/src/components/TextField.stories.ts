@@ -1,5 +1,6 @@
-import TextField from '@bookyp/frontend/src/components/TextField.vue';
 import { Meta, Story } from '@storybook/vue3';
+
+import TextField from '~/components/TextField.vue';
 
 export default {
   title: 'Components/TextField',

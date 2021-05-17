@@ -1,5 +1,6 @@
-import ListItem from '@bookyp/frontend/src/components/ListItem.vue';
 import { Meta, Story } from '@storybook/vue3';
+
+import ListItem from '~/components/ListItem.vue';
 
 export default {
   title: 'Components/ListItem',

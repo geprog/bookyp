@@ -1,7 +1,9 @@
-import Button from '@bookyp/frontend/src/components/buttons/Button.vue';
 import { Meta, Story } from '@storybook/vue3';
 
-const icons = ['add', 'arrow-left', 'check-mark', 'description', 'edit', 'settings', null];
+import Icons from '~/assets/icons';
+import Button from '~/components/buttons/Button.vue';
+
+const icons = [...Object.keys(Icons), null];
 
 export default {
   title: 'Components/Buttons/Button',

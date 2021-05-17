@@ -1,7 +1,9 @@
-import InputField from '@bookyp/frontend/src/components/InputField.vue';
 import { Meta, Story } from '@storybook/vue3';
 
-const icons = ['add', 'arrow-left', 'check-mark', 'description', 'edit', 'settings'];
+import Icons from '~/assets/icons';
+import InputField from '~/components/InputField.vue';
+
+const icons = [...Object.keys(Icons), null];
 
 export default {
   title: 'Components/InputField',
