@@ -25,6 +25,8 @@
     "stylelint.vscode-stylelint",
     "voorjaar.windicss-intellisense",
     "lokalise.i18n-ally",
-    "johnsoncodehk.volar"
+    "johnsoncodehk.volar",
+    "streetsidesoftware.code-spell-checker",
+    "streetsidesoftware.code-spell-checker-german"
   ]
 }
