@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="flex items-center justify-center rounded-full h-9 w-9 bg-white focus:outline-transparent hover:shadow-md hover:bg-gray-dark disabled:cursor-not-allowed disabled:bg-gray-background"
+    class="flex items-center justify-center h-9 w-9 bg-white focus:outline-transparent hover:bg-gray-dark disabled:cursor-not-allowed disabled:bg-gray-background"
     :disabled="disabled"
   >
     <Icon data-test="button-icon" :name="icon" />
@@ -12,6 +12,7 @@
 import { defineComponent } from 'vue';
 
 import Icon from '~/components/Icon.vue';
+import { ExtractedComponentProp } from '~/vue-helpers';
 
 export default defineComponent({
   name: 'IconButton',
@@ -20,7 +21,7 @@ export default defineComponent({
 
   props: {
     icon: {
-      type: String,
+      type: String as ExtractedComponentProp<typeof Icon, 'name'>,
       required: true,
     },
 

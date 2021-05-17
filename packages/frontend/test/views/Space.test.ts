@@ -411,7 +411,7 @@ describe('Space component', () => {
       },
     });
     // when
-    await wrapper.findAll('path')[2].trigger('click');
+    await wrapper.findAll('[data-test=mapObject] path')[0].trigger('click');
     await wrapper.vm.$nextTick();
     // then
     expect(wrapper.find('[data-test=delete-button]').exists()).toBe(true);
@@ -609,7 +609,7 @@ describe('Space component', () => {
         },
       },
     });
-    await wrapper.findAll('path')[2].trigger('click');
+    await wrapper.findAll('[data-test=mapObject] path')[0].trigger('click');
     await wrapper.vm.$nextTick();
     // when
     await wrapper.find('[data-test=delete-button]').trigger('click');

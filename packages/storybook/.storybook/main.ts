@@ -1,5 +1,6 @@
 const path = require('path');
 const WindiCSS = require('vite-plugin-windicss').default;
+const svgLoader = require('vite-svg-loader');
 
 module.exports = {
   core: {
@@ -24,6 +25,8 @@ module.exports = {
       ...config.resolve.alias,
       '~': path.resolve(frontendPath, 'src/'),
     };
+    // svg loader
+    config.plugins.push(svgLoader());
     return config;
   },
 };

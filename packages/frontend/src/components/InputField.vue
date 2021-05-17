@@ -10,6 +10,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import { ExtractedComponentProp } from '~/vue-helpers';
+
 import Icon from './Icon.vue';
 
 export default defineComponent({
@@ -19,7 +21,7 @@ export default defineComponent({
 
   props: {
     iconName: {
-      type: String,
+      type: String as ExtractedComponentProp<typeof Icon, 'name'>,
       required: true,
     },
   },

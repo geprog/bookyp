@@ -17,6 +17,7 @@ const config: Config.InitialOptions = {
   moduleNameMapper,
   testEnvironment: 'jest-environment-jsdom',
   transform: {
+    '^.+\\.svg$': './svgTransform.js',
     '^.+\\.vue$': 'vue-jest',
   },
   collectCoverage: true,
