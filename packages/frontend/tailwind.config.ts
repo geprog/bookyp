@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import colors from 'windicss/colors';
+import { defineConfig } from 'windicss/helpers';
 import typography from 'windicss/plugin/typography';
 
-export default {
+export default defineConfig({
   darkMode: 'class',
   theme: {
     extend: {
@@ -39,12 +38,15 @@ export default {
       },
     },
     stroke: (theme) => ({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       black: theme('colors.gray.active'),
     }),
     fill: (theme) => ({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       orange: theme('colors.primary.light'),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       white: theme('colors.white'),
     }),
   },
   plugins: [typography],
-};
+});
