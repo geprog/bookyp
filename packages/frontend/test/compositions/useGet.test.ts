@@ -13,9 +13,9 @@ jest.mock('~/compositions/useFeathers');
 // convert type of useGet to support dummy service
 const useGet = (useGetOriginal as unknown) as (key: 'testModels', _id: Ref<Id>) => UseGet<TestModel>;
 
-const testModel: TestModel = { _id: '111', mood: '😀', action: '🧘' };
-const additionalTestModel: TestModel = { _id: 'aaa', mood: '🤩', action: '🏄' };
-const changedTestModel: TestModel = { ...testModel, mood: '😅', action: '🏋️' };
+const testModel: TestModel = { _id: '111', mood: '😀', action: '🧘', category: 'enjoy' };
+const additionalTestModel: TestModel = { _id: 'aaa', mood: '🤩', action: '🏄', category: 'sport' };
+const changedTestModel: TestModel = { ...testModel, mood: '😅', action: '🏋️', category: 'sport' };
 
 describe('Get composition', () => {
   beforeEach(() => {
