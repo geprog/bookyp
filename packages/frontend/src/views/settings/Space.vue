@@ -1,14 +1,18 @@
 <template>
   <Header :title="t('settings')" has-back>
-    <IconButton v-if="!editing" data-test="add-button" icon="table" @click="addMapObject" />
-    <IconButton v-if="editing" data-test="save-button" type="submit" icon="check-mark" @click="saveNewMapObject" />
+    <IconButton v-if="mode === 'viewing'" data-test="add-button" icon="table" @click="addMapObject" />
+    <IconButton v-if="mode === 'editing'" data-test="abort-button" icon="cross" @click="selectMapObject(null)" />
+    <template v-if="mode === 'creating'">
+      <IconButton data-test="abort-button" icon="cross" @click="newMapObject = null" />
+      <IconButton data-test="save-button" type="submit" icon="check-mark" @click="saveNewMapObject" />
+    </template>
     <template #second>
       <SettingsTabs />
     </template>
   </Header>
-  <div class="mx-4 mt-4 h-full m-auto flex flex-col">
+  <div class="m-4 flex flex-col flex-grow">
     <svg
-      class="w-full h-100"
+      class="w-full flex-grow"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       data-test="space-map"
@@ -18,9 +22,10 @@
       <g
         v-for="mapObject in mapObjects"
         :key="mapObject._id"
-        data-test="mapObject"
+        data-test="map-object"
         :transform="`translate(${mapObject.xPos},${mapObject.yPos})`"
-        class="cursor-pointer"
+        :class="{ 'cursor-pointer map-object': mode === 'viewing' || mode === 'editing' }"
+        @click.stop="selectMapObject(mapObject)"
       >
         <path
           v-for="path in mapObject.paths"
@@ -31,8 +36,6 @@
               ? 'stroke-current text-primary-dark fill-orange'
               : 'stroke-black fill-white'
           "
-          stroke-width="1"
-          @click.stop="toggleSelectedMapObject(mapObject)"
         />
       </g>
       <g
@@ -45,26 +48,20 @@
           :key="path"
           :d="path"
           class="stroke-current text-primary-dark fill-orange"
-          stroke-width="1"
         />
       </g>
     </svg>
-    <div class="mt-auto mb-4 flex flex-row-reverse">
-      <FloatingButton
-        v-if="selectedMapObjectId !== null"
-        data-test="delete-button"
-        type="submit"
-        icon="delete"
-        @click="removeSelectedMapObject"
-      />
+    <div v-if="selectedMapObjectId" class="mt-auto ml-auto flex flex-row">
+      <FloatingButton data-test="delete-button" type="submit" icon="delete" @click="removeSelectedMapObject" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Model } from '@bookyp/core';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent, PropType, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRoute, useRouter } from 'vue-router';
 
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
@@ -78,12 +75,20 @@ export default defineComponent({
 
   components: { FloatingButton, IconButton, Header, SettingsTabs },
 
-  setup() {
+  props: {
+    selectedMapObjectId: {
+      type: String as PropType<string | undefined>,
+      default: undefined,
+    },
+  },
+
+  setup(props) {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
     const feathers = useFeathers();
+    const router = useRouter();
+    const route = useRoute();
 
-    // load space
     const { data: spaces } = useFind('spaces');
     const floorPlan = computed(() => {
       if (!spaces.value.length) {
@@ -92,24 +97,24 @@ export default defineComponent({
       return spaces.value[0].floorPlan;
     });
 
-    // flag to show if we are currently editing the map
-    const editing = computed(() => !!newMapObject.value);
-    // load mapObjects
     const { data: mapObjects } = useFind('mapObjects');
 
-    // if a mapObject is selected this contains its id
-    const selectedMapObjectId = ref<string | null>(null);
-
-    function toggleSelectedMapObject(mapObject: Model.MapObject) {
-      selectedMapObjectId.value = mapObject._id;
-    }
-
-    async function removeSelectedMapObject(): Promise<void> {
-      await feathers.service('mapObjects').remove(selectedMapObjectId.value);
-      selectedMapObjectId.value = null;
-    }
+    const selectedMapObjectId = toRef(props, 'selectedMapObjectId');
 
     let newMapObject = ref<null | Omit<Model.MapObject, '_id'>>(null);
+
+    // flag to show if we are currently editing the map
+    const mode = computed(() => {
+      if (newMapObject.value) {
+        return 'creating';
+      }
+
+      if (selectedMapObjectId.value) {
+        return 'editing';
+      }
+
+      return 'viewing';
+    });
 
     function addMapObject() {
       newMapObject.value = {
@@ -123,8 +128,6 @@ export default defineComponent({
 
         type: Model.MapObjectTypes.table,
       };
-      // deselect any mapObject
-      selectedMapObjectId.value = null;
     }
 
     async function saveNewMapObject(): Promise<void> {
@@ -135,9 +138,8 @@ export default defineComponent({
     }
 
     function positionNewMapObject(event: MouseEvent) {
-      selectedMapObjectId.value = null;
-      // skip if we are not currently in editing mode
-      if (!editing.value) {
+      // skip if we are not currently in creating mode
+      if (mode.value !== 'creating') {
         return;
       }
 
@@ -157,19 +159,48 @@ export default defineComponent({
       }
     }
 
+    async function selectMapObject(mapObject: Model.MapObject | null) {
+      // only allow selection of a mapObject if currently not in creating mode
+      if (mode.value === 'creating') {
+        return;
+      }
+
+      const params = mapObject ? { selectedMapObjectId: mapObject._id } : undefined;
+
+      if (!route.name) {
+        throw new Error('Can not detect current route');
+      }
+
+      await router.replace({ name: route.name, params });
+    }
+
+    async function removeSelectedMapObject(): Promise<void> {
+      if (!selectedMapObjectId.value) {
+        return;
+      }
+
+      await feathers.service('mapObjects').remove(selectedMapObjectId.value);
+      await selectMapObject(null);
+    }
+
     return {
       t,
-      editing,
+      mode,
       floorPlan,
       mapObjects,
       addMapObject,
       newMapObject,
       positionNewMapObject,
       saveNewMapObject,
-      toggleSelectedMapObject,
-      selectedMapObjectId,
+      selectMapObject,
       removeSelectedMapObject,
     };
   },
 });
 </script>
+
+<style scoped>
+.map-object:hover path {
+  stroke: #f59e0b;
+}
+</style>

@@ -25,9 +25,10 @@ const routes: RouteRecordRaw[] = [
     component: (): Component => import('./views/settings/BookableCreate.vue'),
   },
   {
-    path: '/settings/space',
+    path: '/settings/space/:selectedMapObjectId?',
     name: 'settings-space',
     component: (): Component => import('./views/settings/Space.vue'),
+    props: true,
   },
   {
     path: '/bookable/:bookableId/book',
