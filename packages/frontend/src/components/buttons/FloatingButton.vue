@@ -1,10 +1,10 @@
 <template>
   <button
     type="button"
-    class="flex items-center justify-center rounded-full h-12 w-12 cursor-pointer focus:outline-transparent hover:bg-primary-dark disabled:bg-gray-background disabled:cursor-not-allowed bg-primary-normal shadow-lg"
+    class="flex items-center justify-center rounded-full h-12 w-12 cursor-pointer focus:outline-transparent disabled:bg-gray-background disabled:cursor-not-allowed bg-primary-normal shadow-lg"
     :disabled="disabled"
   >
-    <Icon data-test="floating-button-icon" :name="icon" />
+    <Icon data-test="floating-button-icon" :name="icon" color="text-white" />
   </button>
 </template>
 
@@ -12,6 +12,7 @@
 import { defineComponent } from 'vue';
 
 import Icon from '~/components/Icon.vue';
+import { ExtractedComponentProp } from '~/vue-helpers';
 
 export default defineComponent({
   name: 'FloatingButton',
@@ -20,7 +21,7 @@ export default defineComponent({
 
   props: {
     icon: {
-      type: String,
+      type: String as ExtractedComponentProp<typeof Icon, 'name'>,
       required: true,
     },
 

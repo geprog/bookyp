@@ -16,6 +16,7 @@
 import { defineComponent } from 'vue';
 
 import Icon from '~/components/Icon.vue';
+import { ExtractedComponentProp } from '~/vue-helpers';
 
 export default defineComponent({
   name: 'Button',
@@ -24,12 +25,12 @@ export default defineComponent({
 
   props: {
     icon: {
-      type: String,
+      type: String as ExtractedComponentProp<typeof Icon, 'name'>,
       default: null,
     },
 
     iconEnd: {
-      type: String,
+      type: String as ExtractedComponentProp<typeof Icon, 'name'>,
       default: null,
     },
 

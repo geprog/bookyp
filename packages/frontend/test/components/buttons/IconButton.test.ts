@@ -6,7 +6,7 @@ import IconButton from '~/components/buttons/IconButton.vue';
 describe('IconButton component', () => {
   it('should render correctly', () => {
     // given
-    const icon = 'testIcon';
+    const icon = 'settings';
 
     // when
     const wrapper = shallowMount(IconButton, {

@@ -6,9 +6,9 @@ import Button from '~/components/buttons/Button.vue';
 describe('Button component', () => {
   it('should render correctly', () => {
     // given
-    const icon = 'testIcon';
+    const icon = 'settings';
     const text = 'Submit';
-    const iconEnd = 'testIcon';
+    const iconEnd = 'settings';
 
     // when
     const wrapper = shallowMount(Button, {

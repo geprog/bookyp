@@ -26,6 +26,7 @@
     "storybook-builder-vite": "0.0.6",
     "typescript": "4.2.3",
     "vite-plugin-windicss": "0.9.0",
+    "vite-svg-loader": "1.5.1",
     "vue": "3.0.7",
     "vue-loader": "16.1.2",
     "vue-tsc": "0.0.8",

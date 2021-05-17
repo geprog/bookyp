@@ -3,10 +3,10 @@
 exports[`IconButton component should render correctly 1`] = `
 "
 <button type=\\"button\\"
-        class=\\"flex items-center justify-center rounded-full h-9 w-9 bg-white focus:outline-transparent hover:shadow-md hover:bg-gray-dark disabled:cursor-not-allowed disabled:bg-gray-background\\"
+        class=\\"flex items-center justify-center h-9 w-9 bg-white focus:outline-transparent hover:bg-gray-dark disabled:cursor-not-allowed disabled:bg-gray-background\\"
 >
   <icon-stub data-test=\\"button-icon\\"
-             name=\\"testIcon\\"
+             name=\\"settings\\"
   >
   </icon-stub>
 </button>

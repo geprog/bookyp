@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import { defineConfig } from 'vite';
 import WindiCSS from 'vite-plugin-windicss';
+import svgLoader from 'vite-svg-loader';
 
 import viteAppConfig from './vite-plugin-app-config';
 
@@ -16,6 +17,7 @@ const config = defineConfig({
   plugins: [
     vue(),
     WindiCSS(),
+    svgLoader(),
     vueI18n({
       include: path.resolve(__dirname, 'src/locales/**'),
     }),
