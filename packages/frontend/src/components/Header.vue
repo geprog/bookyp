@@ -1,8 +1,10 @@
 <template>
   <header class="border-b-1 shadow-md flex flex-col">
-    <div class="flex items-center p-4">
-      <IconButton v-if="hasBack" data-test="back-button" icon="arrow-left" @click="$router.go(-1)" />
-      <span class="ml-8 mr-auto">{{ title }}</span>
+    <div class="flex items-center p-4 content-center">
+      <slot name="start">
+        <IconButton v-if="hasBack" data-test="back-button" icon="arrow-left" @click="$router.go(-1)" />
+      </slot>
+      <span class="ml-4 mr-auto text-lg font-medium">{{ title }}</span>
       <div class="flex space-x-2">
         <slot />
       </div>
