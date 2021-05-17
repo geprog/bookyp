@@ -6,15 +6,13 @@ exports[`Space component should render correctly 1`] = `
              has-back
 >
 </header-stub>
-<div class=\\"mx-4 mt-4 h-full m-auto flex flex-col\\">
-  <svg class=\\"w-full h-100\\"
+<div class=\\"m-4 flex flex-col flex-grow\\">
+  <svg class=\\"w-full flex-grow\\"
        fill=\\"none\\"
        xmlns=\\"http://www.w3.org/2000/svg\\"
        data-test=\\"space-map\\"
   >
   </svg>
-  <div class=\\"mt-auto mb-4 flex flex-row-reverse\\">
-  </div>
 </div>
 "
 `;

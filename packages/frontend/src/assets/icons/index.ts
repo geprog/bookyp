@@ -2,6 +2,7 @@ import AddIcon from './add.svg';
 import ArrowLeftIcon from './arrow-left.svg';
 import CheckMarkIcon from './check-mark.svg';
 import ClockIcon from './clock.svg';
+import CrossIcon from './cross.svg';
 import DeleteIcon from './delete.svg';
 import DescriptionIcon from './description.svg';
 import EditIcon from './edit.svg';
@@ -24,6 +25,7 @@ const icons = {
   settings: SettingsIcon,
   'stop-circle': StopCircleIcon,
   table: TableIcon,
+  cross: CrossIcon,
 };
 
 export default icons;
