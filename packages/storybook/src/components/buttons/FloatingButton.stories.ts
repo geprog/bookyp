@@ -1,7 +1,9 @@
-import FloatingButton from '@bookyp/frontend/src/components/buttons/FloatingButton.vue';
 import { Meta, Story } from '@storybook/vue3';
 
-const icons = ['add', 'arrow-left', 'check-mark', 'description', 'edit', 'settings'];
+import Icons from '~/assets/icons';
+import FloatingButton from '~/components/buttons/FloatingButton.vue';
+
+const icons = [...Object.keys(Icons), null];
 
 export default {
   title: 'Components/Buttons/FloatingButton',

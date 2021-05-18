@@ -1,5 +1,6 @@
-import Header from '@bookyp/frontend/src/components/Header.vue';
 import { Meta, Story } from '@storybook/vue3';
+
+import Header from '~/components/Header.vue';
 
 export default {
   title: 'Components/Header',
