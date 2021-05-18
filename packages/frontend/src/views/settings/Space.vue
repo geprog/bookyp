@@ -6,10 +6,12 @@
       <IconButton data-test="abort-button" icon="cross" @click="newMapObject = null" />
       <IconButton data-test="save-button" type="submit" icon="check-mark" @click="saveNewMapObject" />
     </template>
+
     <template #second>
       <SettingsTabs />
     </template>
   </Header>
+
   <div class="m-4 flex flex-col flex-grow">
     <svg
       class="w-full flex-grow"
@@ -66,7 +68,7 @@ import { useRoute, useRouter } from 'vue-router';
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/Header.vue';
-import SettingsTabs from '~/components/SettingsTabs.vue';
+import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 
