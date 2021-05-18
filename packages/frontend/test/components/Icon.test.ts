@@ -1,4 +1,4 @@
-import { mount, shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 
 import icons from '~/assets/icons';
@@ -10,7 +10,7 @@ describe('Icon component', () => {
     const iconName = 'add';
     const color = 'text-gray-active';
     // when
-    const icon = shallowMount(Icon, {
+    const icon = mount(Icon, {
       props: {
         name: iconName,
         color: color,

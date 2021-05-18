@@ -10,6 +10,7 @@ export default {
   component: Icon,
   argTypes: {
     name: { defaultValue: 'add', control: { type: 'select', options: icons } },
+    color: { defaultValue: 'text-gray-active', control: { type: 'text' } },
   },
 } as Meta;
 

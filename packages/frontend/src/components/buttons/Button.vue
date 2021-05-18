@@ -4,11 +4,11 @@
     class="flex items-center justify-center rounded-md px-4 py-2 space-x-2 bg-primary-normal text-md font-bold text-white cursor-pointer focus:outline-transparent hover:bg-primary-dark disabled:bg-gray-background disabled:cursor-not-allowed"
     :disabled="disabled"
   >
-    <Icon v-if="icon" data-test="button-icon" :name="icon" />
+    <Icon v-if="icon" data-test="button-icon" class="text-white" :name="icon" />
     <slot>
       <span v-if="text" data-test="button-text">{{ text }}</span>
     </slot>
-    <Icon v-if="iconEnd" data-test="button-icon-end" :name="iconEnd" />
+    <Icon v-if="iconEnd" data-test="button-icon-end" class="text-white" :name="iconEnd" />
   </button>
 </template>
 
