@@ -1,7 +1,7 @@
 import { mount, shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 
-import TabButton from '~/components/TabButton.vue';
+import TabButton from '~/components/tabs/TabButton.vue';
 
 describe('TabButton component', () => {
   it('should render correctly when active', () => {
