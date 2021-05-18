@@ -10,9 +10,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import Icon from '~/components/Icon.vue';
 import { ExtractedComponentProp } from '~/vue-helpers';
-
-import Icon from './Icon.vue';
 
 export default defineComponent({
   name: 'InputField',

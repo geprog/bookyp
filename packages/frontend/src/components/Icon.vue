@@ -1,10 +1,5 @@
 <template>
-  <component
-    :is="icon"
-    data-test="icon-component"
-    :class="[color]"
-    class="icon focus:text-primary-normal hover:text-primary-dark"
-  />
+  <component :is="icon" data-test="icon-component" :class="[color]" class="icon" />
 </template>
 
 <script lang="ts">
@@ -23,7 +18,7 @@ export default defineComponent({
 
     color: {
       type: String,
-      default: 'text-gray-active',
+      default: '',
     },
   },
 
@@ -35,11 +30,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.icon ::v-deep *[fill]:not([fill='none']) {
+.icon ::v-deep(*[fill]:not([fill='none'])) {
   fill: currentColor;
 }
 
-.icon ::v-deep *[stroke]:not([stroke='none']) {
+.icon ::v-deep(*[stroke]:not([stroke='none'])) {
   stroke: currentColor;
 }
 </style>
