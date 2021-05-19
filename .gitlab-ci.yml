@@ -7,6 +7,8 @@ stages:
   - deploy-prepare
   - deploy
   - deploy-test
+  - storybook
+  - storybook-deploy
   - cleanup
 
 variables:
@@ -61,7 +63,7 @@ install-dependencies:
   #     - packages/*/dist
   #   expire_in: 1 day
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
 
@@ -79,7 +81,7 @@ build-frontend:
       - packages/frontend/dist
     expire_in: 1 day
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
@@ -96,7 +98,7 @@ build-backend:
       - packages/backend/dist
     expire_in: 1 day
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
@@ -111,7 +113,7 @@ build-core:
       - packages/core/dist
     expire_in: 1 day
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
@@ -130,7 +132,7 @@ build-docker-frontend:
     - echo "{\"auths\":{\"$REGISTRY\":{\"username\":\"$REGISTRY_USER\",\"password\":\"$REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/frontend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/frontend:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
@@ -147,7 +149,7 @@ build-docker-backend:
     - echo "{\"auths\":{\"$REGISTRY\":{\"username\":\"$REGISTRY_USER\",\"password\":\"$REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/backend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/backend:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
@@ -165,7 +167,7 @@ typechecking:
   script:
     - pnpm run typecheck
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
@@ -181,7 +183,7 @@ linting:
   script:
     - pnpm run lint
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
@@ -201,7 +203,7 @@ unit-tests:
   script:
     - pnpm run test
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
@@ -213,7 +215,7 @@ renovate-config-validator:
   script:
     - renovate-config-validator
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes:
         - .gitlab-ci.yml
         - renovate.json
@@ -227,7 +229,7 @@ lint-merge-request-title:
   script:
     - echo ${CI_MERGE_REQUEST_TITLE} | ./node_modules/.bin/commitlint
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
   interruptible: true
 
 spell-check:
@@ -238,7 +240,7 @@ spell-check:
   script:
     - pnpm run spellcheck
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
 
@@ -250,10 +252,11 @@ helm-lint:
     entrypoint: ['']
   script:
     - helm lint .ci/charts/bookyp
+    - helm lint .ci/charts/storybook
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes:
-        - .ci/charts/bookyp/**/*
+        - .ci/charts/**/*
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
 
@@ -270,7 +273,7 @@ code-coverage:
     - pnpm run --filter @bookyp/test-coverage coverage
   coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
@@ -285,19 +288,20 @@ code-coverage:
 
 .review-environment:
   environment:
-    name: review/$CI_COMMIT_REF_SLUG
+    name: app/$CI_COMMIT_REF_SLUG
     url: https://${CI_ENVIRONMENT_SLUG}.app.${BASE_DOMAIN}/
+    deployment_tier: development
     on_stop: review-stop
     auto_stop_in: 3 days # stop after 3 days without new commits
     kubernetes:
       namespace: bookyp-review
   rules:
-    # check if pipeline runs on merge request and is triggered by renovate
+    # if pipeline runs on merge request and is triggered by renovate
     - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
       changes: *main_pipeline_files
       when: manual
       allow_failure: true
-    # check if pipeline runs on merge request
+    # if pipeline runs on merge request
     - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
       changes: *main_pipeline_files
 
@@ -331,8 +335,11 @@ review-deployment:
   script:
     - >
       helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
-      --values .ci/charts/bookyp/review-helm-values.yaml
+      --set environment.type=review
       --set environment.name=$CI_ENVIRONMENT_SLUG
+      --set environment.url=$CI_ENVIRONMENT_URL
+      --set frontend.ingress.tls.secretName=bookyp-review-frontend-tls
+      --set backend.ingress.tls.secretName=bookyp-review-backend-tls
       --set frontend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
       --set backend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
       --set backend.database.password=$DEPLOY_DATABASE_PASSWORD
@@ -358,16 +365,13 @@ review-stop:
     - .review-environment
   stage: cleanup
   environment:
-    name: review/$CI_COMMIT_REF_SLUG
     action: stop
-    kubernetes:
-      namespace: bookyp-review
   variables:
     GIT_STRATEGY: none # Source: https://docs.gitlab.com/ee/ci/yaml/#environmentaction
   script:
     - helm uninstall --namespace $KUBE_NAMESPACE bookyp-${CI_ENVIRONMENT_SLUG}
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
       when: manual
       allow_failure: true
@@ -376,8 +380,9 @@ review-stop:
 
 .production-environment:
   environment:
-    name: production
+    name: app/production
     url: https://app.${BASE_DOMAIN}/
+    deployment_tier: production
     kubernetes:
       namespace: bookyp-production
   rules:
@@ -420,7 +425,11 @@ production-deployment:
   script:
     - >
       helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
-      --values .ci/charts/bookyp/production-helm-values.yaml
+      --set environment.type=production
+      --set environment.name=$CI_ENVIRONMENT_SLUG
+      --set environment.url=$CI_ENVIRONMENT_URL
+      --set frontend.ingress.tls.secretName=bookyp-production-tls
+      --set backend.ingress.tls.secretName=bookyp-production-tls
       --set frontend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
       --set backend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
       --set backend.database.password=$DEPLOY_DATABASE_PASSWORD
@@ -428,7 +437,7 @@ production-deployment:
       --set backend.jwtSecret=$BACKEND_JWT_SECRET
       --set gitlab.app=$CI_PROJECT_PATH_SLUG
       --set gitlab.env=$CI_ENVIRONMENT_SLUG
-      bookyp-production .ci/charts/bookyp
+      bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/bookyp
 
 production-rollback:
   extends:
@@ -444,6 +453,158 @@ production-rollback:
       when: manual
       allow_failure: true
 
+################# STORYBOOK #################
+
+.storybook-review-environment:
+  environment:
+    name: storybook/$CI_COMMIT_REF_SLUG
+    url: https://${CI_ENVIRONMENT_SLUG}.storybook.${BASE_DOMAIN}/
+    deployment_tier: development
+    on_stop: storybook-stop
+    auto_stop_in: 3 days # stop after 3 days without new commits
+    kubernetes:
+      namespace: bookyp-review
+  rules:
+    # if pipeline runs on merge request and is triggered by renovate
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
+      changes: *main_pipeline_files
+      when: manual
+      allow_failure: true
+    # if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
+      changes: *main_pipeline_files
+  interruptible: true
+
+storybook-build:
+  extends: .node-template
+  stage: storybook
+  needs:
+    - build-core
+  script:
+    - pnpm --filter @bookyp/storybook build
+  artifacts:
+    paths:
+      - packages/storybook/storybook-static
+    expire_in: 1 day
+  rules:
+    # if pipeline runs on merge request and is triggered by renovate
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
+      changes: *main_pipeline_files
+      when: manual
+      allow_failure: true
+    # if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
+      changes: *main_pipeline_files
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  interruptible: true
+
+storybook-review-upload:
+  extends:
+    - .storybook-review-environment
+  stage: storybook-deploy
+  needs:
+    - storybook-build
+  environment:
+    action: prepare
+  image:
+    name: minio/mc:RELEASE.2021-03-23T05-46-11Z
+    entrypoint: ['']
+  before_script:
+    - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
+  script:
+    - echo mc mirror --remove --overwrite ./packages/storybook/storybook-static geprog/bookyp-storybook/$CI_ENVIRONMENT_SLUG
+    - mc mirror --remove --overwrite ./packages/storybook/storybook-static geprog/bookyp-storybook/$CI_ENVIRONMENT_SLUG
+
+storybook-review-deploy:
+  extends:
+    - .storybook-review-environment
+  stage: storybook-deploy
+  needs:
+    - review-prepare
+  image:
+    name: registry.geprog.com/docker.io/alpine/helm:3.5.3
+    entrypoint: ['']
+  dependencies: [] # don't load any artifacts
+  script:
+    - >
+      helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
+      --set environment.type=review
+      --set environment.name=$CI_ENVIRONMENT_SLUG
+      --set environment.url=${CI_ENVIRONMENT_SLUG}.storybook.${BASE_DOMAIN}
+      --set ingress.tls.secretName=bookyp-storybook-review-tls
+      --set s3.accessKey=$S3_ACCESS_KEY
+      --set s3.secretKey=$S3_SECRET_KEY
+      --set s3.root=$CI_ENVIRONMENT_SLUG
+      --set gitlab.app=$CI_PROJECT_PATH_SLUG
+      --set gitlab.env=$CI_ENVIRONMENT_SLUG
+      bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/storybook
+
+storybook-stop:
+  extends:
+    - .storybook-review-environment
+  stage: cleanup
+  environment:
+    action: stop
+  variables:
+    GIT_STRATEGY: none # Source: https://docs.gitlab.com/ee/ci/yaml/#environmentaction
+  script:
+    - helm uninstall --namespace $KUBE_NAMESPACE storybook-${CI_ENVIRONMENT_SLUG}
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
+      changes: *main_pipeline_files
+      when: manual
+      allow_failure: true
+
+.storybook-production-environment:
+  environment:
+    name: storybook/production
+    url: https://storybook.${BASE_DOMAIN}/
+    deployment_tier: production
+    kubernetes:
+      namespace: bookyp-production
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+storybook-production-upload:
+  extends:
+    - .storybook-production-environment
+  stage: storybook-deploy
+  needs:
+    - storybook-build
+  environment:
+    action: prepare
+  image:
+    name: minio/mc:RELEASE.2021-03-23T05-46-11Z
+    entrypoint: ['']
+  before_script:
+    - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
+  script:
+    - mc mirror --remove --overwrite ./packages/storybook/storybook-static geprog/bookyp-storybook/$CI_ENVIRONMENT_SLUG
+
+storybook-deploy-production:
+  extends:
+    - .storybook-production-environment
+  stage: storybook-deploy
+  needs:
+    - production-prepare
+  image:
+    name: registry.geprog.com/docker.io/alpine/helm:3.5.3
+    entrypoint: ['']
+  dependencies: [] # don't load any artifacts
+  script:
+    - >
+      helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
+      --set environment.type=production
+      --set environment.name=$CI_ENVIRONMENT_SLUG
+      --set environment.url=storybook.${BASE_DOMAIN}
+      --set ingress.tls.secretName=bookyp-storybook-production-tls
+      --set s3.accessKey=$S3_ACCESS_KEY
+      --set s3.secretKey=$S3_SECRET_KEY
+      --set s3.root=$CI_ENVIRONMENT_SLUG
+      --set gitlab.app=$CI_PROJECT_PATH_SLUG
+      --set gitlab.env=$CI_ENVIRONMENT_SLUG
+      bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/storybook
+
 ################# DUMMY JOB #################
 
 dummy:
@@ -452,7 +613,7 @@ dummy:
   script:
     - echo "I'm creating a successful pipeline for changes in files that otherwise don't create a pipeline."
   rules:
-    - if: '$CI_MERGE_REQUEST_ID' # check if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: # ideally each of these files would have a job i.e. a linter doing something useful
         - README.md
         - docs/**/*

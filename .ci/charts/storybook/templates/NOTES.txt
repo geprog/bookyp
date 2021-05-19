@@ -1,0 +1,2 @@
+1. Check the frontend by opening these URL:
+https://{{ .Values.environment.url }}

@@ -1,0 +1,21 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: "{{ include "storybook.fullname" . }}"
+  labels:
+    {{- include "storybook.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ .Values.environment.url }}`)
+      kind: Rule
+      services:
+        - name: "{{ include "storybook.fullname" . }}"
+          port: 8080
+  tls:
+    secretName: {{ .Values.ingress.tls.secretName }}
