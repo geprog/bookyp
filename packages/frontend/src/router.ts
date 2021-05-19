@@ -19,10 +19,16 @@ const routes: RouteRecordRaw[] = [
     component: (): Component => import('./views/settings/Bookables.vue'),
   },
   {
-    path: '/settings/bookable',
+    path: '/settings/bookable/create',
     name: 'settings-bookable-create',
     meta: { requiresAuth: true },
     component: (): Component => import('./views/settings/BookableCreate.vue'),
+  },
+  {
+    path: '/settings/bookable/:bookableId',
+    name: 'settings-bookable',
+    component: (): Component => import('./views/settings/Bookable.vue'),
+    props: true,
   },
   {
     path: '/settings/space/:selectedMapObjectId?',

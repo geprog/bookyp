@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bookable view should render correctly 1`] = `
+"
+<header-stub title=\\"Mock translation\\"
+             has-back
+>
+</header-stub>
+<bookable-form-stub bookable=\\"[object Object]\\"
+                    data-test=\\"bookable-form\\"
+>
+</bookable-form-stub>
+"
+`;

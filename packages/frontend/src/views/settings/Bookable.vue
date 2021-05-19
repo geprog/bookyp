@@ -1,13 +1,12 @@
 <template>
-  <Header :title="t('bookable_create')" has-back>
+  <Header :title="t('bookable_details', { bookable: bookable && bookable.name })" has-back>
     <IconButton type="submit" form="bookable" icon="check-mark" />
   </Header>
   <BookableForm v-if="bookable" v-model:bookable="bookable" data-test="bookable-form" @save="saveBookable" />
 </template>
 
 <script lang="ts">
-import { Model } from '@bookyp/core';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -15,29 +14,46 @@ import BookableForm from '~/components/bookables/BookableForm.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/Header.vue';
 import useFeathers from '~/compositions/useFeathers';
+import useGet from '~/compositions/useGet';
 
 export default defineComponent({
-  name: 'BookableCreate',
+  name: 'Bookable',
 
-  components: { Header, BookableForm, IconButton },
+  components: {
+    IconButton,
+    Header,
+    BookableForm,
+  },
 
-  setup() {
+  props: {
+    // used by toRef(props, 'bookableId')
+    // eslint-disable-next-line vue/no-unused-properties
+    bookableId: {
+      type: String,
+      required: true,
+    },
+  },
+
+  setup(props) {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
-    const router = useRouter();
     const feathers = useFeathers();
+    const router = useRouter();
 
-    const bookable = ref<Partial<Model.Bookable>>({
-      description: '',
-      name: '',
-    });
+    const bookableId = toRef(props, 'bookableId');
+    const { data: bookable } = useGet('bookables', bookableId);
 
     const saveBookable = async () => {
+      /* istanbul ignore next */
+      if (!bookable.value) {
+        return;
+      }
+
+      await feathers.service('bookables').update(bookableId.value, bookable.value);
       await router.replace({ name: 'settings-bookables' });
-      await feathers.service('bookables').create(bookable.value);
     };
 
-    return { saveBookable, bookable, t };
+    return { t, bookable, saveBookable };
   },
 });
 </script>
