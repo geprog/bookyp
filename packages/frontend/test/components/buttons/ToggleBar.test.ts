@@ -31,6 +31,14 @@ describe('ToggleBar component', () => {
         startIcon,
         endIcon,
       },
+      global: {
+        // stub needed due to caching issue. see https://github.com/vuejs/vue-test-utils-next/issues/530
+        stubs: {
+          Icon: {
+            template: '<div></div>',
+          },
+        },
+      },
     });
 
     // then

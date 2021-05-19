@@ -1,5 +1,6 @@
 import { mount, shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
+import { h } from 'vue';
 
 import Header from '~/components/Header.vue';
 
@@ -22,7 +23,8 @@ describe('Header component', () => {
 
   it('should include content for right side', () => {
     // given
-    const content = '<p>Horst</p>';
+    // need to use h(...) instead of '<p>Horst</p>' due to https://github.com/vuejs/vue-test-utils-next/issues/549
+    const content = h('p', {}, 'Horst');
 
     // when
     const header = mount(Header, {
@@ -35,12 +37,13 @@ describe('Header component', () => {
     });
 
     // then
-    expect(header.html()).toContain(content);
+    expect(header.html()).toContain(content.el?.outerHTML);
   });
 
   it('should include content for second row', () => {
     // given
-    const content = '<p>Alice</p>';
+    // need to use h(...) instead of '<p>Alice</p>' due to https://github.com/vuejs/vue-test-utils-next/issues/549
+    const content = h('p', {}, 'Alice');
 
     // when
     const header = mount(Header, {
@@ -53,7 +56,7 @@ describe('Header component', () => {
     });
 
     // then
-    expect(header.html()).toContain(content);
+    expect(header.html()).toContain(content.el?.outerHTML);
   });
 
   it('should include a back button', () => {

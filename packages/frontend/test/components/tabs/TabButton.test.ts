@@ -1,5 +1,6 @@
 import { mount, shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
+import { h } from 'vue';
 
 import TabButton from '~/components/tabs/TabButton.vue';
 
@@ -36,7 +37,8 @@ describe('TabButton component', () => {
 
   it('should include content put into slot', () => {
     // given
-    const content = '<p>Horst</p>';
+    // need to use h(...) instead of '<p>Horst</p>' due to https://github.com/vuejs/vue-test-utils-next/issues/549
+    const content = h('p', {}, 'Horst');
 
     // when
     const wrapper = mount(TabButton, {
@@ -46,6 +48,6 @@ describe('TabButton component', () => {
     });
 
     // then
-    expect(wrapper.html()).toContain(content);
+    expect(wrapper.html()).toContain(content.el?.outerHTML);
   });
 });

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "coverage": "node src/",
-    "lint": "eslint --cache --max-warnings 0 .",
+    "lint": "eslint --max-warnings 0 .",
     "clean": "rm -rf node_modules/ .eslintcache"
   },
   "dependencies": {
@@ -14,6 +14,6 @@
   "devDependencies": {
     "@bookyp/eslint-config": "workspace:*",
     "@rushstack/eslint-patch": "1.0.6",
-    "eslint": "7.22.0"
+    "eslint": "7.26.0"
   }
 }
