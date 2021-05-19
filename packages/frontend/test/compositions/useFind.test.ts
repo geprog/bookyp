@@ -1,6 +1,6 @@
 import { Params } from '@feathersjs/feathers';
 import { mocked } from 'ts-jest/utils';
-import { Ref, ref } from 'vue';
+import { nextTick, Ref, ref } from 'vue';
 
 import useFeathers, { ClientApplication, getId } from '~/compositions/useFeathers';
 import useFindOriginal, { UseFind } from '~/compositions/useFind';
@@ -57,9 +57,10 @@ describe('Find composition', () => {
 
     // when
     let findComposition = null as UseFind<TestModel> | null;
-    await mountComposition(() => {
+    mountComposition(() => {
       findComposition = useFind('testModels');
     });
+    await nextTick();
 
     // then
     expect(serviceFind).toHaveBeenCalledTimes(1);
@@ -84,14 +85,14 @@ describe('Find composition', () => {
     } as unknown) as ClientApplication;
     mocked(useFeathers).mockReturnValue(useFeathersMock);
     let findComposition = null as UseFind<TestModel> | null;
-    const wrapper = await mountComposition(() => {
+    mountComposition(() => {
       findComposition = useFind('testModels');
     });
     serviceFind.mockClear(); // continue with fresh mock
 
     // when
     emitter.emit('connect');
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     // then
     expect(serviceFind).toHaveBeenCalledTimes(1);
@@ -99,7 +100,7 @@ describe('Find composition', () => {
     expect(findComposition && findComposition.data.value).toStrictEqual(testModels);
   });
 
-  it('should indicate data loading', async () => {
+  it('should indicate data loading', () => {
     expect.assertions(2);
 
     // given
@@ -114,12 +115,11 @@ describe('Find composition', () => {
     } as unknown) as ClientApplication;
     mocked(useFeathers).mockReturnValue(useFeathersMock);
     let findComposition = null as UseFind<TestModel> | null;
-    const wrapper = await mountComposition(() => {
-      findComposition = useFind('testModels');
-    });
 
     // when
-    await wrapper.vm.$nextTick();
+    mountComposition(() => {
+      findComposition = useFind('testModels');
+    });
 
     // then
     expect(findComposition).toBeTruthy();
@@ -147,13 +147,13 @@ describe('Find composition', () => {
     } as unknown) as ClientApplication;
     mocked(useFeathers).mockReturnValue(useFeathersMock);
     let findComposition = null as UseFind<TestModel> | null;
-    const wrapper = await mountComposition(() => {
+    mountComposition(() => {
       findComposition = useFind('testModels');
     });
 
     // when
     serviceFindPromiseResolve(testModels);
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     // then
     expect(findComposition).toBeTruthy();
@@ -176,13 +176,13 @@ describe('Find composition', () => {
       off: jest.fn(),
     } as unknown) as ClientApplication;
     mocked(useFeathers).mockReturnValue(useFeathersMock);
-    const wrapper = await mountComposition(() => {
+    mountComposition(() => {
       useFind('testModels', findParams);
     });
 
     // when
     findParams.value.query = { zug: 'change' };
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     // then
     expect(serviceFind).toHaveBeenCalledTimes(2);
@@ -195,7 +195,7 @@ describe('Find composition', () => {
   });
 
   describe('Event Handlers', () => {
-    it('should listen to "create" events', async () => {
+    it('should listen to "create" events', () => {
       expect.assertions(2);
 
       // given
@@ -211,13 +211,12 @@ describe('Find composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         findComposition = useFind('testModels');
       });
 
       // when
       emitter.emit('created', additionalTestModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(findComposition).toBeTruthy();
@@ -240,20 +239,20 @@ describe('Find composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         findComposition = useFind('testModels', ref({ query: { mood: additionalTestModel.mood } }));
       });
+      await nextTick();
 
       // when
       emitter.emit('created', additionalTestModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(findComposition).toBeTruthy();
       expect(findComposition && findComposition.data.value).toContainEqual(additionalTestModel);
     });
 
-    it('should ignore "create" events when query is not matching', async () => {
+    it('should ignore "create" events when query is not matching', () => {
       expect.assertions(2);
 
       // given
@@ -269,13 +268,12 @@ describe('Find composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         findComposition = useFind('testModels', ref({ query: { mood: 'please-do-not-match' } }));
       });
 
       // when
       emitter.emit('created', additionalTestModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(findComposition).toBeTruthy();
@@ -298,13 +296,13 @@ describe('Find composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         findComposition = useFind('testModels');
       });
+      await nextTick();
 
       // when
       emitter.emit('patched', changedTestModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(findComposition).toBeTruthy();
@@ -327,20 +325,20 @@ describe('Find composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         findComposition = useFind('testModels');
       });
+      await nextTick();
 
       // when
       emitter.emit('updated', changedTestModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(findComposition).toBeTruthy();
       expect(findComposition && findComposition.data.value).toContainEqual(changedTestModel);
     });
 
-    it('should listen to "patch" & "update" events when query is matching', async () => {
+    it('should listen to "patch" & "update" events when query is matching', () => {
       expect.assertions(2);
 
       // given
@@ -356,13 +354,12 @@ describe('Find composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         findComposition = useFind('testModels', ref({ query: { mood: 'please-do-not-match' } }));
       });
 
       // when
       emitter.emit('updated', changedTestModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(findComposition).toBeTruthy();
@@ -385,13 +382,13 @@ describe('Find composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         findComposition = useFind('testModels', ref({ query: { mood: 'please-do-not-match' } }));
       });
+      await nextTick();
 
       // when
       emitter.emit('updated', additionalTestModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(findComposition).toBeTruthy();
@@ -399,7 +396,7 @@ describe('Find composition', () => {
       expect(findComposition && findComposition.data.value).toContainEqual(testModel);
     });
 
-    it('should listen to "patch" & "update" events and remove item from list when query is not matching anymore', async () => {
+    it('should listen to "patch" & "update" events and remove item from list when query is not matching anymore', () => {
       expect.assertions(2);
 
       // given
@@ -415,20 +412,19 @@ describe('Find composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         findComposition = useFind('testModels', ref({ query: { category: testModel.category } }));
       });
 
       // when
       emitter.emit('updated', changedTestModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(findComposition).toBeTruthy();
       expect(findComposition && findComposition.data.value.length).toStrictEqual(0);
     });
 
-    it('should listen to "remove" events', async () => {
+    it('should listen to "remove" events', () => {
       expect.assertions(2);
 
       // given
@@ -444,20 +440,19 @@ describe('Find composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         findComposition = useFind('testModels');
       });
 
       // when
       emitter.emit('removed', testModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(findComposition).toBeTruthy();
       expect(findComposition && findComposition.data.value).not.toContainEqual(testModel);
     });
 
-    it('should unmount the event handlers', async () => {
+    it('should unmount the event handlers', () => {
       expect.assertions(7);
 
       // given
@@ -474,13 +469,12 @@ describe('Find composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let findComposition = null as UseFind<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      const wrapper = mountComposition(() => {
         findComposition = useFind('testModels');
       });
 
       // when
       wrapper.unmount();
-      await wrapper.vm.$nextTick();
 
       // then
       expect(findComposition).toBeTruthy();

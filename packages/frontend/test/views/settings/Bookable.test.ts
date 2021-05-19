@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 import { mocked } from 'ts-jest/utils';
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { Router, useRouter } from 'vue-router';
 
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
@@ -105,7 +105,7 @@ describe('Bookable view', () => {
 
     // when
     wrapper.getComponent('[data-test=bookable-form]').vm.$emit('save');
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     // then
     expect(replaceMock).toHaveBeenCalledTimes(1);

@@ -46,7 +46,7 @@ describe('Space component', () => {
     expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
   });
 
-  it('should render a plan of the floor', async () => {
+  it('should render a plan of the floor', () => {
     expect.assertions(2);
     // given
     const useFeathersMock = ({
@@ -74,14 +74,13 @@ describe('Space component', () => {
 
     // when
     const wrapper = shallowMount(Space, {});
-    await wrapper.vm.$nextTick();
 
     // then
     expect(wrapper.findAll('path')[0].attributes('d')).toStrictEqual(floorPlan[0]);
     expect(wrapper.findAll('path')[1].attributes('d')).toStrictEqual(floorPlan[1]);
   });
 
-  it('should render map-objects', async () => {
+  it('should render map-objects', () => {
     expect.assertions(3);
     // given
     const useFeathersMock = ({
@@ -141,7 +140,6 @@ describe('Space component', () => {
 
     // when
     const wrapper = shallowMount(Space, {});
-    await wrapper.vm.$nextTick();
 
     // then
     expect(wrapper.findAll('path')).toHaveLength(6); //
@@ -220,7 +218,6 @@ describe('Space component', () => {
 
       // when
       await wrapper.find('[data-test=space-map]').trigger('click', { clientX: 0, clientY: 0, mockedSVG });
-      await wrapper.vm.$nextTick();
 
       // then
       expect(mockedSVG.createSVGPoint).not.toHaveBeenCalled();
@@ -260,7 +257,6 @@ describe('Space component', () => {
         },
       });
       await wrapper.find('[data-test=add-button]').trigger('click');
-      await wrapper.vm.$nextTick();
 
       // then
       // TODO: check if newly created / placed map-object exists
@@ -304,7 +300,6 @@ describe('Space component', () => {
       });
 
       await wrapper.find('[data-test=add-button]').trigger('click');
-      await wrapper.vm.$nextTick();
 
       // simple mock for the SVGSVGElement received by the click event
       const position = { x: 11, y: 22 } as SVGPoint;
@@ -318,7 +313,6 @@ describe('Space component', () => {
 
       // when
       await svg.trigger('click', { clientX: 0, clientY: 0 });
-      await wrapper.vm.$nextTick();
 
       // then
       const newMapObjectHtml = wrapper.find('[data-test=new-map-object]').html();
@@ -368,11 +362,9 @@ describe('Space component', () => {
         },
       });
       await wrapper.find('[data-test=add-button]').trigger('click');
-      await wrapper.vm.$nextTick();
 
       // when
       await wrapper.find('[data-test=save-button]').trigger('click');
-      await wrapper.vm.$nextTick();
 
       // then
       expect(wrapper.find('[data-test=save-button]').exists()).toBe(false);
@@ -443,11 +435,8 @@ describe('Space component', () => {
       });
 
       await wrapper.find('[data-test=add-button]').trigger('click');
-      await wrapper.vm.$nextTick();
-
       // when
       await wrapper.findAll('[data-test=map-object]')[0].trigger('click');
-      await wrapper.vm.$nextTick();
 
       // then
       expect(mockRouter.replace).not.toHaveBeenCalled();
@@ -535,7 +524,6 @@ describe('Space component', () => {
 
       // when
       await wrapper.findAll('[data-test=map-object]')[1].trigger('click');
-      await wrapper.vm.$nextTick();
 
       // then
       expect(replaceMock).toHaveBeenCalledWith(
@@ -722,7 +710,6 @@ describe('Space component', () => {
 
       // when
       await wrapper.find('[data-test=delete-button]').trigger('click');
-      await wrapper.vm.$nextTick();
 
       // then
       expect(useFeathersServiceMock.remove).toHaveBeenCalledWith(mapObjects[1]._id);
