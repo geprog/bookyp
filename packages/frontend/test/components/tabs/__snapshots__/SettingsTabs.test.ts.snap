@@ -3,10 +3,10 @@
 exports[`SettingsTabs component should render correctly when active 1`] = `
 "
 <div class=\\"flex\\">
-  <tab-button-stub active=\\"true\\">
-  </tab-button-stub>
-  <tab-button-stub active=\\"false\\">
-  </tab-button-stub>
+  <div active=\\"true\\">
+  </div>
+  <div active=\\"false\\">
+  </div>
 </div>
 "
 `;

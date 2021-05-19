@@ -20,6 +20,12 @@ describe('SettingsTabs component', () => {
           $route: mockRoute,
           $router: mockRouter,
         },
+        // stub needed due to caching issue. see https://github.com/vuejs/vue-test-utils-next/issues/530
+        stubs: {
+          TabButton: {
+            template: '<div></div>',
+          },
+        },
       },
     });
 
