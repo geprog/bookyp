@@ -1,6 +1,6 @@
 import { Id } from '@feathersjs/feathers';
 import { mocked } from 'ts-jest/utils';
-import { Ref, ref } from 'vue';
+import { nextTick, Ref, ref } from 'vue';
 
 import useFeathers, { ClientApplication, getId } from '~/compositions/useFeathers';
 import useGetOriginal, { UseGet } from '~/compositions/useGet';
@@ -41,9 +41,10 @@ describe('Get composition', () => {
 
     // when
     let getComposition = null as UseGet<TestModel> | null;
-    await mountComposition(() => {
+    mountComposition(() => {
       getComposition = useGet('testModels', ref(testModel._id));
     });
+    await nextTick();
 
     // then
     expect(serviceGet).toHaveBeenCalledTimes(1);
@@ -68,14 +69,14 @@ describe('Get composition', () => {
     } as unknown) as ClientApplication;
     mocked(useFeathers).mockReturnValue(useFeathersMock);
     let getComposition = null as UseGet<TestModel> | null;
-    const wrapper = await mountComposition(() => {
+    mountComposition(() => {
       getComposition = useGet('testModels', ref(testModel._id));
     });
     serviceGet.mockClear(); // continue with fresh mock
 
     // when
     emitter.emit('connect');
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     // then
     expect(serviceGet).toHaveBeenCalledTimes(1);
@@ -83,7 +84,7 @@ describe('Get composition', () => {
     expect(getComposition && getComposition.data.value).toStrictEqual(testModel);
   });
 
-  it('should indicate data loading', async () => {
+  it('should indicate data loading', () => {
     expect.assertions(2);
 
     // given
@@ -98,12 +99,11 @@ describe('Get composition', () => {
     } as unknown) as ClientApplication;
     mocked(useFeathers).mockReturnValue(useFeathersMock);
     let getComposition = null as UseGet<TestModel> | null;
-    const wrapper = await mountComposition(() => {
-      getComposition = useGet('testModels', ref(testModel._id));
-    });
 
     // when
-    await wrapper.vm.$nextTick();
+    mountComposition(() => {
+      getComposition = useGet('testModels', ref(testModel._id));
+    });
 
     // then
     expect(getComposition).toBeTruthy();
@@ -131,13 +131,13 @@ describe('Get composition', () => {
     } as unknown) as ClientApplication;
     mocked(useFeathers).mockReturnValue(useFeathersMock);
     let getComposition = null as UseGet<TestModel> | null;
-    const wrapper = await mountComposition(() => {
+    mountComposition(() => {
       getComposition = useGet('testModels', ref(testModel._id));
     });
 
     // when
     serviceGetPromiseResolve(testModel);
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     // then
     expect(getComposition).toBeTruthy();
@@ -166,16 +166,17 @@ describe('Get composition', () => {
     } as unknown) as ClientApplication;
     mocked(useFeathers).mockReturnValue(useFeathersMock);
     let getComposition = null as UseGet<TestModel> | null;
-    const wrapper = await mountComposition(() => {
+    mountComposition(() => {
       getComposition = useGet('testModels', testModelId);
     });
 
-    // before then
+    // before then to ensure that the previous loading procedure is completed
+    await nextTick();
     expect(getComposition && getComposition.data.value).toStrictEqual(testModel);
 
     // when
     testModelId.value = additionalTestModel._id;
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     // then
     expect(serviceGet).toHaveBeenCalledTimes(2);
@@ -184,7 +185,7 @@ describe('Get composition', () => {
   });
 
   describe('Event Handlers', () => {
-    it('should listen to "create" events', async () => {
+    it('should listen to "create" events', () => {
       expect.assertions(2);
 
       // given
@@ -200,21 +201,20 @@ describe('Get composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let getComposition = null as UseGet<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         getComposition = useGet('testModels', ref(additionalTestModel._id));
       });
       mocked(getId).mockReturnValue(additionalTestModel._id);
 
       // when
       emitter.emit('created', additionalTestModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(getComposition).toBeTruthy();
       expect(getComposition && getComposition.data.value).toStrictEqual(additionalTestModel);
     });
 
-    it('should listen to "patch" events', async () => {
+    it('should listen to "patch" events', () => {
       expect.assertions(2);
 
       // given
@@ -230,21 +230,20 @@ describe('Get composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let getComposition = null as UseGet<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         getComposition = useGet('testModels', ref(testModel._id));
       });
       mocked(getId).mockReturnValue(testModel._id);
 
       // when
       emitter.emit('patched', changedTestModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(getComposition).toBeTruthy();
       expect(getComposition && getComposition.data.value).toStrictEqual(changedTestModel);
     });
 
-    it('should listen to "update" events', async () => {
+    it('should listen to "update" events', () => {
       expect.assertions(2);
 
       // given
@@ -260,21 +259,20 @@ describe('Get composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let getComposition = null as UseGet<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         getComposition = useGet('testModels', ref(testModel._id));
       });
       mocked(getId).mockReturnValue(testModel._id);
 
       // when
       emitter.emit('updated', changedTestModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(getComposition).toBeTruthy();
       expect(getComposition && getComposition.data.value).toStrictEqual(changedTestModel);
     });
 
-    it('should listen to "remove" events', async () => {
+    it('should listen to "remove" events', () => {
       expect.assertions(2);
 
       // given
@@ -290,20 +288,19 @@ describe('Get composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let getComposition = null as UseGet<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      mountComposition(() => {
         getComposition = useGet('testModels', ref(testModel._id));
       });
 
       // when
       emitter.emit('removed', testModel);
-      await wrapper.vm.$nextTick();
 
       // then
       expect(getComposition).toBeTruthy();
       expect(getComposition && getComposition.data.value).toBeUndefined();
     });
 
-    it('should unmount the event handlers', async () => {
+    it('should unmount the event handlers', () => {
       expect.assertions(7);
 
       // given
@@ -320,13 +317,12 @@ describe('Get composition', () => {
       } as unknown) as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let getComposition = null as UseGet<TestModel> | null;
-      const wrapper = await mountComposition(() => {
+      const wrapper = mountComposition(() => {
         getComposition = useGet('testModels', ref(testModel._id));
       });
 
       // when
       wrapper.unmount();
-      await wrapper.vm.$nextTick();
 
       // then
       expect(getComposition).toBeTruthy();
