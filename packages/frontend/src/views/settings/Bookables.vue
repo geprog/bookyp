@@ -10,8 +10,9 @@
       v-for="bookable in bookables"
       :key="bookable._id"
       :label="bookable.name"
-      status-color="bg-primary-normal"
       :description="bookable.description"
+      class="cursor-pointer"
+      @click="$router.push({ name: 'settings-bookable', params: { bookableId: bookable._id } })"
     />
 
     <FloatingButton

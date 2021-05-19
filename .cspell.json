@@ -51,6 +51,7 @@
     "middlewares",
     "minio",
     "mkdir",
+    "modelvalue",
     "MONGODB",
     "msapplication",
     "mstile",

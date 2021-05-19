@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookableForm component should render correctly 1`] = `
+"
+<form id=\\"bookable\\"
+      data-test=\\"form\\"
+      class=\\"bookable mx-4\\"
+>
+  <div icon-name=\\"edit\\">
+  </div>
+  <div icon-name=\\"description\\">
+  </div>
+</form>
+"
+`;
