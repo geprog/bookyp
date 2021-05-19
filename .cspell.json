@@ -48,6 +48,7 @@
     "liveshare",
     "loadbalancer",
     "middlewares",
+    "minio",
     "mkdir",
     "MONGODB",
     "nomount",

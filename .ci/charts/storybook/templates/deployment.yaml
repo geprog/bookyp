@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "storybook.fullname" . }}
+  labels:
+    {{- include "storybook.labels" . | nindent 4 }}
+  annotations:
+    app.gitlab.com/app: {{ .Values.gitlab.app | quote }}
+    app.gitlab.com/env: {{ .Values.gitlab.env | quote }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "storybook.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        app.gitlab.com/app: {{ .Values.gitlab.app | quote }}
+        app.gitlab.com/env: {{ .Values.gitlab.env | quote }}
+      labels:
+        {{- include "storybook.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "storybook.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+          - -address
+          - 0.0.0.0:8080
+          - -endpoint
+          - $(S3_ADDRESS)
+          - -accessKey
+          - $(S3_ACCESS_KEY)
+          - -secretKey
+          - $(S3_SECRET_KEY)
+          - -bucket
+          - $(S3_BUCKET)
+          - -root
+          - $(S3_ROOT)
+          envFrom:
+            - configMapRef:
+                name: "{{ include "storybook.fullname" . }}-config"
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
