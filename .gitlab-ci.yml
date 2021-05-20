@@ -3,7 +3,6 @@ stages:
   - build
   - build-docker
   - test
-  - coverage
   - deploy-prepare
   - deploy
   - deploy-test
@@ -188,20 +187,75 @@ linting:
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
 
-unit-tests:
+unit-test-backend:
   extends: .node-template
   stage: test
   needs:
     - build-core
     - install-dependencies
   artifacts:
+    when: always
     paths:
-      - packages/*/coverage
+      - packages/backend/coverage
     expire_in: 1 day
+    reports:
+      junit:
+        - packages/backend/junit.xml
+  coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
   variables:
     NODE_ENV: 'test'
   script:
-    - pnpm run test
+    - pnpm run --filter @bookyp/backend test
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
+      changes: *main_pipeline_files
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  interruptible: true
+
+unit-test-frontend:
+  extends: .node-template
+  stage: test
+  needs:
+    - build-core
+    - install-dependencies
+  artifacts:
+    when: always
+    paths:
+      - packages/frontend/coverage
+    expire_in: 1 day
+    reports:
+      junit:
+        - packages/frontend/junit.xml
+  coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
+  variables:
+    NODE_ENV: 'test'
+  script:
+    - pnpm run --filter @bookyp/frontend test
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
+      changes: *main_pipeline_files
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  interruptible: true
+
+unit-test-core:
+  extends: .node-template
+  stage: test
+  needs:
+    - build-core
+    - install-dependencies
+  artifacts:
+    when: always
+    paths:
+      - packages/core/coverage
+    expire_in: 1 day
+    reports:
+      junit:
+        - packages/core/junit.xml
+  coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
+  variables:
+    NODE_ENV: 'test'
+  script:
+    - pnpm run --filter @bookyp/core test
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -257,24 +311,6 @@ helm-lint:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes:
         - .ci/charts/**/*
-    - if: '$CI_COMMIT_BRANCH == "master"'
-  interruptible: true
-
-################# COVERAGE #################
-
-code-coverage:
-  extends: .node-template
-  stage: coverage
-  needs:
-    - unit-tests
-  variables:
-    NODE_ENV: 'test'
-  script:
-    - pnpm run --filter @bookyp/test-coverage coverage
-  coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
-      changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
 
@@ -394,7 +430,9 @@ production-prepare:
   stage: deploy-prepare
   needs:
     # require tests to pass before starting production deployment
-    - unit-tests
+    - unit-test-backend
+    - unit-test-frontend
+    - unit-test-core
     - typechecking
     - linting
     - helm-lint
