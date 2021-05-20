@@ -16,6 +16,7 @@
     "Buildkit",
     "buildscript",
     "certresolver",
+    "cobertura",
     "commitlint",
     "commitlintrc",
     "Dedupe",

@@ -199,6 +199,7 @@ unit-test-backend:
       - packages/backend/coverage
     expire_in: 1 day
     reports:
+      cobertura: packages/backend/coverage/cobertura-coverage.xml
       junit:
         - packages/backend/junit.xml
   coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
@@ -224,6 +225,7 @@ unit-test-frontend:
       - packages/frontend/coverage
     expire_in: 1 day
     reports:
+      cobertura: packages/frontend/coverage/cobertura-coverage.xml
       junit:
         - packages/frontend/junit.xml
   coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
@@ -249,6 +251,7 @@ unit-test-core:
       - packages/core/coverage
     expire_in: 1 day
     reports:
+      cobertura: packages/core/coverage/cobertura-coverage.xml
       junit:
         - packages/core/junit.xml
   coverage: '/All\sfiles.*?\s+(\d+.\d+)/'

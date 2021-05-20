@@ -28,7 +28,6 @@ export default function (app: Application): void {
   });
 
   app.publish(() =>
-    // Here you can add event publishers to channels set up in `channels.js`
     // To publish only for a specific event use `app.publish(eventName, () => {})`
     // e.g. to publish all service events to all authenticated users use
     app.channel('authenticated'),
