@@ -20,6 +20,7 @@ const config: Config.InitialOptions = {
     '^.+\\.svg$': './svgTransform.js',
     '^.+\\.vue$': 'vue-jest',
   },
+  reporters: ['default', 'jest-junit'],
   collectCoverage: true,
   coverageReporters: ['json', 'text'],
   setupFilesAfterEnv: ['<rootDir>/test/__setup__/console.ts'],
