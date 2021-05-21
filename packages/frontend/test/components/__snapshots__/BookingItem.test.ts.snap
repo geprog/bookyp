@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookingItem component should render correctly 1`] = `
+"
+<list-item-stub label=\\"test-bookable\\"
+                description=\\"03:24 - 07:24\\"
+>
+</list-item-stub>
+"
+`;

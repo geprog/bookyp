@@ -3,6 +3,7 @@
     <template #start>
       <BookypIcon />
     </template>
+    <IconButton icon="person" @click="$router.push({ name: 'account-bookings' })" />
     <IconButton icon="settings" @click="$router.push({ name: 'settings-space' })" />
     <IconButton icon="logout" @click="logoutFunc" />
   </Header>

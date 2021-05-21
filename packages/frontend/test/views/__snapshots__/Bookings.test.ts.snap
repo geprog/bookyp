@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bookings component should render correctly 1`] = `
+"
+<header-stub title=\\"Mock translation\\"
+             has-back
+>
+</header-stub>
+<div class=\\"mt-4\\">
+  <div class=\\"mt-2 mb-2\\">
+    <p data-test=\\"groupByDates\\"
+       class=\\"ml-2\\"
+    >
+      <span class=\\"font-bold\\">
+        17 Dec.
+      </span>
+    </p>
+    <booking-item-stub booking=\\"[object Object]\\">
+    </booking-item-stub>
+    <booking-item-stub booking=\\"[object Object]\\">
+    </booking-item-stub>
+  </div>
+  <div class=\\"mt-2 mb-2\\">
+    <p data-test=\\"groupByDates\\"
+       class=\\"ml-2\\"
+    >
+      <span class=\\"font-bold\\">
+        18 Dec.
+      </span>
+    </p>
+    <booking-item-stub booking=\\"[object Object]\\">
+    </booking-item-stub>
+  </div>
+</div>
+"
+`;

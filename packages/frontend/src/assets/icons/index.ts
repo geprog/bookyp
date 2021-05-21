@@ -7,6 +7,7 @@ import DeleteIcon from './delete.svg';
 import DescriptionIcon from './description.svg';
 import EditIcon from './edit.svg';
 import LogoutIcon from './logout.svg';
+import PersonIcon from './person.svg';
 import PlayCircleIcon from './play-circle.svg';
 import SettingsIcon from './settings.svg';
 import StopCircleIcon from './stop-circle.svg';
@@ -17,15 +18,16 @@ const icons = {
   'arrow-left': ArrowLeftIcon,
   'check-mark': CheckMarkIcon,
   clock: ClockIcon,
+  cross: CrossIcon,
   delete: DeleteIcon,
   description: DescriptionIcon,
   edit: EditIcon,
   logout: LogoutIcon,
+  person: PersonIcon,
   'play-circle': PlayCircleIcon,
   settings: SettingsIcon,
   'stop-circle': StopCircleIcon,
   table: TableIcon,
-  cross: CrossIcon,
 };
 
 export default icons;
