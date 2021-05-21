@@ -32,4 +32,16 @@ export default async function seed(app: Application): Promise<void> {
       type: Model.MapObjectTypes.table,
     });
   }
+  // seed bookables
+  const bookablesRes = (await app.service('bookables').find({})) as Model.Bookable[];
+  if (bookablesRes.length === 0) {
+    await app.service('bookables').create({
+      name: 'Desk 1',
+      description: 'chef desk',
+    });
+    await app.service('bookables').create({
+      name: 'Desk 2',
+      description: 'pencil desk',
+    });
+  }
 }
