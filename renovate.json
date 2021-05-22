@@ -14,5 +14,8 @@
   },
   "stabilityDays": 3,
   "prCreation": "not-pending",
-  "labels": ["renovate"]
+  "labels": ["renovate"],
+  "constraints": {
+    "pnpm": "6"
+  }
 }
