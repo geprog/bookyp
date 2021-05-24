@@ -3,8 +3,10 @@
     <div :class="statusColor" class="w-2 rounded flex-shrink-0" />
     <div class="flex flex-col ml-3 overflow-hidden min-w-0 flex-grow">
       <slot>
-        <label v-if="label" class="mt-1 mb-2 text-base truncate">{{ label }}</label>
-        <p v-if="description" class="w-full text-gray-700 text-sm truncate">{{ description }}</p>
+        <span v-if="label" data-test="label" class="mt-1 mb-2 text-base truncate">{{ label }}</span>
+        <span v-if="description" data-test="description" class="w-full text-gray-700 text-sm truncate">{{
+          description
+        }}</span>
       </slot>
     </div>
   </div>
