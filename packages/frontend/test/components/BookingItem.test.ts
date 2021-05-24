@@ -53,7 +53,7 @@ describe('BookingItem component', () => {
     });
 
     //then
-    expect(wrapper.find<HTMLLabelElement>('label').element.innerHTML).toBe(bookable.name);
+    expect(wrapper.find('[data-test="label"]').element.innerHTML).toBe(bookable.name);
   });
   it('should display a hours', () => {
     //given
@@ -66,6 +66,6 @@ describe('BookingItem component', () => {
     });
 
     //then
-    expect(wrapper.find<HTMLParagraphElement>('p').element.textContent).toBe('03:24 - 07:24');
+    expect(wrapper.find('[data-test="description"]').element.textContent).toBe('03:24 - 07:24');
   });
 });

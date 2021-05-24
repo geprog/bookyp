@@ -29,7 +29,7 @@ describe('ListItem component', () => {
       const wrapper = shallowMount(ListItem);
 
       //then
-      expect(wrapper.find<HTMLLabelElement>('label').exists()).toBeFalsy();
+      expect(wrapper.find('[data-test="label"]').exists()).toBeFalsy();
     });
 
     it('should have a title', () => {
@@ -44,7 +44,7 @@ describe('ListItem component', () => {
       });
 
       //then
-      expect(wrapper.find<HTMLLabelElement>('label').element.innerHTML).toBe(labelValue);
+      expect(wrapper.find('[data-test="label"]').element.innerHTML).toBe(labelValue);
     });
   });
 
@@ -72,7 +72,7 @@ describe('ListItem component', () => {
       const wrapper = shallowMount(ListItem);
 
       //then
-      expect(wrapper.find<HTMLLabelElement>('p').exists()).toBeFalsy();
+      expect(wrapper.find('[data-test="description"]').exists()).toBeFalsy();
     });
 
     it('should have a description', () => {
@@ -87,7 +87,7 @@ describe('ListItem component', () => {
       });
 
       //then
-      expect(wrapper.find<HTMLLabelElement>('p').element.innerHTML).toBe(description);
+      expect(wrapper.find('[data-test="description"]').element.innerHTML).toBe(description);
     });
   });
 });
