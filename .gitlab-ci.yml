@@ -44,6 +44,28 @@ variables:
       - .pnpm-store
     policy: pull # cache should normally only be read to save time
 
+.helm-template:
+  image:
+    name: registry.geprog.com/docker.io/alpine/helm:3.5.3
+    entrypoint: ['']
+  dependencies: [] # don't load any artifacts
+
+.kubectl-template:
+  image:
+    name: registry.geprog.com/docker.io/bitnami/kubectl:1.20.5
+    entrypoint: ['']
+  dependencies: [] # don't load any artifacts
+
+.kaniko-template:
+  image:
+    name: gcr.io/kaniko-project/executor:v1.6.0-debug
+    entrypoint: ['']
+
+.minio-template:
+  image:
+    name: registry.geprog.com/docker.io/minio/mc:RELEASE.2021-03-23T05-46-11Z
+    entrypoint: ['']
+
 ################# PREPARE #################
 
 install-dependencies:
@@ -120,9 +142,8 @@ build-core:
 ################# BUILD DOCKER #################
 
 build-docker-frontend:
-  image:
-    name: gcr.io/kaniko-project/executor:v1.6.0-debug
-    entrypoint: ['']
+  extends:
+    - .kaniko-template
   stage: build-docker
   needs:
     - build-frontend
@@ -137,9 +158,8 @@ build-docker-frontend:
   interruptible: true
 
 build-docker-backend:
-  image:
-    name: gcr.io/kaniko-project/executor:v1.6.0-debug
-    entrypoint: ['']
+  extends:
+    - .kaniko-template
   stage: build-docker
   needs:
     - build-backend
@@ -302,11 +322,10 @@ spell-check:
   interruptible: true
 
 helm-lint:
+  extends:
+    - .helm-template
   stage: test
   needs: []
-  image:
-    name: registry.geprog.com/docker.io/alpine/helm:3.5.3
-    entrypoint: ['']
   script:
     - helm lint .ci/charts/bookyp
     - helm lint .ci/charts/storybook
@@ -318,12 +337,6 @@ helm-lint:
   interruptible: true
 
 ################# DEPLOY #################
-
-.deploy-base:
-  image:
-    name: registry.geprog.com/docker.io/alpine/helm:3.5.3
-    entrypoint: ['']
-  dependencies: [] # don't load any artifacts
 
 .review-environment:
   environment:
@@ -345,12 +358,11 @@ helm-lint:
       changes: *main_pipeline_files
 
 review-prepare:
-  extends: .review-environment
+  extends:
+    - .kubectl-template
+    - .review-environment
   stage: deploy-prepare
   needs: []
-  image:
-    name: registry.geprog.com/docker.io/bitnami/kubectl:1.20.5
-    entrypoint: ['']
   script:
     - kubectl create namespace $KUBE_NAMESPACE || true
     - >
@@ -364,7 +376,7 @@ review-prepare:
 
 review-deployment:
   extends:
-    - .deploy-base
+    - .helm-template
     - .review-environment
   stage: deploy
   needs:
@@ -390,7 +402,7 @@ review-deployment:
 
 review-deployment-test:
   extends:
-    - .deploy-base
+    - .helm-template
     - .review-environment
   stage: deploy-test
   needs:
@@ -400,7 +412,7 @@ review-deployment-test:
 
 review-stop:
   extends:
-    - .deploy-base
+    - .helm-template
     - .review-environment
   stage: cleanup
   environment:
@@ -429,6 +441,7 @@ review-stop:
 
 production-prepare:
   extends:
+    - .kubectl-template
     - .production-environment
   stage: deploy-prepare
   needs:
@@ -440,9 +453,6 @@ production-prepare:
     - linting
     - helm-lint
     - spell-check
-  image:
-    name: registry.geprog.com/docker.io/bitnami/kubectl:1.20.5
-    entrypoint: ['']
   script:
     - kubectl create namespace $KUBE_NAMESPACE || true
     - >
@@ -456,7 +466,7 @@ production-prepare:
 
 production-deployment:
   extends:
-    - .deploy-base
+    - .helm-template
     - .production-environment
   stage: deploy
   needs:
@@ -482,7 +492,7 @@ production-deployment:
 
 production-rollback:
   extends:
-    - .deploy-base
+    - .helm-template
     - .production-environment
   stage: cleanup
   needs:
@@ -514,58 +524,45 @@ production-rollback:
     # if pipeline runs on merge request
     - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
       changes: *main_pipeline_files
-  interruptible: true
 
 storybook-build:
-  extends: .node-template
+  extends:
+    - .node-template
+    - .storybook-review-environment
   stage: storybook
   needs:
     - build-core
   script:
     - pnpm --filter @bookyp/storybook build
+  environment:
+    action: prepare
   artifacts:
     paths:
       - packages/storybook/storybook-static
     expire_in: 1 day
-  rules:
-    # if pipeline runs on merge request and is triggered by renovate
-    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
-      changes: *main_pipeline_files
-      when: manual
-      allow_failure: true
-    # if pipeline runs on merge request
-    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
-      changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == "master"'
   interruptible: true
 
 storybook-review-upload:
   extends:
+    - .minio-template
     - .storybook-review-environment
   stage: storybook-deploy
   needs:
     - storybook-build
   environment:
     action: prepare
-  image:
-    name: minio/mc:RELEASE.2021-03-23T05-46-11Z
-    entrypoint: ['']
   before_script:
     - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
   script:
-    - echo mc mirror --remove --overwrite ./packages/storybook/storybook-static geprog/bookyp-storybook/$CI_ENVIRONMENT_SLUG
     - mc mirror --remove --overwrite ./packages/storybook/storybook-static geprog/bookyp-storybook/$CI_ENVIRONMENT_SLUG
 
 storybook-review-deploy:
   extends:
+    - .helm-template
     - .storybook-review-environment
   stage: storybook-deploy
   needs:
     - review-prepare
-  image:
-    name: registry.geprog.com/docker.io/alpine/helm:3.5.3
-    entrypoint: ['']
-  dependencies: [] # don't load any artifacts
   script:
     - >
       helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
@@ -582,6 +579,7 @@ storybook-review-deploy:
 
 storybook-stop:
   extends:
+    - .helm-template
     - .storybook-review-environment
   stage: cleanup
   environment:
@@ -589,7 +587,7 @@ storybook-stop:
   variables:
     GIT_STRATEGY: none # Source: https://docs.gitlab.com/ee/ci/yaml/#environmentaction
   script:
-    - helm uninstall --namespace $KUBE_NAMESPACE storybook-${CI_ENVIRONMENT_SLUG}
+    - helm uninstall --namespace $KUBE_NAMESPACE bookyp-${CI_ENVIRONMENT_SLUG}
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -608,15 +606,13 @@ storybook-stop:
 
 storybook-production-upload:
   extends:
+    - .minio-template
     - .storybook-production-environment
   stage: storybook-deploy
   needs:
     - storybook-build
   environment:
     action: prepare
-  image:
-    name: minio/mc:RELEASE.2021-03-23T05-46-11Z
-    entrypoint: ['']
   before_script:
     - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
   script:
@@ -624,14 +620,11 @@ storybook-production-upload:
 
 storybook-deploy-production:
   extends:
+    - .helm-template
     - .storybook-production-environment
   stage: storybook-deploy
   needs:
     - production-prepare
-  image:
-    name: registry.geprog.com/docker.io/alpine/helm:3.5.3
-    entrypoint: ['']
-  dependencies: [] # don't load any artifacts
   script:
     - >
       helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
