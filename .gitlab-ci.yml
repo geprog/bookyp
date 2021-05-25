@@ -85,7 +85,7 @@ install-dependencies:
   #   expire_in: 1 day
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 ################# BUILD #################
@@ -104,7 +104,7 @@ build-frontend:
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 build-backend:
@@ -121,7 +121,7 @@ build-backend:
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 build-core:
@@ -136,7 +136,7 @@ build-core:
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 ################# BUILD DOCKER #################
@@ -154,7 +154,7 @@ build-docker-frontend:
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 build-docker-backend:
@@ -170,7 +170,7 @@ build-docker-backend:
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 ################# TEST #################
@@ -188,7 +188,7 @@ typechecking:
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 linting:
@@ -204,7 +204,7 @@ linting:
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 unit-test-backend:
@@ -230,7 +230,7 @@ unit-test-backend:
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 unit-test-frontend:
@@ -256,7 +256,7 @@ unit-test-frontend:
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 unit-test-core:
@@ -282,7 +282,7 @@ unit-test-core:
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 renovate-config-validator:
@@ -296,7 +296,7 @@ renovate-config-validator:
       changes:
         - .gitlab-ci.yml
         - renovate.json
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 lint-merge-request-title:
@@ -318,7 +318,7 @@ spell-check:
     - pnpm run spellcheck
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 helm-lint:
@@ -333,7 +333,7 @@ helm-lint:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes:
         - .ci/charts/**/*
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
 ################# DEPLOY #################
@@ -437,7 +437,7 @@ review-stop:
     kubernetes:
       namespace: bookyp-production
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
 production-prepare:
   extends:
@@ -500,7 +500,7 @@ production-rollback:
   script:
     - helm rollback --namespace $KUBE_NAMESPACE bookyp-production 0 # SOURCE: https://github.com/helm/helm/issues/1796
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       when: manual
       allow_failure: true
 
@@ -540,6 +540,17 @@ storybook-build:
     paths:
       - packages/storybook/storybook-static
     expire_in: 1 day
+  rules:
+    # if pipeline on default branch
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    # if pipeline runs on merge request and is triggered by renovate
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
+      changes: *main_pipeline_files
+      when: manual
+      allow_failure: true
+    # if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
+      changes: *main_pipeline_files
   interruptible: true
 
 storybook-review-upload:
@@ -602,7 +613,7 @@ storybook-stop:
     kubernetes:
       namespace: bookyp-production
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
 storybook-production-upload:
   extends:
