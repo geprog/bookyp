@@ -35,7 +35,7 @@
           :d="path"
           :class="
             selectedMapObjectId === mapObject._id
-              ? 'stroke-current text-primary-dark fill-orange'
+              ? 'stroke-current text-primary-dark fill-primary-light'
               : 'stroke-black fill-white'
           "
         />
@@ -49,12 +49,27 @@
           v-for="path in newMapObject.paths"
           :key="path"
           :d="path"
-          class="stroke-current text-primary-dark fill-orange"
+          class="stroke-current text-primary-dark fill-primary-light"
         />
       </g>
     </svg>
-    <div v-if="selectedMapObjectId" class="mt-auto ml-auto flex flex-row">
-      <FloatingButton data-test="delete-button" type="submit" icon="delete" @click="removeSelectedMapObject" />
+
+    <div class="mt-auto ml-auto flex flex-row">
+      <FloatingButton
+        v-if="selectedMapObjectId"
+        data-test="delete-button"
+        type="submit"
+        icon="delete"
+        class="mr-4"
+        @click="removeSelectedMapObject"
+      />
+
+      <ToggleBar
+        v-if="mode === 'viewing'"
+        start-icon="table"
+        end-icon="floor-plan"
+        @selected-end="$router.replace({ name: 'settings-space-floor-plan' })"
+      />
     </div>
   </div>
 </template>
@@ -67,6 +82,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
+import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import Header from '~/components/Header.vue';
 import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
 import useFeathers from '~/compositions/useFeathers';
@@ -75,7 +91,7 @@ import useFind from '~/compositions/useFind';
 export default defineComponent({
   name: 'Space',
 
-  components: { FloatingButton, IconButton, Header, SettingsTabs },
+  components: { FloatingButton, IconButton, Header, SettingsTabs, ToggleBar },
 
   props: {
     selectedMapObjectId: {
@@ -103,7 +119,7 @@ export default defineComponent({
 
     const selectedMapObjectId = toRef(props, 'selectedMapObjectId');
 
-    let newMapObject = ref<null | Omit<Model.MapObject, '_id'>>(null);
+    const newMapObject = ref<null | Omit<Model.MapObject, '_id'>>(null);
 
     // flag to show if we are currently editing the map
     const mode = computed(() => {
@@ -203,6 +219,6 @@ export default defineComponent({
 
 <style scoped>
 .map-object:hover path {
-  stroke: #f59e0b;
+  @apply stroke-primary-dark;
 }
 </style>

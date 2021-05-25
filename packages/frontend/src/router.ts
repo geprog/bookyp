@@ -43,6 +43,12 @@ const routes: RouteRecordRaw[] = [
     props: true,
   },
   {
+    path: '/settings/space-floor-plan',
+    name: 'settings-space-floor-plan',
+    component: (): Component => import('./views/settings/SpaceFloorPlan.vue'),
+    props: true,
+  },
+  {
     path: '/bookable/:bookableId/book',
     name: 'booking-create',
     component: (): Component => import('./views/Booking.vue'),
