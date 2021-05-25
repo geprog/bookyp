@@ -6,6 +6,7 @@ import CrossIcon from './cross.svg';
 import DeleteIcon from './delete.svg';
 import DescriptionIcon from './description.svg';
 import EditIcon from './edit.svg';
+import FloorPlanIcon from './floor-plan.svg';
 import LogoutIcon from './logout.svg';
 import PersonIcon from './person.svg';
 import PlayCircleIcon from './play-circle.svg';
@@ -22,6 +23,7 @@ const icons = {
   delete: DeleteIcon,
   description: DescriptionIcon,
   edit: EditIcon,
+  'floor-plan': FloorPlanIcon,
   logout: LogoutIcon,
   person: PersonIcon,
   'play-circle': PlayCircleIcon,

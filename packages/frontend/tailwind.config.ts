@@ -37,16 +37,10 @@ export default defineConfig({
         full: '0px 0px 4.8px rgb(0, 0, 0, 0.1), 0px 0px 20.8px rgb(0, 0, 0, 0.13)',
       },
     },
-    stroke: (theme) => ({
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      black: theme('colors.gray.active'),
-    }),
-    fill: (theme) => ({
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      orange: theme('colors.primary.light'),
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      white: theme('colors.white'),
-    }),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    stroke: (theme) => theme('colors'),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    fill: (theme) => theme('colors'),
   },
   plugins: [typography],
 });
