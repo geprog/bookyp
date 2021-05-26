@@ -3,7 +3,7 @@
   "extends": ["config:base"],
   "packageRules": [
     {
-      "packageNames": ["renovate/renovate"],
+      "matchPackageNames": ["renovate/renovate"],
       "dependencyDashboardApproval": true
     }
   ],
