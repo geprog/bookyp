@@ -83,7 +83,7 @@ import { useRoute, useRouter } from 'vue-router';
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
-import Header from '~/components/Header.vue';
+import Header from '~/components/headers/Header.vue';
 import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';

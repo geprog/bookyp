@@ -28,7 +28,7 @@ import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
-import Header from '~/components/Header.vue';
+import Header from '~/components/headers/Header.vue';
 import ListItem from '~/components/ListItem.vue';
 import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
 import useFind from '~/compositions/useFind';

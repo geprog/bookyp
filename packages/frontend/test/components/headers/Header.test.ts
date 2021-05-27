@@ -2,7 +2,7 @@ import { mount, shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 import { h } from 'vue';
 
-import Header from '~/components/Header.vue';
+import Header from '~/components/headers/Header.vue';
 
 describe('Header component', () => {
   it('should render correctly', () => {

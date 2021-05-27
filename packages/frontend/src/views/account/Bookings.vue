@@ -29,7 +29,7 @@ import { computed, defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import BookingItem from '~/components/BookingItem.vue';
-import Header from '~/components/Header.vue';
+import Header from '~/components/headers/Header.vue';
 import AccountTabs from '~/components/tabs/AccountTabs.vue';
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';

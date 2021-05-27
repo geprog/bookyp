@@ -10,7 +10,13 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'home',
     meta: { requiresAuth: true },
-    component: (): Component => import('./views/Home.vue'),
+    component: (): Component => import('./views/BookablesMap.vue'),
+  },
+  {
+    path: '/bookables',
+    name: 'bookables-list',
+    meta: { requiresAuth: true },
+    component: (): Component => import('./views/BookablesLists.vue'),
   },
   {
     path: '/account/bookings',

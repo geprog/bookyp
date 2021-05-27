@@ -7,7 +7,9 @@ import DeleteIcon from './delete.svg';
 import DescriptionIcon from './description.svg';
 import EditIcon from './edit.svg';
 import FloorPlanIcon from './floor-plan.svg';
+import ListIcon from './list.svg';
 import LogoutIcon from './logout.svg';
+import MapIcon from './map.svg';
 import PersonIcon from './person.svg';
 import PlayCircleIcon from './play-circle.svg';
 import SettingsIcon from './settings.svg';
@@ -30,6 +32,8 @@ const icons = {
   settings: SettingsIcon,
   'stop-circle': StopCircleIcon,
   table: TableIcon,
+  map: MapIcon,
+  list: ListIcon,
 };
 
 export default icons;
