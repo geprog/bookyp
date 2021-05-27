@@ -11,7 +11,7 @@ import TestModel from '$/helpers/TestModel';
 jest.mock('~/compositions/useFeathers');
 
 // convert type of useGet to support dummy service
-const useGet = (useGetOriginal as unknown) as (key: 'testModels', _id: Ref<Id>) => UseGet<TestModel>;
+const useGet = (useGetOriginal as unknown) as (key: 'testModels', _id: Ref<Id | undefined>) => UseGet<TestModel>;
 
 const testModel: TestModel = { _id: '111', mood: '😀', action: '🧘', category: 'enjoy' };
 const additionalTestModel: TestModel = { _id: 'aaa', mood: '🤩', action: '🏄', category: 'sport' };
@@ -180,6 +180,47 @@ describe('Get composition', () => {
 
     // then
     expect(serviceGet).toHaveBeenCalledTimes(2);
+    expect(getComposition).toBeTruthy();
+    expect(getComposition && getComposition.data.value).toStrictEqual(additionalTestModel);
+  });
+
+  it('should indicate loading when id is undefined and load data after changing to a valid id', async () => {
+    expect.assertions(5);
+
+    // given
+    const testModelId = ref<string | undefined>(undefined);
+    const serviceGet = jest.fn((id) => {
+      if (id === testModel._id) {
+        return testModel;
+      }
+      return additionalTestModel;
+    });
+    const useFeathersMock = ({
+      service: () => ({
+        get: serviceGet,
+        on: jest.fn(),
+        off: jest.fn(),
+      }),
+      on: jest.fn(),
+      off: jest.fn(),
+    } as unknown) as ClientApplication;
+    mocked(useFeathers).mockReturnValue(useFeathersMock);
+    let getComposition = null as UseGet<TestModel> | null;
+    mountComposition(() => {
+      getComposition = useGet('testModels', testModelId);
+    });
+
+    // before then to ensure that the previous loading procedure is completed
+    await nextTick();
+    expect(getComposition && getComposition.isLoading).toBeTruthy();
+    expect(getComposition && getComposition.data.value).toBeUndefined();
+
+    // when
+    testModelId.value = additionalTestModel._id;
+    await nextTick();
+
+    // then
+    expect(serviceGet).toHaveBeenCalledTimes(1);
     expect(getComposition).toBeTruthy();
     expect(getComposition && getComposition.data.value).toStrictEqual(additionalTestModel);
   });

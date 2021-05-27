@@ -5,7 +5,7 @@ import useFeathers, { ClientApplication, getId, ServiceModel, ServiceTypes } fro
 
 function loadServiceEventHandlers<T extends keyof ServiceTypes, M>(
   service: FeathersService<ClientApplication, ServiceTypes[T]>,
-  _id: Ref<Id>,
+  _id: Ref<Id | undefined>,
   data: Ref<M | undefined>,
 ): () => void {
   const onCreated = (item: M): void => {
@@ -46,7 +46,10 @@ export type UseGet<T> = {
   isLoading: Ref<boolean>;
 };
 
-export default <T extends keyof ServiceTypes, M = ServiceModel<T>>(serviceName: T, _id: Ref<Id>): UseGet<M> => {
+export default <T extends keyof ServiceTypes, M = ServiceModel<T>>(
+  serviceName: T,
+  _id: Ref<Id | undefined>,
+): UseGet<M> => {
   const feathers = useFeathers();
 
   const data = ref<M>();
@@ -58,6 +61,9 @@ export default <T extends keyof ServiceTypes, M = ServiceModel<T>>(serviceName: 
 
   const get = async () => {
     isLoading.value = true;
+    if (!_id.value) {
+      return;
+    }
     // TODO: the typecast below is necessary due to the prerelease state of feathers v5. The problem there is
     // that the AdapterService interface is not yet updated and is not compatible with the ServiceMethods interface.
     data.value = await ((service as unknown) as ServiceMethods<M>).get(_id.value);
