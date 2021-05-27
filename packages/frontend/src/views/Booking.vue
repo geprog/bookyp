@@ -23,7 +23,7 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
-import Header from '~/components/Header.vue';
+import Header from '~/components/headers/Header.vue';
 import InputField from '~/components/InputField.vue';
 import TextField from '~/components/TextField.vue';
 import { user } from '~/compositions/useAuthentication';

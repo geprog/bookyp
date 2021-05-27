@@ -5,20 +5,8 @@
     </template>
     <IconButton icon="person" @click="$router.push({ name: 'account-bookings' })" />
     <IconButton icon="settings" @click="$router.push({ name: 'settings-space' })" />
-    <IconButton icon="logout" @click="logoutFunc" />
+    <IconButton icon="logout" @click="doLogout" />
   </Header>
-
-  <div v-if="bookables">
-    <ListItem
-      v-for="bookable in bookables"
-      :key="bookable._id"
-      :label="bookable.name"
-      status-color="bg-primary-normal"
-      class="cursor-pointer"
-      :description="bookable.description"
-      @click="$router.push({ name: 'booking-create', params: { bookableId: bookable._id } })"
-    />
-  </div>
 </template>
 
 <script lang="ts">
@@ -28,28 +16,29 @@ import { useRouter } from 'vue-router';
 
 import BookypIcon from '~/assets/icons/bookyp.svg';
 import IconButton from '~/components/buttons/IconButton.vue';
-import Header from '~/components/Header.vue';
-import ListItem from '~/components/ListItem.vue';
+import Header from '~/components/headers/Header.vue';
 import { logout } from '~/compositions/useAuthentication';
-import useFind from '~/compositions/useFind';
 
 export default defineComponent({
-  name: 'Home',
+  name: 'HomeHeader',
 
-  components: { Header, ListItem, IconButton, BookypIcon },
+  components: {
+    Header,
+    IconButton,
+    BookypIcon,
+  },
 
   setup() {
-    const router = useRouter();
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
-    const { data: bookables } = useFind('bookables');
+    const router = useRouter();
 
-    const logoutFunc = async () => {
+    const doLogout = async () => {
       await logout();
       await router.push({ name: 'loading-screen' });
     };
 
-    return { t, logoutFunc, bookables };
+    return { t, doLogout };
   },
 });
 </script>

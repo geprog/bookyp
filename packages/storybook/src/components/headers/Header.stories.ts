@@ -1,9 +1,9 @@
 import { Meta, Story } from '@storybook/vue3';
 
-import Header from '~/components/Header.vue';
+import Header from '~/components/headers/Header.vue';
 
 export default {
-  title: 'Components/Header',
+  title: 'Components/Headers/Header',
   component: Header,
   args: {
     title: 'Header title',

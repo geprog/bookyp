@@ -13,7 +13,7 @@ import { useRouter } from 'vue-router';
 
 import BookableForm from '~/components/bookables/BookableForm.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
-import Header from '~/components/Header.vue';
+import Header from '~/components/headers/Header.vue';
 import useFeathers from '~/compositions/useFeathers';
 
 export default defineComponent({

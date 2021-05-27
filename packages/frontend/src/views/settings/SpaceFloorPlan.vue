@@ -34,7 +34,7 @@ import { computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
-import Header from '~/components/Header.vue';
+import Header from '~/components/headers/Header.vue';
 import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
 import useFind from '~/compositions/useFind';
 
