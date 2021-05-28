@@ -8,8 +8,7 @@
     <div v-for="(bookings, date) in groupedBookings" :key="date" class="mt-2 mb-2">
       <p data-test="groupByDates" class="ml-2">
         <span class="font-bold">
-          <!-- eslint-disable-next-line @intlify/vue-i18n/no-raw-text -->
-          {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM') }}.</span
+          {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}</span
         >
         <span v-if="dayjs().isSame(bookings[0].start, 'day')" class="ml-2 text-sm"> {{ t('today') }}</span>
         <span v-if="dayjs().add(1, 'day').isSame(bookings[0].start, 'day')" class="ml-2 text-sm">{{
