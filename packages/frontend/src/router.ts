@@ -25,6 +25,13 @@ const routes: RouteRecordRaw[] = [
     component: (): Component => import('./views/account/Bookings.vue'),
   },
   {
+    path: '/account/booking/:bookingId',
+    name: 'account-booking',
+    meta: { requiresAuth: true },
+    component: (): Component => import('./views/account/Booking.vue'),
+    props: true,
+  },
+  {
     path: '/settings/bookables',
     name: 'settings-bookables',
     meta: { requiresAuth: true },

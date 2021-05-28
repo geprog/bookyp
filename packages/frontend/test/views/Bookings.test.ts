@@ -1,4 +1,4 @@
-import { shallowMount } from '@vue/test-utils';
+import { config, shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 import { mocked } from 'ts-jest/utils';
 import { ref } from 'vue';
@@ -43,6 +43,14 @@ const bookings = [
 ];
 
 describe('Bookings component', () => {
+  beforeAll(() => {
+    config.renderStubDefaultSlot = true;
+  });
+
+  afterAll(() => {
+    config.renderStubDefaultSlot = false;
+  });
+
   it('should render correctly', () => {
     // given
     const useFindMock = {

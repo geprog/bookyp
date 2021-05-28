@@ -18,5 +18,6 @@
   "try_again": "Try again",
   "today": "Today",
   "tomorrow": "Tomorrow",
-  "no_bookable": "No bookable found"
+  "no_bookable": "No bookable found",
+  "booking_details": "Booking details"
 }

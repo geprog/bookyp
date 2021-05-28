@@ -15,10 +15,14 @@ exports[`Bookings component should render correctly 1`] = `
         17 Dec.
       </span>
     </p>
-    <booking-item-stub booking=\\"[object Object]\\">
-    </booking-item-stub>
-    <booking-item-stub booking=\\"[object Object]\\">
-    </booking-item-stub>
+    <router-link-stub to=\\"[object Object]\\">
+      <booking-item-stub booking=\\"[object Object]\\">
+      </booking-item-stub>
+    </router-link-stub>
+    <router-link-stub to=\\"[object Object]\\">
+      <booking-item-stub booking=\\"[object Object]\\">
+      </booking-item-stub>
+    </router-link-stub>
   </div>
   <div class=\\"mt-2 mb-2\\">
     <p data-test=\\"groupByDates\\"
@@ -28,8 +32,10 @@ exports[`Bookings component should render correctly 1`] = `
         18 Dec.
       </span>
     </p>
-    <booking-item-stub booking=\\"[object Object]\\">
-    </booking-item-stub>
+    <router-link-stub to=\\"[object Object]\\">
+      <booking-item-stub booking=\\"[object Object]\\">
+      </booking-item-stub>
+    </router-link-stub>
   </div>
 </div>
 "
