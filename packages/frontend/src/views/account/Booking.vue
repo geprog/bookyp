@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 import { computed, defineComponent, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import Header from '~/components/Header.vue';
+import Header from '~/components/headers/Header.vue';
 import useGet from '~/compositions/useGet';
 
 export default defineComponent({
