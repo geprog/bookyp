@@ -8,9 +8,9 @@ exports[`Header component should render correctly 1`] = `
                       icon=\\"arrow-left\\"
     >
     </icon-button-stub>
-    <span class=\\"ml-4 mr-auto text-lg font-medium\\">
+    <h1 class=\\"ml-4 mr-auto text-lg font-medium\\">
       Home
-    </span>
+    </h1>
     <div class=\\"flex space-x-2\\">
     </div>
   </div>
