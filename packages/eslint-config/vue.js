@@ -75,6 +75,12 @@ module.exports = {
         extensions: ['.ts', '.vue'],
       },
     ],
+    '@intlify/vue-i18n/no-raw-text': [
+      'error',
+      {
+        ignorePattern: '^[:]+$',
+      },
+    ],
 
     // css rules
     'vue-scoped-css/no-unused-selector': 'error',

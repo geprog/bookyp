@@ -16,7 +16,13 @@
           t('tomorrow')
         }}</span>
       </p>
-      <BookingItem v-for="booking in bookings" :key="booking._id" :booking="booking" />
+      <RouterLink
+        v-for="booking in bookings"
+        :key="booking._id"
+        :to="{ name: 'account-booking', params: { bookingId: booking._id } }"
+      >
+        <BookingItem :booking="booking" />
+      </RouterLink>
     </div>
   </div>
 </template>
@@ -27,6 +33,7 @@ import dayjs from 'dayjs';
 import { groupBy } from 'lodash';
 import { computed, defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { RouterLink } from 'vue-router';
 
 import BookingItem from '~/components/BookingItem.vue';
 import Header from '~/components/headers/Header.vue';
@@ -40,6 +47,7 @@ export default defineComponent({
     AccountTabs,
     Header,
     BookingItem,
+    RouterLink,
   },
 
   setup() {
