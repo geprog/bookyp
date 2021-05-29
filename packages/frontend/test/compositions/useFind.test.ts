@@ -14,9 +14,10 @@ jest.mock('~/compositions/useFeathers');
 const useFind = (useFindOriginal as unknown) as (key: 'testModels', params?: Ref<Params>) => UseFind<TestModel>;
 
 const testModel: TestModel = { _id: '111', mood: '😀', action: '🧘', category: 'enjoy' };
-const testModels: TestModel[] = [testModel];
 const additionalTestModel: TestModel = { _id: 'aaa', mood: '🤩', action: '🏄', category: 'sport' };
+const additionalTestModel2: TestModel = { _id: 'bbb', mood: '', action: '', category: 'sport' };
 const changedTestModel: TestModel = { ...testModel, mood: '😅', action: '🏋️', category: 'sport' };
+const testModels: TestModel[] = [testModel, additionalTestModel2];
 
 describe('Find composition', () => {
   beforeEach(() => {

@@ -1,5 +1,5 @@
 <template>
-  <form id="bookable" data-test="form" class="bookable mx-4" @submit.prevent="saveBookable">
+  <form v-if="bookable" id="bookable" data-test="form" class="bookable mx-4" @submit.prevent="saveBookable">
     <InputField icon-name="edit">
       <TextField v-model="bookableForm.name" data-test="form-name" :placeholder="t('name')" />
     </InputField>
@@ -26,8 +26,6 @@ export default defineComponent({
   },
 
   props: {
-    // used by toRef(props, 'bookable')
-    // eslint-disable-next-line vue/no-unused-properties
     bookable: {
       type: Object as PropType<Partial<Model.Bookable>>,
       required: true,
@@ -66,10 +64,6 @@ export default defineComponent({
     });
 
     const saveBookable = () => {
-      if (!bookable.value) {
-        return;
-      }
-
       emit('save');
     };
 

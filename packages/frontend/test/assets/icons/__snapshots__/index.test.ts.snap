@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icons should contain all needed icons 1`] = `
+Array [
+  "add",
+  "arrow-left",
+  "check-mark",
+  "clock",
+  "cross",
+  "delete",
+  "description",
+  "edit",
+  "floor-plan",
+  "logout",
+  "person",
+  "play-circle",
+  "settings",
+  "stop-circle",
+  "table",
+  "map",
+  "list",
+]
+`;

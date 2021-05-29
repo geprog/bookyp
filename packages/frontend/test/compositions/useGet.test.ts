@@ -21,6 +21,16 @@ describe('Get composition', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     jest.resetModules();
+
+    mocked(getId).mockImplementation((item) => {
+      if (item.id) {
+        return item.id;
+      }
+      if (item._id) {
+        return item._id;
+      }
+      throw new Error('Unable to retrieve id from item');
+    });
   });
 
   it('should load data on mounted', async () => {
@@ -226,8 +236,8 @@ describe('Get composition', () => {
   });
 
   describe('Event Handlers', () => {
-    it('should listen to "create" events', () => {
-      expect.assertions(2);
+    it('should listen to "create" events', async () => {
+      expect.assertions(3);
 
       // given
       const emitter = eventHelper();
@@ -245,7 +255,10 @@ describe('Get composition', () => {
       mountComposition(() => {
         getComposition = useGet('testModels', ref(additionalTestModel._id));
       });
-      mocked(getId).mockReturnValue(additionalTestModel._id);
+
+      // before then to ensure previous state
+      await nextTick();
+      expect(getComposition && getComposition.data.value).toBeUndefined();
 
       // when
       emitter.emit('created', additionalTestModel);
@@ -255,8 +268,8 @@ describe('Get composition', () => {
       expect(getComposition && getComposition.data.value).toStrictEqual(additionalTestModel);
     });
 
-    it('should listen to "patch" events', () => {
-      expect.assertions(2);
+    it('should ignore "create" event if ID does not match', async () => {
+      expect.assertions(3);
 
       // given
       const emitter = eventHelper();
@@ -272,9 +285,44 @@ describe('Get composition', () => {
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       let getComposition = null as UseGet<TestModel> | null;
       mountComposition(() => {
+        getComposition = useGet('testModels', ref('not-existing-id'));
+      });
+
+      // before then to ensure previous state
+      await nextTick();
+      expect(getComposition && getComposition.data.value).toBeUndefined();
+
+      // when
+      emitter.emit('created', additionalTestModel);
+
+      // then
+      expect(getComposition).toBeTruthy();
+      expect(getComposition && getComposition.data.value).toBeUndefined();
+    });
+
+    it('should listen to "patch" events', async () => {
+      expect.assertions(3);
+
+      // given
+      const emitter = eventHelper();
+      const useFeathersMock = ({
+        service: () => ({
+          get: jest.fn(() => testModel),
+          on: emitter.on,
+          off: jest.fn(),
+        }),
+        on: jest.fn(),
+        off: jest.fn(),
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
+      let getComposition = null as UseGet<TestModel> | null;
+      mountComposition(() => {
         getComposition = useGet('testModels', ref(testModel._id));
       });
-      mocked(getId).mockReturnValue(testModel._id);
+
+      // before then to ensure previous state
+      await nextTick();
+      expect(getComposition && getComposition.data.value).toStrictEqual(testModel);
 
       // when
       emitter.emit('patched', changedTestModel);
@@ -284,14 +332,14 @@ describe('Get composition', () => {
       expect(getComposition && getComposition.data.value).toStrictEqual(changedTestModel);
     });
 
-    it('should listen to "update" events', () => {
-      expect.assertions(2);
+    it('should listen to "update" events', async () => {
+      expect.assertions(3);
 
       // given
       const emitter = eventHelper();
       const useFeathersMock = ({
         service: () => ({
-          get: jest.fn(),
+          get: jest.fn(() => testModel),
           on: emitter.on,
           off: jest.fn(),
         }),
@@ -303,7 +351,10 @@ describe('Get composition', () => {
       mountComposition(() => {
         getComposition = useGet('testModels', ref(testModel._id));
       });
-      mocked(getId).mockReturnValue(testModel._id);
+
+      // before then to ensure previous state
+      await nextTick();
+      expect(getComposition && getComposition.data.value).toStrictEqual(testModel);
 
       // when
       emitter.emit('updated', changedTestModel);
@@ -313,14 +364,14 @@ describe('Get composition', () => {
       expect(getComposition && getComposition.data.value).toStrictEqual(changedTestModel);
     });
 
-    it('should listen to "remove" events', () => {
-      expect.assertions(2);
+    it('should ignore "patch" & "update" events if ID does not match', async () => {
+      expect.assertions(3);
 
       // given
       const emitter = eventHelper();
       const useFeathersMock = ({
         service: () => ({
-          get: jest.fn(),
+          get: jest.fn(() => testModel),
           on: emitter.on,
           off: jest.fn(),
         }),
@@ -333,12 +384,81 @@ describe('Get composition', () => {
         getComposition = useGet('testModels', ref(testModel._id));
       });
 
+      // before then to ensure previous state
+      await nextTick();
+      expect(getComposition && getComposition.data.value).toStrictEqual(testModel);
+
+      // when
+      emitter.emit('updated', additionalTestModel);
+      emitter.emit('patched', additionalTestModel);
+
+      // then
+      expect(getComposition).toBeTruthy();
+      expect(getComposition && getComposition.data.value).toStrictEqual(testModel);
+    });
+
+    it('should listen to "remove" events', async () => {
+      expect.assertions(3);
+
+      // given
+      const emitter = eventHelper();
+      const useFeathersMock = ({
+        service: () => ({
+          get: jest.fn(() => testModel),
+          on: emitter.on,
+          off: jest.fn(),
+        }),
+        on: jest.fn(),
+        off: jest.fn(),
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
+      let getComposition = null as UseGet<TestModel> | null;
+      mountComposition(() => {
+        getComposition = useGet('testModels', ref(testModel._id));
+      });
+
+      // before then to ensure previous state
+      await nextTick();
+      expect(getComposition && getComposition.data.value).toStrictEqual(testModel);
+
       // when
       emitter.emit('removed', testModel);
 
       // then
       expect(getComposition).toBeTruthy();
       expect(getComposition && getComposition.data.value).toBeUndefined();
+    });
+
+    it('should ignore "remove" event if ID does not match', async () => {
+      expect.assertions(3);
+
+      // given
+      const emitter = eventHelper();
+      const useFeathersMock = ({
+        service: () => ({
+          get: jest.fn(() => testModel),
+          on: emitter.on,
+          off: jest.fn(),
+        }),
+        on: jest.fn(),
+        off: jest.fn(),
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
+      let getComposition = null as UseGet<TestModel> | null;
+      mountComposition(() => {
+        getComposition = useGet('testModels', ref(testModel._id));
+      });
+
+      // before then to ensure previous state
+      await nextTick();
+      expect(getComposition && getComposition.data.value).toStrictEqual(testModel);
+
+      // when
+      emitter.emit('removed', additionalTestModel);
+
+      // then
+      expect(getComposition).toBeTruthy();
+      expect(getComposition && getComposition.data.value).toStrictEqual(testModel);
     });
 
     it('should unmount the event handlers', () => {
