@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FloorPlan component should render correctly in viewing mode 1`] = `
+"
+<g data-test=\\"new-map-object\\"
+   transform=\\"translate(0,0)\\"
+>
+  <path d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\"
+        class=\\"map-object stroke-current text-primary-dark fill-primary-light\\"
+  >
+  </path>
+  <path d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\"
+        class=\\"map-object stroke-current text-primary-dark fill-primary-light\\"
+  >
+  </path>
+</g>
+"
+`;

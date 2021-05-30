@@ -6,17 +6,10 @@
   </Header>
 
   <div class="m-4 flex flex-col flex-grow">
-    <svg class="w-full flex-grow" xmlns="http://www.w3.org/2000/svg" data-test="space-map" fill="none">
-      <path v-for="path in floorPlan" :key="path" :d="path" class="stroke-gray-active" stroke-width="2" />
-      <g
-        v-for="mapObject in mapObjects"
-        :key="mapObject._id"
-        data-test="map-object"
-        :transform="`translate(${mapObject.xPos},${mapObject.yPos})`"
-      >
-        <path v-for="path in mapObject.paths" :key="path" :d="path" class="stroke-black fill-white" />
-      </g>
-    </svg>
+    <SpaceMap data-test="space-map">
+      <FloorPlan />
+      <MapObjects />
+    </SpaceMap>
 
     <div class="mt-auto ml-auto flex flex-row">
       <ToggleBar
@@ -30,37 +23,26 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import Header from '~/components/headers/Header.vue';
+import FloorPlan from '~/components/space/FloorPlan.vue';
+import MapObjects from '~/components/space/MapObjects.vue';
+import SpaceMap from '~/components/space/SpaceMap.vue';
 import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
-import useFind from '~/compositions/useFind';
 
 export default defineComponent({
   name: 'SpaceFloorPlan',
 
-  components: { Header, SettingsTabs, ToggleBar },
+  components: { Header, SettingsTabs, ToggleBar, SpaceMap, FloorPlan, MapObjects },
 
   setup() {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
-
-    const { data: spaces } = useFind('spaces');
-    const floorPlan = computed(() => {
-      if (!spaces.value.length) {
-        return [];
-      }
-      return spaces.value[0].floorPlan;
-    });
-
-    const { data: mapObjects } = useFind('mapObjects');
-
     return {
       t,
-      floorPlan,
-      mapObjects,
     };
   },
 });

@@ -7,12 +7,8 @@ exports[`SpaceFloorPlan view should render correctly 1`] = `
 >
 </header-stub>
 <div class=\\"m-4 flex flex-col flex-grow\\">
-  <svg class=\\"w-full flex-grow\\"
-       xmlns=\\"http://www.w3.org/2000/svg\\"
-       data-test=\\"space-map\\"
-       fill=\\"none\\"
-  >
-  </svg>
+  <space-map-stub data-test=\\"space-map\\">
+  </space-map-stub>
   <div class=\\"mt-auto ml-auto flex flex-row\\">
     <toggle-bar-stub selected=\\"end\\"
                      start-icon=\\"table\\"

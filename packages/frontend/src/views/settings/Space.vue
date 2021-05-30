@@ -13,50 +13,18 @@
   </Header>
 
   <div class="m-4 flex flex-col flex-grow">
-    <svg
-      class="w-full flex-grow"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      data-test="space-map"
-      @click="positionNewMapObject"
-    >
-      <path v-for="path in floorPlan" :key="path" :d="path" class="stroke-black" stroke-width="2" />
-      <g
-        v-for="mapObject in mapObjects"
-        :key="mapObject._id"
-        data-test="map-object"
-        :transform="`translate(${mapObject.xPos},${mapObject.yPos})`"
-        :class="{ 'cursor-pointer map-object': mode === 'viewing' || mode === 'editing' }"
-        @click.stop="selectMapObject(mapObject)"
-      >
-        <path
-          v-for="path in mapObject.paths"
-          :key="path"
-          :d="path"
-          :class="
-            selectedMapObjectId === mapObject._id
-              ? 'stroke-current text-primary-dark fill-primary-light'
-              : 'stroke-black fill-white'
-          "
-        />
-      </g>
-      <g
-        v-if="newMapObject"
-        data-test="new-map-object"
-        :transform="`translate(${newMapObject.xPos},${newMapObject.yPos})`"
-      >
-        <path
-          v-for="path in newMapObject.paths"
-          :key="path"
-          :d="path"
-          class="stroke-current text-primary-dark fill-primary-light"
-        />
-      </g>
-    </svg>
-
+    <SpaceMap data-test="space-map" @click-inside-svg="clickInsideFloorPlan">
+      <FloorPlan />
+      <MapObjects
+        :selected-map-object-id="selectedMapObjectId"
+        :clickable="mode === 'viewing' || mode === 'editing'"
+        @click-on-map-object="selectMapObject"
+      />
+      <NewMapObject v-if="newMapObject" :new-map-object="newMapObject" />
+    </SpaceMap>
     <div class="mt-auto ml-auto flex flex-row">
       <FloatingButton
-        v-if="selectedMapObjectId"
+        v-if="mode === 'editing'"
         data-test="delete-button"
         type="submit"
         icon="delete"
@@ -76,7 +44,7 @@
 
 <script lang="ts">
 import { Model } from '@bookyp/core';
-import { computed, defineComponent, PropType, ref, toRef } from 'vue';
+import { computed, defineComponent, PropType, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -84,14 +52,28 @@ import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import Header from '~/components/headers/Header.vue';
+import FloorPlan from '~/components/space/FloorPlan.vue';
+import MapObjects from '~/components/space/MapObjects.vue';
+import NewMapObject from '~/components/space/NewMapObject.vue';
+import SpaceMap from '~/components/space/SpaceMap.vue';
 import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
+import useNewMapObject from '~/compositions/space/useNewMapObject';
 import useFeathers from '~/compositions/useFeathers';
-import useFind from '~/compositions/useFind';
 
 export default defineComponent({
   name: 'Space',
 
-  components: { FloatingButton, IconButton, Header, SettingsTabs, ToggleBar },
+  components: {
+    FloorPlan,
+    FloatingButton,
+    IconButton,
+    Header,
+    SettingsTabs,
+    MapObjects,
+    NewMapObject,
+    SpaceMap,
+    ToggleBar,
+  },
 
   props: {
     selectedMapObjectId: {
@@ -107,22 +89,10 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
 
-    const { data: spaces } = useFind('spaces');
-    const floorPlan = computed(() => {
-      if (!spaces.value.length) {
-        return [];
-      }
-      return spaces.value[0].floorPlan;
-    });
-
-    const { data: mapObjects } = useFind('mapObjects');
-
     const selectedMapObjectId = toRef(props, 'selectedMapObjectId');
 
-    const newMapObject = ref<null | Omit<Model.MapObject, '_id'>>(null);
-
     // flag to show if we are currently editing the map
-    const mode = computed(() => {
+    const mode = computed<'creating' | 'editing' | 'viewing'>(() => {
       if (newMapObject.value) {
         return 'creating';
       }
@@ -134,47 +104,14 @@ export default defineComponent({
       return 'viewing';
     });
 
-    function addMapObject() {
-      newMapObject.value = {
-        xPos: 0,
-        yPos: 0,
-        rotation: 0,
-        paths: [
-          'M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z',
-          'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z',
-        ],
+    const { newMapObject, addMapObject, saveNewMapObject, positionNewMapObject } = useNewMapObject();
 
-        type: Model.MapObjectTypes.table,
-      };
-    }
-
-    async function saveNewMapObject(): Promise<void> {
-      if (newMapObject.value) {
-        await feathers.service('mapObjects').create(newMapObject.value);
-        newMapObject.value = null;
-      }
-    }
-
-    function positionNewMapObject(event: MouseEvent) {
+    function clickInsideFloorPlan(svgP: { x: number; y: number }) {
       // skip if we are not currently in creating mode
       if (mode.value !== 'creating') {
         return;
       }
-
-      const svg = event.target as SVGSVGElement;
-      const pt = svg.createSVGPoint();
-
-      // pass event coordinates
-      pt.x = event.clientX;
-      pt.y = event.clientY;
-
-      // transform to SVG coordinates
-      const matrix = svg.getScreenCTM()?.inverse();
-      const svgP = pt.matrixTransform(matrix);
-      if (newMapObject.value) {
-        newMapObject.value.xPos = svgP.x;
-        newMapObject.value.yPos = svgP.y;
-      }
+      positionNewMapObject(svgP);
     }
 
     async function selectMapObject(mapObject: Model.MapObject | null) {
@@ -185,6 +122,7 @@ export default defineComponent({
 
       const params = mapObject ? { selectedMapObjectId: mapObject._id } : undefined;
 
+      /* istanbul ignore next */
       if (!route.name) {
         throw new Error('Can not detect current route');
       }
@@ -193,6 +131,7 @@ export default defineComponent({
     }
 
     async function removeSelectedMapObject(): Promise<void> {
+      /* istanbul ignore next */
       if (!selectedMapObjectId.value) {
         return;
       }
@@ -204,11 +143,9 @@ export default defineComponent({
     return {
       t,
       mode,
-      floorPlan,
-      mapObjects,
       addMapObject,
       newMapObject,
-      positionNewMapObject,
+      clickInsideFloorPlan,
       saveNewMapObject,
       selectMapObject,
       removeSelectedMapObject,
@@ -216,9 +153,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.map-object:hover path {
-  @apply stroke-primary-dark;
-}
-</style>
