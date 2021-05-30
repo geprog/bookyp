@@ -12,6 +12,8 @@ import LogoutIcon from './logout.svg';
 import MapIcon from './map.svg';
 import PersonIcon from './person.svg';
 import PlayCircleIcon from './play-circle.svg';
+import RadioChecked from './radio-checked.svg';
+import RadioUnchecked from './radio-unchecked.svg';
 import SettingsIcon from './settings.svg';
 import StopCircleIcon from './stop-circle.svg';
 import TableIcon from './table.svg';
@@ -26,6 +28,8 @@ const icons = {
   description: DescriptionIcon,
   edit: EditIcon,
   'floor-plan': FloorPlanIcon,
+  'radio-checked': RadioChecked,
+  'radio-unchecked': RadioUnchecked,
   logout: LogoutIcon,
   person: PersonIcon,
   'play-circle': PlayCircleIcon,

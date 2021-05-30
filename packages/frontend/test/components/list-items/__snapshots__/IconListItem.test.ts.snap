@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IconListItem component should render correctly 1`] = `
+"
+<list-item-stub label=\\"title-value\\"
+                description=\\"description\\"
+>
+</list-item-stub>
+"
+`;

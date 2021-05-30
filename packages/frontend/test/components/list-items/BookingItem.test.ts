@@ -4,7 +4,7 @@ import toDiffableHtml from 'diffable-html';
 import { mocked } from 'ts-jest/utils';
 import { ref } from 'vue';
 
-import BookingItem from '~/components/BookingItem.vue';
+import BookingItem from '~/components/list-items/BookingItem.vue';
 import useGet from '~/compositions/useGet';
 
 jest.mock('~/compositions/useGet');
@@ -42,6 +42,7 @@ describe('BookingItem component', () => {
     // then
     expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
   });
+
   it('should display a label', () => {
     //given
 
@@ -55,6 +56,7 @@ describe('BookingItem component', () => {
     //then
     expect(wrapper.find('[data-test="label"]').element.innerHTML).toBe(bookable.name);
   });
+
   it('should display a hours', () => {
     //given
 

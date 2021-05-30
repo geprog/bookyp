@@ -27,7 +27,7 @@ import { defineComponent } from 'vue';
 
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import HomeHeader from '~/components/headers/HomeHeader.vue';
-import ListItem from '~/components/ListItem.vue';
+import ListItem from '~/components/list-items/ListItem.vue';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({

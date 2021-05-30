@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 
-import ListItem from '~/components/ListItem.vue';
+import ListItem from '~/components/list-items/ListItem.vue';
 
 describe('ListItem component', () => {
   it('should render correctly', () => {
