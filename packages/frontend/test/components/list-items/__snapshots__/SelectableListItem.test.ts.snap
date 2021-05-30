@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectableListItem component should render correctly 1`] = `
+"
+<icon-list-item-stub label=\\"title-value\\"
+                     description=\\"description\\"
+                     icon=\\"radio-checked\\"
+                     icon-color=\\"text-primary-normal\\"
+                     class
+>
+</icon-list-item-stub>
+"
+`;

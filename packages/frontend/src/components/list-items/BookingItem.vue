@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 import { defineComponent, PropType, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import ListItem from '~/components/ListItem.vue';
+import ListItem from '~/components/list-items/ListItem.vue';
 import useGet from '~/compositions/useGet';
 
 export default defineComponent({

@@ -1,13 +1,19 @@
 import { Meta, Story } from '@storybook/vue3';
 
-import ListItem from '~/components/ListItem.vue';
+import ListItem from '~/components/list-items/ListItem.vue';
 
 export default {
-  title: 'Components/ListItem',
+  title: 'Components/List-items/ListItem',
   component: ListItem,
   args: {
     label: 'Label text',
     description: 'Description text',
+  },
+  argTypes: {
+    statusColor: {
+      defaultValue: 'bg-primary-normal',
+      control: { type: 'select', options: ['bg-gray-inactive', 'bg-green-text', 'bg-primary-normal', 'bg-red-text'] },
+    },
   },
 } as Meta;
 
@@ -23,18 +29,3 @@ const Template: Story = (args) => ({
 });
 
 export const General = Template.bind({});
-
-export const SuccessItem = Template.bind({});
-SuccessItem.args = {
-  statusColor: 'bg-green-text',
-};
-
-export const CautionItem = Template.bind({});
-CautionItem.args = {
-  statusColor: 'bg-primary-normal',
-};
-
-export const ErrorItem = Template.bind({});
-ErrorItem.args = {
-  statusColor: 'bg-red-text',
-};
