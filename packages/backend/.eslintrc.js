@@ -1,9 +1,9 @@
 /* eslint-env node */
 
-require('@rushstack/eslint-patch/modern-module-resolution');
+require('@geprog/eslint-config/patch/modern-module-resolution');
 
 module.exports = {
-  extends: ['@bookyp', '@bookyp/eslint-config/jest'],
+  extends: ['@geprog', '@geprog/eslint-config/jest'],
 
   env: {
     node: true,
