@@ -1,16 +1,20 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Model } from '@bookyp/core';
 import { mount, shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 import { mocked } from 'ts-jest/utils';
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { Router, useRouter } from 'vue-router';
 
+import MapObjects from '~/components/space/MapObjects.vue';
+import SpaceMap from '~/components/space/SpaceMap.vue';
+import useNewMapObject from '~/compositions/space/useNewMapObject';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 import Space from '~/views/settings/Space.vue';
+import { newMapObject } from '$/__fixtures__/mapObject';
 import { mockSvg } from '$/helpers/svg';
 
+jest.mock('~/compositions/space/useNewMapObject');
 jest.mock('~/compositions/useFeathers');
 jest.mock('~/compositions/useFind');
 jest.mock('vue-router', () => ({
@@ -22,22 +26,63 @@ jest.mock('vue-router', () => ({
 }));
 jest.mock('vue-i18n');
 
+function prepareShallowMount() {
+  const useFeathersMock = ({
+    service: () => ({
+      find: jest.fn(() => []),
+      create: jest.fn(),
+    }),
+  } as unknown) as ClientApplication;
+  mocked(useFeathers, true).mockReturnValue(useFeathersMock);
+
+  const useNewMapObjectMock = {
+    newMapObject: ref(null),
+    addMapObject: jest.fn(),
+    saveNewMapObject: jest.fn(),
+    positionNewMapObject: jest.fn(),
+  };
+  mocked(useNewMapObject).mockReturnValue(useNewMapObjectMock);
+  return { useNewMapObjectMock };
+}
+
+function prepareMount() {
+  const useFeathersMock = ({
+    service: () => ({
+      find: jest.fn(() => []),
+      create: jest.fn(),
+    }),
+  } as unknown) as ClientApplication;
+  mocked(useFeathers).mockReturnValue(useFeathersMock);
+
+  const useNewMapObjectMock = {
+    newMapObject: ref<null | Omit<Model.MapObject, '_id'>>(null),
+    addMapObject: jest.fn(),
+    saveNewMapObject: jest.fn(),
+    positionNewMapObject: jest.fn(),
+  };
+  mocked(useNewMapObject).mockReturnValue(useNewMapObjectMock);
+
+  const mockRoute = {};
+  const mockRouter = {
+    push: jest.fn(),
+    replace: jest.fn(),
+  };
+  return { useNewMapObjectMock, mockRoute, mockRouter };
+}
+
+function prepareReplaceMock() {
+  const replaceMock = jest.fn();
+  const useRouterMock = ({
+    replace: replaceMock,
+  } as unknown) as Router;
+  mocked(useRouter).mockReturnValue(useRouterMock);
+  return { replaceMock };
+}
+
 describe('Space component', () => {
   it('should render correctly', () => {
     // given
-    const useFeathersMock = ({
-      service: () => ({
-        find: jest.fn(() => []),
-        create: jest.fn(),
-      }),
-    } as unknown) as ClientApplication;
-    mocked(useFeathers, true).mockReturnValue(useFeathersMock);
-
-    const useFindMock = {
-      data: ref([]),
-      isLoading: ref(false),
-    };
-    mocked(useFind).mockReturnValue(useFindMock);
+    prepareShallowMount();
 
     // when
     const wrapper = shallowMount(Space, {});
@@ -46,145 +91,14 @@ describe('Space component', () => {
     expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
   });
 
-  it('should render a plan of the floor', () => {
-    expect.assertions(2);
-    // given
-    const useFeathersMock = ({
-      service: () => ({
-        find: jest.fn(() => []),
-        create: jest.fn(),
-      }),
-    } as unknown) as ClientApplication;
-    mocked(useFeathers).mockReturnValue(useFeathersMock);
-
-    const floorPlan = [
-      'M288 325H30.2315V226.738H1V1H288V325Z',
-      'M1 1.96375V44.2787H43.5143C43.4181 20.8928 24.4229 1.96428 1 1.96375Z',
-    ];
-    const useFindMock = {
-      data: ref([
-        {
-          _id: 'dummy-id',
-          floorPlan,
-        },
-      ]),
-      isLoading: ref(false),
-    };
-    mocked(useFind).mockReturnValue(useFindMock);
-
-    // when
-    const wrapper = shallowMount(Space, {});
-
-    // then
-    expect(wrapper.findAll('path')[0].attributes('d')).toStrictEqual(floorPlan[0]);
-    expect(wrapper.findAll('path')[1].attributes('d')).toStrictEqual(floorPlan[1]);
-  });
-
-  it('should render map-objects', () => {
-    expect.assertions(3);
-    // given
-    const useFeathersMock = ({
-      service: () => ({
-        find: jest.fn(() => []),
-        create: jest.fn(),
-      }),
-    } as unknown) as ClientApplication;
-    mocked(useFeathers).mockReturnValue(useFeathersMock);
-
-    const floorPlan = [
-      'M288 325H30.2315V226.738H1V1H288V325Z',
-      'M1 1.96375V44.2787H43.5143C43.4181 20.8928 24.4229 1.96428 1 1.96375Z',
-    ];
-
-    const mapObjects = [
-      {
-        _id: '1',
-        xPos: 0,
-        yPos: 0,
-        rotation: 0,
-        paths: [
-          'M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z',
-          'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z',
-        ],
-        type: Model.MapObjectTypes.table,
-      },
-      {
-        _id: '2',
-        xPos: 50,
-        yPos: 100,
-        rotation: 0,
-        paths: [
-          'M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z',
-          'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z',
-        ],
-        type: Model.MapObjectTypes.table,
-      },
-    ];
-
-    const mapObjectsMock = {
-      data: ref(mapObjects),
-      isLoading: ref(false),
-    };
-
-    const spaceMock = {
-      data: ref([
-        {
-          _id: 'dummy-id',
-          floorPlan,
-        },
-      ]),
-      isLoading: ref(false),
-    };
-
-    mocked(useFind).mockReturnValueOnce(spaceMock).mockReturnValueOnce(mapObjectsMock);
-
-    // when
-    const wrapper = shallowMount(Space, {});
-
-    // then
-    expect(wrapper.findAll('path')).toHaveLength(6); //
-    expect(wrapper.findAll('path')[2].attributes('d')).toStrictEqual(mapObjects[0].paths[0]);
-    expect(wrapper.findAll('path')[3].attributes('d')).toStrictEqual(mapObjects[0].paths[1]);
-  });
-
   describe('"viewing" mode', () => {
     it('should start in "viewing" mode', () => {
       expect.assertions(3);
       // given
-      const useFeathersMock = ({
-        service: () => ({
-          find: jest.fn(() => []),
-          create: jest.fn(),
-        }),
-      } as unknown) as ClientApplication;
-      mocked(useFeathers).mockReturnValue(useFeathersMock);
-
-      const floorPlan = [
-        'M288 325H30.2315V226.738H1V1H288V325Z',
-        'M1 1.96375V44.2787H43.5143C43.4181 20.8928 24.4229 1.96428 1 1.96375Z',
-      ];
-      const useFindMock = {
-        data: ref([
-          {
-            _id: 'dummy-id',
-            floorPlan,
-          },
-        ]),
-        isLoading: ref(false),
-      };
-      mocked(useFind).mockReturnValue(useFindMock);
-      const mockRouter = {
-        push: jest.fn(),
-      };
+      prepareShallowMount();
 
       // when
-      const wrapper = shallowMount(Space, {
-        global: {
-          mocks: {
-            $router: mockRouter,
-          },
-        },
-      });
+      const wrapper = shallowMount(Space);
 
       // then
       expect(wrapper.vm.mode).toBe('viewing');
@@ -195,32 +109,23 @@ describe('Space component', () => {
 
     it('should not position map-object when in "viewing" mode (not selected a map-object)', async () => {
       expect.assertions(1);
+      // given
       const useFindMock = {
         data: ref([]),
         isLoading: ref(false),
       };
       mocked(useFind).mockReturnValue(useFindMock);
 
-      // given
-      const useFeathersMock = ({
-        service: () => ({
-          find: jest.fn(() => []),
-          create: jest.fn(),
-        }),
-      } as unknown) as ClientApplication;
-      mocked(useFeathers).mockReturnValue(useFeathersMock);
-      // simple mock for the SVGSVGElement received by the click event
-      const mockedSVG = {
-        createSVGPoint: jest.fn(),
-      };
+      const { useNewMapObjectMock } = prepareShallowMount();
 
       const wrapper = shallowMount(Space, {});
 
       // when
-      await wrapper.find('[data-test=space-map]').trigger('click', { clientX: 0, clientY: 0, mockedSVG });
+      wrapper.findComponent(SpaceMap).vm.$emit('clickInsideSvg');
+      await nextTick();
 
       // then
-      expect(mockedSVG.createSVGPoint).not.toHaveBeenCalled();
+      expect(useNewMapObjectMock.positionNewMapObject).not.toHaveBeenCalled();
     });
   });
 
@@ -228,24 +133,8 @@ describe('Space component', () => {
     it('should go into "creating" mode when user clicked on add-table-button', async () => {
       expect.assertions(3);
       // given
-      const useFeathersMock = ({
-        service: () => ({
-          find: jest.fn(() => []),
-          create: jest.fn(),
-        }),
-      } as unknown) as ClientApplication;
-      mocked(useFeathers).mockReturnValue(useFeathersMock);
 
-      const useFindMock = {
-        data: ref([]),
-        isLoading: ref(false),
-      };
-      mocked(useFind).mockReturnValue(useFindMock);
-
-      const mockRoute = {};
-      const mockRouter = {
-        push: jest.fn(),
-      };
+      const { useNewMapObjectMock, mockRoute, mockRouter } = prepareMount();
 
       // when
       const wrapper = mount(Space, {
@@ -256,40 +145,50 @@ describe('Space component', () => {
           },
         },
       });
-      await wrapper.find('[data-test=add-button]').trigger('click');
+      wrapper.findComponent('[data-test=add-button]').vm.$emit('click');
+      useNewMapObjectMock.newMapObject.value = newMapObject;
+      await nextTick();
 
       // then
-      // TODO: check if newly created / placed map-object exists
-      expect(wrapper.vm.mode).toBe('creating');
       expect(wrapper.vm.newMapObject).toBeDefined();
+      expect(wrapper.vm.mode).toBe('creating');
       expect(wrapper.find('[data-test=save-button]').exists()).toBe(true);
     });
 
-    it('should move the map-object to clicked position when in "creating" mode', async () => {
-      expect.assertions(3);
+    it('should not select other map objects when clicking on them', async () => {
+      expect.assertions(1);
       // given
-      const useFeathersServiceMock = {
-        find: jest.fn(() => []),
-        create: jest.fn(),
-      };
-      const useFeathersMock = ({
-        service: () => useFeathersServiceMock,
-      } as unknown) as ClientApplication;
-      mocked(useFeathers).mockReturnValue(useFeathersMock);
+      const { useNewMapObjectMock, mockRoute, mockRouter } = prepareMount();
+
+      const wrapper = mount(Space, {
+        global: {
+          mocks: {
+            $route: mockRoute,
+            $router: mockRouter,
+          },
+        },
+      });
+      wrapper.findComponent('[data-test=add-button]').vm.$emit('click');
+      useNewMapObjectMock.newMapObject.value = newMapObject;
+      await nextTick();
+
+      // when
+      wrapper.findComponent(MapObjects).vm.$emit('clickOnMapObject');
+
+      // then
+      expect(mockRouter.replace).not.toHaveBeenCalled();
+    });
+
+    it('should move the map-object to clicked position when in "creating" mode', async () => {
+      expect.assertions(4);
+
+      const { useNewMapObjectMock, mockRoute, mockRouter } = prepareMount();
 
       const useFindMock = {
         data: ref([]),
         isLoading: ref(false),
       };
       mocked(useFind).mockReturnValue(useFindMock);
-
-      const mockRoute = {
-        name: 'settings-space',
-      };
-      const mockRouter = {
-        push: jest.fn(),
-      };
-
       const wrapper = mount(Space, {
         global: {
           mocks: {
@@ -300,6 +199,8 @@ describe('Space component', () => {
       });
 
       await wrapper.find('[data-test=add-button]').trigger('click');
+      useNewMapObjectMock.newMapObject.value = newMapObject;
+      await nextTick();
 
       // simple mock for the SVGSVGElement received by the click event
       const position = { x: 11, y: 22 } as SVGPoint;
@@ -313,6 +214,9 @@ describe('Space component', () => {
 
       // when
       await svg.trigger('click', { clientX: 0, clientY: 0 });
+      useNewMapObjectMock.newMapObject.value.xPos = position.x;
+      useNewMapObjectMock.newMapObject.value.yPos = position.y;
+      await nextTick();
 
       // then
       const newMapObjectHtml = wrapper.find('[data-test=new-map-object]').html();
@@ -326,120 +230,7 @@ describe('Space component', () => {
       expect(regexResult).toHaveLength(3); // 1 total match with 2 groups
       expect(parseInt(posX)).toBe(position.x);
       expect(parseInt(posY)).toBe(position.y);
-    });
-
-    it('should save a new map object', async () => {
-      expect.assertions(2);
-      // given
-      const useFeathersServiceMock = {
-        find: jest.fn(() => []),
-        create: jest.fn(),
-      };
-      const useFeathersMock = ({
-        service: () => useFeathersServiceMock,
-      } as unknown) as ClientApplication;
-      mocked(useFeathers).mockReturnValue(useFeathersMock);
-
-      const useFindMock = {
-        data: ref([]),
-        isLoading: ref(false),
-      };
-      mocked(useFind).mockReturnValue(useFindMock);
-
-      const mockRoute = {
-        name: 'settings-space',
-      };
-      const mockRouter = {
-        push: jest.fn(),
-      };
-
-      const wrapper = mount(Space, {
-        global: {
-          mocks: {
-            $route: mockRoute,
-            $router: mockRouter,
-          },
-        },
-      });
-      await wrapper.find('[data-test=add-button]').trigger('click');
-
-      // when
-      await wrapper.find('[data-test=save-button]').trigger('click');
-
-      // then
-      expect(wrapper.find('[data-test=save-button]').exists()).toBe(false);
-      expect(useFeathersServiceMock.create).toHaveBeenCalledWith(
-        expect.objectContaining({
-          paths: expect.any(Array),
-          rotation: expect.any(Number),
-          type: expect.any(String),
-          xPos: expect.any(Number),
-          yPos: expect.any(Number),
-        }),
-      );
-    });
-
-    it('should not select other map objects when clicking on them', async () => {
-      expect.assertions(1);
-      // given
-      const useFeathersServiceMock = {
-        find: jest.fn(() => []),
-        create: jest.fn(),
-      };
-      const useFeathersMock = ({
-        service: () => useFeathersServiceMock,
-      } as unknown) as ClientApplication;
-      mocked(useFeathers).mockReturnValue(useFeathersMock);
-
-      const spaceMock = {
-        data: ref([]),
-        isLoading: ref(false),
-      };
-
-      const mapObjects = [
-        {
-          _id: '1',
-          xPos: 0,
-          yPos: 0,
-          rotation: 0,
-          paths: [
-            'M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z',
-            'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z',
-          ],
-          type: Model.MapObjectTypes.table,
-        },
-      ];
-
-      const mapObjectsMock = {
-        data: ref(mapObjects),
-        isLoading: ref(false),
-      };
-
-      mocked(useFind).mockReturnValueOnce(spaceMock).mockReturnValueOnce(mapObjectsMock);
-
-      const mockRoute = {
-        name: 'settings-space',
-      };
-      const mockRouter = {
-        push: jest.fn(),
-        replace: jest.fn(),
-      };
-
-      const wrapper = mount(Space, {
-        global: {
-          mocks: {
-            $route: mockRoute,
-            $router: mockRouter,
-          },
-        },
-      });
-
-      await wrapper.find('[data-test=add-button]').trigger('click');
-      // when
-      await wrapper.findAll('[data-test=map-object]')[0].trigger('click');
-
-      // then
-      expect(mockRouter.replace).not.toHaveBeenCalled();
+      expect(useNewMapObjectMock.positionNewMapObject).toHaveBeenCalledWith(position);
     });
   });
 
@@ -447,72 +238,10 @@ describe('Space component', () => {
     it('should change url for "editing" mode when user clicked on a map-object', async () => {
       expect.assertions(1);
       // given
-      const useFeathersMock = ({
-        service: () => ({
-          find: jest.fn(() => []),
-          create: jest.fn(),
-        }),
-      } as unknown) as ClientApplication;
-      mocked(useFeathers).mockReturnValue(useFeathersMock);
+      const { mockRoute, mockRouter } = prepareMount();
 
-      const replaceMock = jest.fn();
-      const useRouterMock = ({
-        replace: replaceMock,
-      } as unknown) as Router;
-      mocked(useRouter).mockReturnValue(useRouterMock);
+      const { replaceMock } = prepareReplaceMock();
 
-      const mockRoute = {
-        name: 'settings-space',
-      };
-      const mockRouter = {
-        push: jest.fn(),
-      };
-      const floorPlan = [
-        'M288 325H30.2315V226.738H1V1H288V325Z',
-        'M1 1.96375V44.2787H43.5143C43.4181 20.8928 24.4229 1.96428 1 1.96375Z',
-      ];
-
-      const mapObjects = [
-        {
-          _id: '1',
-          xPos: 0,
-          yPos: 0,
-          rotation: 0,
-          paths: [
-            'M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z',
-            'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z',
-          ],
-          type: Model.MapObjectTypes.table,
-        },
-        {
-          _id: '2',
-          xPos: 50,
-          yPos: 100,
-          rotation: 0,
-          paths: [
-            'M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z',
-            'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z',
-          ],
-          type: Model.MapObjectTypes.table,
-        },
-      ];
-
-      const mapObjectsMock = {
-        data: ref(mapObjects),
-        isLoading: ref(false),
-      };
-
-      const spaceMock = {
-        data: ref([
-          {
-            _id: 'dummy-id',
-            floorPlan,
-          },
-        ]),
-        isLoading: ref(false),
-      };
-
-      mocked(useFind).mockReturnValueOnce(spaceMock).mockReturnValueOnce(mapObjectsMock);
       const wrapper = mount(Space, {
         global: {
           mocks: {
@@ -522,13 +251,18 @@ describe('Space component', () => {
         },
       });
 
+      const mapObject = {
+        _id: '1',
+      };
+
       // when
-      await wrapper.findAll('[data-test=map-object]')[1].trigger('click');
+      wrapper.findComponent(MapObjects).vm.$emit('clickOnMapObject', mapObject);
+      await nextTick();
 
       // then
       expect(replaceMock).toHaveBeenCalledWith(
         expect.objectContaining({
-          params: { selectedMapObjectId: mapObjects[1]._id },
+          params: { selectedMapObjectId: mapObject._id },
         }),
       );
     });
@@ -536,66 +270,11 @@ describe('Space component', () => {
     it('should select map-object and be in "editing" mode when accessing with map-object-id url parameter', () => {
       expect.assertions(2);
       // given
-      const useFeathersMock = ({
-        service: () => ({
-          find: jest.fn(() => []),
-          create: jest.fn(),
-        }),
-      } as unknown) as ClientApplication;
-      mocked(useFeathers).mockReturnValue(useFeathersMock);
+      const { mockRoute, mockRouter } = prepareMount();
 
-      const mockRoute = {
-        name: 'settings-space',
+      const mapObject = {
+        _id: '1',
       };
-      const mockRouter = {
-        push: jest.fn(),
-      };
-      const floorPlan = [
-        'M288 325H30.2315V226.738H1V1H288V325Z',
-        'M1 1.96375V44.2787H43.5143C43.4181 20.8928 24.4229 1.96428 1 1.96375Z',
-      ];
-
-      const mapObjects = [
-        {
-          _id: '1',
-          xPos: 0,
-          yPos: 0,
-          rotation: 0,
-          paths: [
-            'M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z',
-            'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z',
-          ],
-          type: Model.MapObjectTypes.table,
-        },
-        {
-          _id: '2',
-          xPos: 50,
-          yPos: 100,
-          rotation: 0,
-          paths: [
-            'M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z',
-            'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z',
-          ],
-          type: Model.MapObjectTypes.table,
-        },
-      ];
-
-      const mapObjectsMock = {
-        data: ref(mapObjects),
-        isLoading: ref(false),
-      };
-
-      const spaceMock = {
-        data: ref([
-          {
-            _id: 'dummy-id',
-            floorPlan,
-          },
-        ]),
-        isLoading: ref(false),
-      };
-
-      mocked(useFind).mockReturnValueOnce(spaceMock).mockReturnValueOnce(mapObjectsMock);
 
       // when
       const wrapper = mount(Space, {
@@ -606,7 +285,7 @@ describe('Space component', () => {
           },
         },
         props: {
-          selectedMapObjectId: mapObjects[1]._id,
+          selectedMapObjectId: mapObject._id,
         },
       });
 
@@ -618,7 +297,13 @@ describe('Space component', () => {
     it('should delete the selected map-object when clicking on delete', async () => {
       expect.assertions(2);
 
-      // given
+      const { mockRoute, mockRouter } = prepareMount();
+      const { replaceMock } = prepareReplaceMock();
+
+      const useFeathersMock = ({
+        service: () => useFeathersServiceMock,
+      } as unknown) as ClientApplication;
+      mocked(useFeathers).mockReturnValue(useFeathersMock);
       const useFindMock = {
         data: ref([]),
         isLoading: ref(false),
@@ -631,70 +316,9 @@ describe('Space component', () => {
         remove: jest.fn(),
       };
 
-      const useFeathersMock = ({
-        service: () => useFeathersServiceMock,
-      } as unknown) as ClientApplication;
-      mocked(useFeathers).mockReturnValue(useFeathersMock);
-
-      const mockRoute = {
-        name: 'settings-space',
+      const mapObject = {
+        _id: '1',
       };
-      const mockRouter = {
-        push: jest.fn(),
-      };
-
-      const floorPlan = [
-        'M288 325H30.2315V226.738H1V1H288V325Z',
-        'M1 1.96375V44.2787H43.5143C43.4181 20.8928 24.4229 1.96428 1 1.96375Z',
-      ];
-
-      const mapObjects = [
-        {
-          _id: '1',
-          xPos: 0,
-          yPos: 0,
-          rotation: 0,
-          paths: [
-            'M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z',
-            'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z',
-          ],
-          type: Model.MapObjectTypes.table,
-        },
-        {
-          _id: '2',
-          xPos: 50,
-          yPos: 100,
-          rotation: 0,
-          paths: [
-            'M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z',
-            'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z',
-          ],
-          type: Model.MapObjectTypes.table,
-        },
-      ];
-
-      const mapObjectsMock = {
-        data: ref(mapObjects),
-        isLoading: ref(false),
-      };
-
-      const spaceMock = {
-        data: ref([
-          {
-            _id: 'dummy-id',
-            floorPlan,
-          },
-        ]),
-        isLoading: ref(false),
-      };
-
-      mocked(useFind).mockReturnValueOnce(spaceMock).mockReturnValueOnce(mapObjectsMock);
-
-      const replaceMock = jest.fn();
-      const useRouterMock = ({
-        replace: replaceMock,
-      } as unknown) as Router;
-      mocked(useRouter).mockReturnValue(useRouterMock);
 
       const wrapper = mount(Space, {
         global: {
@@ -704,7 +328,7 @@ describe('Space component', () => {
           },
         },
         props: {
-          selectedMapObjectId: mapObjects[1]._id,
+          selectedMapObjectId: mapObject._id,
         },
       });
 
@@ -712,7 +336,7 @@ describe('Space component', () => {
       await wrapper.find('[data-test=delete-button]').trigger('click');
 
       // then
-      expect(useFeathersServiceMock.remove).toHaveBeenCalledWith(mapObjects[1]._id);
+      expect(useFeathersServiceMock.remove).toHaveBeenCalledWith(mapObject._id);
       expect(replaceMock).toHaveBeenCalledWith(
         expect.objectContaining({
           params: undefined,

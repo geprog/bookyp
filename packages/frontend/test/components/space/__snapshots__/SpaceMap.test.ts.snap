@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SpaceMap component should render correctly 1`] = `
+"
+<svg class=\\"w-full flex-grow\\"
+     fill=\\"none\\"
+     xmlns=\\"http://www.w3.org/2000/svg\\"
+     data-test=\\"space-map\\"
+>
+</svg>
+"
+`;
