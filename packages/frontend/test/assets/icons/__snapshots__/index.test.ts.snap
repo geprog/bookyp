@@ -11,6 +11,8 @@ Array [
   "description",
   "edit",
   "floor-plan",
+  "radio-checked",
+  "radio-unchecked",
   "logout",
   "person",
   "play-circle",
