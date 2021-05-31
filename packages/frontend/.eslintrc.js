@@ -1,6 +1,6 @@
 /* eslint-env node */
 
-require('@rushstack/eslint-patch/modern-module-resolution');
+require('@geprog/eslint-config/patch/modern-module-resolution');
 
 module.exports = {
   parserOptions: {
@@ -8,5 +8,5 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
 
-  extends: ['@bookyp/eslint-config/vue'],
+  extends: ['@geprog/eslint-config/vue'],
 };

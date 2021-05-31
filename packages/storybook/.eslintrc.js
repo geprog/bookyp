@@ -1,6 +1,6 @@
 /* eslint-env node */
 
-require('@rushstack/eslint-patch/modern-module-resolution');
+require('@geprog/eslint-config/patch/modern-module-resolution');
 
 module.exports = {
   parserOptions: {
@@ -8,7 +8,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
 
-  extends: ['@bookyp'],
+  extends: ['@geprog'],
 
   rules: {
     // allow importing frontend components from `src` folder

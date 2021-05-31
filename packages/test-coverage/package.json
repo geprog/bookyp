@@ -12,8 +12,7 @@
     "istanbul-reports": "3.0.2"
   },
   "devDependencies": {
-    "@bookyp/eslint-config": "workspace:*",
-    "@rushstack/eslint-patch": "1.0.6",
+    "@geprog/eslint-config": "0.0.1",
     "eslint": "7.26.0"
   }
 }

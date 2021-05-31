@@ -12,8 +12,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.13.10",
-    "@bookyp/eslint-config": "workspace:*",
-    "@rushstack/eslint-patch": "1.0.6",
+    "@geprog/eslint-config": "0.0.1",
     "@storybook/addon-actions": "6.3.0-alpha.24",
     "@storybook/addon-essentials": "6.3.0-alpha.24",
     "@storybook/addon-links": "6.3.0-alpha.24",
