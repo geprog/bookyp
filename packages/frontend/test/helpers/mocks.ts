@@ -72,11 +72,15 @@ export function prepareUseFeathersMockOnce() {
     update: updateMock,
     delete: deleteMock,
   }));
+  const onMock = jest.fn();
+  const offMock = jest.fn();
 
   const useFeathersMock = ({
     service: serviceMock,
+    on: onMock,
+    off: offMock,
   } as unknown) as ClientApplication;
-  mocked(useFeathers, true).mockReturnValueOnce(useFeathersMock);
+  mocked(useFeathers, true).mockReturnValue(useFeathersMock);
 
-  return { getMock, findMock, createMock, updateMock, patchMock, deleteMock, serviceMock };
+  return { getMock, findMock, createMock, updateMock, patchMock, deleteMock, serviceMock, onMock, offMock };
 }

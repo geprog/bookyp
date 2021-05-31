@@ -1,7 +1,7 @@
 import { Component } from 'vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
-import { isAuthenticated, load as loadAuthentication } from '~/compositions/useAuthentication';
+import { isAuthenticated, reAuthenticate } from '~/compositions/useAuthentication';
 
 import NotFound from './views/NotFound.vue';
 
@@ -99,7 +99,7 @@ router.beforeEach(async (to, _, next) => {
     return;
   }
 
-  await loadAuthentication();
+  await reAuthenticate();
 
   if (to.meta.requiresAuth && !isAuthenticated.value) {
     next({ name: 'loading-screen' });
