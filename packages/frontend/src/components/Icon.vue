@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { computed, defineComponent, PropType, toRef } from 'vue';
 
 import icons from '~/assets/icons';
 
@@ -11,6 +11,8 @@ export default defineComponent({
   name: 'Icon',
 
   props: {
+    // used by toRef
+    // eslint-disable-next-line vue/no-unused-properties
     name: {
       type: String as PropType<keyof typeof icons>,
       required: true,
@@ -23,7 +25,8 @@ export default defineComponent({
   },
 
   setup(props) {
-    const icon = icons[props.name];
+    const iconName = toRef(props, 'name');
+    const icon = computed(() => icons[iconName.value]);
     return { icon };
   },
 });
