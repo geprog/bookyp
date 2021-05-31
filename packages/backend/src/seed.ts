@@ -10,6 +10,18 @@ export default async function seed(app: Application): Promise<void> {
       ],
     });
   }
+  // seed bookables
+  const bookablesRes = (await app.service('bookables').find({})) as Model.Bookable[];
+  if (bookablesRes.length === 0) {
+    await app.service('bookables').create({
+      name: 'Desk 1',
+      description: 'chef desk',
+    });
+    await app.service('bookables').create({
+      name: 'Desk 2',
+      description: 'pencil desk',
+    });
+  }
   const mapObjectsRes = (await app.service('mapObjects').find({})) as Model.MapObject[];
   if (mapObjectsRes.length === 0) {
     await app.service('mapObjects').create({
@@ -24,24 +36,15 @@ export default async function seed(app: Application): Promise<void> {
       ],
       type: Model.MapObjectTypes.table,
     });
+    // get created bookable
+    const bookables = (await app.service('bookables').find({})) as Model.Bookable[];
     await app.service('mapObjects').create({
       xPos: 30,
       yPos: 90,
       rotation: 0,
       paths: ['M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z', 'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z'],
       type: Model.MapObjectTypes.table,
-    });
-  }
-  // seed bookables
-  const bookablesRes = (await app.service('bookables').find({})) as Model.Bookable[];
-  if (bookablesRes.length === 0) {
-    await app.service('bookables').create({
-      name: 'Desk 1',
-      description: 'chef desk',
-    });
-    await app.service('bookables').create({
-      name: 'Desk 2',
-      description: 'pencil desk',
+      bookable: bookables[0]._id,
     });
   }
 }
