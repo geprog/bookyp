@@ -18,12 +18,7 @@ export type ClientApplication = Application & {
 let app: ClientApplication | undefined;
 let socket: Socket;
 
-export default (): ClientApplication => {
-  // skip if we already initialized the application
-  if (app) {
-    return app;
-  }
-
+export function init(): void {
   app = createApplication() as ClientApplication;
 
   const backendUrl = getConfig('BACKEND_URL');
@@ -41,9 +36,18 @@ export default (): ClientApplication => {
       storageKey: 'auth',
     }),
   );
+}
+
+function useFeathers(): ClientApplication {
+  if (!app) {
+    init();
+    return useFeathers();
+  }
 
   return app;
-};
+}
+
+export default useFeathers;
 
 export function connect(): Socket {
   return socket.connect();
