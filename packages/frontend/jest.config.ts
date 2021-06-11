@@ -23,7 +23,7 @@ const config: Config.InitialOptions = {
   reporters: ['default', 'jest-junit'],
   collectCoverage: true,
   coverageReporters: ['json', 'text', 'cobertura'],
-  setupFilesAfterEnv: ['<rootDir>/test/__setup__/console.ts'],
+  setupFilesAfterEnv: ['<rootDir>/test/__setup__/console.ts', '<rootDir>/test/__setup__/render-stub-default-slot.ts'],
 };
 
 export default config;

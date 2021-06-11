@@ -5,6 +5,11 @@ exports[`Bookable view should render correctly 1`] = `
 <header-stub title=\\"Mock translation\\"
              has-back
 >
+  <icon-button-stub type=\\"submit\\"
+                    form=\\"bookable\\"
+                    icon=\\"check-mark\\"
+  >
+  </icon-button-stub>
 </header-stub>
 <bookable-form-stub bookable=\\"[object Object]\\"
                     data-test=\\"bookable-form\\"

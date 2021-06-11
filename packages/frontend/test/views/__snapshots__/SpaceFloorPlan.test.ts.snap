@@ -8,6 +8,10 @@ exports[`SpaceFloorPlan view should render correctly 1`] = `
 </header-stub>
 <div class=\\"m-4 flex flex-col flex-grow\\">
   <space-map-stub data-test=\\"space-map\\">
+    <floor-plan-stub>
+    </floor-plan-stub>
+    <map-objects-stub>
+    </map-objects-stub>
   </space-map-stub>
   <div class=\\"mt-auto ml-auto flex flex-row\\">
     <toggle-bar-stub selected=\\"end\\"

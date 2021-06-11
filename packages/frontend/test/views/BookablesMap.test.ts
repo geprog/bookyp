@@ -1,4 +1,4 @@
-import { config, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 import { nextTick } from 'vue';
 
@@ -13,14 +13,6 @@ jest.mock('~/compositions/useFind');
 jest.mock('~/compositions/useAuthentication');
 
 describe('BookablesMap view', () => {
-  beforeAll(() => {
-    config.renderStubDefaultSlot = true;
-  });
-
-  afterAll(() => {
-    config.renderStubDefaultSlot = false;
-  });
-
   it('should render correctly', () => {
     // given
 
