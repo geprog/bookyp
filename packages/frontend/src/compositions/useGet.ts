@@ -62,6 +62,7 @@ export default <T extends keyof ServiceTypes, M = ServiceModel<T>>(
   const get = async () => {
     isLoading.value = true;
     if (!_id.value) {
+      data.value = undefined;
       return;
     }
     // TODO: the typecast below is necessary due to the prerelease state of feathers v5. The problem there is

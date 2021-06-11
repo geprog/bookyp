@@ -194,6 +194,46 @@ describe('Get composition', () => {
     expect(getComposition && getComposition.data.value).toStrictEqual(additionalTestModel);
   });
 
+  it('should un-load data after id changes to undefined', async () => {
+    expect.assertions(4);
+
+    // given
+    const testModelId = ref<TestModel['_id'] | undefined>(testModel._id);
+    const serviceGet = jest.fn((id) => {
+      if (id === testModel._id) {
+        return testModel;
+      }
+      return additionalTestModel;
+    });
+    const useFeathersMock = ({
+      service: () => ({
+        get: serviceGet,
+        on: jest.fn(),
+        off: jest.fn(),
+      }),
+      on: jest.fn(),
+      off: jest.fn(),
+    } as unknown) as ClientApplication;
+    mocked(useFeathers).mockReturnValue(useFeathersMock);
+    let getComposition = null as UseGet<TestModel> | null;
+    mountComposition(() => {
+      getComposition = useGet('testModels', testModelId);
+    });
+
+    // before then to ensure that the previous loading procedure is completed
+    await nextTick();
+    expect(getComposition && getComposition.data.value).toStrictEqual(testModel);
+
+    // when
+    testModelId.value = undefined;
+    await nextTick();
+
+    // then
+    expect(serviceGet).toHaveBeenCalledTimes(1);
+    expect(getComposition).toBeTruthy();
+    expect(getComposition && getComposition.data.value).toBeUndefined();
+  });
+
   it('should indicate loading when id is undefined and load data after changing to a valid id', async () => {
     expect.assertions(5);
 
