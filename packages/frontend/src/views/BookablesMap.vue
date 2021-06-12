@@ -4,13 +4,14 @@
   <div class="m-4 flex flex-col flex-grow">
     <SpaceMap data-test="space-map">
       <FloorPlan />
-      <MapObjects clickable @click-on-map-object="openCreateBooking" />
+      <MapObjects data-test="map-objects" clickable @click-on-map-object="openCreateBooking" />
     </SpaceMap>
   </div>
 
   <ToggleBar
     class="absolute bottom-5 right-5"
     selected="start"
+    data-test="toggle-bar"
     start-icon="map"
     end-icon="list"
     @selected-end="$router.replace({ name: 'bookables-list' })"

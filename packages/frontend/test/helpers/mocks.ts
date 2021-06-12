@@ -1,6 +1,6 @@
 import { mocked } from 'ts-jest/utils';
 import { ref } from 'vue';
-import { Router, useRouter } from 'vue-router';
+import { RouteLocationNormalized, Router, useRoute, useRouter } from 'vue-router';
 
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
@@ -42,45 +42,56 @@ export function prepareUseFindMockOnce<T>(initialValue: T[] = []) {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function prepareUseRouterMockOnce() {
-  const replaceMock = jest.fn();
-  const pushMock = jest.fn();
-  const backMock = jest.fn();
+  const replace = jest.fn();
+  const push = jest.fn();
+  const back = jest.fn();
   const useRouterMock = ({
-    replace: replaceMock,
-    push: pushMock,
-    back: backMock,
+    replace,
+    push,
+    back,
   } as unknown) as Router;
 
   mocked(useRouter).mockReturnValueOnce(useRouterMock);
 
-  return { replaceMock, pushMock, backMock };
+  return { replace, push, back };
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function prepareUseRouteMockOnce({ name = '' }) {
+  const useRouterMock = ({
+    name,
+  } as unknown) as RouteLocationNormalized;
+
+  mocked(useRoute).mockReturnValueOnce(useRouterMock);
+
+  return { name };
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function prepareUseFeathersMockOnce() {
-  const getMock = jest.fn();
-  const findMock = jest.fn();
-  const createMock = jest.fn();
-  const updateMock = jest.fn();
-  const patchMock = jest.fn();
+  const get = jest.fn();
+  const find = jest.fn();
+  const create = jest.fn();
+  const update = jest.fn();
+  const patch = jest.fn();
   const deleteMock = jest.fn();
-  const serviceMock = jest.fn(() => ({
-    get: getMock,
-    find: findMock,
-    create: createMock,
-    patch: patchMock,
-    update: updateMock,
+  const service = jest.fn(() => ({
+    get,
+    find,
+    create,
+    patch,
+    update,
     delete: deleteMock,
   }));
-  const onMock = jest.fn();
-  const offMock = jest.fn();
+  const on = jest.fn();
+  const off = jest.fn();
 
   const useFeathersMock = ({
-    service: serviceMock,
-    on: onMock,
-    off: offMock,
+    service,
+    on,
+    off,
   } as unknown) as ClientApplication;
   mocked(useFeathers, true).mockReturnValue(useFeathersMock);
 
-  return { getMock, findMock, createMock, updateMock, patchMock, deleteMock, serviceMock, onMock, offMock };
+  return { get, find, create, update, patch, delete: deleteMock, service, on, off };
 }

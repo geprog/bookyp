@@ -2,7 +2,7 @@ import { mocked } from 'ts-jest/utils';
 
 import useNewMapObject from '~/compositions/space/useNewMapObject';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
-import { newMapObject as newMapObjectFixture } from '$/__fixtures__/mapObject';
+import { sampleNewMapObject } from '$/__fixtures__/mapObject';
 
 jest.mock('~/compositions/useFeathers');
 
@@ -36,14 +36,14 @@ describe('useNewMapObject composition', () => {
         } as unknown) as ClientApplication),
     );
     const { saveNewMapObject, newMapObject } = useNewMapObject();
-    newMapObject.value = newMapObjectFixture;
+    newMapObject.value = sampleNewMapObject;
 
     // when
     await saveNewMapObject();
 
     // then
     expect(createFunction).toHaveBeenCalledTimes(1);
-    expect(createFunction).toHaveBeenCalledWith(newMapObjectFixture);
+    expect(createFunction).toHaveBeenCalledWith(sampleNewMapObject);
   });
 
   it('should not save a map-object when it is not set', async () => {
@@ -70,7 +70,7 @@ describe('useNewMapObject composition', () => {
   it('should position a map-object', () => {
     // given
     const { positionNewMapObject, newMapObject } = useNewMapObject();
-    newMapObject.value = newMapObjectFixture;
+    newMapObject.value = sampleNewMapObject;
     const svgPoint = { x: 123, y: 456 };
 
     // when

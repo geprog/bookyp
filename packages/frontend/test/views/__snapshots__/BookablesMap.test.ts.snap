@@ -8,12 +8,15 @@ exports[`BookablesMap view should render correctly 1`] = `
   <space-map-stub data-test=\\"space-map\\">
     <floor-plan-stub>
     </floor-plan-stub>
-    <map-objects-stub clickable>
+    <map-objects-stub data-test=\\"map-objects\\"
+                      clickable
+    >
     </map-objects-stub>
   </space-map-stub>
 </div>
 <toggle-bar-stub class=\\"absolute bottom-5 right-5\\"
                  selected=\\"start\\"
+                 data-test=\\"toggle-bar\\"
                  start-icon=\\"map\\"
                  end-icon=\\"list\\"
 >

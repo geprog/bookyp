@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FloorPlan component should render correctly in viewing mode 1`] = `
+exports[`NewMapObject component should render correctly in viewing mode 1`] = `
 "
 <g data-test=\\"new-map-object\\"
    transform=\\"translate(0,0)\\"

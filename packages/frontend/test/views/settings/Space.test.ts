@@ -11,7 +11,7 @@ import useNewMapObject from '~/compositions/space/useNewMapObject';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 import Space from '~/views/settings/Space.vue';
-import { newMapObject } from '$/__fixtures__/mapObject';
+import { sampleNewMapObject } from '$/__fixtures__/mapObject';
 import { mockSvg } from '$/helpers/svg';
 
 jest.mock('~/compositions/space/useNewMapObject');
@@ -146,7 +146,7 @@ describe('Space component', () => {
         },
       });
       wrapper.findComponent('[data-test=add-button]').vm.$emit('click');
-      useNewMapObjectMock.newMapObject.value = newMapObject;
+      useNewMapObjectMock.newMapObject.value = sampleNewMapObject;
       await nextTick();
 
       // then
@@ -169,7 +169,7 @@ describe('Space component', () => {
         },
       });
       wrapper.findComponent('[data-test=add-button]').vm.$emit('click');
-      useNewMapObjectMock.newMapObject.value = newMapObject;
+      useNewMapObjectMock.newMapObject.value = sampleNewMapObject;
       await nextTick();
 
       // when
@@ -199,7 +199,7 @@ describe('Space component', () => {
       });
 
       await wrapper.find('[data-test=add-button]').trigger('click');
-      useNewMapObjectMock.newMapObject.value = newMapObject;
+      useNewMapObjectMock.newMapObject.value = sampleNewMapObject;
       await nextTick();
 
       // simple mock for the SVGSVGElement received by the click event
