@@ -162,7 +162,7 @@ importers:
       lodash: 4.17.21
       sift: 13.5.3
       socket.io-client: 3.1.3
-      ts-jest: 26.5.2
+      ts-jest: 26.5.6
       typescript: 4.2.4
       typescript-transform-paths: 2.2.3
       vite: 2.1.2
@@ -205,13 +205,13 @@ importers:
       eslint: 7.26.0
       jest: 26.6.3
       jest-junit: 12.0.0
-      ts-jest: 26.5.2_jest@26.6.3+typescript@4.2.4
+      ts-jest: 26.5.6_jest@26.6.3+typescript@4.2.4
       typescript: 4.2.4
       typescript-transform-paths: 2.2.3_typescript@4.2.4
       vite: 2.1.2
       vite-plugin-windicss: 0.15.10_vite@2.1.2
       vite-svg-loader: 1.5.1_vue@3.0.11
-      vue-jest: 5.0.0-alpha.9_852e5ae33d0ee1ad9555742205002f80
+      vue-jest: 5.0.0-alpha.9_94b1d5213ee743b74658c9a4ddeeea01
       vue-tsc: 0.1.2_vue@3.0.11
       windicss: 3.1.0
 
@@ -4925,7 +4925,6 @@ packages:
 
   /@types/node/15.0.3:
     resolution: {integrity: sha512-/WbxFeBU+0F79z9RdEOXH4CsDga+ibi5M8uEYr91u3CkT/pdWcV8MCook+4wDPnZBexRdwWS+PiVZ2xJviAzcQ==}
-    dev: false
 
   /@types/normalize-package-data/2.4.0:
     resolution: {integrity: sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==}
@@ -11745,11 +11744,11 @@ packages:
     engines: {node: '>= 10.14.2'}
     dependencies:
       '@jest/types': 26.6.2
-      '@types/node': 14.14.35
-      chalk: 4.1.0
+      '@types/node': 15.0.3
+      chalk: 4.1.1
       graceful-fs: 4.2.6
       is-ci: 2.0.0
-      micromatch: 4.0.2
+      micromatch: 4.0.4
     dev: true
 
   /jest-util/27.0.0-next.3:
@@ -16594,15 +16593,14 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /ts-jest/26.5.2_jest@26.6.3+typescript@4.2.4:
-    resolution: {integrity: sha512-bwyJ2zJieSugf7RB+o8fgkMeoMVMM2KPDE0UklRLuACxjwJsOrZNo6chrcScmK33YavPSwhARffy8dZx5LJdUQ==}
+  /ts-jest/26.5.6_jest@26.6.3+typescript@4.2.4:
+    resolution: {integrity: sha512-rua+rCP8DxpA8b4DQD/6X2HQS8Zy/xzViVYfEs2OQu68tkCuKLV0Md8pmX55+W24uRIyAsf/BajRfxOs+R2MKA==}
     engines: {node: '>= 10'}
     hasBin: true
     peerDependencies:
       jest: '>=26 <27'
       typescript: '>=3.8 <5.0'
     dependencies:
-      '@types/jest': 26.0.20
       bs-logger: 0.2.6
       buffer-from: 1.1.1
       fast-json-stable-stringify: 2.1.0
@@ -17685,7 +17683,7 @@ packages:
       camelcase: 5.3.1
     dev: true
 
-  /vue-jest/5.0.0-alpha.9_852e5ae33d0ee1ad9555742205002f80:
+  /vue-jest/5.0.0-alpha.9_94b1d5213ee743b74658c9a4ddeeea01:
     resolution: {integrity: sha512-OEegZLEc17ELrDhkGOpU9ZX2U8o7aOuy+pHsHhrvBP3tWiuQi+GJnJOaCNimCej41ugZDKc9KI5LuSB8l24U5Q==}
     peerDependencies:
       '@babel/core': 7.x
@@ -17708,7 +17706,7 @@ packages:
       extract-from-css: 0.4.4
       jest: 26.6.3
       source-map: 0.5.6
-      ts-jest: 26.5.2_jest@26.6.3+typescript@4.2.4
+      ts-jest: 26.5.6_jest@26.6.3+typescript@4.2.4
       tsconfig: 7.0.0
       typescript: 4.2.4
       vue: 3.0.11
