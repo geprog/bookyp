@@ -12,10 +12,10 @@ exports[`Booking view should render correctly 1`] = `
   </h2>
   <div class=\\"flex flex-col\\">
     <span>
-      Mock translation: Thu, 09. Aug. 2018 - 00:00
+      Mock translation: Thu, 09. Aug. 2018 - 07:43
     </span>
     <span>
-      Mock translation: Wed, 08. Aug. 2018 - 00:00
+      Mock translation: Wed, 08. Aug. 2018 - 06:13
     </span>
   </div>
 </div>

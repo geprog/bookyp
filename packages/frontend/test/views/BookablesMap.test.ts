@@ -2,10 +2,8 @@ import { shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 import { nextTick } from 'vue';
 
-import ToggleBar from '~/components/buttons/ToggleBar.vue';
-import MapObjects from '~/components/space/MapObjects.vue';
 import BookablesMap from '~/views/BookablesMap.vue';
-import { mapObjects } from '$/__fixtures__/mapObject';
+import { sampleMapObject, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
 import { prepareUseRouterMockOnce } from '$/helpers/mocks';
 
 jest.mock('vue-router');
@@ -26,29 +24,32 @@ describe('BookablesMap view', () => {
   it('should open booking-create view when clicked on mapObject', async () => {
     expect.assertions(1);
     // given
-    const { pushMock } = prepareUseRouterMockOnce();
+    const useRouterMockOnce = prepareUseRouterMockOnce();
     const wrapper = shallowMount(BookablesMap);
 
     // when
-    wrapper.getComponent(MapObjects).vm.$emit('click-on-map-object', mapObjects[0]);
+    wrapper.getComponent('[data-test=map-objects]').vm.$emit('click-on-map-object', sampleMapObjectWithBookable);
     await nextTick();
 
     // then
-    expect(pushMock).toHaveBeenCalledWith({ name: 'booking-create', params: { bookableId: mapObjects[0].bookable } });
+    expect(useRouterMockOnce.push).toHaveBeenCalledWith({
+      name: 'booking-create',
+      params: { bookableId: sampleMapObjectWithBookable.bookable },
+    });
   });
 
   it('should not open booking-create view when clicked on mapObject that is not linked to a bookable', async () => {
     expect.assertions(1);
     // given
-    const { pushMock } = prepareUseRouterMockOnce();
+    const useRouterMockOnce = prepareUseRouterMockOnce();
     const wrapper = shallowMount(BookablesMap);
 
     // when
-    wrapper.getComponent(MapObjects).vm.$emit('click-on-map-object', mapObjects[1]);
+    wrapper.getComponent('[data-test=map-objects]').vm.$emit('click-on-map-object', sampleMapObject);
     await nextTick();
 
     // then
-    expect(pushMock).not.toHaveBeenCalled();
+    expect(useRouterMockOnce.push).not.toHaveBeenCalled();
   });
 
   it('should open bookables-list when clicked on toggle bar', async () => {
@@ -66,7 +67,7 @@ describe('BookablesMap view', () => {
     });
 
     // when
-    wrapper.getComponent(ToggleBar).vm.$emit('selected-end');
+    wrapper.getComponent('[data-test=toggle-bar]').vm.$emit('selected-end');
     await nextTick();
 
     // then

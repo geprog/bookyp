@@ -1,4 +1,3 @@
-import { Model } from '@bookyp/core';
 import { mount, shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 import { mocked } from 'ts-jest/utils';
@@ -6,36 +5,23 @@ import { ref } from 'vue';
 
 import BookingItem from '~/components/list-items/BookingItem.vue';
 import useGet from '~/compositions/useGet';
+import { sampleBookable } from '$/__fixtures__/bookable';
+import { sampleBooking } from '$/__fixtures__/booking';
 
 jest.mock('~/compositions/useGet');
-
-const booking: Model.Booking = {
-  _id: 'test-booking-id',
-  start: new Date('1995-12-17T03:24:00'),
-  end: new Date('1995-12-17T07:24:00'),
-  bookedBy: 'test-user-id',
-  bookable: 'test-bookable-id',
-  description: 'test-description',
-};
-
-const bookable: Model.Bookable = {
-  _id: 'test-bookable-id',
-  name: 'test-bookable',
-  description: 'test-bookable-description',
-};
 
 describe('BookingItem component', () => {
   it('should render correctly', () => {
     // given
     const useGetMock = {
-      data: ref(bookable),
+      data: ref(sampleBookable),
       isLoading: ref(false),
     };
     mocked(useGet).mockReturnValue(useGetMock);
     // when
     const wrapper = shallowMount(BookingItem, {
       props: {
-        booking: booking,
+        booking: sampleBooking,
       },
     });
 
@@ -49,12 +35,12 @@ describe('BookingItem component', () => {
     //when
     const wrapper = mount(BookingItem, {
       props: {
-        booking: booking,
+        booking: sampleBooking,
       },
     });
 
     //then
-    expect(wrapper.find('[data-test="label"]').element.innerHTML).toBe(bookable.name);
+    expect(wrapper.find('[data-test="label"]').element.innerHTML).toBe(sampleBookable.name);
   });
 
   it('should display a hours', () => {
@@ -63,11 +49,11 @@ describe('BookingItem component', () => {
     //when
     const wrapper = mount(BookingItem, {
       props: {
-        booking: booking,
+        booking: sampleBooking,
       },
     });
 
     //then
-    expect(wrapper.find('[data-test="description"]').element.textContent).toBe('03:24 - 07:24');
+    expect(wrapper.find('[data-test="description"]').element.textContent).toMatchSnapshot();
   });
 });

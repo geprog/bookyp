@@ -12,13 +12,22 @@ exports[`Bookings component should render correctly 1`] = `
        class=\\"ml-2\\"
     >
       <span class=\\"font-bold\\">
-        17 Dec.
+        9 Aug.
       </span>
     </p>
     <router-link-stub to=\\"[object Object]\\">
       <booking-item-stub booking=\\"[object Object]\\">
       </booking-item-stub>
     </router-link-stub>
+  </div>
+  <div class=\\"mt-2 mb-2\\">
+    <p data-test=\\"groupByDates\\"
+       class=\\"ml-2\\"
+    >
+      <span class=\\"font-bold\\">
+        17 Dec.
+      </span>
+    </p>
     <router-link-stub to=\\"[object Object]\\">
       <booking-item-stub booking=\\"[object Object]\\">
       </booking-item-stub>

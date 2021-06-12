@@ -6,7 +6,7 @@ import { ref } from 'vue';
 import FloorPlan from '~/components/space/FloorPlan.vue';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
-import { floorPlan } from '$/__fixtures__/floorPlan';
+import { sampleFloorPlan } from '$/__fixtures__/floorPlan';
 
 jest.mock('~/compositions/useFind');
 jest.mock('~/compositions/useFeathers');
@@ -26,7 +26,7 @@ describe('FloorPlan component', () => {
       data: ref([
         {
           _id: 'dummy-id',
-          floorPlan,
+          floorPlan: sampleFloorPlan,
         },
       ]),
       isLoading: ref(false),
@@ -37,8 +37,8 @@ describe('FloorPlan component', () => {
     const wrapper = shallowMount(FloorPlan, {});
 
     // then
-    expect(wrapper.findAll('path')[0].attributes('d')).toStrictEqual(floorPlan[0]);
-    expect(wrapper.findAll('path')[1].attributes('d')).toStrictEqual(floorPlan[1]);
+    expect(wrapper.findAll('path')[0].attributes('d')).toStrictEqual(sampleFloorPlan[0]);
+    expect(wrapper.findAll('path')[1].attributes('d')).toStrictEqual(sampleFloorPlan[1]);
     expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
   });
 });
