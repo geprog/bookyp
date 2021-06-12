@@ -14,6 +14,10 @@ export default {
       defaultValue: 'bg-primary-normal',
       control: { type: 'select', options: ['bg-gray-inactive', 'bg-green-text', 'bg-primary-normal', 'bg-red-text'] },
     },
+    endText: {
+      defaultValue: null,
+      control: { type: 'text' },
+    },
   },
 } as Meta;
 
@@ -25,7 +29,12 @@ const Template: Story = (args) => ({
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<ListItem v-bind="args" />',
+  template: '<ListItem v-bind="args" ><template v-if="args.endText" #end>{{ args.endText }}</template></ListItem>',
 });
 
 export const General = Template.bind({});
+
+export const WithEndSlot = Template.bind({});
+WithEndSlot.args = {
+  endText: 'end',
+};

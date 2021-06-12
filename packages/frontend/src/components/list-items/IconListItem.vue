@@ -4,6 +4,9 @@
       <Icon :name="icon" :color="iconColor" class="my-auto" data-test="icon" />
     </template>
     <slot />
+    <template #end>
+      <slot name="end" />
+    </template>
   </ListItem>
 </template>
 
