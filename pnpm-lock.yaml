@@ -148,7 +148,7 @@ importers:
       '@jest/types': 26.6.2
       '@rollup/plugin-replace': 2.4.2
       '@types/jest': 26.0.20
-      '@types/lodash': 4.14.169
+      '@types/lodash': 4.14.170
       '@vitejs/plugin-vue': 1.1.5
       '@vue/compiler-sfc': 3.0.11
       '@vue/test-utils': 2.0.0-rc.6
@@ -181,7 +181,7 @@ importers:
       '@feathersjs/errors': 5.0.0-pre.3
       '@feathersjs/feathers': 5.0.0-pre.3
       '@feathersjs/socketio-client': 5.0.0-pre.3
-      '@types/lodash': 4.14.169
+      '@types/lodash': 4.14.170
       dayjs: 1.10.4
       lodash: 4.17.21
       sift: 13.5.4
@@ -4836,8 +4836,8 @@ packages:
       '@types/node': 14.14.37
     dev: false
 
-  /@types/lodash/4.14.169:
-    resolution: {integrity: sha512-DvmZHoHTFJ8zhVYwCLWbQ7uAbYQEk52Ev2/ZiQ7Y7gQGeV9pjBqjnQpECMHfKS1rCYAhMI7LHVxwyZLZinJgdw==}
+  /@types/lodash/4.14.170:
+    resolution: {integrity: sha512-bpcvu/MKHHeYX+qeEN8GE7DIravODWdACVA1ctevD8CN24RhPZIKMn9ntfAsrvLfSX3cR5RrBKAbYm9bGs0A+Q==}
     dev: false
 
   /@types/markdown-to-jsx/6.11.3:
