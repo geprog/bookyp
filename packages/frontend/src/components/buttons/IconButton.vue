@@ -1,7 +1,18 @@
 <template>
   <button
     type="button"
-    class="flex items-center justify-center h-9 w-9 bg-white rounded-full focus:outline-transparent hover:text-primary-dark disabled:cursor-not-allowed disabled:bg-gray-background disabled:text-white"
+    class="
+      flex
+      items-center
+      justify-center
+      h-9
+      w-9
+      bg-white
+      rounded-full
+      focus:outline-transparent
+      hover:text-primary-dark
+      disabled:cursor-not-allowed disabled:bg-gray-background disabled:text-white
+    "
     :disabled="disabled"
   >
     <Icon data-test="button-icon" :name="icon" />

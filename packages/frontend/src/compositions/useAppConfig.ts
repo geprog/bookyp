@@ -3,7 +3,7 @@ export type AppConfig = {
 };
 
 export function getConfig<T extends keyof AppConfig>(key: keyof AppConfig): AppConfig[T] | undefined {
-  const { env } = (window as unknown) as { env: AppConfig };
+  const { env } = window as unknown as { env: AppConfig };
   const config = env || {};
 
   return config[key];

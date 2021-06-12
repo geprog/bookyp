@@ -1,6 +1,13 @@
 <template>
   <div
-    class="flex h-12 w-24 cursor-pointer focus:outline-transparent disabled:bg-gray-background disabled:cursor-not-allowed"
+    class="
+      flex
+      h-12
+      w-24
+      cursor-pointer
+      focus:outline-transparent
+      disabled:bg-gray-background disabled:cursor-not-allowed
+    "
   >
     <div
       class="flex flex-col p-2 w-12 items-center justify-center rounded-l-full shadow-lg"

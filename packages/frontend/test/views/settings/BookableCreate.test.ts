@@ -20,17 +20,17 @@ jest.mock('vue-router', () => ({
 describe('BookableCreate view', () => {
   it('should render correctly', () => {
     // given
-    const useFeathersMock = ({
+    const useFeathersMock = {
       service: () => ({
         get: jest.fn(),
       }),
-    } as unknown) as ClientApplication;
+    } as unknown as ClientApplication;
     mocked(useFeathers, true).mockReturnValue(useFeathersMock);
 
     const replaceMock = jest.fn();
-    const useRouterMock = ({
+    const useRouterMock = {
       replace: replaceMock,
-    } as unknown) as Router;
+    } as unknown as Router;
     mocked(useRouter).mockReturnValue(useRouterMock);
 
     // when
@@ -45,18 +45,18 @@ describe('BookableCreate view', () => {
 
     // given
     const feathersCreate = jest.fn();
-    const useFeathersMock = ({
+    const useFeathersMock = {
       service: () => ({
         get: jest.fn(),
         create: feathersCreate,
       }),
-    } as unknown) as ClientApplication;
+    } as unknown as ClientApplication;
     mocked(useFeathers, true).mockReturnValue(useFeathersMock);
 
     const replaceMock = jest.fn();
-    const useRouterMock = ({
+    const useRouterMock = {
       replace: replaceMock,
-    } as unknown) as Router;
+    } as unknown as Router;
     mocked(useRouter).mockReturnValue(useRouterMock);
 
     const wrapper = shallowMount(BookableCreate, {});

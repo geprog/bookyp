@@ -45,11 +45,11 @@ export function prepareUseRouterMockOnce() {
   const replace = jest.fn();
   const push = jest.fn();
   const back = jest.fn();
-  const useRouterMock = ({
+  const useRouterMock = {
     replace,
     push,
     back,
-  } as unknown) as Router;
+  } as unknown as Router;
 
   mocked(useRouter).mockReturnValueOnce(useRouterMock);
 
@@ -58,9 +58,9 @@ export function prepareUseRouterMockOnce() {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function prepareUseRouteMockOnce({ name = '' }) {
-  const useRouterMock = ({
+  const useRouterMock = {
     name,
-  } as unknown) as RouteLocationNormalized;
+  } as unknown as RouteLocationNormalized;
 
   mocked(useRoute).mockReturnValueOnce(useRouterMock);
 
@@ -86,11 +86,11 @@ export function prepareUseFeathersMockOnce() {
   const on = jest.fn();
   const off = jest.fn();
 
-  const useFeathersMock = ({
+  const useFeathersMock = {
     service,
     on,
     off,
-  } as unknown) as ClientApplication;
+  } as unknown as ClientApplication;
   mocked(useFeathers, true).mockReturnValue(useFeathersMock);
 
   return { get, find, create, update, patch, delete: deleteMock, service, on, off };

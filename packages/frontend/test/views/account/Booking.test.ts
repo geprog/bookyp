@@ -22,17 +22,15 @@ describe('Booking view', () => {
       data: ref(sampleBookable),
       isLoading: ref(false),
     };
-    mocked(useGet, true).mockImplementation(
-      (serviceName, _id): UseGet<unknown> => {
-        if (serviceName === 'bookings' && _id.value === sampleBooking._id) {
-          return useGetMockBooking;
-        }
-        if (serviceName === 'bookables' && _id.value === sampleBooking.bookable) {
-          return useGetMockBookable;
-        }
-        return { isLoading: ref(false), data: ref() };
-      },
-    );
+    mocked(useGet, true).mockImplementation((serviceName, _id): UseGet<unknown> => {
+      if (serviceName === 'bookings' && _id.value === sampleBooking._id) {
+        return useGetMockBooking;
+      }
+      if (serviceName === 'bookables' && _id.value === sampleBooking.bookable) {
+        return useGetMockBookable;
+      }
+      return { isLoading: ref(false), data: ref() };
+    });
 
     // when
     const wrapper = shallowMount(Booking, {

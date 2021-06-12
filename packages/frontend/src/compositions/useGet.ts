@@ -67,7 +67,7 @@ export default <T extends keyof ServiceTypes, M = ServiceModel<T>>(
     }
     // TODO: the typecast below is necessary due to the prerelease state of feathers v5. The problem there is
     // that the AdapterService interface is not yet updated and is not compatible with the ServiceMethods interface.
-    data.value = await ((service as unknown) as ServiceMethods<M>).get(_id.value);
+    data.value = await (service as unknown as ServiceMethods<M>).get(_id.value);
     isLoading.value = false;
   };
 
