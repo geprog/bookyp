@@ -1,7 +1,20 @@
 <template>
   <button
     type="button"
-    class="flex items-center justify-center rounded-full h-12 w-12 cursor-pointer hover:bg-primary-dark focus:outline-transparent disabled:bg-gray-background disabled:cursor-not-allowed bg-primary-normal shadow-lg"
+    class="
+      flex
+      items-center
+      justify-center
+      rounded-full
+      h-12
+      w-12
+      cursor-pointer
+      hover:bg-primary-dark
+      focus:outline-transparent
+      disabled:bg-gray-background disabled:cursor-not-allowed
+      bg-primary-normal
+      shadow-lg
+    "
     :disabled="disabled"
   >
     <Icon data-test="floating-button-icon" :name="icon" color="text-white" />

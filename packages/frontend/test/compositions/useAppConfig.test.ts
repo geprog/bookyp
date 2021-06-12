@@ -12,7 +12,7 @@ describe('useAppConfig composition', () => {
     const config: AppConfig = {
       BACKEND_URL: '123',
     };
-    ((window as unknown) as { env: AppConfig }).env = config;
+    (window as unknown as { env: AppConfig }).env = config;
     const useAppConfig = await import('~/compositions/useAppConfig');
 
     // when

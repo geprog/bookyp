@@ -14,12 +14,12 @@ jest.mock('~/compositions/useFeathers');
 describe('FloorPlan component', () => {
   it('should render correctly', () => {
     // given
-    const useFeathersMock = ({
+    const useFeathersMock = {
       service: () => ({
         find: jest.fn(() => []),
         create: jest.fn(),
       }),
-    } as unknown) as ClientApplication;
+    } as unknown as ClientApplication;
     mocked(useFeathers).mockReturnValue(useFeathersMock);
 
     const useFindMock = {

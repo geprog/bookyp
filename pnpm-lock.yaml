@@ -17,7 +17,7 @@ importers:
       eslint: 7.26.0
       husky: 6.0.0
       lint-staged: 11.0.0
-      prettier: 2.2.1
+      prettier: 2.3.1
       ts-node: 9.1.1
       typescript: 4.2.4
       typescript-transform-paths: 2.2.4
@@ -29,7 +29,7 @@ importers:
       eslint: 7.26.0
       husky: 6.0.0
       lint-staged: 11.0.0
-      prettier: 2.2.1
+      prettier: 2.3.1
       ts-node: 9.1.1_typescript@4.2.4
       typescript: 4.2.4
       typescript-transform-paths: 2.2.4_typescript@4.2.4
@@ -355,7 +355,7 @@ packages:
   /@babel/generator/7.13.9:
     resolution: {integrity: sha512-mHOOmY0Axl/JCTkxTU6Lf5sWOg/v8nUa+Xkt4zMTftX0wqmb6Sh7J8gvcehBw7q0AhrhAR+FDacKjCZ2X8K+Sw==}
     dependencies:
-      '@babel/types': 7.14.1
+      '@babel/types': 7.13.12
       jsesc: 2.5.2
       source-map: 0.5.7
     dev: true
@@ -439,13 +439,13 @@ packages:
     dependencies:
       '@babel/helper-get-function-arity': 7.12.13
       '@babel/template': 7.12.13
-      '@babel/types': 7.14.1
+      '@babel/types': 7.13.12
     dev: true
 
   /@babel/helper-get-function-arity/7.12.13:
     resolution: {integrity: sha512-DjEVzQNz5LICkzN0REdpD5prGoidvbdYk1BVgRUOINaWJP2t6avB27X1guXK1kXNrX0WMfsrm1A/ZBthYuIMQg==}
     dependencies:
-      '@babel/types': 7.14.1
+      '@babel/types': 7.13.12
     dev: true
 
   /@babel/helper-hoist-variables/7.13.0:
@@ -535,7 +535,7 @@ packages:
   /@babel/helper-split-export-declaration/7.12.13:
     resolution: {integrity: sha512-tCJDltF83htUtXx5NLcaDqRmknv652ZWCHyoTETf1CXYJdPC7nohZohjUgieXhv0hTJdRf2FjDueFehdNucpzg==}
     dependencies:
-      '@babel/types': 7.14.1
+      '@babel/types': 7.13.12
     dev: true
 
   /@babel/helper-validator-identifier/7.12.11:
@@ -1535,8 +1535,8 @@ packages:
     resolution: {integrity: sha512-/7xxiGA57xMo/P2GVvdEumr8ONhFOhfgq2ihK3h1e6THqzTAkHbkXgB0xI9yeTfIUoH3+oAeHhqm/I43OTbbjA==}
     dependencies:
       '@babel/code-frame': 7.12.13
-      '@babel/parser': 7.14.2
-      '@babel/types': 7.14.1
+      '@babel/parser': 7.13.11
+      '@babel/types': 7.13.12
     dev: true
 
   /@babel/traverse/7.13.0:
@@ -1546,8 +1546,8 @@ packages:
       '@babel/generator': 7.13.9
       '@babel/helper-function-name': 7.12.13
       '@babel/helper-split-export-declaration': 7.12.13
-      '@babel/parser': 7.14.2
-      '@babel/types': 7.14.1
+      '@babel/parser': 7.13.11
+      '@babel/types': 7.13.12
       debug: 4.3.1
       globals: 11.12.0
       lodash: 4.17.21
@@ -2723,7 +2723,7 @@ packages:
       chalk: 4.1.1
       collect-v8-coverage: 1.0.1
       exit: 0.1.2
-      glob: 7.1.6
+      glob: 7.1.7
       graceful-fs: 4.2.6
       istanbul-lib-coverage: 3.0.0
       istanbul-lib-instrument: 4.0.3
@@ -7966,11 +7966,6 @@ packages:
     engines: {node: '>= 10'}
     dev: true
 
-  /commander/7.2.0:
-    resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
-    engines: {node: '>= 10'}
-    dev: true
-
   /comment-json/4.1.0:
     resolution: {integrity: sha512-WEghmVYaNq9NlWbrkzQTSsya9ycLyxJxpTQfZEan6a5Jomnjw18zS3Podf8q1Zf9BvonvQd/+Z7Z39L7KKzzdQ==}
     engines: {node: '>= 6'}
@@ -11856,7 +11851,7 @@ packages:
       babel-jest: 27.0.2_@babel+core@7.13.10
       chalk: 4.1.1
       deepmerge: 4.2.2
-      glob: 7.1.6
+      glob: 7.1.7
       graceful-fs: 4.2.6
       is-ci: 3.0.0
       jest-circus: 27.0.4
@@ -11893,7 +11888,7 @@ packages:
       babel-jest: 27.0.2_@babel+core@7.13.10
       chalk: 4.1.1
       deepmerge: 4.2.2
-      glob: 7.1.6
+      glob: 7.1.7
       graceful-fs: 4.2.6
       is-ci: 3.0.0
       jest-circus: 27.0.4
@@ -12435,7 +12430,7 @@ packages:
       cjs-module-lexer: 1.1.0
       collect-v8-coverage: 1.0.1
       exit: 0.1.2
-      glob: 7.1.6
+      glob: 7.1.7
       graceful-fs: 4.2.6
       jest-haste-map: 27.0.2
       jest-message-util: 27.0.2
@@ -14907,6 +14902,12 @@ packages:
     hasBin: true
     dev: true
 
+  /prettier/2.3.1:
+    resolution: {integrity: sha512-p+vNbgpLjif/+D+DwAZAbndtRrR0md0MwfmOVN9N+2RgyACMT+7tfaRnT+WDPkqnuVwleyuBIG2XBxKDme3hPA==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
+
   /pretty-error/2.1.2:
     resolution: {integrity: sha512-EY5oDzmsX5wvuynAByrmY0P0hcp+QpnAKbJng2A2MPjVKXCxrDSUkzghVJ4ZGPIv+JC4gX8fPUWscC0RtjsWGw==}
     dependencies:
@@ -16065,14 +16066,14 @@ packages:
     resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
     hasBin: true
     dependencies:
-      glob: 7.1.6
+      glob: 7.1.7
     dev: true
 
   /rimraf/3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     hasBin: true
     dependencies:
-      glob: 7.1.6
+      glob: 7.1.7
     dev: true
 
   /ripemd160/2.0.2:
@@ -17236,7 +17237,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       '@istanbuljs/schema': 0.1.3
-      glob: 7.1.6
+      glob: 7.1.7
       minimatch: 3.0.4
     dev: true
 

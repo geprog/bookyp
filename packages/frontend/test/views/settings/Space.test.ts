@@ -27,12 +27,12 @@ jest.mock('vue-router', () => ({
 jest.mock('vue-i18n');
 
 function prepareShallowMount() {
-  const useFeathersMock = ({
+  const useFeathersMock = {
     service: () => ({
       find: jest.fn(() => []),
       create: jest.fn(),
     }),
-  } as unknown) as ClientApplication;
+  } as unknown as ClientApplication;
   mocked(useFeathers, true).mockReturnValue(useFeathersMock);
 
   const useNewMapObjectMock = {
@@ -46,12 +46,12 @@ function prepareShallowMount() {
 }
 
 function prepareMount() {
-  const useFeathersMock = ({
+  const useFeathersMock = {
     service: () => ({
       find: jest.fn(() => []),
       create: jest.fn(),
     }),
-  } as unknown) as ClientApplication;
+  } as unknown as ClientApplication;
   mocked(useFeathers).mockReturnValue(useFeathersMock);
 
   const useNewMapObjectMock = {
@@ -72,9 +72,9 @@ function prepareMount() {
 
 function prepareReplaceMock() {
   const replaceMock = jest.fn();
-  const useRouterMock = ({
+  const useRouterMock = {
     replace: replaceMock,
-  } as unknown) as Router;
+  } as unknown as Router;
   mocked(useRouter).mockReturnValue(useRouterMock);
   return { replaceMock };
 }
@@ -300,9 +300,9 @@ describe('Space component', () => {
       const { mockRoute, mockRouter } = prepareMount();
       const { replaceMock } = prepareReplaceMock();
 
-      const useFeathersMock = ({
+      const useFeathersMock = {
         service: () => useFeathersServiceMock,
-      } as unknown) as ClientApplication;
+      } as unknown as ClientApplication;
       mocked(useFeathers).mockReturnValue(useFeathersMock);
       const useFindMock = {
         data: ref([]),

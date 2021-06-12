@@ -29,11 +29,11 @@ describe('useNewMapObject composition', () => {
     const createFunction = jest.fn();
     mocked(useFeathers).mockImplementationOnce(
       () =>
-        (({
+        ({
           service: () => ({
             create: createFunction,
           }),
-        } as unknown) as ClientApplication),
+        } as unknown as ClientApplication),
     );
     const { saveNewMapObject, newMapObject } = useNewMapObject();
     newMapObject.value = sampleNewMapObject;
@@ -52,11 +52,11 @@ describe('useNewMapObject composition', () => {
     const createFunction = jest.fn();
     mocked(useFeathers).mockImplementationOnce(
       () =>
-        (({
+        ({
           service: () => ({
             create: createFunction,
           }),
-        } as unknown) as ClientApplication),
+        } as unknown as ClientApplication),
     );
     const { saveNewMapObject } = useNewMapObject();
 
