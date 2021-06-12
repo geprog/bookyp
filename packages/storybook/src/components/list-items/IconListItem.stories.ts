@@ -32,7 +32,13 @@ const Template: Story = (args) => ({
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<IconListItem v-bind="args" />',
+  template:
+    '<IconListItem v-bind="args" ><template v-if="args.endText" #end>{{ args.endText }}</template></IconListItem>',
 });
 
 export const General = Template.bind({});
+
+export const WithEndSlot = Template.bind({});
+WithEndSlot.args = {
+  endText: 'end',
+};
