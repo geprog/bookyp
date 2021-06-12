@@ -2,69 +2,68 @@ import { Component } from 'vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 import { isAuthenticated, reAuthenticate } from '~/compositions/useAuthentication';
-
-import NotFound from './views/NotFound.vue';
+import NotFound from '~/views/NotFound.vue';
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
     meta: { requiresAuth: true },
-    component: (): Component => import('./views/BookablesMap.vue'),
+    component: (): Component => import('~/views/BookablesMap.vue'),
   },
   {
     path: '/bookables',
     name: 'bookables-list',
     meta: { requiresAuth: true },
-    component: (): Component => import('./views/BookablesLists.vue'),
+    component: (): Component => import('~/views/BookablesLists.vue'),
   },
   {
     path: '/account/bookings',
     name: 'account-bookings',
     meta: { requiresAuth: true },
-    component: (): Component => import('./views/account/Bookings.vue'),
+    component: (): Component => import('~/views/account/Bookings.vue'),
   },
   {
     path: '/account/booking/:bookingId',
     name: 'account-booking',
     meta: { requiresAuth: true },
-    component: (): Component => import('./views/account/Booking.vue'),
+    component: (): Component => import('~/views/account/Booking.vue'),
     props: true,
   },
   {
     path: '/settings/bookables',
     name: 'settings-bookables',
     meta: { requiresAuth: true },
-    component: (): Component => import('./views/settings/Bookables.vue'),
+    component: (): Component => import('~/views/settings/Bookables.vue'),
   },
   {
     path: '/settings/bookable/create',
     name: 'settings-bookable-create',
     meta: { requiresAuth: true },
-    component: (): Component => import('./views/settings/BookableCreate.vue'),
+    component: (): Component => import('~/views/settings/BookableCreate.vue'),
   },
   {
     path: '/settings/bookable/:bookableId',
     name: 'settings-bookable',
-    component: (): Component => import('./views/settings/Bookable.vue'),
+    component: (): Component => import('~/views/settings/Bookable.vue'),
     props: true,
   },
   {
     path: '/settings/space/:selectedMapObjectId?',
     name: 'settings-space',
-    component: (): Component => import('./views/settings/Space.vue'),
+    component: (): Component => import('~/views/settings/Space.vue'),
     props: true,
   },
   {
     path: '/settings/space-floor-plan',
     name: 'settings-space-floor-plan',
-    component: (): Component => import('./views/settings/SpaceFloorPlan.vue'),
+    component: (): Component => import('~/views/settings/SpaceFloorPlan.vue'),
     props: true,
   },
   {
     path: '/bookable/:bookableId/book',
     name: 'booking-create',
-    component: (): Component => import('./views/Booking.vue'),
+    component: (): Component => import('~/views/Booking.vue'),
     props: true,
   },
   {
@@ -76,13 +75,13 @@ const routes: RouteRecordRaw[] = [
     path: '/auth/callback',
     name: 'auth-callback',
     meta: { authEndpoint: true },
-    component: (): Component => import('./views/auth/Callback.vue'),
+    component: (): Component => import('~/views/auth/Callback.vue'),
   },
   {
     path: '/auth/loading-screen',
     name: 'loading-screen',
     meta: { authEndpoint: true },
-    component: (): Component => import('./views/auth/LoadingScreen.vue'),
+    component: (): Component => import('~/views/auth/LoadingScreen.vue'),
   },
 ];
 

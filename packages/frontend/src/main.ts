@@ -2,10 +2,10 @@ import 'windi.css';
 
 import { createApp } from 'vue';
 
-import App from './App.vue';
-import { connect as connectFeathers, init as initFeathers } from './compositions/useFeathers';
-import i18n from './i18n';
-import router from './router';
+import App from '~/App.vue';
+import { connect as connectFeathers, init as initFeathers } from '~/compositions/useFeathers';
+import i18n from '~/i18n';
+import router from '~/router';
 
 initFeathers();
 connectFeathers();
