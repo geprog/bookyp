@@ -15,7 +15,7 @@
     "
     :disabled="disabled"
   >
-    <Icon data-test="button-icon" :name="icon" />
+    <Icon data-test="button-icon" :name="icon" :color="iconColor" />
   </button>
 </template>
 
@@ -34,6 +34,11 @@ export default defineComponent({
     icon: {
       type: String as ExtractedComponentProp<typeof Icon, 'name'>,
       required: true,
+    },
+
+    iconColor: {
+      type: String,
+      default: '',
     },
 
     disabled: {

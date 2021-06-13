@@ -18,6 +18,7 @@ exports[`IconButton component should render correctly 1`] = `
 >
   <icon-stub data-test=\\"button-icon\\"
              name=\\"settings\\"
+             color
   >
   </icon-stub>
 </button>

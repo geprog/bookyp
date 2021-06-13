@@ -5,6 +5,11 @@ exports[`Booking view should render correctly 1`] = `
 <header-stub title=\\"Mock translation\\"
              has-back
 >
+  <icon-button-stub data-test=\\"delete-button\\"
+                    icon=\\"delete\\"
+                    icon-color=\\"text-red-text hover:text-red-background\\"
+  >
+  </icon-button-stub>
 </header-stub>
 <div class=\\"mt-4 mx-4\\">
   <h2 class=\\"text-lg font-semibold\\">
