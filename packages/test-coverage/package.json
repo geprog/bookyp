@@ -13,6 +13,6 @@
   },
   "devDependencies": {
     "@geprog/eslint-config": "0.0.1",
-    "eslint": "7.26.0"
+    "eslint": "7.28.0"
   }
 }

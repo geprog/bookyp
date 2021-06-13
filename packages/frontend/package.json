@@ -39,7 +39,7 @@
     "autoprefixer": "10.2.5",
     "babel-jest": "26.6.3",
     "diffable-html": "anbraten/diffable-html#built",
-    "eslint": "7.26.0",
+    "eslint": "7.28.0",
     "jest": "26.6.3",
     "jest-junit": "12.0.0",
     "ts-jest": "26.5.6",
