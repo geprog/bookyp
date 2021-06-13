@@ -4,7 +4,7 @@ import { mocked } from 'ts-jest/utils';
 import { nextTick } from 'vue';
 
 import SpaceMap from '~/components/space/SpaceMap.vue';
-import { mockSvg } from '$/helpers/svg';
+import { mockSvg } from '$/__helpers__/svg';
 
 describe('SpaceMap component', () => {
   it('should render correctly', () => {

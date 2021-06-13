@@ -30,7 +30,7 @@
 import { Model } from '@bookyp/core';
 import dayjs from 'dayjs';
 import { groupBy } from 'lodash';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { RouterLink } from 'vue-router';
 
@@ -52,14 +52,14 @@ export default defineComponent({
   setup() {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
-    const { data: bookings } = useFind(
-      'bookings',
-      ref({
-        query: {
-          bookedBy: user.value?._id,
-        },
-      }),
-    );
+
+    const bookingsQuery = computed(() => ({
+      query: {
+        bookedBy: user.value?._id,
+      },
+    }));
+    const { data: bookings } = useFind('bookings', bookingsQuery);
+
     const groupedBookings = computed(() => {
       return groupBy(bookings.value, (booking: Model.Booking) => {
         const dayDate: string = dayjs(booking.start).format('DD/MM/YYYY');

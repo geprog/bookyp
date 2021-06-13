@@ -4,9 +4,9 @@ import { nextTick, Ref, ref } from 'vue';
 
 import useFeathers, { ClientApplication, getId } from '~/compositions/useFeathers';
 import useFindOriginal, { UseFind } from '~/compositions/useFind';
-import { mountComposition } from '$/helpers/composition';
-import { eventHelper } from '$/helpers/events';
-import TestModel from '$/helpers/TestModel';
+import { mountComposition } from '$/__helpers__/composition';
+import { eventHelper } from '$/__helpers__/events';
+import TestModel from '$/__helpers__/TestModel';
 
 jest.mock('~/compositions/useFeathers');
 

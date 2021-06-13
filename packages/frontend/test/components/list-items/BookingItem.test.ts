@@ -1,23 +1,18 @@
 import { mount, shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
-import { mocked } from 'ts-jest/utils';
-import { ref } from 'vue';
 
 import BookingItem from '~/components/list-items/BookingItem.vue';
-import useGet from '~/compositions/useGet';
 import { sampleBookable } from '$/__fixtures__/bookable';
 import { sampleBooking } from '$/__fixtures__/booking';
+import { prepareUseGetMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useGet');
 
 describe('BookingItem component', () => {
   it('should render correctly', () => {
     // given
-    const useGetMock = {
-      data: ref(sampleBookable),
-      isLoading: ref(false),
-    };
-    mocked(useGet).mockReturnValue(useGetMock);
+    prepareUseGetMockOnce(sampleBookable);
+
     // when
     const wrapper = shallowMount(BookingItem, {
       props: {
@@ -31,6 +26,7 @@ describe('BookingItem component', () => {
 
   it('should display a label', () => {
     //given
+    prepareUseGetMockOnce(sampleBookable);
 
     //when
     const wrapper = mount(BookingItem, {
@@ -45,6 +41,7 @@ describe('BookingItem component', () => {
 
   it('should display a hours', () => {
     //given
+    prepareUseGetMockOnce(sampleBookable);
 
     //when
     const wrapper = mount(BookingItem, {

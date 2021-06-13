@@ -4,7 +4,7 @@ import { nextTick } from 'vue';
 
 import BookablesMap from '~/views/BookablesMap.vue';
 import { sampleMapObject, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
-import { prepareUseRouterMockOnce } from '$/helpers/mocks';
+import { prepareUseRouterMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('vue-router');
 jest.mock('~/compositions/useFind');

@@ -5,26 +5,50 @@ import BookableForm from '~/components/bookables/BookableForm.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
 
 describe('BookableForm component', () => {
-  it('should render correctly', () => {
-    // given
+  describe('Template', () => {
+    it('should render correctly', () => {
+      // given
 
-    // when
-    const bookableForm = shallowMount(BookableForm, {
-      props: {
-        bookable: sampleBookable,
-      },
-      global: {
-        // stub needed due to caching issue. see https://github.com/vuejs/vue-test-utils-next/issues/530
-        stubs: {
-          InputField: {
-            template: '<div></div>',
+      // when
+      const bookableForm = shallowMount(BookableForm, {
+        props: {
+          bookable: sampleBookable,
+        },
+        global: {
+          // stub needed due to caching issue. see https://github.com/vuejs/vue-test-utils-next/issues/530
+          stubs: {
+            InputField: {
+              template: '<div><slot /></div>',
+            },
           },
         },
-      },
+      });
+
+      // then
+      expect(toDiffableHtml(bookableForm.html())).toMatchSnapshot();
     });
 
-    // then
-    expect(toDiffableHtml(bookableForm.html())).toMatchSnapshot();
+    it('should render correctly with new bookable', () => {
+      // given
+
+      // when
+      const bookableForm = shallowMount(BookableForm, {
+        props: {
+          bookable: {},
+        },
+        global: {
+          // stub needed due to caching issue. see https://github.com/vuejs/vue-test-utils-next/issues/530
+          stubs: {
+            InputField: {
+              template: '<div><slot /></div>',
+            },
+          },
+        },
+      });
+
+      // then
+      expect(toDiffableHtml(bookableForm.html())).toMatchSnapshot();
+    });
   });
 
   it('should emit save', async () => {

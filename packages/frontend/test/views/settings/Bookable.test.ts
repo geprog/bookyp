@@ -1,39 +1,24 @@
 import { shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
-import { mocked } from 'ts-jest/utils';
-import { nextTick, ref } from 'vue';
-import { Router, useRouter } from 'vue-router';
+import { nextTick } from 'vue';
 
-import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
-import useGet from '~/compositions/useGet';
 import Bookable from '~/views/settings/Bookable.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
+import { prepareUseFeathersMockOnce, prepareUseGetMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFeathers');
 jest.mock('~/compositions/useGet');
 jest.mock('vue-i18n');
 jest.mock('vue-router', () => ({
-  useRouter: jest.fn(() => ({
-    replace: jest.fn(),
-    push: jest.fn(),
-  })),
+  useRouter: jest.fn(),
 }));
 
 describe('Bookable view', () => {
   it('should render correctly', () => {
     // given
-    const useFeathersMock = {
-      service: () => ({
-        get: jest.fn(),
-      }),
-    } as unknown as ClientApplication;
-    mocked(useFeathers, true).mockReturnValue(useFeathersMock);
-
-    const useGetMock = {
-      data: ref(sampleBookable),
-      isLoading: ref(false),
-    };
-    mocked(useGet, true).mockReturnValue(useGetMock);
+    prepareUseFeathersMockOnce();
+    prepareUseRouterMockOnce();
+    prepareUseGetMockOnce(sampleBookable);
 
     // when
     const wrapper = shallowMount(Bookable, {
@@ -48,18 +33,9 @@ describe('Bookable view', () => {
 
   it('should pass the bookable to BookableForm', () => {
     // given
-    const useFeathersMock = {
-      service: () => ({
-        get: jest.fn(),
-      }),
-    } as unknown as ClientApplication;
-    mocked(useFeathers, true).mockReturnValue(useFeathersMock);
-
-    const useGetMock = {
-      data: ref(sampleBookable),
-      isLoading: ref(false),
-    };
-    mocked(useGet, true).mockReturnValue(useGetMock);
+    prepareUseFeathersMockOnce();
+    prepareUseRouterMockOnce();
+    prepareUseGetMockOnce(sampleBookable);
 
     // when
     const wrapper = shallowMount(Bookable, {
@@ -76,26 +52,9 @@ describe('Bookable view', () => {
     expect.assertions(2);
 
     // given
-    const feathersUpdate = jest.fn();
-    const useFeathersMock = {
-      service: () => ({
-        get: jest.fn(),
-        update: feathersUpdate,
-      }),
-    } as unknown as ClientApplication;
-    mocked(useFeathers, true).mockReturnValue(useFeathersMock);
-
-    const useGetMock = {
-      data: ref(sampleBookable),
-      isLoading: ref(false),
-    };
-    mocked(useGet, true).mockReturnValue(useGetMock);
-
-    const replaceMock = jest.fn();
-    const useRouterMock = {
-      replace: replaceMock,
-    } as unknown as Router;
-    mocked(useRouter).mockReturnValue(useRouterMock);
+    const useFeathersMock = prepareUseFeathersMockOnce();
+    const useRouterMock = prepareUseRouterMockOnce();
+    prepareUseGetMockOnce(sampleBookable);
 
     const wrapper = shallowMount(Bookable, {
       props: {
@@ -108,7 +67,7 @@ describe('Bookable view', () => {
     await nextTick();
 
     // then
-    expect(replaceMock).toHaveBeenCalledTimes(1);
-    expect(feathersUpdate).toHaveBeenCalledWith(sampleBookable._id, sampleBookable);
+    expect(useRouterMock.replace).toHaveBeenCalledTimes(1);
+    expect(useFeathersMock.update).toHaveBeenCalledWith(sampleBookable._id, sampleBookable);
   });
 });

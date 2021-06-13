@@ -1,11 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
-import { mocked } from 'ts-jest/utils';
-import { nextTick, ref } from 'vue';
+import { nextTick } from 'vue';
 
 import MapObjects from '~/components/space/MapObjects.vue';
-import useFind from '~/compositions/useFind';
 import { sampleMapObjects } from '$/__fixtures__/mapObject';
+import { prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFind');
 
@@ -13,12 +12,7 @@ describe('MapObjects component', () => {
   it('should render correctly when clickable', () => {
     expect.assertions(4);
     // given
-    const mapObjectsMock = {
-      data: ref(sampleMapObjects),
-      isLoading: ref(false),
-    };
-
-    mocked(useFind).mockReturnValueOnce(mapObjectsMock);
+    prepareUseFindMockOnce(sampleMapObjects);
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -37,12 +31,7 @@ describe('MapObjects component', () => {
   it('should render correctly when not clickable', () => {
     expect.assertions(4);
     // given
-    const mapObjectsMock = {
-      data: ref(sampleMapObjects),
-      isLoading: ref(false),
-    };
-
-    mocked(useFind).mockReturnValueOnce(mapObjectsMock);
+    prepareUseFindMockOnce(sampleMapObjects);
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -61,12 +50,7 @@ describe('MapObjects component', () => {
   it('should render correctly with a selectedMapObject', () => {
     expect.assertions(4);
     // given
-    const mapObjectsMock = {
-      data: ref(sampleMapObjects),
-      isLoading: ref(false),
-    };
-
-    mocked(useFind).mockReturnValueOnce(mapObjectsMock);
+    prepareUseFindMockOnce(sampleMapObjects);
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -86,12 +70,7 @@ describe('MapObjects component', () => {
   it('should emit clickOnMapObject event', async () => {
     expect.assertions(3);
     // given
-    const mapObjectsMock = {
-      data: ref(sampleMapObjects),
-      isLoading: ref(false),
-    };
-
-    mocked(useFind).mockReturnValueOnce(mapObjectsMock);
+    prepareUseFindMockOnce(sampleMapObjects);
 
     const wrapper = shallowMount(MapObjects, {
       props: {
@@ -111,12 +90,7 @@ describe('MapObjects component', () => {
   it('should skip clickOnMapObject event when not clickable', async () => {
     expect.assertions(1);
     // given
-    const mapObjectsMock = {
-      data: ref(sampleMapObjects),
-      isLoading: ref(false),
-    };
-
-    mocked(useFind).mockReturnValueOnce(mapObjectsMock);
+    prepareUseFindMockOnce(sampleMapObjects);
 
     const wrapper = shallowMount(MapObjects, {
       props: {

@@ -3,57 +3,26 @@ import { mount, shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 import { mocked } from 'ts-jest/utils';
 import { nextTick, ref } from 'vue';
-import { Router, useRouter } from 'vue-router';
 
 import MapObjects from '~/components/space/MapObjects.vue';
 import SpaceMap from '~/components/space/SpaceMap.vue';
 import useNewMapObject from '~/compositions/space/useNewMapObject';
-import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 import Space from '~/views/settings/Space.vue';
-import { sampleNewMapObject } from '$/__fixtures__/mapObject';
-import { mockSvg } from '$/helpers/svg';
+import { sampleMapObject, sampleNewMapObject } from '$/__fixtures__/mapObject';
+import { prepareUseFeathersMockOnce, prepareUseRouteMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
+import { mockSvg } from '$/__helpers__/svg';
 
 jest.mock('~/compositions/space/useNewMapObject');
 jest.mock('~/compositions/useFeathers');
 jest.mock('~/compositions/useFind');
 jest.mock('vue-router', () => ({
-  useRoute: jest.fn(() => ({ name: 'settings-space' })),
-  useRouter: jest.fn(() => ({
-    replace: jest.fn(),
-    push: jest.fn(),
-  })),
+  useRoute: jest.fn(),
+  useRouter: jest.fn(),
 }));
 jest.mock('vue-i18n');
 
-function prepareShallowMount() {
-  const useFeathersMock = {
-    service: () => ({
-      find: jest.fn(() => []),
-      create: jest.fn(),
-    }),
-  } as unknown as ClientApplication;
-  mocked(useFeathers, true).mockReturnValue(useFeathersMock);
-
-  const useNewMapObjectMock = {
-    newMapObject: ref(null),
-    addMapObject: jest.fn(),
-    saveNewMapObject: jest.fn(),
-    positionNewMapObject: jest.fn(),
-  };
-  mocked(useNewMapObject).mockReturnValue(useNewMapObjectMock);
-  return { useNewMapObjectMock };
-}
-
-function prepareMount() {
-  const useFeathersMock = {
-    service: () => ({
-      find: jest.fn(() => []),
-      create: jest.fn(),
-    }),
-  } as unknown as ClientApplication;
-  mocked(useFeathers).mockReturnValue(useFeathersMock);
-
+function prepareUseNewMapObjectMock() {
   const useNewMapObjectMock = {
     newMapObject: ref<null | Omit<Model.MapObject, '_id'>>(null),
     addMapObject: jest.fn(),
@@ -61,48 +30,42 @@ function prepareMount() {
     positionNewMapObject: jest.fn(),
   };
   mocked(useNewMapObject).mockReturnValue(useNewMapObjectMock);
-
-  const mockRoute = {};
-  const mockRouter = {
-    push: jest.fn(),
-    replace: jest.fn(),
-  };
-  return { useNewMapObjectMock, mockRoute, mockRouter };
+  return useNewMapObjectMock;
 }
 
-function prepareReplaceMock() {
-  const replaceMock = jest.fn();
-  const useRouterMock = {
-    replace: replaceMock,
-  } as unknown as Router;
-  mocked(useRouter).mockReturnValue(useRouterMock);
-  return { replaceMock };
+function prepareCommonMocks() {
+  const useFeathersMock = prepareUseFeathersMockOnce();
+  const useRouterMock = prepareUseRouterMockOnce();
+  const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-space' });
+  const useNewMapObjectMock = prepareUseNewMapObjectMock();
+
+  return { useFeathersMock, useRouterMock, useRouteMock, useNewMapObjectMock };
 }
 
 describe('Space component', () => {
-  it('should render correctly', () => {
-    // given
-    prepareShallowMount();
-
-    // when
-    const wrapper = shallowMount(Space, {});
-
-    // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
-  });
-
   describe('"viewing" mode', () => {
-    it('should start in "viewing" mode', () => {
-      expect.assertions(3);
+    it('should render correctly', () => {
       // given
-      prepareShallowMount();
+      prepareCommonMocks();
 
       // when
       const wrapper = shallowMount(Space);
 
       // then
       expect(wrapper.vm.mode).toBe('viewing');
-      // TODO: check buttons which should be there
+      expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    });
+
+    it('should start in "viewing" mode', () => {
+      expect.assertions(3);
+      // given
+      prepareCommonMocks();
+
+      // when
+      const wrapper = shallowMount(Space);
+
+      // then
+      expect(wrapper.vm.mode).toBe('viewing');
       expect(wrapper.find('[data-test=save-button]').exists()).toBe(false);
       expect(wrapper.find('[data-test=delete-button]').exists()).toBe(false);
     });
@@ -116,9 +79,8 @@ describe('Space component', () => {
       };
       mocked(useFind).mockReturnValue(useFindMock);
 
-      const { useNewMapObjectMock } = prepareShallowMount();
-
-      const wrapper = shallowMount(Space, {});
+      const { useNewMapObjectMock } = prepareCommonMocks();
+      const wrapper = shallowMount(Space);
 
       // when
       wrapper.findComponent(SpaceMap).vm.$emit('clickInsideSvg');
@@ -130,18 +92,30 @@ describe('Space component', () => {
   });
 
   describe('"creating" mode', () => {
+    it('should render correctly', () => {
+      // given
+      const { useNewMapObjectMock } = prepareCommonMocks();
+
+      // when
+      const wrapper = shallowMount(Space);
+      useNewMapObjectMock.newMapObject.value = sampleNewMapObject;
+
+      // then
+      expect(wrapper.vm.mode).toBe('creating');
+      expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    });
+
     it('should go into "creating" mode when user clicked on add-table-button', async () => {
       expect.assertions(3);
       // given
-
-      const { useNewMapObjectMock, mockRoute, mockRouter } = prepareMount();
+      const { useNewMapObjectMock, useRouteMock, useRouterMock } = prepareCommonMocks();
 
       // when
       const wrapper = mount(Space, {
         global: {
           mocks: {
-            $route: mockRoute,
-            $router: mockRouter,
+            $route: useRouteMock,
+            $router: useRouterMock,
           },
         },
       });
@@ -150,21 +124,21 @@ describe('Space component', () => {
       await nextTick();
 
       // then
-      expect(wrapper.vm.newMapObject).toBeDefined();
       expect(wrapper.vm.mode).toBe('creating');
+      expect(wrapper.vm.newMapObject).toBeDefined();
       expect(wrapper.find('[data-test=save-button]').exists()).toBe(true);
     });
 
     it('should not select other map objects when clicking on them', async () => {
       expect.assertions(1);
       // given
-      const { useNewMapObjectMock, mockRoute, mockRouter } = prepareMount();
+      const { useNewMapObjectMock, useRouteMock, useRouterMock } = prepareCommonMocks();
 
       const wrapper = mount(Space, {
         global: {
           mocks: {
-            $route: mockRoute,
-            $router: mockRouter,
+            $route: useRouteMock,
+            $router: useRouterMock,
           },
         },
       });
@@ -176,13 +150,13 @@ describe('Space component', () => {
       wrapper.findComponent(MapObjects).vm.$emit('clickOnMapObject');
 
       // then
-      expect(mockRouter.replace).not.toHaveBeenCalled();
+      expect(useRouterMock.replace).not.toHaveBeenCalled();
     });
 
     it('should move the map-object to clicked position when in "creating" mode', async () => {
       expect.assertions(4);
-
-      const { useNewMapObjectMock, mockRoute, mockRouter } = prepareMount();
+      // given
+      const { useNewMapObjectMock, useRouteMock, useRouterMock } = prepareCommonMocks();
 
       const useFindMock = {
         data: ref([]),
@@ -192,8 +166,8 @@ describe('Space component', () => {
       const wrapper = mount(Space, {
         global: {
           mocks: {
-            $route: mockRoute,
-            $router: mockRouter,
+            $route: useRouteMock,
+            $router: useRouterMock,
           },
         },
       });
@@ -235,34 +209,43 @@ describe('Space component', () => {
   });
 
   describe('"editing" mode', () => {
+    it('should render correctly', () => {
+      // given
+      prepareCommonMocks();
+
+      // when
+      const wrapper = shallowMount(Space, {
+        props: {
+          selectedMapObjectId: sampleMapObject._id,
+        },
+      });
+
+      // then
+      expect(wrapper.vm.mode).toBe('editing');
+      expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    });
+
     it('should change url for "editing" mode when user clicked on a map-object', async () => {
       expect.assertions(1);
       // given
-      const { mockRoute, mockRouter } = prepareMount();
-
-      const { replaceMock } = prepareReplaceMock();
-
+      const { useRouteMock, useRouterMock } = prepareCommonMocks();
       const wrapper = mount(Space, {
         global: {
           mocks: {
-            $route: mockRoute,
-            $router: mockRouter,
+            $route: useRouteMock,
+            $router: useRouterMock,
           },
         },
       });
 
-      const mapObject = {
-        _id: '1',
-      };
-
       // when
-      wrapper.findComponent(MapObjects).vm.$emit('clickOnMapObject', mapObject);
+      wrapper.findComponent(MapObjects).vm.$emit('clickOnMapObject', sampleMapObject);
       await nextTick();
 
       // then
-      expect(replaceMock).toHaveBeenCalledWith(
+      expect(useRouterMock.replace).toHaveBeenCalledWith(
         expect.objectContaining({
-          params: { selectedMapObjectId: mapObject._id },
+          params: { selectedMapObjectId: sampleMapObject._id },
         }),
       );
     });
@@ -270,22 +253,18 @@ describe('Space component', () => {
     it('should select map-object and be in "editing" mode when accessing with map-object-id url parameter', () => {
       expect.assertions(2);
       // given
-      const { mockRoute, mockRouter } = prepareMount();
-
-      const mapObject = {
-        _id: '1',
-      };
+      const { useRouteMock, useRouterMock } = prepareCommonMocks();
 
       // when
       const wrapper = mount(Space, {
         global: {
           mocks: {
-            $route: mockRoute,
-            $router: mockRouter,
+            $route: useRouteMock,
+            $router: useRouterMock,
           },
         },
         props: {
-          selectedMapObjectId: mapObject._id,
+          selectedMapObjectId: sampleMapObject._id,
         },
       });
 
@@ -296,39 +275,17 @@ describe('Space component', () => {
 
     it('should delete the selected map-object when clicking on delete', async () => {
       expect.assertions(2);
-
-      const { mockRoute, mockRouter } = prepareMount();
-      const { replaceMock } = prepareReplaceMock();
-
-      const useFeathersMock = {
-        service: () => useFeathersServiceMock,
-      } as unknown as ClientApplication;
-      mocked(useFeathers).mockReturnValue(useFeathersMock);
-      const useFindMock = {
-        data: ref([]),
-        isLoading: ref(false),
-      };
-      mocked(useFind).mockReturnValue(useFindMock);
-
-      const useFeathersServiceMock = {
-        find: jest.fn(() => []),
-        create: jest.fn(),
-        remove: jest.fn(),
-      };
-
-      const mapObject = {
-        _id: '1',
-      };
-
+      // given
+      const { useFeathersMock, useRouteMock, useRouterMock } = prepareCommonMocks();
       const wrapper = mount(Space, {
         global: {
           mocks: {
-            $route: mockRoute,
-            $router: mockRouter,
+            $route: useRouteMock,
+            $router: useRouterMock,
           },
         },
         props: {
-          selectedMapObjectId: mapObject._id,
+          selectedMapObjectId: sampleMapObject._id,
         },
       });
 
@@ -336,8 +293,8 @@ describe('Space component', () => {
       await wrapper.find('[data-test=delete-button]').trigger('click');
 
       // then
-      expect(useFeathersServiceMock.remove).toHaveBeenCalledWith(mapObject._id);
-      expect(replaceMock).toHaveBeenCalledWith(
+      expect(useFeathersMock.remove).toHaveBeenCalledWith(sampleMapObject._id);
+      expect(useRouterMock.replace).toHaveBeenCalledWith(
         expect.objectContaining({
           params: undefined,
         }),
