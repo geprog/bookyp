@@ -19,7 +19,7 @@ describe('NewMapObject component', () => {
 
     // then
     expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
-    expect(wrapper.findAll('path')).toHaveLength(2); //
+    expect(wrapper.findAll('path')).toHaveLength(2);
     expect(wrapper.findAll('path')[0].attributes('d')).toStrictEqual(sampleMapObject.paths[0]);
     expect(wrapper.findAll('path')[1].attributes('d')).toStrictEqual(sampleMapObject.paths[1]);
   });

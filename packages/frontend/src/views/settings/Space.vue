@@ -91,6 +91,8 @@ export default defineComponent({
 
     const selectedMapObjectId = toRef(props, 'selectedMapObjectId');
 
+    const { newMapObject, addMapObject, saveNewMapObject, positionNewMapObject } = useNewMapObject();
+
     // flag to show if we are currently editing the map
     const mode = computed<'creating' | 'editing' | 'viewing'>(() => {
       if (newMapObject.value) {
@@ -103,8 +105,6 @@ export default defineComponent({
 
       return 'viewing';
     });
-
-    const { newMapObject, addMapObject, saveNewMapObject, positionNewMapObject } = useNewMapObject();
 
     function clickInsideFloorPlan(svgP: { x: number; y: number }) {
       // skip if we are not currently in creating mode

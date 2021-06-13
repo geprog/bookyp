@@ -2,23 +2,22 @@ import { shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 
 import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
+import { prepareUseRouteMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
+
+jest.mock('vue-router');
 
 describe('SettingsTabs component', () => {
   it('should render correctly when active', () => {
     // given
-    const mockRoute = {
-      name: 'settings-space',
-    };
-    const mockRouter = {
-      push: jest.fn(),
-    };
+    const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-space' });
+    const useRouterMock = prepareUseRouterMockOnce();
 
     // when
     const wrapper = shallowMount(SettingsTabs, {
       global: {
         mocks: {
-          $route: mockRoute,
-          $router: mockRouter,
+          $route: useRouteMock,
+          $router: useRouterMock,
         },
         // stub needed due to caching issue. see https://github.com/vuejs/vue-test-utils-next/issues/530
         stubs: {

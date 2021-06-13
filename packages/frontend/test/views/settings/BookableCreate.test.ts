@@ -1,37 +1,22 @@
 import { shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
-import { mocked } from 'ts-jest/utils';
 import { nextTick } from 'vue';
-import { Router, useRouter } from 'vue-router';
 
-import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import BookableCreate from '~/views/settings/BookableCreate.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
+import { prepareUseFeathersMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFeathers');
 jest.mock('vue-i18n');
 jest.mock('vue-router', () => ({
-  useRouter: jest.fn(() => ({
-    replace: jest.fn(),
-    push: jest.fn(),
-  })),
+  useRouter: jest.fn(),
 }));
 
 describe('BookableCreate view', () => {
   it('should render correctly', () => {
     // given
-    const useFeathersMock = {
-      service: () => ({
-        get: jest.fn(),
-      }),
-    } as unknown as ClientApplication;
-    mocked(useFeathers, true).mockReturnValue(useFeathersMock);
-
-    const replaceMock = jest.fn();
-    const useRouterMock = {
-      replace: replaceMock,
-    } as unknown as Router;
-    mocked(useRouter).mockReturnValue(useRouterMock);
+    prepareUseFeathersMockOnce();
+    prepareUseRouterMockOnce();
 
     // when
     const wrapper = shallowMount(BookableCreate);
@@ -44,22 +29,9 @@ describe('BookableCreate view', () => {
     expect.assertions(2);
 
     // given
-    const feathersCreate = jest.fn();
-    const useFeathersMock = {
-      service: () => ({
-        get: jest.fn(),
-        create: feathersCreate,
-      }),
-    } as unknown as ClientApplication;
-    mocked(useFeathers, true).mockReturnValue(useFeathersMock);
-
-    const replaceMock = jest.fn();
-    const useRouterMock = {
-      replace: replaceMock,
-    } as unknown as Router;
-    mocked(useRouter).mockReturnValue(useRouterMock);
-
-    const wrapper = shallowMount(BookableCreate, {});
+    const useFeathersMock = prepareUseFeathersMockOnce();
+    const useRouterMock = prepareUseRouterMockOnce();
+    const wrapper = shallowMount(BookableCreate);
 
     await wrapper.getComponent('[data-test=bookable-form]').setValue(sampleBookable, 'bookable');
 
@@ -68,7 +40,7 @@ describe('BookableCreate view', () => {
     await nextTick();
 
     // then
-    expect(replaceMock).toHaveBeenCalledTimes(1);
-    expect(feathersCreate).toHaveBeenCalledWith(sampleBookable);
+    expect(useRouterMock.replace).toHaveBeenCalledTimes(1);
+    expect(useFeathersMock.create).toHaveBeenCalledWith(sampleBookable);
   });
 });

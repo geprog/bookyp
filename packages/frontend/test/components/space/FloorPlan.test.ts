@@ -1,12 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
-import { mocked } from 'ts-jest/utils';
-import { ref } from 'vue';
 
 import FloorPlan from '~/components/space/FloorPlan.vue';
-import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
-import useFind from '~/compositions/useFind';
 import { sampleFloorPlan } from '$/__fixtures__/floorPlan';
+import { prepareUseFeathersMockOnce, prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFind');
 jest.mock('~/compositions/useFeathers');
@@ -14,24 +11,13 @@ jest.mock('~/compositions/useFeathers');
 describe('FloorPlan component', () => {
   it('should render correctly', () => {
     // given
-    const useFeathersMock = {
-      service: () => ({
-        find: jest.fn(() => []),
-        create: jest.fn(),
-      }),
-    } as unknown as ClientApplication;
-    mocked(useFeathers).mockReturnValue(useFeathersMock);
-
-    const useFindMock = {
-      data: ref([
-        {
-          _id: 'dummy-id',
-          floorPlan: sampleFloorPlan,
-        },
-      ]),
-      isLoading: ref(false),
-    };
-    mocked(useFind).mockReturnValue(useFindMock);
+    prepareUseFeathersMockOnce();
+    prepareUseFindMockOnce([
+      {
+        _id: 'dummy-id',
+        floorPlan: sampleFloorPlan,
+      },
+    ]);
 
     // when
     const wrapper = shallowMount(FloorPlan, {});
