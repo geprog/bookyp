@@ -10,6 +10,7 @@ export default {
   component: IconButton,
   argTypes: {
     icon: { defaultValue: 'add', control: { type: 'select', options: icons } },
+    iconColor: { defaultValue: 'text-gray-active', control: { type: 'text' } },
   },
 } as Meta;
 

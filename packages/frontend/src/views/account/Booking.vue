@@ -1,5 +1,13 @@
 <template>
-  <Header :title="t('booking_details')" has-back />
+  <Header :title="t('booking_details')" has-back>
+    <IconButton
+      data-test="delete-button"
+      icon="delete"
+      icon-color="text-red-text hover:text-red-background"
+      @click="deleteBooking"
+    />
+  </Header>
+
   <div class="mt-4 mx-4">
     <h2 v-if="bookable" class="text-lg font-semibold">{{ bookable?.name }}</h2>
     <div v-if="booking" class="flex flex-col">
@@ -13,14 +21,19 @@
 import dayjs from 'dayjs';
 import { computed, defineComponent, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
+import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
+import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
 export default defineComponent({
   name: 'Booking',
+
   components: {
     Header,
+    IconButton,
   },
 
   props: {
@@ -35,6 +48,8 @@ export default defineComponent({
   setup(props) {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
+    const feathers = useFeathers();
+    const router = useRouter();
 
     const bookingId = toRef(props, 'bookingId');
     const { data: booking } = useGet('bookings', bookingId);
@@ -42,7 +57,12 @@ export default defineComponent({
     const bookableId = computed(() => booking.value?.bookable);
     const { data: bookable } = useGet('bookables', bookableId);
 
-    return { t, booking, bookable, dayjs };
+    async function deleteBooking() {
+      await feathers.service('bookings').remove(bookingId.value);
+      router.back();
+    }
+
+    return { t, booking, bookable, dayjs, deleteBooking };
   },
 });
 </script>
