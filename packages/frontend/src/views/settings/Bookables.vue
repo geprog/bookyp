@@ -5,13 +5,13 @@
     </template>
   </Header>
 
-  <div class="bookables">
+  <div class="w-full max-w-2xl mx-auto">
     <ListItem
       v-for="bookable in bookables"
       :key="bookable._id"
       :label="bookable.name"
       :description="bookable.description"
-      class="cursor-pointer"
+      class="cursor-pointer m-3"
       @click="$router.push({ name: 'settings-bookable', params: { bookableId: bookable._id } })"
     />
 

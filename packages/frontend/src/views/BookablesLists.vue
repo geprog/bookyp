@@ -1,13 +1,13 @@
 <template>
   <HomeHeader />
 
-  <div v-if="bookables">
+  <div v-if="bookables" class="w-full max-w-2xl mx-auto">
     <ListItem
       v-for="bookable in bookables"
       :key="bookable._id"
       :label="bookable.name"
       status-color="bg-primary-normal"
-      class="cursor-pointer"
+      class="cursor-pointer m-3"
       :description="bookable.description"
       @click="$router.push({ name: 'booking-create', params: { bookableId: bookable._id } })"
     />

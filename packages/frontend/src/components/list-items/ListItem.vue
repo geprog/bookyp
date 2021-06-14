@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mx-3 my-2 p-3 rounded-lg shadow-full bg-white">
+  <div class="flex p-3 rounded-lg shadow-full bg-white">
     <slot name="start">
       <div :class="statusColor" class="w-2 rounded flex-shrink-0" />
     </slot>
