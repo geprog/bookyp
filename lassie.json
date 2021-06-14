@@ -1,0 +1,19 @@
+{
+  "plugins": {
+    "auto_merge": {
+      "squash": true,
+      "neededLabels": ["👀 Ready for Review"],
+      "neededApprovals": [
+        {
+          "users": ["a.bracke", "l.hass", "r.schwinger", "m.heine", "m.das"],
+          "atLeast": 1
+        },
+        {
+          "label": "🖌️ UI",
+          "users": ["e.heine"],
+          "atLeast": 1
+        }
+      ]
+    }
+  }
+}
