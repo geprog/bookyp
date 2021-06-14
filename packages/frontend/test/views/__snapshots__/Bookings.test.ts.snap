@@ -7,7 +7,7 @@ exports[`Bookings component should render correctly 1`] = `
 >
 </header-stub>
 <div class=\\"mt-4\\">
-  <div class=\\"mt-2 mb-2\\">
+  <div class=\\"w-full max-w-2xl mx-auto\\">
     <p data-test=\\"groupByDates\\"
        class=\\"ml-2\\"
     >
@@ -16,15 +16,19 @@ exports[`Bookings component should render correctly 1`] = `
       </span>
     </p>
     <router-link-stub to=\\"[object Object]\\">
-      <booking-item-stub booking=\\"[object Object]\\">
+      <booking-item-stub booking=\\"[object Object]\\"
+                         class=\\"m-3\\"
+      >
       </booking-item-stub>
     </router-link-stub>
     <router-link-stub to=\\"[object Object]\\">
-      <booking-item-stub booking=\\"[object Object]\\">
+      <booking-item-stub booking=\\"[object Object]\\"
+                         class=\\"m-3\\"
+      >
       </booking-item-stub>
     </router-link-stub>
   </div>
-  <div class=\\"mt-2 mb-2\\">
+  <div class=\\"w-full max-w-2xl mx-auto\\">
     <p data-test=\\"groupByDates\\"
        class=\\"ml-2\\"
     >
@@ -33,7 +37,9 @@ exports[`Bookings component should render correctly 1`] = `
       </span>
     </p>
     <router-link-stub to=\\"[object Object]\\">
-      <booking-item-stub booking=\\"[object Object]\\">
+      <booking-item-stub booking=\\"[object Object]\\"
+                         class=\\"m-3\\"
+      >
       </booking-item-stub>
     </router-link-stub>
   </div>

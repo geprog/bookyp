@@ -5,7 +5,7 @@
     </template>
   </Header>
   <div class="mt-4">
-    <div v-for="(bookings, date) in groupedBookings" :key="date" class="mt-2 mb-2">
+    <div v-for="(bookings, date) in groupedBookings" :key="date" class="w-full max-w-2xl mx-auto">
       <p data-test="groupByDates" class="ml-2">
         <span class="font-bold">
           {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}</span
@@ -20,7 +20,7 @@
         :key="booking._id"
         :to="{ name: 'account-booking', params: { bookingId: booking._id } }"
       >
-        <BookingItem :booking="booking" />
+        <BookingItem :booking="booking" class="m-3" />
       </RouterLink>
     </div>
   </div>

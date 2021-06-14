@@ -2,7 +2,7 @@
 
 exports[`ListItem component should render correctly 1`] = `
 "
-<div class=\\"flex mx-3 my-2 p-3 rounded-lg shadow-full bg-white\\">
+<div class=\\"flex p-3 rounded-lg shadow-full bg-white\\">
   <div class=\\"color w-2 rounded flex-shrink-0\\">
   </div>
   <div class=\\"flex ml-3 flex-grow min-w-0\\">
