@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, toRef } from 'vue';
 
 import IconListItem from '~/components/list-items/IconListItem.vue';
 
@@ -42,7 +42,8 @@ export default defineComponent({
   },
 
   setup(props) {
-    const icon = computed(() => (props.selected ? 'radio-checked' : 'radio-unchecked'));
+    const selected = toRef(props, 'selected');
+    const icon = computed(() => (selected.value ? 'radio-checked' : 'radio-unchecked'));
     return { icon };
   },
 });

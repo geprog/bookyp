@@ -8,7 +8,7 @@
 <script lang="ts">
 import { Model } from '@bookyp/core';
 import dayjs from 'dayjs';
-import { defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, PropType, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import ListItem from '~/components/list-items/ListItem.vue';
@@ -29,7 +29,9 @@ export default defineComponent({
   setup(props) {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
-    const { data: bookable } = useGet('bookables', ref(props.booking.bookable));
+    const booking = toRef(props, 'booking');
+    const bookableId = computed(() => booking.value.bookable);
+    const { data: bookable } = useGet('bookables', bookableId);
 
     return { bookable, dayjs, t };
   },
