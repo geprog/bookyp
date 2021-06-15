@@ -47,10 +47,14 @@ exports[`Space component "editing" mode should render correctly 1`] = `
     </map-objects-stub>
   </space-map-stub>
   <div class=\\"mt-auto ml-auto flex flex-row\\">
+    <floating-button-stub data-test=\\"edit-button\\"
+                          icon=\\"edit\\"
+                          class=\\"mr-2\\"
+    >
+    </floating-button-stub>
     <floating-button-stub data-test=\\"delete-button\\"
-                          type=\\"submit\\"
-                          icon=\\"delete\\"
-                          class=\\"mr-4\\"
+                          icon=\\"edit\\"
+                          class=\\"mr-2\\"
     >
     </floating-button-stub>
   </div>

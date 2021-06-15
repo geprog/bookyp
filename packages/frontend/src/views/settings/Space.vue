@@ -23,14 +23,10 @@
       <NewMapObject v-if="newMapObject" :new-map-object="newMapObject" />
     </SpaceMap>
     <div class="mt-auto ml-auto flex flex-row">
-      <FloatingButton
-        v-if="mode === 'editing'"
-        data-test="delete-button"
-        type="submit"
-        icon="delete"
-        class="mr-4"
-        @click="removeSelectedMapObject"
-      />
+      <template v-if="mode === 'editing'">
+        <FloatingButton data-test="edit-button" icon="edit" class="mr-2" @click="openMapObjectSettings" />
+        <FloatingButton data-test="delete-button" icon="delete" @click="removeSelectedMapObject" />
+      </template>
 
       <ToggleBar
         v-if="mode === 'viewing'"
@@ -93,7 +89,6 @@ export default defineComponent({
 
     const { newMapObject, addMapObject, saveNewMapObject, positionNewMapObject } = useNewMapObject();
 
-    // flag to show if we are currently editing the map
     const mode = computed<'creating' | 'editing' | 'viewing'>(() => {
       if (newMapObject.value) {
         return 'creating';
@@ -124,16 +119,25 @@ export default defineComponent({
 
       /* istanbul ignore next */
       if (!route.name) {
-        throw new Error('Can not detect current route');
+        throw new Error('Unexpected: Can not detect current route');
       }
 
       await router.replace({ name: route.name, params });
     }
 
+    async function openMapObjectSettings(): Promise<void> {
+      /* istanbul ignore next */
+      if (!selectedMapObjectId.value) {
+        throw new Error('Unexpected: No map-object selected');
+      }
+
+      await router.push({ name: 'settings-map-object', params: { mapObjectId: selectedMapObjectId.value } });
+    }
+
     async function removeSelectedMapObject(): Promise<void> {
       /* istanbul ignore next */
       if (!selectedMapObjectId.value) {
-        return;
+        throw new Error('Unexpected: No map-object selected');
       }
 
       await feathers.service('mapObjects').remove(selectedMapObjectId.value);
@@ -147,6 +151,7 @@ export default defineComponent({
       newMapObject,
       clickInsideFloorPlan,
       saveNewMapObject,
+      openMapObjectSettings,
       selectMapObject,
       removeSelectedMapObject,
     };

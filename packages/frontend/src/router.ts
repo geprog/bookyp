@@ -55,6 +55,18 @@ const routes: RouteRecordRaw[] = [
     props: true,
   },
   {
+    path: '/settings/map-object/:mapObjectId',
+    name: 'settings-map-object',
+    component: (): Component => import('./views/settings/map-object/MapObject.vue'),
+    props: true,
+  },
+  {
+    path: '/settings/map-object/:mapObjectId/link',
+    name: 'settings-map-object-link',
+    component: (): Component => import('./views/settings/map-object/MapObject.vue'),
+    props: true,
+  },
+  {
     path: '/settings/space-floor-plan',
     name: 'settings-space-floor-plan',
     component: (): Component => import('~/views/settings/SpaceFloorPlan.vue'),
