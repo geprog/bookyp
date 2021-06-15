@@ -7,6 +7,7 @@ import DeleteIcon from '~/assets/icons/delete.svg';
 import DescriptionIcon from '~/assets/icons/description.svg';
 import EditIcon from '~/assets/icons/edit.svg';
 import FloorPlanIcon from '~/assets/icons/floor-plan.svg';
+import LinkIcon from '~/assets/icons/link.svg';
 import ListIcon from '~/assets/icons/list.svg';
 import LogoutIcon from '~/assets/icons/logout.svg';
 import MapIcon from '~/assets/icons/map.svg';
@@ -36,6 +37,7 @@ const icons = {
   settings: SettingsIcon,
   'stop-circle': StopCircleIcon,
   table: TableIcon,
+  link: LinkIcon,
   map: MapIcon,
   list: ListIcon,
 };

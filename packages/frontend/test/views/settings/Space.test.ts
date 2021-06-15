@@ -210,6 +210,7 @@ describe('Space component', () => {
 
   describe('"editing" mode', () => {
     it('should render correctly', () => {
+      expect.assertions(2);
       // given
       prepareCommonMocks();
 
@@ -299,6 +300,32 @@ describe('Space component', () => {
           params: undefined,
         }),
       );
+    });
+
+    it('should open map-object details when clicking on edit', async () => {
+      expect.assertions(1);
+      // given
+      const { useRouteMock, useRouterMock } = prepareCommonMocks();
+      const wrapper = mount(Space, {
+        global: {
+          mocks: {
+            $route: useRouteMock,
+            $router: useRouterMock,
+          },
+        },
+        props: {
+          selectedMapObjectId: sampleMapObject._id,
+        },
+      });
+
+      // when
+      await wrapper.find('[data-test=edit-button]').trigger('click');
+
+      // then
+      expect(useRouterMock.push).toHaveBeenCalledWith({
+        name: 'settings-map-object',
+        params: { mapObjectId: sampleMapObject._id },
+      });
     });
   });
 });
