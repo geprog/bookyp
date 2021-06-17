@@ -2,13 +2,16 @@
   <Header :title="t('book_a_bookable', { bookable: bookable?.name })" has-back>
     <IconButton type="submit" form="booking" icon="check-mark" />
   </Header>
-  <form id="booking" class="booking mx-4" @submit.prevent="submit">
+
+  <form id="booking" class="booking px-4" @submit.prevent="submit">
     <InputField icon-name="play-circle">
-      <TextField v-model="start" :placeholder="t('start')" />
+      <DateTimePicker v-model="start" :placeholder="t('start')" />
     </InputField>
+
     <InputField icon-name="stop-circle">
-      <TextField v-model="end" :placeholder="t('end')" />
+      <DateTimePicker v-model="end" :placeholder="t('end')" />
     </InputField>
+
     <InputField icon-name="description">
       <TextField v-model="description" :placeholder="t('description')" />
     </InputField>
@@ -16,23 +19,23 @@
 </template>
 
 <script lang="ts">
-import { Model } from '@bookyp/core';
-import dayjs from 'dayjs';
-import { defineComponent, onMounted, ref, toRef } from 'vue';
+import { defineComponent, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import InputField from '~/components/InputField.vue';
+import DateTimePicker from '~/components/inputs/DateTimePicker.vue';
 import TextField from '~/components/TextField.vue';
 import { user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
+import useGet from '~/compositions/useGet';
 
 export default defineComponent({
   name: 'Booking',
 
-  components: { Header, IconButton, InputField, TextField },
+  components: { Header, IconButton, InputField, TextField, DateTimePicker },
 
   props: {
     bookableId: {
@@ -42,29 +45,32 @@ export default defineComponent({
   },
 
   setup(props) {
-    const bookable = ref<Model.Bookable>();
-    const bookableId = toRef(props, 'bookableId');
-    onMounted(async () => {
-      // TODO: use composition that fixes loading edge cases
-      bookable.value = await feathers.service('bookables').get(bookableId.value);
-    });
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
     const router = useRouter();
     const feathers = useFeathers();
 
-    const start = ref('');
-    const end = ref('');
+    const bookableId = toRef(props, 'bookableId');
+    const { data: bookable } = useGet('bookables', bookableId);
+
+    const start = ref<Date>(new Date());
+    const end = ref<Date>(new Date());
     const description = ref('');
 
     const submit = async () => {
+      /* istanbul ignore next */
+      if (!user.value) {
+        throw new Error('Unexpected: User should be loaded');
+      }
+
       await feathers.service('bookings').create({
-        start: dayjs(start.value).toDate(),
-        end: dayjs(end.value).toDate(),
+        start: start.value,
+        end: end.value,
         description: description.value,
         bookable: props.bookableId,
-        bookedBy: user.value?._id,
+        bookedBy: user.value._id,
       });
+
       router.back();
     };
 
