@@ -2,7 +2,7 @@
 
 exports[`InputField component should render correctly 1`] = `
 "
-<div class=\\"flex my-2\\">
+<div class=\\"flex my-2 items-center\\">
   <icon-stub data-test=\\"input-field-icon\\"
              name=\\"settings\\"
              class=\\"mr-4\\"
