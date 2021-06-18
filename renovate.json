@@ -9,6 +9,7 @@
   ],
   "gitLabAutomerge": true,
   "dependencyDashboard": true,
+  "dependencyDashboardApproval": true,
   "lockFileMaintenance": {
     "enabled": true
   },
