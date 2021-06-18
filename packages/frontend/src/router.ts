@@ -49,10 +49,23 @@ const routes: RouteRecordRaw[] = [
     props: true,
   },
   {
-    path: '/settings/space/:selectedMapObjectId?',
-    name: 'settings-space',
-    component: (): Component => import('~/views/settings/Space.vue'),
+    path: '/settings/space',
+    component: (): Component => import('./views/settings/Space.vue'),
     props: true,
+    children: [
+      {
+        path: 'map-objects/:selectedMapObjectId?',
+        name: 'settings-space-map-objects',
+        component: (): Component => import('./views/settings/space/MapObjectsEdit.vue'),
+        props: true,
+      },
+      {
+        path: 'floor-plan/:selectedFloorPlanObject?',
+        name: 'settings-space-floor-plan',
+        component: (): Component => import('./views/settings/space/FloorPlanEdit.vue'),
+        props: true,
+      },
+    ],
   },
   {
     path: '/settings/map-object/:mapObjectId',
@@ -64,12 +77,6 @@ const routes: RouteRecordRaw[] = [
     path: '/settings/map-object/:mapObjectId/link',
     name: 'settings-map-object-link',
     component: (): Component => import('./views/settings/map-object/MapObject.vue'),
-    props: true,
-  },
-  {
-    path: '/settings/space-floor-plan',
-    name: 'settings-space-floor-plan',
-    component: (): Component => import('~/views/settings/SpaceFloorPlan.vue'),
     props: true,
   },
   {

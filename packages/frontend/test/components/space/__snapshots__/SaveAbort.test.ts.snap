@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SaveAbort component should render correctly 1`] = `
+"
+<icon-button-stub data-test=\\"abort-button\\"
+                  icon=\\"cross\\"
+>
+</icon-button-stub>
+<icon-button-stub data-test=\\"save-button\\"
+                  icon=\\"cross\\"
+                  type=\\"submit\\"
+>
+</icon-button-stub>
+"
+`;

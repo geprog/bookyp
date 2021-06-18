@@ -83,7 +83,8 @@
     "vuedx",
     "windi",
     "windicss",
-    "WORKDIR"
+    "WORKDIR",
+    "happend"
   ],
   "ignorePaths": [
     "**/node_modules/**/*",
@@ -99,6 +100,7 @@
     ".vscode/extensions.json",
     "**/coverage/**/*",
     "**/*.log",
-    "**/*.svg"
+    "**/*.svg",
+    "junit.xml"
   ]
 }
