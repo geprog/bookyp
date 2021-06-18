@@ -2,6 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 import toDiffableHtml from 'diffable-html';
 import { nextTick } from 'vue';
 
+import MapObjects from '~/components/space/MapObjects.vue';
 import BookablesMap from '~/views/BookablesMap.vue';
 import { sampleMapObject, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
 import { prepareUseRouterMockOnce } from '$/__helpers__/mocks';
@@ -28,7 +29,7 @@ describe('BookablesMap view', () => {
     const wrapper = shallowMount(BookablesMap);
 
     // when
-    wrapper.getComponent('[data-test=map-objects]').vm.$emit('click-on-map-object', sampleMapObjectWithBookable);
+    wrapper.getComponent(MapObjects).vm.$emit('click-on-map-object', sampleMapObjectWithBookable);
     await nextTick();
 
     // then
@@ -45,7 +46,7 @@ describe('BookablesMap view', () => {
     const wrapper = shallowMount(BookablesMap);
 
     // when
-    wrapper.getComponent('[data-test=map-objects]').vm.$emit('click-on-map-object', sampleMapObject);
+    wrapper.getComponent(MapObjects).vm.$emit('click-on-map-object', sampleMapObject);
     await nextTick();
 
     // then
