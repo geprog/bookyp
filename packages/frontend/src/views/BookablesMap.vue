@@ -4,7 +4,7 @@
   <div class="m-4 flex flex-col flex-grow">
     <SpaceMap data-test="space-map">
       <FloorPlan />
-      <MapObjects data-test="map-objects" clickable @click-on-map-object="openCreateBooking" />
+      <MapObjects clickable @click-on-map-object="openCreateBooking" />
     </SpaceMap>
   </div>
 
