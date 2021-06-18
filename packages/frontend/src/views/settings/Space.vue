@@ -1,73 +1,51 @@
 <template>
   <Header :title="t('settings')" has-back>
-    <IconButton v-if="mode === 'viewing'" data-test="add-button" icon="table" @click="addMapObject" />
-    <IconButton v-if="mode === 'editing'" data-test="abort-button" icon="cross" @click="selectMapObject(null)" />
-    <template v-if="mode === 'creating'">
-      <IconButton data-test="abort-button" icon="cross" @click="newMapObject = null" />
-      <IconButton data-test="save-button" type="submit" icon="check-mark" @click="saveNewMapObject" />
-    </template>
-
+    <SaveAbort v-if="changed" @save="save" @abort="abort" />
     <template #second>
       <SettingsTabs />
     </template>
   </Header>
 
   <div class="m-4 flex flex-col flex-grow">
-    <SpaceMap data-test="space-map" @click-inside-svg="clickInsideFloorPlan">
-      <FloorPlan />
-      <MapObjects
-        :selected-map-object-id="selectedMapObjectId"
-        :clickable="mode === 'viewing' || mode === 'editing'"
-        @click-on-map-object="selectMapObject"
-      />
-      <NewMapObject v-if="newMapObject" :new-map-object="newMapObject" />
-    </SpaceMap>
-    <div class="mt-auto ml-auto flex flex-row">
-      <template v-if="mode === 'editing'">
-        <FloatingButton data-test="edit-button" icon="edit" class="mr-2" @click="openMapObjectSettings" />
-        <FloatingButton data-test="delete-button" icon="delete" @click="removeSelectedMapObject" />
-      </template>
-
-      <ToggleBar
-        v-if="mode === 'viewing'"
-        start-icon="table"
-        end-icon="floor-plan"
-        @selected-end="$router.replace({ name: 'settings-space-floor-plan' })"
-      />
-    </div>
+    <router-view
+      v-slot="{ Component }"
+      :selected-map-object-id="selectedMapObjectId"
+      :abort-trigger="abortTrigger"
+      :save-trigger="saveTrigger"
+      @change-happend="handleChange"
+    >
+      <component :is="Component">
+        <template #toggleBar>
+          <ToggleBar
+            v-if="!changed"
+            start-icon="table"
+            end-icon="floor-plan"
+            :selected="$route.name === 'settings-space-map-objects' ? 'start' : 'end'"
+            @selected-start="$router.replace({ name: 'settings-space-map-objects' })"
+            @selected-end="$router.replace({ name: 'settings-space-floor-plan' })"
+          />
+        </template>
+      </component>
+    </router-view>
   </div>
 </template>
 
 <script lang="ts">
-import { Model } from '@bookyp/core';
-import { computed, defineComponent, PropType, toRef } from 'vue';
+import { defineComponent, PropType, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
 
-import FloatingButton from '~/components/buttons/FloatingButton.vue';
-import IconButton from '~/components/buttons/IconButton.vue';
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import Header from '~/components/headers/Header.vue';
-import FloorPlan from '~/components/space/FloorPlan.vue';
-import MapObjects from '~/components/space/MapObjects.vue';
-import NewMapObject from '~/components/space/NewMapObject.vue';
-import SpaceMap from '~/components/space/SpaceMap.vue';
+import SaveAbort from '~/components/space/SaveAbort.vue';
 import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
-import useNewMapObject from '~/compositions/space/useNewMapObject';
-import useFeathers from '~/compositions/useFeathers';
 
 export default defineComponent({
   name: 'Space',
 
   components: {
-    FloorPlan,
-    FloatingButton,
-    IconButton,
     Header,
     SettingsTabs,
-    MapObjects,
-    NewMapObject,
-    SpaceMap,
+    SaveAbort,
     ToggleBar,
   },
 
@@ -78,82 +56,37 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
+  setup() {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
-    const feathers = useFeathers();
-    const router = useRouter();
-    const route = useRoute();
 
-    const selectedMapObjectId = toRef(props, 'selectedMapObjectId');
+    // const selectedMapObjectId = toRef(props, 'selectedMapObjectId');
 
-    const { newMapObject, addMapObject, saveNewMapObject, positionNewMapObject } = useNewMapObject();
+    const changed = ref(false);
 
-    const mode = computed<'creating' | 'editing' | 'viewing'>(() => {
-      if (newMapObject.value) {
-        return 'creating';
-      }
+    const abortTrigger = ref(false);
+    const saveTrigger = ref(false);
 
-      if (selectedMapObjectId.value) {
-        return 'editing';
-      }
-
-      return 'viewing';
-    });
-
-    function clickInsideFloorPlan(svgP: { x: number; y: number }) {
-      // skip if we are not currently in creating mode
-      if (mode.value !== 'creating') {
-        return;
-      }
-      positionNewMapObject(svgP);
+    function save() {
+      saveTrigger.value = !saveTrigger.value;
     }
 
-    async function selectMapObject(mapObject: Model.MapObject | null) {
-      // only allow selection of a mapObject if currently not in creating mode
-      if (mode.value === 'creating') {
-        return;
-      }
-
-      const params = mapObject ? { selectedMapObjectId: mapObject._id } : undefined;
-
-      /* istanbul ignore next */
-      if (!route.name) {
-        throw new Error('Unexpected: Can not detect current route');
-      }
-
-      await router.replace({ name: route.name, params });
+    function abort() {
+      abortTrigger.value = !abortTrigger.value;
     }
 
-    async function openMapObjectSettings(): Promise<void> {
-      /* istanbul ignore next */
-      if (!selectedMapObjectId.value) {
-        throw new Error('Unexpected: No map-object selected');
-      }
-
-      await router.push({ name: 'settings-map-object', params: { mapObjectId: selectedMapObjectId.value } });
-    }
-
-    async function removeSelectedMapObject(): Promise<void> {
-      /* istanbul ignore next */
-      if (!selectedMapObjectId.value) {
-        throw new Error('Unexpected: No map-object selected');
-      }
-
-      await feathers.service('mapObjects').remove(selectedMapObjectId.value);
-      await selectMapObject(null);
+    function handleChange(value: boolean) {
+      changed.value = value;
     }
 
     return {
       t,
-      mode,
-      addMapObject,
-      newMapObject,
-      clickInsideFloorPlan,
-      saveNewMapObject,
-      openMapObjectSettings,
-      selectMapObject,
-      removeSelectedMapObject,
+      changed,
+      save,
+      abort,
+      abortTrigger,
+      saveTrigger,
+      handleChange,
     };
   },
 });

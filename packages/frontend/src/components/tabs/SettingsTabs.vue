@@ -1,8 +1,8 @@
 <template>
   <div class="flex">
     <TabButton
-      :active="$route.name === 'settings-space' || $route.name === 'settings-space-floor-plan'"
-      @click="$router.replace({ name: 'settings-space' })"
+      :active="$route.name === 'settings-space-map-objects' || $route.name === 'settings-space-floor-plan'"
+      @click="$router.replace({ name: 'settings-space-map-objects' })"
     >
       <span>{{ t('space') }}</span>
     </TabButton>
