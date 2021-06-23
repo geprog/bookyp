@@ -1,5 +1,5 @@
 # This file is used for local development (devcontainer)
-FROM node:16.3.0-buster
+FROM node:14.16.0-buster
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
