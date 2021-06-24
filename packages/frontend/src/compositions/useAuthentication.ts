@@ -2,6 +2,7 @@ import { Model } from '@bookyp/core';
 import { FeathersError } from '@feathersjs/errors';
 import { computed, ref } from 'vue';
 
+import { getConfig } from '~/compositions/useAppConfig';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 
 export const user = ref<Model.User>();
@@ -53,4 +54,7 @@ export async function logout(): Promise<void> {
 
   await feathers.logout();
   user.value = undefined;
+  const auth_url = getConfig('SSO_AUTH_URL') || '';
+  const auth_logout = getConfig('SSO_AUTH_LOGOUT_ENDPOINT') || '';
+  window.location.replace(`https://${auth_url}${auth_logout}`);
 }
