@@ -20,6 +20,7 @@
     "cobertura",
     "commitlint",
     "commitlintrc",
+    "datasource",
     "datepicker",
     "Dedupe",
     "devcontainer",

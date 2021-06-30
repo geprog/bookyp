@@ -7,6 +7,18 @@
       "dependencyDashboardApproval": true
     }
   ],
+  "regexManagers": [
+    {
+      "fileMatch": [".yml$", ".yaml$"],
+      "matchStrings": ["image: registry\\.geprog\\.com/docker\\.io/(library/)?(?<depName>.*?):(?<currentValue>.*?)\n"],
+      "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": ["Dockerfile$"],
+      "matchStrings": ["FROM registry\\.geprog\\.com/docker\\.io/(library/)?(?<depName>.*?):(?<currentValue>.*?)\n"],
+      "datasourceTemplate": "docker"
+    }
+  ],
   "gitLabAutomerge": true,
   "dependencyDashboard": true,
   "dependencyDashboardApproval": true,
