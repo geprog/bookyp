@@ -1,5 +1,4 @@
 import { mount, shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 import { h } from 'vue';
 
 import Header from '~/components/headers/Header.vue';
@@ -18,7 +17,7 @@ describe('Header component', () => {
     });
 
     // then
-    expect(toDiffableHtml(header.html())).toMatchSnapshot();
+    expect(header.html()).toMatchSnapshot();
   });
 
   it('should include content for right side', () => {

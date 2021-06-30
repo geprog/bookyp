@@ -1,5 +1,4 @@
 import { mount, shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 import { h } from 'vue';
 
 import InputField from '~/components/InputField.vue';
@@ -21,7 +20,7 @@ describe('InputField component', () => {
     });
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should include content put into slot', () => {

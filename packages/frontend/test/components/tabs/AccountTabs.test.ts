@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 
 import AccountTabs from '~/components/tabs/AccountTabs.vue';
 import { prepareUseRouteMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
@@ -29,6 +28,6 @@ describe('AccountTabs component', () => {
     });
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

@@ -1,5 +1,4 @@
 import { mount, shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 
@@ -20,7 +19,7 @@ describe('SelectableListItem component', () => {
     });
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should invert selected on-click', async () => {

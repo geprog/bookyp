@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 import { nextTick } from 'vue';
 
 import BookableCreate from '~/views/settings/BookableCreate.vue';
@@ -22,7 +21,7 @@ describe('BookableCreate view', () => {
     const wrapper = shallowMount(BookableCreate);
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should create bookable', async () => {

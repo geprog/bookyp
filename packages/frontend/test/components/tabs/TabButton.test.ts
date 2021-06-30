@@ -1,5 +1,4 @@
 import { mount, shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 import { h } from 'vue';
 
 import TabButton from '~/components/tabs/TabButton.vue';
@@ -17,7 +16,7 @@ describe('TabButton component', () => {
     });
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should render correctly when not active', () => {
@@ -32,7 +31,7 @@ describe('TabButton component', () => {
     });
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should include content put into slot', () => {

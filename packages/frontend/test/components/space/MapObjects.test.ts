@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 import { nextTick } from 'vue';
 
 import MapObjects from '~/components/space/MapObjects.vue';
@@ -22,7 +21,7 @@ describe('MapObjects component', () => {
     });
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
     expect(wrapper.findAll('path')).toHaveLength(4);
     expect(wrapper.findAll('path')[0].attributes('d')).toStrictEqual(sampleMapObjects[0].paths[0]);
     expect(wrapper.findAll('path')[3].attributes('d')).toStrictEqual(sampleMapObjects[0].paths[1]);
@@ -41,7 +40,7 @@ describe('MapObjects component', () => {
     });
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
     expect(wrapper.findAll('path')).toHaveLength(4); //
     expect(wrapper.findAll('path')[0].attributes('d')).toStrictEqual(sampleMapObjects[0].paths[0]);
     expect(wrapper.findAll('path')[3].attributes('d')).toStrictEqual(sampleMapObjects[0].paths[1]);
@@ -61,7 +60,7 @@ describe('MapObjects component', () => {
     });
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
     expect(wrapper.findAll('path')).toHaveLength(4); //
     expect(wrapper.findAll('path')[0].attributes('d')).toStrictEqual(sampleMapObjects[0].paths[0]);
     expect(wrapper.findAll('path')[3].attributes('d')).toStrictEqual(sampleMapObjects[0].paths[1]);

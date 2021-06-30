@@ -1,49 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BookableForm component Template should render correctly 1`] = `
-"
-<form id=\\"bookable\\"
-      data-test=\\"form\\"
-      class=\\"bookable mx-4\\"
->
+"<form id=\\"bookable\\" data-test=\\"form\\" class=\\"bookable mx-4\\">
   <div icon-name=\\"edit\\">
-    <text-field-stub modelvalue=\\"Couch\\"
-                     data-test=\\"form-name\\"
-                     placeholder=\\"Mock translation\\"
-    >
-    </text-field-stub>
+    <text-field-stub modelvalue=\\"Couch\\" placeholder=\\"Mock translation\\" data-test=\\"form-name\\"></text-field-stub>
   </div>
   <div icon-name=\\"description\\">
-    <text-field-stub modelvalue=\\"Couch\\"
-                     data-test=\\"form-description\\"
-                     placeholder=\\"Mock translation\\"
-    >
-    </text-field-stub>
+    <text-field-stub modelvalue=\\"Super long description\\" placeholder=\\"Mock translation\\" data-test=\\"form-description\\"></text-field-stub>
   </div>
-</form>
-"
+</form>"
 `;
 
 exports[`BookableForm component Template should render correctly with new bookable 1`] = `
-"
-<form id=\\"bookable\\"
-      data-test=\\"form\\"
-      class=\\"bookable mx-4\\"
->
+"<form id=\\"bookable\\" data-test=\\"form\\" class=\\"bookable mx-4\\">
   <div icon-name=\\"edit\\">
-    <text-field-stub modelvalue
-                     data-test=\\"form-name\\"
-                     placeholder=\\"Mock translation\\"
-    >
-    </text-field-stub>
+    <text-field-stub modelvalue=\\"\\" placeholder=\\"Mock translation\\" data-test=\\"form-name\\"></text-field-stub>
   </div>
   <div icon-name=\\"description\\">
-    <text-field-stub modelvalue
-                     data-test=\\"form-description\\"
-                     placeholder=\\"Mock translation\\"
-    >
-    </text-field-stub>
+    <text-field-stub modelvalue=\\"\\" placeholder=\\"Mock translation\\" data-test=\\"form-description\\"></text-field-stub>
   </div>
-</form>
-"
+</form>"
 `;

@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 
 import FloorPlan from '~/components/space/FloorPlan.vue';
 import { sampleFloorPlan } from '$/__fixtures__/floorPlan';
@@ -25,6 +24,6 @@ describe('FloorPlan component', () => {
     // then
     expect(wrapper.findAll('path')[0].attributes('d')).toStrictEqual(sampleFloorPlan[0]);
     expect(wrapper.findAll('path')[1].attributes('d')).toStrictEqual(sampleFloorPlan[1]);
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

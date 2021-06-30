@@ -1,23 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BookablesMap view should render correctly 1`] = `
-"
-<home-header-stub>
-</home-header-stub>
+"<home-header-stub></home-header-stub>
 <div class=\\"m-4 flex flex-col flex-grow\\">
   <space-map-stub data-test=\\"space-map\\">
-    <floor-plan-stub>
-    </floor-plan-stub>
-    <map-objects-stub clickable>
-    </map-objects-stub>
+    <floor-plan-stub></floor-plan-stub>
+    <map-objects-stub clickable=\\"true\\"></map-objects-stub>
   </space-map-stub>
 </div>
-<toggle-bar-stub class=\\"absolute bottom-5 right-5\\"
-                 selected=\\"start\\"
-                 data-test=\\"toggle-bar\\"
-                 start-icon=\\"map\\"
-                 end-icon=\\"list\\"
->
-</toggle-bar-stub>
-"
+<toggle-bar-stub selected=\\"start\\" starticon=\\"map\\" endicon=\\"list\\" class=\\"absolute bottom-5 right-5\\" data-test=\\"toggle-bar\\"></toggle-bar-stub>"
 `;

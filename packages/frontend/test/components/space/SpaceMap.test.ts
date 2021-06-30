@@ -1,5 +1,4 @@
 import { DOMWrapper, shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 import { mocked } from 'ts-jest/utils';
 import { nextTick } from 'vue';
 
@@ -27,7 +26,7 @@ describe('SpaceMap component', () => {
     const wrapper = shallowMount(SpaceMap, {});
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should emit position', async () => {

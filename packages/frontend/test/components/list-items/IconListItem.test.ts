@@ -1,5 +1,4 @@
 import { mount, shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 
 import IconListItem from '~/components/list-items/IconListItem.vue';
 
@@ -20,7 +19,7 @@ describe('IconListItem component', () => {
     });
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should have an icon', () => {
