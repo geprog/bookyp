@@ -1,5 +1,4 @@
 import { mount, shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 
 import BookingItem from '~/components/list-items/BookingItem.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
@@ -21,7 +20,7 @@ describe('BookingItem component', () => {
     });
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should display a label', () => {

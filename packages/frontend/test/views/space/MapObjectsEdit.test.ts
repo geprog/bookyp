@@ -1,6 +1,5 @@
 import { Model } from '@bookyp/core';
 import { config, shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 import { mocked } from 'ts-jest/utils';
 import { nextTick, ref } from 'vue';
 
@@ -61,7 +60,7 @@ describe('MapObjectsEdit component', () => {
       },
     });
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   describe('"viewing" mode', () => {

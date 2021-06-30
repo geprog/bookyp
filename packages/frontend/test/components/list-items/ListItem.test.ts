@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 
 import ListItem from '~/components/list-items/ListItem.vue';
 
@@ -20,7 +19,7 @@ describe('ListItem component', () => {
     });
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   describe('Title', () => {

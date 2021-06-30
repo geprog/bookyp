@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 
 import SaveAbort from '~/components/space/SaveAbort.vue';
 
@@ -10,7 +9,7 @@ describe('SaveAbort component', () => {
     // when
     const wrapper = shallowMount(SaveAbort, {});
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
   it('should emit save when click on save button', async () => {
     expect.hasAssertions();

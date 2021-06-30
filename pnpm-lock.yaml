@@ -152,11 +152,10 @@ importers:
       '@types/lodash': 4.14.170
       '@vitejs/plugin-vue': 1.1.5
       '@vue/compiler-sfc': 3.0.11
-      '@vue/test-utils': 2.0.0-rc.6
+      '@vue/test-utils': 2.0.0-rc.9
       autoprefixer: 10.2.5
       babel-jest: 26.6.3
       dayjs: 1.10.4
-      diffable-html: anbraten/diffable-html#built
       eslint: 7.28.0
       jest: 26.6.3
       jest-junit: 12.2.0
@@ -200,10 +199,9 @@ importers:
       '@types/jest': 26.0.20
       '@vitejs/plugin-vue': 1.1.5_@vue+compiler-sfc@3.0.11
       '@vue/compiler-sfc': 3.0.11_vue@3.0.11
-      '@vue/test-utils': 2.0.0-rc.6_vue@3.0.11
+      '@vue/test-utils': 2.0.0-rc.9_vue@3.0.11
       autoprefixer: 10.2.5
       babel-jest: 26.6.3_@babel+core@7.13.10
-      diffable-html: github.com/anbraten/diffable-html/23e46c8f58d57ee843e49d263e2b4eb437be1037
       eslint: 7.28.0
       jest: 26.6.3
       jest-junit: 12.2.0
@@ -6291,8 +6289,8 @@ packages:
   /@vue/shared/3.0.11:
     resolution: {integrity: sha512-b+zB8A2so8eCE0JsxjL24J7vdGl8rzPQ09hZNhystm+KqSbKcAej1A+Hbva1rCMmTTqA+hFnUSDc5kouEo0JzA==}
 
-  /@vue/test-utils/2.0.0-rc.6_vue@3.0.11:
-    resolution: {integrity: sha512-0cnQBVH589PwgqWpyv1fgCAz+9Ram/MsvN3ZEAEVXi1aPuhUa22EudGc0WezQ9PKwR+L40NrBmt3JBXE2tSRRQ==}
+  /@vue/test-utils/2.0.0-rc.9_vue@3.0.11:
+    resolution: {integrity: sha512-iJNAAfXTTSd2/5vUZpFbUwUwC8w3hbFu8s9ptKkZGsiw6pO6mFsaLs2rzI3Ea/8hwqcF3K7Wp2diKOdzqmb6qg==}
     peerDependencies:
       vue: ^3.0.1
     dependencies:
@@ -19213,14 +19211,6 @@ packages:
       '@feathersjs/errors': 5.0.0-pre.4
       mongoose: github.com/raphaelschwinger/mongoose/a1f74a70b8b72769b274857e52331d25001492b4
     dev: false
-
-  github.com/anbraten/diffable-html/23e46c8f58d57ee843e49d263e2b4eb437be1037:
-    resolution: {tarball: https://codeload.github.com/anbraten/diffable-html/tar.gz/23e46c8f58d57ee843e49d263e2b4eb437be1037}
-    name: diffable-html
-    version: 4.0.0
-    dependencies:
-      htmlparser2: 3.10.1
-    dev: true
 
   github.com/raphaelschwinger/mongoose/a1f74a70b8b72769b274857e52331d25001492b4:
     resolution: {tarball: https://codeload.github.com/raphaelschwinger/mongoose/tar.gz/a1f74a70b8b72769b274857e52331d25001492b4}

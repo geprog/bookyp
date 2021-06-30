@@ -1,57 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Bookings component should render correctly 1`] = `
-"
-<header-stub title=\\"Mock translation\\"
-             has-back
->
-</header-stub>
+"<header-stub title=\\"Mock translation\\" hasback=\\"true\\"></header-stub>
 <div class=\\"mt-4\\">
   <div class=\\"w-full max-w-2xl mx-auto\\">
-    <p data-test=\\"groupByDates\\"
-       class=\\"ml-2\\"
-    >
-      <span class=\\"font-bold\\">
-        9 Aug.
-      </span>
+    <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">9 Aug.</span>
+      <!--v-if-->
+      <!--v-if-->
     </p>
-    <router-link-stub to=\\"[object Object]\\">
-      <booking-item-stub booking=\\"[object Object]\\"
-                         class=\\"m-3\\"
-      >
-      </booking-item-stub>
+    <router-link-stub to=\\"[object Object]\\" replace=\\"false\\" custom=\\"false\\" ariacurrentvalue=\\"page\\">
+      <booking-item-stub booking=\\"[object Object]\\" class=\\"m-3\\"></booking-item-stub>
     </router-link-stub>
   </div>
   <div class=\\"w-full max-w-2xl mx-auto\\">
-    <p data-test=\\"groupByDates\\"
-       class=\\"ml-2\\"
-    >
-      <span class=\\"font-bold\\">
-        17 Dec.
-      </span>
+    <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">17 Dec.</span>
+      <!--v-if-->
+      <!--v-if-->
     </p>
-    <router-link-stub to=\\"[object Object]\\">
-      <booking-item-stub booking=\\"[object Object]\\"
-                         class=\\"m-3\\"
-      >
-      </booking-item-stub>
+    <router-link-stub to=\\"[object Object]\\" replace=\\"false\\" custom=\\"false\\" ariacurrentvalue=\\"page\\">
+      <booking-item-stub booking=\\"[object Object]\\" class=\\"m-3\\"></booking-item-stub>
     </router-link-stub>
   </div>
   <div class=\\"w-full max-w-2xl mx-auto\\">
-    <p data-test=\\"groupByDates\\"
-       class=\\"ml-2\\"
-    >
-      <span class=\\"font-bold\\">
-        18 Dec.
-      </span>
+    <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">18 Dec.</span>
+      <!--v-if-->
+      <!--v-if-->
     </p>
-    <router-link-stub to=\\"[object Object]\\">
-      <booking-item-stub booking=\\"[object Object]\\"
-                         class=\\"m-3\\"
-      >
-      </booking-item-stub>
+    <router-link-stub to=\\"[object Object]\\" replace=\\"false\\" custom=\\"false\\" ariacurrentvalue=\\"page\\">
+      <booking-item-stub booking=\\"[object Object]\\" class=\\"m-3\\"></booking-item-stub>
     </router-link-stub>
   </div>
-</div>
-"
+</div>"
 `;

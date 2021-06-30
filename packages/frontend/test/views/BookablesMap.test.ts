@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 import { nextTick } from 'vue';
 
 import MapObjects from '~/components/space/MapObjects.vue';
@@ -19,7 +18,7 @@ describe('BookablesMap view', () => {
     const wrapper = shallowMount(BookablesMap);
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should open booking-create view when clicked on mapObject', async () => {

@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 import { nextTick } from 'vue';
 
 import icons from '~/assets/icons';
@@ -37,7 +36,7 @@ describe('Icon component', () => {
     });
 
     // then
-    expect(toDiffableHtml(icon.html())).toMatchSnapshot();
+    expect(icon.html()).toMatchSnapshot();
   });
 
   it('should use specified icon', () => {

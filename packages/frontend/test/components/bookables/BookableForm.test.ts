@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 
 import BookableForm from '~/components/bookables/BookableForm.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
@@ -25,7 +24,7 @@ describe('BookableForm component', () => {
       });
 
       // then
-      expect(toDiffableHtml(bookableForm.html())).toMatchSnapshot();
+      expect(bookableForm.html()).toMatchSnapshot();
     });
 
     it('should render correctly with new bookable', () => {
@@ -47,7 +46,7 @@ describe('BookableForm component', () => {
       });
 
       // then
-      expect(toDiffableHtml(bookableForm.html())).toMatchSnapshot();
+      expect(bookableForm.html()).toMatchSnapshot();
     });
   });
 

@@ -1,16 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FloorPlan component should render correctly 1`] = `
-"
-<path d=\\"M288 325H30.2315V226.738H1V1H288V325Z\\"
-      class=\\"stroke-black\\"
-      stroke-width=\\"2\\"
->
-</path>
-<path d=\\"M1 1.96375V44.2787H43.5143C43.4181 20.8928 24.4229 1.96428 1 1.96375Z\\"
-      class=\\"stroke-black\\"
-      stroke-width=\\"2\\"
->
-</path>
-"
+"<path d=\\"M288 325H30.2315V226.738H1V1H288V325Z\\" class=\\"stroke-black\\" stroke-width=\\"2\\"></path>
+<path d=\\"M1 1.96375V44.2787H43.5143C43.4181 20.8928 24.4229 1.96428 1 1.96375Z\\" class=\\"stroke-black\\" stroke-width=\\"2\\"></path>"
 `;

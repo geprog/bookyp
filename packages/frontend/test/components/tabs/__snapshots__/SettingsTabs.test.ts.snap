@@ -1,12 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SettingsTabs component should render correctly when active 1`] = `
-"
-<div class=\\"flex\\">
-  <div active=\\"false\\">
-  </div>
-  <div active=\\"false\\">
-  </div>
-</div>
-"
+"<div class=\\"flex\\">
+  <div active=\\"false\\"></div>
+  <div active=\\"false\\"></div>
+</div>"
 `;

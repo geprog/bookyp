@@ -1,19 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header component should render correctly 1`] = `
-"
-<header class=\\"border-b-1 shadow-md flex flex-col\\">
+"<header class=\\"border-b-1 shadow-md flex flex-col\\">
   <div class=\\"flex items-center p-4 content-center\\">
-    <icon-button-stub data-test=\\"back-button\\"
-                      icon=\\"arrow-left\\"
-    >
-    </icon-button-stub>
-    <h1 class=\\"ml-4 mr-auto text-lg font-medium\\">
-      Home
-    </h1>
-    <div class=\\"flex space-x-2\\">
-    </div>
+    <icon-button-stub icon=\\"arrow-left\\" iconcolor=\\"\\" disabled=\\"false\\" data-test=\\"back-button\\"></icon-button-stub>
+    <h1 class=\\"ml-4 mr-auto text-lg font-medium\\">Home</h1>
+    <div class=\\"flex space-x-2\\"></div>
   </div>
-</header>
-"
+</header>"
 `;

@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 
 import Bookings from '~/views/account/Bookings.vue';
 import { sampleBookings } from '$/__fixtures__/booking';
@@ -23,7 +22,7 @@ describe('Bookings component', () => {
     const wrapper = shallowMount(Bookings);
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should group bookings in multiple groups', () => {

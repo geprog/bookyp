@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 import { nextTick } from 'vue';
 
 import Bookable from '~/views/settings/Bookable.vue';
@@ -28,7 +27,7 @@ describe('Bookable view', () => {
     });
 
     // then
-    expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should pass the bookable to BookableForm', () => {

@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import toDiffableHtml from 'diffable-html';
 import { nextTick } from 'vue';
 
 import MapObject from '~/views/settings/map-object/MapObject.vue';
@@ -43,7 +42,7 @@ describe('MapObject view', () => {
       });
 
       // then
-      expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+      expect(wrapper.html()).toMatchSnapshot();
     });
 
     it('should render correctly when selecting bookable', () => {
@@ -68,7 +67,7 @@ describe('MapObject view', () => {
       });
 
       // then
-      expect(toDiffableHtml(wrapper.html())).toMatchSnapshot();
+      expect(wrapper.html()).toMatchSnapshot();
     });
   });
 
