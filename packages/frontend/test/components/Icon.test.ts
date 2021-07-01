@@ -31,7 +31,7 @@ describe('Icon component', () => {
     const icon = mount(Icon, {
       props: {
         name: iconName,
-        color: color,
+        color,
       },
     });
 

@@ -20,5 +20,5 @@ export const createApplication = jest.fn().mockImplementation(() => ({
  *  the other ones are just needed for type checking and are not needed in tests
  */
 export const Model = {
-  MapObjectTypes: MapObjectTypes,
+  MapObjectTypes,
 };

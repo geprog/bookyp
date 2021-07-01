@@ -54,7 +54,7 @@ describe('SelectableListItem component', () => {
         },
       });
 
-      //then
+      // then
       expect(wrapper.findComponent('[data-test=icon]').props('name')).toBe('radio-checked');
     });
 

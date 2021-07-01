@@ -1,5 +1,4 @@
 /* eslint-env node */
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const vueJest = require('vue-jest');
 
 /**
@@ -12,7 +11,6 @@ module.exports = {
     const code = `<template>${content.replace('\n', '')}</template>`;
     return vueJest.process(code, filename, config);
   },
-  getCacheKey: (fileData, filename, configString, options) => {
-    return vueJest.getCacheKey(fileData, filename, configString, options);
-  },
+  getCacheKey: (fileData, filename, configString, options) =>
+    vueJest.getCacheKey(fileData, filename, configString, options),
 };

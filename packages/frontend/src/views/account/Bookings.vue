@@ -60,12 +60,12 @@ export default defineComponent({
     }));
     const { data: bookings } = useFind('bookings', bookingsQuery);
 
-    const groupedBookings = computed(() => {
-      return groupBy(bookings.value, (booking: Model.Booking) => {
+    const groupedBookings = computed(() =>
+      groupBy(bookings.value, (booking: Model.Booking) => {
         const dayDate: string = dayjs(booking.start).format('DD/MM/YYYY');
         return dayDate;
-      });
-    });
+      }),
+    );
 
     return { t, groupedBookings, dayjs };
   },

@@ -12,9 +12,9 @@ describe('ListItem component', () => {
     // when
     const wrapper = shallowMount(ListItem, {
       props: {
-        label: label,
-        statusColor: statusColor,
-        description: description,
+        label,
+        statusColor,
+        description,
       },
     });
 
@@ -24,42 +24,42 @@ describe('ListItem component', () => {
 
   describe('Title', () => {
     it('should not have a title', () => {
-      //when
+      // when
       const wrapper = shallowMount(ListItem);
 
-      //then
+      // then
       expect(wrapper.find('[data-test="label"]').exists()).toBeFalsy();
     });
 
     it('should have a title', () => {
-      //given
+      // given
       const labelValue = 'label works!';
 
-      //when
+      // when
       const wrapper = shallowMount(ListItem, {
         props: {
           label: labelValue,
         },
       });
 
-      //then
+      // then
       expect(wrapper.find('[data-test="label"]').element.innerHTML).toBe(labelValue);
     });
   });
 
   describe('Status-color', () => {
     it('should have a status color', () => {
-      //given
+      // given
       const statusColor = 'ColorClass!';
 
-      //when
+      // when
       const wrapper = shallowMount(ListItem, {
         props: {
-          statusColor: statusColor,
+          statusColor,
         },
       });
 
-      //then
+      // then
       const classCheck = wrapper.element.children.item(0)?.classList;
       expect(classCheck?.contains(statusColor)).toBe(true);
     });
@@ -67,25 +67,25 @@ describe('ListItem component', () => {
 
   describe('Description', () => {
     it('should not have a description', () => {
-      //when
+      // when
       const wrapper = shallowMount(ListItem);
 
-      //then
+      // then
       expect(wrapper.find('[data-test="description"]').exists()).toBeFalsy();
     });
 
     it('should have a description', () => {
-      //given
+      // given
       const description = 'description works!';
 
-      //when
+      // when
       const wrapper = shallowMount(ListItem, {
         props: {
-          description: description,
+          description,
         },
       });
 
-      //then
+      // then
       expect(wrapper.find('[data-test="description"]').element.innerHTML).toBe(description);
     });
   });
