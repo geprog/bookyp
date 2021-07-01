@@ -11,7 +11,7 @@ describe('Header component', () => {
     // when
     const header = shallowMount(Header, {
       props: {
-        title: title,
+        title,
         hasBack: true,
       },
     });

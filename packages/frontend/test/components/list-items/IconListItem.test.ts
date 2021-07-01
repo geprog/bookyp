@@ -23,17 +23,17 @@ describe('IconListItem component', () => {
   });
 
   it('should have an icon', () => {
-    //given
+    // given
     const icon = 'add';
 
-    //when
+    // when
     const wrapper = mount(IconListItem, {
       props: {
         icon,
       },
     });
 
-    //then
+    // then
     expect(wrapper.findComponent('[data-test=icon]').props('name')).toBe(icon);
   });
 });

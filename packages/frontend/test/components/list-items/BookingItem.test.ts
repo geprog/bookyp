@@ -24,32 +24,32 @@ describe('BookingItem component', () => {
   });
 
   it('should display a label', () => {
-    //given
+    // given
     prepareUseGetMockOnce(sampleBookable);
 
-    //when
+    // when
     const wrapper = mount(BookingItem, {
       props: {
         booking: sampleBooking,
       },
     });
 
-    //then
+    // then
     expect(wrapper.find('[data-test="label"]').element.innerHTML).toBe(sampleBookable.name);
   });
 
   it('should display a hours', () => {
-    //given
+    // given
     prepareUseGetMockOnce(sampleBookable);
 
-    //when
+    // when
     const wrapper = mount(BookingItem, {
       props: {
         booking: sampleBooking,
       },
     });
 
-    //then
+    // then
     expect(wrapper.find('[data-test="description"]').element.textContent).toMatchSnapshot();
   });
 });
