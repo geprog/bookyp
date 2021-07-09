@@ -20,6 +20,11 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ''
 
+keycloak:
+    subdomain: 'auth.geprog.com/auth/realms/bookyp'
+    client: 'bookyp'
+    secret: ''
+
 gitlab:
   app: ''
   env: ''
@@ -70,11 +75,6 @@ backend:
     name: ''
     username: ''
     password: ''
-
-  keycloak:
-    subdomain: 'auth.geprog.com/auth/realms/bookyp'
-    client: 'bookyp'
-    secret: ''
 
   podAnnotations: {}
   deploymentAnnotations: {}

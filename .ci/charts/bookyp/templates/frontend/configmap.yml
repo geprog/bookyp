@@ -6,3 +6,5 @@ metadata:
     {{- include "bookyp.labels" . | nindent 4 }}
 data:
   FRONTEND_BACKEND_URL: "https://{{ include "bookyp.backendURL" . }}"
+  BACKEND_KEYCLOAK_SUBDOMAIN: {{ .Values.keycloak.subdomain | quote }}
+  BACKEND_KEYCLOAK_LOGOUT_ENDPOINT: {{ .Values.keycloak.logoutEndpoint }}
