@@ -1,7 +1,7 @@
 <template>
   <HomeHeader />
 
-  <div class="m-4 flex flex-col flex-grow">
+  <div class="m-4 flex flex-col flex-grow min-h-0">
     <SpaceMap data-test="space-map">
       <FloorPlan />
       <MapObjects clickable @click-on-map-object="openCreateBooking" />

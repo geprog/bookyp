@@ -22,9 +22,10 @@
 
 <script lang="ts">
 import { Model } from '@bookyp/core';
-import { defineComponent, toRef } from 'vue';
+import { computed, defineComponent, toRef } from 'vue';
 
 import getMapObjects from '~/compositions/space/useMapObjects';
+import { Path, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 
 export default defineComponent({
   name: 'MapObjects',
@@ -56,6 +57,17 @@ export default defineComponent({
       context.emit('clickOnMapObject', mapObject);
     }
 
+    const mapObjectPaths = computed(() =>
+      mapObjects.value.reduce<Path[]>((allPaths, mapObject) => {
+        const paths = mapObject.paths.map((path) => ({
+          x: mapObject.xPos,
+          y: mapObject.yPos,
+          d: path,
+        }));
+        return [...allPaths, ...paths];
+      }, []),
+    );
+    useAndRegisterViewBox('MapObjects', mapObjectPaths, { strokeWidth: 1 });
     return { mapObjects, clickOnMapObject };
   },
 });

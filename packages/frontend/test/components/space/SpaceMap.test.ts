@@ -1,8 +1,10 @@
 import { DOMWrapper, shallowMount } from '@vue/test-utils';
 import { mocked } from 'ts-jest/utils';
-import { nextTick } from 'vue';
+import { h, inject, nextTick, ref } from 'vue';
 
 import SpaceMap from '~/components/space/SpaceMap.vue';
+import { ViewBox } from '~/compositions/space/useViewBox';
+import { SpaceMapKey } from '~/symbols/space-map';
 import { mockSvg } from '$/__helpers__/svg';
 
 function prepareCreateSVGPointOnce(wrapper: { find: (arg0: string) => DOMWrapper<Element> }) {
@@ -23,7 +25,7 @@ describe('SpaceMap component', () => {
     // given
 
     // when
-    const wrapper = shallowMount(SpaceMap, {});
+    const wrapper = shallowMount(SpaceMap);
 
     // then
     expect(wrapper.html()).toMatchSnapshot();
@@ -32,7 +34,7 @@ describe('SpaceMap component', () => {
   it('should emit position', async () => {
     expect.assertions(3);
     // given
-    const wrapper = shallowMount(SpaceMap, {});
+    const wrapper = shallowMount(SpaceMap);
     const { svg, position } = prepareCreateSVGPointOnce(wrapper);
 
     // when
@@ -48,7 +50,7 @@ describe('SpaceMap component', () => {
   it('should emit position when moving the mouse', async () => {
     expect.assertions(3);
     // given
-    const wrapper = shallowMount(SpaceMap, {});
+    const wrapper = shallowMount(SpaceMap);
     const { svg, position } = prepareCreateSVGPointOnce(wrapper);
 
     // when
@@ -64,7 +66,7 @@ describe('SpaceMap component', () => {
   it('should emit position when mouseup', async () => {
     expect.assertions(3);
     // given
-    const wrapper = shallowMount(SpaceMap, {});
+    const wrapper = shallowMount(SpaceMap);
     const { svg, position } = prepareCreateSVGPointOnce(wrapper);
 
     // when
@@ -80,7 +82,7 @@ describe('SpaceMap component', () => {
   it('should emit position when mousedown', async () => {
     expect.assertions(3);
     // given
-    const wrapper = shallowMount(SpaceMap, {});
+    const wrapper = shallowMount(SpaceMap);
     const { svg, position } = prepareCreateSVGPointOnce(wrapper);
     // when
     await svg.trigger('mousedown', { clientX: 0, clientY: 0 });
@@ -95,7 +97,7 @@ describe('SpaceMap component', () => {
   it('should emit position when touchstart', async () => {
     expect.assertions(3);
     // given
-    const wrapper = shallowMount(SpaceMap, {});
+    const wrapper = shallowMount(SpaceMap);
     const { svg, position } = prepareCreateSVGPointOnce(wrapper);
 
     // when
@@ -111,7 +113,7 @@ describe('SpaceMap component', () => {
   it('should emit position when touchend', async () => {
     expect.assertions(3);
     // given
-    const wrapper = shallowMount(SpaceMap, {});
+    const wrapper = shallowMount(SpaceMap);
     const { svg, position } = prepareCreateSVGPointOnce(wrapper);
 
     // when
@@ -127,7 +129,7 @@ describe('SpaceMap component', () => {
   it('should emit position when touchmove', async () => {
     expect.assertions(3);
     // given
-    const wrapper = shallowMount(SpaceMap, {});
+    const wrapper = shallowMount(SpaceMap);
     const { svg, position } = prepareCreateSVGPointOnce(wrapper);
 
     // when
@@ -138,5 +140,67 @@ describe('SpaceMap component', () => {
     expect(wrapper.emitted('moveInsideSvg')).toBeTruthy();
     expect(wrapper.emitted('moveInsideSvg')).toHaveLength(1);
     expect(wrapper.emitted('moveInsideSvg')?.[0]).toStrictEqual([position]);
+  });
+
+  describe('ViewBox handling', () => {
+    it('should resize the SVG view-box based on view-boxes injected by child components', async () => {
+      expect.assertions(1);
+      // given
+      const viewBox: ViewBox = { x: 10, y: 20, width: 50, height: 100 };
+      const childComponent = {
+        // eslint-disable-next-line @intlify/vue-i18n/no-raw-text
+        template: '<p>Horst</p>',
+
+        setup() {
+          const spaceMap = inject(SpaceMapKey);
+          spaceMap?.registerViewBox('ViewBoxTestComponent', ref(viewBox));
+        },
+      };
+
+      // when
+      const wrapper = shallowMount(SpaceMap, {
+        slots: {
+          default: h(childComponent),
+        },
+      });
+      await nextTick();
+
+      // then
+      expect(wrapper.find('[data-test=space-map]').attributes('viewBox')).toStrictEqual(
+        `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`,
+      );
+    });
+
+    it('should update view-box when a child component updates its view box', async () => {
+      expect.assertions(1);
+      // given
+      const viewBox: ViewBox = { x: 10, y: 20, width: 50, height: 100 };
+      const viewBoxRef = ref(viewBox);
+      const childComponent = {
+        // eslint-disable-next-line @intlify/vue-i18n/no-raw-text
+        template: '<p>Horst</p>',
+
+        setup() {
+          const spaceMap = inject(SpaceMapKey);
+          spaceMap?.registerViewBox('ViewBoxTestComponent', viewBoxRef);
+        },
+      };
+      const wrapper = shallowMount(SpaceMap, {
+        slots: {
+          default: h(childComponent),
+        },
+      });
+      await nextTick();
+
+      // when
+      viewBoxRef.value.x = 100;
+      await nextTick();
+
+      // then
+      const currentViewBox = viewBoxRef.value;
+      expect(wrapper.find('[data-test=space-map]').attributes('viewBox')).toStrictEqual(
+        `${currentViewBox.x} ${currentViewBox.y} ${currentViewBox.width} ${currentViewBox.height}`,
+      );
+    });
   });
 });

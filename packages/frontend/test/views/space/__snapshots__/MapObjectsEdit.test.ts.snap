@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MapObjectsEdit component should render correctly 1`] = `
-"<div class=\\"m-4 flex flex-col flex-grow\\">
+"<div class=\\"m-4 flex flex-col flex-grow min-h-0\\">
   <space-map-stub data-test=\\"space-map\\">
     <floor-plan-stub></floor-plan-stub>
     <map-objects-stub clickable=\\"true\\"></map-objects-stub>

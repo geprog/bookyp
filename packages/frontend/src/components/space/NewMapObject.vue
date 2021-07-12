@@ -11,7 +11,9 @@
 
 <script lang="ts">
 import { Model } from '@bookyp/core';
-import { defineComponent, PropType } from 'vue';
+import { computed, defineComponent, PropType } from 'vue';
+
+import { Path, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 
 export default defineComponent({
   name: 'NewMapObject',
@@ -20,6 +22,20 @@ export default defineComponent({
       type: Object as PropType<Omit<Model.MapObject, '_id'>>,
       required: true,
     },
+  },
+
+  setup(props) {
+    const mapObjectPaths = computed(() => {
+      const mapObject = props.newMapObject;
+      const paths = mapObject.paths.map<Path>((path) => ({
+        x: mapObject.xPos,
+        y: mapObject.yPos,
+        d: path,
+      }));
+      return paths;
+    });
+
+    useAndRegisterViewBox('NewMapObject', mapObjectPaths, { strokeWidth: 1 });
   },
 });
 </script>

@@ -150,6 +150,7 @@ importers:
       '@rollup/plugin-replace': 2.4.2
       '@types/jest': 26.0.20
       '@types/lodash': 4.14.170
+      '@types/svg-path-bbox': 0.2.0
       '@vitejs/plugin-vue': 1.1.5
       '@vue/compiler-sfc': 3.0.11
       '@vue/test-utils': 2.0.0-rc.9
@@ -161,6 +162,7 @@ importers:
       jest-junit: 12.2.0
       lodash: 4.17.21
       socket.io-client: 4.1.2
+      svg-path-bbox: 0.2.0
       ts-jest: 26.5.6
       typescript: 4.2.4
       typescript-transform-paths: 2.2.4
@@ -186,6 +188,7 @@ importers:
       dayjs: 1.10.5
       lodash: 4.17.21
       socket.io-client: 4.1.2
+      svg-path-bbox: 0.2.0
       v-calendar: 3.0.0-alpha.4_vue@3.0.11
       vue: 3.0.11
       vue-i18n: 9.1.6_vue@3.0.11
@@ -197,6 +200,7 @@ importers:
       '@jest/types': 26.6.2
       '@rollup/plugin-replace': 2.4.2
       '@types/jest': 26.0.20
+      '@types/svg-path-bbox': 0.2.0
       '@vitejs/plugin-vue': 1.1.5_@vue+compiler-sfc@3.0.11
       '@vue/compiler-sfc': 3.0.11_vue@3.0.11
       '@vue/test-utils': 2.0.0-rc.9_vue@3.0.11
@@ -5856,6 +5860,10 @@ packages:
 
   /@types/strip-json-comments/0.0.30:
     resolution: {integrity: sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==}
+    dev: true
+
+  /@types/svg-path-bbox/0.2.0:
+    resolution: {integrity: sha512-Axp5OYoaZg506CXAvMUBBfagim+zZVJumR7VEfN2YfaLGoPREoTC5ORSBFQnDkQTCUPqSarqXRxrDrK5T3+/tg==}
     dev: true
 
   /@types/tapable/1.0.6:
@@ -17106,6 +17114,14 @@ packages:
     dev: true
     optional: true
 
+  /svg-path-bbox/0.2.0:
+    resolution: {integrity: sha512-ZW33BQS+XDkwNQ3z1XMTDceNhaiu3s+GUpuVbavgTHS8epw24OtmMorLXpG6q6S4imxhg1ZpCQ7nLwSPqUuMEg==}
+    engines: {node: '>=6.17.1'}
+    hasBin: true
+    dependencies:
+      svgpath: 2.3.1
+    dev: false
+
   /svgo/2.3.0:
     resolution: {integrity: sha512-fz4IKjNO6HDPgIQxu4IxwtubtbSfGEAJUq/IXyTPIkGhWck/faiiwfkvsB8LnBkKLvSoyNNIY6d13lZprJMc9Q==}
     engines: {node: '>=10.13.0'}
@@ -17119,6 +17135,10 @@ packages:
       csso: 4.2.0
       stable: 0.1.8
     dev: true
+
+  /svgpath/2.3.1:
+    resolution: {integrity: sha512-wNz6lCoj+99GMoyU7SozTfPqiLHz6WcJYZ30Z+F4lF/gPtxWHBCpZ4DhoDI0+oZ0dObKyYsJdSPGbL2mJq/qCg==}
+    dev: false
 
   /symbol-tree/3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}

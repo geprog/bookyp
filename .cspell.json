@@ -84,7 +84,8 @@
     "windi",
     "windicss",
     "WORKDIR",
-    "happend"
+    "happend",
+    "Bbox"
   ],
   "ignorePaths": [
     "**/node_modules/**/*",
