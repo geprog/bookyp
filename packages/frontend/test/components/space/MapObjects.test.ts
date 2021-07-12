@@ -1,11 +1,24 @@
 import { shallowMount } from '@vue/test-utils';
-import { nextTick } from 'vue';
+import { nextTick, ref } from 'vue';
 
 import MapObjects from '~/components/space/MapObjects.vue';
+import useViewBox, { Path } from '~/compositions/space/useViewBox';
+import { SpaceMapKey } from '~/symbols/space-map';
 import { sampleMapObjects } from '$/__fixtures__/mapObject';
 import { prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFind');
+
+const SpaceMapMock = {
+  registerViewBox: jest.fn(),
+  unregisterViewBox: jest.fn(),
+};
+
+const globalOptions = {
+  provide: {
+    [SpaceMapKey as symbol]: SpaceMapMock,
+  },
+};
 
 describe('MapObjects component', () => {
   it('should render correctly when clickable', () => {
@@ -18,6 +31,7 @@ describe('MapObjects component', () => {
       props: {
         clickable: true,
       },
+      global: globalOptions,
     });
 
     // then
@@ -37,6 +51,7 @@ describe('MapObjects component', () => {
       props: {
         clickable: false,
       },
+      global: globalOptions,
     });
 
     // then
@@ -57,6 +72,7 @@ describe('MapObjects component', () => {
         clickable: true,
         selectedMapObjectId: '2',
       },
+      global: globalOptions,
     });
 
     // then
@@ -75,6 +91,7 @@ describe('MapObjects component', () => {
       props: {
         clickable: true,
       },
+      global: globalOptions,
     });
     // when
     await wrapper.get('[data-test="map-object"]').trigger('click');
@@ -95,6 +112,7 @@ describe('MapObjects component', () => {
       props: {
         clickable: false,
       },
+      global: globalOptions,
     });
     // when
     await wrapper.get('[data-test="map-object"]').trigger('click');
@@ -102,5 +120,58 @@ describe('MapObjects component', () => {
 
     // then
     expect(wrapper.emitted('clickOnMapObject')).toBeFalsy();
+  });
+
+  describe('view box handling', () => {
+    it('should register view box if handler provided', () => {
+      jest.resetAllMocks();
+      // given
+      prepareUseFindMockOnce(sampleMapObjects);
+      const viewBox = useViewBox(
+        ref(
+          sampleMapObjects.reduce<Path[]>((allPaths, mapObject) => {
+            const paths = mapObject.paths.map((path) => ({
+              x: mapObject.xPos,
+              y: mapObject.yPos,
+              d: path,
+            }));
+            return [...allPaths, ...paths];
+          }, []),
+        ),
+        { strokeWidth: 1 },
+      );
+
+      // when
+      shallowMount(MapObjects, {
+        props: {
+          clickable: true,
+        },
+        global: globalOptions,
+      });
+
+      // then
+      expect(SpaceMapMock.registerViewBox).toHaveBeenCalledWith(
+        'MapObjects',
+        expect.objectContaining({ value: viewBox.value }),
+      );
+    });
+
+    it('should unregister view box when unmount if handler provided', () => {
+      jest.resetAllMocks();
+      // given
+      prepareUseFindMockOnce(sampleMapObjects);
+      const wrapper = shallowMount(MapObjects, {
+        props: {
+          clickable: true,
+        },
+        global: globalOptions,
+      });
+
+      // when
+      wrapper.unmount();
+
+      // then
+      expect(SpaceMapMock.unregisterViewBox).toHaveBeenCalledWith('MapObjects');
+    });
   });
 });

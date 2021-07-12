@@ -6,28 +6,26 @@
     </template>
   </Header>
 
-  <div class="m-4 flex flex-col flex-grow">
-    <router-view
-      v-slot="{ Component }"
-      :selected-map-object-id="selectedMapObjectId"
-      :abort-trigger="abortTrigger"
-      :save-trigger="saveTrigger"
-      @change-happend="handleChange"
-    >
-      <component :is="Component">
-        <template #toggleBar>
-          <ToggleBar
-            v-if="!changed"
-            start-icon="table"
-            end-icon="floor-plan"
-            :selected="$route.name === 'settings-space-map-objects' ? 'start' : 'end'"
-            @selected-start="$router.replace({ name: 'settings-space-map-objects' })"
-            @selected-end="$router.replace({ name: 'settings-space-floor-plan' })"
-          />
-        </template>
-      </component>
-    </router-view>
-  </div>
+  <router-view
+    v-slot="{ Component }"
+    :selected-map-object-id="selectedMapObjectId"
+    :abort-trigger="abortTrigger"
+    :save-trigger="saveTrigger"
+    @change-happend="handleChange"
+  >
+    <component :is="Component">
+      <template #toggleBar>
+        <ToggleBar
+          v-if="!changed"
+          start-icon="table"
+          end-icon="floor-plan"
+          :selected="$route.name === 'settings-space-map-objects' ? 'start' : 'end'"
+          @selected-start="$router.replace({ name: 'settings-space-map-objects' })"
+          @selected-end="$router.replace({ name: 'settings-space-floor-plan' })"
+        />
+      </template>
+    </component>
+  </router-view>
 </template>
 
 <script lang="ts">

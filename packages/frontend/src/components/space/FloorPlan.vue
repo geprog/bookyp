@@ -6,6 +6,7 @@
 import { computed, defineComponent } from 'vue';
 
 import getCurrentSpace from '~/compositions/space/useCurrentSpace';
+import { useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 
 export default defineComponent({
   name: 'FloorPlan',
@@ -18,10 +19,8 @@ export default defineComponent({
       }
       return currentSpace.value.floorPlan;
     });
-
-    return {
-      floorPlan,
-    };
+    useAndRegisterViewBox('FloorPlan', floorPlan, { strokeWidth: 2 });
+    return { floorPlan };
   },
 });
 </script>

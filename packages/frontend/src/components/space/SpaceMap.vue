@@ -1,6 +1,7 @@
 <template>
   <svg
-    class="w-full flex-grow"
+    class="w-full flex-grow p-8 min-h-0"
+    :viewBox="`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     data-test="space-map"
@@ -17,7 +18,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent, provide, Ref, ref } from 'vue';
+
+import { combineViewBoxes, EMPTY_VIEW_BOX, ViewBox } from '~/compositions/space/useViewBox';
+import { SpaceMapKey } from '~/symbols/space-map';
 
 export default defineComponent({
   name: 'SpaceMap',
@@ -33,6 +37,29 @@ export default defineComponent({
   },
 
   setup(props, context) {
+    const viewBoxRegistry: Record<string, number> = {};
+    const childViewBoxes = ref<Ref<ViewBox>[]>([]);
+    const viewBox = computed<ViewBox>(() => {
+      const viewBoxes = childViewBoxes.value.map((childViewBox) => childViewBox.value);
+      return viewBoxes.reduce(combineViewBoxes, EMPTY_VIEW_BOX);
+    });
+    provide(SpaceMapKey, {
+      registerViewBox(key, childViewBox) {
+        if (viewBoxRegistry[key]) {
+          throw new Error(`A view box with key ${key} is already registered`);
+        }
+        viewBoxRegistry[key] = childViewBoxes.value.length;
+        childViewBoxes.value.push(childViewBox);
+      },
+      unregisterViewBox(key) {
+        if (viewBoxRegistry[key] === undefined) {
+          throw new Error(`A view box with key ${key} has never been registered`);
+        }
+        childViewBoxes.value.splice(viewBoxRegistry[key], 1);
+        delete viewBoxRegistry[key];
+      },
+    });
+
     function getSvgP(e: MouseEvent | TouchEvent): DOMPoint {
       const svg = e.currentTarget as SVGSVGElement;
       const pt = svg.createSVGPoint();
@@ -75,7 +102,7 @@ export default defineComponent({
       const svgP = getSvgP(event);
       context.emit('upInsideSvg', svgP);
     }
-    return { emitClickPosition, emitMovePosition, emitDownPosition, emitUpPosition };
+    return { viewBox, emitClickPosition, emitMovePosition, emitDownPosition, emitUpPosition };
   },
 });
 </script>
