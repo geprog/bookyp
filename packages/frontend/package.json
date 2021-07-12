@@ -17,7 +17,7 @@
     "@feathersjs/errors": "5.0.0-pre.3",
     "@feathersjs/feathers": "5.0.0-pre.3",
     "@feathersjs/socketio-client": "5.0.0-pre.3",
-    "@geprog/use-feathers": "0.0.1",
+    "@geprog/use-feathers": "0.1.0",
     "@types/lodash": "4.14.170",
     "dayjs": "1.10.5",
     "lodash": "4.17.21",
