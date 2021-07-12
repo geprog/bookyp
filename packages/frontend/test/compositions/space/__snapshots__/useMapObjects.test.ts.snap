@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useGetMapObjects composition should get mapObjects 1`] = `
+Array [
+  Object {
+    "_id": "123",
+    "bookable": undefined,
+    "paths": Array [
+      "M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z",
+      "M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z",
+    ],
+    "rotation": 0,
+    "type": "table",
+    "xPos": 0,
+    "yPos": 0,
+  },
+  Object {
+    "_id": "456",
+    "bookable": "123",
+    "paths": Array [
+      "M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z",
+      "M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z",
+    ],
+    "rotation": 0,
+    "type": "table",
+    "xPos": 50,
+    "yPos": 100,
+  },
+]
+`;

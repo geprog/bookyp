@@ -24,7 +24,7 @@
 import { Model } from '@bookyp/core';
 import { defineComponent, toRef } from 'vue';
 
-import useFind from '~/compositions/useFind';
+import getMapObjects from '~/compositions/space/useMapObjects';
 
 export default defineComponent({
   name: 'MapObjects',
@@ -46,7 +46,7 @@ export default defineComponent({
 
   setup(props, context) {
     const clickable = toRef(props, 'clickable');
-    const { data: mapObjects } = useFind('mapObjects');
+    const { data: mapObjects } = getMapObjects();
 
     function clickOnMapObject(mapObject: Model.MapObject) {
       if (!clickable.value) {

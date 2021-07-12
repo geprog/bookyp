@@ -5,20 +5,23 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 
-import useFind from '~/compositions/useFind';
+import getCurrentSpace from '~/compositions/space/useCurrentSpace';
 
 export default defineComponent({
   name: 'FloorPlan',
 
   setup() {
-    const { data: spaces } = useFind('spaces');
+    const { data: currentSpace } = getCurrentSpace();
     const floorPlan = computed(() => {
-      if (!spaces.value.length) {
+      if (currentSpace.value === undefined) {
         return [];
       }
-      return spaces.value[0].floorPlan;
+      return currentSpace.value.floorPlan;
     });
-    return { floorPlan };
+
+    return {
+      floorPlan,
+    };
   },
 });
 </script>
