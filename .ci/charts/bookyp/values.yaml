@@ -24,6 +24,7 @@ keycloak:
     subdomain: 'auth.geprog.com/auth/realms/bookyp'
     client: 'bookyp'
     secret: ''
+    logoutEndpoint: '/protocol/openid-connect/logout'
 
 gitlab:
   app: ''
