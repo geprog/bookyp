@@ -7,4 +7,4 @@ metadata:
 data:
   FRONTEND_BACKEND_URL: "https://{{ include "bookyp.backendURL" . }}"
   BACKEND_KEYCLOAK_SUBDOMAIN: {{ .Values.keycloak.subdomain | quote }}
-  BACKEND_KEYCLOAK_LOGOUT_ENDPOINT: {{ .Values.keycloak.logoutEndpoint }}
+  BACKEND_KEYCLOAK_LOGOUT_ENDPOINT: {{ .Values.keycloak.logoutEndpoint | quote }}
