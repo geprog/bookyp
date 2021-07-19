@@ -54,7 +54,11 @@ export async function logout(): Promise<void> {
 
   await feathers.logout();
   user.value = undefined;
-  const auth_url = getConfig('SSO_AUTH_URL') || '';
-  const auth_logout = getConfig('SSO_AUTH_LOGOUT_ENDPOINT') || '';
-  window.location.replace(`https://${auth_url}${auth_logout}`);
+
+  // redirect user to backend to logout from SSO provider
+  const backendURL = getConfig('BACKEND_URL');
+  if (!backendURL) {
+    throw new Error('Config BACKEND_URL not set');
+  }
+  window.location.href = `${backendURL}/authentication/logout`;
 }

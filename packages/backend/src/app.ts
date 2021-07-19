@@ -4,8 +4,8 @@ import socketio from '@feathersjs/socketio';
 
 import channels from '~/channels';
 import config from '~/config';
-// TODO only import '~/services'
-import services from '~/services/index';
+import services from '~/services';
+import SSOLogoutRoute from '~/services/authentication/sso-logout';
 
 const app = express(createApplication());
 
@@ -29,5 +29,7 @@ app.configure(channels);
 app.get('/', (_req, res) => {
   res.send('You found the backend of Bookyp! ;-)');
 });
+
+app.use(SSOLogoutRoute());
 
 export default app;
