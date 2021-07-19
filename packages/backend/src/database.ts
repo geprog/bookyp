@@ -4,7 +4,7 @@ import config from '~/config';
 
 mongoose.Promise = global.Promise;
 
-function getConnectionUri(): string {
+export function getConnectionUri(): string {
   let uri = config().db.uri;
   if (uri) {
     return uri;
