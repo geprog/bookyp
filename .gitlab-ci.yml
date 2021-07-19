@@ -389,12 +389,12 @@ review-deployment:
       --set environment.type=review
       --set environment.name=$CI_ENVIRONMENT_SLUG
       --set environment.url=$CI_ENVIRONMENT_URL
-      --set keycloak.secret=$KEYCLOAK_SECRET
       --set frontend.ingress.tls.secretName=bookyp-review-frontend-tls
-      --set backend.ingress.tls.secretName=bookyp-review-backend-tls
       --set frontend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
+      --set backend.ingress.tls.secretName=bookyp-review-backend-tls
       --set backend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
       --set backend.database.password=$DEPLOY_DATABASE_PASSWORD
+      --set backend.keycloak.secret=$KEYCLOAK_SECRET
       --set backend.jwtSecret=$BACKEND_JWT_SECRET
       --set gitlab.app=$CI_PROJECT_PATH_SLUG
       --set gitlab.env=$CI_ENVIRONMENT_SLUG

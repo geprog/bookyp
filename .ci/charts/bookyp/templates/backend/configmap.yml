@@ -8,7 +8,7 @@ data:
   BACKEND_HOST: {{ include "bookyp.backendURL" . }}
   BACKEND_SECRET: {{ .Values.backend.jwtSecret | quote }}
   BACKEND_OAUTH_REDIRECT_URL: "https://{{ include "bookyp.frontendURL" . }}/"
-  BACKEND_KEYCLOAK_SUBDOMAIN: {{ .Values.keycloak.subdomain | quote }}
-  BACKEND_KEYCLOAK_CLIENT: {{ .Values.keycloak.client | quote }}
-  BACKEND_KEYCLOAK_SECRET: {{ .Values.keycloak.secret | quote }}
+  BACKEND_KEYCLOAK_SUBDOMAIN: {{ .Values.backend.keycloak.subdomain | quote }}
+  BACKEND_KEYCLOAK_CLIENT: {{ .Values.backend.keycloak.client | quote }}
+  BACKEND_KEYCLOAK_SECRET: {{ .Values.backend.keycloak.secret | quote }}
   BACKEND_DB_URI: {{ include "bookyp.backendDatabaseURI" . | quote }}
