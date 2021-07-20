@@ -5,23 +5,10 @@ import config from '~/config';
 mongoose.Promise = global.Promise;
 
 export function getConnectionUri(): string {
-  let uri = config().db.uri;
-  if (uri) {
-    return uri;
-  }
+  const uri = config().db.uri;
 
-  const { host, port, name, user, password } = config().db;
-
-  uri = 'mongodb://';
-
-  if (user && password) {
-    uri = `${uri}${user}:${password}@`;
-  }
-
-  uri = `${uri}${host}:${port}/${name}`;
-
-  if (user && password) {
-    uri = `${uri}?authSource=admin`;
+  if (!uri) {
+    throw new Error('Please set BACKEND_DB_URI');
   }
 
   return uri;

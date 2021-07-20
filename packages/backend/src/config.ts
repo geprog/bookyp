@@ -14,11 +14,6 @@ const config = {
   },
   db: {
     uri: process.env.BACKEND_DB_URI,
-    host: process.env.BACKEND_DB_HOST || 'db',
-    port: parseInt(process.env.BACKEND_DB_PORT || '27017'),
-    name: process.env.BACKEND_DB_NAME || 'bookyp',
-    user: process.env.BACKEND_DB_USERNAME,
-    password: process.env.BACKEND_DB_PASSWORD,
   },
 };
 
