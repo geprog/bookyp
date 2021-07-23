@@ -3,6 +3,7 @@
 exports[`Icons should contain all needed icons 1`] = `
 Array [
   "add",
+  "add-circle",
   "arrow-left",
   "check-mark",
   "clock",
