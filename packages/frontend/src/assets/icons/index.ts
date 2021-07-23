@@ -1,4 +1,5 @@
 import AddIcon from '~/assets/icons/add.svg';
+import AddCircleIcon from '~/assets/icons/add-circle.svg';
 import ArrowLeftIcon from '~/assets/icons/arrow-left.svg';
 import CheckMarkIcon from '~/assets/icons/check-mark.svg';
 import ClockIcon from '~/assets/icons/clock.svg';
@@ -21,6 +22,7 @@ import TableIcon from '~/assets/icons/table.svg';
 
 const icons = {
   add: AddIcon,
+  'add-circle': AddCircleIcon,
   'arrow-left': ArrowLeftIcon,
   'check-mark': CheckMarkIcon,
   clock: ClockIcon,

@@ -1,22 +1,14 @@
 import { Ref, ref } from 'vue';
 
-import getCurrentSpace from '~/compositions/space/useCurrentSpace';
-import useFeathers from '~/compositions/useFeathers';
-
 type UseNewFloorPlanObject = {
-  saveNewFloorPlanObjects: () => Promise<void>;
   startAddingWall: () => void;
   addFirstPositionOfWall: (svgP: DOMPoint) => void;
   finishAddingOfWall: (svgP: DOMPoint) => void;
   updateSecondPositionOfWall: (svgP: DOMPoint) => void;
-  newFloorPlanObjects: Ref<string[]>;
   addingStage: Ref<'clicked-on-add-button' | 'first-position' | 'not-started'>;
 };
 
-export default function useNewFloorPlanObject(): UseNewFloorPlanObject {
-  const newFloorPlanObjects = ref<string[]>([]);
-  const { data: currentSpace } = getCurrentSpace();
-  const feathers = useFeathers();
+export default function useNewFloorPlanObject(floorPlan: Ref<string[]>): UseNewFloorPlanObject {
   const addingStage = ref<'clicked-on-add-button' | 'first-position' | 'not-started'>('not-started');
   let firstPosition: null | DOMPoint = null;
 
@@ -32,7 +24,7 @@ export default function useNewFloorPlanObject(): UseNewFloorPlanObject {
       }
       firstPosition = svgP;
       addingStage.value = 'first-position';
-      newFloorPlanObjects.value.push(`M${firstPosition?.x} ${firstPosition?.y} L${svgP.x} ${svgP.y}`);
+      floorPlan.value.push(`M${firstPosition.x} ${firstPosition.y} L${svgP.x} ${svgP.y}`);
     }
   }
 
@@ -51,30 +43,15 @@ export default function useNewFloorPlanObject(): UseNewFloorPlanObject {
 
   function updateSecondPositionOfWall(svgP: DOMPoint) {
     if (firstPosition !== null) {
-      newFloorPlanObjects.value[
-        newFloorPlanObjects.value.length - 1
-      ] = `M${firstPosition?.x} ${firstPosition?.y} L${svgP.x} ${svgP.y}`;
-    }
-  }
-
-  async function saveNewFloorPlanObjects(): Promise<void> {
-    if (newFloorPlanObjects.value.length >= 1 && currentSpace.value !== undefined) {
-      const saveSpace = {
-        _id: currentSpace.value._id,
-        floorPlan: [...newFloorPlanObjects.value, ...currentSpace.value.floorPlan],
-      };
-      await feathers.service('spaces').update(currentSpace.value._id, saveSpace);
-      newFloorPlanObjects.value = [];
+      floorPlan.value[floorPlan.value.length - 1] = `M${firstPosition.x} ${firstPosition.y} L${svgP.x} ${svgP.y}`;
     }
   }
 
   return {
-    saveNewFloorPlanObjects,
     startAddingWall,
     addFirstPositionOfWall,
     finishAddingOfWall,
     updateSecondPositionOfWall,
     addingStage,
-    newFloorPlanObjects,
   };
 }
