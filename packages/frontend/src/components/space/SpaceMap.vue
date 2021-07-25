@@ -65,18 +65,18 @@ export default defineComponent({
       const pt = svg.createSVGPoint();
 
       // pass event coordinates
-      if (e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchcancel') {
+      if (e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchcancel') {
         pt.x = (e as TouchEvent).touches[0].pageX;
         pt.y = (e as TouchEvent).touches[0].pageY;
       } else if (
-        e.type == 'mousedown' ||
-        e.type == 'mouseup' ||
-        e.type == 'mousemove' ||
-        e.type == 'mouseover' ||
-        e.type == 'mouseout' ||
-        e.type == 'mouseenter' ||
-        e.type == 'mouseleave' ||
-        e.type == 'click'
+        e.type === 'mousedown' ||
+        e.type === 'mouseup' ||
+        e.type === 'mousemove' ||
+        e.type === 'mouseover' ||
+        e.type === 'mouseout' ||
+        e.type === 'mouseenter' ||
+        e.type === 'mouseleave' ||
+        e.type === 'click'
       ) {
         pt.x = (e as MouseEvent).clientX;
         pt.y = (e as MouseEvent).clientY;
