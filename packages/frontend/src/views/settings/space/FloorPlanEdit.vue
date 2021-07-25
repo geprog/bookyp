@@ -83,7 +83,13 @@ export default defineComponent({
     });
 
     watch(saveTrigger, async () => {
-      await saveFloorPlan();
+      if (currentSpace.value !== undefined) {
+        const saveSpace = {
+          _id: currentSpace.value?._id,
+          floorPlan: floorPlan.value,
+        };
+        await feathers.service('spaces').update(currentSpace.value._id, saveSpace);
+      }
       context.emit('change-happend', false);
     });
 
@@ -95,16 +101,6 @@ export default defineComponent({
         throw new Error('No current space');
       }
     });
-
-    async function saveFloorPlan(): Promise<void> {
-      if (currentSpace.value !== undefined) {
-        const saveSpace = {
-          _id: currentSpace.value?._id,
-          floorPlan: floorPlan.value,
-        };
-        await feathers.service('spaces').update(currentSpace.value._id, saveSpace);
-      }
-    }
 
     function clickOnAddButton() {
       context.emit('change-happend', true);

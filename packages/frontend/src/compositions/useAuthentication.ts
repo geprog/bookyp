@@ -15,6 +15,7 @@ function init() {
   feathers = useFeathers();
 
   feathers.on('connect', () => {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     void reAuthenticate();
   });
 
