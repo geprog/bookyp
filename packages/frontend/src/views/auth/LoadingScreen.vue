@@ -6,11 +6,11 @@
     </div>
 
     <div class="flex my-auto justify-center">
-      <img class="w-48 h-auto ml-8" src="/src/assets/img/bookyp-logo.svg" />
+      <img class="w-48 h-auto ml-8" src="/src/assets/img/bookyp-logo.svg?url" />
     </div>
 
     <div class="mb-8 flex justify-center">
-      <img class="w-24 h-auto" src="/src/assets/img/geprog-logo.svg" />
+      <img class="w-24 h-auto" src="/src/assets/img/geprog-logo.svg?url" />
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col h-full max-h-xl m-auto">
     <div class="mt-8 flex flex-col items-center">
-      <img class="w-48 h-auto mt-4 ml-8" src="/src/assets/img/bookyp-logo.svg" />
+      <img class="w-48 h-auto mt-4 ml-8" src="/src/assets/img/bookyp-logo.svg?url" />
     </div>
 
     <div class="my-auto flex flex-col items-center">
