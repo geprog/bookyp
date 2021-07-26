@@ -5,10 +5,9 @@ import FloorPlan from '~/components/space/FloorPlan.vue';
 import useViewBox from '~/compositions/space/useViewBox';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { sampleFloorPlan } from '$/__fixtures__/floorPlan';
-import { prepareUseFeathersMockOnce, prepareUseFindMockOnce } from '$/__helpers__/mocks';
+import { prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFind');
-jest.mock('~/compositions/useFeathers');
 
 const SpaceMapMock = {
   registerViewBox: jest.fn(),
@@ -24,7 +23,6 @@ const globalOptions = {
 describe('FloorPlan component', () => {
   it('should render correctly', () => {
     // given
-    prepareUseFeathersMockOnce();
     prepareUseFindMockOnce([
       {
         _id: 'dummy-id',
@@ -47,7 +45,6 @@ describe('FloorPlan component', () => {
     it('should register view box if handler provided', () => {
       jest.resetAllMocks();
       // given
-      prepareUseFeathersMockOnce();
       prepareUseFindMockOnce([
         {
           _id: 'dummy-id',
@@ -72,7 +69,6 @@ describe('FloorPlan component', () => {
     it('should unregister view box on unmount if handler provided', () => {
       jest.resetAllMocks();
       // given
-      prepareUseFeathersMockOnce();
       prepareUseFindMockOnce([
         {
           _id: 'dummy-id',
