@@ -5,9 +5,9 @@ import FloorPlan from '~/components/space/FloorPlan.vue';
 import useViewBox from '~/compositions/space/useViewBox';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { sampleFloorPlan } from '$/__fixtures__/floorPlan';
-import { prepareUseFindMockOnce } from '$/__helpers__/mocks';
+import { prepareUseCurrentSpaceMockOnce } from '$/__helpers__/mocks';
 
-jest.mock('~/compositions/useFind');
+jest.mock('~/compositions/space/useCurrentSpace');
 
 const SpaceMapMock = {
   registerViewBox: jest.fn(),
@@ -23,12 +23,10 @@ const globalOptions = {
 describe('FloorPlan component', () => {
   it('should render correctly', () => {
     // given
-    prepareUseFindMockOnce([
-      {
-        _id: 'dummy-id',
-        floorPlan: sampleFloorPlan,
-      },
-    ]);
+    prepareUseCurrentSpaceMockOnce({
+      _id: 'dummy-id',
+      floorPlan: sampleFloorPlan,
+    });
 
     // when
     const wrapper = shallowMount(FloorPlan, {
@@ -45,12 +43,10 @@ describe('FloorPlan component', () => {
     it('should register view box if handler provided', () => {
       jest.resetAllMocks();
       // given
-      prepareUseFindMockOnce([
-        {
-          _id: 'dummy-id',
-          floorPlan: sampleFloorPlan,
-        },
-      ]);
+      prepareUseCurrentSpaceMockOnce({
+        _id: 'dummy-id',
+        floorPlan: sampleFloorPlan,
+      });
 
       const viewBox = useViewBox(ref(sampleFloorPlan), { strokeWidth: 2 });
 
@@ -69,12 +65,10 @@ describe('FloorPlan component', () => {
     it('should unregister view box on unmount if handler provided', () => {
       jest.resetAllMocks();
       // given
-      prepareUseFindMockOnce([
-        {
-          _id: 'dummy-id',
-          floorPlan: sampleFloorPlan,
-        },
-      ]);
+      prepareUseCurrentSpaceMockOnce({
+        _id: 'dummy-id',
+        floorPlan: sampleFloorPlan,
+      });
 
       const wrapper = shallowMount(FloorPlan, {
         global: globalOptions,

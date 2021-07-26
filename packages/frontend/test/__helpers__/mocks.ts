@@ -1,7 +1,9 @@
+import { Model } from '@bookyp/core';
 import { mocked } from 'ts-jest/utils';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { RouteLocationNormalized, Router, useRoute, useRouter } from 'vue-router';
 
+import useCurrentSpace from '~/compositions/space/useCurrentSpace';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 import useGet from '~/compositions/useGet';
@@ -38,6 +40,17 @@ export function prepareUseFindMockOnce<T>(initialValue: T[] = []) {
     data,
     isLoading,
   };
+}
+
+export function prepareUseCurrentSpaceMockOnce(space: Model.Space | undefined): void {
+  const data = computed<Model.Space | undefined>(() => space);
+  const isLoading = ref(false);
+
+  const useCurrentSpaceMock = {
+    data,
+    isLoading,
+  };
+  mocked(useCurrentSpace, true).mockReturnValueOnce(useCurrentSpaceMock);
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
