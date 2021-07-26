@@ -39,6 +39,19 @@ describe('FloorPlan component', () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
+  it('should not render anything when Space is undefined', () => {
+    // given
+    prepareUseCurrentSpaceMockOnce(undefined);
+
+    // when
+    const wrapper = shallowMount(FloorPlan, {
+      global: globalOptions,
+    });
+
+    // then
+    expect(wrapper.html()).toMatchSnapshot();
+  });
+
   describe('view box handling', () => {
     it('should register view box if handler provided', () => {
       jest.resetAllMocks();
