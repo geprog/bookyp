@@ -51,7 +51,7 @@
     "vite-plugin-windicss": "0.17.1",
     "vite-svg-loader": "2.0.2",
     "vue-jest": "5.0.0-alpha.9",
-    "vue-tsc": "0.1.7",
+    "vue-tsc": "0.2.2",
     "windicss": "3.1.0"
   }
 }
