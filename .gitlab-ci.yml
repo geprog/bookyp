@@ -175,7 +175,8 @@ build-docker-backend:
 
 ################# TEST #################
 
-typechecking:
+### Type check
+.typecheck-template:
   extends: .node-template
   stage: test
   needs:
@@ -183,15 +184,29 @@ typechecking:
     - install-dependencies
   variables:
     NODE_ENV: 'test'
-  script:
-    - pnpm run typecheck
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
-linting:
+typecheck-backend:
+  extends: .typecheck-template
+  script:
+    - pnpm run --filter @bookyp/backend typecheck
+
+typecheck-frontend:
+  extends: .typecheck-template
+  script:
+    - pnpm run --filter @bookyp/frontend typecheck
+
+typecheck-core:
+  extends: .typecheck-template
+  script:
+    - pnpm run --filter @bookyp/core typecheck
+
+### Lint
+.lint-template:
   extends: .node-template
   stage: test
   needs:
@@ -199,8 +214,42 @@ linting:
     - install-dependencies
   variables:
     NODE_ENV: 'test'
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
+      changes: *main_pipeline_files
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  interruptible: true
+
+lint-formatting:
+  extends: .lint-template
   script:
-    - pnpm run lint
+    - pnpm run lint:formatting
+
+lint-backend:
+  extends: .lint-template
+  script:
+    - pnpm run --filter @bookyp/backend lint
+
+lint-frontend:
+  extends: .lint-template
+  script:
+    - pnpm run --filter @bookyp/frontend lint
+
+lint-core:
+  extends: .lint-template
+  script:
+    - pnpm run --filter @bookyp/core lint
+
+### Unit test
+.unit-test-template:
+  extends: .node-template
+  stage: test
+  needs:
+    - build-core
+    - install-dependencies
+  coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
+  variables:
+    NODE_ENV: 'test'
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -208,11 +257,7 @@ linting:
   interruptible: true
 
 unit-test-backend:
-  extends: .node-template
-  stage: test
-  needs:
-    - build-core
-    - install-dependencies
+  extends: .unit-test-template
   artifacts:
     when: always
     paths:
@@ -222,23 +267,11 @@ unit-test-backend:
       cobertura: packages/backend/coverage/cobertura-coverage.xml
       junit:
         - packages/backend/junit.xml
-  coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
-  variables:
-    NODE_ENV: 'test'
   script:
     - pnpm run --filter @bookyp/backend test
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
-      changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-  interruptible: true
 
 unit-test-frontend:
-  extends: .node-template
-  stage: test
-  needs:
-    - build-core
-    - install-dependencies
+  extends: .unit-test-template
   artifacts:
     when: always
     paths:
@@ -248,23 +281,11 @@ unit-test-frontend:
       cobertura: packages/frontend/coverage/cobertura-coverage.xml
       junit:
         - packages/frontend/junit.xml
-  coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
-  variables:
-    NODE_ENV: 'test'
   script:
     - pnpm run --filter @bookyp/frontend test
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
-      changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-  interruptible: true
 
 unit-test-core:
-  extends: .node-template
-  stage: test
-  needs:
-    - build-core
-    - install-dependencies
+  extends: .unit-test-template
   artifacts:
     when: always
     paths:
@@ -274,17 +295,10 @@ unit-test-core:
       cobertura: packages/core/coverage/cobertura-coverage.xml
       junit:
         - packages/core/junit.xml
-  coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
-  variables:
-    NODE_ENV: 'test'
   script:
     - pnpm run --filter @bookyp/core test
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
-      changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-  interruptible: true
 
+### Misc
 renovate-config-validator:
   stage: test
   needs: []
@@ -449,8 +463,13 @@ production-prepare:
     - unit-test-backend
     - unit-test-frontend
     - unit-test-core
-    - typechecking
-    - linting
+    - typecheck-backend
+    - typecheck-frontend
+    - typecheck-core
+    - lint-formatting
+    - lint-backend
+    - lint-frontend
+    - lint-core
     - helm-lint
     - spell-check
   script:
