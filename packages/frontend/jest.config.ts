@@ -18,7 +18,7 @@ const config: Config.InitialOptions = {
   testEnvironment: 'jest-environment-jsdom',
   transform: {
     '^.+\\.svg$': './svgTransform.js',
-    '^.+\\.vue$': 'vue-jest',
+    '^.+\\.vue$': 'vue3-jest',
   },
   reporters: ['default', 'jest-junit'],
   collectCoverage: true,
