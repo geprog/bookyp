@@ -1,5 +1,5 @@
 /* eslint-env node */
-const vueJest = require('vue-jest');
+const vueJest = require('vue3-jest');
 
 /**
  * Inspired by here https://vue-svg-loader.js.org/faq.html#how-to-use-this-loader-with-jest
