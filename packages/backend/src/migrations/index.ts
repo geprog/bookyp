@@ -26,4 +26,6 @@ export default async (): Promise<void> => {
   });
 
   await up({ migrations, migrationStore, context: { db } });
+
+  await client.close();
 };
