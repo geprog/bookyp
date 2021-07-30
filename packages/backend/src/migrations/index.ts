@@ -3,9 +3,10 @@ import { Db, MongoClient } from 'mongodb';
 
 import { getConnectionUri } from '~/database';
 import { seed } from '~/migrations/seed';
+import { setExplicitSpaceId } from '~/migrations/setExplicitSpaceId';
 
 // migrations are applied in the order defined here
-const migrations: Migration[] = [seed];
+const migrations: Migration[] = [seed, setExplicitSpaceId];
 
 const migrationStore = new MongoMigrationStore();
 

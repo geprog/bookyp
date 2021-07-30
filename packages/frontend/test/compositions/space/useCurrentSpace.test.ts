@@ -1,43 +1,59 @@
 import { nextTick } from 'vue';
 
-import getCurrentSpace from '~/compositions/space/useCurrentSpace';
-import useFind from '~/compositions/useFind';
-import { sampleSpaces } from '$/__fixtures__/space';
-import { prepareUseFindMockOnce } from '$/__helpers__/mocks';
+import useGet from '~/compositions/useGet';
+import { sampleSpace } from '$/__fixtures__/space';
+import { prepareUseGetMockOnce } from '$/__helpers__/mocks';
 
-jest.mock('~/compositions/useFind');
-const refData = prepareUseFindMockOnce();
+jest.mock('~/compositions/useGet');
 
-describe('useGetCurrentSpace composition', () => {
+let useCurrentSpace: typeof import('~/compositions/space/useCurrentSpace');
+
+describe('useCurrentSpace composition', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.isolateModules(() => {
+      // TODO: use import(), see https://github.com/facebook/jest/issues/10428
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      useCurrentSpace = require('~/compositions/space/useCurrentSpace');
+    });
+  });
+
   it('should return undefined if no space is found', () => {
+    expect.assertions(1);
+    // given
+    prepareUseGetMockOnce();
+
     // when
-    const { data: currentSpace } = getCurrentSpace();
+    const { data: currentSpace } = useCurrentSpace.default();
 
     // then
     expect(currentSpace.value).not.toBeDefined();
   });
 
   it('should get current space if one space is set', async () => {
+    expect.assertions(2);
+    // given
+    prepareUseGetMockOnce(sampleSpace);
+
     // when
-    expect.hasAssertions();
-    refData.data.value = sampleSpaces;
     await nextTick();
-    const { data: currentSpace } = getCurrentSpace();
+    const { data: currentSpace } = useCurrentSpace.default();
 
     // then
     expect(currentSpace.value).toBeDefined();
-    expect(currentSpace.value?._id).toBe(sampleSpaces[0]._id);
+    expect(currentSpace.value?._id).toBe(sampleSpace._id);
   });
 
-  it('should call find only once', () => {
+  it('should call useGet only once', () => {
+    expect.assertions(1);
     // given
-    prepareUseFindMockOnce(sampleSpaces);
-    prepareUseFindMockOnce();
+    prepareUseGetMockOnce(sampleSpace);
+
     // when
-    getCurrentSpace();
-    getCurrentSpace();
+    useCurrentSpace.default();
+    useCurrentSpace.default();
 
     // then
-    expect(useFind).toHaveBeenCalledTimes(1);
+    expect(useGet).toHaveBeenCalledTimes(1);
   });
 });

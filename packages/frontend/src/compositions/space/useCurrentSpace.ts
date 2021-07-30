@@ -1,29 +1,25 @@
 import { Model } from '@bookyp/core';
-import { computed, ComputedRef, Ref, ref } from 'vue';
+import { UseGet } from '@geprog/use-feathers';
+import { Ref, ref } from 'vue';
 
-import useFind from '~/compositions/useFind';
+import useGet from '~/compositions/useGet';
 
-const internalSpaces: Ref<Ref<Model.Space[] | undefined> | undefined> = ref(undefined);
+let internalSpace: Ref<Model.Space | undefined>;
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const internalIsLoading: Ref<Ref<boolean>> = ref(ref(false));
 
-const currentSpace = computed(() => {
-  if (internalSpaces.value === undefined || !internalSpaces.value.value?.length) {
-    return undefined;
-  }
-  return internalSpaces.value.value[0];
-});
 let alreadyLoaded = false;
 
-export default function getCurrentSpace(): { data: ComputedRef<Model.Space | undefined>; isLoading: Ref<boolean> } {
+export default function getCurrentSpace(): UseGet<Model.Space> {
   if (!alreadyLoaded) {
-    const { data, isLoading } = useFind('spaces', ref({ paginate: false, query: {} }), {
+    // TODO: remove space id once it can be selected by the user
+    const { data, isLoading } = useGet('spaces', ref('60f53bede6f8313dff7f99e0'), {
       disableUnloadingEventHandlers: true,
     });
-    internalSpaces.value = data;
+    internalSpace = data;
     internalIsLoading.value = isLoading;
     alreadyLoaded = true;
   }
-  return { data: currentSpace, isLoading: internalIsLoading.value };
+  return { data: internalSpace, isLoading: internalIsLoading.value };
 }
