@@ -12,6 +12,8 @@ async function start(): Promise<void> {
 
   const lightship = createLightship();
 
+  await migrate();
+
   const { port, host } = config().app;
 
   await databaseConnect();
@@ -38,8 +40,6 @@ async function start(): Promise<void> {
   lightship.registerShutdownHandler(() => {
     server.close();
   });
-
-  await migrate();
 }
 
 void start();
