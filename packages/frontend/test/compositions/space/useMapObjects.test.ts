@@ -1,36 +1,39 @@
-import { mocked } from 'ts-jest/utils';
-
-import getMapObjects from '~/compositions/space/useMapObjects';
 import useFind from '~/compositions/useFind';
 import { sampleMapObjects } from '$/__fixtures__/mapObject';
 import { prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFind');
 
-describe('useGetMapObjects composition', () => {
+let useMapObjects: typeof import('~/compositions/space/useMapObjects');
+
+describe('useMapObjects composition', () => {
   beforeEach(() => {
-    jest.resetAllMocks();
-    jest.resetModules();
+    jest.clearAllMocks();
+    jest.isolateModules(() => {
+      // TODO: use import(), see https://github.com/facebook/jest/issues/10428
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      useMapObjects = require('~/compositions/space/useMapObjects');
+    });
   });
 
   it('should get mapObjects', () => {
     // given
     prepareUseFindMockOnce(sampleMapObjects);
+
     // when
-    const { data: mapObjects } = getMapObjects();
+    const { data: mapObjects } = useMapObjects.default();
 
     // then
     expect(mapObjects.value).toMatchSnapshot();
   });
-});
 
-describe('useGetMapObjects composition 2', () => {
-  it('should call find only once', () => {
+  it('should call useFind only once', () => {
     // given
-    mocked(useFind, true).mockReturnValueOnce(prepareUseFindMockOnce());
+    prepareUseFindMockOnce();
+
     // when
-    getMapObjects();
-    getMapObjects();
+    useMapObjects.default();
+    useMapObjects.default();
 
     // then
     expect(useFind).toHaveBeenCalledTimes(1);
