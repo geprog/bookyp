@@ -7,7 +7,7 @@ esbuild
     outfile: './dist/index.js',
     platform: 'node',
     bundle: true,
-    minify: true,
+    minify: process.env.node_env === 'production',
     external: ['koa', 'hapi'],
     sourcemap: true,
     tsconfig: './tsconfig.build.json',
