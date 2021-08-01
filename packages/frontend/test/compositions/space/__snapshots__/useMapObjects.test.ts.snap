@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useGetMapObjects composition should get mapObjects 1`] = `
+exports[`useMapObjects composition should get mapObjects 1`] = `
 Array [
   Object {
     "_id": "123",
