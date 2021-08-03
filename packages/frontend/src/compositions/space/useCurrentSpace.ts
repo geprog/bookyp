@@ -4,6 +4,9 @@ import { Ref, ref } from 'vue';
 
 import useGet from '~/compositions/useGet';
 
+// TODO: remove space id once it can be selected by the user
+export const spaceId = ref('60f53bede6f8313dff7f99e0');
+
 let internalSpace: Ref<Model.Space | undefined>;
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -13,8 +16,7 @@ let alreadyLoaded = false;
 
 export default function getCurrentSpace(): UseGet<Model.Space> {
   if (!alreadyLoaded) {
-    // TODO: remove space id once it can be selected by the user
-    const { data, isLoading } = useGet('spaces', ref('60f53bede6f8313dff7f99e0'), {
+    const { data, isLoading } = useGet('spaces', spaceId, {
       disableUnloadingEventHandlers: true,
     });
     internalSpace = data;

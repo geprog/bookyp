@@ -62,6 +62,7 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import IconListItem from '~/components/list-items/IconListItem.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
+import { spaceId } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 import useGet from '~/compositions/useGet';
@@ -93,7 +94,10 @@ export default defineComponent({
     const linkedBookableId = computed(() => mapObject.value?.bookable);
     const { data: linkedBookable } = useGet('bookables', linkedBookableId);
 
-    const { data: bookables } = useFind('bookables');
+    const { data: bookables } = useFind(
+      'bookables',
+      computed(() => ({ query: { space: spaceId.value } })),
+    );
 
     async function saveMapObject(): Promise<void> {
       /* istanbul ignore next */

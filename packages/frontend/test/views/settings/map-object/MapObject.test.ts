@@ -1,6 +1,9 @@
+import { Params } from '@feathersjs/feathers';
 import { shallowMount } from '@vue/test-utils';
-import { nextTick } from 'vue';
+import { mocked } from 'ts-jest/utils';
+import { nextTick, Ref, ref } from 'vue';
 
+import useFind from '~/compositions/useFind';
 import MapObject from '~/views/settings/map-object/MapObject.vue';
 import { sampleBookable, sampleBookables } from '$/__fixtures__/bookable';
 import { sampleMapObject, sampleMapObjects } from '$/__fixtures__/mapObject';
@@ -69,6 +72,40 @@ describe('MapObject view', () => {
       // then
       expect(wrapper.html()).toMatchSnapshot();
     });
+  });
+
+  it('should find bookables for selected space', () => {
+    // given
+    const useRouterMock = prepareUseRouterMockOnce();
+    const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-map-object-link' });
+    prepareUseGetMockOnce(sampleMapObject);
+    prepareUseGetMockOnce(sampleBookable);
+    let params: Ref<Params> | undefined;
+    mocked(useFind, true).mockImplementationOnce((_, _params) => {
+      params = _params;
+
+      return {
+        data: ref([sampleBookable]),
+        isLoading: ref(false),
+      };
+    });
+
+    // when
+    shallowMount(MapObject, {
+      props: {
+        mapObjectId: sampleMapObject._id,
+      },
+      global: {
+        mocks: {
+          $router: useRouterMock,
+          $route: useRouteMock,
+        },
+      },
+    });
+
+    // then
+    expect(params?.value).toMatchSnapshot();
+    expect(params?.value.query).toHaveProperty('space');
   });
 
   it('should save the map-object', async () => {

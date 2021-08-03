@@ -23,11 +23,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import HomeHeader from '~/components/headers/HomeHeader.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
+import { spaceId } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
@@ -36,7 +37,10 @@ export default defineComponent({
   components: { ListItem, HomeHeader, ToggleBar },
 
   setup() {
-    const { data: bookables } = useFind('bookables');
+    const { data: bookables } = useFind(
+      'bookables',
+      computed(() => ({ paginate: false, query: { space: spaceId.value } })),
+    );
 
     return { bookables };
   },

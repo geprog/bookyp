@@ -28,6 +28,7 @@ import Header from '~/components/headers/Header.vue';
 import InputField from '~/components/InputField.vue';
 import DateTimePicker from '~/components/inputs/DateTimePicker.vue';
 import TextField from '~/components/TextField.vue';
+import { spaceId } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
@@ -69,6 +70,7 @@ export default defineComponent({
         description: description.value,
         bookable: props.bookableId,
         bookedBy: user.value._id,
+        space: spaceId.value,
       });
 
       router.back();
