@@ -9,6 +9,7 @@ const MapObjectSchema = new Schema<Document, MongooseModel<Document, unknown>, M
   paths: { type: Schema.Types.Array, required: true },
   type: { type: String, enum: Object.values(Model.MapObjectTypes), required: true },
   bookable: String,
+  space: { type: String, required: true },
 });
 
 export const name = 'mapObjects';

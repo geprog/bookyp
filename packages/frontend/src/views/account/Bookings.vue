@@ -37,6 +37,7 @@ import { RouterLink } from 'vue-router';
 import Header from '~/components/headers/Header.vue';
 import BookingItem from '~/components/list-items/BookingItem.vue';
 import AccountTabs from '~/components/tabs/AccountTabs.vue';
+import { spaceId } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
 
@@ -56,6 +57,7 @@ export default defineComponent({
     const bookingsQuery = computed(() => ({
       query: {
         bookedBy: user.value?._id,
+        space: spaceId.value,
       },
     }));
     const { data: bookings } = useFind('bookings', bookingsQuery);

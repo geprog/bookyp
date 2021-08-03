@@ -1,5 +1,7 @@
 import { Model } from '@bookyp/core';
 
+import { sampleSpace } from './space';
+
 export const sampleBooking: Model.Booking = {
   _id: '123',
   bookable: 'bookableId123',
@@ -7,6 +9,7 @@ export const sampleBooking: Model.Booking = {
   description: 'test description',
   end: new Date('2018-08-08T06:13:00'),
   start: new Date('2018-08-09T07:43:00'),
+  space: sampleSpace._id,
 };
 
 export const sampleAdditionalBooking: Model.Booking = {
@@ -16,6 +19,7 @@ export const sampleAdditionalBooking: Model.Booking = {
   end: new Date('1995-12-17T07:24:00'),
   bookedBy: 'test-user-id',
   description: 'test-description',
+  space: sampleSpace._id,
 };
 
 export const sampleBookings: Model.Booking[] = [
@@ -28,5 +32,6 @@ export const sampleBookings: Model.Booking[] = [
     bookedBy: 'test-user-id',
     bookable: 'test-bookable-id',
     description: 'test-description',
+    space: sampleSpace._id,
   },
 ];

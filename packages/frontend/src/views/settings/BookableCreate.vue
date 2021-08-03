@@ -14,6 +14,7 @@ import { useRouter } from 'vue-router';
 import BookableForm from '~/components/bookables/BookableForm.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
+import { spaceId } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 
 export default defineComponent({
@@ -30,6 +31,7 @@ export default defineComponent({
     const bookable = ref<Partial<Model.Bookable>>({
       description: '',
       name: '',
+      space: spaceId.value,
     });
 
     const saveBookable = async () => {

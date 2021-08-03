@@ -19,3 +19,11 @@ exports[`MapObject view Template should render correctly when selecting bookable
   <selectable-list-item-stub selected=\\"false\\" label=\\"Table\\" description=\\"\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>
 </div>"
 `;
+
+exports[`MapObject view should find bookables for selected space 1`] = `
+Object {
+  "query": Object {
+    "space": "60f53bede6f8313dff7f99e0",
+  },
+}
+`;

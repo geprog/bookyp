@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`useMapObjects composition should call useFind with a query containing space 1`] = `
+Object {
+  "paginate": false,
+  "query": Object {
+    "space": "60f53bede6f8313dff7f99e0",
+  },
+}
+`;
+
 exports[`useMapObjects composition should get mapObjects 1`] = `
 Array [
   Object {
@@ -10,6 +19,7 @@ Array [
       "M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z",
     ],
     "rotation": 0,
+    "space": "first",
     "type": "table",
     "xPos": 0,
     "yPos": 0,
@@ -22,6 +32,7 @@ Array [
       "M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z",
     ],
     "rotation": 0,
+    "space": "first",
     "type": "table",
     "xPos": 50,
     "yPos": 100,

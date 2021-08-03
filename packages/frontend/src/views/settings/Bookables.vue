@@ -24,13 +24,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import Header from '~/components/headers/Header.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
+import { spaceId } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
@@ -45,7 +46,10 @@ export default defineComponent({
   setup() {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
-    const { data: bookables } = useFind('bookables');
+    const { data: bookables } = useFind(
+      'bookables',
+      computed(() => ({ query: { space: spaceId.value } })),
+    );
 
     return { t, bookables };
   },

@@ -8,6 +8,7 @@ const BookingSchema = new Schema<Document, MongooseModel<Document, unknown>, Mod
   bookedBy: { type: String, required: true },
   bookable: { type: String, required: true },
   description: { type: String },
+  space: { type: String, required: true },
 });
 
 export const name = 'bookings';

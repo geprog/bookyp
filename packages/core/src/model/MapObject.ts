@@ -1,5 +1,6 @@
 import AbstractEntity, { Ref } from '~/model/AbstractEntity';
 import Bookable from '~/model/Bookable';
+import Space from '~/model/Space';
 import { MapObjectTypes } from '~/model/TemplateGenerator';
 
 export default class MapObject extends AbstractEntity {
@@ -30,4 +31,6 @@ export default class MapObject extends AbstractEntity {
    * reference to a bookable for which this mapObject is a representation
    */
   bookable?: Ref<Bookable>;
+
+  space!: Ref<Space>;
 }
