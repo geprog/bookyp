@@ -20,6 +20,7 @@
     "@geprog/use-feathers": "0.1.0",
     "@types/lodash": "4.14.170",
     "dayjs": "1.10.5",
+    "events": "3.3.0",
     "lodash": "4.17.21",
     "socket.io-client": "4.1.2",
     "svg-path-bbox": "0.2.0",

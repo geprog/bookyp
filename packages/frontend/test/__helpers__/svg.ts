@@ -12,6 +12,7 @@ export function mockSvg<T extends Element>(wrapper: DOMWrapper<T>): SVGElement<T
     createSVGPoint: jest.fn(),
     getScreenCTM: jest.fn(),
   };
+  mockedSVG.getScreenCTM.mockReturnValue({ inverse: jest.fn() } as unknown as DOMMatrix);
   Object.assign(wrapper.element, mockedSVG);
   return wrapper as SVGElement<T>;
 }

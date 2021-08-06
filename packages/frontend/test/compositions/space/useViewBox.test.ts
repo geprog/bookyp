@@ -144,6 +144,7 @@ describe('useViewBox composition', () => {
       const spaceMapMock = {
         registerViewBox: jest.fn(),
         unregisterViewBox: jest.fn(),
+        on: jest.fn(),
       };
       const paths = ref([]);
       const viewBoxKey = 'Test';
@@ -179,6 +180,7 @@ describe('useViewBox composition', () => {
       const spaceMapMock = {
         registerViewBox: jest.fn(),
         unregisterViewBox: jest.fn(),
+        on: jest.fn(),
       };
       const paths = ref([]);
       const viewBoxKey = 'Test';
