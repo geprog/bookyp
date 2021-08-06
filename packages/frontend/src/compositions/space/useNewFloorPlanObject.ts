@@ -3,7 +3,7 @@ import { Ref, ref } from 'vue';
 type UseNewFloorPlanObject = {
   startAddingWall: () => void;
   addFirstPositionOfWall: (svgP: DOMPoint) => void;
-  finishAddingOfWall: (svgP: DOMPoint) => void;
+  finishAddingOfWall: () => void;
   updateSecondPositionOfWall: (svgP: DOMPoint) => void;
   addingStage: Ref<'clicked-on-add-button' | 'first-position' | 'not-started'>;
 };
@@ -28,12 +28,12 @@ export default function useNewFloorPlanObject(floorPlan: Ref<string[]>): UseNewF
     }
   }
 
-  function finishAddingOfWall(svgP: DOMPoint) {
+  function finishAddingOfWall() {
     if (
       addingStage.value === 'first-position' &&
       firstPosition !== null &&
-      svgP.x !== firstPosition.x &&
-      svgP.y !== firstPosition.y
+      floorPlan.value[floorPlan.value.length - 1] !==
+        `M${firstPosition.x} ${firstPosition.y} L${firstPosition.x} ${firstPosition.y}`
     ) {
       // reset stage
       firstPosition = null;

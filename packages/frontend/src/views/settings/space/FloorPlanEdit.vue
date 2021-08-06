@@ -111,8 +111,8 @@ export default defineComponent({
       useNewFloorPlanObjects.addFirstPositionOfWall(svgP);
     }
 
-    function upInsideFloorPlan(svgP: DOMPoint) {
-      useNewFloorPlanObjects.finishAddingOfWall(svgP);
+    function upInsideFloorPlan() {
+      useNewFloorPlanObjects.finishAddingOfWall();
     }
 
     function moveInsideFloorPlan(svgP: DOMPoint) {
