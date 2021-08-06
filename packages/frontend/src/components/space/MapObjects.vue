@@ -10,12 +10,14 @@
     <path
       v-for="path in mapObject.paths"
       :key="path"
+      data-test="map-object-path"
       :d="path"
-      :class="
+      :class="[
+        mapObject.bookable ? 'stroke-black text-primary-dark !fill-primary-light' : '',
         selectedMapObjectId === mapObject._id
           ? 'stroke-current text-primary-dark fill-primary-light'
-          : 'stroke-black fill-white'
-      "
+          : 'stroke-black fill-white',
+      ]"
     />
   </g>
 </template>

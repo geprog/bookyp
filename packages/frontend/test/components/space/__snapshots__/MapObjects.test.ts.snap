@@ -2,33 +2,33 @@
 
 exports[`MapObjects component should render correctly when clickable 1`] = `
 "<g data-test=\\"map-object\\" transform=\\"translate(0,0)\\" class=\\"cursor-pointer map-object\\">
-  <path d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\" class=\\"stroke-black fill-white\\"></path>
-  <path d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\" class=\\"stroke-black fill-white\\"></path>
+  <path data-test=\\"map-object-path\\" d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\" class=\\"stroke-black fill-white\\"></path>
+  <path data-test=\\"map-object-path\\" d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\" class=\\"stroke-black fill-white\\"></path>
 </g>
 <g data-test=\\"map-object\\" transform=\\"translate(50,100)\\" class=\\"cursor-pointer map-object\\">
-  <path d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\" class=\\"stroke-black fill-white\\"></path>
-  <path d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\" class=\\"stroke-black fill-white\\"></path>
+  <path data-test=\\"map-object-path\\" d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\" class=\\"stroke-black text-primary-dark !fill-primary-light stroke-black fill-white\\"></path>
+  <path data-test=\\"map-object-path\\" d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\" class=\\"stroke-black text-primary-dark !fill-primary-light stroke-black fill-white\\"></path>
 </g>"
 `;
 
 exports[`MapObjects component should render correctly when not clickable 1`] = `
 "<g data-test=\\"map-object\\" transform=\\"translate(0,0)\\" class=\\"\\">
-  <path d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\" class=\\"stroke-black fill-white\\"></path>
-  <path d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\" class=\\"stroke-black fill-white\\"></path>
+  <path data-test=\\"map-object-path\\" d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\" class=\\"stroke-black fill-white\\"></path>
+  <path data-test=\\"map-object-path\\" d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\" class=\\"stroke-black fill-white\\"></path>
 </g>
 <g data-test=\\"map-object\\" transform=\\"translate(50,100)\\" class=\\"\\">
-  <path d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\" class=\\"stroke-black fill-white\\"></path>
-  <path d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\" class=\\"stroke-black fill-white\\"></path>
+  <path data-test=\\"map-object-path\\" d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\" class=\\"stroke-black text-primary-dark !fill-primary-light stroke-black fill-white\\"></path>
+  <path data-test=\\"map-object-path\\" d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\" class=\\"stroke-black text-primary-dark !fill-primary-light stroke-black fill-white\\"></path>
 </g>"
 `;
 
 exports[`MapObjects component should render correctly with a selectedMapObject 1`] = `
 "<g data-test=\\"map-object\\" transform=\\"translate(0,0)\\" class=\\"cursor-pointer map-object\\">
-  <path d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\" class=\\"stroke-black fill-white\\"></path>
-  <path d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\" class=\\"stroke-black fill-white\\"></path>
+  <path data-test=\\"map-object-path\\" d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\" class=\\"stroke-black fill-white\\"></path>
+  <path data-test=\\"map-object-path\\" d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\" class=\\"stroke-black fill-white\\"></path>
 </g>
 <g data-test=\\"map-object\\" transform=\\"translate(50,100)\\" class=\\"cursor-pointer map-object\\">
-  <path d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\" class=\\"stroke-black fill-white\\"></path>
-  <path d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\" class=\\"stroke-black fill-white\\"></path>
+  <path data-test=\\"map-object-path\\" d=\\"M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z\\" class=\\"stroke-black text-primary-dark !fill-primary-light stroke-black fill-white\\"></path>
+  <path data-test=\\"map-object-path\\" d=\\"M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z\\" class=\\"stroke-black text-primary-dark !fill-primary-light stroke-black fill-white\\"></path>
 </g>"
 `;
