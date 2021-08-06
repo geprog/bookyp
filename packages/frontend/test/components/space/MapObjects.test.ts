@@ -4,7 +4,7 @@ import { nextTick, ref } from 'vue';
 import MapObjects from '~/components/space/MapObjects.vue';
 import useViewBox, { Path } from '~/compositions/space/useViewBox';
 import { SpaceMapKey } from '~/symbols/space-map';
-import { sampleMapObjects } from '$/__fixtures__/mapObject';
+import { sampleMapObjects, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
 import { prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFind');
@@ -172,6 +172,38 @@ describe('MapObjects component', () => {
 
       // then
       expect(SpaceMapMock.unregisterViewBox).toHaveBeenCalledWith('MapObjects');
+    });
+
+    it('should not colored the object if its not linked with bookables', () => {
+      expect.assertions(1);
+      // given
+      prepareUseFindMockOnce(sampleMapObjects);
+      const wrapper = shallowMount(MapObjects, {
+        props: {
+          clickable: true,
+        },
+        global: globalOptions,
+      });
+
+      // then
+      expect(
+        wrapper.find('[data-test="map-object-path"]').classes('stroke-black text-primary-dark !fill-primary-light'),
+      ).toBeFalsy();
+    });
+
+    it('should colored the object if its linked with bookables', () => {
+      expect.assertions(1);
+      // given
+      prepareUseFindMockOnce([sampleMapObjectWithBookable]);
+      const wrapper = shallowMount(MapObjects, {
+        props: {
+          clickable: true,
+        },
+        global: globalOptions,
+      });
+
+      // then
+      expect(wrapper.find('[data-test="map-object-path"]').classes('stroke-black fill-white')).toBeFalsy();
     });
   });
 });
