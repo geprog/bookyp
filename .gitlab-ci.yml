@@ -6,8 +6,8 @@ stages:
   - deploy-prepare
   - deploy
   - deploy-test
-  # - storybook
-  # - storybook-deploy
+  - storybook
+  - storybook-deploy
   - cleanup
 
 variables:
@@ -515,149 +515,149 @@ production-rollback:
 
 ################# STORYBOOK #################
 
-# .storybook-review-environment:
-#   environment:
-#     name: storybook/$CI_COMMIT_REF_SLUG
-#     url: https://${CI_ENVIRONMENT_SLUG}.storybook.${BASE_DOMAIN}/
-#     deployment_tier: development
-#     on_stop: storybook-stop
-#     auto_stop_in: 3 days # stop after 3 days without new commits
-#     kubernetes:
-#       namespace: bookyp-review
-#   rules:
-#     # if pipeline runs on merge request and is triggered by renovate
-#     - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
-#       changes: *main_pipeline_files
-#       when: manual
-#       allow_failure: true
-#     # if pipeline runs on merge request
-#     - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
-#       changes: *main_pipeline_files
+.storybook-review-environment:
+  environment:
+    name: storybook/$CI_COMMIT_REF_SLUG
+    url: https://${CI_ENVIRONMENT_SLUG}.storybook.${BASE_DOMAIN}/
+    deployment_tier: development
+    on_stop: storybook-stop
+    auto_stop_in: 3 days # stop after 3 days without new commits
+    kubernetes:
+      namespace: bookyp-review
+  rules:
+    # if pipeline runs on merge request and is triggered by renovate
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
+      changes: *main_pipeline_files
+      when: manual
+      allow_failure: true
+    # if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
+      changes: *main_pipeline_files
 
-# storybook-build:
-#   extends:
-#     - .node-template
-#     - .storybook-review-environment
-#   stage: storybook
-#   needs:
-#     - build-core
-#   script:
-#     - pnpm --filter @bookyp/storybook build
-#   environment:
-#     action: prepare
-#   artifacts:
-#     paths:
-#       - packages/storybook/storybook-static
-#     expire_in: 1 day
-#   rules:
-#     # if pipeline on default branch
-#     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-#     # if pipeline runs on merge request and is triggered by renovate
-#     - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
-#       changes: *main_pipeline_files
-#       when: manual
-#       allow_failure: true
-#     # if pipeline runs on merge request
-#     - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
-#       changes: *main_pipeline_files
-#   interruptible: true
+storybook-build:
+  extends:
+    - .node-template
+    - .storybook-review-environment
+  stage: storybook
+  needs:
+    - build-core
+  script:
+    - pnpm --filter @bookyp/storybook build
+  environment:
+    action: prepare
+  artifacts:
+    paths:
+      - packages/storybook/storybook-static
+    expire_in: 1 day
+  rules:
+    # if pipeline on default branch
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    # if pipeline runs on merge request and is triggered by renovate
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
+      changes: *main_pipeline_files
+      when: manual
+      allow_failure: true
+    # if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
+      changes: *main_pipeline_files
+  interruptible: true
 
-# storybook-review-upload:
-#   extends:
-#     - .minio-template
-#     - .storybook-review-environment
-#   stage: storybook-deploy
-#   needs:
-#     - storybook-build
-#   environment:
-#     action: prepare
-#   before_script:
-#     - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
-#   script:
-#     - mc mirror --remove --overwrite ./packages/storybook/storybook-static geprog/bookyp-storybook/$CI_ENVIRONMENT_SLUG
+storybook-review-upload:
+  extends:
+    - .minio-template
+    - .storybook-review-environment
+  stage: storybook-deploy
+  needs:
+    - storybook-build
+  environment:
+    action: prepare
+  before_script:
+    - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
+  script:
+    - mc mirror --remove --overwrite ./packages/storybook/storybook-static geprog/bookyp-storybook/$CI_ENVIRONMENT_SLUG
 
-# storybook-review-deploy:
-#   extends:
-#     - .helm-template
-#     - .storybook-review-environment
-#   stage: storybook-deploy
-#   needs:
-#     - review-prepare
-#   script:
-#     - >
-#       helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
-#       --set environment.type=review
-#       --set environment.name=$CI_ENVIRONMENT_SLUG
-#       --set environment.url=${CI_ENVIRONMENT_SLUG}.storybook.${BASE_DOMAIN}
-#       --set ingress.tls.secretName=bookyp-storybook-review-tls
-#       --set s3.accessKey=$S3_ACCESS_KEY
-#       --set s3.secretKey=$S3_SECRET_KEY
-#       --set s3.root=$CI_ENVIRONMENT_SLUG
-#       --set gitlab.app=$CI_PROJECT_PATH_SLUG
-#       --set gitlab.env=$CI_ENVIRONMENT_SLUG
-#       bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/storybook
+storybook-review-deploy:
+  extends:
+    - .helm-template
+    - .storybook-review-environment
+  stage: storybook-deploy
+  needs:
+    - review-prepare
+  script:
+    - >
+      helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
+      --set environment.type=review
+      --set environment.name=$CI_ENVIRONMENT_SLUG
+      --set environment.url=${CI_ENVIRONMENT_SLUG}.storybook.${BASE_DOMAIN}
+      --set ingress.tls.secretName=bookyp-storybook-review-tls
+      --set s3.accessKey=$S3_ACCESS_KEY
+      --set s3.secretKey=$S3_SECRET_KEY
+      --set s3.root=$CI_ENVIRONMENT_SLUG
+      --set gitlab.app=$CI_PROJECT_PATH_SLUG
+      --set gitlab.env=$CI_ENVIRONMENT_SLUG
+      bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/storybook
 
-# storybook-stop:
-#   extends:
-#     - .helm-template
-#     - .storybook-review-environment
-#   stage: cleanup
-#   environment:
-#     action: stop
-#   variables:
-#     GIT_STRATEGY: none # Source: https://docs.gitlab.com/ee/ci/yaml/#environmentaction
-#   script:
-#     - helm uninstall --namespace $KUBE_NAMESPACE bookyp-${CI_ENVIRONMENT_SLUG}
-#   rules:
-#     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
-#       changes: *main_pipeline_files
-#       when: manual
-#       allow_failure: true
+storybook-stop:
+  extends:
+    - .helm-template
+    - .storybook-review-environment
+  stage: cleanup
+  environment:
+    action: stop
+  variables:
+    GIT_STRATEGY: none # Source: https://docs.gitlab.com/ee/ci/yaml/#environmentaction
+  script:
+    - helm uninstall --namespace $KUBE_NAMESPACE bookyp-${CI_ENVIRONMENT_SLUG}
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
+      changes: *main_pipeline_files
+      when: manual
+      allow_failure: true
 
-# .storybook-production-environment:
-#   environment:
-#     name: storybook/production
-#     url: https://storybook.${BASE_DOMAIN}/
-#     deployment_tier: production
-#     kubernetes:
-#       namespace: bookyp-production
-#   rules:
-#     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+.storybook-production-environment:
+  environment:
+    name: storybook/production
+    url: https://storybook.${BASE_DOMAIN}/
+    deployment_tier: production
+    kubernetes:
+      namespace: bookyp-production
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
-# storybook-production-upload:
-#   extends:
-#     - .minio-template
-#     - .storybook-production-environment
-#   stage: storybook-deploy
-#   needs:
-#     - storybook-build
-#   environment:
-#     action: prepare
-#   before_script:
-#     - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
-#   script:
-#     - mc mirror --remove --overwrite ./packages/storybook/storybook-static geprog/bookyp-storybook/$CI_ENVIRONMENT_SLUG
+storybook-production-upload:
+  extends:
+    - .minio-template
+    - .storybook-production-environment
+  stage: storybook-deploy
+  needs:
+    - storybook-build
+  environment:
+    action: prepare
+  before_script:
+    - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
+  script:
+    - mc mirror --remove --overwrite ./packages/storybook/storybook-static geprog/bookyp-storybook/$CI_ENVIRONMENT_SLUG
 
-# storybook-deploy-production:
-#   extends:
-#     - .helm-template
-#     - .storybook-production-environment
-#   stage: storybook-deploy
-#   needs:
-#     - production-prepare
-#   script:
-#     - >
-#       helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
-#       --set environment.type=production
-#       --set environment.name=$CI_ENVIRONMENT_SLUG
-#       --set environment.url=storybook.${BASE_DOMAIN}
-#       --set ingress.tls.secretName=bookyp-storybook-production-tls
-#       --set s3.accessKey=$S3_ACCESS_KEY
-#       --set s3.secretKey=$S3_SECRET_KEY
-#       --set s3.root=$CI_ENVIRONMENT_SLUG
-#       --set gitlab.app=$CI_PROJECT_PATH_SLUG
-#       --set gitlab.env=$CI_ENVIRONMENT_SLUG
-#       bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/storybook
+storybook-deploy-production:
+  extends:
+    - .helm-template
+    - .storybook-production-environment
+  stage: storybook-deploy
+  needs:
+    - production-prepare
+  script:
+    - >
+      helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
+      --set environment.type=production
+      --set environment.name=$CI_ENVIRONMENT_SLUG
+      --set environment.url=storybook.${BASE_DOMAIN}
+      --set ingress.tls.secretName=bookyp-storybook-production-tls
+      --set s3.accessKey=$S3_ACCESS_KEY
+      --set s3.secretKey=$S3_SECRET_KEY
+      --set s3.root=$CI_ENVIRONMENT_SLUG
+      --set gitlab.app=$CI_PROJECT_PATH_SLUG
+      --set gitlab.env=$CI_ENVIRONMENT_SLUG
+      bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/storybook
 
 ################# DUMMY JOB #################
 
