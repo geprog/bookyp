@@ -18,6 +18,7 @@
 1. Create new minio user `geprog-website`
 
    ```bash
+   mc mb geprog/bookyp-storybook
    mc admin user add geprog bookyp
    mc admin policy add geprog bookyp-bucket-policy .ci/minio-policy.txt
    mc admin policy set geprog bookyp-bucket-policy user=bookyp
