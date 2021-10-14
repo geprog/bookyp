@@ -313,16 +313,6 @@ renovate-config-validator:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
-lint-merge-request-title:
-  extends: .node-template
-  stage: test
-  needs: []
-  script:
-    - echo ${CI_MERGE_REQUEST_TITLE} | ./node_modules/.bin/commitlint
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
-  interruptible: true
-
 spell-check:
   extends: .node-template
   stage: test
