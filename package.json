@@ -16,6 +16,7 @@
     "start:backend": "dotenv -- pnpm --filter @bookyp/backend start",
     "docker-compose": "docker-compose -f .devcontainer/docker-compose.without-devcontainer.yml -f .devcontainer/docker-compose.database.yml -p bookyp",
     "docker:up": "pnpm --filter . -- docker-compose up -d",
+    "docker:remove-volumes": "pnpm --filter . -- docker-compose down --volumes --remove-orphans",
     "build": "pnpm --filter @bookyp/frontend... --filter @bookyp/backend... build",
     "build:libs": "pnpm --filter @bookyp/core build",
     "lint": "pnpm --filter . lint:formatting && pnpm --filter ./packages lint",
