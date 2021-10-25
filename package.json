@@ -22,7 +22,7 @@
     "lint": "pnpm --filter . lint:formatting && pnpm --filter ./packages lint",
     "lint:formatting": "prettier -c .",
     "lint:changed": "pnpm lint:formatting && pnpm --filter \"...[master]\" lint",
-    "spellcheck": "cspell '{**,.*}/{*,.*}'",
+    "spellcheck": "cspell lint --no-progress --gitignore '{**,.*}/{*,.*}'",
     "test": "pnpm --filter ./packages test",
     "test:changed": "pnpm --filter \"...[master]\" --filter=!./ test",
     "typecheck": "pnpm --filter ./packages typecheck",
@@ -33,7 +33,7 @@
   "devDependencies": {
     "@commitlint/cli": "13.1.0",
     "@commitlint/config-conventional": "13.1.0",
-    "cspell": "5.6.3",
+    "cspell": "5.12.3",
     "dotenv-cli": "4.0.0",
     "eslint": "7.31.0",
     "husky": "7.0.1",
