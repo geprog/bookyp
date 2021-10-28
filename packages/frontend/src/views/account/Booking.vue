@@ -4,7 +4,7 @@
       data-test="delete-button"
       icon="delete"
       icon-color="text-red-text hover:text-red-background"
-      @click="deleteBooking"
+      @click="modalVisible = true"
     />
   </Header>
 
@@ -14,16 +14,18 @@
       <span>{{ t('start') }}: {{ dayjs(booking.start).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
       <span>{{ t('end') }}: {{ dayjs(booking?.end).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
     </div>
+    <DeleteDialog data-test="delete-dialog" :visible="modalVisible" @confirmation="deleteBooking" />
   </div>
 </template>
 
 <script lang="ts">
 import dayjs from 'dayjs';
-import { computed, defineComponent, toRef } from 'vue';
+import { computed, defineComponent, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
+import DeleteDialog from '~/components/DeleteDialog.vue';
 import Header from '~/components/headers/Header.vue';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
@@ -34,6 +36,7 @@ export default defineComponent({
   components: {
     Header,
     IconButton,
+    DeleteDialog,
   },
 
   props: {
@@ -56,13 +59,18 @@ export default defineComponent({
 
     const bookableId = computed(() => booking.value?.bookable);
     const { data: bookable } = useGet('bookables', bookableId);
+    const modalVisible = ref(false);
 
-    async function deleteBooking() {
+    async function deleteBooking(confirmation: boolean) {
+      if (!confirmation) {
+        modalVisible.value = false;
+        return;
+      }
       await feathers.service('bookings').remove(bookingId.value);
       router.back();
     }
 
-    return { t, booking, bookable, dayjs, deleteBooking };
+    return { t, booking, bookable, dayjs, deleteBooking, modalVisible };
   },
 });
 </script>
