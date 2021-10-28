@@ -1,28 +1,33 @@
 {
   "back_to_home": "Back to home",
   "book_a_bookable": "Book {bookable}",
-  "bookable_details": "Bookable: {bookable}",
   "bookable_create": "Create bookable",
+  "bookable_details": "Bookable: {bookable}",
   "bookables": "Bookables",
+  "booking_details": "Booking details",
   "bookings": "Bookings",
   "bookyp": "bookyp",
   "bookyp_name": "Book your place, easily!",
   "description": "Description",
   "end": "End",
+  "map_object": {
+    "change_bookable_link": "Change link",
+    "edit": "Set size and link",
+    "link_to_bookable": "Link to bookable object"
+  },
+  "message": {
+    "cancel": "Cancel",
+    "description": "Do you want to delete this booking ?",
+    "label": "Delete"
+  },
   "name": "Name",
+  "no_bookable": "No bookable found",
   "not_found_message": "Whoa 404, either we broke something or you had a typing mishap :-/",
   "oops": "Oops!",
-  "map_object": {
-    "edit": "Set size and link",
-    "link_to_bookable": "Link to bookable object",
-    "change_bookable_link": "Change link"
-  },
   "settings": "Settings",
   "space": "Floor plan",
   "start": "Start",
-  "try_again": "Try again",
   "today": "Today",
   "tomorrow": "Tomorrow",
-  "no_bookable": "No bookable found",
-  "booking_details": "Booking details"
+  "try_again": "Try again"
 }

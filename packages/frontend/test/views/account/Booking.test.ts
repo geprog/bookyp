@@ -46,6 +46,8 @@ describe('Booking view', () => {
     // when
     wrapper.findComponent('[data-test=delete-button]').vm.$emit('click');
     await nextTick();
+    wrapper.findComponent('[data-test=delete-dialog]').vm.$emit('confirmation', true);
+    await nextTick();
 
     // then
     expect(useFeathersMock.remove).toHaveBeenCalledWith(sampleBooking._id);
