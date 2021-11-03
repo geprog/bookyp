@@ -4,6 +4,7 @@ logs
 
 # Env files
 .env
+!.devcontainer/.env
 
 # Dependency directories
 node_modules

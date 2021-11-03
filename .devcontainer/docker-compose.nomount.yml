@@ -8,6 +8,8 @@ services:
   app:
     volumes:
       - app:/workspace
+    env_file:
+      - .env
 
 volumes:
   app:
