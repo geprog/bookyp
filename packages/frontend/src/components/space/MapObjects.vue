@@ -12,12 +12,12 @@
       :key="path"
       data-test="map-object-path"
       :d="path"
-      :class="[
-        mapObject.bookable ? 'stroke-black text-primary-dark !fill-primary-light' : '',
-        selectedMapObjectId === mapObject._id
-          ? 'stroke-current text-primary-dark fill-primary-light'
-          : 'stroke-black fill-white',
-      ]"
+      :class="{
+        'stroke-black text-primary-dark fill-primary-light':
+          selectedMapObjectId !== mapObject._id && mapObject.bookable,
+        'stroke-current text-primary-dark fill-primary-light': selectedMapObjectId === mapObject._id,
+        'stroke-black fill-white': selectedMapObjectId !== mapObject._id && !mapObject.bookable,
+      }"
     />
   </g>
 </template>
