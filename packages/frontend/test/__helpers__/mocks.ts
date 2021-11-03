@@ -4,6 +4,7 @@ import { computed, ref } from 'vue';
 import { RouteLocationNormalized, Router, useRoute, useRouter } from 'vue-router';
 
 import useCurrentSpace from '~/compositions/space/useCurrentSpace';
+import useMapObjects from '~/compositions/space/useMapObjects';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 import useGet from '~/compositions/useGet';
@@ -51,6 +52,17 @@ export function prepareUseCurrentSpaceMockOnce(space: Model.Space | undefined): 
     isLoading,
   };
   mocked(useCurrentSpace, true).mockReturnValueOnce(useCurrentSpaceMock);
+}
+
+export function prepareUseMapObjectsMockOnce(mapObjects: Model.MapObject[]): void {
+  const data = computed<Model.MapObject[]>(() => mapObjects);
+  const isLoading = ref(false);
+
+  const useMapObjectsMock = {
+    data,
+    isLoading,
+  };
+  mocked(useMapObjects, true).mockReturnValueOnce(useMapObjectsMock);
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
