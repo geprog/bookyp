@@ -75,7 +75,7 @@ export default defineComponent({
 
   emits: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    'change-happend': (_flag: boolean) => true,
+    'change-happened': (_flag: boolean) => true,
   },
 
   setup(props, context) {
@@ -91,12 +91,12 @@ export default defineComponent({
 
     watch(saveTrigger, async () => {
       await saveNewMapObject();
-      context.emit('change-happend', false);
+      context.emit('change-happened', false);
     });
 
     watch(abortTrigger, () => {
       newMapObject.value = null;
-      context.emit('change-happend', false);
+      context.emit('change-happened', false);
     });
 
     // flag to show if we are currently editing the map
@@ -155,7 +155,7 @@ export default defineComponent({
 
     async function clickOnAddButton() {
       await selectMapObject(null);
-      context.emit('change-happend', true);
+      context.emit('change-happened', true);
       addMapObject();
     }
 

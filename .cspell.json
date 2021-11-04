@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "language": "en",
   "words": [
     "ADMINPASSWORD",
@@ -8,6 +8,7 @@
     "Automerge",
     "autoremove",
     "Avenir",
+    "Bbox",
     "bitnami",
     "Bookables",
     "bookyp",
@@ -83,9 +84,7 @@
     "vuedx",
     "windi",
     "windicss",
-    "WORKDIR",
-    "happend",
-    "Bbox"
+    "WORKDIR"
   ],
   "ignorePaths": [
     "**/node_modules/**/*",

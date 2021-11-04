@@ -11,7 +11,7 @@
     :selected-map-object-id="selectedMapObjectId"
     :abort-trigger="abortTrigger"
     :save-trigger="saveTrigger"
-    @change-happend="handleChange"
+    @change-happened="handleChange"
   >
     <component :is="Component">
       <template #toggleBar>
