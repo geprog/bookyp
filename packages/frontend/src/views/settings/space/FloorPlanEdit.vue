@@ -62,7 +62,7 @@ export default defineComponent({
 
   emits: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    'change-happend': (_flag: boolean) => true,
+    'change-happened': (_flag: boolean) => true,
   },
 
   setup(props, context) {
@@ -90,20 +90,20 @@ export default defineComponent({
         };
         await feathers.service('spaces').update(currentSpace.value._id, saveSpace);
       }
-      context.emit('change-happend', false);
+      context.emit('change-happened', false);
     });
 
     watch(abortTrigger, () => {
       if (currentSpace.value !== undefined) {
         floorPlan.value = clone(currentSpace.value.floorPlan);
-        context.emit('change-happend', false);
+        context.emit('change-happened', false);
       } else {
         throw new Error('No current space');
       }
     });
 
     function clickOnAddButton() {
-      context.emit('change-happend', true);
+      context.emit('change-happened', true);
       useNewFloorPlanObjects.startAddingWall();
     }
 

@@ -125,7 +125,7 @@ describe('MapObjectsEdit component', () => {
       await nextTick();
 
       // then
-      expect(wrapper.emitted('change-happend')).toStrictEqual([[true]]);
+      expect(wrapper.emitted('change-happened')).toStrictEqual([[true]]);
       expect(wrapper.vm.newMapObject).toStrictEqual(sampleNewMapObject);
       expect(wrapper.vm.mode).toBe('creating');
     });
@@ -250,7 +250,7 @@ describe('MapObjectsEdit component', () => {
       );
     });
   });
-  it('should save sampleMapObject and emit change-happend when save trigger changes', async () => {
+  it('should save sampleMapObject and emit change-happened when save trigger changes', async () => {
     expect.assertions(2);
     // given
 
@@ -268,10 +268,10 @@ describe('MapObjectsEdit component', () => {
     await nextTick();
 
     // then
-    expect(wrapper.emitted('change-happend')).toStrictEqual([[false]]);
+    expect(wrapper.emitted('change-happened')).toStrictEqual([[false]]);
     expect(useNewMapObjectMock.saveNewMapObject).toHaveBeenCalledWith();
   });
-  it('should set sampleNewMapObject to null and emit change-happend when abort trigger changes', async () => {
+  it('should set sampleNewMapObject to null and emit change-happened when abort trigger changes', async () => {
     expect.assertions(2);
     // given
 
@@ -290,7 +290,7 @@ describe('MapObjectsEdit component', () => {
     await nextTick();
 
     // then
-    expect(wrapper.emitted('change-happend')).toStrictEqual([[false]]);
+    expect(wrapper.emitted('change-happened')).toStrictEqual([[false]]);
     expect(wrapper.vm.newMapObject).toBeNull();
   });
   it('should open map-object details when clicking on edit', async () => {
