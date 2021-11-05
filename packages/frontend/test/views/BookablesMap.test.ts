@@ -1,6 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
+import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import MapObjects from '~/components/space/MapObjects.vue';
 import BookablesMap from '~/views/BookablesMap.vue';
 import { sampleMapObject, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
@@ -67,7 +68,7 @@ describe('BookablesMap view', () => {
     });
 
     // when
-    wrapper.getComponent('[data-test=toggle-bar]').vm.$emit('selected-end');
+    wrapper.getComponent(ToggleBar).vm.$emit('selected-end');
     await nextTick();
 
     // then

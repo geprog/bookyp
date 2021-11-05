@@ -1,7 +1,5 @@
-import { Params } from '@feathersjs/feathers';
-import { UseFind } from '@geprog/use-feathers';
+import { UseFind, UseFindFunc } from '@geprog/use-feathers';
 import { mocked } from 'ts-jest/utils';
-import { Ref } from 'vue';
 
 import useFind from '~/compositions/useFind';
 import { sampleMapObjects } from '$/__fixtures__/mapObject';
@@ -34,7 +32,7 @@ describe('useMapObjects composition', () => {
 
   it('should call useFind with a query containing space', () => {
     // given
-    let params: Ref<Params> | undefined;
+    let params: Parameters<UseFindFunc<unknown>>[1];
     mocked(useFind, true).mockImplementationOnce((_, _params): UseFind<unknown> => {
       params = _params;
       return {} as UseFind<unknown>;
@@ -45,7 +43,7 @@ describe('useMapObjects composition', () => {
 
     // then
     expect(params?.value).toMatchSnapshot();
-    expect(params?.value.query).toHaveProperty('space');
+    expect(params?.value?.query).toHaveProperty('space');
   });
 
   it('should call useFind only once', () => {

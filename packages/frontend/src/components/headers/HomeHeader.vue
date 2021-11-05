@@ -3,6 +3,7 @@
     <template #start>
       <BookypIcon />
     </template>
+    <IconButton icon="filter" @click="$router.push({ name: 'bookables-filter' })" />
     <IconButton icon="person" @click="$router.push({ name: 'account-bookings' })" />
     <IconButton icon="settings" @click="$router.push({ name: 'settings-space-map-objects' })" />
     <IconButton icon="logout" @click="logout" />

@@ -1,7 +1,7 @@
-import { Params } from '@feathersjs/feathers';
+import { UseFindFunc } from '@geprog/use-feathers';
 import { shallowMount } from '@vue/test-utils';
 import { mocked } from 'ts-jest/utils';
-import { nextTick, Ref, ref } from 'vue';
+import { nextTick, ref } from 'vue';
 
 import useFind from '~/compositions/useFind';
 import MapObject from '~/views/settings/map-object/MapObject.vue';
@@ -80,7 +80,7 @@ describe('MapObject view', () => {
     const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-map-object-link' });
     prepareUseGetMockOnce(sampleMapObject);
     prepareUseGetMockOnce(sampleBookable);
-    let params: Ref<Params> | undefined;
+    let params: Parameters<UseFindFunc<unknown>>[1];
     mocked(useFind, true).mockImplementationOnce((_, _params) => {
       params = _params;
 
@@ -105,7 +105,7 @@ describe('MapObject view', () => {
 
     // then
     expect(params?.value).toMatchSnapshot();
-    expect(params?.value.query).toHaveProperty('space');
+    expect(params?.value?.query).toHaveProperty('space');
   });
 
   it('should save the map-object', async () => {
