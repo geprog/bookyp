@@ -7,6 +7,7 @@ import CrossIcon from '~/assets/icons/cross.svg';
 import DeleteIcon from '~/assets/icons/delete.svg';
 import DescriptionIcon from '~/assets/icons/description.svg';
 import EditIcon from '~/assets/icons/edit.svg';
+import FilterIcon from '~/assets/icons/filter.svg';
 import FloorPlanIcon from '~/assets/icons/floor-plan.svg';
 import LinkIcon from '~/assets/icons/link.svg';
 import ListIcon from '~/assets/icons/list.svg';
@@ -39,6 +40,7 @@ const icons = {
   settings: SettingsIcon,
   'stop-circle': StopCircleIcon,
   table: TableIcon,
+  filter: FilterIcon,
   link: LinkIcon,
   map: MapIcon,
   list: ListIcon,

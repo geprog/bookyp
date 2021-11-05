@@ -10,6 +10,7 @@
   "bookyp_name": "Book your place, easily!",
   "description": "Description",
   "end": "End",
+  "filter_bookables": "Filter for your place",
   "map_object": {
     "change_bookable_link": "Change link",
     "edit": "Set size and link",

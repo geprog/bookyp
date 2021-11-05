@@ -4,7 +4,7 @@ exports[`Bookings component should render correctly 1`] = `
 "<header-stub title=\\"Mock translation\\" hasback=\\"true\\"></header-stub>
 <div class=\\"mt-4\\">
   <div class=\\"w-full max-w-2xl mx-auto\\">
-    <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">9 Aug.</span>
+    <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">8 Aug.</span>
       <!--v-if-->
       <!--v-if-->
     </p>

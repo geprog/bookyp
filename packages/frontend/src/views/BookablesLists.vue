@@ -1,15 +1,18 @@
 <template>
   <HomeHeader />
-
-  <div v-if="bookables" class="w-full max-w-2xl mx-auto">
+  <div v-if="bookablesWithFilterMatched" class="w-full max-w-2xl mx-auto">
     <ListItem
-      v-for="bookable in bookables"
+      v-for="bookable in bookablesWithFilterMatched"
       :key="bookable._id"
+      :disabled="bookable.isFilterMatched === false"
       :label="bookable.name"
-      status-color="bg-primary-normal"
-      class="cursor-pointer m-3"
+      :status-color="getBookableStatusColor(bookable.isFilterMatched)"
       :description="bookable.description"
-      @click="$router.push({ name: 'booking-create', params: { bookableId: bookable._id } })"
+      class="cursor-pointer m-3"
+      @click="
+        bookable.isFilterMatched !== false &&
+          $router.push({ name: 'booking-create', params: { bookableId: bookable._id } })
+      "
     />
   </div>
 
@@ -29,6 +32,7 @@ import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import HomeHeader from '~/components/headers/HomeHeader.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import { spaceId } from '~/compositions/space/useCurrentSpace';
+import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
@@ -42,7 +46,23 @@ export default defineComponent({
       computed(() => ({ paginate: false, query: { space: spaceId.value } })),
     );
 
-    return { bookables };
+    const { bookablesWithFilterMatched } = useBookablesFilter(bookables);
+
+    function getBookableStatusColor(isFilterMatched?: boolean): string {
+      if (isFilterMatched === undefined) {
+        return 'bg-primary-normal';
+      }
+      if (isFilterMatched) {
+        return 'bg-green-text';
+      }
+
+      return 'bg-red-text';
+    }
+
+    return {
+      bookablesWithFilterMatched,
+      getBookableStatusColor,
+    };
   },
 });
 </script>

@@ -18,6 +18,12 @@ const routes: RouteRecordRaw[] = [
     component: (): Component => import('~/views/BookablesLists.vue'),
   },
   {
+    path: '/bookables/filter',
+    name: 'bookables-filter',
+    meta: { requiresAuth: true },
+    component: (): Component => import('./views/BookablesFilter.vue'),
+  },
+  {
     path: '/account/bookings',
     name: 'account-bookings',
     meta: { requiresAuth: true },
