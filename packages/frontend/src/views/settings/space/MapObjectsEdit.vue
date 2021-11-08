@@ -1,27 +1,26 @@
 <template>
   <div class="m-4 flex flex-col flex-grow min-h-0">
-    <SpaceMap data-test="space-map" @click-inside-svg="clickInsideFloorPlan">
+    <SpaceMap data-test="space-map">
       <FloorPlan />
-      <MapObjects
+      <MapObjectsEditing
+        :map-objects="mapObjectsCopy"
         :selected-map-object-id="selectedMapObjectId"
-        :clickable="mode === 'viewing' || mode === 'editing'"
-        @click-on-map-object="selectMapObject"
+        @update:map-objects="updateMapObjectsCopy"
+        @select-map-object="selectMapObject"
       />
-      <NewMapObject v-if="newMapObject" :new-map-object="newMapObject" />
     </SpaceMap>
 
     <div class="flex flex-row">
       <div class="mr-auto flex flex-row">
-        <FloatingButton v-if="mode === 'viewing'" data-test="add-button" icon="table" @click="clickOnAddButton" />
-        <FloatingButton
-          v-if="mode === 'editing'"
-          data-test="abort-button"
-          icon="cross"
-          class="mr-2"
-          @click="selectMapObject(null)"
-        />
-        <template v-if="mode === 'editing'">
-          <FloatingButton data-test="edit-button" icon="edit" class="mr-2" @click="openMapObjectSettings" />
+        <FloatingButton data-test="add-button" icon="table" class="mr-2" @click="clickOnAddButton" />
+        <template v-if="isSelected">
+          <FloatingButton
+            v-if="!isNewMapObjectPresent"
+            data-test="edit-button"
+            icon="edit"
+            class="mr-2"
+            @click="openMapObjectSettings"
+          />
           <FloatingButton data-test="delete-button" icon="delete" class="mr-2" @click="removeSelectedMapObject" />
         </template>
       </div>
@@ -32,16 +31,20 @@
 
 <script lang="ts">
 import { Model } from '@bookyp/core';
-import { computed, defineComponent, PropType, toRef, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { cloneDeep, isEqual, omit } from 'lodash';
+import { computed, defineComponent, onMounted, PropType, Ref, ref, toRef, watch } from 'vue';
+import { useRouter } from 'vue-router';
 
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import FloorPlan from '~/components/space/FloorPlan.vue';
-import MapObjects from '~/components/space/MapObjects.vue';
-import NewMapObject from '~/components/space/NewMapObject.vue';
+import MapObjectsEditing from '~/components/space/MapObjectsEditing.vue';
 import SpaceMap from '~/components/space/SpaceMap.vue';
-import useNewMapObject from '~/compositions/space/useNewMapObject';
+import getMapObjects from '~/compositions/space/useMapObjects';
+import useNewMapObject, { isNewMapObject } from '~/compositions/space/useNewMapObject';
 import useFeathers from '~/compositions/useFeathers';
+import { waitUntilDataHasBeenLoaded } from '~/utils';
+
+import { EditingMapObject } from './EditingMapObject';
 
 export default defineComponent({
   name: 'MapObjectsEdit',
@@ -49,9 +52,8 @@ export default defineComponent({
   components: {
     SpaceMap,
     FloorPlan,
-    NewMapObject,
     FloatingButton,
-    MapObjects,
+    MapObjectsEditing,
   },
 
   props: {
@@ -80,67 +82,94 @@ export default defineComponent({
 
   setup(props, context) {
     const router = useRouter();
-    const route = useRoute();
     const feathers = useFeathers();
 
     const selectedMapObjectId = toRef(props, 'selectedMapObjectId');
     const saveTrigger = toRef(props, 'saveTrigger');
     const abortTrigger = toRef(props, 'abortTrigger');
 
-    const { newMapObject, addMapObject, saveNewMapObject, positionNewMapObject } = useNewMapObject();
-
-    watch(saveTrigger, async () => {
-      await saveNewMapObject();
-      context.emit('change-happened', false);
+    const { data: mapObjects, isLoading } = getMapObjects();
+    const mapObjectsCopy: Ref<EditingMapObject[]> = ref([]);
+    onMounted(async () => {
+      const loadedMapObjects = await waitUntilDataHasBeenLoaded(mapObjects, isLoading);
+      mapObjectsCopy.value = cloneDeep(loadedMapObjects.value);
     });
-
-    watch(abortTrigger, () => {
-      newMapObject.value = null;
-      context.emit('change-happened', false);
-    });
-
-    // flag to show if we are currently editing the map
-    const mode = computed<'creating' | 'editing' | 'viewing'>(() => {
-      if (newMapObject.value) {
-        return 'creating';
-      }
-
-      if (selectedMapObjectId.value) {
-        return 'editing';
-      }
-      return 'viewing';
-    });
-
-    function clickInsideFloorPlan(svgP: { x: number; y: number }) {
-      // skip if we are not currently in creating mode
-      if (mode.value !== 'creating') {
-        return;
-      }
-      positionNewMapObject(svgP);
-    }
 
     async function selectMapObject(mapObject: Model.MapObject | null) {
-      // only allow selection of a mapObject if currently not in creating mode and when editing mapObjects
-      if (mode.value === 'creating') {
-        return;
+      if (mapObject) {
+        await router.replace({ params: { selectedMapObjectId: mapObject._id } });
+      } else {
+        await router.replace({ params: { selectedMapObjectId: '' } });
       }
-
-      const params = mapObject ? { selectedMapObjectId: mapObject._id } : undefined;
-
-      /* istanbul ignore next */
-      if (!route.name) {
-        throw new Error('Can not detect current route');
-      }
-
-      await router.replace({ name: route.name, params });
     }
+
+    const { addMapObject, resetNewMapObjectId, isNewMapObjectPresent } = useNewMapObject(
+      mapObjectsCopy,
+      selectMapObject,
+    );
+
+    async function saveMapObjectCopy() {
+      // update all map objects as we do not know which one changed
+      for (const mapObject of mapObjectsCopy.value) {
+        if (isNewMapObject(mapObject) && !mapObject.isDeleted) {
+          await feathers.service('mapObjects').create(omit(mapObject, '_id'));
+        } else if (mapObject.isDeleted && !isNewMapObject(mapObject)) {
+          await feathers.service('mapObjects').remove(mapObject._id);
+        } else if (!mapObject.isDeleted) {
+          await feathers.service('mapObjects').update(mapObject._id, mapObject);
+        }
+      }
+      mapObjectsCopy.value = cloneDeep(mapObjects.value);
+      resetNewMapObjectId();
+    }
+
+    watch(saveTrigger, async () => {
+      await saveMapObjectCopy();
+      await selectMapObject(null);
+      context.emit('change-happened', false);
+      await selectMapObject(null);
+    });
+
+    watch(abortTrigger, async () => {
+      mapObjectsCopy.value = cloneDeep(mapObjects.value);
+      context.emit('change-happened', false);
+      await selectMapObject(null);
+    });
+
+    function updateMapObjectsCopy(updateValue: Ref<Model.MapObject[]>) {
+      mapObjectsCopy.value = cloneDeep(updateValue.value);
+    }
+
+    watch(
+      mapObjectsCopy,
+      () => {
+        if (isEqual(mapObjectsCopy.value, mapObjects.value)) {
+          context.emit('change-happened', false);
+        } else {
+          context.emit('change-happened', true);
+        }
+      },
+      { deep: true },
+    );
+
+    // flag to show if we are currently editing a map object
+    const isSelected = computed<boolean>(() => {
+      if (selectedMapObjectId.value) {
+        return true;
+      }
+      return false;
+    });
 
     async function removeSelectedMapObject(): Promise<void> {
       /* istanbul ignore next */
       if (!selectedMapObjectId.value) {
         return;
       }
-      await feathers.service('mapObjects').remove(selectedMapObjectId.value);
+      mapObjectsCopy.value.forEach((mapObject) => {
+        if (mapObject._id === selectedMapObjectId.value) {
+          mapObject.isDeleted = true;
+        }
+      });
       await selectMapObject(null);
     }
 
@@ -160,13 +189,14 @@ export default defineComponent({
     }
 
     return {
-      mode,
-      clickInsideFloorPlan,
+      isSelected,
+      mapObjectsCopy,
       selectMapObject,
-      newMapObject,
       clickOnAddButton,
       removeSelectedMapObject,
       openMapObjectSettings,
+      updateMapObjectsCopy,
+      isNewMapObjectPresent,
     };
   },
 });

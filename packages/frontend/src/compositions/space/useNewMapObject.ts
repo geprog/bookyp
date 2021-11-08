@@ -1,50 +1,54 @@
 import { Model } from '@bookyp/core';
-import { Ref, ref } from 'vue';
+import { computed, ComputedRef, Ref } from 'vue';
 
 import { spaceId } from '~/compositions/space/useCurrentSpace';
-import useFeathers from '~/compositions/useFeathers';
 
 type UseNewMapObject = {
-  newMapObject: Ref<null | Omit<Model.MapObject, '_id'>>;
   addMapObject: () => void;
-  saveNewMapObject: () => Promise<void>;
-  positionNewMapObject: (svgP: { x: number; y: number }) => void;
+  resetNewMapObjectId: () => void;
+  isNewMapObjectPresent: ComputedRef<boolean>;
 };
 
-export default function useNewMapObject(): UseNewMapObject {
-  const feathers = useFeathers();
-  const newMapObject = ref<null | Omit<Model.MapObject, '_id'>>(null);
+// set id of unsaved added mapObject to a negative number to distinguish it from saved mapObjects
+let newMapObjectId = 0;
 
-  function addMapObject() {
-    newMapObject.value = {
+export function isNewMapObject(mapObject: Model.MapObject): boolean {
+  if (Number(mapObject._id) < 0) {
+    return true;
+  }
+  return false;
+}
+
+export default function useNewMapObject(
+  mapObjects: Ref<Model.MapObject[]>,
+  selectMapObject: (mapObject: Model.MapObject) => Promise<void>,
+): UseNewMapObject {
+  const isNewMapObjectPresent = computed(() => {
+    const newMapObjects = mapObjects.value.filter(isNewMapObject);
+    return newMapObjects.length > 0;
+  });
+
+  async function addMapObject() {
+    newMapObjectId--;
+    mapObjects.value.push({
+      _id: String(newMapObjectId),
       xPos: 0,
       yPos: 0,
       rotation: 0,
       paths: ['M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z', 'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z'],
-
       type: Model.MapObjectTypes.table,
       space: spaceId.value,
-    };
+    });
+    await selectMapObject(mapObjects.value[mapObjects.value.length - 1]);
   }
 
-  async function saveNewMapObject(): Promise<void> {
-    if (newMapObject.value) {
-      await feathers.service('mapObjects').create(newMapObject.value);
-      newMapObject.value = null;
-    }
-  }
-
-  function positionNewMapObject(svgP: { x: number; y: number }) {
-    if (newMapObject.value) {
-      newMapObject.value.xPos = svgP.x;
-      newMapObject.value.yPos = svgP.y;
-    }
+  function resetNewMapObjectId() {
+    newMapObjectId = 0;
   }
 
   return {
-    newMapObject,
     addMapObject,
-    saveNewMapObject,
-    positionNewMapObject,
+    resetNewMapObjectId,
+    isNewMapObjectPresent,
   };
 }
