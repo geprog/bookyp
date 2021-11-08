@@ -4,13 +4,11 @@ exports[`MapObjectsEdit component should render correctly 1`] = `
 "<div class=\\"m-4 flex flex-col flex-grow min-h-0\\">
   <space-map-stub data-test=\\"space-map\\">
     <floor-plan-stub></floor-plan-stub>
-    <map-objects-stub clickable=\\"true\\"></map-objects-stub>
-    <!--v-if-->
+    <map-objects-editing-stub mapobjects=\\"\\"></map-objects-editing-stub>
   </space-map-stub>
   <div class=\\"flex flex-row\\">
     <div class=\\"mr-auto flex flex-row\\">
-      <floating-button-stub icon=\\"table\\" disabled=\\"false\\" data-test=\\"add-button\\"></floating-button-stub>
-      <!--v-if-->
+      <floating-button-stub icon=\\"table\\" disabled=\\"false\\" data-test=\\"add-button\\" class=\\"mr-2\\"></floating-button-stub>
       <!--v-if-->
     </div>
   </div>

@@ -85,6 +85,8 @@ export default defineComponent({
       ) {
         pt.x = (e as MouseEvent).clientX;
         pt.y = (e as MouseEvent).clientY;
+      } else {
+        throw new Error("Can't get point from event: Unsupported event type");
       }
 
       // transform to SVG coordinates
