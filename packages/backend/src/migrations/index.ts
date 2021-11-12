@@ -3,11 +3,12 @@ import { Db, MongoClient } from 'mongodb';
 
 import { getConnectionUri } from '~/database';
 import { addSpaceReference } from '~/migrations/addSpaceReference';
+import { refactorFloorPlan } from '~/migrations/refactorFloorPlan';
 import { seed } from '~/migrations/seed';
 import { setExplicitSpaceId } from '~/migrations/setExplicitSpaceId';
 
 // migrations are applied in the order defined here
-const migrations: Migration[] = [seed, setExplicitSpaceId, addSpaceReference];
+const migrations: Migration[] = [seed, setExplicitSpaceId, addSpaceReference, refactorFloorPlan];
 
 const migrationStore = new MongoMigrationStore();
 

@@ -22,10 +22,10 @@ describe('useViewBox composition', () => {
     const viewBox = useViewBox(paths, { strokeWidth });
     // then
     expect(viewBox.value).toStrictEqual({
-      x: minX - strokeWidth / 2,
-      y: minY - strokeWidth / 2,
-      width: width + strokeWidth,
-      height: height + strokeWidth,
+      x: minX - 4 * strokeWidth,
+      y: minY - 4 * strokeWidth,
+      width: width + 8 * strokeWidth,
+      height: height + 8 * strokeWidth,
     });
   });
 
@@ -54,10 +54,10 @@ describe('useViewBox composition', () => {
     const viewBox = useViewBox(paths, { strokeWidth });
     // then
     expect(viewBox.value).toStrictEqual({
-      x: minX * -2 - strokeWidth / 2,
-      y: minY * -2 - strokeWidth / 2,
-      width: width * 3 + strokeWidth,
-      height: height * 3 + strokeWidth,
+      x: minX * -2 - 4 * strokeWidth,
+      y: minY * -2 - 4 * strokeWidth,
+      width: width * 3 + 8 * strokeWidth,
+      height: height * 3 + 8 * strokeWidth,
     });
   });
 
@@ -74,10 +74,10 @@ describe('useViewBox composition', () => {
     paths.value = [`M${minX * 2} ${minY * 2} l${width * 2} ${height * 2}`];
     // then
     expect(viewBox.value).toStrictEqual({
-      x: minX * 2 - strokeWidth / 2,
-      y: minY * 2 - strokeWidth / 2,
-      width: width * 2 + strokeWidth,
-      height: height * 2 + strokeWidth,
+      x: minX * 2 - 4 * strokeWidth,
+      y: minY * 2 - 4 * strokeWidth,
+      width: width * 2 + 8 * strokeWidth,
+      height: height * 2 + 8 * strokeWidth,
     });
   });
 
@@ -101,10 +101,10 @@ describe('useViewBox composition', () => {
     const viewBox = useViewBox(paths, { strokeWidth });
     // then
     expect(viewBox.value).toStrictEqual({
-      x: minX + x - strokeWidth / 2,
-      y: minY + y - strokeWidth / 2,
-      width: width + strokeWidth,
-      height: height + strokeWidth,
+      x: minX + x - 4 * strokeWidth,
+      y: minY + y - 4 * strokeWidth,
+      width: width + 8 * strokeWidth,
+      height: height + 8 * strokeWidth,
     });
   });
 

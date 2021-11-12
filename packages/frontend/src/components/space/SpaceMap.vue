@@ -1,6 +1,6 @@
 <template>
   <svg
-    class="w-full flex-grow p-8 min-h-0"
+    class="w-full flex-grow p-4 min-h-0"
     :viewBox="`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

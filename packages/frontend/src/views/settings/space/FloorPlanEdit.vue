@@ -7,7 +7,13 @@
       @up-inside-svg="upInsideFloorPlan"
       @move-inside-svg="moveInsideFloorPlan"
     >
-      <FloorPlanEditing v-if="floorPlan" v-model:floor-plan="floorPlan" />
+      <FloorPlanEditing
+        v-if="floorPlan"
+        :floor-plan="floorPlan"
+        :selected-floor-plan-object-id="selectedFloorPlanObjectId"
+        @select-floor-plan-object="selectFloorPlanObject"
+        @update:floor-plan="updateFloorPlanCopy"
+      />
       <MapObjects />
     </SpaceMap>
     <div class="flex flex-row">
@@ -25,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import clone from 'lodash/clone';
+import { clone, isEqual } from 'lodash';
 import { defineComponent, onMounted, Ref, ref, toRef, watch } from 'vue';
 
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
@@ -73,7 +79,13 @@ export default defineComponent({
     const { data: currentSpace, isLoading } = getCurrentSpace();
     const floorPlan: Ref<string[]> = ref([]);
 
+    const selectedFloorPlanObjectId: Ref<number | null> = ref(null);
+
     const useNewFloorPlanObjects = useNewFloorPlanObject(floorPlan);
+
+    function selectFloorPlanObject(objectId: number | null) {
+      selectedFloorPlanObjectId.value = objectId;
+    }
 
     onMounted(async () => {
       const loadedCurrentSpace = await waitUntilDataHasBeenLoaded(currentSpace, isLoading);
@@ -81,6 +93,15 @@ export default defineComponent({
         floorPlan.value = clone(loadedCurrentSpace.value.floorPlan);
       }
     });
+
+    function updateFloorPlanCopy(newFloorPlan: string[]) {
+      floorPlan.value = newFloorPlan;
+      if (isEqual(floorPlan.value, currentSpace.value?.floorPlan)) {
+        context.emit('change-happened', false);
+      } else {
+        context.emit('change-happened', true);
+      }
+    }
 
     watch(saveTrigger, async () => {
       if (currentSpace.value !== undefined) {
@@ -91,11 +112,13 @@ export default defineComponent({
         await feathers.service('spaces').update(currentSpace.value._id, saveSpace);
       }
       context.emit('change-happened', false);
+      selectFloorPlanObject(null);
     });
 
     watch(abortTrigger, () => {
       if (currentSpace.value !== undefined) {
         floorPlan.value = clone(currentSpace.value.floorPlan);
+        selectFloorPlanObject(null);
         context.emit('change-happened', false);
       } else {
         throw new Error('No current space');
@@ -126,6 +149,9 @@ export default defineComponent({
       upInsideFloorPlan,
       moveInsideFloorPlan,
       floorPlan,
+      updateFloorPlanCopy,
+      selectedFloorPlanObjectId,
+      selectFloorPlanObject,
     };
   },
 });
