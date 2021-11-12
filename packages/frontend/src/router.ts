@@ -66,7 +66,7 @@ const routes: RouteRecordRaw[] = [
         props: true,
       },
       {
-        path: 'floor-plan/:selectedFloorPlanObject?',
+        path: 'floor-plan',
         name: 'settings-space-floor-plan',
         component: (): Component => import('./views/settings/space/FloorPlanEdit.vue'),
         props: true,

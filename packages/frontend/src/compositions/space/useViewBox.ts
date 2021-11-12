@@ -62,12 +62,11 @@ export default function useViewBox(paths: Ref<Path[]>, { strokeWidth }: ViewBoxO
       return boundingBoxToViewBox(boundingBox);
     });
     const viewBox = boundingBoxes.reduce(combineViewBoxes, EMPTY_VIEW_BOX);
-    const strokeOffset = strokeWidth / 2;
     return {
-      x: viewBox.x - strokeOffset,
-      y: viewBox.y - strokeOffset,
-      width: viewBox.width + 2 * strokeOffset,
-      height: viewBox.height + 2 * strokeOffset,
+      x: viewBox.x - 4 * strokeWidth,
+      y: viewBox.y - 4 * strokeWidth,
+      width: viewBox.width + 8 * strokeWidth,
+      height: viewBox.height + 8 * strokeWidth,
     };
   });
 }
