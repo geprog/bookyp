@@ -22,8 +22,8 @@ export const useBookablesFilter = (
     }
     return {
       query: {
-        start: { $lt: bookablesFilter.value.start },
-        end: { $gt: bookablesFilter.value.end },
+        start: { $lt: bookablesFilter.value.end },
+        end: { $gt: bookablesFilter.value.start },
       },
     };
   });
