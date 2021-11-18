@@ -18,6 +18,7 @@ describe('BookablesList component', () => {
     mocked(useBookablesFilter).mockReturnValueOnce({
       bookablesWithFilterMatched: computed(() => sampleBookables),
       bookablesFilter: ref(),
+      isFilterMatched: jest.fn(),
     });
 
     // when
@@ -38,6 +39,7 @@ describe('BookablesList component', () => {
         return bookablesWithFilterMatched;
       }),
       bookablesFilter: ref(),
+      isFilterMatched: jest.fn(),
     });
 
     // when
