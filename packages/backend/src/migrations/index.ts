@@ -19,7 +19,7 @@ declare module '@geprog/node-migrate-ts' {
 }
 
 export default async (): Promise<void> => {
-  const client = await MongoClient.connect(getConnectionUri(), { useUnifiedTopology: true });
+  const client = await MongoClient.connect(getConnectionUri());
   const db = client.db();
 
   migrationStore.init({

@@ -1,12 +1,12 @@
 import { Application, Model } from '@bookyp/core';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
-import { Document, Model as MongooseModel, model, Schema } from 'mongoose';
+import { Document, model, Schema } from 'mongoose';
 
-const MapObjectSchema = new Schema<Document, MongooseModel<Document, unknown>, Model.MapObject>({
+const MapObjectSchema = new Schema<Model.MapObject>({
   xPos: { type: Number, required: true },
   yPos: { type: Number, required: true },
   rotation: { type: Number, required: true },
-  paths: { type: Schema.Types.Array, required: true },
+  paths: { type: [String], required: true },
   type: { type: String, enum: Object.values(Model.MapObjectTypes), required: true },
   bookable: String,
   space: { type: String, required: true },
