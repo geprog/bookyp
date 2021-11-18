@@ -4,7 +4,7 @@
     :key="mapObject._id"
     data-test="map-object"
     :transform="`translate(${mapObject.xPos},${mapObject.yPos})`"
-    :class="{ 'cursor-pointer map-object': clickable }"
+    :class="{ 'cursor-pointer map-object': isMapObjectClickable(mapObject) }"
     @click.stop="clickOnMapObject(mapObject)"
   >
     <path
@@ -32,6 +32,7 @@ import { Path, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 export default defineComponent({
   name: 'MapObjects',
   props: {
+    // eslint-disable-next-line vue/no-unused-properties
     clickable: {
       type: Boolean,
     },
@@ -51,12 +52,14 @@ export default defineComponent({
     const clickable = toRef(props, 'clickable');
     const { data: mapObjects } = getMapObjects();
 
-    function clickOnMapObject(mapObject: Model.MapObject) {
-      if (!clickable.value) {
-        return;
-      }
+    function isMapObjectClickable(mapObject: Model.MapObject): boolean {
+      return clickable.value && 'bookable' in mapObject;
+    }
 
-      context.emit('clickOnMapObject', mapObject);
+    function clickOnMapObject(mapObject: Model.MapObject) {
+      if (isMapObjectClickable(mapObject)) {
+        context.emit('clickOnMapObject', mapObject);
+      }
     }
 
     const mapObjectPaths = computed(() =>
@@ -70,7 +73,7 @@ export default defineComponent({
       }, []),
     );
     useAndRegisterViewBox('MapObjects', mapObjectPaths, { strokeWidth: 1 });
-    return { mapObjects, clickOnMapObject };
+    return { mapObjects, clickOnMapObject, isMapObjectClickable };
   },
 });
 </script>
