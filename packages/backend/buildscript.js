@@ -8,7 +8,7 @@ esbuild
     platform: 'node',
     bundle: true,
     minify: process.env.node_env === 'production',
-    external: ['koa', 'hapi'],
+    external: ['koa', 'hapi', 'saslprep'],
     sourcemap: true,
     tsconfig: './tsconfig.build.json',
   })

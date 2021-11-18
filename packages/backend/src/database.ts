@@ -15,9 +15,5 @@ export function getConnectionUri(): string {
 }
 
 export async function connect(): Promise<void> {
-  await mongoose.connect(getConnectionUri(), {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  });
+  await mongoose.connect(getConnectionUri());
 }
