@@ -4,7 +4,16 @@
     :key="mapObject._id"
     data-test="map-object"
     :transform="`translate(${mapObject.xPos},${mapObject.yPos})`"
-    :class="{ 'cursor-pointer map-object': isMapObjectClickable(mapObject) }"
+    :class="{
+      'cursor-pointer':
+        isMapObjectClickable(mapObject) && (!considerFilter || isFilterMatched(mapObject.bookable) !== false),
+      'map-object':
+        isMapObjectClickable(mapObject) && (!considerFilter || isFilterMatched(mapObject.bookable) === null),
+      'map-object-filter-matched':
+        isMapObjectClickable(mapObject) && considerFilter && isFilterMatched(mapObject.bookable) === true,
+      'cursor-not-allowed map-object-filter-unmatched':
+        isMapObjectClickable(mapObject) && considerFilter && isFilterMatched(mapObject.bookable) === false,
+    }"
     @click.stop="clickOnMapObject(mapObject)"
   >
     <path
@@ -13,9 +22,13 @@
       data-test="map-object-path"
       :d="path"
       :class="{
-        'stroke-black text-primary-dark fill-primary-light':
-          selectedMapObjectId !== mapObject._id && mapObject.bookable,
-        'stroke-current text-primary-dark fill-primary-light': selectedMapObjectId === mapObject._id,
+        'stroke-black fill-primary-light':
+          selectedMapObjectId !== mapObject._id &&
+          mapObject.bookable &&
+          (!considerFilter || isFilterMatched(mapObject.bookable) === null),
+        'stroke-black fill-green-background': considerFilter && isFilterMatched(mapObject.bookable) === true,
+        'stroke-black fill-red-background': considerFilter && isFilterMatched(mapObject.bookable) === false,
+        'stroke-current fill-primary-light': selectedMapObjectId === mapObject._id,
         'stroke-black fill-white': selectedMapObjectId !== mapObject._id && !mapObject.bookable,
       }"
     />
@@ -26,14 +39,21 @@
 import { Model } from '@bookyp/core';
 import { computed, defineComponent, toRef } from 'vue';
 
+import { spaceId } from '~/compositions/space/useCurrentSpace';
 import getMapObjects from '~/compositions/space/useMapObjects';
 import { Path, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
+import { useBookablesFilter } from '~/compositions/useBookablesFilter';
+import useFind from '~/compositions/useFind';
 
 export default defineComponent({
   name: 'MapObjects',
   props: {
     // eslint-disable-next-line vue/no-unused-properties
     clickable: {
+      type: Boolean,
+    },
+
+    considerFilter: {
       type: Boolean,
     },
 
@@ -52,12 +72,18 @@ export default defineComponent({
     const clickable = toRef(props, 'clickable');
     const { data: mapObjects } = getMapObjects();
 
+    const { data: bookables } = useFind(
+      'bookables',
+      computed(() => ({ paginate: false, query: { space: spaceId.value } })),
+    );
+    const { isFilterMatched } = useBookablesFilter(bookables);
+
     function isMapObjectClickable(mapObject: Model.MapObject): boolean {
       return clickable.value && 'bookable' in mapObject;
     }
 
     function clickOnMapObject(mapObject: Model.MapObject) {
-      if (isMapObjectClickable(mapObject)) {
+      if (isMapObjectClickable(mapObject) && isFilterMatched(mapObject.bookable)) {
         context.emit('clickOnMapObject', mapObject);
       }
     }
@@ -73,7 +99,8 @@ export default defineComponent({
       }, []),
     );
     useAndRegisterViewBox('MapObjects', mapObjectPaths, { strokeWidth: 1 });
-    return { mapObjects, clickOnMapObject, isMapObjectClickable };
+
+    return { mapObjects, clickOnMapObject, isFilterMatched, isMapObjectClickable };
   },
 });
 </script>
@@ -81,5 +108,13 @@ export default defineComponent({
 <style scoped>
 .map-object:hover path {
   @apply stroke-primary-dark;
+}
+
+.map-object-filter-matched:hover path {
+  @apply stroke-green-text;
+}
+
+.map-object-filter-unmatched:hover path {
+  @apply stroke-black;
 }
 </style>

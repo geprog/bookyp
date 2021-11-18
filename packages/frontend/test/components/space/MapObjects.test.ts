@@ -1,13 +1,17 @@
 import { shallowMount } from '@vue/test-utils';
-import { nextTick, ref } from 'vue';
+import { mocked } from 'ts-jest/utils';
+import { computed, nextTick, ref } from 'vue';
 
 import MapObjects from '~/components/space/MapObjects.vue';
 import useViewBox, { Path } from '~/compositions/space/useViewBox';
+import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { sampleMapObject, sampleMapObjects, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
-import { prepareUseMapObjectsMockOnce } from '$/__helpers__/mocks';
+import { prepareUseFindMockOnce, prepareUseMapObjectsMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/space/useMapObjects');
+jest.mock('~/compositions/useFind');
+jest.mock('~/compositions/useBookablesFilter');
 
 const SpaceMapMock = {
   registerViewBox: jest.fn(),
@@ -20,10 +24,20 @@ const globalOptions = {
   },
 };
 
+const prepareUseBookablesFilterOnce = () => {
+  mocked(useBookablesFilter).mockReturnValueOnce({
+    bookablesWithFilterMatched: computed(() => []),
+    bookablesFilter: ref(),
+    isFilterMatched: jest.fn().mockReturnValue(true),
+  });
+};
+
 describe('MapObjects component', () => {
   it('should render correctly when clickable', () => {
     // given
     prepareUseMapObjectsMockOnce(sampleMapObjects);
+    prepareUseFindMockOnce();
+    prepareUseBookablesFilterOnce();
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -45,6 +59,8 @@ describe('MapObjects component', () => {
   it('should render correctly when not clickable', () => {
     // given
     prepareUseMapObjectsMockOnce(sampleMapObjects);
+    prepareUseFindMockOnce();
+    prepareUseBookablesFilterOnce();
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -66,6 +82,8 @@ describe('MapObjects component', () => {
   it('should render correctly with a selectedMapObject', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObject]);
+    prepareUseFindMockOnce();
+    prepareUseBookablesFilterOnce();
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -87,6 +105,8 @@ describe('MapObjects component', () => {
     expect.assertions(3);
     // given
     prepareUseMapObjectsMockOnce(sampleMapObjects);
+    prepareUseFindMockOnce();
+    prepareUseBookablesFilterOnce();
 
     const wrapper = shallowMount(MapObjects, {
       props: {
@@ -108,6 +128,8 @@ describe('MapObjects component', () => {
     expect.assertions(1);
     // given
     prepareUseMapObjectsMockOnce(sampleMapObjects);
+    prepareUseFindMockOnce();
+    prepareUseBookablesFilterOnce();
 
     const wrapper = shallowMount(MapObjects, {
       props: {
@@ -126,6 +148,8 @@ describe('MapObjects component', () => {
   it('should use white fill color when the object is not linked with a bookable', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObject]);
+    prepareUseFindMockOnce();
+    prepareUseBookablesFilterOnce();
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -144,6 +168,8 @@ describe('MapObjects component', () => {
   it('should use primary fill color when the object is linked with a bookable', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObjectWithBookable]);
+    prepareUseFindMockOnce();
+    prepareUseBookablesFilterOnce();
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -156,10 +182,64 @@ describe('MapObjects component', () => {
     // then
     expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
     expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe(
-      'stroke-black text-primary-dark fill-primary-light',
+      'stroke-black fill-primary-light',
     );
     expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe(
-      'stroke-black text-primary-dark fill-primary-light',
+      'stroke-black fill-primary-light',
+    );
+  });
+
+  it('should use green fill color when the filter matches', () => {
+    // given
+    prepareUseMapObjectsMockOnce([sampleMapObjectWithBookable]);
+    prepareUseFindMockOnce();
+    prepareUseBookablesFilterOnce();
+
+    // when
+    const wrapper = shallowMount(MapObjects, {
+      props: {
+        clickable: true,
+        considerFilter: true,
+      },
+      global: globalOptions,
+    });
+
+    // then
+    expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
+    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe(
+      'stroke-black fill-green-background',
+    );
+    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe(
+      'stroke-black fill-green-background',
+    );
+  });
+
+  it('should use red fill color when the filter matches', () => {
+    // given
+    prepareUseMapObjectsMockOnce([sampleMapObjectWithBookable]);
+    prepareUseFindMockOnce();
+    mocked(useBookablesFilter).mockReturnValueOnce({
+      bookablesWithFilterMatched: computed(() => []),
+      bookablesFilter: ref(),
+      isFilterMatched: jest.fn().mockReturnValue(false),
+    });
+
+    // when
+    const wrapper = shallowMount(MapObjects, {
+      props: {
+        clickable: true,
+        considerFilter: true,
+      },
+      global: globalOptions,
+    });
+
+    // then
+    expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
+    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe(
+      'stroke-black fill-red-background',
+    );
+    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe(
+      'stroke-black fill-red-background',
     );
   });
 
@@ -168,6 +248,8 @@ describe('MapObjects component', () => {
       jest.resetAllMocks();
       // given
       prepareUseMapObjectsMockOnce(sampleMapObjects);
+      prepareUseFindMockOnce();
+      prepareUseBookablesFilterOnce();
       const viewBox = useViewBox(
         ref(
           sampleMapObjects.reduce<Path[]>((allPaths, mapObject) => {
@@ -201,6 +283,8 @@ describe('MapObjects component', () => {
       jest.resetAllMocks();
       // given
       prepareUseMapObjectsMockOnce(sampleMapObjects);
+      prepareUseFindMockOnce();
+      prepareUseBookablesFilterOnce();
       const wrapper = shallowMount(MapObjects, {
         props: {
           clickable: true,

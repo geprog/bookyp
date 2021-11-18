@@ -15,6 +15,7 @@ export const useBookablesFilter = (
 ): {
   bookablesFilter: Ref<BookablesFilter | undefined>;
   bookablesWithFilterMatched: ComputedRef<BookableWithFilterMatched[]>;
+  isFilterMatched: (bookableID?: Model.Ref<Model.Bookable>) => boolean | null;
 } => {
   const bookingsParams: ComputedRef<Params | null> = computed(() => {
     if (!bookablesFilter.value) {
@@ -48,5 +49,26 @@ export const useBookablesFilter = (
       };
     });
   });
-  return { bookablesFilter, bookablesWithFilterMatched };
+
+  const bookablesByID = computed(() =>
+    bookablesWithFilterMatched.value.reduce(
+      (previousBookablesByID: Record<string, BookableWithFilterMatched>, currentBookable) => ({
+        ...previousBookablesByID,
+        [currentBookable._id]: currentBookable,
+      }),
+      {},
+    ),
+  );
+
+  const isFilterMatched = (bookableID?: Model.Ref<Model.Bookable>): boolean | null => {
+    if (
+      bookableID === undefined ||
+      (bookablesByID.value[bookableID] && bookablesByID.value[bookableID].isFilterMatched === undefined)
+    ) {
+      return null;
+    }
+    return bookablesByID.value[bookableID] && bookablesByID.value[bookableID].isFilterMatched === true;
+  };
+
+  return { bookablesFilter, bookablesWithFilterMatched, isFilterMatched };
 };

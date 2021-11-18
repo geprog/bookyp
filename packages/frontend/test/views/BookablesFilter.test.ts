@@ -22,6 +22,7 @@ describe('BookablesFilter component', () => {
     mocked(useBookablesFilter).mockReturnValueOnce({
       bookablesWithFilterMatched: computed(() => []),
       bookablesFilter: ref(),
+      isFilterMatched: jest.fn(),
     });
 
     // when
@@ -39,6 +40,7 @@ describe('BookablesFilter component', () => {
     mocked(useBookablesFilter).mockReturnValueOnce({
       bookablesWithFilterMatched: computed(() => []),
       bookablesFilter: ref({ start: sampleDate1, end: sampleDate2 }),
+      isFilterMatched: jest.fn(),
     });
 
     // when
