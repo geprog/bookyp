@@ -24,6 +24,13 @@
           icon="add-circle"
           @click.stop="clickOnAddButton"
         />
+        <FloatingButton
+          v-if="selectedFloorPlanObjectId !== null"
+          data-test="delete-button"
+          icon="delete"
+          class="ml-2"
+          @click="removeSelectedFloorPlanObject"
+        />
       </div>
       <slot name="toggleBar" />
     </div>
@@ -142,6 +149,16 @@ export default defineComponent({
       useNewFloorPlanObjects.updateSecondPositionOfWall(svgP);
     }
 
+    function removeSelectedFloorPlanObject() {
+      if (selectedFloorPlanObjectId.value !== null) {
+        const newFloorPlan = clone(floorPlan.value);
+        newFloorPlan.splice(selectedFloorPlanObjectId.value, 1);
+        selectedFloorPlanObjectId.value = null;
+        floorPlan.value = newFloorPlan;
+        context.emit('change-happened', true);
+      }
+    }
+
     return {
       clickOnAddButton,
       addingStage: useNewFloorPlanObjects.addingStage,
@@ -152,6 +169,7 @@ export default defineComponent({
       updateFloorPlanCopy,
       selectedFloorPlanObjectId,
       selectFloorPlanObject,
+      removeSelectedFloorPlanObject,
     };
   },
 });
