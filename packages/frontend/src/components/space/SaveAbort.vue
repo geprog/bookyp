@@ -1,5 +1,5 @@
 <template>
-  <IconButton data-test="abort-button" icon="cross" @click="$emit('abort')" />
+  <IconButton data-test="abort-button" icon="dismiss" @click="$emit('abort')" />
   <IconButton data-test="save-button" type="submit" icon="check-mark" @click="$emit('save')" />
 </template>
 

@@ -3,10 +3,10 @@
     <IconButton type="submit" form="filterBookablesForm" icon="check-mark" />
   </Header>
   <form id="filterBookablesForm" class="my-2 mx-4" @submit.prevent="submitBookablesFilter">
-    <InputField icon-name="play-circle">
+    <InputField icon-name="play">
       <DateTimePicker v-model="start" :placeholder="t('start')" />
     </InputField>
-    <InputField icon-name="stop-circle">
+    <InputField icon-name="stop">
       <DateTimePicker v-model="end" :placeholder="t('end')" />
     </InputField>
   </form>

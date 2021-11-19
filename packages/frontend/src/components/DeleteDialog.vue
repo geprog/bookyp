@@ -6,7 +6,7 @@
         <IconButton
           type="submit"
           from="visible"
-          icon="cross"
+          icon="dismiss"
           class="float-right justify-end"
           @click.prevent="$emit('confirmation', false)"
         />

@@ -6,7 +6,7 @@ exports[`BookablesList component should render correctly with filter 1`] = `
   <list-item-stub disabled=\\"false\\" label=\\"Couch\\" statuscolor=\\"bg-green-text\\" description=\\"Super long description\\" class=\\"cursor-pointer m-3\\"></list-item-stub>
   <list-item-stub disabled=\\"true\\" label=\\"Table\\" statuscolor=\\"bg-red-text\\" description=\\"Funny bunny description\\" class=\\"cursor-pointer m-3\\"></list-item-stub>
 </div>
-<toggle-bar-stub selected=\\"end\\" starticon=\\"map\\" endicon=\\"list\\" class=\\"absolute bottom-5 right-5\\"></toggle-bar-stub>"
+<toggle-bar-stub selected=\\"end\\" starticon=\\"map\\" endicon=\\"apps-list\\" class=\\"absolute bottom-5 right-5\\"></toggle-bar-stub>"
 `;
 
 exports[`BookablesList component should render correctly without filter 1`] = `
@@ -15,5 +15,5 @@ exports[`BookablesList component should render correctly without filter 1`] = `
   <list-item-stub disabled=\\"false\\" label=\\"Couch\\" statuscolor=\\"bg-primary-normal\\" description=\\"Super long description\\" class=\\"cursor-pointer m-3\\"></list-item-stub>
   <list-item-stub disabled=\\"false\\" label=\\"Table\\" statuscolor=\\"bg-primary-normal\\" description=\\"Funny bunny description\\" class=\\"cursor-pointer m-3\\"></list-item-stub>
 </div>
-<toggle-bar-stub selected=\\"end\\" starticon=\\"map\\" endicon=\\"list\\" class=\\"absolute bottom-5 right-5\\"></toggle-bar-stub>"
+<toggle-bar-stub selected=\\"end\\" starticon=\\"map\\" endicon=\\"apps-list\\" class=\\"absolute bottom-5 right-5\\"></toggle-bar-stub>"
 `;
