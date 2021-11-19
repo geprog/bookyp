@@ -31,7 +31,7 @@ describe('InputField component', () => {
     // when
     const wrapper = mount(InputField, {
       props: {
-        iconName: 'description',
+        iconName: 'document-one-page',
       },
       slots: {
         default: content,

@@ -3,7 +3,7 @@
     <InputField icon-name="edit">
       <TextField v-model="bookableForm.name" data-test="form-name" :placeholder="t('name')" />
     </InputField>
-    <InputField icon-name="description">
+    <InputField icon-name="document-one-page">
       <TextField v-model="bookableForm.description" data-test="form-description" :placeholder="t('description')" />
     </InputField>
   </form>

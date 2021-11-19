@@ -13,7 +13,7 @@
     selected="start"
     data-test="toggle-bar"
     start-icon="map"
-    end-icon="list"
+    end-icon="apps-list"
     @selected-end="$router.replace({ name: 'bookables-list' })"
   />
 </template>

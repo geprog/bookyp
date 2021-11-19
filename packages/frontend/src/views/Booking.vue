@@ -4,15 +4,15 @@
   </Header>
 
   <form id="booking" class="booking px-4" @submit.prevent="submit">
-    <InputField icon-name="play-circle">
+    <InputField icon-name="play">
       <DateTimePicker v-model="start" :placeholder="t('start')" />
     </InputField>
 
-    <InputField icon-name="stop-circle">
+    <InputField icon-name="stop">
       <DateTimePicker v-model="end" :placeholder="t('end')" />
     </InputField>
 
-    <InputField icon-name="description">
+    <InputField icon-name="document-one-page">
       <TextField v-model="description" :placeholder="t('description')" />
     </InputField>
   </form>

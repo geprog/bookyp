@@ -8,5 +8,5 @@ exports[`BookablesMap view should render correctly 1`] = `
     <map-objects-stub clickable=\\"true\\" considerfilter=\\"true\\"></map-objects-stub>
   </space-map-stub>
 </div>
-<toggle-bar-stub selected=\\"start\\" starticon=\\"map\\" endicon=\\"list\\" class=\\"absolute bottom-5 right-5\\" data-test=\\"toggle-bar\\"></toggle-bar-stub>"
+<toggle-bar-stub selected=\\"start\\" starticon=\\"map\\" endicon=\\"apps-list\\" class=\\"absolute bottom-5 right-5\\" data-test=\\"toggle-bar\\"></toggle-bar-stub>"
 `;

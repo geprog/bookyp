@@ -20,7 +20,7 @@
     class="absolute bottom-5 right-5"
     selected="end"
     start-icon="map"
-    end-icon="list"
+    end-icon="apps-list"
     @selected-start="$router.replace({ name: 'home' })"
   />
 </template>
