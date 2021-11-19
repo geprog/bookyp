@@ -29,6 +29,7 @@ const config = defineConfig({
       'Object.defineProperty(exports, "__esModule", { value: true });':
         'Object.defineProperty(exports || {}, "__esModule", { value: true });',
       delimiters: ['\n', '\n'],
+      preventAssignment: true,
     }),
   ],
   server: {
