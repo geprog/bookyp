@@ -16,6 +16,7 @@
     />
 
     <FloatingButton
+      :aria-label="t('bookable_create')"
       class="fixed bottom-8 right-8"
       icon="add"
       @click="$router.replace({ name: 'settings-bookable-create' })"

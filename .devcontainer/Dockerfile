@@ -21,6 +21,34 @@ RUN apt-get update \
         ca-certificates \
         bash \
         bash-completion \
+        # install playwright chromium dependencies (https://github.com/microsoft/playwright/blob/c89d5a50ddd860d03cf4798e36f3e47116ec26be/packages/playwright-core/src/nativeDeps.ts#L159)
+        # spell-checker:disable
+        fonts-liberation \
+        libasound2 \
+        libatk-bridge2.0-0 \
+        libatk1.0-0 \
+        libatspi2.0-0 \
+        libcairo2 \
+        libcups2 \
+        libdbus-1-3 \
+        libdrm2 \
+        libegl1 \
+        libgbm1 \
+        libglib2.0-0 \
+        libgtk-3-0 \
+        libnspr4 \
+        libnss3 \
+        libpango-1.0-0 \
+        libx11-6 \
+        libx11-xcb1 \
+        libxcb1 \
+        libxcomposite1 \
+        libxdamage1 \
+        libxext6 \
+        libxfixes3 \
+        libxrandr2 \
+        libxshmfence1 \
+        # spell-checker:enable
     #
     # cleanup
     && rm -rf /var/lib/apt/lists/* \
