@@ -1,5 +1,6 @@
 <template>
   <ListItem
+    data-test="booking-item"
     :label="bookable ? bookable.name : t('no_bookable')"
     :description="`${dayjs(booking.start).format('HH:mm')} - ${dayjs(booking.end).format('HH:mm')}`"
   />

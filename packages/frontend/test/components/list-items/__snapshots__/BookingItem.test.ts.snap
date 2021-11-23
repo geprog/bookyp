@@ -2,4 +2,4 @@
 
 exports[`BookingItem component should display a hours 1`] = `"07:43 - 08:13"`;
 
-exports[`BookingItem component should render correctly 1`] = `"<list-item-stub label=\\"Couch\\" description=\\"07:43 - 08:13\\" statuscolor=\\"bg-primary-normal\\" disabled=\\"false\\"></list-item-stub>"`;
+exports[`BookingItem component should render correctly 1`] = `"<list-item-stub label=\\"Couch\\" description=\\"07:43 - 08:13\\" statuscolor=\\"bg-primary-normal\\" disabled=\\"false\\" data-test=\\"booking-item\\"></list-item-stub>"`;

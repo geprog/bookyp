@@ -3,6 +3,7 @@ stages:
   - build
   - build-docker
   - test
+  - e2e
   - deploy-prepare
   - deploy
   - deploy-test
@@ -205,6 +206,11 @@ typecheck-core:
   script:
     - pnpm run --filter @bookyp/core typecheck
 
+typecheck-e2e:
+  extends: .typecheck-template
+  script:
+    - pnpm run --filter @bookyp/e2e typecheck
+
 ### Lint
 .lint-template:
   extends: .node-template
@@ -239,6 +245,11 @@ lint-core:
   extends: .lint-template
   script:
     - pnpm run --filter @bookyp/core lint
+
+lint-e2e:
+  extends: .lint-template
+  script:
+    - pnpm run --filter @bookyp/e2e lint
 
 ### Unit test
 .unit-test-template:
@@ -339,6 +350,109 @@ helm-lint:
         - .ci/charts/**/*
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
+
+################# E2E #################
+
+.e2e-environment:
+  environment:
+    name: e2e/$CI_COMMIT_REF_SLUG
+    deployment_tier: testing
+    kubernetes:
+      namespace: bookyp-e2e
+  stage: e2e
+  rules:
+    # if pipeline runs on merge request and is triggered by renovate
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
+      changes: *main_pipeline_files
+      when: manual
+      allow_failure: true
+    # if pipeline runs on merge request
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
+      changes: *main_pipeline_files
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
+e2e-prepare:
+  extends:
+    - .kubectl-template
+    - .e2e-environment
+  needs: []
+  script:
+    - kubectl create namespace $KUBE_NAMESPACE || true
+    - >
+      kubectl -n $KUBE_NAMESPACE create secret docker-registry bookyp-registry-secret
+      --docker-server=$REGISTRY
+      --docker-username=$REGISTRY_USER
+      --docker-password=$REGISTRY_PASSWORD
+      --save-config --dry-run=client
+      -o yaml | kubectl apply -f -
+    - kubectl -n $KUBE_NAMESPACE apply -f .ci/kube/review-certificate.yml
+
+e2e-deployment:
+  extends:
+    - .helm-template
+    - .e2e-environment
+  needs:
+    - build-docker-frontend
+    - build-docker-backend
+    - e2e-prepare
+  script:
+    - >
+      helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
+      --set environment.type=review
+      --set environment.name=${CI_ENVIRONMENT_SLUG}
+      --set frontend.ingress.tls.secretName=bookyp-review-frontend-tls
+      --set frontend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
+      --set backend.ingress.tls.secretName=bookyp-review-backend-tls
+      --set backend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
+      --set backend.database.password=$DEPLOY_DATABASE_PASSWORD
+      --set backend.keycloak.subdomain=auth.geprog.com/auth/realms/testing
+      --set backend.keycloak.client=bookyp-testing
+      --set backend.keycloak.secret=$E2E_KEYCLOAK_SECRET
+      --set backend.jwtSecret=$BACKEND_JWT_SECRET
+      bookyp-e2e-${CI_ENVIRONMENT_SLUG} .ci/charts/bookyp
+
+e2e-deployment-test:
+  extends:
+    - .helm-template
+    - .e2e-environment
+  needs:
+    - e2e-deployment
+  script:
+    - helm test --namespace $KUBE_NAMESPACE bookyp-e2e-${CI_ENVIRONMENT_SLUG}
+
+e2e-run:
+  extends:
+    - .e2e-environment
+    - .node-template
+  image: mcr.microsoft.com/playwright:v1.16.3
+  needs:
+    - e2e-deployment-test
+  variables:
+    E2E_BASE_URL: https://${CI_ENVIRONMENT_SLUG}.app.${BASE_DOMAIN}/
+    E2E_AUTH_USERNAME: bookyp-testing
+  script:
+    - cd packages/e2e
+    - pnpm run test
+  artifacts:
+    paths:
+      - packages/e2e/test-results
+    expire_in: 1 day
+    when: on_failure
+
+e2e-stop:
+  extends:
+    - .helm-template
+    - .e2e-environment
+  needs:
+    - e2e-run
+  script:
+    - helm uninstall --namespace $KUBE_NAMESPACE bookyp-e2e-${CI_ENVIRONMENT_SLUG}
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID'
+      changes: *main_pipeline_files
+      when: always
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: always
 
 ################# DEPLOY #################
 
