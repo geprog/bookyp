@@ -62,7 +62,7 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import IconListItem from '~/components/list-items/IconListItem.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
-import { spaceId } from '~/compositions/space/useCurrentSpace';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 import useGet from '~/compositions/useGet';
@@ -86,6 +86,7 @@ export default defineComponent({
     const { t } = useI18n();
     const feathers = useFeathers();
     const router = useRouter();
+    const { spaceId } = useCurrentSpace();
 
     const mapObjectId = toRef(props, 'mapObjectId');
 

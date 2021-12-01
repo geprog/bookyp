@@ -3,9 +3,10 @@ import { mocked } from 'ts-jest/utils';
 
 import useFind from '~/compositions/useFind';
 import { sampleMapObjects } from '$/__fixtures__/mapObject';
-import { prepareUseFindMockOnce } from '$/__helpers__/mocks';
+import { prepareUseCurrentSpaceMockOnce, prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFind');
+jest.mock('~/compositions/space/useCurrentSpace');
 
 let useMapObjects: typeof import('~/compositions/space/useMapObjects');
 
@@ -22,6 +23,7 @@ describe('useMapObjects composition', () => {
   it('should get mapObjects', () => {
     // given
     prepareUseFindMockOnce(sampleMapObjects);
+    prepareUseCurrentSpaceMockOnce();
 
     // when
     const { data: mapObjects } = useMapObjects.default();
@@ -32,6 +34,7 @@ describe('useMapObjects composition', () => {
 
   it('should call useFind with a query containing space', () => {
     // given
+    prepareUseCurrentSpaceMockOnce();
     let params: Parameters<UseFindFunc<unknown>>[1];
     mocked(useFind, true).mockImplementationOnce((_, _params): UseFind<unknown> => {
       params = _params;
@@ -49,6 +52,7 @@ describe('useMapObjects composition', () => {
   it('should call useFind only once', () => {
     // given
     prepareUseFindMockOnce();
+    prepareUseCurrentSpaceMockOnce();
 
     // when
     useMapObjects.default();

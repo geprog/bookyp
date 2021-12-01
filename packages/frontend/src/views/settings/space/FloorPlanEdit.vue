@@ -45,7 +45,7 @@ import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import FloorPlanEditing from '~/components/space/FloorPlanEditing.vue';
 import MapObjects from '~/components/space/MapObjects.vue';
 import SpaceMap from '~/components/space/SpaceMap.vue';
-import getCurrentSpace from '~/compositions/space/useCurrentSpace';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useNewFloorPlanObject from '~/compositions/space/useNewFloorPlanObject';
 import useFeathers from '~/compositions/useFeathers';
 import { waitUntilDataHasBeenLoaded } from '~/utils';
@@ -83,7 +83,8 @@ export default defineComponent({
     const abortTrigger = toRef(props, 'abortTrigger');
 
     const feathers = useFeathers();
-    const { data: currentSpace, isLoading } = getCurrentSpace();
+    const { currentSpace, isLoading } = useCurrentSpace();
+
     const floorPlan: Ref<string[]> = ref([]);
 
     const selectedFloorPlanObjectId: Ref<number | null> = ref(null);
@@ -115,6 +116,7 @@ export default defineComponent({
         const saveSpace = {
           _id: currentSpace.value?._id,
           floorPlan: floorPlan.value,
+          members: currentSpace.value.members,
         };
         await feathers.service('spaces').update(currentSpace.value._id, saveSpace);
       }

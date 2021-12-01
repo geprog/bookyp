@@ -39,7 +39,7 @@
 import { Model } from '@bookyp/core';
 import { computed, defineComponent, toRef } from 'vue';
 
-import { spaceId } from '~/compositions/space/useCurrentSpace';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import getMapObjects from '~/compositions/space/useMapObjects';
 import { Path, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 import { useBookablesFilter } from '~/compositions/useBookablesFilter';
@@ -71,6 +71,7 @@ export default defineComponent({
   setup(props, context) {
     const clickable = toRef(props, 'clickable');
     const { data: mapObjects } = getMapObjects();
+    const { spaceId } = useCurrentSpace();
 
     const { data: bookables } = useFind(
       'bookables',

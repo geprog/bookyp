@@ -1,7 +1,7 @@
 import { Model } from '@bookyp/core';
 import { computed, ComputedRef, Ref } from 'vue';
 
-import { spaceId } from '~/compositions/space/useCurrentSpace';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 
 type UseNewMapObject = {
   addMapObject: () => void;
@@ -23,12 +23,18 @@ export default function useNewMapObject(
   mapObjects: Ref<Model.MapObject[]>,
   selectMapObject: (mapObject: Model.MapObject) => Promise<void>,
 ): UseNewMapObject {
+  const { spaceId } = useCurrentSpace();
+
   const isNewMapObjectPresent = computed(() => {
     const newMapObjects = mapObjects.value.filter(isNewMapObject);
     return newMapObjects.length > 0;
   });
 
   async function addMapObject() {
+    if (!spaceId.value) {
+      throw new Error('Unexpected: A space must be selected');
+    }
+
     newMapObjectId--;
     mapObjects.value.push({
       _id: String(newMapObjectId),

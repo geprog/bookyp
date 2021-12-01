@@ -37,7 +37,7 @@ import { RouterLink } from 'vue-router';
 import Header from '~/components/headers/Header.vue';
 import BookingItem from '~/components/list-items/BookingItem.vue';
 import AccountTabs from '~/components/tabs/AccountTabs.vue';
-import { spaceId } from '~/compositions/space/useCurrentSpace';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
 
@@ -53,6 +53,7 @@ export default defineComponent({
   setup() {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
+    const { spaceId } = useCurrentSpace();
 
     const bookingsQuery = computed(() => ({
       query: {

@@ -5,13 +5,18 @@ import { nextTick, ref } from 'vue';
 import getMapObjects from '~/compositions/space/useMapObjects';
 import MapObjectsEdit from '~/views/settings/space/MapObjectsEdit.vue';
 import { sampleMapObject, sampleMapObjects } from '$/__fixtures__/mapObject';
-import { prepareUseFeathersMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
+import {
+  prepareUseCurrentSpaceMockOnce,
+  prepareUseFeathersMockOnce,
+  prepareUseRouterMockOnce,
+} from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFind');
 
 jest.mock('~/compositions/useAuthentication');
 jest.mock('~/compositions/useFeathers');
 jest.mock('~/compositions/space/useMapObjects');
+jest.mock('~/compositions/space/useCurrentSpace');
 jest.mock('vue-router');
 
 function prepareGetMapObjectsOnce() {
@@ -38,6 +43,11 @@ describe('MapObjectsEdit component', () => {
   afterAll(() => {
     config.renderStubDefaultSlot = false;
   });
+
+  beforeEach(() => {
+    prepareUseCurrentSpaceMockOnce();
+  });
+
   it('should render correctly', () => {
     expect.hasAssertions();
     // given
@@ -83,6 +93,7 @@ describe('MapObjectsEdit component', () => {
       // given
       prepareGetMapObjectsOnce();
       prepareUseFeathersMockOnce();
+
       // when
       const wrapper = shallowMount(MapObjectsEdit, {
         props: {
@@ -100,7 +111,6 @@ describe('MapObjectsEdit component', () => {
   it('should save sampleMapObject and emit change-happened when save trigger changes', async () => {
     expect.assertions(1);
     // given
-
     const wrapper = shallowMount(MapObjectsEdit, {
       props: {
         saveTrigger: false,
@@ -118,7 +128,6 @@ describe('MapObjectsEdit component', () => {
   it('should set sampleNewMapObject to null and emit change-happened when abort trigger changes', async () => {
     expect.assertions(1);
     // given
-
     const wrapper = shallowMount(MapObjectsEdit, {
       props: {
         saveTrigger: false,

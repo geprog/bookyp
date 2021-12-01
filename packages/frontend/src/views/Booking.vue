@@ -28,7 +28,7 @@ import Header from '~/components/headers/Header.vue';
 import InputField from '~/components/InputField.vue';
 import DateTimePicker from '~/components/inputs/DateTimePicker.vue';
 import TextField from '~/components/TextField.vue';
-import { spaceId } from '~/compositions/space/useCurrentSpace';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
@@ -50,6 +50,7 @@ export default defineComponent({
     const { t } = useI18n();
     const router = useRouter();
     const feathers = useFeathers();
+    const { spaceId } = useCurrentSpace();
 
     const bookableId = toRef(props, 'bookableId');
     const { data: bookable } = useGet('bookables', bookableId);
@@ -62,6 +63,10 @@ export default defineComponent({
       /* istanbul ignore next */
       if (!user.value) {
         throw new Error('Unexpected: User should be loaded');
+      }
+
+      if (!spaceId.value) {
+        throw new Error('Unexpected: A space must be selected');
       }
 
       await feathers.service('bookings').create({

@@ -1,10 +1,11 @@
 import { nextTick } from 'vue';
 
 import useGet from '~/compositions/useGet';
-import { sampleSpace } from '$/__fixtures__/space';
-import { prepareUseGetMockOnce } from '$/__helpers__/mocks';
+import { sampleSpace, sampleSpaces } from '$/__fixtures__/space';
+import { prepareUseFindMockOnce, prepareUseGetMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useGet');
+jest.mock('~/compositions/useFind');
 
 let useCurrentSpace: typeof import('~/compositions/space/useCurrentSpace');
 
@@ -22,9 +23,10 @@ describe('useCurrentSpace composition', () => {
     expect.assertions(1);
     // given
     prepareUseGetMockOnce();
+    prepareUseFindMockOnce([]);
 
     // when
-    const { data: currentSpace } = useCurrentSpace.default();
+    const { currentSpace } = useCurrentSpace.useCurrentSpace();
 
     // then
     expect(currentSpace.value).not.toBeDefined();
@@ -34,10 +36,11 @@ describe('useCurrentSpace composition', () => {
     expect.assertions(2);
     // given
     prepareUseGetMockOnce(sampleSpace);
+    prepareUseFindMockOnce([]);
 
     // when
     await nextTick();
-    const { data: currentSpace } = useCurrentSpace.default();
+    const { currentSpace } = useCurrentSpace.useCurrentSpace();
 
     // then
     expect(currentSpace.value).toBeDefined();
@@ -48,12 +51,26 @@ describe('useCurrentSpace composition', () => {
     expect.assertions(1);
     // given
     prepareUseGetMockOnce(sampleSpace);
+    prepareUseFindMockOnce([]);
 
     // when
-    useCurrentSpace.default();
-    useCurrentSpace.default();
+    useCurrentSpace.useCurrentSpace();
+    useCurrentSpace.useCurrentSpace();
 
     // then
     expect(useGet).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return spaceId of first space found', () => {
+    expect.assertions(1);
+    // given
+    prepareUseGetMockOnce(sampleSpace);
+    prepareUseFindMockOnce(sampleSpaces);
+
+    // when
+    const { spaceId } = useCurrentSpace.useCurrentSpace();
+
+    // then
+    expect(spaceId.value).toBe(sampleSpaces[0]._id);
   });
 });
