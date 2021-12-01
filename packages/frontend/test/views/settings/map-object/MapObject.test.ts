@@ -8,6 +8,7 @@ import MapObject from '~/views/settings/map-object/MapObject.vue';
 import { sampleBookable, sampleBookables } from '$/__fixtures__/bookable';
 import { sampleMapObject, sampleMapObjects } from '$/__fixtures__/mapObject';
 import {
+  prepareUseCurrentSpaceMockOnce,
   prepareUseFeathersMockOnce,
   prepareUseFindMockOnce,
   prepareUseGetMockOnce,
@@ -18,10 +19,15 @@ import {
 jest.mock('~/compositions/useFeathers');
 jest.mock('~/compositions/useGet');
 jest.mock('~/compositions/useFind');
+jest.mock('~/compositions/space/useCurrentSpace');
 jest.mock('vue-i18n');
 jest.mock('vue-router');
 
 describe('MapObject view', () => {
+  beforeEach(() => {
+    prepareUseCurrentSpaceMockOnce();
+  });
+
   describe('Template', () => {
     it('should render correctly', () => {
       // given

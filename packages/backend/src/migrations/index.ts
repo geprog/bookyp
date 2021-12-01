@@ -2,13 +2,20 @@ import { Migration, MongoMigrationStore, up } from '@geprog/node-migrate-ts';
 import { Db, MongoClient } from 'mongodb';
 
 import { getConnectionUri } from '~/database';
+import { addExistingUsersToSpace } from '~/migrations/addExistingUsersToSpace';
 import { addSpaceReference } from '~/migrations/addSpaceReference';
 import { refactorFloorPlan } from '~/migrations/refactorFloorPlan';
 import { seed } from '~/migrations/seed';
 import { setExplicitSpaceId } from '~/migrations/setExplicitSpaceId';
 
 // migrations are applied in the order defined here
-const migrations: Migration[] = [seed, setExplicitSpaceId, addSpaceReference, refactorFloorPlan];
+const migrations: Migration[] = [
+  seed,
+  setExplicitSpaceId,
+  addSpaceReference,
+  refactorFloorPlan,
+  addExistingUsersToSpace,
+];
 
 const migrationStore = new MongoMigrationStore();
 

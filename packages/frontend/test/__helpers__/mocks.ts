@@ -3,7 +3,7 @@ import { mocked } from 'ts-jest/utils';
 import { computed, ref } from 'vue';
 import { RouteLocationNormalized, Router, useRoute, useRouter } from 'vue-router';
 
-import useCurrentSpace from '~/compositions/space/useCurrentSpace';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useMapObjects from '~/compositions/space/useMapObjects';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
@@ -43,13 +43,15 @@ export function prepareUseFindMockOnce<T>(initialValue: T[] = []) {
   };
 }
 
-export function prepareUseCurrentSpaceMockOnce(space: Model.Space | undefined): void {
-  const data = computed<Model.Space | undefined>(() => space);
+export function prepareUseCurrentSpaceMockOnce(space?: Model.Space): void {
+  const currentSpace = computed<Model.Space | undefined>(() => space);
   const isLoading = ref(false);
+  const spaceId = ref('60f53bede6f8313dff7f99e0');
 
   const useCurrentSpaceMock = {
-    data,
+    currentSpace,
     isLoading,
+    spaceId,
   };
   mocked(useCurrentSpace, true).mockReturnValueOnce(useCurrentSpaceMock);
 }

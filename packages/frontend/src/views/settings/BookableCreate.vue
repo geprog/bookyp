@@ -14,7 +14,7 @@ import { useRouter } from 'vue-router';
 import BookableForm from '~/components/bookables/BookableForm.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
-import { spaceId } from '~/compositions/space/useCurrentSpace';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 
 export default defineComponent({
@@ -27,6 +27,11 @@ export default defineComponent({
     const { t } = useI18n();
     const router = useRouter();
     const feathers = useFeathers();
+    const { spaceId } = useCurrentSpace();
+
+    if (!spaceId.value) {
+      throw new Error('Unexpected: A space must be selected');
+    }
 
     const bookable = ref<Partial<Model.Bookable>>({
       description: '',

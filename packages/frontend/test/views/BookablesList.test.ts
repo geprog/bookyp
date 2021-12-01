@@ -6,15 +6,17 @@ import { computed, ref } from 'vue';
 import { BookableWithFilterMatched, useBookablesFilter } from '~/compositions/useBookablesFilter';
 import BookablesList from '~/views/BookablesLists.vue';
 import { sampleBookables } from '$/__fixtures__/bookable';
-import { prepareUseFindMockOnce } from '$/__helpers__/mocks';
+import { prepareUseCurrentSpaceMockOnce, prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFind');
 jest.mock('~/compositions/useBookablesFilter');
+jest.mock('~/compositions/space/useCurrentSpace');
 
 describe('BookablesList component', () => {
   it('should render correctly without filter', () => {
     // given
     prepareUseFindMockOnce(sampleBookables);
+    prepareUseCurrentSpaceMockOnce();
     mocked(useBookablesFilter).mockReturnValueOnce({
       bookablesWithFilterMatched: computed(() => sampleBookables),
       bookablesFilter: ref(),
@@ -31,6 +33,7 @@ describe('BookablesList component', () => {
   it('should render correctly with filter', () => {
     // given
     prepareUseFindMockOnce(sampleBookables);
+    prepareUseCurrentSpaceMockOnce();
     mocked(useBookablesFilter).mockReturnValueOnce({
       bookablesWithFilterMatched: computed(() => {
         const bookablesWithFilterMatched: BookableWithFilterMatched[] = cloneDeep(sampleBookables);

@@ -3,9 +3,14 @@ import { nextTick } from 'vue';
 
 import BookableCreate from '~/views/settings/BookableCreate.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
-import { prepareUseFeathersMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
+import {
+  prepareUseCurrentSpaceMockOnce,
+  prepareUseFeathersMockOnce,
+  prepareUseRouterMockOnce,
+} from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFeathers');
+jest.mock('~/compositions/space/useCurrentSpace');
 jest.mock('vue-i18n');
 jest.mock('vue-router', () => ({
   useRouter: jest.fn(),
@@ -16,6 +21,7 @@ describe('BookableCreate view', () => {
     // given
     prepareUseFeathersMockOnce();
     prepareUseRouterMockOnce();
+    prepareUseCurrentSpaceMockOnce();
 
     // when
     const wrapper = shallowMount(BookableCreate);
@@ -30,6 +36,7 @@ describe('BookableCreate view', () => {
     // given
     const useFeathersMock = prepareUseFeathersMockOnce();
     const useRouterMock = prepareUseRouterMockOnce();
+    prepareUseCurrentSpaceMockOnce();
     const wrapper = shallowMount(BookableCreate);
 
     await wrapper.getComponent('[data-test=bookable-form]').setValue(sampleBookable, 'bookable');

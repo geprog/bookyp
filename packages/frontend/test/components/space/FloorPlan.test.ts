@@ -26,6 +26,7 @@ describe('FloorPlan component', () => {
     prepareUseCurrentSpaceMockOnce({
       _id: 'dummy-id',
       floorPlan: sampleFloorPlan,
+      members: [],
     });
 
     // when
@@ -59,6 +60,7 @@ describe('FloorPlan component', () => {
       prepareUseCurrentSpaceMockOnce({
         _id: 'dummy-id',
         floorPlan: sampleFloorPlan,
+        members: [],
       });
 
       const viewBox = useViewBox(ref(sampleFloorPlan), { strokeWidth: 2 });
@@ -81,6 +83,7 @@ describe('FloorPlan component', () => {
       prepareUseCurrentSpaceMockOnce({
         _id: 'dummy-id',
         floorPlan: sampleFloorPlan,
+        members: [],
       });
 
       const wrapper = shallowMount(FloorPlan, {

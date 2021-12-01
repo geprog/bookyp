@@ -31,7 +31,7 @@ import { computed, defineComponent } from 'vue';
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import HomeHeader from '~/components/headers/HomeHeader.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
-import { spaceId } from '~/compositions/space/useCurrentSpace';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 import useFind from '~/compositions/useFind';
 
@@ -41,6 +41,8 @@ export default defineComponent({
   components: { ListItem, HomeHeader, ToggleBar },
 
   setup() {
+    const { spaceId } = useCurrentSpace();
+
     const { data: bookables } = useFind(
       'bookables',
       computed(() => ({ paginate: false, query: { space: spaceId.value } })),

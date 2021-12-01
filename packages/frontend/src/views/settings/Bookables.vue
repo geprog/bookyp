@@ -32,7 +32,7 @@ import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import Header from '~/components/headers/Header.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
-import { spaceId } from '~/compositions/space/useCurrentSpace';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
@@ -47,6 +47,8 @@ export default defineComponent({
   setup() {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
+    const { spaceId } = useCurrentSpace();
+
     const { data: bookables } = useFind(
       'bookables',
       computed(() => ({ query: { space: spaceId.value } })),
