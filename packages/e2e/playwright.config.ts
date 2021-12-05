@@ -2,7 +2,6 @@ import { PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
   globalSetup: require.resolve('./global-setup'),
-  globalTeardown: process.env.CI ? undefined : require.resolve('./global-teardown'),
   webServer: process.env.CI
     ? undefined
     : {

@@ -1,6 +1,10 @@
 import { chromium, FullConfig } from '@playwright/test';
 
+import { seed } from './seed';
+
 async function globalSetup(config: FullConfig): Promise<void> {
+  await seed();
+
   const { baseURL, storageState } = config.projects[0].use;
   const browser = await chromium.launch();
   const page = await browser.newPage();
