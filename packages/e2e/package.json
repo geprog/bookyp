@@ -5,11 +5,12 @@
     "clean": "rm -rf node_modules/ storageState.json",
     "codegen": "playwright codegen --load-storage=storageState.json localhost:3000",
     "lint": "eslint --max-warnings 0 .",
-    "start:e2e": "dotenv -e ../../.env -e .env -- pnpm --filter @bookyp/frontend --filter @bookyp/backend start",
-    "test": "dotenv -e ../../.env -e .env -- playwright test",
+    "start:e2e": "dotenv -e .env -e ../../.env -- pnpm --filter @bookyp/frontend --filter @bookyp/backend start",
+    "test": "dotenv -e .env -e ../../.env -- playwright test",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@bookyp/core": "workspace:*",
     "@geprog/eslint-config": "0.2.0",
     "@playwright/test": "1.16.3",
     "dotenv-cli": "4.0.0",

@@ -429,7 +429,9 @@ e2e-run:
     - e2e-deployment-test
   variables:
     E2E_BASE_URL: https://${CI_ENVIRONMENT_SLUG}.app.${BASE_DOMAIN}/
-    E2E_AUTH_USERNAME: bookyp-testing
+    E2E_AUTH_USERNAME: bookyp-testing@geprog.com
+    # username and database name are truncated in helm chart, be careful when increasing their length
+    BACKEND_DB_URI: mongodb://bookyp-${CI_ENVIRONMENT_SLUG}:${DEPLOY_DATABASE_PASSWORD}@10.0.0.200/bookyp-${CI_ENVIRONMENT_SLUG}
   script:
     - cd packages/e2e
     - pnpm run test

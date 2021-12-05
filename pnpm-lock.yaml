@@ -148,6 +148,7 @@ importers:
 
   packages/e2e:
     specifiers:
+      '@bookyp/core': workspace:*
       '@geprog/eslint-config': 0.2.0
       '@playwright/test': 1.16.3
       dotenv-cli: 4.0.0
@@ -155,6 +156,7 @@ importers:
       mongodb: 4.1.4
       typescript: 4.2.4
     devDependencies:
+      '@bookyp/core': link:../core
       '@geprog/eslint-config': 0.2.0_5c3239605f140b138dd090bc82a56127
       '@playwright/test': 1.16.3
       dotenv-cli: 4.0.0
