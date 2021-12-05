@@ -6,10 +6,7 @@
 1. Create `packages/e2e/.env` to use a database separate from your development database for e2e tests (adjust the credentials according to your main `.env`)
 
    ```sh
-   # devcontainer
-   BACKEND_DB_URI=mongodb://root:supersecret@db:27017/bookyp-e2e?authSource=admin
-   # without devcontainer
-   # BACKEND_DB_URI=mongodb://root:supersecret@localhost:27017/bookyp-e2e?authSource=admin
+   BACKEND_DB_URI=mongodb://root:supersecret@localhost:27017/bookyp-e2e?authSource=admin
    ```
 
 1. Ensure mongodb is running
