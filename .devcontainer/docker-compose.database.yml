@@ -18,6 +18,8 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD:-supersecret}
       ME_CONFIG_MONGODB_SERVER: localhost
     network_mode: service:db
+    depends_on:
+      - db
 
 volumes:
   mongodb-data:
