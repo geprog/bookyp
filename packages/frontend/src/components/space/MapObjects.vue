@@ -84,7 +84,7 @@ export default defineComponent({
     }
 
     function clickOnMapObject(mapObject: Model.MapObject) {
-      if (isMapObjectClickable(mapObject) && isFilterMatched(mapObject.bookable)) {
+      if (isMapObjectClickable(mapObject) && isFilterMatched(mapObject.bookable) !== false) {
         context.emit('clickOnMapObject', mapObject);
       }
     }
