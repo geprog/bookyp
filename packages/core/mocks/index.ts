@@ -5,7 +5,9 @@ import { MapObjectTypes } from '../src/model/TemplateGenerator';
 
 export const createApplication = jest.fn().mockImplementation(() => ({
   configure: jest.fn(),
-  service: jest.fn(),
+  service: jest.fn().mockImplementation(() => ({
+    hooks: jest.fn(),
+  })),
   use: jest.fn(),
   setup: jest.fn(),
   set: jest.fn(),
