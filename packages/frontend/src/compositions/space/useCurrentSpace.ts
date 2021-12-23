@@ -1,6 +1,6 @@
 import { Model } from '@bookyp/core';
 import { UseGet } from '@geprog/use-feathers';
-import { computed, Ref } from 'vue';
+import { computed, Ref, ref } from 'vue';
 
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
@@ -34,7 +34,7 @@ export const useCurrentSpace = (): {
   }
 
   if (!currentSpace) {
-    currentSpace = useGet('spaces', spaceId, {
+    currentSpace = useGet('spaces', spaceId, ref(), {
       disableUnloadingEventHandlers: true,
     });
   }

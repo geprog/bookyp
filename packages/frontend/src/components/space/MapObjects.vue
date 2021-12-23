@@ -25,11 +25,21 @@
         'stroke-black fill-primary-light':
           selectedMapObjectId !== mapObject._id &&
           mapObject.bookable &&
-          (!considerFilter || isFilterMatched(mapObject.bookable) === null),
-        'stroke-black fill-green-background': considerFilter && isFilterMatched(mapObject.bookable) === true,
-        'stroke-black fill-red-background': considerFilter && isFilterMatched(mapObject.bookable) === false,
-        'stroke-current fill-primary-light': selectedMapObjectId === mapObject._id,
-        'stroke-black fill-white': selectedMapObjectId !== mapObject._id && !mapObject.bookable,
+          (!considerFilter || isFilterMatched(mapObject.bookable) === null) &&
+          isMapObjectLinkedToDeletedBookable(mapObject) === false,
+        'stroke-black fill-green-background':
+          considerFilter &&
+          isFilterMatched(mapObject.bookable) === true &&
+          isMapObjectLinkedToDeletedBookable(mapObject) === false,
+        'stroke-black fill-red-background':
+          considerFilter &&
+          isFilterMatched(mapObject.bookable) === false &&
+          isMapObjectLinkedToDeletedBookable(mapObject) === false,
+        'stroke-current fill-primary-light':
+          selectedMapObjectId === mapObject._id && isMapObjectLinkedToDeletedBookable(mapObject) === false,
+        'stroke-black fill-white':
+          selectedMapObjectId !== mapObject._id &&
+          (!mapObject.bookable || isMapObjectLinkedToDeletedBookable(mapObject) === true),
       }"
     />
   </g>
@@ -75,12 +85,16 @@ export default defineComponent({
 
     const { data: bookables } = useFind(
       'bookables',
-      computed(() => ({ paginate: false, query: { space: spaceId.value } })),
+      computed(() => ({ paginate: false, query: { space: spaceId.value, $disableSoftDelete: true } })),
     );
     const { isFilterMatched } = useBookablesFilter(bookables);
 
+    function isMapObjectLinkedToDeletedBookable(mapObject: Model.MapObject) {
+      return bookables.value.find((bookable) => bookable._id === mapObject.bookable)?.deleted === true;
+    }
+
     function isMapObjectClickable(mapObject: Model.MapObject): boolean {
-      return clickable.value && 'bookable' in mapObject;
+      return clickable.value && 'bookable' in mapObject && isMapObjectLinkedToDeletedBookable(mapObject) === false;
     }
 
     function clickOnMapObject(mapObject: Model.MapObject) {
@@ -101,7 +115,7 @@ export default defineComponent({
     );
     useAndRegisterViewBox('MapObjects', mapObjectPaths, { strokeWidth: 1 });
 
-    return { mapObjects, clickOnMapObject, isFilterMatched, isMapObjectClickable };
+    return { mapObjects, clickOnMapObject, isFilterMatched, isMapObjectClickable, isMapObjectLinkedToDeletedBookable };
   },
 });
 </script>

@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Model } from '@bookyp/core';
 import dayjs from 'dayjs';
-import { computed, defineComponent, PropType, toRef } from 'vue';
+import { computed, defineComponent, PropType, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import ListItem from '~/components/list-items/ListItem.vue';
@@ -32,7 +32,7 @@ export default defineComponent({
     const { t } = useI18n();
     const booking = toRef(props, 'booking');
     const bookableId = computed(() => booking.value.bookable);
-    const { data: bookable } = useGet('bookables', bookableId);
+    const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
 
     return { bookable, dayjs, t };
   },
