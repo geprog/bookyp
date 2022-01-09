@@ -1,4 +1,4 @@
 {
   "extends": "./tsconfig.json",
-  "include": [".eslintrc.js", "tests", "global-setup.ts", "playwright.config.ts", "seed.ts"]
+  "include": [".eslintrc.js", "tests", "global-setup.ts", "playwright.config.ts", "seed.ts", "seedCli.ts"]
 }

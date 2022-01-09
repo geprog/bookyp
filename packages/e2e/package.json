@@ -6,6 +6,7 @@
     "codegen": "playwright codegen --load-storage=storageState.json localhost:3000",
     "lint": "eslint --max-warnings 0 .",
     "start:e2e": "dotenv -e .env -e ../../.env -- pnpm --filter @bookyp/frontend --filter @bookyp/backend start",
+    "seed": "dotenv -e ../../.env -- ts-node-transpile-only --skip-project seedCli.ts",
     "test": "dotenv -e .env -e ../../.env -- playwright test",
     "typecheck": "tsc --noEmit"
   },

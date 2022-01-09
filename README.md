@@ -9,6 +9,7 @@
 - open VS Code Dev Container
 - install dependencies: `pnpm install`
 - build libs: `pnpm build:libs`
+- seed a space with your user as admin with `pnpm run --filter @bookyp/e2e seed`
 - start backend and frontend: `pnpm start` or `pnpm start:frontend` & `pnpm start:backend`
 
 ### Without devcontainer
@@ -18,4 +19,5 @@
 - set properties in `.env` file (`BACKEND_KEYCLOAK_SECRET` can be found at <https://vault.geprog.com>)
 - install project dependencies: `pnpm install`
 - build libs: `pnpm build:libs`
+- seed a space with your user as admin with `pnpm run --filter @bookyp/e2e seed`
 - run `pnpm docker:up` BEFORE starting the backend
