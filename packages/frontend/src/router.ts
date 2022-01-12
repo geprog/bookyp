@@ -55,6 +55,12 @@ const routes: RouteRecordRaw[] = [
     props: true,
   },
   {
+    path: '/spaces',
+    name: 'spaces-list',
+    meta: { requiresAuth: true },
+    component: (): Component => import('~/views/settings/SpaceList.vue'),
+  },
+  {
     path: '/settings/space',
     component: (): Component => import('./views/settings/Space.vue'),
     props: true,

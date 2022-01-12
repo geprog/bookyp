@@ -13,6 +13,7 @@ import EditIcon from '~/assets/icons/edit.svg';
 import FilterIcon from '~/assets/icons/filter.svg';
 import FloorPlanIcon from '~/assets/icons/floor-plan.svg';
 import LinkIcon from '~/assets/icons/link.svg';
+import LocationIcon from '~/assets/icons/location.svg';
 import MapIcon from '~/assets/icons/map.svg';
 import PasswordIcon from '~/assets/icons/password.svg';
 import PersonIcon from '~/assets/icons/person.svg';
@@ -50,6 +51,7 @@ const icons = {
   'sign-out': SignOutIcon,
   stop: StopIcon,
   table: TableIcon,
+  location: LocationIcon,
 };
 
 export default icons;

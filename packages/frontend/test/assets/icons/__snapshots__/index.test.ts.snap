@@ -27,5 +27,6 @@ Array [
   "sign-out",
   "stop",
   "table",
+  "location",
 ]
 `;
