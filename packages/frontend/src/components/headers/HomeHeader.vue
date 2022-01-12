@@ -5,6 +5,7 @@
     </template>
     <IconButton icon="filter" @click="$router.push({ name: 'bookables-filter' })" />
     <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
+    <IconButton data-test="spaces-button" icon="location" @click="$router.push({ name: 'spaces-list' })" />
     <IconButton
       data-test="button-settings"
       icon="settings"
