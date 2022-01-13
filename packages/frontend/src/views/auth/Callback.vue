@@ -4,9 +4,9 @@
       <img class="w-48 h-auto mt-4 ml-8" src="/src/assets/img/bookyp-logo.svg?url" />
     </div>
 
-    <div class="my-auto flex flex-col items-center">
+    <div v-if="authenticationError" class="my-auto flex flex-col items-center">
       <span class="mb-4 text-6xl text-red-500">{{ t('oops') }}</span>
-      <span v-if="authenticationError" class="text-lg text-center">{{ authenticationError }}</span>
+      <span class="text-lg text-center">{{ authenticationError }}</span>
       <Button class="mt-4" :text="t('try_again')" @click="retryAuthentication" />
     </div>
   </div>
