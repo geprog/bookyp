@@ -2,7 +2,7 @@
   <ListItem
     data-test="booking-item"
     :label="bookable ? bookable.name : t('no_bookable')"
-    :description="`${dayjs(booking.start).format('HH:mm')} - ${dayjs(booking.end).format('HH:mm')}`"
+    :description="`${dayjs(booking.start).format('HH:mm')} - ${bookingEnd}`"
   />
 </template>
 
@@ -33,8 +33,14 @@ export default defineComponent({
     const booking = toRef(props, 'booking');
     const bookableId = computed(() => booking.value.bookable);
     const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
+    const bookingEnd = computed(() => {
+      if (dayjs(booking.value.end).isAfter(dayjs(booking.value.start), 'days')) {
+        return dayjs(booking.value.end).format('DD MMM HH:mm');
+      }
+      return dayjs(booking.value.end).format('HH:mm');
+    });
 
-    return { bookable, dayjs, t };
+    return { bookable, dayjs, t, bookingEnd };
   },
 });
 </script>

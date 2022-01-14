@@ -36,3 +36,13 @@ export const sampleBookings: Model.Booking[] = [
     space: sampleSpace._id,
   },
 ];
+
+export const sampleBookingNextDay: Model.Booking = {
+  _id: '234',
+  bookable: sampleBookable._id,
+  bookedBy: 'userId234',
+  description: 'test-description',
+  start: new Date('2000-01-01T13:37:00'),
+  end: new Date('2000-01-02T13:37:00'),
+  space: sampleSpace._id,
+};
