@@ -361,13 +361,7 @@ helm-lint:
       namespace: bookyp-e2e
   stage: e2e
   rules:
-    # if pipeline runs on merge request and is triggered by renovate
-    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
-      changes: *main_pipeline_files
-      when: manual
-      allow_failure: true
-    # if pipeline runs on merge request
-    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
+    - if: '$CI_MERGE_REQUEST_ID'
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
