@@ -33,6 +33,10 @@ module.exports = {
 
     // fix for storybook build https://github.com/storybookjs/storybook/issues/10887#issuecomment-901109891
     config.resolve.dedupe = ['@storybook/client-api'];
+
+    // https://github.com/eirslett/storybook-builder-vite/issues/55#issuecomment-871800293
+    config.root = path.dirname(require.resolve('storybook-builder-vite'));
+
     return config;
   },
 };
