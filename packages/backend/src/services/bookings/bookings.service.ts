@@ -1,6 +1,10 @@
 import { Application, Model } from '@bookyp/core';
+import { authenticate } from '@feathersjs/authentication';
+import { authorize } from 'feathers-casl';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
 import { Document, model, Schema } from 'mongoose';
+
+import { feathersCaslAllowlist } from '~/casl';
 
 const BookingSchema = new Schema<Model.Booking>({
   start: { type: Schema.Types.Date, required: true },
@@ -18,7 +22,16 @@ export const BookingsModel = model<Model.Booking & Document>(name, BookingSchema
 export default (app: Application): void => {
   const options: Partial<MongooseServiceOptions> = {
     Model: BookingsModel,
+    whitelist: feathersCaslAllowlist,
   };
 
   app.use(name, new Service<Model.Booking>(options));
+  app.service(name).hooks({
+    before: {
+      all: [authenticate('jwt'), authorize({ adapter: 'feathers-mongoose' })],
+    },
+    after: {
+      all: [authorize({ adapter: 'feathers-mongoose' })],
+    },
+  });
 };

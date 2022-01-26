@@ -2,6 +2,7 @@ import { createApplication } from '@bookyp/core';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
 
+import { feathersCasl } from '~/casl';
 import channels from '~/channels';
 import config from '~/config';
 import services from '~/services';
@@ -20,6 +21,8 @@ app.configure(
     serveClient: false,
   }),
 );
+
+app.configure(feathersCasl);
 
 // Set up our services (see `services/index.js`)
 app.configure(services);
