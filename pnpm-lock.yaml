@@ -40,6 +40,7 @@ importers:
       '@babel/plugin-transform-modules-commonjs': 7.13.8
       '@babel/preset-typescript': 7.13.0
       '@bookyp/core': workspace:*
+      '@casl/ability': 5.4.3
       '@feathersjs/adapter-commons': 5.0.0-pre.16
       '@feathersjs/authentication': 5.0.0-pre.16
       '@feathersjs/authentication-oauth': 5.0.0-pre.16
@@ -56,6 +57,7 @@ importers:
       esbuild-jest: 0.5.0
       eslint: 7.31.0
       express: 4.17.1
+      feathers-casl: git+https://github.com/geprog/feathers-casl.git#4253644043fb8d4408c386f675a190d4451a29e7
       feathers-memory: 4.1.0
       feathers-mongoose: github:GEPROG/feathers-mongoose#c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed
       jest: 27.0.4
@@ -72,6 +74,7 @@ importers:
       typescript-transform-paths: 2.2.4
     dependencies:
       '@bookyp/core': link:../core
+      '@casl/ability': 5.4.3
       '@feathersjs/adapter-commons': 5.0.0-pre.16
       '@feathersjs/authentication': 5.0.0-pre.16
       '@feathersjs/authentication-oauth': 5.0.0-pre.16
@@ -80,6 +83,7 @@ importers:
       '@feathersjs/socketio': 5.0.0-pre.16
       '@geprog/node-migrate-ts': 3.1.0_mongodb@4.1.4
       express: 4.17.1
+      feathers-casl: github.com/geprog/feathers-casl/4253644043fb8d4408c386f675a190d4451a29e7
       feathers-mongoose: github.com/GEPROG/feathers-mongoose/c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed_mongoose@6.0.12
       lightship: 6.7.2
       mongodb: 4.1.4
@@ -1997,6 +2001,12 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
+  /@casl/ability/5.4.3:
+    resolution: {integrity: sha512-X6U79udKkfS7459Y3DCkw58ZQno7BD9VJa5GnTL1rcKRACqERMVDs7qjVMW+JlLUZcT5DB2/GF5uvu0KsudEcA==}
+    dependencies:
+      '@ucast/mongo2js': 1.3.3
+    dev: false
+
   /@cnakazawa/watch/1.0.4:
     resolution: {integrity: sha512-v9kIhKwjeZThiWrLmj0y17CWoyddASLj9O2yvbZkbvw/N3rWOYy9zkV66ursAoVr0mV15bL8g0c4QZUE6cdDoQ==}
     engines: {node: '>=0.1.95'}
@@ -2534,6 +2544,11 @@ packages:
       - supports-color
     dev: true
 
+  /@feathers-plus/batch-loader/0.3.6:
+    resolution: {integrity: sha512-r+n31iZ/B5Rl1mLkC9/S20UI445MdkZvE3VBmjupep2t8OuyTYHPkFEgR25HY6khH+RothK1VL3B5eumk9N2QQ==}
+    engines: {node: '>= 6.0.0'}
+    dev: false
+
   /@feathersjs/adapter-commons/4.5.12:
     resolution: {integrity: sha512-5UTo3M0WARIAUSOWFrHuf668pVewuQyOBuZXvvOa76SKe6/n31HulKFlXI2+FmBascOhaJibVBsP7jfcoQ6HfQ==}
     engines: {node: '>= 10'}
@@ -2544,6 +2559,15 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@feathersjs/adapter-commons/5.0.0-pre.15:
+    resolution: {integrity: sha512-93PsxOKqfeQNGQ0RcdgvkIS33hU7oKYkJTDH2gQw+afzCmE6Ypb137bDM9CVZbLIAFd/VIIOARL3VKtWC3acOg==}
+    engines: {node: '>= 12'}
+    dependencies:
+      '@feathersjs/commons': 5.0.0-pre.16
+      '@feathersjs/errors': 5.0.0-pre.16
+      '@feathersjs/feathers': 5.0.0-pre.16
+    dev: false
 
   /@feathersjs/adapter-commons/5.0.0-pre.16:
     resolution: {integrity: sha512-vWoaL9dkLRNgkA2EOVmkILilYybHFqPLLOzcRWxvzZNKVubtcHrffHs4rDX8YEQfZgtP67e9vgHr2HLXWHBHxg==}
@@ -2596,7 +2620,6 @@ packages:
   /@feathersjs/commons/4.5.12:
     resolution: {integrity: sha512-ss3yyk8HurmOCSD+wvENIrT9iSa8vg9SmikoP5c9JaLkbtMmKpH88jCjgRl7jiO54f2+UcjW3PqccNgUGSNSDQ==}
     engines: {node: '>= 10'}
-    dev: true
 
   /@feathersjs/commons/5.0.0-pre.16:
     resolution: {integrity: sha512-sTrOuE50qNRk0AsGaPRh90XxK1nUDib4/gyoqYxFewB5Z0xh2uyEFSppeD0oty+HfPL5XyZVMMzxbH+vUPL39w==}
@@ -2610,7 +2633,11 @@ packages:
       debug: 4.3.3
     transitivePeerDependencies:
       - supports-color
-    dev: true
+
+  /@feathersjs/errors/5.0.0-pre.15:
+    resolution: {integrity: sha512-MuNZWN9FI8J2zBx+02fp3UlRxcZwvEaUrshTEiyFiEyb0PPY4m7h53K/0ps0IINimSha03LGwnNf1gxDJWkyDQ==}
+    engines: {node: '>= 12'}
+    dev: false
 
   /@feathersjs/errors/5.0.0-pre.16:
     resolution: {integrity: sha512-hp41eSglMpRsPuwWGAk7H3j2M80RIbn65/QOWsfu8ZmIQDQIEAcmqDWnzu80lPzXoh01deOdcBdz3+6YQEZBQA==}
@@ -2641,7 +2668,15 @@ packages:
       uberproto: 2.0.6
     transitivePeerDependencies:
       - supports-color
-    dev: true
+
+  /@feathersjs/feathers/5.0.0-pre.15:
+    resolution: {integrity: sha512-53ToWckg6csoaguLw0t3iG2rO109lZsbTrPv85RBKNnhd+ENyjW6+Kkw60Um17PC03n8uyb+5mGJr8paIVRBhg==}
+    engines: {node: '>= 12'}
+    dependencies:
+      '@feathersjs/commons': 5.0.0-pre.16
+      '@feathersjs/hooks': 0.6.5
+      events: 3.3.0
+    dev: false
 
   /@feathersjs/feathers/5.0.0-pre.16:
     resolution: {integrity: sha512-FtPWZrRAMxExkFOv5Fwgg3tyAuy0YpH/ESKIEZ7LoWdHBirXb13qX22eTYzyqEHRckNfmwh2iMdf8V8XK4yAFg==}
@@ -5821,6 +5856,30 @@ packages:
       '@typescript-eslint/types': 4.33.0
       eslint-visitor-keys: 2.1.0
     dev: true
+
+  /@ucast/core/1.10.1:
+    resolution: {integrity: sha512-sXKbvQiagjFh2JCpaHUa64P4UdJbOxYeC5xiZFn8y6iYdb0WkismduE+RmiJrIjw/eLDYmIEXiQeIYYowmkcAw==}
+    dev: false
+
+  /@ucast/js/3.0.2:
+    resolution: {integrity: sha512-zxNkdIPVvqJjHI7D/iK8Aai1+59yqU+N7bpHFodVmiTN7ukeNiGGpNmmSjQgsUw7eNcEBnPrZHNzp5UBxwmaPw==}
+    dependencies:
+      '@ucast/core': 1.10.1
+    dev: false
+
+  /@ucast/mongo/2.4.2:
+    resolution: {integrity: sha512-/zH1TdBJlYGKKD+Wh0oyD+aBvDSWrwHcD8b4tUL9UgHLhzHtkEnMVFuxbw3SRIRsAa01wmy06+LWt+WoZdj1Bw==}
+    dependencies:
+      '@ucast/core': 1.10.1
+    dev: false
+
+  /@ucast/mongo2js/1.3.3:
+    resolution: {integrity: sha512-sBPtMUYg+hRnYeVYKL+ATm8FaRPdlU9PijMhGYKgsPGjV9J4Ks41ytIjGayvKUnBOEhiCaKUUnY4qPeifdqATw==}
+    dependencies:
+      '@ucast/core': 1.10.1
+      '@ucast/js': 3.0.2
+      '@ucast/mongo': 2.4.2
+    dev: false
 
   /@vitejs/plugin-react/1.1.4:
     resolution: {integrity: sha512-cMUBDonNY8PPeHWjIrYKbRn6bLSunh/Ixo2XLLBd3DM0uYBZft+c+04zkGhhN1lAwvoRKJ2FdtvhGhPgViHc6w==}
@@ -9671,6 +9730,24 @@ packages:
       pend: 1.2.0
     dev: true
 
+  /feathers-hooks-common/5.0.6:
+    resolution: {integrity: sha512-XxCPxZxUgKdNRSLAt0l8c/ovA5AmYHrD5LVuDNdawUapm3dLmfSIBex2emHHEaLuyscpiAl9AtkK0+MnqR2Y1g==}
+    engines: {node: '>= 10'}
+    dependencies:
+      '@feathers-plus/batch-loader': 0.3.6
+      '@feathersjs/commons': 4.5.12
+      '@feathersjs/errors': 4.5.12
+      '@feathersjs/feathers': 4.5.12
+      ajv: 6.12.6
+      debug: 4.3.3
+      graphql: 15.8.0
+      lodash: 4.17.21
+      process: 0.11.10
+      traverse: 0.6.6
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /feathers-memory/4.1.0:
     resolution: {integrity: sha512-tR8DFqLsSk2w7tpSdHjA5RgPHTu3X5R3L3Kob2K+E3b/Q5cDkI6AYQarDQOiwekAyqxkkp/fm7Fg0qYdu4Ua6Q==}
     engines: {node: '>= 8'}
@@ -9682,6 +9759,19 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /feathers-utils/2.0.0-0:
+    resolution: {integrity: sha512-Wqkr3f7mJPG33wwABRvZS6LeoDrDlOEWsg7hGuEg1ljJDbiPvL7x5th7/K6F8pa1O+p0ke2URLaa49log41EWg==}
+    dependencies:
+      '@feathersjs/adapter-commons': 5.0.0-pre.15
+      '@feathersjs/errors': 5.0.0-pre.15
+      '@feathersjs/feathers': 5.0.0-pre.15
+      feathers-hooks-common: 5.0.6
+      lodash: 4.17.21
+      type-fest: 2.10.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /figgy-pudding/3.5.2:
     resolution: {integrity: sha512-0btnI/H8f2pavGMN8w40mlSKOfTK2SVJmBfBeVIj3kNw0swwgzyRq0d5TJVOwodFmtvpPeWPN/MCcfuWF0Ezbw==}
@@ -10290,6 +10380,11 @@ packages:
       cookie-signature: 1.1.0
       jwk-to-pem: 2.0.5
       jws: 4.0.0
+    dev: false
+
+  /graphql/15.8.0:
+    resolution: {integrity: sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==}
+    engines: {node: '>= 10.x'}
     dev: false
 
   /handlebars/4.7.7:
@@ -14094,7 +14189,6 @@ packages:
   /process/0.11.10:
     resolution: {integrity: sha1-czIwDoQBYb2j5podHZGn1LwW8YI=}
     engines: {node: '>= 0.6.0'}
-    dev: true
 
   /progress/2.0.3:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
@@ -16478,6 +16572,10 @@ packages:
     dependencies:
       punycode: 2.1.1
 
+  /traverse/0.6.6:
+    resolution: {integrity: sha1-y99WD9e5r2MlAv7UD5GMFX6pcTc=}
+    dev: false
+
   /trim-newlines/3.0.1:
     resolution: {integrity: sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==}
     engines: {node: '>=8'}
@@ -16765,7 +16863,6 @@ packages:
 
   /uberproto/2.0.6:
     resolution: {integrity: sha512-68H97HffZoFaa3HFtpstahWorN9dSp5uTU6jo3GjIQ6JkJBR3hC2Nx/e/HFOoYHdUyT/Z1MRWfxN1EiQJZUyCQ==}
-    dev: true
 
   /uglify-js/3.15.0:
     resolution: {integrity: sha512-x+xdeDWq7FiORDvyIJ0q/waWd4PhjBNOm5dQUOq2AKC0IEjxOS66Ha9tctiVDGcRQuh69K7fgU5oRuTK4cysSg==}
@@ -18037,4 +18134,20 @@ packages:
       '@feathersjs/commons': 5.0.0-pre.16
       '@feathersjs/errors': 5.0.0-pre.16
       mongoose: 6.0.12
+    dev: false
+
+  github.com/geprog/feathers-casl/4253644043fb8d4408c386f675a190d4451a29e7:
+    resolution: {tarball: https://codeload.github.com/geprog/feathers-casl/tar.gz/4253644043fb8d4408c386f675a190d4451a29e7}
+    name: feathers-casl
+    version: 0.7.0
+    dependencies:
+      '@casl/ability': 5.4.3
+      '@feathersjs/errors': 5.0.0-pre.16
+      '@feathersjs/feathers': 5.0.0-pre.16
+      '@feathersjs/transport-commons': 5.0.0-pre.16
+      feathers-hooks-common: 5.0.6
+      feathers-utils: 2.0.0-0
+      lodash: 4.17.21
+    transitivePeerDependencies:
+      - supports-color
     dev: false

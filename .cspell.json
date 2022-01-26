@@ -17,6 +17,7 @@
     "bufferutil",
     "Buildkit",
     "buildscript",
+    "casl",
     "certresolver",
     "cobertura",
     "codegen",

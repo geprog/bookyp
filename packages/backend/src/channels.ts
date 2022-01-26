@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Application } from '@bookyp/core';
+import { channels } from 'feathers-casl';
 
 export default function (app: Application): void {
   if (typeof app.channel !== 'function') {
     // If no real-time functionality has been configured just return
     return;
   }
+
+  const caslOptions = channels.makeOptions(app);
 
   app.on('connection', (connection: any) => {
     // On a new real-time connection, add it to the anonymous channel
@@ -27,9 +30,9 @@ export default function (app: Application): void {
     }
   });
 
-  app.publish(() =>
+  app.publish((data: Record<string, unknown>, context) =>
     // To publish only for a specific event use `app.publish(eventName, () => {})`
     // e.g. to publish all service events to all authenticated users use
-    app.channel('authenticated'),
+    channels.getChannelsWithReadAbility(app, data, context, caslOptions),
   );
 }

@@ -85,5 +85,31 @@ export async function seed(): Promise<void> {
     },
   ]);
 
+  // TODO: workaround to not run the `add-existing-users-to-space` migration, remove this once the current migrations are removed
+  interface MigrationModel {
+    id?: string;
+    migrationId: string;
+    timestamp: number;
+  }
+  await db.collection<WithObjectId<MigrationModel>>('migrations').insertMany([
+    {
+      _id: new ObjectId('61e6be67c9a0309228824a68'),
+      migrationId: 'seed-038e215e-e648-11eb-ac5b-5b98cceacb59',
+      timestamp: 1642511975179,
+    },
+    { _id: new ObjectId('61e6be67c9a0309228824a69'), migrationId: 'set-explicit-space-id', timestamp: 1642511975212 },
+    { _id: new ObjectId('61e6be67c9a0309228824a6a'), migrationId: 'add-space-reference', timestamp: 1642511975221 },
+    {
+      _id: new ObjectId('61e6be67c9a0309228824a6b'),
+      migrationId: 'refactor-floor-plan-to-allow-wall-selection',
+      timestamp: 1642511975226,
+    },
+    {
+      _id: new ObjectId('61e6be67c9a0309228824a6c'),
+      migrationId: 'add-existing-users-to-space',
+      timestamp: 1642511975231,
+    },
+  ]);
+
   await client.close();
 }
