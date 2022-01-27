@@ -4,6 +4,13 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { isAuthenticated, reAuthenticate } from '~/compositions/useAuthentication';
 import NotFound from '~/views/NotFound.vue';
 
+declare module 'vue-router' {
+  interface RouteMeta {
+    authEndpoint?: boolean;
+    requiresAuth?: boolean;
+  }
+}
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
