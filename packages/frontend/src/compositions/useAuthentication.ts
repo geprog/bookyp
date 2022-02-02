@@ -1,8 +1,8 @@
 import { Model } from '@bookyp/core';
 import { FeathersError } from '@feathersjs/errors';
+import { getEnvConfig } from '@geprog/vite-plugin-env-config';
 import { computed, ref } from 'vue';
 
-import { getConfig } from '~/compositions/useAppConfig';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 
 export const user = ref<Model.User>();
@@ -57,9 +57,9 @@ export async function logout(): Promise<void> {
   user.value = undefined;
 
   // redirect user to backend to logout from SSO provider
-  const backendURL = getConfig('BACKEND_URL');
+  const backendURL = getEnvConfig('FRONTEND_BACKEND_URL');
   if (!backendURL) {
-    throw new Error('Config BACKEND_URL not set');
+    throw new Error('Config FRONTEND_BACKEND_URL not set');
   }
   window.location.href = `${backendURL}/authentication/logout`;
 }

@@ -48,12 +48,12 @@ describe('Feathers composition', () => {
     // given
     jest.mock('@feathersjs/socketio-client');
     jest.mock('socket.io-client');
-    jest.mock('~/compositions/useAppConfig');
+    jest.mock('@geprog/vite-plugin-env-config');
     const socketioClient = await import('socket.io-client');
-    const useAppConfig = await import('~/compositions/useAppConfig');
+    const { getEnvConfig } = await import('@geprog/vite-plugin-env-config');
     const BACKEND_URL = '123';
-    const useAppConfigMock = mocked(useAppConfig, true);
-    useAppConfigMock.getConfig.mockReturnValueOnce(BACKEND_URL);
+    const getEnvConfigMock = mocked(getEnvConfig, true);
+    getEnvConfigMock.mockReturnValueOnce(BACKEND_URL);
     const useFeathers = await import('~/compositions/useFeathers');
 
     // when

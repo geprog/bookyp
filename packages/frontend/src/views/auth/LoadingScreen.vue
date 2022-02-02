@@ -16,10 +16,9 @@
 </template>
 
 <script lang="ts">
+import { getEnvConfig } from '@geprog/vite-plugin-env-config';
 import { defineComponent, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
-
-import { getConfig } from '~/compositions/useAppConfig';
 
 export default defineComponent({
   name: 'LoadingScreen',
@@ -29,7 +28,7 @@ export default defineComponent({
     const { t } = useI18n();
 
     onMounted(() => {
-      window.location.href = `${getConfig('BACKEND_URL') || ''}/oauth/keycloak?redirect=auth/callback`;
+      window.location.href = `${getEnvConfig('FRONTEND_BACKEND_URL') || ''}/oauth/keycloak?redirect=auth/callback`;
     });
 
     return { t };

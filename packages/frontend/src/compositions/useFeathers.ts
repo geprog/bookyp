@@ -3,9 +3,8 @@ import { AdapterService } from '@feathersjs/adapter-commons';
 import auth from '@feathersjs/authentication-client';
 import { Application as FeathersApplication, Id, ServiceMethods } from '@feathersjs/feathers';
 import socketio from '@feathersjs/socketio-client';
+import { getEnvConfig } from '@geprog/vite-plugin-env-config';
 import { io, Socket } from 'socket.io-client';
-
-import { getConfig } from '~/compositions/useAppConfig';
 
 interface AuthenticationResult {
   user: Model.User;
@@ -21,7 +20,7 @@ let socket: Socket;
 export function init(): void {
   app = createApplication() as ClientApplication;
 
-  const backendUrl = getConfig('BACKEND_URL');
+  const backendUrl = getEnvConfig('FRONTEND_BACKEND_URL');
   const socketOptions = {
     path: '/api/v1/socket',
     transports: ['websocket'],
