@@ -1,23 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button component should render correctly 1`] = `
-"<button type=\\"button\\" class=\\"
-      flex
-      items-center
-      justify-center
-      rounded-md
-      px-4
-      py-2
-      space-x-2
-      bg-primary-normal
-      text-md
-      font-bold
-      text-white
-      cursor-pointer
-      focus:outline-transparent
-      hover:bg-primary-dark
-      disabled:bg-gray-background disabled:cursor-not-allowed
-    \\">
+"<button type=\\"button\\" class=\\"flex items-center justify-center rounded-md px-4 py-2 space-x-2 bg-primary-normal text-md font-bold text-white cursor-pointer focus:outline-transparent hover:bg-primary-dark disabled:bg-gray-background disabled:cursor-not-allowed\\">
   <icon-stub name=\\"settings\\" color=\\"\\" data-test=\\"button-icon\\" class=\\"text-white\\"></icon-stub><span data-test=\\"button-text\\">Submit</span>
   <icon-stub name=\\"settings\\" color=\\"\\" data-test=\\"button-icon-end\\" class=\\"text-white\\"></icon-stub>
 </button>"

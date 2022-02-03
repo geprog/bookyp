@@ -24,7 +24,6 @@ export default defineComponent({
   components: { TabButton },
 
   setup() {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
     return { t };
   },

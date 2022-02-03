@@ -4,4 +4,4 @@ exports[`BookingItem component should display a hours 1`] = `"07:43 - 08:13"`;
 
 exports[`BookingItem component should display date when different day 1`] = `"13:37 - 02 Jan 13:37"`;
 
-exports[`BookingItem component should render correctly 1`] = `"<list-item-stub label=\\"Couch\\" description=\\"07:43 - 08:13\\" statuscolor=\\"bg-primary-normal\\" disabled=\\"false\\" data-test=\\"booking-item\\"></list-item-stub>"`;
+exports[`BookingItem component should render correctly 1`] = `"<list-item-stub label=\\"Couch\\" statuscolor=\\"bg-primary-normal\\" description=\\"07:43 - 08:13\\" disabled=\\"false\\" data-test=\\"booking-item\\"></list-item-stub>"`;

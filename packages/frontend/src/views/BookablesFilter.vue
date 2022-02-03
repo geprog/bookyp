@@ -30,7 +30,6 @@ export default defineComponent({
   components: { Header, IconButton, InputField, DateTimePicker },
 
   setup() {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
     const router = useRouter();
     const { bookablesFilter } = useBookablesFilter();

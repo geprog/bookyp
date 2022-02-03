@@ -156,7 +156,6 @@ describe('useViewBox composition', () => {
         },
       };
       const childComponent = {
-        // eslint-disable-next-line @intlify/vue-i18n/no-raw-text
         template: '<p>Horst</p>',
         setup() {
           useAndRegisterViewBox(viewBoxKey, paths, { strokeWidth: 1 });
@@ -192,7 +191,6 @@ describe('useViewBox composition', () => {
         },
       };
       const childComponent = {
-        // eslint-disable-next-line @intlify/vue-i18n/no-raw-text
         template: '<p>Horst</p>',
         setup() {
           useAndRegisterViewBox(viewBoxKey, paths, { strokeWidth: 1 });
@@ -217,7 +215,6 @@ describe('useViewBox composition', () => {
       const viewBoxKey = 'Test';
 
       const component = {
-        // eslint-disable-next-line @intlify/vue-i18n/no-raw-text
         template: '<p>Horst</p>',
         setup() {
           useAndRegisterViewBox(viewBoxKey, paths, { strokeWidth: 1 });

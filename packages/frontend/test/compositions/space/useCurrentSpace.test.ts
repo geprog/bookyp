@@ -29,7 +29,7 @@ describe('useCurrentSpace composition', () => {
     const { currentSpace } = useCurrentSpace.useCurrentSpace();
 
     // then
-    expect(currentSpace.value).not.toBeDefined();
+    expect(currentSpace.value).toBeUndefined();
   });
 
   it('should get current space if one space is set', async () => {

@@ -11,7 +11,6 @@ describe('waitUntilDataHasBeenLoaded', () => {
 
     // when
     // change testIsLoading to false after 10ms timeout
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     setTimeout(async () => {
       testIsLoading.value = false;
       await nextTick();

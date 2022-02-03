@@ -15,8 +15,8 @@ exports[`MapObject view Template should render correctly when selecting bookable
   <!--v-if-->
 </header-stub>
 <div class=\\"flex flex-col mx-auto w-full max-w-lg p-3\\">
-  <selectable-list-item-stub selected=\\"false\\" label=\\"Couch\\" description=\\"\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>
-  <selectable-list-item-stub selected=\\"false\\" label=\\"Table\\" description=\\"\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>
+  <selectable-list-item-stub label=\\"Couch\\" description=\\"\\" selected=\\"false\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>
+  <selectable-list-item-stub label=\\"Table\\" description=\\"\\" selected=\\"false\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>
 </div>"
 `;
 

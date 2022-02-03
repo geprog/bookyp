@@ -13,6 +13,7 @@ export function mockSvg<T extends Element>(wrapper: DOMWrapper<T>): SVGElement<T
     getScreenCTM: jest.fn(),
   };
   mockedSVG.getScreenCTM.mockReturnValue({ inverse: jest.fn() } as unknown as DOMMatrix);
+  // eslint-disable-next-line jest/unbound-method
   Object.assign(wrapper.element, mockedSVG);
   return wrapper as SVGElement<T>;
 }

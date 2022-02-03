@@ -28,7 +28,6 @@ export default defineComponent({
   },
 
   setup(props) {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
     const booking = toRef(props, 'booking');
     const bookableId = computed(() => booking.value.bookable);
