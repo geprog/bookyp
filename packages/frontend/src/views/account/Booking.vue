@@ -40,8 +40,6 @@ export default defineComponent({
   },
 
   props: {
-    // used by toRef
-    // eslint-disable-next-line vue/no-unused-properties
     bookingId: {
       type: String,
       required: true,
@@ -49,7 +47,6 @@ export default defineComponent({
   },
 
   setup(props) {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
     const feathers = useFeathers();
     const router = useRouter();

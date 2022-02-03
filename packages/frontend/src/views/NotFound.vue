@@ -13,7 +13,6 @@ export default defineComponent({
   name: 'NotFound',
 
   setup() {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
     return { t };
   },

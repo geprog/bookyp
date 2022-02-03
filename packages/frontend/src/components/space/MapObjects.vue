@@ -58,7 +58,6 @@ import useFind from '~/compositions/useFind';
 export default defineComponent({
   name: 'MapObjects',
   props: {
-    // eslint-disable-next-line vue/no-unused-properties
     clickable: {
       type: Boolean,
     },

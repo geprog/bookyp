@@ -1,20 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FloatingButton component should render correctly 1`] = `
-"<button type=\\"button\\" class=\\"
-      flex
-      items-center
-      justify-center
-      rounded-full
-      h-12
-      w-12
-      cursor-pointer
-      hover:bg-primary-dark
-      focus:outline-transparent
-      disabled:bg-gray-background disabled:cursor-not-allowed
-      bg-primary-normal
-      shadow-lg
-    \\">
+"<button type=\\"button\\" class=\\"flex items-center justify-center rounded-full h-12 w-12 cursor-pointer hover:bg-primary-dark focus:outline-transparent disabled:bg-gray-background disabled:cursor-not-allowed bg-primary-normal shadow-lg\\">
   <icon-stub name=\\"settings\\" color=\\"text-white\\" data-test=\\"floating-button-icon\\"></icon-stub>
 </button>"
 `;

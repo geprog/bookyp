@@ -39,7 +39,6 @@ import { EditingMapObject } from '~/views/settings/space/EditingMapObject';
 export default defineComponent({
   name: 'MapObjectsEditing',
   props: {
-    // eslint-disable-next-line vue/no-unused-properties
     mapObjects: {
       type: Array as PropType<EditingMapObject[]>,
       required: true,

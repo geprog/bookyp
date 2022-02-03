@@ -62,13 +62,11 @@ export default defineComponent({
       default: undefined,
     },
 
-    // eslint-disable-next-line vue/no-unused-properties
     saveTrigger: {
       type: Boolean,
       required: true,
     },
 
-    // eslint-disable-next-line vue/no-unused-properties
     abortTrigger: {
       type: Boolean,
       required: true,

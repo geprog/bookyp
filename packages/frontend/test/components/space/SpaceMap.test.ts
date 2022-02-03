@@ -137,7 +137,6 @@ describe('SpaceMap component', () => {
     function prepareProvideEventEmitter(eventName: SpaceMapEvents) {
       const eventCallback = jest.fn();
       const childComponent = {
-        // eslint-disable-next-line @intlify/vue-i18n/no-raw-text
         template: '<p>Horst</p>',
 
         setup() {
@@ -159,7 +158,6 @@ describe('SpaceMap component', () => {
 
       // given
       const childComponent = {
-        // eslint-disable-next-line @intlify/vue-i18n/no-raw-text
         template: '<p>Horst</p>',
 
         setup() {
@@ -280,7 +278,6 @@ describe('SpaceMap component', () => {
       // given
       const viewBox: ViewBox = { x: 10, y: 20, width: 50, height: 100 };
       const childComponent = {
-        // eslint-disable-next-line @intlify/vue-i18n/no-raw-text
         template: '<p>Horst</p>',
 
         setup() {
@@ -298,7 +295,7 @@ describe('SpaceMap component', () => {
       await nextTick();
 
       // then
-      expect(wrapper.find('[data-test=space-map]').attributes('viewBox')).toStrictEqual(
+      expect(wrapper.find('[data-test=space-map]').attributes('viewBox')).toBe(
         `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`,
       );
     });
@@ -309,7 +306,6 @@ describe('SpaceMap component', () => {
       const viewBox: ViewBox = { x: 10, y: 20, width: 50, height: 100 };
       const viewBoxRef = ref(viewBox);
       const childComponent = {
-        // eslint-disable-next-line @intlify/vue-i18n/no-raw-text
         template: '<p>Horst</p>',
 
         setup() {
@@ -330,7 +326,7 @@ describe('SpaceMap component', () => {
 
       // then
       const currentViewBox = viewBoxRef.value;
-      expect(wrapper.find('[data-test=space-map]').attributes('viewBox')).toStrictEqual(
+      expect(wrapper.find('[data-test=space-map]').attributes('viewBox')).toBe(
         `${currentViewBox.x} ${currentViewBox.y} ${currentViewBox.width} ${currentViewBox.height}`,
       );
     });

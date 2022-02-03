@@ -51,7 +51,6 @@ export default defineComponent({
   },
 
   setup() {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
     const { spaceId } = useCurrentSpace();
 

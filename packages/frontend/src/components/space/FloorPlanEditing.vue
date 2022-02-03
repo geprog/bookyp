@@ -72,7 +72,6 @@ export default defineComponent({
       required: true,
     },
 
-    // eslint-disable-next-line vue/no-unused-properties
     selectedFloorPlanObjectId: {
       type: Number as PropType<number | null>,
       default: null,

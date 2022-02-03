@@ -31,8 +31,6 @@ export default defineComponent({
   },
 
   props: {
-    // used by toRef
-    // eslint-disable-next-line vue/no-unused-properties
     modelValue: {
       type: Date,
       default: new Date(),

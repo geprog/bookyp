@@ -39,7 +39,6 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
 
     const bookable = toRef(props, 'bookable');

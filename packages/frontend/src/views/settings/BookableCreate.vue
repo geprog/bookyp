@@ -23,7 +23,6 @@ export default defineComponent({
   components: { Header, BookableForm, IconButton },
 
   setup() {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n();
     const router = useRouter();
     const feathers = useFeathers();

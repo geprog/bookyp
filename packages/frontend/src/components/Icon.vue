@@ -11,8 +11,6 @@ export default defineComponent({
   name: 'Icon',
 
   props: {
-    // used by toRef
-    // eslint-disable-next-line vue/no-unused-properties
     name: {
       type: String as PropType<keyof typeof icons>,
       required: true,
