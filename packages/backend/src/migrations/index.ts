@@ -7,6 +7,7 @@ import { addSpaceReference } from '~/migrations/addSpaceReference';
 import { refactorFloorPlan } from '~/migrations/refactorFloorPlan';
 import { seed } from '~/migrations/seed';
 import { setExplicitSpaceId } from '~/migrations/setExplicitSpaceId';
+import { setSpaceName } from '~/migrations/setSpaceName';
 
 // migrations are applied in the order defined here
 const migrations: Migration[] = [
@@ -15,6 +16,7 @@ const migrations: Migration[] = [
   addSpaceReference,
   refactorFloorPlan,
   addExistingUsersToSpace,
+  setSpaceName,
 ];
 
 const migrationStore = new MongoMigrationStore();

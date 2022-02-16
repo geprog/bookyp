@@ -14,7 +14,7 @@
     <ListItem
       v-for="space in spaces"
       :key="space._id"
-      :label="space._id"
+      :label="space.name"
       :description="roleInSpace(space)"
       class="cursor-pointer m-3"
     />
@@ -61,6 +61,7 @@ export default defineComponent({
           ],
 
           floorPlan: [],
+          name: 'New Space',
         };
         await feathers.service('spaces').create(newSpace);
       }
