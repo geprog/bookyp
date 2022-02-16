@@ -26,5 +26,6 @@ spec:
         - --retry-delay
         - '1'
         - --retry-all-errors
+        - --fail
         - 'https://{{ include "bookyp.backendURL" . }}'
   restartPolicy: Never
