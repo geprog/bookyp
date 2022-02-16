@@ -9,4 +9,7 @@ type Member = {
 export default class Space extends AbstractEntity {
   floorPlan!: string[];
   members!: Member[];
+  name!: string;
+  description?: string;
+  address?: string;
 }

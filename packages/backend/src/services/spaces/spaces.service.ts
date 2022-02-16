@@ -14,6 +14,9 @@ const SpaceSchema = new Schema<Model.Space>({
       userId: String,
     },
   ],
+  name: { type: String, required: true },
+  description: { type: String },
+  address: { type: String },
 });
 
 export const name = 'spaces';

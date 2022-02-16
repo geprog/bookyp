@@ -27,6 +27,7 @@ describe('FloorPlan component', () => {
       _id: 'dummy-id',
       floorPlan: sampleFloorPlan,
       members: [],
+      name: 'space',
     });
 
     // when
@@ -61,6 +62,7 @@ describe('FloorPlan component', () => {
         _id: 'dummy-id',
         floorPlan: sampleFloorPlan,
         members: [],
+        name: 'space',
       });
 
       const viewBox = useViewBox(ref(sampleFloorPlan), { strokeWidth: 2 });
@@ -84,6 +86,7 @@ describe('FloorPlan component', () => {
         _id: 'dummy-id',
         floorPlan: sampleFloorPlan,
         members: [],
+        name: 'space',
       });
 
       const wrapper = shallowMount(FloorPlan, {
