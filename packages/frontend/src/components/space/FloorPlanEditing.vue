@@ -87,7 +87,7 @@ export default defineComponent({
 
   setup(props, context) {
     const floorPlan = toRef(props, 'floorPlan');
-    const selectedFloorPlanId = toRef(props, 'selectedFloorPlanObjectId');
+    const selectedFloorPlanObjectId = toRef(props, 'selectedFloorPlanObjectId');
 
     function getPositionsFromPath(path: string): [x: number, y: number, x2: number, y2: number] | undefined {
       const matches = wallRegex.exec(path);
@@ -123,19 +123,19 @@ export default defineComponent({
     }
     const selectedPath = computed<string | null>({
       get() {
-        if (!selectedFloorPlanId.value && selectedFloorPlanId.value !== 0) {
+        if (!selectedFloorPlanObjectId.value && selectedFloorPlanObjectId.value !== 0) {
           return null;
         }
 
-        return floorPlan.value[selectedFloorPlanId.value];
+        return floorPlan.value[selectedFloorPlanObjectId.value];
       },
       set(path) {
-        if (!selectedFloorPlanId.value || !path) {
+        if (selectedFloorPlanObjectId.value === null || !path) {
           return;
         }
 
         const updatedFloorPlan = floorPlan.value;
-        updatedFloorPlan[selectedFloorPlanId.value] = path;
+        updatedFloorPlan[selectedFloorPlanObjectId.value] = path;
         context.emit('update:floor-plan', updatedFloorPlan);
       },
     });
@@ -249,7 +249,7 @@ export default defineComponent({
     useAndRegisterViewBox('FloorPlan', toRef(props, 'floorPlan'), { strokeWidth: 2 });
     return {
       isWall,
-      selectedPathId: selectedFloorPlanId,
+      selectedPathId: selectedFloorPlanObjectId,
       selectedPath,
       wallBubbleStart: wallBubbles.start,
       wallBubbleEnd: wallBubbles.end,
