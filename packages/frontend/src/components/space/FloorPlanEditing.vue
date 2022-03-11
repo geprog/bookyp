@@ -57,7 +57,7 @@ import { computed, defineComponent, inject, PropType, ref, toRef } from 'vue';
 import { useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 import { SpaceMapKey } from '~/symbols/space-map';
 
-const wallRegex = /^M(?<x>\d+\.?\d*) (?<y>\d+\.?\d*) L(?<x2>\d+\.?\d*) (?<y2>\d+\.?\d*)$/;
+const wallRegex = /^M(?<x>-?\d+\.?\d*) (?<y>-?\d+\.?\d*) L(?<x2>-?\d+\.?\d*) (?<y2>-?\d+\.?\d*)$/;
 
 type Position = {
   x: number;
@@ -101,10 +101,6 @@ export default defineComponent({
       const x2 = parseFloat(matches.groups.x2);
       const y2 = parseFloat(matches.groups.y2);
       return [x, y, x2, y2];
-    }
-
-    function isValidPosition(x: number, y: number, x2: number, y2: number) {
-      return x >= 0 && y >= 0 && x2 >= 0 && y2 >= 0;
     }
 
     function createPathFromPositions(x: number, y: number, x2: number, y2: number): string {
@@ -156,10 +152,7 @@ export default defineComponent({
         }
 
         const [x, y, x2, y2] = args;
-        if (isValidPosition(x, y, x2, y2)) {
-          const path = createPathFromPositions(x, y, x2, y2);
-          selectedPath.value = path;
-        }
+        selectedPath.value = createPathFromPositions(x, y, x2, y2);
       },
     });
 
