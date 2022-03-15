@@ -111,12 +111,9 @@ export default defineComponent({
 
     watch(saveTrigger, async () => {
       if (currentSpace.value !== undefined) {
-        const saveSpace = {
-          _id: currentSpace.value?._id,
-          floorPlan: floorPlan.value,
-          members: currentSpace.value.members,
-        };
-        await feathers.service('spaces').update(currentSpace.value._id, saveSpace);
+        await feathers
+          .service('spaces')
+          .update(currentSpace.value._id, { ...currentSpace.value, floorPlan: floorPlan.value });
       }
       context.emit('change-happened', false);
       selectFloorPlanObject(null);
