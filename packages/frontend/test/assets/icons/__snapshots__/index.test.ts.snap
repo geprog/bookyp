@@ -28,5 +28,7 @@ Array [
   "stop",
   "table",
   "location",
+  "email",
+  "save",
 ]
 `;

@@ -4,5 +4,6 @@ exports[`SettingsTabs component should render correctly when active 1`] = `
 "<div class=\\"flex\\">
   <div active=\\"false\\"></div>
   <div active=\\"false\\"></div>
+  <div active=\\"false\\"></div>
 </div>"
 `;
