@@ -50,6 +50,18 @@ const routes: RouteRecordRaw[] = [
     component: (): Component => import('~/views/settings/Bookables.vue'),
   },
   {
+    path: '/settings/space/members',
+    name: 'settings-space-members',
+    meta: { requiresAuth: true },
+    component: (): Component => import('~/views/settings/SpaceMemberList.vue'),
+  },
+  {
+    path: '/settings/space/member/create',
+    name: 'settings-space-member-create',
+    meta: { requiresAuth: true },
+    component: (): Component => import('~/views/settings/SpaceMemberCreate.vue'),
+  },
+  {
     path: '/settings/bookable/create',
     name: 'settings-bookable-create',
     meta: { requiresAuth: true },

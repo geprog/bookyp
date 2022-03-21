@@ -9,6 +9,12 @@
     <TabButton :active="$route.name === 'settings-bookables'" @click="$router.replace({ name: 'settings-bookables' })">
       <span>{{ t('bookables') }}</span>
     </TabButton>
+    <TabButton
+      :active="$route.name === 'settings-space-members'"
+      @click="$router.replace({ name: 'settings-space-members' })"
+    >
+      <span>{{ t('members') }}</span>
+    </TabButton>
   </div>
 </template>
 

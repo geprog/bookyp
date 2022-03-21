@@ -4,6 +4,7 @@
   "bookable_create": "Create bookable",
   "bookable_details": "Bookable: {bookable}",
   "space_create": "Create new space",
+  "members": "Members",
   "bookables": "Bookables",
   "booking_details": "Booking details",
   "bookings": "Bookings",
@@ -23,6 +24,7 @@
     "label": "Delete"
   },
   "name": "Name",
+  "email_address": "E-mail address",
   "no_bookable": "No bookable found",
   "not_found_message": "Whoa 404, either we broke something or you had a typing mishap :-/",
   "oops": "Oops!",
@@ -32,5 +34,6 @@
   "start": "Start",
   "today": "Today",
   "tomorrow": "Tomorrow",
-  "try_again": "Try again"
+  "try_again": "Try again",
+  "add_new_member": "Add new member"
 }

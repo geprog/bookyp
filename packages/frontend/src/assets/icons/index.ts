@@ -10,6 +10,7 @@ import DeleteIcon from '~/assets/icons/delete.svg';
 import DismissIcon from '~/assets/icons/dismiss.svg';
 import DocumentOnePageIcon from '~/assets/icons/document-one-page.svg';
 import EditIcon from '~/assets/icons/edit.svg';
+import Email from '~/assets/icons/email.svg';
 import FilterIcon from '~/assets/icons/filter.svg';
 import FloorPlanIcon from '~/assets/icons/floor-plan.svg';
 import LinkIcon from '~/assets/icons/link.svg';
@@ -20,6 +21,7 @@ import PersonIcon from '~/assets/icons/person.svg';
 import PlayIcon from '~/assets/icons/play.svg';
 import RadioChecked from '~/assets/icons/radio-checked.svg';
 import RadioUnchecked from '~/assets/icons/radio-unchecked.svg';
+import Save from '~/assets/icons/save.svg';
 import SettingsIcon from '~/assets/icons/settings.svg';
 import SignOutIcon from '~/assets/icons/sign-out.svg';
 import StopIcon from '~/assets/icons/stop.svg';
@@ -52,6 +54,8 @@ const icons = {
   stop: StopIcon,
   table: TableIcon,
   location: LocationIcon,
+  email: Email,
+  save: Save,
 };
 
 export default icons;
