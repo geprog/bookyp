@@ -30,7 +30,7 @@ export default (app: Application): void => {
       find: [authorize({ adapter: 'feathers-mongoose' })],
       get: [
         // see https://github.com/fratzinger/feathers-casl/issues/52
-        (context: HookContext) => {
+        (context: HookContext<Application>) => {
           if (context.params.ability) {
             return context;
           }

@@ -30,7 +30,7 @@ describe('Authentication SSO logout', () => {
     const res = await supertest(app).get('/authentication/logout');
 
     // then
-    expect(res.statusCode).toStrictEqual(302);
+    expect(res.statusCode).toBe(302);
     const headers = res.headers as { location: string };
     expect(headers.location).toMatchSnapshot();
   });
@@ -51,6 +51,6 @@ describe('Authentication SSO logout', () => {
     const res = await supertest(app).get('/authentication/logout');
 
     // then
-    expect(res.statusCode).toStrictEqual(500);
+    expect(res.statusCode).toBe(500);
   });
 });

@@ -29,10 +29,10 @@ app.configure(services);
 
 app.configure(channels);
 
-app.get('/', (_req, res) => {
+app.use(SSOLogoutRoute());
+
+app.use('/', (_req, res) => {
   res.send('You found the backend of Bookyp! ;-)');
 });
-
-app.use(SSOLogoutRoute());
 
 export default app;
