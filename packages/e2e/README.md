@@ -10,6 +10,7 @@
    ```
 
 1. Ensure mongodb is running
+1. `cd packages/e2e`
 1. Install playwright browsers: `pnpm playwright install`
 1. `pnpm run test` to run the e2e tests
 
