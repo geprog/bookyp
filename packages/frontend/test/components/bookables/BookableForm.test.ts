@@ -120,9 +120,7 @@ describe('BookableForm component', () => {
     // then
     const bookableUpdateEvents = wrapper.emitted('update:bookable');
     expect(bookableUpdateEvents).toHaveLength(1);
-    expect(bookableUpdateEvents && bookableUpdateEvents[0]).toStrictEqual([
-      { ...sampleBookable, name: newBookableName },
-    ]);
+    expect(bookableUpdateEvents?.[0]).toStrictEqual([{ ...sampleBookable, name: newBookableName }]);
   });
 
   it('should emit update when description changes', async () => {
@@ -149,7 +147,7 @@ describe('BookableForm component', () => {
     // then
     const bookableUpdateEvents = wrapper.emitted('update:bookable');
     expect(bookableUpdateEvents).toHaveLength(1);
-    expect(bookableUpdateEvents && bookableUpdateEvents[0]).toStrictEqual([
+    expect(bookableUpdateEvents?.[0]).toStrictEqual([
       {
         ...sampleBookable,
         description: newBookableDescription,

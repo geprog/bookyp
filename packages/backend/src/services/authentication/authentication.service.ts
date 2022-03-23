@@ -50,7 +50,7 @@ export default function (app: Application): void {
     after: {
       create: [
         // see https://github.com/fratzinger/feathers-casl/blob/0adfa65b00dcfb4d538a2bca51b3f52c23aa806d/docs/getting-started.md#add-abilities-to-hooks-context
-        async (context: HookContext): Promise<HookContext> => {
+        async (context: HookContext<Application>): Promise<HookContext> => {
           const { user } = context.result as { user: Model.User };
           if (!user) {
             return context;

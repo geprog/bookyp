@@ -4,7 +4,7 @@ import { computed, ComputedRef, Ref } from 'vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 
 type UseNewMapObject = {
-  addMapObject: () => void;
+  addMapObject: () => Promise<void>;
   resetNewMapObjectId: () => void;
   isNewMapObjectPresent: ComputedRef<boolean>;
 };

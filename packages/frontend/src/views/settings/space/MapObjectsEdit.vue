@@ -183,7 +183,7 @@ export default defineComponent({
     async function clickOnAddButton() {
       await selectMapObject(null);
       context.emit('change-happened', true);
-      addMapObject();
+      await addMapObject();
     }
 
     return {

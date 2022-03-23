@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 
 import getConfig from '~/config';
 
@@ -6,7 +6,7 @@ export default function SSOLogoutRoute(): Router {
   const router = Router();
 
   // endpoint to logout user from SSO provider
-  router.get('/authentication/logout', (_req, res) => {
+  router.get('/authentication/logout', (_: Request, res: Response) => {
     const config = getConfig();
     const keycloakSubdomain = config.oauth.keycloak.subdomain;
     const redirectUri = config.oauth.redirect_url;
