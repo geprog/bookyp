@@ -20,10 +20,7 @@ variables:
 .main-pipeline-files: &main_pipeline_files
   - .ci/**/*
   - packages/**/*
-  - .commitlintrc.js
   - .gitlab-ci.yml
-  - .huskyrc.js
-  - .lintstagedrc.js
   - .prettierignore
   - .prettierrc.js
   - package.json
