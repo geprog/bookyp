@@ -14,7 +14,8 @@ class SpaceMembersService implements ServiceMethods<Model.SpaceMember> {
   }
 
   async find(params: Params): Promise<Model.SpaceMember[]> {
-    const space = await this.app.service('spaces').get(params.query?.spaceId);
+    const spaceId = params.query?.spaceId as string;
+    const space = await this.app.service('spaces').get(spaceId);
     const users = (await this.app.service('users').find({})) as Model.User[];
     return space.members.map((member) => {
       const user = users.find((u) => u._id.toString() === member.userId);
@@ -71,9 +72,10 @@ class SpaceMembersService implements ServiceMethods<Model.SpaceMember> {
       throw new Error('Space Id not found');
     }
 
-    const space = await this.app.service('spaces').get(params.query?.spaceId);
+    const spaceId = params.query?.spaceId as string;
+    const space = await this.app.service('spaces').get(spaceId);
     space.members = space.members.filter((member) => member.userId.toString() !== id);
-    await this.app.service('spaces').update(params.query?.spaceId, space);
+    await this.app.service('spaces').update(spaceId, space);
 
     const deletedMember = new Model.SpaceMember();
     deletedMember.userId = id.toString();
