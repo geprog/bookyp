@@ -8,4 +8,5 @@ export default class SpaceMember {
   email!: User['email'];
   name: User['name'];
   spaceId!: Ref<Space>;
+  _id!: SpaceMember['userId'];
 }
