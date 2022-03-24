@@ -1,43 +1,48 @@
 import { Model } from '@bookyp/core';
-import { UseGet } from '@geprog/use-feathers';
-import { computed, Ref, ref } from 'vue';
+import { Ref, ref, watch } from 'vue';
 
 import { user } from '~/compositions/useAuthentication';
-import useFind from '~/compositions/useFind';
+import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
-// TODO: remove space id once it can be selected by the user
-let spaceId: Ref<Model.Ref<Model.Space> | null>;
+const spaceId: Ref<Model.Ref<Model.Space> | null> = ref(null);
 
-let currentSpace: UseGet<Model.Space>;
+watch(
+  user,
+  async (_user) => {
+    if (_user) {
+      // try to load saved spaceId
+      spaceId.value = localStorage.getItem('spaceId');
+      if (spaceId.value !== null) {
+        return;
+      }
+
+      // try to load first space from own spaces
+      const s = useFeathers().service('spaces');
+      const spaces = (await s.find({
+        paginate: false,
+        query: { members: { $elemMatch: { userId: user.value?._id } } },
+      })) as Model.Space[];
+
+      if (spaces.length > 0) {
+        spaceId.value = spaces[0]._id;
+      }
+    }
+  },
+  { immediate: true },
+);
+
+function setSpaceId(newSpaceId: string): void {
+  spaceId.value = newSpaceId;
+  localStorage.setItem('spaceId', newSpaceId);
+}
 
 export const useCurrentSpace = (): {
   currentSpace: Ref<Model.Space | undefined>;
   isLoading: Ref<boolean>;
   spaceId: Ref<Model.Ref<Model.Space> | null>;
+  setSpaceId: (spaceId: Model.Ref<Model.Space>) => void;
 } => {
-  if (spaceId === undefined) {
-    const { data: spaces } = useFind(
-      'spaces',
-      computed(() => ({ paginate: false, query: { members: { $elemMatch: { userId: user.value?._id } } } })),
-      {
-        disableUnloadingEventHandlers: true,
-      },
-    );
-
-    spaceId = computed(() => {
-      if (spaces.value.length > 0) {
-        return spaces.value[0]._id;
-      }
-      return null;
-    });
-  }
-
-  if (!currentSpace) {
-    currentSpace = useGet('spaces', spaceId, ref(), {
-      disableUnloadingEventHandlers: true,
-    });
-  }
-
-  return { currentSpace: currentSpace.data, isLoading: currentSpace.isLoading, spaceId };
+  const { data: currentSpace, isLoading } = useGet('spaces', spaceId, ref());
+  return { currentSpace, isLoading, spaceId, setSpaceId };
 };

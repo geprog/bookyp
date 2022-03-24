@@ -48,17 +48,4 @@ describe('useMapObjects composition', () => {
     expect(params?.value).toMatchSnapshot();
     expect(params?.value?.query).toHaveProperty('space');
   });
-
-  it('should call useFind only once', () => {
-    // given
-    prepareUseFindMockOnce();
-    prepareUseCurrentSpaceMockOnce();
-
-    // when
-    useMapObjects.default();
-    useMapObjects.default();
-
-    // then
-    expect(useFind).toHaveBeenCalledTimes(1);
-  });
 });

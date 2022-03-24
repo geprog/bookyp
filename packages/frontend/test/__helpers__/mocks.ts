@@ -17,6 +17,7 @@ export function prepareUseGetMockOnce<T>(initialValue?: T) {
   const useGetMock = {
     data,
     isLoading,
+    unload: jest.fn(),
   };
   mocked(useGet, true).mockReturnValueOnce(useGetMock);
 
@@ -34,6 +35,7 @@ export function prepareUseFindMockOnce<T>(initialValue: T[] = []) {
   const useFindMock = {
     data,
     isLoading,
+    unload: jest.fn(),
   };
   mocked(useFind, true).mockReturnValueOnce(useFindMock);
 
@@ -52,6 +54,7 @@ export function prepareUseCurrentSpaceMockOnce(space?: Model.Space): void {
     currentSpace,
     isLoading,
     spaceId,
+    setSpaceId: jest.fn(),
   };
   mocked(useCurrentSpace, true).mockReturnValueOnce(useCurrentSpaceMock);
 }
@@ -63,6 +66,7 @@ export function prepareUseMapObjectsMockOnce(mapObjects: Model.MapObject[]): voi
   const useMapObjectsMock = {
     data,
     isLoading,
+    unload: jest.fn(),
   };
   mocked(useMapObjects, true).mockReturnValueOnce(useMapObjectsMock);
 }

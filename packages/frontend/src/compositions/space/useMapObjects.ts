@@ -5,18 +5,16 @@ import { computed } from 'vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
 
-let mapObjects: UseFind<Model.MapObject> | undefined = undefined;
-
 export default function getMapObjects(): UseFind<Model.MapObject> {
-  if (!mapObjects) {
-    const { spaceId } = useCurrentSpace();
-    mapObjects = useFind(
-      'mapObjects',
-      computed(() => ({ paginate: false, query: { space: spaceId.value } })),
-      {
-        disableUnloadingEventHandlers: true,
-      },
-    );
-  }
-  return mapObjects;
+  const { spaceId } = useCurrentSpace();
+  const params = computed(() => {
+    if (spaceId.value === null) {
+      return undefined;
+    }
+
+    return { paginate: false, query: { space: spaceId.value } };
+  });
+  return useFind('mapObjects', params, {
+    disableUnloadingEventHandlers: true,
+  });
 }
