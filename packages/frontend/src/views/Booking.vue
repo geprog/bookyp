@@ -68,16 +68,23 @@ export default defineComponent({
         throw new Error('Unexpected: A space must be selected');
       }
 
-      await feathers.service('bookings').create({
-        start: start.value,
-        end: end.value,
-        description: description.value,
-        bookable: props.bookableId,
-        bookedBy: user.value._id,
-        space: spaceId.value,
-      });
-
-      router.back();
+      try {
+        await feathers.service('bookings').create({
+          start: start.value,
+          end: end.value,
+          description: description.value,
+          bookable: props.bookableId,
+          bookedBy: user.value._id,
+          space: spaceId.value,
+        });
+        router.back();
+      } catch (error) {
+        if (error instanceof Error && error.message === 'Booking overlaps with existing bookings') {
+          alert(t('booking_overlaps', { bookable: bookable.value?.name }));
+          return;
+        }
+        throw error;
+      }
     };
 
     return { submit, bookable, description, start, end, t };
