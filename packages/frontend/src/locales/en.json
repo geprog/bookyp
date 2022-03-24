@@ -23,6 +23,7 @@
     "description": "Do you want to delete this booking ?",
     "label": "Delete"
   },
+  "booking_overlaps": "Someone already booked {bookable} in your desired time",
   "name": "Name",
   "email_address": "E-mail address",
   "no_bookable": "No bookable found",

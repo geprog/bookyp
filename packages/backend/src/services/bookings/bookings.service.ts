@@ -6,6 +6,8 @@ import { Document, model, Schema } from 'mongoose';
 
 import { feathersCaslAllowlist } from '~/casl';
 
+import { preventOverlappingBookings } from './hooks/preventOverlappingBookings';
+
 const BookingSchema = new Schema<Model.Booking>({
   start: { type: Schema.Types.Date, required: true },
   end: { type: Schema.Types.Date, required: true },
@@ -29,6 +31,7 @@ export default (app: Application): void => {
   app.service(name).hooks({
     before: {
       all: [authenticate('jwt'), authorize({ adapter: 'feathers-mongoose' })],
+      create: [preventOverlappingBookings],
     },
     after: {
       all: [authorize({ adapter: 'feathers-mongoose' })],
