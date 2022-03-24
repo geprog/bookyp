@@ -30,6 +30,7 @@ import DateTimePicker from '~/components/inputs/DateTimePicker.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
+import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
@@ -50,6 +51,7 @@ export default defineComponent({
     const router = useRouter();
     const feathers = useFeathers();
     const { spaceId } = useCurrentSpace();
+    const { bookablesFilter } = useBookablesFilter();
 
     const bookableId = toRef(props, 'bookableId');
     const { data: bookable } = useGet('bookables', bookableId);
@@ -77,6 +79,7 @@ export default defineComponent({
           bookedBy: user.value._id,
           space: spaceId.value,
         });
+        bookablesFilter.value = undefined;
         router.back();
       } catch (error) {
         if (error instanceof Error && error.message === 'Booking overlaps with existing bookings') {
