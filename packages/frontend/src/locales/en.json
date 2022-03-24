@@ -36,5 +36,16 @@
   "today": "Today",
   "tomorrow": "Tomorrow",
   "try_again": "Try again",
-  "add_new_member": "Add new member"
+  "add_new_member": "Add new member",
+  "edit_member": "Edit member",
+  "roles": {
+    "admin": {
+      "name": "Admin",
+      "description": "Can see the space, book, edit map, add members"
+    },
+    "user": {
+      "name": "User",
+      "description": "Can see the space and book objects"
+    }
+  }
 }
