@@ -5,12 +5,17 @@ exports[`BookablesFilter component should render correctly 1`] = `
   <icon-button-stub icon=\\"check-mark\\" iconcolor=\\"\\" disabled=\\"false\\" type=\\"submit\\" form=\\"filterBookablesForm\\"></icon-button-stub>
 </header-stub>
 <form id=\\"filterBookablesForm\\" class=\\"my-2 mx-4\\">
-  <input-field-stub iconname=\\"play\\">
-    <date-time-picker-stub modelvalue=\\"Fri Oct 15 1993 03:24:00 GMT+0000 (Coordinated Universal Time)\\" placeholder=\\"Mock translation\\"></date-time-picker-stub>
-  </input-field-stub>
-  <input-field-stub iconname=\\"stop\\">
-    <date-time-picker-stub modelvalue=\\"Fri Oct 15 1993 03:24:00 GMT+0000 (Coordinated Universal Time)\\" placeholder=\\"Mock translation\\"></date-time-picker-stub>
-  </input-field-stub>
+  <div class=\\"flex flex-row\\">
+    <div class=\\"flex flex-col flex-grow\\">
+      <input-field-stub iconname=\\"play\\">
+        <date-time-picker-stub modelvalue=\\"Fri Oct 15 1993 03:24:00 GMT+0000 (Coordinated Universal Time)\\" placeholder=\\"Mock translation\\"></date-time-picker-stub>
+      </input-field-stub>
+      <input-field-stub iconname=\\"stop\\">
+        <date-time-picker-stub modelvalue=\\"Fri Oct 15 1993 03:24:00 GMT+0000 (Coordinated Universal Time)\\" placeholder=\\"Mock translation\\"></date-time-picker-stub>
+      </input-field-stub>
+    </div>
+    <!--v-if-->
+  </div>
 </form>"
 `;
 
@@ -19,11 +24,16 @@ exports[`BookablesFilter component should show the current filter values 1`] = `
   <icon-button-stub icon=\\"check-mark\\" iconcolor=\\"\\" disabled=\\"false\\" type=\\"submit\\" form=\\"filterBookablesForm\\"></icon-button-stub>
 </header-stub>
 <form id=\\"filterBookablesForm\\" class=\\"my-2 mx-4\\">
-  <input-field-stub iconname=\\"play\\">
-    <date-time-picker-stub modelvalue=\\"Mon Oct 15 2001 03:24:00 GMT+0000 (Coordinated Universal Time)\\" placeholder=\\"Mock translation\\"></date-time-picker-stub>
-  </input-field-stub>
-  <input-field-stub iconname=\\"stop\\">
-    <date-time-picker-stub modelvalue=\\"Tue Oct 15 2002 03:24:00 GMT+0000 (Coordinated Universal Time)\\" placeholder=\\"Mock translation\\"></date-time-picker-stub>
-  </input-field-stub>
+  <div class=\\"flex flex-row\\">
+    <div class=\\"flex flex-col flex-grow\\">
+      <input-field-stub iconname=\\"play\\">
+        <date-time-picker-stub modelvalue=\\"Mon Oct 15 2001 03:24:00 GMT+0000 (Coordinated Universal Time)\\" placeholder=\\"Mock translation\\"></date-time-picker-stub>
+      </input-field-stub>
+      <input-field-stub iconname=\\"stop\\">
+        <date-time-picker-stub modelvalue=\\"Tue Oct 15 2002 03:24:00 GMT+0000 (Coordinated Universal Time)\\" placeholder=\\"Mock translation\\"></date-time-picker-stub>
+      </input-field-stub>
+    </div>
+    <button-stub icon=\\"dismiss\\" disabled=\\"false\\" outlined=\\"true\\" class=\\"ml-4 px-1\\"></button-stub>
+  </div>
 </form>"
 `;
