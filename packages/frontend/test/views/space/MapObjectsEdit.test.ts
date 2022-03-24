@@ -21,7 +21,7 @@ jest.mock('vue-router');
 
 function prepareGetMapObjectsOnce() {
   const getMapObjectsMock = jest.fn();
-  mocked(getMapObjects).mockReturnValue({ data: ref(sampleMapObjects), isLoading: ref(false) });
+  mocked(getMapObjects).mockReturnValue({ data: ref(sampleMapObjects), isLoading: ref(false), unload: jest.fn() });
   return { getMapObjectsMock };
 }
 

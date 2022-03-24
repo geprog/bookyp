@@ -93,6 +93,7 @@ describe('MapObject view', () => {
       return {
         data: ref([sampleBookable]),
         isLoading: ref(false),
+        unload: jest.fn(),
       };
     });
 

@@ -2,17 +2,12 @@ import { shallowMount } from '@vue/test-utils';
 
 import Bookings from '~/views/account/Bookings.vue';
 import { sampleBookings } from '$/__fixtures__/booking';
-import { sampleUser } from '$/__fixtures__/user';
 import { prepareUseCurrentSpaceMockOnce, prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFind');
 jest.mock('~/compositions/space/useCurrentSpace');
 jest.mock('vue-i18n');
-jest.mock('~/compositions/useAuthentication', () => ({
-  get user() {
-    return sampleUser;
-  },
-}));
+jest.mock('~/compositions/useAuthentication');
 
 describe('Bookings component', () => {
   it('should render correctly', () => {
