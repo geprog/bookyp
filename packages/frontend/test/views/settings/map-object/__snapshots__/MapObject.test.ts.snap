@@ -6,7 +6,7 @@ exports[`MapObject view Template should render correctly 1`] = `
 </header-stub>
 <div class=\\"flex flex-col mx-auto w-full max-w-lg p-3\\">
   <icon-list-item-stub icon=\\"link\\" label=\\"Couch\\" description=\\"\\" data-test=\\"linked-bookable\\" class=\\"mb-3\\"></icon-list-item-stub>
-  <button-stub icon=\\"link\\" text=\\"MOCK TRANSLATION\\" disabled=\\"false\\"></button-stub>
+  <button-stub icon=\\"link\\" text=\\"MOCK TRANSLATION\\" disabled=\\"false\\" outlined=\\"false\\"></button-stub>
 </div>"
 `;
 

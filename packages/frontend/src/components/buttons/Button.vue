@@ -9,22 +9,34 @@
       px-4
       py-2
       space-x-2
-      bg-primary-normal
       text-md
       font-bold
       text-white
       cursor-pointer
       focus:outline-transparent
-      hover:bg-primary-dark
-      disabled:bg-gray-background disabled:cursor-not-allowed
+      disabled:cursor-not-allowed
     "
+    :class="{
+      'border-2 border-primary-normal hover:border-primary-dark disabled:border-gray-background': outlined,
+      'bg-primary-normal hover:bg-primary-dark disabled:bg-gray-background': !outlined,
+    }"
     :disabled="disabled"
   >
-    <Icon v-if="icon" data-test="button-icon" class="text-white" :name="icon" />
+    <Icon
+      v-if="icon"
+      data-test="button-icon"
+      :class="{ 'text-primary-normal': outlined, 'text-white': !outlined }"
+      :name="icon"
+    />
     <slot>
       <span v-if="text" data-test="button-text">{{ text }}</span>
     </slot>
-    <Icon v-if="iconEnd" data-test="button-icon-end" class="text-white" :name="iconEnd" />
+    <Icon
+      v-if="iconEnd"
+      data-test="button-icon-end"
+      :class="{ 'text-primary-normal': outlined, 'text-white': !outlined }"
+      :name="iconEnd"
+    />
   </button>
 </template>
 
@@ -56,6 +68,11 @@ export default defineComponent({
     },
 
     disabled: {
+      type: Boolean,
+      required: false,
+    },
+
+    outlined: {
       type: Boolean,
       required: false,
     },
