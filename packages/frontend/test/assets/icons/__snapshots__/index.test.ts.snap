@@ -30,5 +30,6 @@ Array [
   "location",
   "email",
   "save",
+  "people",
 ]
 `;

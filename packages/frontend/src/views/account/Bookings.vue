@@ -1,9 +1,5 @@
 <template>
-  <Header :title="t('bookings')" has-back>
-    <template #second>
-      <AccountTabs />
-    </template>
-  </Header>
+  <Header :title="t('bookings')" has-back />
   <div class="mt-4">
     <div v-for="(bookings, date) in groupedBookings" :key="date" class="w-full max-w-2xl mx-auto">
       <p data-test="groupByDates" class="ml-2">
@@ -36,7 +32,6 @@ import { RouterLink } from 'vue-router';
 
 import Header from '~/components/headers/Header.vue';
 import BookingItem from '~/components/list-items/BookingItem.vue';
-import AccountTabs from '~/components/tabs/AccountTabs.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
@@ -44,7 +39,6 @@ import useFind from '~/compositions/useFind';
 export default defineComponent({
   name: 'Bookings',
   components: {
-    AccountTabs,
     Header,
     BookingItem,
     RouterLink,

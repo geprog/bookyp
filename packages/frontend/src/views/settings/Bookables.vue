@@ -1,9 +1,5 @@
 <template>
-  <Header :title="t('settings')" has-back>
-    <template #second>
-      <SettingsTabs />
-    </template>
-  </Header>
+  <SettingsHeader :title="t('bookables')" />
 
   <div class="w-full max-w-2xl mx-auto">
     <ListItem
@@ -29,19 +25,17 @@ import { computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
-import Header from '~/components/headers/Header.vue';
+import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
-import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
   name: 'Bookables',
   components: {
-    SettingsTabs,
     FloatingButton,
-    Header,
     ListItem,
+    SettingsHeader,
   },
 
   setup() {

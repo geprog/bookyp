@@ -10,6 +10,7 @@
       v-show="isAdmin"
       data-test="button-settings"
       icon="settings"
+      :aria-label="t('settings')"
       @click="$router.push({ name: 'settings-space-map-objects' })"
     />
     <IconButton icon="sign-out" @click="logout" />
