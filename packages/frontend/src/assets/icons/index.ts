@@ -17,6 +17,7 @@ import LinkIcon from '~/assets/icons/link.svg';
 import LocationIcon from '~/assets/icons/location.svg';
 import MapIcon from '~/assets/icons/map.svg';
 import PasswordIcon from '~/assets/icons/password.svg';
+import PeopleIcon from '~/assets/icons/people.svg';
 import PersonIcon from '~/assets/icons/person.svg';
 import PlayIcon from '~/assets/icons/play.svg';
 import RadioChecked from '~/assets/icons/radio-checked.svg';
@@ -56,6 +57,7 @@ const icons = {
   location: LocationIcon,
   email: Email,
   save: Save,
+  people: PeopleIcon,
 };
 
 export default icons;

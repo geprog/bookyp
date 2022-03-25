@@ -1,10 +1,9 @@
 <template>
-  <Header :title="t('settings')" has-back>
-    <SaveAbort v-if="changed" @save="save" @abort="abort" />
-    <template #second>
-      <SettingsTabs />
+  <SettingsHeader :title="t('map_editor')">
+    <template v-if="changed" #actions>
+      <SaveAbort @save="save" @abort="abort" />
     </template>
-  </Header>
+  </SettingsHeader>
 
   <router-view
     v-slot="{ Component }"
@@ -33,17 +32,15 @@ import { defineComponent, PropType, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
-import Header from '~/components/headers/Header.vue';
+import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import SaveAbort from '~/components/space/SaveAbort.vue';
-import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
 
 export default defineComponent({
   name: 'Space',
 
   components: {
-    Header,
-    SettingsTabs,
     SaveAbort,
+    SettingsHeader,
     ToggleBar,
   },
 

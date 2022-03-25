@@ -1,9 +1,5 @@
 <template>
-  <Header :title="t('settings')" has-back>
-    <template #second>
-      <SettingsTabs />
-    </template>
-  </Header>
+  <SettingsHeader :title="t('members')" />
 
   <div class="w-full max-w-2xl mx-auto">
     <div class="m-3">
@@ -34,16 +30,15 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import Button from '~/components/buttons/Button.vue';
-import Header from '~/components/headers/Header.vue';
+import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
-import SettingsTabs from '~/components/tabs/SettingsTabs.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
   name: 'SpaceMemberList',
-  components: { ListItem, SettingsTabs, Header, Button },
+  components: { ListItem, SettingsHeader, Button },
   setup() {
     const { t } = useI18n();
     const router = useRouter();
