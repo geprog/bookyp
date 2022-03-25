@@ -9,9 +9,9 @@ test('Add a bookable and find it in the settings bookables list', async ({ page 
   await page.fill('[data-test="form-description"]', 'Desk with big monitor');
   await page.click('button[type="submit"]');
   await expect(page).toHaveURL('/settings/bookables');
-  const body = page.locator('#app > div > div');
-  await expect(body).toContainText('Desk 3');
-  await expect(body).toContainText('Desk with big monitor');
+  const bookableItem = page.locator('[data-test="bookable-item"]').last();
+  await expect(bookableItem).toContainText('Desk 3');
+  await expect(bookableItem).toContainText('Desk with big monitor');
   await page.mouse.move(0, 0); // move mouse away from menu icons so that nothing is hovered by accident
   expect(await page.screenshot()).toMatchSnapshot('added-bookable.png');
 });

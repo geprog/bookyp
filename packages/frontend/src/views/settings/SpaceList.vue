@@ -8,7 +8,7 @@
         icon="add"
         :text="t('space_create').toLocaleUpperCase()"
         class="mt-3 w-full"
-        @click="createSpace"
+        @click="$router.push({ name: 'space-create' })"
       />
     </div>
     <SelectableListItem
@@ -18,6 +18,7 @@
       :label="space.name"
       :description="roleInSpace(space)"
       class="m-3"
+      data-test="space-item"
       @click="changeSpace(space._id)"
     />
   </div>
@@ -34,7 +35,6 @@ import Header from '~/components/headers/Header.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
-import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
@@ -47,7 +47,6 @@ export default defineComponent({
 
   setup() {
     const { t } = useI18n();
-    const feathers = useFeathers();
     const router = useRouter();
 
     const { currentSpace, setSpaceId } = useCurrentSpace();
@@ -56,23 +55,6 @@ export default defineComponent({
       'spaces',
       computed(() => ({ paginate: false, query: { members: { $elemMatch: { userId: user.value?._id } } } })),
     );
-
-    const createSpace = async () => {
-      if (user.value) {
-        const newSpace: Partial<Model.Space> = {
-          members: [
-            {
-              role: 'admin',
-              userId: user.value?._id,
-            },
-          ],
-
-          floorPlan: [],
-          name: 'New Space',
-        };
-        await feathers.service('spaces').create(newSpace);
-      }
-    };
 
     const roleInSpace = (space: Model.Space) => space.members.find((member) => member.userId === user.value?._id)?.role;
 
@@ -84,7 +66,7 @@ export default defineComponent({
       await router.push({ name: 'home' });
     };
 
-    return { t, spaces, roleInSpace, createSpace, changeSpace, currentSpace };
+    return { t, spaces, roleInSpace, changeSpace, currentSpace };
   },
 });
 </script>

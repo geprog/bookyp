@@ -3,16 +3,18 @@
     <template #start>
       <BookypIcon />
     </template>
-    <IconButton icon="filter" @click="$router.push({ name: 'bookables-filter' })" />
-    <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
-    <IconButton data-test="spaces-button" icon="location" @click="$router.push({ name: 'spaces-list' })" />
-    <IconButton
-      v-show="isAdmin"
-      data-test="button-settings"
-      icon="settings"
-      :aria-label="t('settings')"
-      @click="$router.push({ name: 'settings-space-map-objects' })"
-    />
+    <template v-if="!isLoading">
+      <IconButton icon="filter" @click="$router.push({ name: 'bookables-filter' })" />
+      <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
+      <IconButton data-test="spaces-button" icon="location" @click="$router.push({ name: 'spaces-list' })" />
+      <IconButton
+        v-show="isAdmin"
+        data-test="button-settings"
+        icon="settings"
+        :aria-label="t('settings')"
+        @click="$router.push({ name: 'settings-space-map-objects' })"
+      />
+    </template>
     <IconButton icon="sign-out" @click="logout" />
   </Header>
 </template>
@@ -39,12 +41,12 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
 
-    const { currentSpace } = useCurrentSpace();
+    const { currentSpace, isLoading } = useCurrentSpace();
     const isAdmin = computed(() =>
       currentSpace.value?.members?.some((member) => member.userId === user.value?._id && member.role === 'admin'),
     );
 
-    return { t, logout, isAdmin };
+    return { t, logout, isAdmin, isLoading };
   },
 });
 </script>

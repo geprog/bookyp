@@ -37,6 +37,7 @@ export async function seed(): Promise<void> {
         userId: USER_ID,
       },
     ],
+    name: 'New Space',
   });
 
   const BOOKABLE_ID = '60f53bede6f8313dff7f99e1';

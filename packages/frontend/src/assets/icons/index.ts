@@ -13,6 +13,7 @@ import EditIcon from '~/assets/icons/edit.svg';
 import Email from '~/assets/icons/email.svg';
 import FilterIcon from '~/assets/icons/filter.svg';
 import FloorPlanIcon from '~/assets/icons/floor-plan.svg';
+import HomeIcon from '~/assets/icons/home.svg';
 import LinkIcon from '~/assets/icons/link.svg';
 import LocationIcon from '~/assets/icons/location.svg';
 import MapIcon from '~/assets/icons/map.svg';
@@ -27,6 +28,7 @@ import SettingsIcon from '~/assets/icons/settings.svg';
 import SignOutIcon from '~/assets/icons/sign-out.svg';
 import StopIcon from '~/assets/icons/stop.svg';
 import TableIcon from '~/assets/icons/table.svg';
+import TextBoxIcon from '~/assets/icons/text-box.svg';
 
 const icons = {
   'add-circle': AddCircleIcon,
@@ -43,6 +45,7 @@ const icons = {
   edit: EditIcon,
   filter: FilterIcon,
   'floor-plan': FloorPlanIcon,
+  home: HomeIcon,
   link: LinkIcon,
   map: MapIcon,
   password: PasswordIcon,
@@ -57,6 +60,7 @@ const icons = {
   location: LocationIcon,
   email: Email,
   save: Save,
+  'text-box': TextBoxIcon,
   people: PeopleIcon,
 };
 

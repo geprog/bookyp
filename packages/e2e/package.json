@@ -14,7 +14,7 @@
   "devDependencies": {
     "@bookyp/core": "workspace:*",
     "@geprog/eslint-config": "1.0.5",
-    "@playwright/test": "1.16.3",
+    "@playwright/test": "1.20.1",
     "dotenv-cli": "4.0.0",
     "eslint": "8.10.0",
     "mongodb": "4.1.4",
