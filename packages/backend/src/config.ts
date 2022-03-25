@@ -11,6 +11,12 @@ const config = {
       client: process.env.BACKEND_KEYCLOAK_CLIENT,
       subdomain: process.env.BACKEND_KEYCLOAK_SUBDOMAIN,
     },
+    defaults: {
+      origin:
+        process.env.BACKEND_HOST && process.env.BACKEND_HOST !== 'localhost'
+          ? `https://${process.env.BACKEND_HOST}`
+          : undefined,
+    },
   },
   db: {
     uri: process.env.BACKEND_DB_URI,

@@ -40,6 +40,7 @@
     "feathersjs",
     "GEPROG",
     "gitlab",
+    "gitpod",
     "hass",
     "INITDB",
     "interruptible",
@@ -103,6 +104,7 @@
     "**/coverage/**/*",
     "**/*.log",
     "**/*.svg",
-    "junit.xml"
+    "junit.xml",
+    ".gitpod.yml"
   ]
 }

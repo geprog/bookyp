@@ -20,6 +20,9 @@ const configMockReturnValue = {
       client: 'bookyp',
       subdomain: 'auth.example.org/auth/realms/main',
     },
+    defaults: {
+      origin: undefined,
+    },
   },
   db: {
     uri: undefined,

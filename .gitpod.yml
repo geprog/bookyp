@@ -1,0 +1,23 @@
+tasks:
+  - init: |
+      pnpm install
+      pnpm run build:libs
+      cp docs/.env.example .env
+    command: |
+      sed -i "s,BACKEND_OAUTH_REDIRECT_URL=.*,BACKEND_OAUTH_REDIRECT_URL=https://3000-$GITPOD_WORKSPACE_ID.${GITPOD_WORKSPACE_CLUSTER_HOST}/," .env
+      sed -i "s,FRONTEND_BACKEND_URL=.*,FRONTEND_BACKEND_URL=https://4000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}," .env
+      sed -i "s,BACKEND_HOST=.*,BACKEND_HOST=4000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}," .env
+      pnpm run docker:up
+      pnpm run start
+
+vscode:
+  extensions:
+    - editorconfig.editorconfig
+    - dbaeumer.vscode-eslint
+    - esbenp.prettier-vscode
+    - stylelint.vscode-stylelint
+    - voorjaar.windicss-intellisense
+    - lokalise.i18n-ally
+    - johnsoncodehk.volar
+    - streetsidesoftware.code-spell-checker
+    - ms-kubernetes-tools.vscode-kubernetes-tools

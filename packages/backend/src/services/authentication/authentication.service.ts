@@ -38,6 +38,9 @@ export default function (app: Application): void {
         client_id: config.oauth.keycloak.client,
         subdomain: config.oauth.keycloak.subdomain,
       },
+      defaults: {
+        origin: config.oauth.defaults.origin,
+      },
     },
   });
   const authentication = new AuthenticationService(app);

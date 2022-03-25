@@ -32,12 +32,8 @@ const config = defineConfig({
     }),
   ],
   server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:4000',
-        ws: true,
-        changeOrigin: true,
-      },
+    hmr: {
+      clientPort: process.env.FRONTEND_BACKEND_URL !== 'http://localhost:4000' ? 443 : undefined,
     },
   },
 });
