@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts">
+import dayjs from 'dayjs';
 import { defineComponent, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -56,8 +57,8 @@ export default defineComponent({
     const bookableId = toRef(props, 'bookableId');
     const { data: bookable } = useGet('bookables', bookableId);
 
-    const start = ref<Date>(new Date());
-    const end = ref<Date>(new Date());
+    const start = ref(bookablesFilter.value?.start || new Date());
+    const end = ref(bookablesFilter.value?.end || dayjs().add(1, 'hour').toDate());
     const description = ref('');
 
     const submit = async () => {
