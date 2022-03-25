@@ -16,6 +16,9 @@ Object {
     },
   },
   "oauth": Object {
+    "defaults": Object {
+      "origin": undefined,
+    },
     "keycloak": Object {
       "client_id": "bookyp",
       "secret": "i-wont-tell-you",
