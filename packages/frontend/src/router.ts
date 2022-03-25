@@ -87,6 +87,12 @@ const routes: RouteRecordRaw[] = [
     component: (): Component => import('~/views/settings/SpaceList.vue'),
   },
   {
+    path: '/spaces/create',
+    name: 'space-create',
+    meta: { requiresAuth: true },
+    component: (): Component => import('~/views/settings/SpaceCreate.vue'),
+  },
+  {
     path: '/settings/space',
     component: (): Component => import('./views/settings/Space.vue'),
     props: true,

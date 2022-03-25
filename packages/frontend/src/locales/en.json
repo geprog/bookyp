@@ -13,6 +13,7 @@
   "description": "Description",
   "end": "End",
   "filter_bookables": "Filter for your place",
+  "address": "Address",
   "map_object": {
     "change_bookable_link": "Change link",
     "edit": "Set size and link",

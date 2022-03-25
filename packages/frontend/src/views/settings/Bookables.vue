@@ -8,6 +8,7 @@
       :label="bookable.name"
       :description="bookable.description"
       class="cursor-pointer m-3"
+      data-test="bookable-item"
       @click="$router.push({ name: 'settings-bookable', params: { bookableId: bookable._id } })"
     />
 
