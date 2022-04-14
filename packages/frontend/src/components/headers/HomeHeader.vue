@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('bookyp').toUpperCase()" has-logo>
+  <Header :title="title" has-logo>
     <template #start>
       <BookypIcon />
     </template>
@@ -46,7 +46,9 @@ export default defineComponent({
       currentSpace.value?.members?.some((member) => member.userId === user.value?._id && member.role === 'admin'),
     );
 
-    return { t, logout, isAdmin, isLoading };
+    const title = computed(() => currentSpace.value?.name || t('bookyp').toUpperCase());
+
+    return { t, logout, isAdmin, isLoading, title };
   },
 });
 </script>
