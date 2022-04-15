@@ -12,7 +12,8 @@
     "paths": {
       "~/*": ["./*"],
       "$/*": ["../test/*"]
-    }
+    },
+    "jsx": "preserve"
   },
 
   "include": ["src", "test"],
