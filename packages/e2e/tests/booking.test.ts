@@ -10,8 +10,6 @@ test('Book a bookable and find the booking in the account booking list', async (
 
   await Promise.all([page.waitForNavigation(), page.click('button[type=submit]')]);
 
-  await page.click('[data-test="button-account"]');
-
   const body = page.locator(':nth-match([data-test="booking-item"], 1)');
   await expect(body).toContainText(SampleModel.sampleBookable.name);
 });
