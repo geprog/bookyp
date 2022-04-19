@@ -33,4 +33,9 @@ export default class MapObject extends AbstractEntity {
   bookable?: Ref<Bookable>;
 
   space!: Ref<Space>;
+
+  constructor(data: Partial<MapObject> = {}) {
+    super();
+    Object.assign(this, data);
+  }
 }

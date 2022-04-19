@@ -417,6 +417,7 @@ e2e-run:
     - .node-template
   image: mcr.microsoft.com/playwright:v1.20.1
   needs:
+    - build-core
     - e2e-deployment-test
   variables:
     E2E_BASE_URL: https://${CI_ENVIRONMENT_SLUG}.app.${BASE_DOMAIN}/

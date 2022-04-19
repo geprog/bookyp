@@ -4,7 +4,6 @@
     "module": "esnext",
     "moduleResolution": "node",
     "lib": ["esnext"],
-    "composite": true,
     "alwaysStrict": true,
     "strict": true,
     "allowSyntheticDefaultImports": true,
@@ -19,8 +18,6 @@
     "downlevelIteration": true,
     "declaration": true,
     "declarationMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "plugins": [
       { "transform": "typescript-transform-paths" },
       { "transform": "typescript-transform-paths", "afterDeclarations": true }

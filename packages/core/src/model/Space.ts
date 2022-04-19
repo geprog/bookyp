@@ -1,5 +1,5 @@
 import AbstractEntity, { Ref } from '~/model/AbstractEntity';
-import User from '~/model/auth/User';
+import User from '~/model/User';
 
 type Member = {
   role: 'admin' | 'user';
@@ -12,4 +12,9 @@ export default class Space extends AbstractEntity {
   name!: string;
   description?: string;
   address?: string;
+
+  constructor(data: Partial<Space> = {}) {
+    super();
+    Object.assign(this, data);
+  }
 }
