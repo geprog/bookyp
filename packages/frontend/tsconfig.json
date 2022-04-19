@@ -5,7 +5,6 @@
     "lib": ["esnext", "dom"],
     "types": ["vite-svg-loader", "vite/client", "jest"],
     "typeRoots": ["src/@types", "node_modules/@types"],
-    "composite": false,
     "outDir": "dist",
     "rootDir": ".",
     "baseUrl": "src",
@@ -17,5 +16,5 @@
   },
 
   "include": ["src", "test"],
-  "references": [{ "path": "../core/tsconfig.build.json" }]
+  "references": [{ "path": "../core/tsconfig.tsc.json" }]
 }

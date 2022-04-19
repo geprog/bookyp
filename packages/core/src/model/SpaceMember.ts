@@ -1,6 +1,6 @@
 import { Ref } from '~/model/AbstractEntity';
-import User from '~/model/auth/User';
 import Space from '~/model/Space';
+import User from '~/model/User';
 
 export default class SpaceMember {
   role!: 'admin' | 'user';
@@ -9,4 +9,8 @@ export default class SpaceMember {
   name: User['name'];
   spaceId!: Ref<Space>;
   _id!: SpaceMember['userId'];
+
+  constructor(data: Partial<SpaceMember> = {}) {
+    Object.assign(this, data);
+  }
 }
