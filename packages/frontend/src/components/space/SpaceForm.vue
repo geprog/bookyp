@@ -1,6 +1,6 @@
 <template>
   <form v-if="space" id="space" data-test="form" class="space mx-4" @submit.prevent="saveSpace">
-    <InputField icon-name="home" class="ml-1">
+    <InputField icon-name="home">
       <TextField v-model="spaceCreate.name" data-test="form-name" :placeholder="t('name')" />
     </InputField>
     <InputField icon-name="location">

@@ -27,6 +27,13 @@
           data-test="button-space-members"
           @click="$router.replace({ name: 'settings-space-members' })"
         />
+        <IconButton
+          icon="info"
+          :icon-color="$route.name === 'settings-space-edit' ? 'text-primary-normal' : undefined"
+          :aria-label="t('space_information')"
+          data-test="button-space-information"
+          @click="$router.replace({ name: 'settings-space-edit' })"
+        />
       </div>
     </slot>
   </Header>

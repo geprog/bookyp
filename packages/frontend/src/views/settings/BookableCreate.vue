@@ -39,8 +39,8 @@ export default defineComponent({
     });
 
     const saveBookable = async () => {
-      await router.replace({ name: 'settings-bookables' });
       await feathers.service('bookables').create(bookable.value);
+      await router.replace({ name: 'settings-bookables' });
     };
 
     return { saveBookable, bookable, t };

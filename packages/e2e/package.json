@@ -2,7 +2,7 @@
   "name": "@bookyp/e2e",
   "version": "0.0.1",
   "scripts": {
-    "clean": "rm -rf node_modules/ storageState.json",
+    "clean": "rm -rf node_modules/ test-results/ storageState.json",
     "codegen": "playwright codegen --load-storage=storageState.json localhost:3000",
     "lint": "eslint --max-warnings 0 .",
     "playwright:install": "playwright install && playwright install-deps",
