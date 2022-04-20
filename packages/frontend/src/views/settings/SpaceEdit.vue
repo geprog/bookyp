@@ -1,24 +1,23 @@
 <template>
-  <Header :title="t('space_create')" has-back>
+  <Header :title="t('space_information')" has-back>
     <IconButton type="submit" form="space" icon="save" />
   </Header>
   <SpaceForm v-if="space" v-model:space="space" data-test="space-form" @save="saveSpace" />
 </template>
 
 <script lang="ts">
-import { Model } from '@bookyp/core';
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import SpaceForm from '~/components/space/SpaceForm.vue';
-import { user } from '~/compositions/useAuthentication';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 
 export default defineComponent({
-  name: 'SpaceCreate',
+  name: 'SpaceEdit',
 
   components: { Header, IconButton, SpaceForm },
 
@@ -27,27 +26,15 @@ export default defineComponent({
     const router = useRouter();
     const feathers = useFeathers();
 
-    const space = ref<Partial<Model.Space>>({
-      description: '',
-      address: '',
-      name: '',
-    });
+    const { currentSpace: space } = useCurrentSpace();
 
     const saveSpace = async () => {
-      if (user.value === undefined) {
-        throw new Error('No user available to create a space for');
+      if (space.value === undefined) {
+        throw new Error('No space available');
       }
 
-      await feathers.service('spaces').create({
-        members: [
-          {
-            role: 'admin',
-            userId: user.value._id,
-          },
-        ],
-        ...space.value,
-      });
-      await router.replace({ name: 'spaces-list' });
+      await feathers.service('spaces').update(space.value?._id, space.value);
+      await router.push({ name: 'home' });
     };
 
     return { saveSpace, space, t };

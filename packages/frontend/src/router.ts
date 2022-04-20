@@ -81,6 +81,12 @@ const routes: RouteRecordRaw[] = [
     props: true,
   },
   {
+    path: '/settings/space/edit',
+    name: 'settings-space-edit',
+    meta: { requiresAuth: true },
+    component: (): Component => import('~/views/settings/SpaceEdit.vue'),
+  },
+  {
     path: '/spaces',
     name: 'spaces-list',
     meta: { requiresAuth: true },

@@ -14,6 +14,7 @@ import Email from '~/assets/icons/email.svg';
 import FilterIcon from '~/assets/icons/filter.svg';
 import FloorPlanIcon from '~/assets/icons/floor-plan.svg';
 import HomeIcon from '~/assets/icons/home.svg';
+import InfoIcon from '~/assets/icons/info.svg';
 import LinkIcon from '~/assets/icons/link.svg';
 import LocationIcon from '~/assets/icons/location.svg';
 import MapIcon from '~/assets/icons/map.svg';
@@ -62,6 +63,7 @@ const icons = {
   save: Save,
   'text-box': TextBoxIcon,
   people: PeopleIcon,
+  info: InfoIcon,
 };
 
 export default icons;
