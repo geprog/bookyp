@@ -4,7 +4,7 @@
       <slot name="start">
         <IconButton v-if="hasBack" data-test="back-button" icon="arrow-left" @click="$router.go(-1)" />
       </slot>
-      <h1 class="ml-4 mr-auto text-lg font-medium">{{ title }}</h1>
+      <h1 class="ml-4 mr-auto text-lg font-medium whitespace-nowrap overflow-hidden overflow-ellipsis">{{ title }}</h1>
       <div class="flex space-x-2">
         <slot />
       </div>
