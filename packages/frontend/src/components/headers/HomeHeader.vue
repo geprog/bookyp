@@ -1,12 +1,13 @@
 <template>
   <Header :title="title" has-logo>
     <template #start>
-      <BookypIcon class="min-w-max" />
+      <router-link :to="{ name: 'spaces-list' }" data-test="spaces-button">
+        <BookypIcon class="min-w-max" />
+      </router-link>
     </template>
     <template v-if="!isLoading">
       <IconButton icon="filter" @click="$router.push({ name: 'bookables-filter' })" />
       <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
-      <IconButton data-test="spaces-button" icon="location" @click="$router.push({ name: 'spaces-list' })" />
       <IconButton
         v-show="isAdmin"
         data-test="button-settings"
