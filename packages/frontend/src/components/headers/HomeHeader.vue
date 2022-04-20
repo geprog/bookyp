@@ -1,7 +1,7 @@
 <template>
   <Header :title="title" has-logo>
     <template #start>
-      <BookypIcon />
+      <BookypIcon class="min-w-max" />
     </template>
     <template v-if="!isLoading">
       <IconButton icon="filter" @click="$router.push({ name: 'bookables-filter' })" />
