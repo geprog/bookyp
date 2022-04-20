@@ -30,6 +30,7 @@ import SignOutIcon from '~/assets/icons/sign-out.svg';
 import StopIcon from '~/assets/icons/stop.svg';
 import TableIcon from '~/assets/icons/table.svg';
 import TextBoxIcon from '~/assets/icons/text-box.svg';
+import WallIcon from '~/assets/icons/wall.svg';
 
 const icons = {
   'add-circle': AddCircleIcon,
@@ -63,6 +64,7 @@ const icons = {
   save: Save,
   'text-box': TextBoxIcon,
   people: PeopleIcon,
+  wall: WallIcon,
   info: InfoIcon,
 };
 

@@ -1,11 +1,13 @@
-import { Ref, ref } from 'vue';
+import { computed, Ref, ref } from 'vue';
 
 type UseNewFloorPlanObject = {
   startAddingWall: () => void;
   addFirstPositionOfWall: (svgP: DOMPoint) => void;
   finishAddingOfWall: () => void;
   updateSecondPositionOfWall: (svgP: DOMPoint) => void;
+  cancelAddingWall: () => void;
   addingStage: Ref<'clicked-on-add-button' | 'first-position' | 'not-started'>;
+  isAddingWall: Ref<boolean>;
 };
 
 export default function useNewFloorPlanObject(floorPlan: Ref<string[]>): UseNewFloorPlanObject {
@@ -47,11 +49,23 @@ export default function useNewFloorPlanObject(floorPlan: Ref<string[]>): UseNewF
     }
   }
 
+  function cancelAddingWall() {
+    if (firstPosition !== null) {
+      floorPlan.value.pop();
+      firstPosition = null;
+    }
+    addingStage.value = 'not-started';
+  }
+
+  const isAddingWall = computed(() => addingStage.value !== 'not-started');
+
   return {
     startAddingWall,
     addFirstPositionOfWall,
     finishAddingOfWall,
     updateSecondPositionOfWall,
     addingStage,
+    cancelAddingWall,
+    isAddingWall,
   };
 }
