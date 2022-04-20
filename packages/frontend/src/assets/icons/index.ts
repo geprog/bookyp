@@ -1,6 +1,7 @@
 import AddIcon from '~/assets/icons/add.svg';
 import AddCircleIcon from '~/assets/icons/add-circle.svg';
 import AppsListIcon from '~/assets/icons/apps-list.svg';
+import ArrowClockwiseIcon from '~/assets/icons/arrow-clockwise.svg';
 import ArrowLeftIcon from '~/assets/icons/arrow-left.svg';
 import BookypIcon from '~/assets/icons/bookyp.svg';
 import CheckMarkIcon from '~/assets/icons/check-mark.svg';
@@ -36,6 +37,7 @@ const icons = {
   'add-circle': AddCircleIcon,
   add: AddIcon,
   'apps-list': AppsListIcon,
+  'arrow-clockwise': ArrowClockwiseIcon,
   'arrow-left': ArrowLeftIcon,
   bookyp: BookypIcon,
   'check-mark': CheckMarkIcon,

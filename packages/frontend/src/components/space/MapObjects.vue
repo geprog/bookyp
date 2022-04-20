@@ -1,9 +1,12 @@
 <template>
+  <!-- if the map object is resizable we might need to change the rotation origin -->
   <g
     v-for="mapObject in mapObjects"
     :key="mapObject._id"
     data-test="map-object"
-    :transform="`translate(${mapObject.xPos},${mapObject.yPos})`"
+    transform-origin="center"
+    :transform="`translate(${mapObject.xPos},${mapObject.yPos}) rotate(${mapObject.rotation})`"
+    class="transform-box-fill"
     :class="{
       'cursor-pointer':
         isMapObjectClickable(mapObject) && (!considerFilter || isFilterMatched(mapObject.bookable) !== false),
@@ -51,7 +54,7 @@ import { computed, defineComponent, toRef } from 'vue';
 
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import getMapObjects from '~/compositions/space/useMapObjects';
-import { Path, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
+import { mapObjectsToPaths, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 import useFind from '~/compositions/useFind';
 
@@ -102,17 +105,7 @@ export default defineComponent({
       }
     }
 
-    const mapObjectPaths = computed(() =>
-      mapObjects.value.reduce<Path[]>((allPaths, mapObject) => {
-        const paths = mapObject.paths.map((path) => ({
-          x: mapObject.xPos,
-          y: mapObject.yPos,
-          d: path,
-        }));
-        return [...allPaths, ...paths];
-      }, []),
-    );
-    useAndRegisterViewBox('MapObjects', mapObjectPaths, { strokeWidth: 1 });
+    useAndRegisterViewBox('MapObjects', mapObjectsToPaths(mapObjects), { strokeWidth: 1 });
 
     return { mapObjects, clickOnMapObject, isFilterMatched, isMapObjectClickable, isMapObjectLinkedToDeletedBookable };
   },

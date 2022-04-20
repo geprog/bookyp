@@ -3,7 +3,7 @@ import { mocked } from 'ts-jest/utils';
 import { computed, nextTick, ref } from 'vue';
 
 import MapObjects from '~/components/space/MapObjects.vue';
-import useViewBox, { Path } from '~/compositions/space/useViewBox';
+import useViewBox, { mapObjectsToPaths } from '~/compositions/space/useViewBox';
 import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { sampleMapObject, sampleMapObjects, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
@@ -249,19 +249,7 @@ describe('MapObjects component', () => {
       // given
       prepareUseMapObjectsMockOnce(sampleMapObjects);
       prepareUseBookablesFilterOnce();
-      const viewBox = useViewBox(
-        ref(
-          sampleMapObjects.reduce<Path[]>((allPaths, mapObject) => {
-            const paths = mapObject.paths.map((path) => ({
-              x: mapObject.xPos,
-              y: mapObject.yPos,
-              d: path,
-            }));
-            return [...allPaths, ...paths];
-          }, []),
-        ),
-        { strokeWidth: 1 },
-      );
+      const viewBox = useViewBox(mapObjectsToPaths(ref(sampleMapObjects)), { strokeWidth: 1 });
 
       // when
       shallowMount(MapObjects, {

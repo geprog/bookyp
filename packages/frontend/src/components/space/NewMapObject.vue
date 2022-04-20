@@ -1,5 +1,9 @@
 <template>
-  <g data-test="new-map-object" :transform="`translate(${newMapObject.xPos},${newMapObject.yPos})`">
+  <g
+    data-test="new-map-object"
+    class="transform-box-fill"
+    :transform="`translate(${newMapObject.xPos},${newMapObject.yPos}) rotation(${newMapObject.rotation})`"
+  >
     <path
       v-for="path in newMapObject.paths"
       :key="path"
@@ -11,9 +15,9 @@
 
 <script lang="ts">
 import { Model } from '@bookyp/core';
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, PropType, toRef } from 'vue';
 
-import { Path, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
+import { mapObjectsToPaths, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 
 export default defineComponent({
   name: 'NewMapObject',
@@ -25,17 +29,8 @@ export default defineComponent({
   },
 
   setup(props) {
-    const mapObjectPaths = computed(() => {
-      const mapObject = props.newMapObject;
-      const paths = mapObject.paths.map<Path>((path) => ({
-        x: mapObject.xPos,
-        y: mapObject.yPos,
-        d: path,
-      }));
-      return paths;
-    });
-
-    useAndRegisterViewBox('NewMapObject', mapObjectPaths, { strokeWidth: 1 });
+    const newMapObject = toRef(props, 'newMapObject');
+    useAndRegisterViewBox('NewMapObject', mapObjectsToPaths(computed(() => [newMapObject.value])), { strokeWidth: 1 });
   },
 });
 </script>

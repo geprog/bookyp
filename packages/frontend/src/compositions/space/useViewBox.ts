@@ -1,4 +1,6 @@
+import { Model } from '@bookyp/core';
 import { BoundingBox, svgPathBbox } from 'svg-path-bbox';
+import svgpath from 'svgpath';
 import { computed, inject, onBeforeUnmount, Ref } from 'vue';
 
 import { SpaceMapKey } from '~/symbols/space-map';
@@ -9,6 +11,7 @@ export type Path =
       x: number;
       y: number;
       d: string;
+      rotation: number;
     };
 
 export type ViewBox = {
@@ -56,7 +59,20 @@ export default function useViewBox(paths: Ref<Path[]>, { strokeWidth }: ViewBoxO
       if (typeof path === 'string') {
         boundingBox = svgPathBbox(path);
       } else {
-        const [minX, minY, maxX, maxY] = svgPathBbox(path.d);
+        // we need to apply the rotation to the path so that we know the proper view box
+        // we do this by simply rotating the non-rotated bounding box around its own center
+        const { x, y, width, height } = boundingBoxToViewBox(svgPathBbox(path.d));
+        const bboxPath = `M${x} ${y} h${width} v${height} h${-width} Z`;
+        const origin = {
+          x: x + width * 0.5,
+          y: y + height * 0.5,
+        };
+        const rotatedPath = svgpath(bboxPath)
+          .translate(-origin.x, -origin.y)
+          .rotate(path.rotation)
+          .translate(origin.x, origin.y)
+          .toString();
+        const [minX, minY, maxX, maxY] = svgPathBbox(rotatedPath);
         boundingBox = [minX + path.x, minY + path.y, maxX + path.x, maxY + path.y];
       }
       return boundingBoxToViewBox(boundingBox);
@@ -69,6 +85,22 @@ export default function useViewBox(paths: Ref<Path[]>, { strokeWidth }: ViewBoxO
       height: viewBox.height + 8 * strokeWidth,
     };
   });
+}
+
+export function mapObjectsToPaths(
+  mapObjects: Ref<Pick<Model.MapObject, 'xPos' | 'yPos' | 'paths' | 'rotation'>[]>,
+): Ref<Path[]> {
+  return computed(() =>
+    mapObjects.value.reduce<Path[]>((allPaths, mapObject) => {
+      const aggregatedPath: Path = {
+        x: mapObject.xPos,
+        y: mapObject.yPos,
+        d: mapObject.paths.join(' '),
+        rotation: mapObject.rotation,
+      };
+      return [...allPaths, aggregatedPath];
+    }, []),
+  );
 }
 
 export function useAndRegisterViewBox(viewBoxKey: string, paths: Ref<Path[]>, options: ViewBoxOptions): void {

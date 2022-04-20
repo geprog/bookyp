@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 import { ref } from 'vue';
 
 import NewMapObject from '~/components/space/NewMapObject.vue';
-import useViewBox from '~/compositions/space/useViewBox';
+import useViewBox, { mapObjectsToPaths } from '~/compositions/space/useViewBox';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { sampleMapObject } from '$/__fixtures__/mapObject';
 
@@ -42,16 +42,7 @@ describe('NewMapObject component', () => {
     it('should register view box if handler provided', () => {
       jest.resetAllMocks();
       // given
-      const viewBox = useViewBox(
-        ref(
-          sampleMapObject.paths.map((path) => ({
-            x: sampleMapObject.xPos,
-            y: sampleMapObject.yPos,
-            d: path,
-          })),
-        ),
-        { strokeWidth: 1 },
-      );
+      const viewBox = useViewBox(mapObjectsToPaths(ref([sampleMapObject])), { strokeWidth: 1 });
 
       // when
       shallowMount(NewMapObject, {
