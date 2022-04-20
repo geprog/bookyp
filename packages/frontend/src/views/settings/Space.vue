@@ -36,6 +36,12 @@
           @click="openMapObjectSettings"
         />
         <FloatingButton data-test="delete-button" icon="delete" @click="removeSelectedMapObject" />
+        <FloatingButton
+          data-test="rotate-button"
+          icon="arrow-clockwise"
+          class="mr-2"
+          @click="rotateSelectedMapObject"
+        />
       </template>
       <FloatingButton
         v-else-if="isFloorPlanObjectSelected"
@@ -260,6 +266,18 @@ export default defineComponent({
       await router.push({ name: 'settings-map-object', params: { mapObjectId: selectedMapObjectId.value } });
     }
 
+    function rotateSelectedMapObject() {
+      /* istanbul ignore next */
+      if (!selectedMapObjectId.value) {
+        return;
+      }
+      mapObjectsCopy.value.forEach((mapObject) => {
+        if (mapObject._id === selectedMapObjectId.value) {
+          mapObject.rotation = (mapObject.rotation + 90) % 360;
+        }
+      });
+    }
+
     async function clickOnAddButton() {
       await selectMapObject(null);
       changed.value = true;
@@ -294,6 +312,7 @@ export default defineComponent({
       clickOnAddButton,
       removeSelectedMapObject,
       openMapObjectSettings,
+      rotateSelectedMapObject,
       updateMapObjectsCopy,
       isNewMapObjectPresent,
       selectFloorPlanObject,

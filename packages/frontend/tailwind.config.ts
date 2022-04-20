@@ -1,5 +1,6 @@
 import colors from 'windicss/colors';
 import { defineConfig } from 'windicss/helpers';
+import plugin from 'windicss/plugin';
 import typography from 'windicss/plugin/typography';
 
 export default defineConfig({
@@ -42,5 +43,16 @@ export default defineConfig({
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     fill: (theme) => theme('colors'),
   },
-  plugins: [typography],
+  plugins: [
+    typography,
+    plugin(({ addUtilities }) => {
+      const newUtilities = {
+        // necessary for proper svg rotation transformation
+        '.transform-box-fill': {
+          'transform-box': 'fill-box',
+        },
+      };
+      addUtilities(newUtilities);
+    }),
+  ],
 });

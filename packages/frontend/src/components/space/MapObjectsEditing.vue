@@ -1,10 +1,12 @@
 <template>
+  <!-- if the map object is resizable we might need to change the rotation origin -->
   <g
     v-for="mapObject in filteredMapObjects"
     :key="mapObject._id"
     data-test="map-object"
-    :transform="`translate(${mapObject.xPos},${mapObject.yPos})`"
-    class="map-object"
+    transform-origin="center"
+    :transform="`translate(${mapObject.xPos},${mapObject.yPos}) rotate(${mapObject.rotation})`"
+    class="map-object transform-box-fill"
     :class="{
       'cursor-pointer': !moving,
       'cursor-move': moving,
@@ -32,7 +34,7 @@
 import { Model } from '@bookyp/core';
 import { computed, defineComponent, inject, PropType, Ref, ref, toRef } from 'vue';
 
-import { Path, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
+import { mapObjectsToPaths, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { EditingMapObject } from '~/views/settings/space/EditingMapObject';
 
@@ -114,17 +116,7 @@ export default defineComponent({
       moving.value = false;
     }
 
-    const mapObjectPaths = computed(() =>
-      mapObjects.value.reduce<Path[]>((allPaths, mapObject) => {
-        const paths = mapObject.paths.map((path) => ({
-          x: mapObject.xPos,
-          y: mapObject.yPos,
-          d: path,
-        }));
-        return [...allPaths, ...paths];
-      }, []),
-    );
-    useAndRegisterViewBox('MapObjects', mapObjectPaths, { strokeWidth: 1 });
+    useAndRegisterViewBox('MapObjects', mapObjectsToPaths(mapObjects), { strokeWidth: 1 });
     return { filteredMapObjects, clickOnMapObject, downOnMapObject, upOnMapObject, moving };
   },
 });

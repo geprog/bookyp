@@ -1,9 +1,11 @@
+import { Model } from '@bookyp/core';
 import { shallowMount } from '@vue/test-utils';
 import { h, provide, ref } from 'vue';
 
 import useViewBox, {
   combineViewBoxes,
   EMPTY_VIEW_BOX,
+  mapObjectsToPaths,
   useAndRegisterViewBox,
   ViewBox,
 } from '~/compositions/space/useViewBox';
@@ -19,7 +21,7 @@ describe('useViewBox composition', () => {
     const paths = ref([`M${minX} ${minY} l${width} ${height}`]);
     const strokeWidth = 1;
     // when
-    const viewBox = useViewBox(paths, { strokeWidth });
+    const viewBox = useViewBox(ref(paths), { strokeWidth });
     // then
     expect(viewBox.value).toStrictEqual({
       x: minX - 4 * strokeWidth,
@@ -94,6 +96,7 @@ describe('useViewBox composition', () => {
         x,
         y,
         d: `M${minX} ${minY} l${width} ${height}`,
+        rotation: 0,
       },
     ]);
     const strokeWidth = 1;
@@ -105,6 +108,103 @@ describe('useViewBox composition', () => {
       y: minY + y - 4 * strokeWidth,
       width: width + 8 * strokeWidth,
       height: height + 8 * strokeWidth,
+    });
+  });
+
+  it('should calculate correctly for paths with rotation', () => {
+    // given
+    const x = 0;
+    const y = 0;
+    const rotation = 90;
+    const width = 20;
+    const height = 10;
+    const minX = -width / 2;
+    const minY = -height / 2;
+    const paths = ref([
+      {
+        x,
+        y,
+        d: `M${minX} ${minY} l${width} ${height}`,
+        rotation,
+      },
+    ]);
+    const strokeWidth = 1;
+    // when
+    const viewBox = useViewBox(paths, { strokeWidth });
+    // then
+    expect(viewBox.value).toStrictEqual({
+      x: minY + x - 4 * strokeWidth,
+      y: minX + y - 4 * strokeWidth,
+      width: height + 8 * strokeWidth,
+      height: width + 8 * strokeWidth,
+    });
+  });
+
+  describe('exported function mapObjectsToPaths', () => {
+    const mapObject: Model.MapObject = {
+      _id: '623cfce242665e3555851c2f',
+      xPos: 30,
+      yPos: 90,
+      rotation: 20,
+      paths: ['M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z', 'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z'],
+      type: Model.MapObjectTypes.table,
+      space: 'fake-space',
+    };
+
+    it('should map all map objects', () => {
+      // when
+      const paths = mapObjectsToPaths(ref([mapObject, mapObject]));
+
+      // expect
+      expect(paths.value).toHaveLength(2);
+    });
+
+    it('should contain one merged path per map object', () => {
+      // when
+      const paths = mapObjectsToPaths(ref([mapObject]));
+
+      // expect
+      expect(paths.value[0]).toStrictEqual(
+        expect.objectContaining({
+          d: mapObject.paths.join(' '),
+        }),
+      );
+    });
+
+    it('should contain the x pos per map object', () => {
+      // when
+      const paths = mapObjectsToPaths(ref([mapObject]));
+
+      // expect
+      expect(paths.value[0]).toStrictEqual(
+        expect.objectContaining({
+          x: mapObject.xPos,
+        }),
+      );
+    });
+
+    it('should contain the y pos per map object', () => {
+      // when
+      const paths = mapObjectsToPaths(ref([mapObject]));
+
+      // expect
+      expect(paths.value[0]).toStrictEqual(
+        expect.objectContaining({
+          y: mapObject.yPos,
+        }),
+      );
+    });
+
+    it('should contain the rotation per map object', () => {
+      // when
+      const paths = mapObjectsToPaths(ref([mapObject]));
+
+      // expect
+      expect(paths.value[0]).toStrictEqual(
+        expect.objectContaining({
+          rotation: mapObject.rotation,
+        }),
+      );
     });
   });
 
