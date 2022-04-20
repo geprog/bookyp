@@ -99,23 +99,10 @@ const routes: RouteRecordRaw[] = [
     component: (): Component => import('~/views/settings/SpaceCreate.vue'),
   },
   {
-    path: '/settings/space',
+    path: '/settings/space/map/:selectedMapObjectId?',
+    name: 'settings-space-map',
     component: (): Component => import('./views/settings/Space.vue'),
     props: true,
-    children: [
-      {
-        path: 'map-objects/:selectedMapObjectId?',
-        name: 'settings-space-map-objects',
-        component: (): Component => import('./views/settings/space/MapObjectsEdit.vue'),
-        props: true,
-      },
-      {
-        path: 'floor-plan',
-        name: 'settings-space-floor-plan',
-        component: (): Component => import('./views/settings/space/FloorPlanEdit.vue'),
-        props: true,
-      },
-    ],
   },
   {
     path: '/settings/map-object/:mapObjectId',

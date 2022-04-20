@@ -6,8 +6,7 @@
       items-center
       justify-center
       rounded-full
-      h-12
-      w-12
+      p-3
       cursor-pointer
       hover:bg-primary-dark
       focus:outline-transparent
@@ -17,7 +16,9 @@
     "
     :disabled="disabled"
   >
-    <Icon data-test="floating-button-icon" :name="icon" color="text-white" />
+    <slot>
+      <Icon v-if="icon" data-test="floating-button-icon" :name="icon" color="text-white" />
+    </slot>
   </button>
 </template>
 
@@ -35,7 +36,7 @@ export default defineComponent({
   props: {
     icon: {
       type: String as ExtractedComponentProp<typeof Icon, 'name'>,
-      required: true,
+      default: null,
     },
 
     disabled: {

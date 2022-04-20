@@ -4,14 +4,10 @@
       <div class="flex gap-x-2">
         <IconButton
           icon="map"
-          :icon-color="
-            $route.name === 'settings-space-map-objects' || $route.name === 'settings-space-floor-plan'
-              ? 'text-primary-normal'
-              : undefined
-          "
+          :icon-color="$route.name === 'settings-space-map' ? 'text-primary-normal' : undefined"
           :aria-label="t('map_editor')"
           data-test="button-map-objects"
-          @click="$router.replace({ name: 'settings-space-map-objects' })"
+          @click="$router.replace({ name: 'settings-space-map' })"
         />
         <IconButton
           icon="apps-list"
