@@ -4,7 +4,30 @@
       <BookypIcon class="min-w-max" />
     </template>
     <template v-if="!isLoading">
-      <IconButton icon="filter" @click="$router.push({ name: 'bookables-filter' })" />
+      <div class="relative">
+        <span
+          v-if="filterSelected"
+          class="
+            absolute
+            left-4
+            top-0.5
+            bg-primary-normal
+            rounded-full
+            w-4
+            h-4
+            text-center text-xs text-white
+            cursor-pointer
+          "
+          @click="$router.push({ name: 'bookables-filter' })"
+          >{{ filterSelected }}</span
+        >
+        <IconButton
+          icon="filter"
+          :class="{ 'text-primary-normal': filterSelected }"
+          @click="$router.push({ name: 'bookables-filter' })"
+        />
+      </div>
+
       <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
       <IconButton data-test="spaces-button" icon="location" @click="$router.push({ name: 'spaces-list' })" />
       <IconButton
@@ -28,6 +51,7 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { logout, user } from '~/compositions/useAuthentication';
+import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 
 export default defineComponent({
   name: 'HomeHeader',
@@ -48,7 +72,11 @@ export default defineComponent({
 
     const title = computed(() => currentSpace.value?.name || t('bookyp').toUpperCase());
 
-    return { t, logout, isAdmin, isLoading, title };
+    const { bookablesFilter } = useBookablesFilter();
+
+    const filterSelected = computed(() => (!bookablesFilter.value ? 0 : 1));
+
+    return { t, logout, isAdmin, isLoading, title, filterSelected };
   },
 });
 </script>
