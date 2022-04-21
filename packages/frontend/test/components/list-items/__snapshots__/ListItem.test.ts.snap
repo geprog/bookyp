@@ -2,7 +2,9 @@
 
 exports[`ListItem component should render correctly 1`] = `
 "<div class=\\"flex p-3 rounded-lg shadow-full bg-white\\">
-  <div class=\\"color w-2 rounded flex-shrink-0\\"></div>
+  <div class=\\"flex flex-shrink-0\\">
+    <div class=\\"color w-2 rounded\\"></div>
+  </div>
   <div class=\\"flex ml-3 flex-grow min-w-0\\">
     <div class=\\"flex flex-col py-1 min-w-0 flex-grow space-y-1\\"><span data-test=\\"label\\" class=\\"text-base truncate\\">title-value</span><span data-test=\\"description\\" class=\\"w-full text-gray-700 text-sm truncate\\">description</span></div>
     <!--v-if-->
