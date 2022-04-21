@@ -52,6 +52,7 @@ export default defineComponent({
       query: {
         bookedBy: user.value?._id,
         space: spaceId.value,
+        end: { $gte: dayjs().toISOString() },
       },
     }));
     const { data: bookings } = useFind('bookings', bookingsQuery);
