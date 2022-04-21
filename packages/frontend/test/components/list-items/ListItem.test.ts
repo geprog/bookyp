@@ -50,7 +50,7 @@ describe('ListItem component', () => {
   describe('Status-color', () => {
     it('should have a status color', () => {
       // given
-      const statusColor = 'ColorClass!';
+      const statusColor = 'test-status-color';
 
       // when
       const wrapper = shallowMount(ListItem, {
@@ -60,8 +60,7 @@ describe('ListItem component', () => {
       });
 
       // then
-      const classCheck = wrapper.element.children.item(0)?.classList;
-      expect(classCheck?.contains(statusColor)).toBe(true);
+      expect(wrapper.find(`.${statusColor}`).exists()).toBeTruthy();
     });
   });
 

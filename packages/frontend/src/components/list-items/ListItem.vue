@@ -1,8 +1,10 @@
 <template>
   <div class="flex p-3 rounded-lg shadow-full bg-white" :class="{ 'cursor-not-allowed': disabled }">
-    <slot name="start">
-      <div :class="statusColor" class="w-2 rounded flex-shrink-0" />
-    </slot>
+    <div class="flex flex-shrink-0">
+      <slot name="start">
+        <div :class="statusColor" class="w-2 rounded" />
+      </slot>
+    </div>
     <slot>
       <div class="flex ml-3 flex-grow min-w-0">
         <div class="flex flex-col py-1 min-w-0 flex-grow space-y-1">
