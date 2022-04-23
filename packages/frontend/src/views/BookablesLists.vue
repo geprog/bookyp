@@ -1,8 +1,8 @@
 <template>
   <HomeHeader />
-  <div v-if="bookablesWithFilterMatched" class="w-full max-w-2xl mx-auto">
+  <div v-if="sortedBookablesWithFilterMatched" class="w-full max-w-2xl mx-auto">
     <ListItem
-      v-for="bookable in bookablesWithFilterMatched"
+      v-for="bookable in sortedBookablesWithFilterMatched"
       :key="bookable._id"
       :disabled="bookable.isFilterMatched === false"
       :label="bookable.name"
@@ -50,6 +50,10 @@ export default defineComponent({
 
     const { bookablesWithFilterMatched } = useBookablesFilter(bookables);
 
+    const sortedBookablesWithFilterMatched = computed(() =>
+      [...bookablesWithFilterMatched.value].sort((bookable) => (!bookable.isFilterMatched ? 1 : -1)),
+    );
+
     function getBookableStatusColor(isFilterMatched?: boolean): string {
       if (isFilterMatched === undefined) {
         return 'bg-primary-normal';
@@ -62,8 +66,8 @@ export default defineComponent({
     }
 
     return {
-      bookablesWithFilterMatched,
       getBookableStatusColor,
+      sortedBookablesWithFilterMatched,
     };
   },
 });
