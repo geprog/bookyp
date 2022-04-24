@@ -16,8 +16,6 @@
     "sourceMap": true,
     "removeComments": true,
     "downlevelIteration": true,
-    "declaration": true,
-    "declarationMap": true,
     "plugins": [
       { "transform": "typescript-transform-paths" },
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
