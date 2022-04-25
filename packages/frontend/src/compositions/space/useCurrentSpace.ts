@@ -7,35 +7,45 @@ import useGet from '~/compositions/useGet';
 
 const spaceId: Ref<Model.Ref<Model.Space> | null> = ref(null);
 
+function setSpaceId(newSpaceId: string): void {
+  spaceId.value = newSpaceId;
+  localStorage.setItem('spaceId', newSpaceId);
+}
+
 watch(
   user,
   async (_user) => {
     if (_user) {
+      const s = useFeathers().service('spaces');
       // try to load saved spaceId
       spaceId.value = localStorage.getItem('spaceId');
       if (spaceId.value !== null) {
-        return;
+        try {
+          await s.get(spaceId.value);
+          return;
+        } catch (e) {
+          if (e instanceof Error && e.name === 'NotFound') {
+            localStorage.removeItem('spaceId');
+            spaceId.value = null;
+          } else {
+            throw e;
+          }
+        }
       }
 
       // try to load first space from own spaces
-      const s = useFeathers().service('spaces');
       const spaces = (await s.find({
         paginate: false,
         query: { members: { $elemMatch: { userId: user.value?._id } } },
       })) as Model.Space[];
 
       if (spaces.length > 0) {
-        spaceId.value = spaces[0]._id;
+        setSpaceId(spaces[0]._id);
       }
     }
   },
   { immediate: true },
 );
-
-function setSpaceId(newSpaceId: string): void {
-  spaceId.value = newSpaceId;
-  localStorage.setItem('spaceId', newSpaceId);
-}
 
 export const useCurrentSpace = (): {
   currentSpace: Ref<Model.Space | undefined>;
