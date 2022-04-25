@@ -7,7 +7,9 @@
   "workspaceFolder": "/workspace",
   // Use 'settings' to set *default* container specific settings.json values on container create.
   // You can edit these settings after create using File > Preferences > Settings > Remote.
-  "settings": {},
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "zsh"
+  },
   // Copy the contents to the correct location and set permissions
   "extensions": [
     "eamodio.gitlens",
