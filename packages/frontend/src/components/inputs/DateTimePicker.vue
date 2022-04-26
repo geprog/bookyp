@@ -8,6 +8,7 @@
       :masks="masks"
       color="orange"
       :popover="{ visibility: 'focus' }"
+      :min-date="internalMinDate"
     >
       <template #default="{ inputValue, inputEvents }">
         <TextField :value="inputValue" :placeholder="placeholder" v-on="inputEvents" />
@@ -17,8 +18,9 @@
 </template>
 
 <script lang="ts">
+import dayjs, { ConfigType } from 'dayjs';
 import { DatePicker } from 'v-calendar';
-import { computed, defineComponent, toRef } from 'vue';
+import { computed, defineComponent, PropType, toRef } from 'vue';
 
 import TextField from '~/components/TextField.vue';
 
@@ -40,6 +42,11 @@ export default defineComponent({
       type: String,
       default: '',
     },
+
+    minDate: {
+      type: [Object, String, Number] as PropType<ConfigType | null>,
+      default: null,
+    },
   },
 
   emits: {
@@ -49,6 +56,8 @@ export default defineComponent({
 
   setup(props, { emit }) {
     const modelValue = toRef(props, 'modelValue');
+    const minDateProp = toRef(props, 'minDate');
+
     const dateTime = computed({
       get() {
         return modelValue.value;
@@ -58,11 +67,20 @@ export default defineComponent({
       },
     });
 
+    const internalMinDate = computed(() => {
+      if (minDateProp.value === null) {
+        return null;
+      }
+      return dayjs(minDateProp.value).toDate();
+    });
+
     return {
       dateTime,
       masks: {
         inputDateTime24hr: 'DD.MM.YYYY HH:mm',
       },
+
+      internalMinDate,
     };
   },
 });
