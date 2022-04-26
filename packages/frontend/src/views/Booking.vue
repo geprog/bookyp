@@ -5,11 +5,11 @@
 
   <form id="booking" class="booking px-4" @submit.prevent="submit">
     <InputField icon-name="play">
-      <DateTimePicker v-model="start" :placeholder="t('start')" />
+      <DateTimePicker v-model="start" :placeholder="t('start')" :min-date="new Date()" />
     </InputField>
 
     <InputField icon-name="stop">
-      <DateTimePicker v-model="end" :placeholder="t('end')" />
+      <DateTimePicker v-model="end" :placeholder="t('end')" :min-date="new Date()" />
     </InputField>
 
     <InputField icon-name="document-one-page">

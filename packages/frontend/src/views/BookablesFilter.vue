@@ -6,10 +6,10 @@
     <div class="flex flex-row">
       <div class="flex flex-col flex-grow">
         <InputField icon-name="play">
-          <DateTimePicker v-model="start" :placeholder="t('start')" />
+          <DateTimePicker v-model="start" :placeholder="t('start')" :min-date="new Date()" />
         </InputField>
         <InputField icon-name="stop">
-          <DateTimePicker v-model="end" :placeholder="t('end')" />
+          <DateTimePicker v-model="end" :placeholder="t('end')" :min-date="new Date()" />
         </InputField>
       </div>
       <Button v-if="hasActiveBookablesFilter" icon="dismiss" outlined class="ml-4 px-1" @click="resetBookablesFilter" />
