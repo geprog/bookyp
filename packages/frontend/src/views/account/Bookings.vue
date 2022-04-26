@@ -57,8 +57,12 @@ export default defineComponent({
     }));
     const { data: bookings } = useFind('bookings', bookingsQuery);
 
+    const sortedBookings = computed(() =>
+      [...bookings.value].sort((a, b) => (dayjs(a.start).isBefore(b.start) ? -1 : 1)),
+    );
+
     const groupedBookings = computed(() =>
-      groupBy(bookings.value, (booking: Model.Booking) => {
+      groupBy(sortedBookings.value, (booking: Model.Booking) => {
         const dayDate: string = dayjs(booking.start).format('DD/MM/YYYY');
         return dayDate;
       }),
