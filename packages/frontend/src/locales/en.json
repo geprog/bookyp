@@ -34,6 +34,9 @@
   "settings": "Settings",
   "select_office": "Select Office",
   "map_editor": "Map editor",
+  "map_editing": {
+    "finish_adding_wall_first": "Finish adding the wall first"
+  },
   "start": "Start",
   "today": "Today",
   "tomorrow": "Tomorrow",
