@@ -168,6 +168,9 @@ export default defineComponent({
     }
 
     async function selectFloorPlanObject(objectId: number | null) {
+      if (isAddingWall.value) {
+        return;
+      }
       selectedFloorPlanObjectId.value = objectId;
       await selectMapObject(null);
     }
@@ -192,7 +195,18 @@ export default defineComponent({
       resetNewMapObjectId();
     }
 
+    function checkSaveAndAbort(): boolean {
+      if (isAddingWall.value) {
+        alert(t('map_editing.finish_adding_wall_first'));
+        return false;
+      }
+      return true;
+    }
+
     async function save() {
+      if (!checkSaveAndAbort()) {
+        return;
+      }
       // map objects
       await saveMapObjectCopy();
       await selectMapObject(null);
@@ -210,6 +224,9 @@ export default defineComponent({
     }
 
     async function abort() {
+      if (!checkSaveAndAbort()) {
+        return;
+      }
       // map objects
       mapObjectsCopy.value = cloneDeep(mapObjects.value);
       changed.value = false;
