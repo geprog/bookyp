@@ -21,11 +21,12 @@
       v-for="path in mapObject.paths"
       :key="path"
       :d="path"
-      :class="
-        selectedMapObjectId === mapObject._id
-          ? 'stroke-current text-primary-dark fill-primary-light'
-          : 'stroke-black fill-white'
-      "
+      :class="{
+        'stroke-current text-dark-gray fill-primary-light': !isSelected(mapObject) && mapObject.bookable,
+        'stroke-primary-normal fill-primary-light': isSelected(mapObject) && mapObject.bookable,
+        'stroke-current text-dark-gray fill-white': !isSelected(mapObject) && !mapObject.bookable,
+        'stroke-primary-normal fill-white': isSelected(mapObject) && !mapObject.bookable,
+      }"
     />
   </g>
 </template>
@@ -116,8 +117,12 @@ export default defineComponent({
       moving.value = false;
     }
 
+    function isSelected(mapObject: Model.MapObject) {
+      return selectedMapObjectId.value === mapObject._id;
+    }
+
     useAndRegisterViewBox('MapObjects', mapObjectsToPaths(mapObjects), { strokeWidth: 1 });
-    return { filteredMapObjects, clickOnMapObject, downOnMapObject, upOnMapObject, moving };
+    return { filteredMapObjects, clickOnMapObject, downOnMapObject, upOnMapObject, moving, isSelected };
   },
 });
 </script>
