@@ -5,8 +5,7 @@
       flex
       items-center
       justify-center
-      h-9
-      w-9
+      p-1
       bg-white
       rounded-full
       focus:outline-transparent
