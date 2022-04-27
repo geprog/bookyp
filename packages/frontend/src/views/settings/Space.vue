@@ -1,72 +1,73 @@
 <template>
-  <SettingsHeader :title="t('map_editor')">
-    <template v-if="changed" #actions>
-      <SaveAbort @save="save" @abort="abort" />
-    </template>
-  </SettingsHeader>
+  <template v-if="$route.name !== 'settings-space-map' && (isLoadingMapObjects || selectedMapObject)">
+    <router-view v-if="selectedMapObject" :map-object="selectedMapObject" />
+  </template>
 
-  <div class="m-4 flex flex-col flex-grow min-h-0">
-    <SpaceMap
-      data-test="space-map"
-      @down-inside-svg="addFirstPositionOfWall"
-      @up-inside-svg="finishAddingOfWall"
-      @move-inside-svg="updateSecondPositionOfWall"
-    >
-      <FloorPlanEditing
-        v-if="floorPlan"
-        :floor-plan="floorPlan"
-        :selected-floor-plan-object-id="selectedFloorPlanObjectId"
-        @select-floor-plan-object="selectFloorPlanObject"
-        @update:floor-plan="updateFloorPlanCopy"
-      />
-      <MapObjectsEditing
-        :map-objects="mapObjectsCopy"
-        :selected-map-object-id="selectedMapObjectId"
-        @update:map-objects="updateMapObjectsCopy"
-        @select-map-object="selectMapObject"
-      />
-    </SpaceMap>
-
-    <div class="m-auto flex flex-row gap-2">
-      <template v-if="isMapObjectSelected">
-        <FloatingButton
-          v-if="!isNewMapObjectPresent"
-          data-test="edit-button"
-          icon="edit"
-          @click="openMapObjectSettings"
-        />
-        <FloatingButton data-test="delete-button" icon="delete" @click="removeSelectedMapObject" />
-        <FloatingButton
-          data-test="rotate-button"
-          icon="arrow-clockwise"
-          class="mr-2"
-          @click="rotateSelectedMapObject"
-        />
+  <template v-else>
+    <SettingsHeader :title="t('map_editor')">
+      <template v-if="changed" #actions>
+        <SaveAbort @save="save" @abort="abort" />
       </template>
-      <FloatingButton
-        v-else-if="isFloorPlanObjectSelected"
-        data-test="delete-button"
-        icon="delete"
-        @click="removeSelectedFloorPlanObject"
-      />
-      <template v-else>
-        <FloatingButton v-if="isAddingWall" @click.stop="cancelAddingWall">
-          <Icon name="dismiss" color="text-white" />
-          <Icon name="wall" color="text-white" />
-        </FloatingButton>
+    </SettingsHeader>
+
+    <div class="m-4 flex flex-col flex-grow min-h-0">
+      <SpaceMap
+        data-test="space-map"
+        @down-inside-svg="addFirstPositionOfWall"
+        @up-inside-svg="finishAddingOfWall"
+        @move-inside-svg="updateSecondPositionOfWall"
+      >
+        <FloorPlanEditing
+          v-if="floorPlan"
+          :floor-plan="floorPlan"
+          :selected-floor-plan-object-id="selectedFloorPlanObjectId"
+          @select-floor-plan-object="selectFloorPlanObject"
+          @update:floor-plan="updateFloorPlanCopy"
+        />
+        <MapObjectsEditing
+          :map-objects="mapObjectsCopy"
+          :selected-map-object-id="selectedMapObjectId"
+          @update:map-objects="updateMapObjectsCopy"
+          @select-map-object="selectMapObject"
+        />
+      </SpaceMap>
+
+      <div class="m-auto flex flex-row gap-2">
+        <template v-if="isMapObjectSelected">
+          <FloatingButton data-test="edit-button" icon="edit" @click="openMapObjectSettings" />
+          <FloatingButton data-test="delete-button" icon="delete" @click="removeSelectedMapObject" />
+          <FloatingButton
+            data-test="rotate-button"
+            icon="arrow-clockwise"
+            class="mr-2"
+            @click="rotateSelectedMapObject"
+          />
+        </template>
+        <FloatingButton
+          v-else-if="isFloorPlanObjectSelected"
+          data-test="delete-button"
+          icon="delete"
+          @click="removeSelectedFloorPlanObject"
+        />
         <template v-else>
-          <FloatingButton data-test="add-button" @click="clickOnAddButton">
-            <Icon name="add" color="text-white" />
-            <Icon name="table" color="text-white" />
-          </FloatingButton>
-          <FloatingButton @click.stop="addFloorPlanObject">
-            <Icon name="add" color="text-white" />
+          <FloatingButton v-if="isAddingWall" @click.stop="cancelAddingWall">
+            <Icon name="dismiss" color="text-white" />
             <Icon name="wall" color="text-white" />
           </FloatingButton>
+          <template v-else>
+            <FloatingButton data-test="add-button" @click="clickOnAddButton">
+              <Icon name="add" color="text-white" />
+              <Icon name="table" color="text-white" />
+            </FloatingButton>
+            <FloatingButton @click.stop="addFloorPlanObject">
+              <Icon name="add" color="text-white" />
+              <Icon name="wall" color="text-white" />
+            </FloatingButton>
+          </template>
         </template>
-      </template>
+      </div>
     </div>
-  </div>
+  </template>
 </template>
 
 <script lang="ts">
@@ -175,10 +176,7 @@ export default defineComponent({
       await selectMapObject(null);
     }
 
-    const { addMapObject, resetNewMapObjectId, isNewMapObjectPresent } = useNewMapObject(
-      mapObjectsCopy,
-      selectMapObject,
-    );
+    const { addMapObject, resetNewMapObjectId } = useNewMapObject(mapObjectsCopy, selectMapObject);
 
     async function saveMapObjectCopy() {
       // update all map objects as we do not know which one changed
@@ -257,20 +255,19 @@ export default defineComponent({
       { deep: true },
     );
 
+    const selectedMapObject = computed(() =>
+      mapObjectsCopy.value.find((mapObject) => mapObject._id === selectedMapObjectId.value),
+    );
     const isMapObjectSelected = computed<boolean>(() => !!selectedMapObjectId.value);
 
     const isFloorPlanObjectSelected = computed<boolean>(() => selectedFloorPlanObjectId.value !== null);
 
     async function removeSelectedMapObject(): Promise<void> {
       /* istanbul ignore next */
-      if (!selectedMapObjectId.value) {
+      if (!selectedMapObject.value) {
         return;
       }
-      mapObjectsCopy.value.forEach((mapObject) => {
-        if (mapObject._id === selectedMapObjectId.value) {
-          mapObject.isDeleted = true;
-        }
-      });
+      selectedMapObject.value.isDeleted = true;
       await selectMapObject(null);
     }
 
@@ -280,19 +277,15 @@ export default defineComponent({
         throw new Error('Unexpected: No map-object selected');
       }
 
-      await router.push({ name: 'settings-map-object', params: { mapObjectId: selectedMapObjectId.value } });
+      await router.push({ name: 'settings-map-object', params: { selectedMapObjectId: selectedMapObjectId.value } });
     }
 
     function rotateSelectedMapObject() {
       /* istanbul ignore next */
-      if (!selectedMapObjectId.value) {
+      if (!selectedMapObject.value) {
         return;
       }
-      mapObjectsCopy.value.forEach((mapObject) => {
-        if (mapObject._id === selectedMapObjectId.value) {
-          mapObject.rotation = (mapObject.rotation + 90) % 360;
-        }
-      });
+      selectedMapObject.value.rotation = (selectedMapObject.value.rotation + 90) % 360;
     }
 
     async function clickOnAddButton() {
@@ -322,6 +315,7 @@ export default defineComponent({
       save,
       abort,
       isAddingWall,
+      selectedMapObject,
       isMapObjectSelected,
       isFloorPlanObjectSelected,
       mapObjectsCopy,
@@ -331,7 +325,7 @@ export default defineComponent({
       openMapObjectSettings,
       rotateSelectedMapObject,
       updateMapObjectsCopy,
-      isNewMapObjectPresent,
+      isLoadingMapObjects,
       selectFloorPlanObject,
       updateFloorPlanCopy,
       floorPlan,

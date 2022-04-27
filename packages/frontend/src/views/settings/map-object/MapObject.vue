@@ -1,19 +1,8 @@
 <template>
-  <Header
-    :title="$route.name === 'settings-map-object' ? t('map_object.edit') : t('map_object.link_to_bookable')"
-    has-back
-  >
-    <IconButton
-      v-if="mapObject && $route.name === 'settings-map-object'"
-      data-test="save-button"
-      icon="check-mark"
-      type="submit"
-      @click="saveMapObject"
-    />
-  </Header>
+  <Header :title="isChoosingLink ? t('map_object.link_to_bookable') : t('map_object.edit')" has-back />
 
-  <div v-if="mapObject" class="flex flex-col mx-auto w-full max-w-lg p-3">
-    <template v-if="$route.name === 'settings-map-object-link'">
+  <div class="flex flex-col mx-auto w-full max-w-lg p-3">
+    <template v-if="isChoosingLink">
       <SelectableListItem
         v-for="bookable in bookables"
         :key="bookable._id"
@@ -45,7 +34,7 @@
             ? t('map_object.change_bookable_link').toUpperCase()
             : t('map_object.link_to_bookable').toUpperCase()
         "
-        @click="$router.push({ name: 'settings-map-object-link' })"
+        @click="$router.push({ name: 'settings-map-object-link', params: { selectedMapObjectId: mapObject._id } })"
       />
     </template>
   </div>
@@ -53,9 +42,9 @@
 
 <script lang="ts">
 import { Model } from '@bookyp/core';
-import { computed, defineComponent, ref, toRef } from 'vue';
+import { computed, defineComponent, PropType, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
@@ -63,7 +52,6 @@ import Header from '~/components/headers/Header.vue';
 import IconListItem from '~/components/list-items/IconListItem.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
-import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 import useGet from '~/compositions/useGet';
 
@@ -73,21 +61,19 @@ export default defineComponent({
   components: { IconButton, Header, Button, SelectableListItem, IconListItem },
 
   props: {
-    mapObjectId: {
-      type: String,
+    mapObject: {
+      type: Object as PropType<Model.MapObject>,
       required: true,
     },
   },
 
   setup(props) {
     const { t } = useI18n();
-    const feathers = useFeathers();
     const router = useRouter();
+    const route = useRoute();
     const { spaceId } = useCurrentSpace();
 
-    const mapObjectId = toRef(props, 'mapObjectId');
-
-    const { data: mapObject } = useGet('mapObjects', mapObjectId);
+    const mapObject = toRef(props, 'mapObject');
 
     const linkedBookableId = computed(() => mapObject.value?.bookable);
     const { data: linkedBookable } = useGet(
@@ -101,41 +87,22 @@ export default defineComponent({
       computed(() => ({ query: { space: spaceId.value } })),
     );
 
-    async function saveMapObject(): Promise<void> {
-      /* istanbul ignore next */
-      if (!mapObject.value) {
-        throw new Error('Unexpected: No map-object loaded');
-      }
-
-      await feathers.service('mapObjects').update(mapObject.value._id, mapObject.value);
-      router.back();
-    }
+    const isChoosingLink = computed(() => route.name === 'settings-map-object-link');
 
     function unlinkBookable() {
-      /* istanbul ignore next */
-      if (!mapObject.value) {
-        throw new Error('Unexpected: No map-object loaded');
-      }
-
       mapObject.value.bookable = undefined;
     }
 
     function selectBookable(bookable: Model.Bookable) {
-      /* istanbul ignore next */
-      if (!mapObject.value) {
-        throw new Error('Unexpected: No map-object loaded');
-      }
-
       mapObject.value.bookable = bookable._id;
       router.back();
     }
 
     return {
       t,
-      saveMapObject,
+      isChoosingLink,
       selectBookable,
       unlinkBookable,
-      mapObject,
       bookables,
       linkedBookable,
     };
