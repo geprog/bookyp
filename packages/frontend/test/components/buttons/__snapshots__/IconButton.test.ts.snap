@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`IconButton component should render correctly 1`] = `
-"<button type=\\"button\\" class=\\"flex items-center justify-center h-9 w-9 bg-white rounded-full focus:outline-transparent hover:text-primary-dark disabled:cursor-not-allowed disabled:bg-gray-background disabled:text-white\\">
+"<button type=\\"button\\" class=\\"flex items-center justify-center p-1 bg-white rounded-full focus:outline-transparent hover:text-primary-dark disabled:cursor-not-allowed disabled:bg-gray-background disabled:text-white\\">
   <icon-stub name=\\"settings\\" color=\\"\\" data-test=\\"button-icon\\"></icon-stub>
 </button>"
 `;
