@@ -1,12 +1,11 @@
 import { Model } from '@bookyp/core';
-import { computed, ComputedRef, Ref } from 'vue';
+import { Ref } from 'vue';
 
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 
 type UseNewMapObject = {
   addMapObject: () => Promise<void>;
   resetNewMapObjectId: () => void;
-  isNewMapObjectPresent: ComputedRef<boolean>;
 };
 
 // set id of unsaved added mapObject to a negative number to distinguish it from saved mapObjects
@@ -24,11 +23,6 @@ export default function useNewMapObject(
   selectMapObject: (mapObject: Model.MapObject) => Promise<void>,
 ): UseNewMapObject {
   const { spaceId } = useCurrentSpace();
-
-  const isNewMapObjectPresent = computed(() => {
-    const newMapObjects = mapObjects.value.filter(isNewMapObject);
-    return newMapObjects.length > 0;
-  });
 
   async function addMapObject() {
     if (!spaceId.value) {
@@ -55,6 +49,5 @@ export default function useNewMapObject(
   return {
     addMapObject,
     resetNewMapObjectId,
-    isNewMapObjectPresent,
   };
 }

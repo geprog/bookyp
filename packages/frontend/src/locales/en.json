@@ -17,7 +17,7 @@
   "address": "Address",
   "map_object": {
     "change_bookable_link": "Change link",
-    "edit": "Set size and link",
+    "edit": "Edit map object",
     "link_to_bookable": "Link to bookable object"
   },
   "message": {

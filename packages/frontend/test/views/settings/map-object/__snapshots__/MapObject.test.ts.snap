@@ -1,19 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MapObject view Template should render correctly 1`] = `
-"<header-stub title=\\"Mock translation\\" hasback=\\"true\\">
-  <icon-button-stub icon=\\"check-mark\\" iconcolor=\\"\\" disabled=\\"false\\" data-test=\\"save-button\\" type=\\"submit\\"></icon-button-stub>
-</header-stub>
+"<header-stub title=\\"Mock translation\\" hasback=\\"true\\"></header-stub>
 <div class=\\"flex flex-col mx-auto w-full max-w-lg p-3\\">
-  <icon-list-item-stub icon=\\"link\\" label=\\"Couch\\" description=\\"\\" data-test=\\"linked-bookable\\" class=\\"mb-3\\"></icon-list-item-stub>
+  <icon-list-item-stub icon=\\"link\\" label=\\"\\" description=\\"\\" data-test=\\"linked-bookable\\" class=\\"mb-3\\"></icon-list-item-stub>
   <button-stub icon=\\"link\\" text=\\"MOCK TRANSLATION\\" disabled=\\"false\\" outlined=\\"false\\"></button-stub>
 </div>"
 `;
 
 exports[`MapObject view Template should render correctly when selecting bookable 1`] = `
-"<header-stub title=\\"Mock translation\\" hasback=\\"true\\">
-  <!--v-if-->
-</header-stub>
+"<header-stub title=\\"Mock translation\\" hasback=\\"true\\"></header-stub>
 <div class=\\"flex flex-col mx-auto w-full max-w-lg p-3\\">
   <selectable-list-item-stub label=\\"Couch\\" description=\\"\\" selected=\\"false\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>
   <selectable-list-item-stub label=\\"Table\\" description=\\"\\" selected=\\"false\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>

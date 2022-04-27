@@ -103,18 +103,18 @@ const routes: RouteRecordRaw[] = [
     name: 'settings-space-map',
     component: (): Component => import('./views/settings/Space.vue'),
     props: true,
-  },
-  {
-    path: '/settings/map-object/:mapObjectId',
-    name: 'settings-map-object',
-    component: (): Component => import('./views/settings/map-object/MapObject.vue'),
-    props: true,
-  },
-  {
-    path: '/settings/map-object/:mapObjectId/link',
-    name: 'settings-map-object-link',
-    component: (): Component => import('./views/settings/map-object/MapObject.vue'),
-    props: true,
+    children: [
+      {
+        path: 'edit',
+        name: 'settings-map-object',
+        component: (): Component => import('./views/settings/map-object/MapObject.vue'),
+      },
+      {
+        path: 'edit/link',
+        name: 'settings-map-object-link',
+        component: (): Component => import('./views/settings/map-object/MapObject.vue'),
+      },
+    ],
   },
   {
     path: '/bookable/:bookableId/book',

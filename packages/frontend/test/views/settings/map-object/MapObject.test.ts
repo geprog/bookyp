@@ -40,7 +40,7 @@ describe('MapObject view', () => {
       // when
       const wrapper = shallowMount(MapObject, {
         props: {
-          mapObjectId: sampleMapObjects[0]._id,
+          mapObject: sampleMapObjects[0],
         },
         global: {
           mocks: {
@@ -65,7 +65,7 @@ describe('MapObject view', () => {
       // when
       const wrapper = shallowMount(MapObject, {
         props: {
-          mapObjectId: sampleMapObject._id,
+          mapObject: sampleMapObject,
         },
         global: {
           mocks: {
@@ -100,7 +100,7 @@ describe('MapObject view', () => {
     // when
     shallowMount(MapObject, {
       props: {
-        mapObjectId: sampleMapObject._id,
+        mapObject: sampleMapObject,
       },
       global: {
         mocks: {
@@ -115,39 +115,6 @@ describe('MapObject view', () => {
     expect(params?.value?.query).toHaveProperty('space');
   });
 
-  it('should save the map-object', async () => {
-    // saveMapObject
-    expect.assertions(2);
-
-    // given
-    prepareUseGetMockOnce(sampleMapObject);
-    prepareUseGetMockOnce(sampleBookable);
-    prepareUseFindMockOnce(sampleBookables);
-    const useFeathersMock = prepareUseFeathersMockOnce();
-    const useRouterMock = prepareUseRouterMockOnce();
-    const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-map-object' });
-
-    const wrapper = shallowMount(MapObject, {
-      props: {
-        mapObjectId: sampleMapObject._id,
-      },
-      global: {
-        mocks: {
-          $router: useRouterMock,
-          $route: useRouteMock,
-        },
-      },
-    });
-
-    // when
-    wrapper.findComponent('[data-test=save-button]').vm.$emit('click');
-    await nextTick();
-
-    // then
-    expect(useFeathersMock.update).toHaveBeenCalledTimes(1);
-    expect(useRouterMock.back).toHaveBeenCalledTimes(1);
-  });
-
   it('should select a bookable from the list', async () => {
     expect.assertions(2);
     // given
@@ -160,7 +127,7 @@ describe('MapObject view', () => {
 
     const wrapper = shallowMount(MapObject, {
       props: {
-        mapObjectId: sampleMapObject._id,
+        mapObject: sampleMapObject,
       },
       global: {
         mocks: {
@@ -184,7 +151,7 @@ describe('MapObject view', () => {
 
   it('should unlink a bookable from the map-object', async () => {
     // unlinkBookable
-    expect.assertions(2);
+    expect.assertions(1);
     // given
 
     const linkedBookable = sampleBookable;
@@ -194,13 +161,12 @@ describe('MapObject view', () => {
     prepareUseGetMockOnce(mapObject);
     prepareUseGetMockOnce(linkedBookable);
     prepareUseFindMockOnce(sampleBookables);
-    const useFeathersMock = prepareUseFeathersMockOnce();
     const useRouterMock = prepareUseRouterMockOnce();
     const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-map-object' });
 
     const wrapper = shallowMount(MapObject, {
       props: {
-        mapObjectId: sampleMapObject._id,
+        mapObject: sampleMapObject,
       },
       global: {
         mocks: {
@@ -219,14 +185,7 @@ describe('MapObject view', () => {
     wrapper.findComponent('[data-test=unlink-button]').vm.$emit('click');
     await nextTick();
 
-    wrapper.findComponent('[data-test=save-button]').vm.$emit('click');
-    await nextTick();
-
     // then
-    expect(useFeathersMock.update).toHaveBeenCalledWith(sampleMapObject._id, {
-      ...sampleMapObject,
-      bookable: undefined,
-    });
-    expect(useRouterMock.back).toHaveBeenCalledTimes(1);
+    expect(sampleMapObject.bookable).toBeUndefined();
   });
 });
