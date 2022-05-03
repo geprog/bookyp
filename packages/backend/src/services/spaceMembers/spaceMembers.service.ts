@@ -1,7 +1,8 @@
 import { Application, Model } from '@bookyp/core';
 import { authenticate } from '@feathersjs/authentication';
 import { Id, Params, ServiceMethods } from '@feathersjs/feathers';
-import { authorize } from 'feathers-casl';
+
+import { authorizeWithFreshAbility } from '~/casl';
 
 export const name = 'spaceMembers';
 
@@ -144,10 +145,10 @@ export default (app: Application): void => {
   app.use(name, new SpaceMembersService());
   app.service(name).hooks({
     before: {
-      all: [authenticate('jwt'), authorize({ adapter: 'feathers-mongoose' })],
+      all: [authenticate('jwt'), authorizeWithFreshAbility],
     },
     after: {
-      all: [authorize({ adapter: 'feathers-mongoose' })],
+      all: [authorizeWithFreshAbility],
     },
   });
 };

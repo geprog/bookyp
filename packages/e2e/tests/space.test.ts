@@ -37,3 +37,18 @@ test('Edit the currently selected space', async ({ page }) => {
   expect(await page.inputValue('[data-test="form-description"]')).toBe(space.description);
   expect(await page.screenshot()).toMatchSnapshot('edit-space.png');
 });
+
+test('Create a space and add a mapObject', async ({ page }) => {
+  await page.goto('/');
+  await page.click('[data-test="spaces-button"]');
+  await page.click('button:has-text("CREATE NEW SPACE")');
+  const spaceName = 'Space with instant mapObject creation';
+  await page.fill('[data-test="form-name"]', spaceName);
+  await page.click('button[type="submit"]');
+  await page.click('[data-test="space-item"] >> nth=-1');
+  await page.click('[data-test="button-settings"]');
+  await page.click('[data-test="add-map-object-button"]');
+  await page.click('[data-test="save-button"]');
+  await expect(page.locator('#app > div > div > svg > g')).toHaveCount(1);
+  expect(await page.screenshot()).toMatchSnapshot('add-map-object.png');
+});

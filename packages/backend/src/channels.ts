@@ -32,8 +32,6 @@ export default function (app: Application): void {
   });
 
   app.publish((data: Record<string, unknown>, context) =>
-    // To publish only for a specific event use `app.publish(eventName, () => {})`
-    // e.g. to publish all service events to all authenticated users use
     channels.getChannelsWithReadAbility(app, data, context, caslOptions),
   );
 }
