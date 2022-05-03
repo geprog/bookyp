@@ -55,7 +55,7 @@
             <Icon name="wall" color="text-white" />
           </FloatingButton>
           <template v-else>
-            <FloatingButton data-test="add-button" @click="clickOnAddButton">
+            <FloatingButton data-test="add-map-object-button" @click="clickOnAddButton">
               <Icon name="add" color="text-white" />
               <Icon name="table" color="text-white" />
             </FloatingButton>
@@ -73,7 +73,7 @@
 <script lang="ts">
 import { Model } from '@bookyp/core';
 import { clone, cloneDeep, isEqual, omit } from 'lodash';
-import { computed, defineComponent, onMounted, PropType, Ref, ref, toRef, watch } from 'vue';
+import { computed, defineComponent, PropType, Ref, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -89,7 +89,6 @@ import getMapObjects from '~/compositions/space/useMapObjects';
 import useNewFloorPlanObject from '~/compositions/space/useNewFloorPlanObject';
 import useNewMapObject, { isNewMapObject } from '~/compositions/space/useNewMapObject';
 import useFeathers from '~/compositions/useFeathers';
-import { waitUntilDataHasBeenLoaded } from '~/utils';
 
 import { EditingMapObject } from './space/EditingMapObject';
 
@@ -120,7 +119,7 @@ export default defineComponent({
 
     const router = useRouter();
     const feathers = useFeathers();
-    const { currentSpace, isLoading: isLoadingSpace } = useCurrentSpace();
+    const { currentSpace } = useCurrentSpace();
 
     const selectedMapObjectId = toRef(props, 'selectedMapObjectId');
 
@@ -147,14 +146,23 @@ export default defineComponent({
       }
     }
 
-    onMounted(async () => {
-      const loadedMapObjects = await waitUntilDataHasBeenLoaded(mapObjects, isLoadingMapObjects);
-      mapObjectsCopy.value = cloneDeep(loadedMapObjects.value);
-      const loadedCurrentSpace = await waitUntilDataHasBeenLoaded(currentSpace, isLoadingSpace);
-      if (loadedCurrentSpace.value !== undefined) {
-        floorPlan.value = clone(loadedCurrentSpace.value.floorPlan);
-      }
-    });
+    watch(
+      mapObjects,
+      () => {
+        mapObjectsCopy.value = cloneDeep(mapObjects.value);
+      },
+      { immediate: true },
+    );
+
+    watch(
+      currentSpace,
+      () => {
+        if (currentSpace.value !== undefined) {
+          floorPlan.value = clone(currentSpace.value.floorPlan);
+        }
+      },
+      { immediate: true },
+    );
 
     async function selectMapObject(mapObject: Model.MapObject | null) {
       if (isAddingWall.value) {
@@ -189,7 +197,6 @@ export default defineComponent({
           await feathers.service('mapObjects').update(mapObject._id, mapObject);
         }
       }
-      mapObjectsCopy.value = cloneDeep(mapObjects.value);
       resetNewMapObjectId();
     }
 
