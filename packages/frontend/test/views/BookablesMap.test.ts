@@ -1,7 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
-import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import MapObjects from '~/components/space/MapObjects.vue';
 import BookablesMap from '~/views/BookablesMap.vue';
 import { sampleMapObject, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
@@ -51,27 +50,5 @@ describe('BookablesMap view', () => {
 
     // then
     expect(useRouterMockOnce.push).not.toHaveBeenCalled();
-  });
-
-  it('should open bookables-list when clicked on toggle bar', async () => {
-    expect.assertions(1);
-    // given
-    const mockRouter = {
-      replace: jest.fn(),
-    };
-    const wrapper = shallowMount(BookablesMap, {
-      global: {
-        mocks: {
-          $router: mockRouter,
-        },
-      },
-    });
-
-    // when
-    wrapper.getComponent(ToggleBar).vm.$emit('selected-end');
-    await nextTick();
-
-    // then
-    expect(mockRouter.replace).toHaveBeenCalledWith({ name: 'bookables-list' });
   });
 });

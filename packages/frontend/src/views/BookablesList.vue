@@ -1,5 +1,6 @@
 <template>
   <HomeHeader />
+
   <div v-if="sortedBookablesWithFilterMatched" class="w-full max-w-2xl mx-auto">
     <ListItem
       v-for="bookable in sortedBookablesWithFilterMatched"
@@ -10,35 +11,28 @@
       :description="bookable.description"
       class="cursor-pointer m-3"
       @click="
-        bookable.isFilterMatched !== false &&
-          $router.push({ name: 'booking-create', params: { bookableId: bookable._id } })
+        bookable.isFilterMatched && $router.push({ name: 'booking-create', params: { bookableId: bookable._id } })
       "
     />
   </div>
 
-  <ToggleBar
-    class="absolute bottom-5 right-5"
-    selected="end"
-    start-icon="map"
-    end-icon="apps-list"
-    @selected-start="$router.replace({ name: 'home' })"
-  />
+  <HomeActionsButtons />
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 
-import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import HomeHeader from '~/components/headers/HomeHeader.vue';
+import HomeActionsButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
-  name: 'BookablesLists',
+  name: 'BookablesList',
 
-  components: { ListItem, HomeHeader, ToggleBar },
+  components: { HomeHeader, HomeActionsButtons, ListItem },
 
   setup() {
     const { spaceId } = useCurrentSpace();
@@ -47,12 +41,7 @@ export default defineComponent({
       'bookables',
       computed(() => ({ paginate: false, query: { space: spaceId.value } })),
     );
-
     const { bookablesWithFilterMatched } = useBookablesFilter(bookables);
-
-    const sortedBookablesWithFilterMatched = computed(() =>
-      [...bookablesWithFilterMatched.value].sort((bookable) => (!bookable.isFilterMatched ? 1 : -1)),
-    );
 
     function getBookableStatusColor(isFilterMatched?: boolean): string {
       if (isFilterMatched === undefined) {
@@ -65,9 +54,13 @@ export default defineComponent({
       return 'bg-red-text';
     }
 
+    const sortedBookablesWithFilterMatched = computed(() =>
+      [...bookablesWithFilterMatched.value].sort((bookable) => (!bookable.isFilterMatched ? 1 : -1)),
+    );
+
     return {
-      getBookableStatusColor,
       sortedBookablesWithFilterMatched,
+      getBookableStatusColor,
     };
   },
 });

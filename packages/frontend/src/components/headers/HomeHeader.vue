@@ -8,7 +8,7 @@
     <template v-if="!isLoading">
       <div class="relative">
         <span
-          v-if="filterSelected"
+          v-if="appliedFilters > 0"
           class="
             absolute
             left-4
@@ -21,11 +21,11 @@
             cursor-pointer
           "
           @click="$router.push({ name: 'bookables-filter' })"
-          >{{ filterSelected }}</span
+          >{{ appliedFilters }}</span
         >
         <IconButton
           icon="filter"
-          :class="{ 'text-primary-normal': filterSelected }"
+          :class="{ 'text-primary-normal': appliedFilters }"
           @click="$router.push({ name: 'bookables-filter' })"
         />
       </div>
@@ -75,9 +75,11 @@ export default defineComponent({
 
     const { bookablesFilter } = useBookablesFilter();
 
-    const filterSelected = computed(() => (!bookablesFilter.value ? 0 : 1));
+    const appliedFilters = computed(() =>
+      !bookablesFilter.value || bookablesFilter.value?.quickFilterEnabled ? 0 : 1,
+    );
 
-    return { t, logout, isAdmin, isLoading, title, filterSelected };
+    return { t, logout, isAdmin, isLoading, title, appliedFilters };
   },
 });
 </script>

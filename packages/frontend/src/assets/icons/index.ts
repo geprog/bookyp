@@ -19,10 +19,12 @@ import InfoIcon from '~/assets/icons/info.svg';
 import LinkIcon from '~/assets/icons/link.svg';
 import LocationIcon from '~/assets/icons/location.svg';
 import MapIcon from '~/assets/icons/map.svg';
+import MinusIcon from '~/assets/icons/minus.svg';
 import PasswordIcon from '~/assets/icons/password.svg';
 import PeopleIcon from '~/assets/icons/people.svg';
 import PersonIcon from '~/assets/icons/person.svg';
 import PlayIcon from '~/assets/icons/play.svg';
+import PlusICon from '~/assets/icons/plus.svg';
 import RadioChecked from '~/assets/icons/radio-checked.svg';
 import RadioUnchecked from '~/assets/icons/radio-unchecked.svg';
 import Save from '~/assets/icons/save.svg';
@@ -66,6 +68,8 @@ const icons = {
   save: Save,
   'text-box': TextBoxIcon,
   people: PeopleIcon,
+  plus: PlusICon,
+  minus: MinusIcon,
   wall: WallIcon,
   info: InfoIcon,
 };

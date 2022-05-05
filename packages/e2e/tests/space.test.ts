@@ -29,7 +29,7 @@ test('Edit the currently selected space', async ({ page }) => {
   await page.fill('[data-test="form-address"]', space.address);
   await page.fill('[data-test="form-description"]', space.description);
   await page.click('button[type="submit"]');
-  await expect(page).toHaveURL('/');
+  await expect(page).toHaveURL('/bookables/map');
   await page.click('[data-test="button-settings"]');
   await page.click('[data-test="button-space-information"]');
   expect(await page.inputValue('[data-test="form-name"]')).toBe(space.name);
