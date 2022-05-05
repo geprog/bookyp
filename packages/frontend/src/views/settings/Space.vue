@@ -11,20 +11,16 @@
     </SettingsHeader>
 
     <div class="m-4 flex flex-col flex-grow min-h-0">
-      <SpaceMap
-        data-test="space-map"
-        @down-inside-svg="addFirstPositionOfWall"
-        @up-inside-svg="finishAddingOfWall"
-        @move-inside-svg="updateSecondPositionOfWall"
-      >
+      <SpaceMap data-test="space-map">
         <FloorPlanEditing
-          v-if="floorPlan"
+          :mode="mode"
           :floor-plan="floorPlan"
           :selected-floor-plan-object-id="selectedFloorPlanObjectId"
           @select-floor-plan-object="selectFloorPlanObject"
           @update:floor-plan="updateFloorPlanCopy"
         />
         <MapObjectsEditing
+          :mode="mode"
           :map-objects="mapObjectsCopy"
           :selected-map-object-id="selectedMapObjectId"
           @update:map-objects="updateMapObjectsCopy"
@@ -49,21 +45,24 @@
           icon="delete"
           @click="removeSelectedFloorPlanObject"
         />
-        <template v-else>
-          <FloatingButton v-if="isAddingWall" @click.stop="cancelAddingWall">
+        <template v-else-if="mode !== 'none'">
+          <div class="flex items-center p-3 bg-gray-background rounded-full">
+            {{ t('map_editing.adding_wall_instruction') }}
+          </div>
+          <FloatingButton @click.stop="mode = 'none'">
             <Icon name="dismiss" color="text-white" />
             <Icon name="wall" color="text-white" />
           </FloatingButton>
-          <template v-else>
-            <FloatingButton data-test="add-map-object-button" @click="clickOnAddButton">
-              <Icon name="add" color="text-white" />
-              <Icon name="table" color="text-white" />
-            </FloatingButton>
-            <FloatingButton @click.stop="addFloorPlanObject">
-              <Icon name="add" color="text-white" />
-              <Icon name="wall" color="text-white" />
-            </FloatingButton>
-          </template>
+        </template>
+        <template v-else>
+          <FloatingButton data-test="add-map-object-button" @click="clickOnAddButton">
+            <Icon name="add" color="text-white" />
+            <Icon name="table" color="text-white" />
+          </FloatingButton>
+          <FloatingButton @click.stop="mode = 'wall'">
+            <Icon name="add" color="text-white" />
+            <Icon name="wall" color="text-white" />
+          </FloatingButton>
         </template>
       </div>
     </div>
@@ -86,11 +85,12 @@ import SaveAbort from '~/components/space/SaveAbort.vue';
 import SpaceMap from '~/components/space/SpaceMap.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import getMapObjects from '~/compositions/space/useMapObjects';
-import useNewFloorPlanObject from '~/compositions/space/useNewFloorPlanObject';
 import useNewMapObject, { isNewMapObject } from '~/compositions/space/useNewMapObject';
 import useFeathers from '~/compositions/useFeathers';
 
 import { EditingMapObject } from './space/EditingMapObject';
+
+export type Mode = 'wall' | 'none';
 
 export default defineComponent({
   name: 'Space',
@@ -128,14 +128,7 @@ export default defineComponent({
     const floorPlan: Ref<string[]> = ref([]);
 
     const selectedFloorPlanObjectId: Ref<number | null> = ref(null);
-    const {
-      isAddingWall,
-      cancelAddingWall,
-      finishAddingOfWall,
-      startAddingWall,
-      updateSecondPositionOfWall,
-      addFirstPositionOfWall,
-    } = useNewFloorPlanObject(floorPlan);
+    const mode = ref<Mode>('none');
 
     function updateFloorPlanCopy(newFloorPlan: string[]) {
       floorPlan.value = newFloorPlan;
@@ -165,7 +158,7 @@ export default defineComponent({
     );
 
     async function selectMapObject(mapObject: Model.MapObject | null) {
-      if (isAddingWall.value) {
+      if (mode.value !== 'none') {
         return;
       }
       if (mapObject) {
@@ -177,7 +170,7 @@ export default defineComponent({
     }
 
     async function selectFloorPlanObject(objectId: number | null) {
-      if (isAddingWall.value) {
+      if (mode.value === 'wall') {
         return;
       }
       selectedFloorPlanObjectId.value = objectId;
@@ -200,23 +193,16 @@ export default defineComponent({
       resetNewMapObjectId();
     }
 
-    function checkSaveAndAbort(): boolean {
-      if (isAddingWall.value) {
-        alert(t('map_editing.finish_adding_wall_first'));
-        return false;
-      }
-      return true;
+    async function reset() {
+      changed.value = false;
+      mode.value = 'none';
+      await selectFloorPlanObject(null);
+      await selectMapObject(null);
     }
 
     async function save() {
-      if (!checkSaveAndAbort()) {
-        return;
-      }
       // map objects
       await saveMapObjectCopy();
-      await selectMapObject(null);
-      changed.value = false;
-      await selectMapObject(null);
 
       // floor plan
       if (currentSpace.value !== undefined) {
@@ -224,28 +210,22 @@ export default defineComponent({
           .service('spaces')
           .update(currentSpace.value._id, { ...currentSpace.value, floorPlan: floorPlan.value });
       }
-      changed.value = false;
-      await selectFloorPlanObject(null);
+
+      await reset();
     }
 
     async function abort() {
-      if (!checkSaveAndAbort()) {
-        return;
-      }
       // map objects
       mapObjectsCopy.value = cloneDeep(mapObjects.value);
-      changed.value = false;
-      await selectMapObject(null);
 
       // floor plan
       if (currentSpace.value !== undefined) {
         floorPlan.value = clone(currentSpace.value.floorPlan);
-        await selectFloorPlanObject(null);
-        changed.value = false;
-      } else {
-        throw new Error('No current space');
       }
+
+      await reset();
     }
+
     function updateMapObjectsCopy(updateValue: Ref<Model.MapObject[]>) {
       mapObjectsCopy.value = cloneDeep(updateValue.value);
     }
@@ -311,17 +291,12 @@ export default defineComponent({
       }
     }
 
-    function addFloorPlanObject() {
-      changed.value = true;
-      startAddingWall();
-    }
-
     return {
       t,
       changed,
       save,
       abort,
-      isAddingWall,
+      mode,
       selectedMapObject,
       isMapObjectSelected,
       isFloorPlanObjectSelected,
@@ -338,11 +313,6 @@ export default defineComponent({
       floorPlan,
       selectedFloorPlanObjectId,
       removeSelectedFloorPlanObject,
-      addFloorPlanObject,
-      cancelAddingWall,
-      addFirstPositionOfWall,
-      finishAddingOfWall,
-      updateSecondPositionOfWall,
     };
   },
 });

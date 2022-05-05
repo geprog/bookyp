@@ -31,108 +31,6 @@ describe('SpaceMap component', () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('should emit position', async () => {
-    expect.assertions(3);
-    // given
-    const wrapper = shallowMount(SpaceMap);
-    const { svg, position } = prepareCreateSVGPointOnce(wrapper);
-
-    // when
-    await svg.trigger('click', { clientX: 0, clientY: 0 });
-
-    // then
-    expect(wrapper.emitted('clickInsideSvg')).toBeTruthy();
-    expect(wrapper.emitted('clickInsideSvg')).toHaveLength(1);
-    expect(wrapper.emitted('clickInsideSvg')?.[0]).toStrictEqual([position]);
-  });
-
-  it('should emit position when moving the mouse', async () => {
-    expect.assertions(3);
-    // given
-    const wrapper = shallowMount(SpaceMap);
-    const { svg, position } = prepareCreateSVGPointOnce(wrapper);
-
-    // when
-    await svg.trigger('mousemove', { clientX: 0, clientY: 0 });
-
-    // then
-    expect(wrapper.emitted('moveInsideSvg')).toBeTruthy();
-    expect(wrapper.emitted('moveInsideSvg')).toHaveLength(1);
-    expect(wrapper.emitted('moveInsideSvg')?.[0]).toStrictEqual([position]);
-  });
-
-  it('should emit position when mouseup', async () => {
-    expect.assertions(2);
-    // given
-    const wrapper = shallowMount(SpaceMap);
-    const { svg } = prepareCreateSVGPointOnce(wrapper);
-
-    // when
-    await svg.trigger('mouseup', { clientX: 0, clientY: 0 });
-
-    // then
-    expect(wrapper.emitted('upInsideSvg')).toBeTruthy();
-    expect(wrapper.emitted('upInsideSvg')).toHaveLength(1);
-  });
-
-  it('should emit position when mousedown', async () => {
-    expect.assertions(3);
-    // given
-    const wrapper = shallowMount(SpaceMap);
-    const { svg, position } = prepareCreateSVGPointOnce(wrapper);
-    // when
-    await svg.trigger('mousedown', { clientX: 0, clientY: 0 });
-
-    // then
-    expect(wrapper.emitted('downInsideSvg')).toBeTruthy();
-    expect(wrapper.emitted('downInsideSvg')).toHaveLength(1);
-    expect(wrapper.emitted('downInsideSvg')?.[0]).toStrictEqual([position]);
-  });
-
-  it('should emit position when touchstart', async () => {
-    expect.assertions(3);
-    // given
-    const wrapper = shallowMount(SpaceMap);
-    const { svg, position } = prepareCreateSVGPointOnce(wrapper);
-
-    // when
-    await svg.trigger('touchstart', { touches: [{ clientX: 0, clientY: 0 }] });
-
-    // then
-    expect(wrapper.emitted('downInsideSvg')).toBeTruthy();
-    expect(wrapper.emitted('downInsideSvg')).toHaveLength(1);
-    expect(wrapper.emitted('downInsideSvg')?.[0]).toStrictEqual([position]);
-  });
-
-  it('should emit position when touchmove', async () => {
-    expect.assertions(3);
-    // given
-    const wrapper = shallowMount(SpaceMap);
-    const { svg, position } = prepareCreateSVGPointOnce(wrapper);
-
-    // when
-    await svg.trigger('touchmove', { touches: [{ clientX: 0, clientY: 0 }] });
-
-    // then
-    expect(wrapper.emitted('moveInsideSvg')).toBeTruthy();
-    expect(wrapper.emitted('moveInsideSvg')).toHaveLength(1);
-    expect(wrapper.emitted('moveInsideSvg')?.[0]).toStrictEqual([position]);
-  });
-
-  it('should emit event when touchend', async () => {
-    expect.assertions(2);
-    // given
-    const wrapper = shallowMount(SpaceMap);
-    const { svg } = prepareCreateSVGPointOnce(wrapper);
-
-    // when
-    await svg.trigger('touchend');
-
-    // then
-    expect(wrapper.emitted('upInsideSvg')).toBeTruthy();
-    expect(wrapper.emitted('upInsideSvg')).toHaveLength(1);
-  });
-
   describe('Provide event emitter', () => {
     function prepareProvideEventEmitter(eventName: SpaceMapEvents) {
       const eventCallback = jest.fn();
@@ -176,99 +74,49 @@ describe('SpaceMap component', () => {
       });
     });
 
-    it('should emit position when clicking', async () => {
-      expect.assertions(2);
-      // given
-      const { eventCallback, wrapper } = prepareProvideEventEmitter('clickInsideSvg');
-      const { svg, position } = prepareCreateSVGPointOnce(wrapper);
-
-      // when
-      await svg.trigger('click', { clientX: 0, clientY: 0 });
-
-      // then
-      expect(eventCallback).toHaveBeenCalledTimes(1);
-      expect(eventCallback).toHaveBeenCalledWith(position);
-    });
-
-    it('should emit position when moving the mouse', async () => {
+    it('should emit position when pointermove', async () => {
       expect.assertions(2);
       // given
       const { eventCallback, wrapper } = prepareProvideEventEmitter('moveInsideSvg');
       const { svg, position } = prepareCreateSVGPointOnce(wrapper);
+      const event = { clientX: 0, clientY: 0 };
 
       // when
-      await svg.trigger('mousemove', { clientX: 0, clientY: 0 });
+      await svg.trigger('pointermove', event);
 
       // then
       expect(eventCallback).toHaveBeenCalledTimes(1);
-      expect(eventCallback).toHaveBeenCalledWith(position);
+      expect(eventCallback).toHaveBeenCalledWith(position, expect.objectContaining(event));
     });
 
-    it('should emit position when mouseup', async () => {
-      expect.assertions(1);
+    it('should emit position when pointerup', async () => {
+      expect.assertions(2);
       // given
       const { eventCallback, wrapper } = prepareProvideEventEmitter('upInsideSvg');
-      const { svg } = prepareCreateSVGPointOnce(wrapper);
+      const { svg, position } = prepareCreateSVGPointOnce(wrapper);
+      const event = { clientX: 0, clientY: 0 };
 
       // when
-      await svg.trigger('mouseup', { clientX: 0, clientY: 0 });
+      await svg.trigger('pointerup', event);
 
       // then
       expect(eventCallback).toHaveBeenCalledTimes(1);
+      expect(eventCallback).toHaveBeenCalledWith(position, expect.objectContaining(event));
     });
 
-    it('should emit position when mousedown', async () => {
+    it('should emit position when pointerdown', async () => {
       expect.assertions(2);
       // given
       const { eventCallback, wrapper } = prepareProvideEventEmitter('downInsideSvg');
       const { svg, position } = prepareCreateSVGPointOnce(wrapper);
+      const event = { clientX: 0, clientY: 0 };
 
       // when
-      await svg.trigger('mousedown', { clientX: 0, clientY: 0 });
+      await svg.trigger('pointerdown', event);
 
       // then
       expect(eventCallback).toHaveBeenCalledTimes(1);
-      expect(eventCallback).toHaveBeenCalledWith(position);
-    });
-
-    it('should emit position when touchstart', async () => {
-      expect.assertions(2);
-      // given
-      const { eventCallback, wrapper } = prepareProvideEventEmitter('downInsideSvg');
-      const { svg, position } = prepareCreateSVGPointOnce(wrapper);
-
-      // when
-      await svg.trigger('touchstart', { touches: [{ clientX: 0, clientY: 0 }] });
-
-      // then
-      expect(eventCallback).toHaveBeenCalledTimes(1);
-      expect(eventCallback).toHaveBeenCalledWith(position);
-    });
-
-    it('should emit position when touchmove', async () => {
-      expect.assertions(2);
-      // given
-      const { eventCallback, wrapper } = prepareProvideEventEmitter('moveInsideSvg');
-      const { svg, position } = prepareCreateSVGPointOnce(wrapper);
-
-      // when
-      await svg.trigger('touchmove', { touches: [{ clientX: 0, clientY: 0 }] });
-
-      // then
-      expect(eventCallback).toHaveBeenCalledTimes(1);
-      expect(eventCallback).toHaveBeenCalledWith(position);
-    });
-
-    it('should emit event when touchend', async () => {
-      expect.assertions(1);
-      // given
-      const { eventCallback, wrapper } = prepareProvideEventEmitter('upInsideSvg');
-      const { svg } = prepareCreateSVGPointOnce(wrapper);
-
-      // when
-      await svg.trigger('touchend');
-      // then
-      expect(eventCallback).toHaveBeenCalledTimes(1);
+      expect(eventCallback).toHaveBeenCalledWith(position, expect.objectContaining(event));
     });
   });
 

@@ -35,7 +35,7 @@
   "select_office": "Select Office",
   "map_editor": "Map editor",
   "map_editing": {
-    "finish_adding_wall_first": "Finish adding the wall first"
+    "adding_wall_instruction": "Click and drag on the map to add a wall"
   },
   "start": "Start",
   "today": "Today",

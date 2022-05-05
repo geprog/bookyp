@@ -51,6 +51,10 @@ export default defineConfig({
         '.transform-box-fill': {
           'transform-box': 'fill-box',
         },
+        // necessary to track touch events with pointer api
+        '.touch-none': {
+          'touch-action': 'none',
+        },
       };
       addUtilities(newUtilities);
     }),

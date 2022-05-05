@@ -1,17 +1,13 @@
 <template>
   <svg
-    class="w-full flex-grow p-4 min-h-0"
+    class="w-full flex-grow p-4 min-h-0 touch-none"
     :viewBox="`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     data-test="space-map"
-    @mousemove="emitPosition($event, 'moveInsideSvg')"
-    @touchmove="emitPosition($event, 'moveInsideSvg')"
-    @click.stop="emitPosition($event, 'clickInsideSvg')"
-    @mousedown.stop="emitPosition($event, 'downInsideSvg')"
-    @touchstart="emitPosition($event, 'downInsideSvg')"
-    @mouseup.stop="emitUpInsideSvg"
-    @touchend.stop="emitUpInsideSvg"
+    @pointermove.stop="emitPosition($event, 'moveInsideSvg')"
+    @pointerdown.stop="emitPosition($event, 'downInsideSvg')"
+    @pointerup.stop="emitPosition($event, 'upInsideSvg')"
   >
     <slot />
   </svg>
@@ -26,17 +22,8 @@ import { SpaceMapEvents, SpaceMapKey } from '~/symbols/space-map';
 
 export default defineComponent({
   name: 'SpaceMap',
-  emits: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    clickInsideSvg: (__svgPoint: DOMPoint) => true,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    moveInsideSvg: (__svgPoint: DOMPoint) => true,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    downInsideSvg: (__svgPoint: DOMPoint) => true,
-    upInsideSvg: () => true,
-  },
 
-  setup(props, context) {
+  setup() {
     const spaceMapEventEmitter = new EventEmitter();
     const viewBoxRegistry: Record<string, number> = {};
     const childViewBoxes = ref<Ref<ViewBox>[]>([]);
@@ -65,29 +52,11 @@ export default defineComponent({
       },
     });
 
-    function getSvgPoint(e: MouseEvent | TouchEvent): DOMPoint | undefined {
+    function getSvgPoint(e: PointerEvent): DOMPoint | undefined {
       const svg = e.currentTarget as SVGSVGElement;
       const pt = svg.createSVGPoint();
-
-      // pass event coordinates
-      if (e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchcancel') {
-        pt.x = (e as TouchEvent).touches[0].clientX;
-        pt.y = (e as TouchEvent).touches[0].clientY;
-      } else if (
-        e.type === 'mousedown' ||
-        e.type === 'mouseup' ||
-        e.type === 'mousemove' ||
-        e.type === 'mouseover' ||
-        e.type === 'mouseout' ||
-        e.type === 'mouseenter' ||
-        e.type === 'mouseleave' ||
-        e.type === 'click'
-      ) {
-        pt.x = (e as MouseEvent).clientX;
-        pt.y = (e as MouseEvent).clientY;
-      } else {
-        throw new Error("Can't get point from event: Unsupported event type");
-      }
+      pt.x = e.clientX;
+      pt.y = e.clientY;
 
       // transform to SVG coordinates
       const transformMatrix = svg.getScreenCTM();
@@ -97,20 +66,12 @@ export default defineComponent({
       return pt.matrixTransform(transformMatrix.inverse());
     }
 
-    function emitPosition(event: MouseEvent | TouchEvent, eventName: SpaceMapEvents) {
+    function emitPosition(event: PointerEvent, eventName: SpaceMapEvents) {
       const svgPoint = getSvgPoint(event);
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      context.emit(eventName, svgPoint); // TODO find proper way to type this see https://github.com/Microsoft/TypeScript/issues/14107
-      spaceMapEventEmitter.emit(eventName, svgPoint);
+      spaceMapEventEmitter.emit(eventName, svgPoint, event);
     }
 
-    function emitUpInsideSvg() {
-      spaceMapEventEmitter.emit('upInsideSvg');
-      context.emit('upInsideSvg');
-    }
-
-    return { viewBox, emitPosition, emitUpInsideSvg };
+    return { viewBox, emitPosition };
   },
 });
 </script>

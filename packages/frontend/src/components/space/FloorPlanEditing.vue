@@ -6,7 +6,7 @@
       :d="path"
       class="stroke-black"
       :class="{
-        'cursor-pointer': isWall(path),
+        'cursor-pointer': isWall(path) && mode === 'none',
       }"
       stroke-width="2"
       @click.stop="clickOnFloorObject(path, pathId)"
@@ -26,10 +26,8 @@
       'cursor-move': moving,
     }"
     @click.stop
-    @mousedown.stop="downOnBubble('start')"
-    @touchstart.stop="downOnBubble('start')"
-    @mouseup.stop="upOnBubble"
-    @touchend.stop="upOnBubble"
+    @pointerdown.stop="downOnBubble('start')"
+    @pointerup.stop="upOnBubble"
   />
   <circle
     v-if="wallBubbleEnd"
@@ -44,18 +42,18 @@
       'cursor-move': moving,
     }"
     @click.stop
-    @mousedown.stop="downOnBubble('end')"
-    @touchstart.stop="downOnBubble('end')"
-    @mouseup.stop="upOnBubble"
-    @touchend.stop="upOnBubble"
+    @pointerdown.stop="downOnBubble('end')"
+    @pointerup.stop="upOnBubble"
   />
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, inject, PropType, ref, toRef } from 'vue';
 
+import usePointerCapturing from '~/compositions/space/usePointerCapturing';
 import { useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 import { SpaceMapKey } from '~/symbols/space-map';
+import { Mode } from '~/views/settings/Space.vue';
 
 const wallRegex = /^M(?<x>-?\d+\.?\d*) (?<y>-?\d+\.?\d*) L(?<x2>-?\d+\.?\d*) (?<y2>-?\d+\.?\d*)$/;
 
@@ -67,6 +65,11 @@ type Position = {
 export default defineComponent({
   name: 'FloorPlanEditing',
   props: {
+    mode: {
+      type: String as PropType<Mode>,
+      required: true,
+    },
+
     floorPlan: {
       type: Array as PropType<string[]>,
       required: true,
@@ -86,8 +89,10 @@ export default defineComponent({
   },
 
   setup(props, context) {
+    const mode = toRef(props, 'mode');
     const floorPlan = toRef(props, 'floorPlan');
     const selectedFloorPlanObjectId = toRef(props, 'selectedFloorPlanObjectId');
+    const newWallId = ref<number>();
 
     function getPositionsFromPath(path: string): [x: number, y: number, x2: number, y2: number] | undefined {
       const matches = wallRegex.exec(path);
@@ -113,25 +118,30 @@ export default defineComponent({
     }
 
     function clickOnFloorObject(path: string, pathId: number) {
+      if (mode.value !== 'none') {
+        return;
+      }
       if (isWall(path)) {
         context.emit('selectFloorPlanObject', pathId);
       }
     }
+
+    const selectedPathId = computed(() => newWallId.value || selectedFloorPlanObjectId.value);
     const selectedPath = computed<string | null>({
       get() {
-        if (!selectedFloorPlanObjectId.value && selectedFloorPlanObjectId.value !== 0) {
+        if (selectedPathId.value === null) {
           return null;
         }
 
-        return floorPlan.value[selectedFloorPlanObjectId.value];
+        return floorPlan.value[selectedPathId.value];
       },
       set(path) {
-        if (selectedFloorPlanObjectId.value === null || !path) {
+        if (selectedPathId.value === null || !path) {
           return;
         }
 
         const updatedFloorPlan = floorPlan.value;
-        updatedFloorPlan[selectedFloorPlanObjectId.value] = path;
+        updatedFloorPlan[selectedPathId.value] = path;
         context.emit('update:floor-plan', updatedFloorPlan);
       },
     });
@@ -205,21 +215,25 @@ export default defineComponent({
     // --- move wall
     const moving = ref(false);
     const startEnd = ref('start');
-    const movingOffset = ref({ x: 0, y: 0 });
 
     function downOnBubble(bubble: 'start' | 'end') {
       startEnd.value = bubble;
       moving.value = true;
     }
 
+    const { setCapture, releaseCapture } = usePointerCapturing();
+
     function upOnBubble() {
+      releaseCapture();
       moving.value = false;
+      newWallId.value = undefined;
     }
 
-    function moveWallBubble(svgPoint: DOMPoint) {
+    function moveWallBubble(svgPoint: DOMPoint, event: PointerEvent) {
       if (!moving.value || !selectedPath.value) {
         return;
       }
+      setCapture(event);
       switch (startEnd.value) {
         case 'end':
           wallBubbles.end.value = { x: parseFloat(svgPoint.x.toFixed(5)), y: parseFloat(svgPoint.y.toFixed(5)) };
@@ -232,17 +246,26 @@ export default defineComponent({
 
     const spaceMap = inject(SpaceMapKey);
 
-    spaceMap?.on('clickInsideSvg', () => {
-      // reset moving offset to handle other object
-      movingOffset.value = { x: 0, y: 0 };
+    spaceMap?.on('upInsideSvg', () => {
+      if (newWallId.value) {
+        upOnBubble();
+      }
       context.emit('selectFloorPlanObject', null);
+    });
+    spaceMap?.on('downInsideSvg', ({ x, y }) => {
+      if (mode.value === 'wall') {
+        floorPlan.value.push(`M${x} ${y} L${x} ${y}`);
+        moving.value = true;
+        startEnd.value = 'end';
+        newWallId.value = floorPlan.value.length - 1;
+      }
     });
     spaceMap?.on('moveInsideSvg', moveWallBubble);
 
     useAndRegisterViewBox('FloorPlan', toRef(props, 'floorPlan'), { strokeWidth: 2 });
     return {
       isWall,
-      selectedPathId: selectedFloorPlanObjectId,
+      selectedPathId,
       selectedPath,
       wallBubbleStart: wallBubbles.start,
       wallBubbleEnd: wallBubbles.end,
