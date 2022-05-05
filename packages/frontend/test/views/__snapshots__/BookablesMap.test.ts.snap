@@ -2,11 +2,11 @@
 
 exports[`BookablesMap view should render correctly 1`] = `
 "<home-header-stub></home-header-stub>
-<div class=\\"m-4 flex flex-col flex-grow min-h-0\\">
-  <space-map-stub data-test=\\"space-map\\">
+<div class=\\"m-4 mb-5 lg:mb-20 flex flex-col flex-grow min-h-0\\">
+  <space-map-stub>
     <floor-plan-stub></floor-plan-stub>
     <map-objects-stub clickable=\\"true\\" considerfilter=\\"true\\"></map-objects-stub>
   </space-map-stub>
 </div>
-<toggle-bar-stub starticon=\\"map\\" endicon=\\"apps-list\\" selected=\\"start\\" class=\\"absolute bottom-5 right-5\\" data-test=\\"toggle-bar\\"></toggle-bar-stub>"
+<home-action-buttons-stub></home-action-buttons-stub>"
 `;

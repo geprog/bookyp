@@ -16,13 +16,19 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'home',
     meta: { requiresAuth: true },
+    redirect: { name: 'bookables-map' },
+  },
+  {
+    path: '/bookables/map',
+    name: 'bookables-map',
+    meta: { requiresAuth: true },
     component: (): Component => import('~/views/BookablesMap.vue'),
   },
   {
-    path: '/bookables',
+    path: '/bookables/list',
     name: 'bookables-list',
     meta: { requiresAuth: true },
-    component: (): Component => import('~/views/BookablesLists.vue'),
+    component: (): Component => import('~/views/BookablesList.vue'),
   },
   {
     path: '/bookables/filter',

@@ -1,21 +1,14 @@
 <template>
   <HomeHeader />
 
-  <div class="m-4 flex flex-col flex-grow min-h-0">
-    <SpaceMap data-test="space-map">
+  <div class="m-4 mb-5 lg:mb-20 flex flex-col flex-grow min-h-0">
+    <SpaceMap>
       <FloorPlan />
       <MapObjects clickable consider-filter @click-on-map-object="openCreateBooking" />
     </SpaceMap>
   </div>
 
-  <ToggleBar
-    class="absolute bottom-5 right-5"
-    selected="start"
-    data-test="toggle-bar"
-    start-icon="map"
-    end-icon="apps-list"
-    @selected-end="$router.replace({ name: 'bookables-list' })"
-  />
+  <HomeActionButtons />
 </template>
 
 <script lang="ts">
@@ -23,8 +16,8 @@ import { Model } from '@bookyp/core';
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
-import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import HomeHeader from '~/components/headers/HomeHeader.vue';
+import HomeActionButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
 import FloorPlan from '~/components/space/FloorPlan.vue';
 import MapObjects from '~/components/space/MapObjects.vue';
 import SpaceMap from '~/components/space/SpaceMap.vue';
@@ -32,7 +25,7 @@ import SpaceMap from '~/components/space/SpaceMap.vue';
 export default defineComponent({
   name: 'BookablesMap',
 
-  components: { HomeHeader, ToggleBar, SpaceMap, FloorPlan, MapObjects },
+  components: { HomeHeader, HomeActionButtons, FloorPlan, MapObjects, SpaceMap },
 
   setup() {
     const router = useRouter();
@@ -43,7 +36,9 @@ export default defineComponent({
       }
     }
 
-    return { openCreateBooking };
+    return {
+      openCreateBooking,
+    };
   },
 });
 </script>

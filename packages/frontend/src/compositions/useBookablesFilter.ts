@@ -4,7 +4,7 @@ import { computed, ComputedRef, Ref, ref } from 'vue';
 
 import useFind from '~/compositions/useFind';
 
-type BookablesFilter = Partial<{ start: Date; end: Date }>;
+type BookablesFilter = Partial<{ start: Date; end: Date; quickFilterEnabled: boolean }>;
 
 const bookablesFilter: Ref<BookablesFilter | undefined> = ref();
 

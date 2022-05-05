@@ -4,7 +4,7 @@ import { mocked } from 'ts-jest/utils';
 import { computed, ref } from 'vue';
 
 import { BookableWithFilterMatched, useBookablesFilter } from '~/compositions/useBookablesFilter';
-import BookablesList from '~/views/BookablesLists.vue';
+import BookablesList from '~/views/BookablesList.vue';
 import { sampleBookables } from '$/__fixtures__/bookable';
 import { prepareUseCurrentSpaceMockOnce, prepareUseFindMockOnce } from '$/__helpers__/mocks';
 

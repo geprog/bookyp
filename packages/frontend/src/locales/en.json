@@ -43,6 +43,7 @@
   "try_again": "Try again",
   "add_new_member": "Add new member",
   "edit_member": "Edit member",
+  "next": "Next {count}h",
   "roles": {
     "admin": {
       "name": "Admin",

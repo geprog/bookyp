@@ -49,7 +49,11 @@ export default defineComponent({
     const end = ref<Date>(bookablesFilter.value?.end || defaultEndDate);
 
     const submitBookablesFilter = () => {
-      bookablesFilter.value = { start: dayjs(start.value).toDate(), end: dayjs(end.value).toDate() };
+      bookablesFilter.value = {
+        start: dayjs(start.value).toDate(),
+        end: dayjs(end.value).toDate(),
+        quickFilterEnabled: false,
+      };
       router.back();
     };
 
