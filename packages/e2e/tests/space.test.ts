@@ -52,3 +52,21 @@ test('Create a space and add a mapObject', async ({ page }) => {
   await expect(page.locator('#app > div > div > svg > g')).toHaveCount(1);
   expect(await page.screenshot()).toMatchSnapshot('add-map-object.png');
 });
+
+test('Create a space and invite a member', async ({ page }) => {
+  await page.goto('/');
+  await page.click('[data-test="spaces-button"]');
+  await page.click('button:has-text("CREATE NEW SPACE")');
+  const spaceName = 'Space with invitation';
+  await page.fill('[data-test="form-name"]', spaceName);
+  await page.click('button[type="submit"]');
+  await page.click('[data-test="space-item"] >> nth=-1');
+  await page.click('[data-test="button-settings"]');
+  await page.click('[data-test="button-space-members"]');
+  await page.click('[data-test="button-invite-member"]');
+  const email = 'member@bookyp.de';
+  await page.fill('[data-test="form-email"]', email);
+  await page.click('button[type="submit"]');
+  await expect(page.locator('[data-test="invitation-item"]')).toContainText(email);
+  expect(await page.screenshot()).toMatchSnapshot('invited-member.png');
+});

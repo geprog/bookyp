@@ -1,5 +1,5 @@
 <template>
-  <div class="flex p-3 rounded-lg shadow-full bg-white" :class="{ 'cursor-not-allowed': disabled }">
+  <div class="flex p-3 rounded-lg shadow-full bg-white">
     <div class="flex flex-shrink-0">
       <slot name="start">
         <div :class="statusColor" class="w-2 rounded" />
@@ -8,14 +8,18 @@
     <slot>
       <div class="flex ml-3 flex-grow min-w-0">
         <div class="flex flex-col py-1 min-w-0 flex-grow space-y-1">
-          <span v-if="label" data-test="label" :class="{ 'text-gray-inactive': disabled }" class="text-base truncate">{{
-            label
-          }}</span>
+          <span
+            v-if="label"
+            data-test="label"
+            class="text-base truncate"
+            :class="{ 'text-gray-900': !disabled, 'text-gray-500': disabled }"
+            >{{ label }}</span
+          >
           <span
             v-if="description"
             data-test="description"
-            :class="{ 'text-gray-inactive': disabled }"
-            class="w-full text-gray-700 text-sm truncate"
+            class="w-full text-sm truncate"
+            :class="{ 'text-gray-500': !disabled, 'text-gray-400': disabled }"
             >{{ description }}</span
           >
         </div>

@@ -6,6 +6,8 @@ import { Document, model, Schema } from 'mongoose';
 
 import { feathersCaslAllowlist } from '~/casl';
 
+import addSpaceMemberFields from './addSpaceMemberFields.hook';
+
 const SpaceSchema = new Schema<Model.Space>({
   floorPlan: { type: [String], required: true },
   members: [
@@ -35,7 +37,7 @@ export default (app: Application): void => {
       all: [authenticate('jwt'), authorize({ adapter: 'feathers-mongoose' })],
     },
     after: {
-      all: [authorize({ adapter: 'feathers-mongoose' })],
+      all: [addSpaceMemberFields, authorize({ adapter: 'feathers-mongoose' })],
     },
   });
 };

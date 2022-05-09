@@ -1,26 +1,26 @@
 <template>
-  <Header :title="t('add_new_member')" has-back>
-    <IconButton type="submit" form="spaceMemberForm" icon="save" />
+  <Header :title="t('invite_new_member')" has-back>
+    <IconButton type="submit" form="spaceMemberInviteForm" icon="save" />
   </Header>
   <div class="w-full max-w-2xl mx-auto">
-    <form id="spaceMemberForm" data-test="form" class="mx-4" @submit.prevent="saveSpaceMember">
+    <form id="spaceMemberInviteForm" data-test="form" class="mx-4" @submit.prevent="inviteSpaceMember">
       <InputField icon-name="email">
-        <TextField v-model="spaceUserForm.email" data-test="form-email" :placeholder="t('email_address')" />
+        <TextField v-model="invitationForm.email" data-test="form-email" :placeholder="t('email_address')" />
       </InputField>
 
       <SelectableListItem
-        :selected="spaceUserForm.role === 'user'"
+        :selected="invitationForm.role === 'user'"
         :label="t(`roles.user.name`)"
         :description="t(`roles.user.description`)"
         class="my-3"
-        @click="spaceUserForm.role = 'user'"
+        @click="invitationForm.role = 'user'"
       />
       <SelectableListItem
-        :selected="spaceUserForm.role === 'admin'"
+        :selected="invitationForm.role === 'admin'"
         :label="t(`roles.admin.name`)"
         :description="t(`roles.admin.description`)"
         class="my-3"
-        @click="spaceUserForm.role = 'admin'"
+        @click="invitationForm.role = 'admin'"
       />
     </form>
   </div>
@@ -41,7 +41,7 @@ import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 
 export default defineComponent({
-  name: 'SpaceMemberCreate',
+  name: 'SpaceMemberInvite',
 
   components: { Header, IconButton, InputField, TextField, SelectableListItem },
 
@@ -51,35 +51,37 @@ export default defineComponent({
     const feathers = useFeathers();
     const { spaceId } = useCurrentSpace();
 
-    const spaceUserForm = ref<Partial<Model.SpaceMember>>({
+    const invitationForm = ref<Partial<Model.Invitation>>({
       email: '',
       role: 'user',
     });
 
-    const saveSpaceMember = async () => {
+    const inviteSpaceMember = async () => {
       if (spaceId.value === null) {
         throw new Error('Unexpected: A space must be selected');
       }
       try {
-        await feathers.service('spaceMembers').create({
-          email: spaceUserForm.value.email,
-          role: spaceUserForm.value.role,
+        await feathers.service('invitations').create({
+          email: invitationForm.value.email,
+          role: invitationForm.value.role,
           spaceId: spaceId.value,
         });
         await router.replace({ name: 'settings-space-members', params: { spaceId: spaceId.value } });
       } catch (error) {
-        if (
-          error instanceof Error &&
-          (error.message === 'User not found' || error.message === 'User already in space')
-        ) {
-          alert(error.message);
+        if (!(error instanceof Error)) {
+          throw error;
+        }
+        if (error.message === 'User already in space') {
+          alert(t('invitation.already_in_space'));
+        } else if (error.message === 'email: value already exists.') {
+          alert(t('invitation.already_invited'));
         } else {
           throw error;
         }
       }
     };
 
-    return { saveSpaceMember, spaceUserForm, t };
+    return { inviteSpaceMember, invitationForm, t };
   },
 });
 </script>

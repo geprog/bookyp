@@ -183,7 +183,7 @@ importers:
       '@fullcalendar/timegrid': 5.11.0
       '@fullcalendar/vue3': 5.11.0
       '@geprog/eslint-config': 1.0.5
-      '@geprog/use-feathers': 3.1.3
+      '@geprog/use-feathers': 3.1.4
       '@geprog/vite-plugin-env-config': 4.0.4
       '@intlify/vite-plugin-vue-i18n': 3.2.1
       '@jest/types': 27.0.2
@@ -229,7 +229,7 @@ importers:
       '@fullcalendar/interaction': 5.11.0
       '@fullcalendar/timegrid': 5.11.0
       '@fullcalendar/vue3': 5.11.0_vue@3.2.33
-      '@geprog/use-feathers': 3.1.3_e349a41c49616e43fba3890691d7e08a
+      '@geprog/use-feathers': 3.1.4_e349a41c49616e43fba3890691d7e08a
       '@types/lodash': 4.14.170
       dayjs: 1.10.5
       events: 3.3.0
@@ -2830,8 +2830,8 @@ packages:
       mongodb: 4.1.4
     dev: false
 
-  /@geprog/use-feathers/3.1.3_e349a41c49616e43fba3890691d7e08a:
-    resolution: {integrity: sha512-Q/+V3y+gX4d+/OQhIw+ypVLxCbCBJpWYFKvLNZNNDWyp+yQgrM5jmOPnZTTtTuTIrixOzsRId39BT0lDgFxwEw==}
+  /@geprog/use-feathers/3.1.4_e349a41c49616e43fba3890691d7e08a:
+    resolution: {integrity: sha512-U702mFTLUB3K/mSuHwb5w00JQxHy7YAEDiO3uaNqnWLKvYNXrTloihjA+F///nXiqlNQafZgJfqlrDkiyDSS7Q==}
     peerDependencies:
       '@feathersjs/adapter-commons': ^5.0.0-pre.3
       '@feathersjs/feathers': ^5.0.0-pre.3
@@ -2866,8 +2866,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@intlify/bundle-utils/3.0.0_vue-i18n@9.2.0-beta.29:
-    resolution: {integrity: sha512-y43Z5Q3ZJvxqtD8xUH6U3yrlZeay7ZTqkzv1GQ4b0mGQtk5uptOT9Ra4qvGuUv8QyPQsortrA/OHWUD5ax5ZNQ==}
+  /@intlify/bundle-utils/3.1.0_vue-i18n@9.2.0-beta.29:
+    resolution: {integrity: sha512-ghlJ0kR2cCQ8D+poKknC0Xx0ncOt3J3os7CcIAqqIWVF7k6AtGoCDnIru+YzlZcvFRNmP9wEZ7jKliojCdAWNg==}
     engines: {node: '>= 12'}
     peerDependencies:
       petite-vue-i18n: '*'
@@ -3015,7 +3015,7 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@intlify/bundle-utils': 3.0.0_vue-i18n@9.2.0-beta.29
+      '@intlify/bundle-utils': 3.1.0_vue-i18n@9.2.0-beta.29
       '@intlify/shared': 9.2.0-beta.35
       '@rollup/pluginutils': 4.1.2
       debug: 4.3.3

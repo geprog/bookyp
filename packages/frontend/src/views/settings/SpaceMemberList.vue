@@ -4,22 +4,49 @@
   <div class="w-full max-w-2xl mx-auto">
     <div class="m-3">
       <Button
-        :aria-label="t('add_new_member')"
+        :aria-label="t('invite_new_member')"
         icon="add"
         class="mt-3 w-full"
-        :text="t('add_new_member').toLocaleUpperCase()"
-        @click="$router.push({ name: 'settings-space-member-create' })"
+        :text="t('invite_new_member').toLocaleUpperCase()"
+        data-test="button-invite-member"
+        @click="$router.push({ name: 'settings-space-member-invite' })"
       />
     </div>
+
+    <template v-if="invitations.length > 0">
+      <h2 class="m-3 font-bold">
+        {{ t('invitation.pending_invitations') }}
+      </h2>
+      <ListItem
+        v-for="invitation in invitations"
+        :key="invitation._id"
+        :description="t(`roles.${invitation.role}.name`)"
+        :label="invitation.email"
+        disabled
+        class="cursor-pointer m-3 relative italic"
+        status-color="bg-gray-background"
+        data-test="invitation-item"
+        @click="$router.push({ name: 'settings-space-member-invitation', params: { invitationId: invitation._id } })"
+      />
+
+      <h2 class="m-3 font-bold">
+        {{ t('members') }}
+      </h2>
+    </template>
 
     <ListItem
       v-for="member in spaceMembers"
       :key="member.userId"
       :description="t(`roles.${member.role}.name`)"
-      :label="member.name"
+      :label="
+        t('member_name_and_email', {
+          name: member.name,
+          email: member.userId === user?._id ? t('its_you') : member.email,
+        })
+      "
       class="cursor-pointer m-3 relative"
-      :disabled="member.userId === user?._id"
-      @click="editSpaceMember(member._id)"
+      :class="{ 'cursor-not-allowed font-bold': member.userId === user?._id }"
+      @click="editSpaceMember(member.userId)"
     />
   </div>
 </template>
@@ -42,10 +69,10 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const router = useRouter();
-    const { spaceId } = useCurrentSpace();
+    const { currentSpace, spaceId } = useCurrentSpace();
 
-    const { data: spaceMembers } = useFind(
-      'spaceMembers',
+    const { data: invitations } = useFind(
+      'invitations',
       computed(() => (spaceId.value === null ? null : { paginate: false, query: { spaceId: spaceId.value } })),
     );
 
@@ -56,7 +83,9 @@ export default defineComponent({
       await router.push({ name: 'settings-space-member', params: { spaceMemberId } });
     };
 
-    return { t, spaceMembers, user, editSpaceMember };
+    const spaceMembers = computed(() => currentSpace.value?.members || []);
+
+    return { t, spaceMembers, invitations, user, editSpaceMember };
   },
 });
 </script>

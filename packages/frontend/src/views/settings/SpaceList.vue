@@ -11,6 +11,29 @@
         @click="$router.push({ name: 'space-create' })"
       />
     </div>
+
+    <template v-if="invitations.length > 0">
+      <h2 class="m-3 font-bold">
+        {{ t('invitation.pending_invitations') }}
+      </h2>
+      <ListItem
+        v-for="invitation in invitations"
+        :key="invitation._id"
+        :description="t(`roles.${invitation.role}.name`)"
+        :label="invitation.spaceName"
+        class="m-3 relative"
+      >
+        <template #end>
+          <IconButton icon="check-mark" @click="acceptInvitation(invitation._id)" />
+          <IconButton icon="dismiss" @click="rejectInvitation(invitation._id)" />
+        </template>
+      </ListItem>
+
+      <h2 class="m-3 font-bold">
+        {{ t('spaces') }}
+      </h2>
+    </template>
+
     <SelectableListItem
       v-for="space in spaces"
       :key="space._id"
@@ -31,22 +54,28 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import Button from '~/components/buttons/Button.vue';
+import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
+import ListItem from '~/components/list-items/ListItem.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
+import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
   name: 'SpaceList',
   components: {
     Button,
+    IconButton,
+    ListItem,
     SelectableListItem,
     Header,
   },
 
   setup() {
     const { t } = useI18n();
+    const feathers = useFeathers();
     const router = useRouter();
 
     const { currentSpace, setSpaceId } = useCurrentSpace();
@@ -56,7 +85,13 @@ export default defineComponent({
       computed(() => ({ paginate: false, query: { members: { $elemMatch: { userId: user.value?._id } } } })),
     );
 
-    const roleInSpace = (space: Model.Space) => space.members.find((member) => member.userId === user.value?._id)?.role;
+    const { data: invitations } = useFind(
+      'invitations',
+      computed(() => (user.value === undefined ? null : { paginate: false, query: { email: user.value.email } })),
+    );
+
+    const roleInSpace = (space: Model.Space) =>
+      space.members?.find((member) => member.userId === user.value?._id)?.role || 'user';
 
     const changeSpace = async (spaceId: string) => {
       if (currentSpace.value?._id === spaceId) {
@@ -66,7 +101,15 @@ export default defineComponent({
       await router.push({ name: 'home' });
     };
 
-    return { t, spaces, roleInSpace, changeSpace, currentSpace };
+    function acceptInvitation(invitationId: string) {
+      void feathers.service('invitations').remove(invitationId, { query: { accept: true } });
+    }
+
+    function rejectInvitation(invitationId: string) {
+      void feathers.service('invitations').remove(invitationId);
+    }
+
+    return { t, spaces, roleInSpace, changeSpace, currentSpace, invitations, acceptInvitation, rejectInvitation };
   },
 });
 </script>

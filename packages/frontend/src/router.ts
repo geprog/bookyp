@@ -62,16 +62,23 @@ const routes: RouteRecordRaw[] = [
     component: (): Component => import('~/views/settings/SpaceMemberList.vue'),
   },
   {
-    path: '/settings/space/member/create',
-    name: 'settings-space-member-create',
-    meta: { requiresAuth: true },
-    component: (): Component => import('~/views/settings/SpaceMemberCreate.vue'),
-  },
-  {
     path: '/settings/space/member/:spaceMemberId',
     name: 'settings-space-member',
     meta: { requiresAuth: true },
     component: (): Component => import('~/views/settings/SpaceMember.vue'),
+    props: true,
+  },
+  {
+    path: '/settings/space/member/invite',
+    name: 'settings-space-member-invite',
+    meta: { requiresAuth: true },
+    component: (): Component => import('~/views/settings/SpaceMemberInvite.vue'),
+  },
+  {
+    path: '/settings/space/member/invite/:invitationId',
+    name: 'settings-space-member-invitation',
+    meta: { requiresAuth: true },
+    component: (): Component => import('~/views/settings/SpaceMemberInvitation.vue'),
     props: true,
   },
   {
