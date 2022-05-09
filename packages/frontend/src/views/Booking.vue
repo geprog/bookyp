@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import dayjs from 'dayjs';
-import { computed, defineComponent, ref, toRef } from 'vue';
+import { computed, defineComponent, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -72,6 +72,12 @@ export default defineComponent({
 
     const start = ref(bookablesFilter.value?.start || new Date());
     const end = ref(bookablesFilter.value?.end || dayjs().add(1, 'hour').toDate());
+    watch(start, (newStart, oldStart) => {
+      end.value = dayjs(newStart)
+        .add(Math.abs(dayjs(oldStart).diff(dayjs(end.value))))
+        .toDate();
+    });
+
     const description = ref('');
 
     const submit = async () => {
