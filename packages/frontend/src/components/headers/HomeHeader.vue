@@ -47,7 +47,7 @@
 import { computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import BookypIcon from '~/assets/icons/bookyp.svg';
+import BookypIcon from '~/assets/icons/bookyp.svg?component';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';

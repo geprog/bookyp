@@ -44,6 +44,10 @@ const defineRulesFor = async (
   can('read', 'mapObjects', { space: { $in: spaceIdsUser } });
   can(['read', 'create', 'update', 'remove'], 'mapObjects', { space: { $in: spaceIdsAdmin } });
 
+  can('read', 'bookings', ['_id', 'start', 'end', 'bookable', 'space'], {
+    bookedBy: { $ne: user._id },
+    space: { $in: [...spaceIdsUser, ...spaceIdsAdmin] },
+  });
   can(['read', 'remove'], 'bookings', { bookedBy: user._id });
   can(['create', 'update'], 'bookings', { bookedBy: user._id, space: { $in: [...spaceIdsUser, ...spaceIdsAdmin] } });
 
