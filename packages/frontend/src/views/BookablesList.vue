@@ -10,6 +10,7 @@
       :status-color="getBookableStatusColor(bookable.isFilterMatched)"
       :description="bookable.description"
       class="cursor-pointer m-3"
+      :class="{ 'cursor-not-allowed': bookable.isFilterMatched === false }"
       @click="
         bookable.isFilterMatched && $router.push({ name: 'booking-create', params: { bookableId: bookable._id } })
       "

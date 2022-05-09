@@ -6,6 +6,7 @@
   "space_information": "Space information",
   "space_create": "Create new space",
   "members": "Members",
+  "spaces": "Spaces",
   "bookables": "Bookables",
   "booking_details": "Booking details",
   "bookings": "Bookings",
@@ -41,9 +42,17 @@
   "today": "Today",
   "tomorrow": "Tomorrow",
   "try_again": "Try again",
-  "add_new_member": "Add new member",
+  "invite_new_member": "Invite new member",
+  "invitation": {
+    "pending_invitations": "Pending invitations",
+    "edit": "Edit invitation",
+    "already_in_space": "E-mail address is already member of this space",
+    "already_invited": "E-mail address is already invited to this space"
+  },
   "edit_member": "Edit member",
   "next": "Next {count}h",
+  "member_name_and_email": "{name} ({email})",
+  "its_you": "It's you",
   "roles": {
     "admin": {
       "name": "Admin",

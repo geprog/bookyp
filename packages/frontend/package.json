@@ -21,7 +21,7 @@
     "@fullcalendar/interaction": "5.11.0",
     "@fullcalendar/timegrid": "5.11.0",
     "@fullcalendar/vue3": "5.11.0",
-    "@geprog/use-feathers": "3.1.3",
+    "@geprog/use-feathers": "3.1.4",
     "@types/lodash": "4.14.170",
     "dayjs": "1.10.5",
     "events": "3.3.0",

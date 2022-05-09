@@ -20,7 +20,9 @@ const defineRulesFor = async (
 
   can('get', 'users', { _id: user._id });
 
-  can('read', 'spaces', { members: { $elemMatch: { role: 'user', userId: user._id } } });
+  can('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address'], {
+    members: { $elemMatch: { role: 'user', userId: user._id } },
+  });
   can(['read', 'update'], 'spaces', { members: { $elemMatch: { role: 'admin', userId: user._id } } });
   can('create', 'spaces');
 
@@ -51,7 +53,8 @@ const defineRulesFor = async (
   can(['read', 'remove'], 'bookings', { bookedBy: user._id });
   can(['create', 'update'], 'bookings', { bookedBy: user._id, space: { $in: [...spaceIdsUser, ...spaceIdsAdmin] } });
 
-  can(['read', 'create', 'remove', 'update'], 'spaceMembers', { spaceId: { $in: spaceIdsAdmin } });
+  can(['read', 'create', 'remove', 'update'], 'invitations', { spaceId: { $in: spaceIdsAdmin } });
+  can(['read', 'remove'], 'invitations', { email: user.email });
 
   return rules;
 };

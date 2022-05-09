@@ -49,7 +49,6 @@ import InputField from '~/components/InputField.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
-import useGet from '~/compositions/useGet';
 
 export default defineComponent({
   name: 'SpaceMember',
@@ -67,39 +66,50 @@ export default defineComponent({
     const { t } = useI18n();
     const router = useRouter();
     const feathers = useFeathers();
-    const { spaceId } = useCurrentSpace();
+    const { spaceId, currentSpace } = useCurrentSpace();
     const spaceMemberId = toRef(props, 'spaceMemberId');
 
-    const { data: spaceMember } = useGet(
-      'spaceMembers',
-      spaceMemberId,
-      computed(() => {
-        if (spaceId.value === null) {
-          return undefined;
-        }
-        return { query: { spaceId: spaceId.value } };
-      }),
+    const spaceMemberIndex = computed(() =>
+      (currentSpace.value?.members || []).findIndex((member) => member.userId === spaceMemberId.value),
+    );
+    const spaceMember = computed(() =>
+      currentSpace.value && spaceMemberIndex.value !== undefined
+        ? { ...currentSpace.value.members[spaceMemberIndex.value] }
+        : undefined,
     );
 
     const saveSpaceMember = async () => {
-      if (spaceId.value === null) {
-        throw new Error('Unexpected: A space must be selected');
+      if (currentSpace.value === undefined) {
+        throw new Error('Unexpected: A space must be loaded');
       }
-      if (spaceMember.value === undefined) {
+      if (spaceMemberIndex.value === undefined || spaceMember.value === undefined) {
         throw new Error('Unexpected: A space member must be loaded');
       }
-      await feathers.service('spaceMembers').update(spaceMemberId.value, {
-        role: spaceMember.value.role,
-        spaceId: spaceId.value,
+      const members = currentSpace.value.members;
+      const updatedMembers = [
+        ...members.slice(0, spaceMemberIndex.value),
+        spaceMember.value,
+        ...members.slice(spaceMemberIndex.value + 1),
+      ];
+      await feathers.service('spaces').update(currentSpace.value._id, {
+        ...currentSpace.value,
+        members: updatedMembers,
       });
       await router.replace({ name: 'settings-space-members', params: { spaceId: spaceId.value } });
     };
 
     async function removeSpaceMember(): Promise<void> {
-      if (spaceMember.value === undefined) {
+      if (currentSpace.value === undefined) {
+        throw new Error('Unexpected: A space must be loaded');
+      }
+      if (spaceMemberIndex.value === undefined) {
         throw new Error('Unexpected: A space member must be loaded');
       }
-      await feathers.service('spaceMembers').remove(spaceMember.value.userId, { query: { spaceId: spaceId.value } });
+      const members = currentSpace.value.members;
+      await feathers.service('spaces').update(currentSpace.value._id, {
+        ...currentSpace.value,
+        members: [...members.slice(0, spaceMemberIndex.value), ...members.slice(spaceMemberIndex.value + 1)],
+      });
       await router.replace({ name: 'settings-space-members', params: { spaceId: spaceId.value } });
     }
 

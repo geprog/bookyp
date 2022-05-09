@@ -4,6 +4,8 @@ import User from '~/model/User';
 type Member = {
   role: 'admin' | 'user';
   userId: Ref<User>;
+  name?: User['name'];
+  email?: User['email'];
 };
 
 export default class Space extends AbstractEntity {
