@@ -1,7 +1,7 @@
 <template>
   <HomeHeader />
 
-  <div v-if="sortedBookablesWithFilterMatched" class="w-full max-w-2xl mx-auto">
+  <div v-if="sortedBookablesWithFilterMatched" class="w-full max-w-2xl mx-auto pb-25">
     <ListItem
       v-for="bookable in sortedBookablesWithFilterMatched"
       :key="bookable._id"

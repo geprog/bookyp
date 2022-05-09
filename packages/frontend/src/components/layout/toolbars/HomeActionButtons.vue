@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute bottom-5 w-full flex justify-center items-end space-x-8">
+  <div class="fixed bottom-5 w-full flex justify-center items-end space-x-8">
     <ToggleBar
       :selected="$route.name === 'bookables-map' ? 'start' : 'end'"
       start-icon="map"
