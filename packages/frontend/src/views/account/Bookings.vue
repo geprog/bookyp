@@ -1,5 +1,18 @@
 <template>
-  <Header :title="t('bookings')" has-back />
+  <Header :title="t('bookings')" has-back>
+    <router-link
+      :to="{ name: 'account-bookings' }"
+      class="flex items-center"
+      :class="{ 'text-primary-normal': $route.name === 'account-bookings' }"
+      :aria-label="t('bookings')"
+    >
+      <Icon name="apps-list" />
+    </router-link>
+    <ExternalLink href="https://auth.geprog.com/auth/realms/bookyp/account">
+      <Icon name="person" />
+    </ExternalLink>
+    <IconButton icon="sign-out" @click="logout" />
+  </Header>
   <div class="mt-4">
     <div v-for="(bookings, date) in groupedBookings" :key="date" class="w-full max-w-2xl mx-auto">
       <p data-test="groupByDates" class="ml-2">
@@ -11,13 +24,13 @@
           t('tomorrow')
         }}</span>
       </p>
-      <RouterLink
+      <router-link
         v-for="booking in bookings"
         :key="booking._id"
         :to="{ name: 'account-booking', params: { bookingId: booking._id } }"
       >
         <BookingItem :booking="booking" class="m-3" />
-      </RouterLink>
+      </router-link>
     </div>
   </div>
 </template>
@@ -28,12 +41,14 @@ import dayjs from 'dayjs';
 import { groupBy } from 'lodash';
 import { computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { RouterLink } from 'vue-router';
 
+import ExternalLink from '~/components/buttons/ExternalLink.vue';
+import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
+import Icon from '~/components/Icon.vue';
 import BookingItem from '~/components/list-items/BookingItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
-import { user } from '~/compositions/useAuthentication';
+import { logout, user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
@@ -41,7 +56,9 @@ export default defineComponent({
   components: {
     Header,
     BookingItem,
-    RouterLink,
+    IconButton,
+    ExternalLink,
+    Icon,
   },
 
   setup() {
@@ -68,7 +85,7 @@ export default defineComponent({
       }),
     );
 
-    return { t, groupedBookings, dayjs };
+    return { t, groupedBookings, dayjs, logout };
   },
 });
 </script>
