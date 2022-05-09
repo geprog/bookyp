@@ -1,50 +1,7 @@
 <template>
   <div>
     <span class="text-center flex justify-center">{{ t('next', { count }) }}</span>
-    <div
-      class="
-        flex
-        h-12
-        w-24
-        cursor-pointer
-        focus:outline-transparent
-        disabled:bg-gray-background disabled:cursor-not-allowed
-      "
-    >
-      <div
-        class="
-          flex flex-col
-          p-2
-          w-12
-          hover:bg-gray-inactive
-          focus:bg-red-background
-          bg-gray-background
-          items-center
-          justify-center
-          rounded-l-full
-          hover:shadow-lg
-        "
-        @click="count > 1 && (count -= 1)"
-      >
-        <Icon name="minus" data-test="icon-start" />
-      </div>
-      <div
-        class="
-          flex flex-col
-          bg-gray-background
-          hover:bg-gray-inactive
-          p-2
-          w-12
-          items-center
-          justify-center
-          rounded-r-full
-          hover:shadow-lg
-        "
-        @click="count += 1"
-      >
-        <Icon name="plus" />
-      </div>
-    </div>
+    <ButtonPair icon-left="minus" icon-right="plus" @left="count > 1 && (count -= 1)" @right="count += 1" />
   </div>
 </template>
 
@@ -53,12 +10,12 @@ import dayjs from 'dayjs';
 import { computed, defineComponent, PropType, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import Icon from '~/components/Icon.vue';
+import ButtonPair from '~/components/buttons/ButtonPair.vue';
 
 export default defineComponent({
   name: 'HourControlButton',
 
-  components: { Icon },
+  components: { ButtonPair },
 
   props: {
     endDate: {

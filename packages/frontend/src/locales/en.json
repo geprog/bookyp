@@ -53,5 +53,6 @@
       "name": "User",
       "description": "Can see the space and book objects"
     }
-  }
+  },
+  "booking_drag": "Drag on the calendar to change the time"
 }

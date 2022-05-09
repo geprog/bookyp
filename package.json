@@ -27,7 +27,8 @@
     "test:changed": "pnpm --filter \"...[master]\" --filter=!./ test",
     "typecheck": "pnpm --filter ./packages typecheck",
     "typecheck:changed": "pnpm --filter \"...[master]\" --filter=!./ typecheck",
-    "clean": "pnpm --filter ./packages clean"
+    "clean": "pnpm --filter ./packages clean",
+    "postinstall": "rm -rf ./node_modules/.pnpm/@fullcalendar+core@5.11.0/node_modules/preact/src/jsx.d.ts"
   },
   "devDependencies": {
     "cspell": "5.12.3",

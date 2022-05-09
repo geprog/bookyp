@@ -46,9 +46,9 @@
           @click="removeSelectedFloorPlanObject"
         />
         <template v-else-if="mode !== 'none'">
-          <div class="flex items-center p-3 bg-gray-background rounded-full">
+          <InfoBox>
             {{ t('map_editing.adding_wall_instruction') }}
-          </div>
+          </InfoBox>
           <FloatingButton @click.stop="mode = 'none'">
             <Icon name="dismiss" color="text-white" />
             <Icon name="wall" color="text-white" />
@@ -79,6 +79,7 @@ import { useRouter } from 'vue-router';
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import Icon from '~/components/Icon.vue';
+import InfoBox from '~/components/InfoBox.vue';
 import FloorPlanEditing from '~/components/space/FloorPlanEditing.vue';
 import MapObjectsEditing from '~/components/space/MapObjectsEditing.vue';
 import SaveAbort from '~/components/space/SaveAbort.vue';
@@ -103,6 +104,7 @@ export default defineComponent({
     FloorPlanEditing,
     SettingsHeader,
     Icon,
+    InfoBox,
   },
 
   props: {

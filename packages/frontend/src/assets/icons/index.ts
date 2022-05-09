@@ -6,6 +6,8 @@ import ArrowLeftIcon from '~/assets/icons/arrow-left.svg';
 import BookypIcon from '~/assets/icons/bookyp.svg';
 import CheckMarkIcon from '~/assets/icons/check-mark.svg';
 import ChevronDownIcon from '~/assets/icons/chevron-down.svg';
+import ChevronLeftIcon from '~/assets/icons/chevron-left.svg';
+import ChevronRightIcon from '~/assets/icons/chevron-right.svg';
 import ClockIcon from '~/assets/icons/clock.svg';
 import DeleteIcon from '~/assets/icons/delete.svg';
 import DismissIcon from '~/assets/icons/dismiss.svg';
@@ -44,6 +46,8 @@ const icons = {
   bookyp: BookypIcon,
   'check-mark': CheckMarkIcon,
   'chevron-down': ChevronDownIcon,
+  'chevron-left': ChevronLeftIcon,
+  'chevron-right': ChevronRightIcon,
   clock: ClockIcon,
   delete: DeleteIcon,
   dismiss: DismissIcon,

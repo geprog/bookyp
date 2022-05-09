@@ -4,6 +4,8 @@ import { pathsToModuleNameMapper } from 'ts-jest/utils';
 import { compilerOptions } from './tsconfig.json';
 
 const moduleNameMapper = {
+  // https://github.com/jpkleemans/vite-svg-loader/issues/35
+  '.+\\.(svg)(\\?component)?$': '<rootDir>/test/__mocks__/svgMock.vue',
   ...pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/' + compilerOptions.baseUrl + '/',
   }),
@@ -17,7 +19,6 @@ const config: Config.InitialOptions = {
   moduleNameMapper,
   testEnvironment: 'jest-environment-jsdom',
   transform: {
-    '^.+\\.svg$': './svgTransform.js',
     '^.+\\.vue$': 'vue3-jest',
   },
   reporters: ['default', 'jest-junit'],
