@@ -2,7 +2,7 @@
 
 exports[`BookablesList component should render correctly with filter 1`] = `
 "<home-header-stub></home-header-stub>
-<div class=\\"w-full max-w-2xl mx-auto\\">
+<div class=\\"w-full max-w-2xl mx-auto pb-25\\">
   <list-item-stub label=\\"Couch\\" statuscolor=\\"bg-green-text\\" description=\\"Super long description\\" disabled=\\"false\\" class=\\"cursor-pointer m-3\\"></list-item-stub>
   <list-item-stub label=\\"Table\\" statuscolor=\\"bg-red-text\\" description=\\"Funny bunny description\\" disabled=\\"true\\" class=\\"cursor-pointer m-3\\"></list-item-stub>
 </div>
@@ -11,7 +11,7 @@ exports[`BookablesList component should render correctly with filter 1`] = `
 
 exports[`BookablesList component should render correctly without filter 1`] = `
 "<home-header-stub></home-header-stub>
-<div class=\\"w-full max-w-2xl mx-auto\\">
+<div class=\\"w-full max-w-2xl mx-auto pb-25\\">
   <list-item-stub label=\\"Couch\\" statuscolor=\\"bg-primary-normal\\" description=\\"Super long description\\" disabled=\\"false\\" class=\\"cursor-pointer m-3\\"></list-item-stub>
   <list-item-stub label=\\"Table\\" statuscolor=\\"bg-primary-normal\\" description=\\"Funny bunny description\\" disabled=\\"false\\" class=\\"cursor-pointer m-3\\"></list-item-stub>
 </div>
