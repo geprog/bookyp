@@ -39,7 +39,6 @@
         @click="$router.push({ name: 'settings-space-map' })"
       />
     </template>
-    <IconButton icon="sign-out" @click="logout" />
   </Header>
 </template>
 
@@ -51,7 +50,7 @@ import BookypIcon from '~/assets/icons/bookyp.svg?component';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
-import { logout, user } from '~/compositions/useAuthentication';
+import { user } from '~/compositions/useAuthentication';
 import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 
 export default defineComponent({
@@ -79,7 +78,7 @@ export default defineComponent({
       !bookablesFilter.value || bookablesFilter.value?.quickFilterEnabled ? 0 : 1,
     );
 
-    return { t, logout, isAdmin, isLoading, title, appliedFilters };
+    return { t, isAdmin, isLoading, title, appliedFilters };
   },
 });
 </script>
