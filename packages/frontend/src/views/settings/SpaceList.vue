@@ -37,7 +37,7 @@
     <SelectableListItem
       v-for="space in spaces"
       :key="space._id"
-      :selected="currentSpace?._id === space._id"
+      :selected="spaceId === space._id"
       :label="space.name"
       :description="roleInSpace(space)"
       class="m-3"
@@ -58,7 +58,7 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
-import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { spaceId } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
@@ -78,8 +78,6 @@ export default defineComponent({
     const feathers = useFeathers();
     const router = useRouter();
 
-    const { currentSpace, setSpaceId } = useCurrentSpace();
-
     const { data: spaces } = useFind(
       'spaces',
       computed(() => ({ paginate: false, query: { members: { $elemMatch: { userId: user.value?._id } } } })),
@@ -93,11 +91,8 @@ export default defineComponent({
     const roleInSpace = (space: Model.Space) =>
       space.members?.find((member) => member.userId === user.value?._id)?.role || 'user';
 
-    const changeSpace = async (spaceId: string) => {
-      if (currentSpace.value?._id === spaceId) {
-        return;
-      }
-      setSpaceId(spaceId);
+    const changeSpace = async (_spaceId: string) => {
+      spaceId.value = _spaceId;
       await router.push({ name: 'home' });
     };
 
@@ -109,7 +104,7 @@ export default defineComponent({
       void feathers.service('invitations').remove(invitationId);
     }
 
-    return { t, spaces, roleInSpace, changeSpace, currentSpace, invitations, acceptInvitation, rejectInvitation };
+    return { t, spaces, roleInSpace, changeSpace, invitations, acceptInvitation, rejectInvitation, spaceId };
   },
 });
 </script>

@@ -1,58 +1,35 @@
 import { Model } from '@bookyp/core';
-import { Ref, ref, watch } from 'vue';
+import { computed, inject, InjectionKey, Ref, ref } from 'vue';
 
-import { user } from '~/compositions/useAuthentication';
-import useFeathers from '~/compositions/useFeathers';
-import useGet from '~/compositions/useGet';
+const localStorageSpaceIdKey = 'bookyp.spaceId';
 
-const spaceId: Ref<Model.Ref<Model.Space> | null> = ref(null);
+const _spaceId = ref<string | null>(localStorage.getItem(localStorageSpaceIdKey));
 
-function setSpaceId(newSpaceId: string): void {
-  spaceId.value = newSpaceId;
-  localStorage.setItem('spaceId', newSpaceId);
-}
-
-watch(
-  user,
-  async (_user) => {
-    if (_user) {
-      const s = useFeathers().service('spaces');
-      // try to load saved spaceId
-      spaceId.value = localStorage.getItem('spaceId');
-      if (spaceId.value !== null) {
-        try {
-          await s.get(spaceId.value);
-          return;
-        } catch (e) {
-          if (e instanceof Error && e.name === 'NotFound') {
-            localStorage.removeItem('spaceId');
-            spaceId.value = null;
-          } else {
-            throw e;
-          }
-        }
-      }
-
-      // try to load first space from own spaces
-      const spaces = (await s.find({
-        paginate: false,
-        query: { members: { $elemMatch: { userId: user.value?._id } } },
-      })) as Model.Space[];
-
-      if (spaces.length > 0) {
-        setSpaceId(spaces[0]._id);
-      }
-    }
+export const spaceId = computed<Model.Ref<Model.Space> | null>({
+  get() {
+    return _spaceId.value;
   },
-  { immediate: true },
-);
+  set(newSpaceId) {
+    if (newSpaceId === null) {
+      localStorage.removeItem(localStorageSpaceIdKey);
+    } else {
+      localStorage.setItem(localStorageSpaceIdKey, newSpaceId);
+    }
+    _spaceId.value = newSpaceId;
+  },
+});
+
+export const currentSpaceInjectionKey: InjectionKey<Ref<Model.Space | undefined>> = Symbol('currentSpace');
 
 export const useCurrentSpace = (): {
   currentSpace: Ref<Model.Space | undefined>;
-  isLoading: Ref<boolean>;
-  spaceId: Ref<Model.Ref<Model.Space> | null>;
-  setSpaceId: (spaceId: Model.Ref<Model.Space>) => void;
+  spaceId: Ref<string | null>;
 } => {
-  const { data: currentSpace, isLoading } = useGet('spaces', spaceId, ref());
-  return { currentSpace, isLoading, spaceId, setSpaceId };
+  const currentSpace = inject(currentSpaceInjectionKey);
+
+  if (!currentSpace) {
+    throw new Error('useCurrentSpace must be used inside a component inside SpaceLoader');
+  }
+
+  return { currentSpace, spaceId };
 };
