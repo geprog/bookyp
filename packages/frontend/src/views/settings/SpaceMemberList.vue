@@ -4,6 +4,7 @@
   <div class="w-full max-w-2xl mx-auto">
     <div class="m-3">
       <Button
+        v-if="spaceMembers.length < 10"
         :aria-label="t('invite_new_member')"
         icon="add"
         class="mt-3 w-full"
@@ -11,6 +12,10 @@
         data-test="button-invite-member"
         @click="$router.push({ name: 'settings-space-member-invite' })"
       />
+
+      <router-link v-else :to="{ name: 'settings-space-edit' }" class="flex">
+        <Button icon="info" :text="t('plan.max_members_reached')" />
+      </router-link>
     </div>
 
     <template v-if="invitations.length > 0">

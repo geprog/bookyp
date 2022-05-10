@@ -1,5 +1,5 @@
 <template>
-  <component :is="icon" data-test="icon-component" :class="[color]" class="icon" />
+  <component :is="icon" data-test="icon-component" :class="[color]" class="icon flex-shrink-0" />
 </template>
 
 <script lang="ts">

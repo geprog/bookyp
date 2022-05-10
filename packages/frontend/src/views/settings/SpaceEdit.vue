@@ -2,7 +2,7 @@
   <Header :title="t('space_information')" has-back>
     <IconButton type="submit" form="space" icon="save" />
   </Header>
-  <SpaceForm v-if="space" v-model:space="space" data-test="space-form" @save="saveSpace" />
+  <SpaceForm v-if="space" v-model:space="space" @save="saveSpace" />
 </template>
 
 <script lang="ts">

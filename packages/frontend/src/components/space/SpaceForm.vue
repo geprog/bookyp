@@ -10,15 +10,28 @@
       <TextField v-model="spaceCreate.description" data-test="form-description" :placeholder="t('description')" />
     </InputField>
   </form>
+
+  <div v-if="isEditingSpace" class="flex flex-col flex-grow p-4 mt-8">
+    <h2 class="font-bold">{{ t('plan.plan') }}</h2>
+
+    <p>{{ t('plan.free_plan_description', { amountOfMembers: spaceMembers.length }) }}</p>
+
+    <a :href="mailtoUpgrade" class="mx-auto">
+      <Button :text="t('plan.upgrade')" />
+    </a>
+  </div>
 </template>
 
 <script lang="ts">
 import { Model } from '@bookyp/core';
 import { computed, defineComponent, PropType, reactive, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRoute } from 'vue-router';
 
+import Button from '~/components/buttons/Button.vue';
 import InputField from '~/components/InputField.vue';
 import TextField from '~/components/TextField.vue';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 
 export default defineComponent({
   name: 'SpaceForm',
@@ -26,6 +39,7 @@ export default defineComponent({
   components: {
     InputField,
     TextField,
+    Button,
   },
 
   props: {
@@ -73,10 +87,25 @@ export default defineComponent({
       }),
     });
 
+    const route = useRoute();
+    const isEditingSpace = computed(() => route.name === 'settings-space-edit');
+    const currentSpace = computed(() => {
+      if (isEditingSpace.value) {
+        return useCurrentSpace().currentSpace.value;
+      }
+      return undefined;
+    });
+
+    const spaceMembers = computed(() => currentSpace.value?.members || []);
+
     const saveSpace = () => {
       emit('save');
     };
-    return { t, saveSpace, spaceCreate };
+
+    const mailtoUpgradeSubject = encodeURIComponent(`[${space.value?._id || ''}] Upgrade plan`);
+    const mailtoUpgrade = `mailto:bookyp@geprog.com?subject=${mailtoUpgradeSubject}`;
+
+    return { t, saveSpace, spaceCreate, spaceMembers, mailtoUpgrade, isEditingSpace };
   },
 });
 </script>
