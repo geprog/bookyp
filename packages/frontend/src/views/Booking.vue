@@ -8,21 +8,13 @@
       <TextField v-model="description" :placeholder="t('description')" />
     </InputField>
 
-    <InputField icon-name="play">
-      <DateTimePicker v-model="start" :placeholder="t('start')" :min-date="new Date()" />
-    </InputField>
-
-    <InputField icon-name="stop">
-      <DateTimePicker v-model="end" :placeholder="t('end')" :min-date="new Date()" />
-    </InputField>
-
     <DateRangePicker v-model:start="start" v-model:end="end" :bookings="bookings" />
   </form>
 </template>
 
 <script lang="ts">
 import dayjs from 'dayjs';
-import { computed, defineComponent, ref, toRef, watch } from 'vue';
+import { computed, defineComponent, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -30,7 +22,6 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import InputField from '~/components/InputField.vue';
 import DateRangePicker from '~/components/inputs/DateRangePicker.vue';
-import DateTimePicker from '~/components/inputs/DateTimePicker.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
@@ -42,7 +33,7 @@ import useGet from '~/compositions/useGet';
 export default defineComponent({
   name: 'Booking',
 
-  components: { Header, IconButton, InputField, TextField, DateTimePicker, DateRangePicker },
+  components: { Header, IconButton, InputField, TextField, DateRangePicker },
 
   props: {
     bookableId: {
@@ -72,11 +63,6 @@ export default defineComponent({
 
     const start = ref(bookablesFilter.value?.start || new Date());
     const end = ref(bookablesFilter.value?.end || dayjs().add(1, 'hour').toDate());
-    watch(start, (newStart, oldStart) => {
-      end.value = dayjs(newStart)
-        .add(Math.abs(dayjs(oldStart).diff(dayjs(end.value))))
-        .toDate();
-    });
 
     const description = ref('');
 

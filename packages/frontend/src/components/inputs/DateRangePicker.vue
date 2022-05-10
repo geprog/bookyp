@@ -1,4 +1,22 @@
 <template>
+  <div class="flex flex-row">
+    <div class="flex flex-col flex-grow">
+      <InputField icon-name="play">
+        <DateTimePicker
+          :model-value="internalStart"
+          :placeholder="t('start')"
+          :min-date="new Date()"
+          @update:model-value="changeStartDate"
+        />
+      </InputField>
+
+      <InputField icon-name="stop">
+        <DateTimePicker v-model="internalEnd" :placeholder="t('end')" :min-date="new Date()" />
+      </InputField>
+    </div>
+    <slot />
+  </div>
+
   <div class="flex flex-row justify-center items-center my-2">
     <InfoBox class="mr-2">
       {{ t('booking_drag') }}
@@ -29,14 +47,17 @@ import { useI18n } from 'vue-i18n';
 
 import ButtonPair from '~/components/buttons/ButtonPair.vue';
 import InfoBox from '~/components/InfoBox.vue';
+import InputField from '~/components/InputField.vue';
+import DateTimePicker from '~/components/inputs/DateTimePicker.vue';
 
 export default defineComponent({
   name: 'DateRangePicker',
-
   components: {
     ButtonPair,
     FullCalendar,
     InfoBox,
+    InputField,
+    DateTimePicker,
   },
 
   props: {
@@ -78,6 +99,35 @@ export default defineComponent({
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       api.value = fullCalendar.value!.getApi();
     });
+
+    const internalStart = computed<Date>({
+      get() {
+        return dayjs(start.value).toDate();
+      },
+      set(date) {
+        emit('update:start', date);
+      },
+    });
+
+    const internalEnd = computed<Date>({
+      get() {
+        return dayjs(end.value).toDate();
+      },
+      set(date) {
+        emit('update:end', date);
+      },
+    });
+
+    const changeStartDate = (date: Date) => {
+      const oldStart = start.value;
+      internalStart.value = date;
+      emit(
+        'update:end',
+        dayjs(date)
+          .add(Math.abs(dayjs(oldStart).diff(dayjs(end.value))))
+          .toDate(),
+      );
+    };
 
     watch(start, () => {
       if (!api.value) {
@@ -156,7 +206,7 @@ export default defineComponent({
       ],
     }));
 
-    return { calendarOptions, fullCalendar, api, t, viewStartDate, dayjs };
+    return { calendarOptions, fullCalendar, api, t, viewStartDate, dayjs, internalStart, internalEnd, changeStartDate };
   },
 });
 </script>
