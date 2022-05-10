@@ -35,7 +35,13 @@ export default defineComponent({
     onMounted(async () => {
       try {
         await feathers.reAuthenticate();
-        await router.push({ name: 'home' });
+        const redirectAfterAuth = localStorage.getItem('bookyp.redirectAfterAuth');
+        if (redirectAfterAuth) {
+          localStorage.removeItem('bookyp.redirectAfterAuth');
+          await router.push(redirectAfterAuth);
+        } else {
+          await router.push({ name: 'home' });
+        }
       } catch (error) {
         if (error instanceof FeathersError) {
           authenticationError.value = error.message;
@@ -44,7 +50,7 @@ export default defineComponent({
     });
 
     async function retryAuthentication() {
-      await router.push({ name: 'loading-screen' });
+      await router.push({ name: 'auth-login' });
     }
 
     return { t, authenticationError, retryAuthentication };
