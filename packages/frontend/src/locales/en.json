@@ -63,5 +63,11 @@
       "description": "Can see the space and book objects"
     }
   },
-  "booking_drag": "Drag on the calendar to change the time"
+  "booking_drag": "Drag on the calendar to change the time",
+  "plan": {
+    "plan": "Plan",
+    "free_plan_description": "You are currently using the free-plan with {amountOfMembers} of 10 members.",
+    "upgrade": "Upgrade plan",
+    "max_members_reached": "Please upgrade your plan to add more than 10 members."
+  }
 }
