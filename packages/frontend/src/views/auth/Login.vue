@@ -21,8 +21,7 @@ import { defineComponent, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
-  name: 'LoadingScreen',
-  components: {},
+  name: 'Login',
   setup() {
     const { t } = useI18n();
 

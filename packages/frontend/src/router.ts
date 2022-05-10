@@ -154,10 +154,10 @@ const routes: RouteRecordRaw[] = [
     component: (): Component => import('~/views/auth/Callback.vue'),
   },
   {
-    path: '/auth/loading-screen',
-    name: 'loading-screen',
+    path: '/auth/login',
+    name: 'auth-login',
     meta: { authEndpoint: true },
-    component: (): Component => import('~/views/auth/LoadingScreen.vue'),
+    component: (): Component => import('~/views/auth/Login.vue'),
   },
 ];
 
@@ -177,7 +177,8 @@ router.beforeEach(async (to, _, next) => {
   await reAuthenticate();
 
   if (to.meta.requiresAuth && !isAuthenticated.value) {
-    next({ name: 'loading-screen' });
+    localStorage.setItem('bookyp.redirectAfterAuth', to.fullPath);
+    next({ name: 'auth-login' });
     return;
   }
 
