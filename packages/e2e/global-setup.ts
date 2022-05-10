@@ -12,6 +12,8 @@ async function globalSetup(config: FullConfig): Promise<void> {
   await page.fill('input[name="username"]', process.env.E2E_AUTH_USERNAME || '');
   await page.fill('input[name="password"]', process.env.E2E_AUTH_PASSWORD || '');
   await page.click('input[type=submit]');
+  await page.waitForNavigation();
+  await page.click('[data-test="space-item"]');
   await page.context().storageState({ path: storageState as string });
   await browser.close();
 }

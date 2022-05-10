@@ -5,40 +5,38 @@
         <BookypIcon class="min-w-max" />
       </router-link>
     </template>
-    <template v-if="!isLoading">
-      <div class="relative">
-        <span
-          v-if="appliedFilters > 0"
-          class="
-            absolute
-            left-4
-            top-0.5
-            bg-primary-normal
-            rounded-full
-            w-4
-            h-4
-            text-center text-xs text-white
-            cursor-pointer
-          "
-          @click="$router.push({ name: 'bookables-filter' })"
-          >{{ appliedFilters }}</span
-        >
-        <IconButton
-          icon="filter"
-          :class="{ 'text-primary-normal': appliedFilters }"
-          @click="$router.push({ name: 'bookables-filter' })"
-        />
-      </div>
-
-      <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
+    <div class="relative">
+      <span
+        v-if="appliedFilters > 0"
+        class="
+          absolute
+          left-4
+          top-0.5
+          bg-primary-normal
+          rounded-full
+          w-4
+          h-4
+          text-center text-xs text-white
+          cursor-pointer
+        "
+        @click="$router.push({ name: 'bookables-filter' })"
+        >{{ appliedFilters }}</span
+      >
       <IconButton
-        v-show="isAdmin"
-        data-test="button-settings"
-        icon="settings"
-        :aria-label="t('settings')"
-        @click="$router.push({ name: 'settings-space-map' })"
+        icon="filter"
+        :class="{ 'text-primary-normal': appliedFilters }"
+        @click="$router.push({ name: 'bookables-filter' })"
       />
-    </template>
+    </div>
+
+    <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
+    <IconButton
+      v-show="isAdmin"
+      data-test="button-settings"
+      icon="settings"
+      :aria-label="t('settings')"
+      @click="$router.push({ name: 'settings-space-map' })"
+    />
   </Header>
 </template>
 
@@ -65,7 +63,7 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
 
-    const { currentSpace, isLoading } = useCurrentSpace();
+    const { currentSpace } = useCurrentSpace();
     const isAdmin = computed(() =>
       currentSpace.value?.members?.some((member) => member.userId === user.value?._id && member.role === 'admin'),
     );
@@ -78,7 +76,7 @@ export default defineComponent({
       !bookablesFilter.value || bookablesFilter.value?.quickFilterEnabled ? 0 : 1,
     );
 
-    return { t, isAdmin, isLoading, title, appliedFilters };
+    return { t, isAdmin, title, appliedFilters };
   },
 });
 </script>
