@@ -27,6 +27,7 @@
     "label": "Delete"
   },
   "booking_overlaps": "Someone already booked {bookable} in your desired time",
+  "booking_invalid_end_date": "End date must be after start date",
   "name": "Name",
   "email_address": "E-mail address",
   "no_bookable": "No bookable found",

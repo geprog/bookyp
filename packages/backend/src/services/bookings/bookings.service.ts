@@ -5,6 +5,7 @@ import { Document, model, Schema } from 'mongoose';
 
 import { authorizeWithFreshAbility, feathersCaslAllowlist } from '~/casl';
 
+import { preventInvalidDateRange } from './hooks/preventInvalidDateRange';
 import { preventOverlappingBookings } from './hooks/preventOverlappingBookings';
 
 const BookingSchema = new Schema<Model.Booking>({
@@ -30,7 +31,7 @@ export default (app: Application): void => {
   app.service(name).hooks({
     before: {
       all: [authenticate('jwt'), authorizeWithFreshAbility],
-      create: [preventOverlappingBookings],
+      create: [preventInvalidDateRange, preventOverlappingBookings],
     },
     after: {
       all: [authorizeWithFreshAbility],

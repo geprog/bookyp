@@ -92,6 +92,10 @@ export default defineComponent({
           alert(t('booking_overlaps', { bookable: bookable.value?.name }));
           return;
         }
+        if (error instanceof Error && error.message === 'End date must be after start date') {
+          alert(t('booking_invalid_end_date'));
+          return;
+        }
         throw error;
       }
     };
