@@ -1,7 +1,7 @@
 <template>
   <Header :title="t('select_office')" has-back />
 
-  <div class="w-full max-w-2xl mx-auto">
+  <AppContent>
     <div class="m-3">
       <Button
         :aria-label="t('space_create')"
@@ -44,7 +44,7 @@
       data-test="space-item"
       @click="changeSpace(space._id)"
     />
-  </div>
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -56,6 +56,7 @@ import { useRouter } from 'vue-router';
 import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { spaceId } from '~/compositions/space/useCurrentSpace';
@@ -71,6 +72,7 @@ export default defineComponent({
     ListItem,
     SelectableListItem,
     Header,
+    AppContent,
   },
 
   setup() {

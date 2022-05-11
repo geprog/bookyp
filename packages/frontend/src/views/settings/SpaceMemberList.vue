@@ -1,7 +1,7 @@
 <template>
   <SettingsHeader :title="t('members')" />
 
-  <div class="w-full max-w-2xl mx-auto">
+  <AppContent>
     <div class="m-3">
       <Button
         v-if="spaceMembers.length < 10"
@@ -53,7 +53,7 @@
       :class="{ 'cursor-not-allowed font-bold': member.userId === user?._id }"
       @click="editSpaceMember(member.userId)"
     />
-  </div>
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -63,6 +63,7 @@ import { useRouter } from 'vue-router';
 
 import Button from '~/components/buttons/Button.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
@@ -70,7 +71,7 @@ import useFind from '~/compositions/useFind';
 
 export default defineComponent({
   name: 'SpaceMemberList',
-  components: { ListItem, SettingsHeader, Button },
+  components: { ListItem, SettingsHeader, Button, AppContent },
   setup() {
     const { t } = useI18n();
     const router = useRouter();

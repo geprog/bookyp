@@ -8,7 +8,7 @@
     />
     <IconButton type="submit" form="spaceMemberForm" icon="save" />
   </Header>
-  <div class="w-full max-w-2xl mx-auto">
+  <AppContent>
     <form
       v-if="spaceMember !== undefined"
       id="spaceMemberForm"
@@ -35,7 +35,7 @@
         @click="spaceMember!.role = 'admin'"
       />
     </form>
-  </div>
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -46,6 +46,7 @@ import { useRouter } from 'vue-router';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import InputField from '~/components/InputField.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
@@ -53,7 +54,7 @@ import useFeathers from '~/compositions/useFeathers';
 export default defineComponent({
   name: 'SpaceMember',
 
-  components: { Header, IconButton, InputField, SelectableListItem },
+  components: { Header, IconButton, InputField, SelectableListItem, AppContent },
 
   props: {
     spaceMemberId: {

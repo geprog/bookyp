@@ -2,11 +2,19 @@
   <Header :title="t('filter_bookables')" has-back>
     <IconButton type="submit" form="filterBookablesForm" icon="check-mark" />
   </Header>
-  <form id="filterBookablesForm" class="my-2 mx-4" @submit.prevent="submitBookablesFilter">
-    <DateRangePicker v-model:start="start" v-model:end="end" :bookings="[]">
-      <Button v-if="hasActiveBookablesFilter" icon="dismiss" outlined class="ml-4 px-1" @click="resetBookablesFilter" />
-    </DateRangePicker>
-  </form>
+  <AppContent>
+    <form id="filterBookablesForm" class="my-2" @submit.prevent="submitBookablesFilter">
+      <DateRangePicker v-model:start="start" v-model:end="end" :bookings="[]">
+        <Button
+          v-if="hasActiveBookablesFilter"
+          icon="dismiss"
+          outlined
+          class="ml-4 px-1"
+          @click="resetBookablesFilter"
+        />
+      </DateRangePicker>
+    </form>
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -19,12 +27,13 @@ import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import DateRangePicker from '~/components/inputs/DateRangePicker.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 
 export default defineComponent({
   name: 'BookablesFilter',
 
-  components: { Header, IconButton, Button, DateRangePicker },
+  components: { AppContent, Header, IconButton, Button, DateRangePicker },
 
   setup() {
     const { t } = useI18n();

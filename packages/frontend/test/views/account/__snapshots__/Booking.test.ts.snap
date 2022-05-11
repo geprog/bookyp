@@ -4,9 +4,11 @@ exports[`Booking view should render correctly 1`] = `
 "<header-stub title=\\"Mock translation\\" hasback=\\"true\\">
   <icon-button-stub icon=\\"delete\\" iconcolor=\\"text-red-text hover:text-red-background\\" disabled=\\"false\\" data-test=\\"delete-button\\"></icon-button-stub>
 </header-stub>
-<div class=\\"mt-4 mx-4\\">
-  <h2 class=\\"text-lg font-semibold\\">Couch</h2>
-  <div class=\\"flex flex-col\\"><span>Mock translation: Wed, 08. Aug. 2018 - 07:43</span><span>Mock translation: Wed, 08. Aug. 2018 - 08:13</span></div>
-  <delete-dialog-stub visible=\\"false\\" data-test=\\"delete-dialog\\"></delete-dialog-stub>
-</div>"
+<app-content-stub>
+  <div class=\\"mt-4\\">
+    <h2 class=\\"text-lg font-semibold\\">Couch</h2>
+    <div class=\\"flex flex-col\\"><span>Mock translation: Wed, 08. Aug. 2018 - 07:43</span><span>Mock translation: Wed, 08. Aug. 2018 - 08:13</span></div>
+    <delete-dialog-stub visible=\\"false\\" data-test=\\"delete-dialog\\"></delete-dialog-stub>
+  </div>
+</app-content-stub>"
 `;

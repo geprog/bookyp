@@ -8,8 +8,10 @@
     />
     <IconButton type="submit" form="bookable" icon="check-mark" />
   </Header>
-  <BookableForm v-if="bookable" v-model:bookable="bookable" data-test="bookable-form" @save="saveBookable" />
-  <DeleteDialog data-test="delete-dialog" :visible="modalVisible" @confirmation="deleteBookable" />
+  <AppContent>
+    <BookableForm v-if="bookable" v-model:bookable="bookable" data-test="bookable-form" @save="saveBookable" />
+    <DeleteDialog data-test="delete-dialog" :visible="modalVisible" @confirmation="deleteBookable" />
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -21,6 +23,7 @@ import BookableForm from '~/components/bookables/BookableForm.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import DeleteDialog from '~/components/DeleteDialog.vue';
 import Header from '~/components/headers/Header.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
@@ -28,6 +31,7 @@ export default defineComponent({
   name: 'Bookable',
 
   components: {
+    AppContent,
     IconButton,
     Header,
     DeleteDialog,

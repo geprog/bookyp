@@ -10,33 +10,35 @@ exports[`Bookings component should render correctly 1`] = `
   </external-link-stub>
   <icon-button-stub icon=\\"sign-out\\" iconcolor=\\"\\" disabled=\\"false\\"></icon-button-stub>
 </header-stub>
-<div class=\\"mt-4\\">
-  <div class=\\"w-full max-w-2xl mx-auto\\">
-    <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">17 Dec.</span>
-      <!--v-if-->
-      <!--v-if-->
-    </p>
-    <router-link-stub to=\\"[object Object]\\">
-      <booking-item-stub booking=\\"[object Object]\\" class=\\"m-3\\"></booking-item-stub>
-    </router-link-stub>
+<app-content-stub>
+  <div class=\\"mt-4\\">
+    <div>
+      <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">17 Dec.</span>
+        <!--v-if-->
+        <!--v-if-->
+      </p>
+      <router-link-stub to=\\"[object Object]\\">
+        <booking-item-stub booking=\\"[object Object]\\" class=\\"m-3\\"></booking-item-stub>
+      </router-link-stub>
+    </div>
+    <div>
+      <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">18 Dec.</span>
+        <!--v-if-->
+        <!--v-if-->
+      </p>
+      <router-link-stub to=\\"[object Object]\\">
+        <booking-item-stub booking=\\"[object Object]\\" class=\\"m-3\\"></booking-item-stub>
+      </router-link-stub>
+    </div>
+    <div>
+      <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">8 Aug.</span>
+        <!--v-if-->
+        <!--v-if-->
+      </p>
+      <router-link-stub to=\\"[object Object]\\">
+        <booking-item-stub booking=\\"[object Object]\\" class=\\"m-3\\"></booking-item-stub>
+      </router-link-stub>
+    </div>
   </div>
-  <div class=\\"w-full max-w-2xl mx-auto\\">
-    <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">18 Dec.</span>
-      <!--v-if-->
-      <!--v-if-->
-    </p>
-    <router-link-stub to=\\"[object Object]\\">
-      <booking-item-stub booking=\\"[object Object]\\" class=\\"m-3\\"></booking-item-stub>
-    </router-link-stub>
-  </div>
-  <div class=\\"w-full max-w-2xl mx-auto\\">
-    <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">8 Aug.</span>
-      <!--v-if-->
-      <!--v-if-->
-    </p>
-    <router-link-stub to=\\"[object Object]\\">
-      <booking-item-stub booking=\\"[object Object]\\" class=\\"m-3\\"></booking-item-stub>
-    </router-link-stub>
-  </div>
-</div>"
+</app-content-stub>"
 `;

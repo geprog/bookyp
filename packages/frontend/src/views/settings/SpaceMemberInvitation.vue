@@ -8,7 +8,7 @@
     />
     <IconButton type="submit" form="spaceMemberInvitationForm" icon="save" />
   </Header>
-  <div class="w-full max-w-2xl mx-auto">
+  <AppContent>
     <form
       v-if="invitation !== undefined"
       id="spaceMemberInvitationForm"
@@ -35,7 +35,7 @@
         @click="invitation!.role = 'admin'"
       />
     </form>
-  </div>
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -46,6 +46,7 @@ import { useRouter } from 'vue-router';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import InputField from '~/components/InputField.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
@@ -54,7 +55,7 @@ import useGet from '~/compositions/useGet';
 export default defineComponent({
   name: 'SpaceMemberInvitation',
 
-  components: { Header, IconButton, InputField, SelectableListItem },
+  components: { Header, IconButton, InputField, SelectableListItem, AppContent },
 
   props: {
     invitationId: {

@@ -1,5 +1,11 @@
 <template>
-  <form v-if="bookable" id="bookable" data-test="form" class="bookable mx-4" @submit.prevent="saveBookable">
+  <form
+    v-if="bookable"
+    id="bookable"
+    data-test="form"
+    class="bookable mx-4 mx-auto w-full"
+    @submit.prevent="saveBookable"
+  >
     <InputField icon-name="edit">
       <TextField v-model="bookableForm.name" data-test="form-name" :placeholder="t('name')" />
     </InputField>

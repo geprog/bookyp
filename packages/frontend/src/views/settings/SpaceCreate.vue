@@ -2,7 +2,9 @@
   <Header :title="t('space_create')" has-back>
     <IconButton type="submit" form="space" icon="save" />
   </Header>
-  <SpaceForm v-if="space" v-model:space="space" @save="saveSpace" />
+  <AppContent>
+    <SpaceForm v-if="space" v-model:space="space" @save="saveSpace" />
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -13,6 +15,7 @@ import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import SpaceForm from '~/components/space/SpaceForm.vue';
 import { user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
@@ -20,7 +23,7 @@ import useFeathers from '~/compositions/useFeathers';
 export default defineComponent({
   name: 'SpaceCreate',
 
-  components: { Header, IconButton, SpaceForm },
+  components: { Header, IconButton, SpaceForm, AppContent },
 
   setup() {
     const { t } = useI18n();

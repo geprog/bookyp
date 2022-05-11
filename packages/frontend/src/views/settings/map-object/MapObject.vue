@@ -1,43 +1,45 @@
 <template>
   <Header :title="isChoosingLink ? t('map_object.link_to_bookable') : t('map_object.edit')" has-back />
 
-  <div class="flex flex-col mx-auto w-full max-w-lg p-3">
-    <template v-if="isChoosingLink">
-      <SelectableListItem
-        v-for="bookable in bookables"
-        :key="bookable._id"
-        :selected="mapObject.bookable === bookable._id"
-        :label="bookable.name"
-        data-test="select-bookable"
-        class="cursor-pointer mb-3"
-        @click="selectBookable(bookable)"
-      />
-    </template>
+  <AppContent>
+    <div class="flex flex-col mx-auto w-full py-3">
+      <template v-if="isChoosingLink">
+        <SelectableListItem
+          v-for="bookable in bookables"
+          :key="bookable._id"
+          :selected="mapObject.bookable === bookable._id"
+          :label="bookable.name"
+          data-test="select-bookable"
+          class="cursor-pointer mb-3"
+          @click="selectBookable(bookable)"
+        />
+      </template>
 
-    <template v-else>
-      <IconListItem
-        v-if="linkedBookable"
-        icon="link"
-        :label="linkedBookable.name"
-        data-test="linked-bookable"
-        class="mb-3"
-      >
-        <template #end>
-          <IconButton icon="delete" data-test="unlink-button" @click="unlinkBookable" />
-        </template>
-      </IconListItem>
+      <template v-else>
+        <IconListItem
+          v-if="linkedBookable"
+          icon="link"
+          :label="linkedBookable.name"
+          data-test="linked-bookable"
+          class="mb-3"
+        >
+          <template #end>
+            <IconButton icon="delete" data-test="unlink-button" @click="unlinkBookable" />
+          </template>
+        </IconListItem>
 
-      <Button
-        icon="link"
-        :text="
-          mapObject.bookable
-            ? t('map_object.change_bookable_link').toUpperCase()
-            : t('map_object.link_to_bookable').toUpperCase()
-        "
-        @click="$router.push({ name: 'settings-map-object-link', params: { selectedMapObjectId: mapObject._id } })"
-      />
-    </template>
-  </div>
+        <Button
+          icon="link"
+          :text="
+            mapObject.bookable
+              ? t('map_object.change_bookable_link').toUpperCase()
+              : t('map_object.link_to_bookable').toUpperCase()
+          "
+          @click="$router.push({ name: 'settings-map-object-link', params: { selectedMapObjectId: mapObject._id } })"
+        />
+      </template>
+    </div>
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -49,6 +51,7 @@ import { useRoute, useRouter } from 'vue-router';
 import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import IconListItem from '~/components/list-items/IconListItem.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
@@ -58,7 +61,7 @@ import useGet from '~/compositions/useGet';
 export default defineComponent({
   name: 'MapObject',
 
-  components: { IconButton, Header, Button, SelectableListItem, IconListItem },
+  components: { AppContent, IconButton, Header, Button, SelectableListItem, IconListItem },
 
   props: {
     mapObject: {

@@ -3,13 +3,15 @@
     <IconButton type="submit" form="booking" icon="check-mark" />
   </Header>
 
-  <form id="booking" class="booking px-4" @submit.prevent="submit">
-    <InputField icon-name="document-one-page">
-      <TextField v-model="description" :placeholder="t('description')" />
-    </InputField>
+  <AppContent>
+    <form id="booking" class="booking px-4" @submit.prevent="submit">
+      <InputField icon-name="document-one-page">
+        <TextField v-model="description" :placeholder="t('description')" />
+      </InputField>
 
-    <DateRangePicker v-model:start="start" v-model:end="end" :bookings="bookings" />
-  </form>
+      <DateRangePicker v-model:start="start" v-model:end="end" :bookings="bookings" />
+    </form>
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -22,6 +24,7 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import InputField from '~/components/InputField.vue';
 import DateRangePicker from '~/components/inputs/DateRangePicker.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
@@ -33,7 +36,7 @@ import useGet from '~/compositions/useGet';
 export default defineComponent({
   name: 'Booking',
 
-  components: { Header, IconButton, InputField, TextField, DateRangePicker },
+  components: { Header, IconButton, InputField, TextField, DateRangePicker, AppContent },
 
   props: {
     bookableId: {
