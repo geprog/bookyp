@@ -5,6 +5,7 @@ import migrate from '~/migrations';
 import app from './app';
 import config from './config';
 import { connect as databaseConnect } from './database';
+import { init as initMail } from './mail';
 
 async function start(): Promise<void> {
   // eslint-disable-next-line no-console
@@ -17,6 +18,8 @@ async function start(): Promise<void> {
   const { port, host } = config().app;
 
   await databaseConnect();
+
+  initMail();
 
   const server = await app.listen(port, () => {
     lightship.signalReady();

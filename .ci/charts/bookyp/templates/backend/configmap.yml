@@ -12,3 +12,11 @@ data:
   BACKEND_KEYCLOAK_CLIENT: {{ .Values.backend.keycloak.client | quote }}
   BACKEND_KEYCLOAK_SECRET: {{ .Values.backend.keycloak.secret | quote }}
   BACKEND_DB_URI: {{ include "bookyp.backendDatabaseURI" . | quote }}
+  BACKEND_MAIL_HOST: {{ .Values.backend.mail.host | quote }}
+  BACKEND_MAIL_PORT: {{ .Values.backend.mail.port | quote }}
+  BACKEND_MAIL_USERNAME: {{ .Values.backend.mail.username | quote }}
+  BACKEND_MAIL_PASSWORD: {{ .Values.backend.mail.password | quote }}
+  BACKEND_MAIL_FROM: {{ .Values.backend.mail.from | quote }}
+  BACKEND_MAIL_SECURE: {{ .Values.backend.mail.secure | quote }}
+  BACKEND_MAIL_REQUIRE_TLS: {{ .Values.backend.mail.requireTls | quote }}
+  BACKEND_FRONTEND_URL: "https://{{ include "bookyp.frontendURL" . }}"
