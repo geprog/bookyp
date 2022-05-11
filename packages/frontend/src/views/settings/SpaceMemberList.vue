@@ -7,7 +7,7 @@
         v-if="spaceMembers.length < 10"
         :aria-label="t('invite_new_member')"
         icon="add"
-        class="mt-3 w-full"
+        class="w-full"
         :text="t('invite_new_member').toLocaleUpperCase()"
         data-test="button-invite-member"
         @click="$router.push({ name: 'settings-space-member-invite' })"

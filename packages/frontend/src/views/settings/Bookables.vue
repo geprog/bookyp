@@ -2,6 +2,15 @@
   <SettingsHeader :title="t('bookables')" />
 
   <div class="w-full max-w-2xl mx-auto">
+    <div class="m-3">
+      <Button
+        class="w-full"
+        icon="add"
+        data-test="button-add-bookable"
+        :text="t('bookable_create').toLocaleUpperCase()"
+        @click="$router.replace({ name: 'settings-bookable-create' })"
+      />
+    </div>
     <ListItem
       v-for="bookable in bookables"
       :key="bookable._id"
@@ -11,13 +20,6 @@
       data-test="bookable-item"
       @click="$router.push({ name: 'settings-bookable', params: { bookableId: bookable._id } })"
     />
-
-    <FloatingButton
-      :aria-label="t('bookable_create')"
-      class="fixed bottom-8 right-8"
-      icon="add"
-      @click="$router.replace({ name: 'settings-bookable-create' })"
-    />
   </div>
 </template>
 
@@ -25,7 +27,7 @@
 import { computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import FloatingButton from '~/components/buttons/FloatingButton.vue';
+import Button from '~/components/buttons/Button.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
@@ -34,9 +36,9 @@ import useFind from '~/compositions/useFind';
 export default defineComponent({
   name: 'Bookables',
   components: {
-    FloatingButton,
     ListItem,
     SettingsHeader,
+    Button,
   },
 
   setup() {
