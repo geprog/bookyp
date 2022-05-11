@@ -8,14 +8,16 @@
     />
   </Header>
 
-  <div class="mt-4 mx-4">
-    <h2 v-if="bookable" class="text-lg font-semibold">{{ bookable?.name }}</h2>
-    <div v-if="booking" class="flex flex-col">
-      <span>{{ t('start') }}: {{ dayjs(booking.start).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
-      <span>{{ t('end') }}: {{ dayjs(booking?.end).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
+  <AppContent>
+    <div class="mt-4">
+      <h2 v-if="bookable" class="text-lg font-semibold">{{ bookable?.name }}</h2>
+      <div v-if="booking" class="flex flex-col">
+        <span>{{ t('start') }}: {{ dayjs(booking.start).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
+        <span>{{ t('end') }}: {{ dayjs(booking?.end).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
+      </div>
+      <DeleteDialog data-test="delete-dialog" :visible="modalVisible" @confirmation="deleteBooking" />
     </div>
-    <DeleteDialog data-test="delete-dialog" :visible="modalVisible" @confirmation="deleteBooking" />
-  </div>
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -27,6 +29,7 @@ import { useRouter } from 'vue-router';
 import IconButton from '~/components/buttons/IconButton.vue';
 import DeleteDialog from '~/components/DeleteDialog.vue';
 import Header from '~/components/headers/Header.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
@@ -37,6 +40,7 @@ export default defineComponent({
     Header,
     IconButton,
     DeleteDialog,
+    AppContent,
   },
 
   props: {

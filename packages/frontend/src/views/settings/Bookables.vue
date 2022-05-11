@@ -1,7 +1,7 @@
 <template>
   <SettingsHeader :title="t('bookables')" />
 
-  <div class="w-full max-w-2xl mx-auto">
+  <AppContent>
     <div class="m-3">
       <Button
         class="w-full"
@@ -20,7 +20,7 @@
       data-test="bookable-item"
       @click="$router.push({ name: 'settings-bookable', params: { bookableId: bookable._id } })"
     />
-  </div>
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -29,6 +29,7 @@ import { useI18n } from 'vue-i18n';
 
 import Button from '~/components/buttons/Button.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
@@ -38,6 +39,7 @@ export default defineComponent({
   components: {
     ListItem,
     SettingsHeader,
+    AppContent,
     Button,
   },
 

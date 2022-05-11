@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BookableForm component Template should render correctly 1`] = `
-"<form id=\\"bookable\\" data-test=\\"form\\" class=\\"bookable mx-4\\">
+"<form id=\\"bookable\\" data-test=\\"form\\" class=\\"bookable mx-4 mx-auto w-full\\">
   <div icon-name=\\"edit\\">
     <text-field-stub modelvalue=\\"Couch\\" placeholder=\\"Mock translation\\" data-test=\\"form-name\\"></text-field-stub>
   </div>
@@ -12,7 +12,7 @@ exports[`BookableForm component Template should render correctly 1`] = `
 `;
 
 exports[`BookableForm component Template should render correctly with new bookable 1`] = `
-"<form id=\\"bookable\\" data-test=\\"form\\" class=\\"bookable mx-4\\">
+"<form id=\\"bookable\\" data-test=\\"form\\" class=\\"bookable mx-4 mx-auto w-full\\">
   <div icon-name=\\"edit\\">
     <text-field-stub modelvalue=\\"\\" placeholder=\\"Mock translation\\" data-test=\\"form-name\\"></text-field-stub>
   </div>

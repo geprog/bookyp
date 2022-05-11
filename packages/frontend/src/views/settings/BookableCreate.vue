@@ -2,7 +2,9 @@
   <Header :title="t('bookable_create')" has-back>
     <IconButton type="submit" form="bookable" icon="check-mark" />
   </Header>
-  <BookableForm v-if="bookable" v-model:bookable="bookable" data-test="bookable-form" @save="saveBookable" />
+  <AppContent>
+    <BookableForm v-if="bookable" v-model:bookable="bookable" data-test="bookable-form" @save="saveBookable" />
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -14,13 +16,14 @@ import { useRouter } from 'vue-router';
 import BookableForm from '~/components/bookables/BookableForm.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 
 export default defineComponent({
   name: 'BookableCreate',
 
-  components: { Header, BookableForm, IconButton },
+  components: { AppContent, Header, BookableForm, IconButton },
 
   setup() {
     const { t } = useI18n();

@@ -13,26 +13,28 @@
     </ExternalLink>
     <IconButton icon="sign-out" @click="logout" />
   </Header>
-  <div class="mt-4">
-    <div v-for="(bookings, date) in groupedBookings" :key="date" class="w-full max-w-2xl mx-auto">
-      <p data-test="groupByDates" class="ml-2">
-        <span class="font-bold">
-          {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}</span
+  <AppContent>
+    <div class="mt-4">
+      <div v-for="(bookings, date) in groupedBookings" :key="date">
+        <p data-test="groupByDates" class="ml-2">
+          <span class="font-bold">
+            {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}</span
+          >
+          <span v-if="dayjs().isSame(bookings[0].start, 'day')" class="ml-2 text-sm"> {{ t('today') }}</span>
+          <span v-if="dayjs().add(1, 'day').isSame(bookings[0].start, 'day')" class="ml-2 text-sm">{{
+            t('tomorrow')
+          }}</span>
+        </p>
+        <router-link
+          v-for="booking in bookings"
+          :key="booking._id"
+          :to="{ name: 'account-booking', params: { bookingId: booking._id } }"
         >
-        <span v-if="dayjs().isSame(bookings[0].start, 'day')" class="ml-2 text-sm"> {{ t('today') }}</span>
-        <span v-if="dayjs().add(1, 'day').isSame(bookings[0].start, 'day')" class="ml-2 text-sm">{{
-          t('tomorrow')
-        }}</span>
-      </p>
-      <router-link
-        v-for="booking in bookings"
-        :key="booking._id"
-        :to="{ name: 'account-booking', params: { bookingId: booking._id } }"
-      >
-        <BookingItem :booking="booking" class="m-3" />
-      </router-link>
+          <BookingItem :booking="booking" class="m-3" />
+        </router-link>
+      </div>
     </div>
-  </div>
+  </AppContent>
 </template>
 
 <script lang="ts">
@@ -46,6 +48,7 @@ import ExternalLink from '~/components/buttons/ExternalLink.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import Icon from '~/components/Icon.vue';
+import AppContent from '~/components/layout/AppContent.vue';
 import BookingItem from '~/components/list-items/BookingItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { logout, user } from '~/compositions/useAuthentication';
@@ -59,6 +62,7 @@ export default defineComponent({
     IconButton,
     ExternalLink,
     Icon,
+    AppContent,
   },
 
   setup() {

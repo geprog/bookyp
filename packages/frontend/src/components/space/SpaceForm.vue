@@ -1,5 +1,5 @@
 <template>
-  <form v-if="space" id="space" data-test="form" class="space mx-4" @submit.prevent="saveSpace">
+  <form v-if="space" id="space" data-test="form" class="space" @submit.prevent="saveSpace">
     <InputField icon-name="home">
       <TextField v-model="spaceCreate.name" data-test="form-name" :placeholder="t('name')" />
     </InputField>
@@ -11,12 +11,26 @@
     </InputField>
   </form>
 
-  <div v-if="isEditingSpace" class="flex flex-col flex-grow p-4 mt-8">
+  <div
+    v-if="isEditingSpace"
+    class="
+      flex flex-col
+      p-4
+      mt-10
+      sm:max-w-xl
+      <sm:max-w-xs
+      mx-auto
+      border-primary-dark border-2
+      shadow-full
+      text-center
+      rounded-md
+    "
+  >
     <h2 class="font-bold">{{ t('plan.plan') }}</h2>
 
     <p>{{ t('plan.free_plan_description', { amountOfMembers: spaceMembers.length }) }}</p>
 
-    <a :href="mailtoUpgrade" class="mx-auto">
+    <a :href="mailtoUpgrade" class="mx-auto mt-4">
       <Button :text="t('plan.upgrade')" />
     </a>
   </div>
