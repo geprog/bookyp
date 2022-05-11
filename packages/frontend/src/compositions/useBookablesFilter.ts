@@ -1,6 +1,6 @@
 import { Model } from '@bookyp/core';
 import { Params } from '@feathersjs/feathers';
-import { computed, ComputedRef, Ref, ref } from 'vue';
+import { computed, Ref, ref } from 'vue';
 
 import useFind from '~/compositions/useFind';
 
@@ -14,17 +14,17 @@ export const useBookablesFilter = (
   bookables?: Ref<Model.Bookable[]>,
 ): {
   bookablesFilter: Ref<BookablesFilter | undefined>;
-  bookablesWithFilterMatched: ComputedRef<BookableWithFilterMatched[]>;
+  bookablesWithFilterMatched: Ref<BookableWithFilterMatched[]>;
   isFilterMatched: (bookableID?: Model.Ref<Model.Bookable>) => boolean | null;
 } => {
-  const bookingsParams: ComputedRef<Params | null> = computed(() => {
+  const bookingsParams = computed<Params | null>(() => {
     if (!bookablesFilter.value) {
       return null;
     }
     return {
       query: {
-        start: { $lt: bookablesFilter.value.end },
-        end: { $gt: bookablesFilter.value.start },
+        start: { $lt: bookablesFilter.value.end?.toISOString() },
+        end: { $gt: bookablesFilter.value.start?.toISOString() },
       },
     };
   });
