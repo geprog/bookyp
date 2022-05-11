@@ -27,10 +27,12 @@
     "express": "4.17.1",
     "feathers-casl": "github:geprog/feathers-casl#4253644043fb8d4408c386f675a190d4451a29e7",
     "feathers-mongoose": "github:GEPROG/feathers-mongoose#c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed",
+    "handlebars": "4.7.7",
     "lightship": "6.7.2",
     "mongodb": "4.1.4",
     "mongodb-client-encryption": "1.2.7",
-    "mongoose": "6.0.14"
+    "mongoose": "6.0.14",
+    "nodemailer": "6.7.5"
   },
   "devDependencies": {
     "@babel/core": "7.13.10",
@@ -40,6 +42,7 @@
     "@jest/globals": "27.0.3",
     "@jest/types": "27.0.2",
     "@types/jest": "26.0.21",
+    "@types/nodemailer": "^6.4.4",
     "@types/supertest": "2.0.11",
     "esbuild": "0.9.6",
     "esbuild-jest": "0.5.0",

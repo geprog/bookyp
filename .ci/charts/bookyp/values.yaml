@@ -71,6 +71,15 @@ backend:
     username: ''
     password: ''
 
+  mail:
+    host: 'smtp.office365.com'
+    port: 587
+    username: 'bookyp@geprog.com'
+    password: ''
+    from: 'Bookyp <bookyp@geprog.com>'
+    secure: 'false'
+    requireTls: 'true'
+
   keycloak:
     subdomain: 'auth.geprog.com/auth/realms/bookyp'
     client: 'bookyp'

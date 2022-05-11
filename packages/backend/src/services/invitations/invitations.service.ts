@@ -8,6 +8,7 @@ import { authorizeWithFreshAbility, feathersCaslAllowlist } from '~/casl';
 import accept from './accept.hook';
 import addSpaceName from './addSpaceName.hook';
 import checkUserAlreadyInSpace from './checkUserAlreadyInSpace.hook';
+import sendSpaceInvitationMail from './sendInvitationMail';
 
 const InvitationSchema = new Schema<Model.Invitation>({
   role: { type: String, required: true },
@@ -31,7 +32,7 @@ export default (app: Application): void => {
   app.service(name).hooks({
     before: {
       all: [authenticate('jwt'), authorizeWithFreshAbility],
-      create: [checkUserAlreadyInSpace],
+      create: [checkUserAlreadyInSpace, sendSpaceInvitationMail],
       remove: [accept],
     },
     after: {

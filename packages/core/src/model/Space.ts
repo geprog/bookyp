@@ -1,7 +1,7 @@
 import AbstractEntity, { Ref } from '~/model/AbstractEntity';
 import User from '~/model/User';
 
-type Member = {
+export type Member = {
   role: 'admin' | 'user';
   userId: Ref<User>;
   name?: User['name'];

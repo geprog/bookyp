@@ -44,6 +44,7 @@ importers:
       '@jest/globals': 27.0.3
       '@jest/types': 27.0.2
       '@types/jest': 26.0.21
+      '@types/nodemailer': ^6.4.4
       '@types/supertest': 2.0.11
       esbuild: 0.9.6
       esbuild-jest: 0.5.0
@@ -52,12 +53,14 @@ importers:
       feathers-casl: github:geprog/feathers-casl#4253644043fb8d4408c386f675a190d4451a29e7
       feathers-memory: 4.1.0
       feathers-mongoose: github:GEPROG/feathers-mongoose#c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed
+      handlebars: 4.7.7
       jest: 27.0.4
       jest-junit: 12.2.0
       lightship: 6.7.2
       mongodb: 4.1.4
       mongodb-client-encryption: 1.2.7
       mongoose: 6.0.14
+      nodemailer: 6.7.5
       nodemon: 2.0.15
       supertest: 6.1.3
       tsconfig-paths: 3.9.0
@@ -77,10 +80,12 @@ importers:
       express: 4.17.1
       feathers-casl: github.com/geprog/feathers-casl/4253644043fb8d4408c386f675a190d4451a29e7
       feathers-mongoose: github.com/GEPROG/feathers-mongoose/c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed_mongoose@6.0.14
+      handlebars: 4.7.7
       lightship: 6.7.2
       mongodb: 4.1.4
       mongodb-client-encryption: 1.2.7_mongodb@4.1.4
       mongoose: 6.0.14
+      nodemailer: 6.7.5
     devDependencies:
       '@babel/core': 7.13.10
       '@babel/plugin-transform-modules-commonjs': 7.13.8_@babel+core@7.13.10
@@ -89,6 +94,7 @@ importers:
       '@jest/globals': 27.0.3
       '@jest/types': 27.0.2
       '@types/jest': 26.0.21
+      '@types/nodemailer': 6.4.4
       '@types/supertest': 2.0.11
       esbuild: 0.9.6
       esbuild-jest: 0.5.0_esbuild@0.9.6
@@ -5804,6 +5810,12 @@ packages:
   /@types/node/17.0.21:
     resolution: {integrity: sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==}
 
+  /@types/nodemailer/6.4.4:
+    resolution: {integrity: sha512-Ksw4t7iliXeYGvIQcSIgWQ5BLuC/mljIEbjf615svhZL10PE9t+ei8O9gDaD3FPCasUJn9KTLwz2JFJyiiyuqw==}
+    dependencies:
+      '@types/node': 17.0.21
+    dev: true
+
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
     dev: true
@@ -11151,7 +11163,6 @@ packages:
       wordwrap: 1.0.0
     optionalDependencies:
       uglify-js: 3.15.0
-    dev: true
 
   /has-bigints/1.0.1:
     resolution: {integrity: sha512-LSBS2LjbNBTf6287JEbEzvJgftkF5qFkmCo9hDRpAzKhUOlJ+hx8dd4USs00SgsUNwc4617J9ki5YtEClM2ffA==}
@@ -13796,7 +13807,6 @@ packages:
 
   /neo-async/2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
-    dev: true
 
   /nested-error-stacks/2.1.0:
     resolution: {integrity: sha512-AO81vsIO1k1sM4Zrd6Hu7regmJN1NSiAja10gc4bX3F0wd+9rQmcuHQaHVQCYIEC8iFXnE+mavh23GOt7wBgug==}
@@ -13877,6 +13887,11 @@ packages:
   /node-releases/2.0.2:
     resolution: {integrity: sha512-XxYDdcQ6eKqp/YjI+tb2C5WM2LgjnZrfYg4vgQt49EK268b6gYCHsBLrK2qvJo4FmCtqmKezb0WZFK4fkrZNsg==}
     dev: true
+
+  /nodemailer/6.7.5:
+    resolution: {integrity: sha512-6VtMpwhsrixq1HDYSBBHvW0GwiWawE75dS3oal48VqRhUvKJNnKnJo2RI/bCVQubj1vgrgscMNW4DHaD6xtMCg==}
+    engines: {node: '>=6.0.0'}
+    dev: false
 
   /nodemon/2.0.15:
     resolution: {integrity: sha512-gdHMNx47Gw7b3kWxJV64NI+Q5nfl0y5DgDbiVtShiwa7Z0IZ07Ll4RLFo6AjrhzMtoEZn5PDE3/c2AbVsiCkpA==}
@@ -17438,7 +17453,6 @@ packages:
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true
-    dev: true
     optional: true
 
   /uid-safe/2.1.5:
@@ -18469,7 +18483,6 @@ packages:
 
   /wordwrap/1.0.0:
     resolution: {integrity: sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=}
-    dev: true
 
   /worker-farm/1.7.0:
     resolution: {integrity: sha512-rvw3QTZc8lAxyVrqcSGVm5yP/IJ2UcB3U0graE3LCFoZ0Yn2x4EoVSqJKdB/T5M+FLcRPjz4TDacRf3OCfNUzw==}
