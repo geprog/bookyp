@@ -5,7 +5,7 @@ test('Add a bookable and find it in the settings bookables list', async ({ page 
   await page.goto('/');
   await page.click('[data-test="button-settings"]');
   await page.click('[data-test="button-bookables"]');
-  await page.click('[aria-label="Create bookable"]');
+  await page.click('[data-test="button-add-bookable"]');
   await page.fill('[data-test="form-name"]', SampleModel.sampleBookableThird.name);
   await page.fill('[data-test="form-description"]', SampleModel.sampleBookableThird.description);
   await page.click('button[type="submit"]');

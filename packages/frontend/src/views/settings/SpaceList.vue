@@ -7,7 +7,7 @@
         :aria-label="t('space_create')"
         icon="add"
         :text="t('space_create').toLocaleUpperCase()"
-        class="mt-3 w-full"
+        class="w-full"
         @click="$router.push({ name: 'space-create' })"
       />
     </div>

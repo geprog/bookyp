@@ -49,6 +49,7 @@ test('Create a space and add a mapObject', async ({ page }) => {
   await page.click('[data-test="button-settings"]');
   await page.click('[data-test="add-map-object-button"]');
   await page.click('[data-test="save-button"]');
+  await expect(page).toHaveURL('/settings/space/map');
   await expect(page.locator('#app > div > div > svg > g')).toHaveCount(1);
   expect(await page.screenshot()).toMatchSnapshot('add-map-object.png');
 });
