@@ -13,8 +13,8 @@
         @click="$router.push({ name: 'settings-space-member-invite' })"
       />
 
-      <router-link v-else :to="{ name: 'settings-space-edit' }" class="flex">
-        <Button icon="info" :text="t('plan.max_members_reached')" />
+      <router-link v-else :to="{ name: 'settings-space-edit' }">
+        <Button icon="info" class="w-full" :text="t('plan.max_members_reached')" />
       </router-link>
     </div>
 
