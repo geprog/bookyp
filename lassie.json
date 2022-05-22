@@ -2,7 +2,7 @@
   "plugins": {
     "auto_merge": {
       "squash": true,
-      "neededLabels": ["👀 Ready for Review"],
+      "neededLabels": ["Status:: 👀 Ready for Review"],
       "neededApprovals": [
         {
           "users": ["a.bracke", "l.hass", "r.schwinger", "m.heine", "m.das"],
