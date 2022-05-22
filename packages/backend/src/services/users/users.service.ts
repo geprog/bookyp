@@ -8,6 +8,8 @@ import { Document, model, Schema } from 'mongoose';
 import { feathersCaslAllowlist } from '~/casl';
 import { defineAbilitiesFor } from '~/services/authentication/authentication.abilities';
 
+import emailToLowerCase from './emailToLowerCase.hook';
+
 const UserSchema = new Schema<Model.User>({
   name: { type: String },
   email: { type: String, required: true, unique: true },
@@ -42,7 +44,7 @@ export default (app: Application): void => {
         },
         authorize({ adapter: 'feathers-mongoose' }),
       ],
-      create: [authorize({ adapter: 'feathers-mongoose' })],
+      create: [authorize({ adapter: 'feathers-mongoose' }), emailToLowerCase],
       patch: [authorize({ adapter: 'feathers-mongoose' })],
       update: [authorize({ adapter: 'feathers-mongoose' })],
       remove: [authorize({ adapter: 'feathers-mongoose' })],
