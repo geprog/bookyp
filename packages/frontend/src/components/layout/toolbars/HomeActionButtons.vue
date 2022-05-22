@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import dayjs from 'dayjs';
-import { computed, defineComponent, onMounted } from 'vue';
+import { computed, defineComponent, onBeforeUnmount, onMounted, ref } from 'vue';
 
 import HourControlButton from '~/components/buttons/HourControlButton.vue';
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
@@ -48,6 +48,8 @@ export default defineComponent({
       },
     });
 
+    const startUpdateInterval = ref<ReturnType<typeof setTimeout>>();
+
     onMounted(() => {
       if (bookablesFilter.value === undefined) {
         bookablesFilter.value = {
@@ -55,6 +57,24 @@ export default defineComponent({
           end: dayjs().add(2, 'hour').toDate(),
           quickFilterEnabled: true,
         };
+      }
+
+      // update start of quick filter every minute. end date will be adjusted accordingly by watcher
+      startUpdateInterval.value = setInterval(() => {
+        if (!bookablesFilter.value?.quickFilterEnabled) {
+          return;
+        }
+
+        bookablesFilter.value = {
+          ...bookablesFilter.value,
+          start: new Date(),
+        };
+      }, 1000 * 60);
+    });
+
+    onBeforeUnmount(() => {
+      if (startUpdateInterval.value) {
+        clearInterval(startUpdateInterval.value);
       }
     });
 
