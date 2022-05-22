@@ -8,6 +8,7 @@ import { authorizeWithFreshAbility, feathersCaslAllowlist } from '~/casl';
 import accept from './accept.hook';
 import addSpaceName from './addSpaceName.hook';
 import checkUserAlreadyInSpace from './checkUserAlreadyInSpace.hook';
+import emailToLowerCase from './emailToLowerCase.hook';
 import sendSpaceInvitationMail from './sendInvitationMail';
 
 const InvitationSchema = new Schema<Model.Invitation>({
@@ -32,7 +33,7 @@ export default (app: Application): void => {
   app.service(name).hooks({
     before: {
       all: [authenticate('jwt'), authorizeWithFreshAbility],
-      create: [checkUserAlreadyInSpace, sendSpaceInvitationMail],
+      create: [emailToLowerCase, checkUserAlreadyInSpace, sendSpaceInvitationMail],
       remove: [accept],
     },
     after: {

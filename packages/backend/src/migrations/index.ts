@@ -4,6 +4,7 @@ import { Db, MongoClient } from 'mongodb';
 import { getConnectionUri } from '~/database';
 import { addExistingUsersToSpace } from '~/migrations/addExistingUsersToSpace';
 import { addSpaceReference } from '~/migrations/addSpaceReference';
+import { emailsToLowerCase } from '~/migrations/emailsToLowerCase';
 import { refactorFloorPlan } from '~/migrations/refactorFloorPlan';
 import { seed } from '~/migrations/seed';
 import { setExplicitSpaceId } from '~/migrations/setExplicitSpaceId';
@@ -17,6 +18,7 @@ const migrations: Migration[] = [
   refactorFloorPlan,
   addExistingUsersToSpace,
   setSpaceName,
+  emailsToLowerCase,
 ];
 
 const migrationStore = new MongoMigrationStore();
