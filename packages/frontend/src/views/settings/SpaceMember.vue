@@ -39,7 +39,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRef } from 'vue';
+import { Model } from '@bookyp/core';
+import { computed, defineComponent, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -73,10 +74,16 @@ export default defineComponent({
     const spaceMemberIndex = computed(() =>
       (currentSpace.value?.members || []).findIndex((member) => member.userId === spaceMemberId.value),
     );
-    const spaceMember = computed(() =>
-      currentSpace.value && spaceMemberIndex.value !== undefined
-        ? { ...currentSpace.value.members[spaceMemberIndex.value] }
-        : undefined,
+
+    const spaceMember = ref<Model.Member>();
+    watch(
+      currentSpace,
+      () => {
+        if (spaceMemberIndex.value !== undefined) {
+          spaceMember.value = currentSpace.value?.members[spaceMemberIndex.value];
+        }
+      },
+      { immediate: true },
     );
 
     const saveSpaceMember = async () => {
