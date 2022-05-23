@@ -572,6 +572,7 @@ production-prepare:
     - lint-core
     - helm-lint
     - spell-check
+    - e2e-run
   script:
     - kubectl create namespace $KUBE_NAMESPACE || true
     - >
