@@ -7,6 +7,7 @@ import { Document, model, Schema } from 'mongoose';
 import { feathersCaslAllowlist } from '~/casl';
 
 import addSpaceMemberFields from './addSpaceMemberFields.hook';
+import removePlanFromCreate from './removePlanFromCreate.hook';
 
 const SpaceSchema = new Schema<Model.Space>({
   floorPlan: { type: [String], required: true },
@@ -19,6 +20,7 @@ const SpaceSchema = new Schema<Model.Space>({
   name: { type: String, required: true },
   description: { type: String },
   address: { type: String },
+  plan: { type: String },
 });
 
 export const name = 'spaces';
@@ -35,6 +37,7 @@ export default (app: Application): void => {
   app.service(name).hooks({
     before: {
       all: [authenticate('jwt'), authorize({ adapter: 'feathers-mongoose' })],
+      create: [removePlanFromCreate],
     },
     after: {
       all: [addSpaceMemberFields, authorize({ adapter: 'feathers-mongoose' })],

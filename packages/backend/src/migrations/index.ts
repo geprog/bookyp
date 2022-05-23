@@ -8,6 +8,7 @@ import { emailsToLowerCase } from '~/migrations/emailsToLowerCase';
 import { refactorFloorPlan } from '~/migrations/refactorFloorPlan';
 import { seed } from '~/migrations/seed';
 import { setExplicitSpaceId } from '~/migrations/setExplicitSpaceId';
+import { setGeprogSpacePlanSponsored } from '~/migrations/setGeprogSpacePlanSponsored';
 import { setSpaceName } from '~/migrations/setSpaceName';
 
 // migrations are applied in the order defined here
@@ -19,6 +20,7 @@ const migrations: Migration[] = [
   addExistingUsersToSpace,
   setSpaceName,
   emailsToLowerCase,
+  setGeprogSpacePlanSponsored,
 ];
 
 const migrationStore = new MongoMigrationStore();

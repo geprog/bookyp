@@ -4,7 +4,7 @@
   <AppContent>
     <div class="m-3">
       <Button
-        v-if="spaceMembers.length < 10"
+        v-if="spaceMembers.length < 10 || currentSpace?.plan === 'sponsored'"
         :aria-label="t('invite_new_member')"
         icon="add"
         class="w-full"
@@ -91,7 +91,7 @@ export default defineComponent({
 
     const spaceMembers = computed(() => currentSpace.value?.members || []);
 
-    return { t, spaceMembers, invitations, user, editSpaceMember };
+    return { t, spaceMembers, invitations, user, editSpaceMember, currentSpace };
   },
 });
 </script>
