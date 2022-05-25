@@ -1,5 +1,6 @@
 tasks:
   - init: |
+      npm install -g pnpm@6
       pnpm install
       pnpm run build:libs
       cp docs/.env.example .env
