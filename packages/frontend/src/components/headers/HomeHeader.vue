@@ -2,7 +2,7 @@
   <Header :title="title" has-logo>
     <template #start>
       <router-link :to="{ name: 'spaces-list' }" data-test="spaces-button">
-        <BookypIcon class="min-w-max" />
+        <BookypIcon />
       </router-link>
     </template>
     <div class="relative">
