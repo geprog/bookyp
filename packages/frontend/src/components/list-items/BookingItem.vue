@@ -1,9 +1,17 @@
 <template>
-  <ListItem
-    data-test="booking-item"
-    :label="bookable ? bookable.name : t('no_bookable')"
-    :description="`${dayjs(booking.start).format('HH:mm')} - ${bookingEnd}`"
-  />
+  <ListItem data-test="booking-item">
+    <div class="flex ml-3 flex-grow min-w-0 py-1">
+      <div class="flex flex-col min-w-0 flex-grow space-y-1">
+        <span data-test="label" class="text-base truncate text-gray-900">{{
+          bookable ? bookable.name : t('no_bookable')
+        }}</span>
+        <span data-test="description" class="w-full text-sm truncate text-gray-500 italic">{{ space?.name }}</span>
+      </div>
+      <div data-test="booking-duration" class="flex ml-3 text-gray-500 text-sm">
+        {{ `${dayjs(booking.start).format('HH:mm')} - ${bookingEnd}` }}
+      </div>
+    </div>
+  </ListItem>
 </template>
 
 <script lang="ts">
@@ -30,6 +38,10 @@ export default defineComponent({
   setup(props) {
     const { t } = useI18n();
     const booking = toRef(props, 'booking');
+    const { data: space } = useGet(
+      'spaces',
+      computed(() => booking.value.space),
+    );
     const bookableId = computed(() => booking.value.bookable);
     const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
     const bookingEnd = computed(() => {
@@ -39,7 +51,7 @@ export default defineComponent({
       return dayjs(booking.value.end).format('HH:mm');
     });
 
-    return { bookable, dayjs, t, bookingEnd };
+    return { bookable, space, dayjs, t, bookingEnd };
   },
 });
 </script>

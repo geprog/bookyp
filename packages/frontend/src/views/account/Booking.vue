@@ -9,11 +9,12 @@
   </Header>
 
   <AppContent>
-    <div class="mt-4">
-      <h2 v-if="bookable" class="text-lg font-semibold">{{ bookable?.name }}</h2>
-      <div v-if="booking" class="flex flex-col">
-        <span>{{ t('start') }}: {{ dayjs(booking.start).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
-        <span>{{ t('end') }}: {{ dayjs(booking?.end).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
+    <div v-if="bookable" class="flex flex-col p-3 rounded-lg shadow-full bg-white m-3 gap-y-1">
+      <h2 class="text-md">{{ bookable?.name }}</h2>
+      <p class="italic text-sm text-gray-500">{{ space?.name }}</p>
+      <div v-if="booking" class="grid grid-cols-[auto,1fr] grid-rows-2 text-gray-500 text-sm gap-1">
+        <span> {{ t('start') }}:</span><span>{{ dayjs(booking.start).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
+        <span>{{ t('end') }}:</span><span>{{ dayjs(booking?.end).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
       </div>
       <DeleteDialog data-test="delete-dialog" :visible="modalVisible" @confirmation="deleteBooking" />
     </div>
@@ -57,6 +58,10 @@ export default defineComponent({
 
     const bookingId = toRef(props, 'bookingId');
     const { data: booking } = useGet('bookings', bookingId);
+    const { data: space } = useGet(
+      'spaces',
+      computed(() => booking.value?.space),
+    );
 
     const bookableId = computed(() => booking.value?.bookable);
     const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
@@ -71,7 +76,7 @@ export default defineComponent({
       router.back();
     }
 
-    return { t, booking, bookable, dayjs, deleteBooking, modalVisible };
+    return { t, booking, bookable, space, dayjs, deleteBooking, modalVisible };
   },
 });
 </script>
