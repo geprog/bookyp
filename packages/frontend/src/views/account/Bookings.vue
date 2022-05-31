@@ -50,7 +50,6 @@ import Header from '~/components/headers/Header.vue';
 import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import BookingItem from '~/components/list-items/BookingItem.vue';
-import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { logout, user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
 
@@ -67,12 +66,10 @@ export default defineComponent({
 
   setup() {
     const { t } = useI18n();
-    const { spaceId } = useCurrentSpace();
 
     const bookingsQuery = computed(() => ({
       query: {
         bookedBy: user.value?._id,
-        space: spaceId.value,
         end: { $gte: dayjs().toISOString() },
       },
     }));

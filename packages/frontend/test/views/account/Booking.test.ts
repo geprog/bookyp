@@ -4,6 +4,7 @@ import { nextTick } from 'vue';
 import Booking from '~/views/account/Booking.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
 import { sampleBooking } from '$/__fixtures__/booking';
+import { sampleSpace } from '$/__fixtures__/space';
 import { prepareUseFeathersMockOnce, prepareUseGetMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useGet');
@@ -15,6 +16,7 @@ describe('Booking view', () => {
   it('should render correctly', () => {
     // given
     prepareUseGetMockOnce(sampleBooking);
+    prepareUseGetMockOnce(sampleSpace);
     prepareUseGetMockOnce(sampleBookable);
     prepareUseRouterMockOnce();
 
@@ -33,6 +35,7 @@ describe('Booking view', () => {
     expect.assertions(1);
     // given
     prepareUseGetMockOnce(sampleBooking);
+    prepareUseGetMockOnce(sampleSpace);
     prepareUseGetMockOnce(sampleBookable);
     prepareUseRouterMockOnce();
     const useFeathersMock = prepareUseFeathersMockOnce();
