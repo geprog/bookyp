@@ -49,6 +49,7 @@ import ButtonPair from '~/components/buttons/ButtonPair.vue';
 import InfoBox from '~/components/InfoBox.vue';
 import InputField from '~/components/InputField.vue';
 import DateTimePicker from '~/components/inputs/DateTimePicker.vue';
+import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 
 export default defineComponent({
   name: 'DateRangePicker',
@@ -89,8 +90,10 @@ export default defineComponent({
     const start = toRef(props, 'start');
     const end = toRef(props, 'end');
     const { t } = useI18n();
+    const { bookablesFilter } = useBookablesFilter();
 
     const viewStartDate = ref<Date>();
+    const hasActiveBookablesFilter = computed(() => !bookablesFilter.value?.quickFilterEnabled);
 
     const fullCalendar = ref<InstanceType<typeof FullCalendar>>();
     const api = ref<Calendar>();
@@ -147,6 +150,7 @@ export default defineComponent({
       height: '70vh',
       headerToolbar: false,
       initialView: 'timeGridFourDay',
+      initialDate: !hasActiveBookablesFilter.value ? dayjs().toISOString() : bookablesFilter.value?.start,
       nowIndicator: true,
       validRange: {
         start: dayjs().toISOString(),
