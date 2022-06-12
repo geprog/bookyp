@@ -69,6 +69,8 @@
     "plan": "Plan",
     "free_plan_description": "You are currently using the free-plan with {amountOfMembers} of 10 members.",
     "upgrade": "Upgrade plan",
-    "max_members_reached": "Please upgrade your plan to add more than 10 members."
+    "max_members_reached": "Please upgrade your plan to add more than 10 members.",
+    "public_plan_description": "You are currently using the public-plan.",
+    "change": "Change plan"
   }
 }

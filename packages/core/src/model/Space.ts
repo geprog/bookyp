@@ -8,7 +8,7 @@ export type Member = {
   email?: User['email'];
 };
 
-export type Plan = 'sponsored';
+export type Plan = 'sponsored' | 'public';
 
 export default class Space extends AbstractEntity {
   floorPlan!: string[];

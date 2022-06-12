@@ -16,12 +16,20 @@ const defineRulesFor = async (
   // also see https://casl.js.org/v5/en/guide/define-rules
 
   // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { can, rules } = new AbilityBuilder(Ability);
+  const { can, cannot, rules } = new AbilityBuilder(Ability);
 
   can('get', 'users', { _id: user._id });
 
   can('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address'], {
     members: { $elemMatch: { role: 'user', userId: user._id } },
+  });
+  can('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address'], {
+    plan: 'public',
+  });
+  // this cannot rule ensures that admins work properly for public spaces
+  cannot('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address'], {
+    members: { $elemMatch: { role: 'admin', userId: user._id } },
+    plan: 'public',
   });
   can('read', 'spaces', { members: { $elemMatch: { role: 'admin', userId: user._id } } });
   can('update', 'spaces', ['floorPlan', 'members', 'name', 'description', 'address'], {
@@ -29,18 +37,20 @@ const defineRulesFor = async (
   });
   can('create', 'spaces');
 
-  const spaces = (await app
-    .service('spaces')
-    .find({ query: { members: { $elemMatch: { userId: user._id } } } })) as Model.Space[];
+  const spaces = (await app.service('spaces').find({
+    query: { $or: [{ members: { $elemMatch: { userId: user._id } } }, { plan: 'public' }] },
+  })) as Model.Space[];
 
-  const getSpaceIds = (role: string) => {
-    const spacesWhereUserHasRole = spaces.filter((space) =>
-      space.members.some((member) => member.role === role && member.userId === user._id.toString()),
+  const getSpaceIds = (role: string, includePublic = false) => {
+    const spacesWhereUserHasRole = spaces.filter(
+      (space) =>
+        (space.plan === 'public' && includePublic) ||
+        space.members.some((member) => member.role === role && member.userId === user._id.toString()),
     );
     return spacesWhereUserHasRole.map((space) => space._id.toString());
   };
 
-  const spaceIdsUser = getSpaceIds('user');
+  const spaceIdsUser = getSpaceIds('user', true);
   const spaceIdsAdmin = getSpaceIds('admin');
 
   can('read', 'bookables', { space: { $in: spaceIdsUser } });
