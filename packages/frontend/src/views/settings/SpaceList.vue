@@ -82,7 +82,7 @@ export default defineComponent({
 
     const { data: spaces } = useFind(
       'spaces',
-      computed(() => ({ paginate: false, query: { members: { $elemMatch: { userId: user.value?._id } } } })),
+      computed(() => ({ paginate: false })),
     );
 
     const { data: invitations } = useFind(

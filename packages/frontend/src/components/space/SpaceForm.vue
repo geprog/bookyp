@@ -28,11 +28,20 @@
   >
     <h2 class="font-bold">{{ t('plan.plan') }}</h2>
 
-    <p>{{ t('plan.free_plan_description', { amountOfMembers: spaceMembers.length }) }}</p>
+    <template v-if="space.plan === 'public'">
+      <p>{{ t('plan.public_plan_description') }}</p>
 
-    <a :href="mailtoUpgrade" class="mx-auto mt-4">
-      <Button :text="t('plan.upgrade')" />
-    </a>
+      <a :href="mailtoUpgrade" class="mx-auto mt-4">
+        <Button :text="t('plan.change')" />
+      </a>
+    </template>
+    <template v-else>
+      <p>{{ t('plan.free_plan_description', { amountOfMembers: spaceMembers.length }) }}</p>
+
+      <a :href="mailtoUpgrade" class="mx-auto mt-4">
+        <Button :text="t('plan.upgrade')" />
+      </a>
+    </template>
   </div>
 </template>
 
