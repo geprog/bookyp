@@ -6,6 +6,8 @@ import { addExistingUsersToSpace } from '~/migrations/addExistingUsersToSpace';
 import { addSpaceReference } from '~/migrations/addSpaceReference';
 import { emailsToLowerCase } from '~/migrations/emailsToLowerCase';
 import { refactorFloorPlan } from '~/migrations/refactorFloorPlan';
+import { scaleFloorPlans } from '~/migrations/scaleFloorPlans';
+import { scaleMapObjects } from '~/migrations/scaleMapObjects';
 import { seed } from '~/migrations/seed';
 import { setExplicitSpaceId } from '~/migrations/setExplicitSpaceId';
 import { setGeprogSpacePlanSponsored } from '~/migrations/setGeprogSpacePlanSponsored';
@@ -21,6 +23,8 @@ const migrations: Migration[] = [
   setSpaceName,
   emailsToLowerCase,
   setGeprogSpacePlanSponsored,
+  scaleMapObjects,
+  scaleFloorPlans,
 ];
 
 const migrationStore = new MongoMigrationStore();
