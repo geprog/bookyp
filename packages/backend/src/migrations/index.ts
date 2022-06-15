@@ -4,6 +4,7 @@ import { Db, MongoClient } from 'mongodb';
 import { getConnectionUri } from '~/database';
 import { addExistingUsersToSpace } from '~/migrations/addExistingUsersToSpace';
 import { addSpaceReference } from '~/migrations/addSpaceReference';
+import { customizeWaterkantSpace } from '~/migrations/customizeWaterkantSpace';
 import { emailsToLowerCase } from '~/migrations/emailsToLowerCase';
 import { refactorFloorPlan } from '~/migrations/refactorFloorPlan';
 import { scaleFloorPlans } from '~/migrations/scaleFloorPlans';
@@ -25,6 +26,7 @@ const migrations: Migration[] = [
   setGeprogSpacePlanSponsored,
   scaleMapObjects,
   scaleFloorPlans,
+  customizeWaterkantSpace,
 ];
 
 const migrationStore = new MongoMigrationStore();
