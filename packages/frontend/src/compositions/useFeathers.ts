@@ -35,7 +35,7 @@ export function init(): void {
 
   app.configure(
     auth({
-      storageKey: 'auth',
+      storageKey: 'bookyp.auth',
     }),
   );
 }

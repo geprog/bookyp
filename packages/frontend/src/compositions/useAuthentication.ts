@@ -46,7 +46,7 @@ export async function reAuthenticate(): Promise<void> {
     const error = e as FeathersError;
 
     // remove token if it seems to be invalid
-    if (error.code === 401) {
+    if (error.code === 401 || error.code === 404) {
       feathers.authentication.removeAccessToken();
       return;
     }
