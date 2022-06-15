@@ -55,7 +55,7 @@ import { useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { Mode } from '~/views/settings/Space.vue';
 
-const wallRegex = /^M(?<x>-?\d+\.?\d*) (?<y>-?\d+\.?\d*) L(?<x2>-?\d+\.?\d*) (?<y2>-?\d+\.?\d*)$/;
+const wallRegex = /^M(?<x>-?\d+\.?\d*) (?<y>-?\d+\.?\d*)\s*L(?<x2>-?\d+\.?\d*) (?<y2>-?\d+\.?\d*)$/;
 
 type Position = {
   x: number;
