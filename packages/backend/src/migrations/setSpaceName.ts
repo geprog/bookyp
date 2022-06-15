@@ -13,7 +13,7 @@ export const setSpaceName: Migration = {
       throw new Error('Please pass a context with a db object');
     }
     const { db } = context;
-    await db.collection<Space>('spaces').updateMany({}, { $set: { name: 'New Space' } });
+    await db.collection<Space>('spaces').updateMany({ name: undefined }, { $set: { name: 'New Space' } });
   },
   async down(context) {
     if (!context || !context.db) {

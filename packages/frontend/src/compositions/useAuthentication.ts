@@ -3,6 +3,7 @@ import { FeathersError } from '@feathersjs/errors';
 import { getEnvConfig } from '@geprog/vite-plugin-env-config';
 import { computed, ref } from 'vue';
 
+import { ability } from '~/compositions/useAuthorization';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 
 export const user = ref<Model.User>();
@@ -36,6 +37,11 @@ export async function reAuthenticate(): Promise<void> {
     await feathers.reAuthenticate();
     const authentication = await feathers.get('authentication');
     user.value = authentication ? authentication.user : undefined;
+    if (authentication) {
+      ability.value.update(authentication.rules);
+    } else {
+      ability.value.update([]);
+    }
   } catch (e) {
     const error = e as FeathersError;
 

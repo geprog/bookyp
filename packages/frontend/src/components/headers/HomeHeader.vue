@@ -41,14 +41,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import BookypIcon from '~/assets/icons/bookyp.svg?component';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
-import { user } from '~/compositions/useAuthentication';
+import { isSpaceAdmin } from '~/compositions/useAuthorization';
 import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 
 export default defineComponent({
@@ -64,8 +64,18 @@ export default defineComponent({
     const { t } = useI18n();
 
     const { currentSpace } = useCurrentSpace();
-    const isAdmin = computed(() =>
-      currentSpace.value?.members?.some((member) => member.userId === user.value?._id && member.role === 'admin'),
+
+    const isAdmin = ref<boolean>(false);
+    watch(
+      currentSpace,
+      async () => {
+        if (currentSpace.value === undefined) {
+          isAdmin.value = false;
+          return;
+        }
+        isAdmin.value = await isSpaceAdmin(currentSpace.value);
+      },
+      { immediate: true },
     );
 
     const title = computed(() => currentSpace.value?.name || t('bookyp').toUpperCase());

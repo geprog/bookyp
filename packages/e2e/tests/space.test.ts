@@ -71,3 +71,11 @@ test('Create a space and invite a member', async ({ page }) => {
   await expect(page.locator('[data-test="invitation-item"]')).toContainText(email);
   expect(await page.screenshot()).toMatchSnapshot('invited-member.png');
 });
+
+test('Select a space with user role and try accessing admin route', async ({ page }) => {
+  await page.goto('/');
+  await page.click('[data-test="spaces-button"]');
+  await page.locator('[data-test="space-item"]', { hasText: 'user' }).click();
+  await page.goto('/settings/space/map');
+  await expect(page).toHaveURL('/bookables/map');
+});
