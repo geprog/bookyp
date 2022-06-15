@@ -1,4 +1,5 @@
 import { Application, createApplication, Model } from '@bookyp/core';
+import { Ability, ExtractSubjectType, MongoQuery, Subject, SubjectRawRule } from '@casl/ability';
 import { AdapterService } from '@feathersjs/adapter-commons';
 import auth from '@feathersjs/authentication-client';
 import { Application as FeathersApplication, Id, ServiceMethods } from '@feathersjs/feathers';
@@ -8,6 +9,8 @@ import { io, Socket } from 'socket.io-client';
 
 interface AuthenticationResult {
   user: Model.User;
+  ability: Ability;
+  rules: SubjectRawRule<string, ExtractSubjectType<Subject>, MongoQuery<unknown>>[];
 }
 
 export type ClientApplication = Application & {

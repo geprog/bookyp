@@ -1,13 +1,6 @@
-import type { Application, Model } from '@bookyp/core';
+import { Application, Model, resolveAction } from '@bookyp/core';
 import { ExtractSubjectType, MongoQuery, Subject, SubjectRawRule } from '@casl/ability';
-import { Ability, AbilityBuilder, createAliasResolver, makeAbilityFromRules } from 'feathers-casl';
-
-// don't forget this, as `read` is used internally
-const resolveAction = createAliasResolver({
-  update: 'patch', // define the same rules for update & patch
-  read: ['get', 'find'], // use 'read' as a equivalent for 'get' & 'find'
-  delete: 'remove', // use 'delete' or 'remove'
-});
+import { Ability, AbilityBuilder, makeAbilityFromRules } from 'feathers-casl';
 
 const defineRulesFor = async (
   user: Model.User,

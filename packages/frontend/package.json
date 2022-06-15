@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@bookyp/core": "workspace:*",
+    "@casl/ability": "5.4.3",
     "@feathersjs/adapter-commons": "5.0.0-pre.17",
     "@feathersjs/authentication-client": "5.0.0-pre.17",
     "@feathersjs/errors": "5.0.0-pre.17",
