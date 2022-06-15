@@ -4,9 +4,11 @@
     v-for="mapObject in filteredMapObjects"
     :key="mapObject._id"
     data-test="map-object"
+    data-space-element-type="map-object"
+    :data-space-element-id="mapObject._id"
     transform-origin="center"
     :transform="`translate(${mapObject.xPos},${mapObject.yPos}) rotate(${mapObject.rotation})`"
-    class="map-object transform-box-fill"
+    class="transform-box-fill"
     :class="{
       'cursor-pointer': !moving && mode === 'none',
       'cursor-move': moving,
@@ -14,8 +16,6 @@
       'hover:text-primary-dark': !isSelected(mapObject) && mode === 'none',
       'text-primary-normal': isSelected(mapObject),
     }"
-    @pointerdown="downOnMapObject(mapObject, $event)"
-    @pointerup="upOnMapObject"
   >
     <path
       v-for="path in mapObject.paths"
@@ -34,7 +34,6 @@
 import { Model } from '@bookyp/core';
 import { computed, defineComponent, inject, PropType, Ref, ref, toRef } from 'vue';
 
-import usePointerCapturing from '~/compositions/space/usePointerCapturing';
 import { mapObjectsToPaths, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { Mode } from '~/views/settings/Space.vue';
@@ -54,14 +53,14 @@ export default defineComponent({
     },
 
     selectedMapObjectId: {
-      type: String,
+      type: String as PropType<string | null>,
       default: null,
     },
   },
 
   emits: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    selectMapObject: (__mapObject: Model.MapObject | null) => true,
+    selectMapObject: (__id: string | null) => true,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     'update:mapObjects': (__mapObjects: Ref<Model.MapObject[]>) => true,
   },
@@ -75,66 +74,61 @@ export default defineComponent({
 
     const movingOffset = ref<{ x: number; y: number }>();
 
-    const { setCapture, releaseCapture } = usePointerCapturing();
-
-    function moveSelectedMapObject(svgPoint: DOMPoint, event: PointerEvent) {
-      if (moving.value) {
-        setCapture(event);
-        const selectedMapObjectIndex = mapObjects.value.findIndex(
-          (mapObject) => mapObject._id === selectedMapObjectId.value,
-        );
-        if (selectedMapObjectIndex !== -1 && mapObjects.value[selectedMapObjectIndex]) {
-          const mapObject = mapObjects.value[selectedMapObjectIndex];
-          // get delta of current position and position of drag start to avoid jump
-          // check if moving delta for current drag is already set
-          if (movingOffset.value === undefined) {
-            movingOffset.value = {
-              x: mapObject.xPos - svgPoint.x,
-              y: mapObject.yPos - svgPoint.y,
-            };
-          }
-          mapObjects.value[selectedMapObjectIndex].xPos = svgPoint.x + movingOffset.value.x;
-          mapObjects.value[selectedMapObjectIndex].yPos = svgPoint.y + movingOffset.value.y;
-          context.emit('update:mapObjects', mapObjects);
-        }
-      }
-    }
-
     const spaceMap = inject(SpaceMapKey);
 
-    spaceMap?.on('moveInsideSvg', moveSelectedMapObject);
-    spaceMap?.on('upInsideSvg', () => {
-      context.emit('selectMapObject', null);
+    spaceMap?.on('move', 'map-object', (id: string | null, svgPoint: DOMPoint) => {
+      if (mode.value !== 'none') {
+        return;
+      }
+      if (selectedMapObjectId.value !== id) {
+        context.emit('selectMapObject', id);
+      }
+      const mapObject = mapObjects.value.find(({ _id: mapObjectId }) => mapObjectId === id);
+      if (mapObject) {
+        moving.value = true;
+        // get delta of current position and position of drag start to avoid jump
+        // check if moving delta for current drag is already set
+        if (movingOffset.value === undefined) {
+          movingOffset.value = {
+            x: mapObject.xPos - svgPoint.x,
+            y: mapObject.yPos - svgPoint.y,
+          };
+        }
+        mapObject.xPos = svgPoint.x + movingOffset.value.x;
+        mapObject.yPos = svgPoint.y + movingOffset.value.y;
+        context.emit('update:mapObjects', mapObjects);
+      }
     });
 
-    const filteredMapObjects = computed(() => mapObjects.value.filter((mapObject) => !mapObject.isDeleted));
-
-    function downOnMapObject(mapObject: Model.MapObject, event: PointerEvent) {
+    spaceMap?.on('up', 'map-object', (id) => {
+      // select map object when clicked on one
       if (mode.value !== 'none') {
         return;
       }
-      // reset moving offset to handle other map object
-      movingOffset.value = undefined;
-      context.emit('selectMapObject', mapObject);
-      moving.value = true;
-      event.stopPropagation();
-    }
-
-    function upOnMapObject(event: PointerEvent) {
-      if (mode.value !== 'none') {
-        return;
+      if (selectedMapObjectId.value !== id) {
+        context.emit('selectMapObject', id);
       }
       moving.value = false;
-      releaseCapture();
-      event.stopPropagation();
-    }
+      movingOffset.value = undefined;
+    });
+
+    spaceMap?.on('up', 'root', () => {
+      // unselect map object when clicking on nothing
+      if (mode.value !== 'none') {
+        return;
+      }
+      context.emit('selectMapObject', null);
+    });
 
     function isSelected(mapObject: Model.MapObject) {
       return selectedMapObjectId.value === mapObject._id;
     }
 
+    const filteredMapObjects = computed(() => mapObjects.value.filter((mapObject) => !mapObject.isDeleted));
+
     useAndRegisterViewBox('MapObjects', mapObjectsToPaths(mapObjects), { strokeWidth: 1 });
-    return { filteredMapObjects, downOnMapObject, upOnMapObject, moving, isSelected };
+
+    return { filteredMapObjects, moving, isSelected };
   },
 });
 </script>

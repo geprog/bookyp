@@ -3,7 +3,7 @@
 exports[`BookablesMap view should render correctly 1`] = `
 "<home-header-stub></home-header-stub>
 <div class=\\"m-4 mb-5 lg:mb-20 flex flex-col flex-grow min-h-0\\">
-  <space-map-stub>
+  <space-map-stub disablepanning=\\"false\\">
     <floor-plan-stub></floor-plan-stub>
     <map-objects-stub clickable=\\"true\\" considerfilter=\\"true\\"></map-objects-stub>
   </space-map-stub>
