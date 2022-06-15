@@ -20,7 +20,7 @@ export function isNewMapObject(mapObject: Model.MapObject): boolean {
 
 export default function useNewMapObject(
   mapObjects: Ref<Model.MapObject[]>,
-  selectMapObject: (mapObject: Model.MapObject) => Promise<void>,
+  selectMapObject: (id: string | null) => Promise<void>,
 ): UseNewMapObject {
   const { spaceId } = useCurrentSpace();
 
@@ -30,7 +30,7 @@ export default function useNewMapObject(
     }
 
     newMapObjectId--;
-    mapObjects.value.push({
+    const newMapObject = {
       _id: String(newMapObjectId),
       xPos: 0,
       yPos: 0,
@@ -41,8 +41,9 @@ export default function useNewMapObject(
       ],
       type: Model.MapObjectTypes.table,
       space: spaceId.value,
-    });
-    await selectMapObject(mapObjects.value[mapObjects.value.length - 1]);
+    };
+    mapObjects.value.push(newMapObject);
+    await selectMapObject(newMapObject._id);
   }
 
   function resetNewMapObjectId() {

@@ -11,7 +11,7 @@
     </SettingsHeader>
 
     <div class="m-4 flex flex-col flex-grow min-h-0">
-      <SpaceMap data-test="space-map">
+      <SpaceMap data-test="space-map" :disable-panning="mode !== 'none'">
         <FloorPlanEditing
           :mode="mode"
           :floor-plan="floorPlan"
@@ -129,7 +129,7 @@ export default defineComponent({
     const mapObjectsCopy: Ref<EditingMapObject[]> = ref([]);
     const floorPlan: Ref<string[]> = ref([]);
 
-    const selectedFloorPlanObjectId: Ref<number | null> = ref(null);
+    const selectedFloorPlanObjectId: Ref<string | null> = ref(null);
     const mode = ref<Mode>('none');
 
     function updateFloorPlanCopy(newFloorPlan: string[]) {
@@ -159,23 +159,23 @@ export default defineComponent({
       { immediate: true },
     );
 
-    async function selectMapObject(mapObject: Model.MapObject | null) {
+    async function selectMapObject(mapObjectId: string | null) {
       if (mode.value !== 'none') {
         return;
       }
-      if (mapObject) {
+      if (mapObjectId) {
         selectedFloorPlanObjectId.value = null;
-        await router.replace({ params: { selectedMapObjectId: mapObject._id } });
+        await router.replace({ params: { selectedMapObjectId: mapObjectId } });
       } else {
         await router.replace({ params: { selectedMapObjectId: '' } });
       }
     }
 
-    async function selectFloorPlanObject(objectId: number | null) {
+    async function selectFloorPlanObject(floorPlanObjectId: string | null) {
       if (mode.value === 'wall') {
         return;
       }
-      selectedFloorPlanObjectId.value = objectId;
+      selectedFloorPlanObjectId.value = floorPlanObjectId;
       await selectMapObject(null);
     }
 
@@ -286,7 +286,7 @@ export default defineComponent({
     function removeSelectedFloorPlanObject() {
       if (selectedFloorPlanObjectId.value !== null) {
         const newFloorPlan = clone(floorPlan.value);
-        newFloorPlan.splice(selectedFloorPlanObjectId.value, 1);
+        newFloorPlan.splice(Number(selectedFloorPlanObjectId.value), 1);
         selectedFloorPlanObjectId.value = null;
         floorPlan.value = newFloorPlan;
         changed.value = true;

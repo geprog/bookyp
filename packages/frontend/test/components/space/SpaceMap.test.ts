@@ -4,10 +4,10 @@ import { h, inject, nextTick, ref } from 'vue';
 
 import SpaceMap from '~/components/space/SpaceMap.vue';
 import { ViewBox } from '~/compositions/space/useViewBox';
-import { SpaceMapEvents, SpaceMapKey } from '~/symbols/space-map';
+import { SpaceEventTypes, SpaceMapKey, SpaceObjectTypes } from '~/symbols/space-map';
 import { mockSvg } from '$/__helpers__/svg';
 
-function prepareCreateSVGPointOnce(wrapper: { find: (arg0: string) => DOMWrapper<Element> }) {
+function prepareCreateSVGPoint(wrapper: { find: (arg0: string) => DOMWrapper<Element> }, count = 1) {
   // simple mock for the SVGSVGElement received by the click event
   const position = { x: 11, y: 22 } as SVGPoint;
   const svgPoint = {
@@ -16,7 +16,11 @@ function prepareCreateSVGPointOnce(wrapper: { find: (arg0: string) => DOMWrapper
     matrixTransform: () => position,
   } as SVGPoint;
   const svg = mockSvg(wrapper.find('[data-test=space-map]'));
-  mocked(svg.element.createSVGPoint).mockReturnValueOnce(svgPoint);
+  let svgMock = mocked(svg.element.createSVGPoint);
+  while (count > 0) {
+    svgMock = svgMock.mockReturnValueOnce(svgPoint);
+    count--;
+  }
   return { svg, position };
 }
 
@@ -32,14 +36,14 @@ describe('SpaceMap component', () => {
   });
 
   describe('Provide event emitter', () => {
-    function prepareProvideEventEmitter(eventName: SpaceMapEvents) {
+    function prepareProvideEventEmitter(eventType: SpaceEventTypes, objectType: SpaceObjectTypes) {
       const eventCallback = jest.fn();
       const childComponent = {
         template: '<p>Horst</p>',
 
         setup() {
           const spaceMap = inject(SpaceMapKey);
-          spaceMap?.on(eventName, eventCallback);
+          spaceMap?.on(eventType, objectType, eventCallback);
         },
       };
 
@@ -77,23 +81,23 @@ describe('SpaceMap component', () => {
     it('should emit position when pointermove', async () => {
       expect.assertions(2);
       // given
-      const { eventCallback, wrapper } = prepareProvideEventEmitter('moveInsideSvg');
-      const { svg, position } = prepareCreateSVGPointOnce(wrapper);
-      const event = { clientX: 0, clientY: 0 };
+      const { eventCallback, wrapper } = prepareProvideEventEmitter('move', 'root');
+      const { svg, position } = prepareCreateSVGPoint(wrapper, 2);
+      const event = { screenX: 2, screenY: 2, clientX: 2, clientY: 2 };
 
       // when
       await svg.trigger('pointermove', event);
 
       // then
       expect(eventCallback).toHaveBeenCalledTimes(1);
-      expect(eventCallback).toHaveBeenCalledWith(position, expect.objectContaining(event));
+      expect(eventCallback).toHaveBeenCalledWith(null, position);
     });
 
     it('should emit position when pointerup', async () => {
       expect.assertions(2);
       // given
-      const { eventCallback, wrapper } = prepareProvideEventEmitter('upInsideSvg');
-      const { svg, position } = prepareCreateSVGPointOnce(wrapper);
+      const { eventCallback, wrapper } = prepareProvideEventEmitter('up', 'root');
+      const { svg, position } = prepareCreateSVGPoint(wrapper);
       const event = { clientX: 0, clientY: 0 };
 
       // when
@@ -101,14 +105,14 @@ describe('SpaceMap component', () => {
 
       // then
       expect(eventCallback).toHaveBeenCalledTimes(1);
-      expect(eventCallback).toHaveBeenCalledWith(position, expect.objectContaining(event));
+      expect(eventCallback).toHaveBeenCalledWith(null, position);
     });
 
     it('should emit position when pointerdown', async () => {
       expect.assertions(2);
       // given
-      const { eventCallback, wrapper } = prepareProvideEventEmitter('downInsideSvg');
-      const { svg, position } = prepareCreateSVGPointOnce(wrapper);
+      const { eventCallback, wrapper } = prepareProvideEventEmitter('down', 'root');
+      const { svg, position } = prepareCreateSVGPoint(wrapper);
       const event = { clientX: 0, clientY: 0 };
 
       // when
@@ -116,7 +120,7 @@ describe('SpaceMap component', () => {
 
       // then
       expect(eventCallback).toHaveBeenCalledTimes(1);
-      expect(eventCallback).toHaveBeenCalledWith(position, expect.objectContaining(event));
+      expect(eventCallback).toHaveBeenCalledWith(null, position);
     });
   });
 
@@ -169,7 +173,7 @@ describe('SpaceMap component', () => {
       await nextTick();
 
       // when
-      viewBoxRef.value.x = 100;
+      viewBoxRef.value = { ...viewBoxRef.value, x: 100 };
       await nextTick();
 
       // then
