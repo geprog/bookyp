@@ -50,7 +50,7 @@ importers:
       esbuild-jest: 0.5.0
       eslint: 8.10.0
       express: 4.17.1
-      feathers-casl: github:geprog/feathers-casl#4253644043fb8d4408c386f675a190d4451a29e7
+      feathers-casl: github:geprog/feathers-casl#9d62d9cbffe66a8dc7bbeec4cac6c8d9138dd582
       feathers-memory: 4.1.0
       feathers-mongoose: github:GEPROG/feathers-mongoose#c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed
       handlebars: 4.7.7
@@ -79,7 +79,7 @@ importers:
       '@feathersjs/socketio': 5.0.0-pre.17
       '@geprog/node-migrate-ts': 3.1.12_mongodb@4.1.4
       express: 4.17.1
-      feathers-casl: github.com/geprog/feathers-casl/4253644043fb8d4408c386f675a190d4451a29e7
+      feathers-casl: github.com/geprog/feathers-casl/9d62d9cbffe66a8dc7bbeec4cac6c8d9138dd582
       feathers-mongoose: github.com/GEPROG/feathers-mongoose/c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed_mongoose@6.0.14
       handlebars: 4.7.7
       lightship: 6.7.2
@@ -2928,7 +2928,6 @@ packages:
       '@intlify/message-compiler': 9.2.0-beta.29
       '@intlify/shared': 9.2.0-beta.29
       '@intlify/vue-devtools': 9.2.0-beta.29
-    dev: false
 
   /@intlify/devtools-if/9.1.9:
     resolution: {integrity: sha512-oKSMKjttG3Ut/1UGEZjSdghuP3fwA15zpDPcjkf/1FjlOIm6uIBGMNS5jXzsZy593u+P/YcnrZD6cD3IVFz9vQ==}
@@ -2942,7 +2941,6 @@ packages:
     engines: {node: '>= 12'}
     dependencies:
       '@intlify/shared': 9.2.0-beta.29
-    dev: false
 
   /@intlify/eslint-plugin-vue-i18n/1.4.0_eslint@8.10.0:
     resolution: {integrity: sha512-anB1eBf6rpxpWyW883gi6O1hozQy4Q02VyzyodOUnohOqT07GATVSxnr2J9/qQSV47xWukV+9LiRErJcU7d/uA==}
@@ -2985,7 +2983,6 @@ packages:
     dependencies:
       '@intlify/shared': 9.2.0-beta.29
       source-map: 0.6.1
-    dev: false
 
   /@intlify/message-compiler/9.2.0-beta.36:
     resolution: {integrity: sha512-u4EwW/U9Mc50G7vM1p24UQ3aPrrkm0eM60xKRLVib1XKpH+TK8taLeetSVPI/8mNOBkLNpXmysMfhD3HlsXHIA==}
@@ -3017,7 +3014,6 @@ packages:
   /@intlify/shared/9.2.0-beta.29:
     resolution: {integrity: sha512-blMW14WBr3fiCEk/XO4IbSxM8WMAhQOzEgWzP1aqbkeXbIMiHeyFI0ZexwyTKsvDZz0wEWlhupQi+9udrJsozA==}
     engines: {node: '>= 12'}
-    dev: false
 
   /@intlify/shared/9.2.0-beta.36:
     resolution: {integrity: sha512-+IXLiQ0V+9muzEf7RT9t9wEh6hNIK+kq+34Lce8W+DYny/jaFxPWIU4REYja3xC16kV7q+fz4I3vFz03gh7ysA==}
@@ -3064,7 +3060,6 @@ packages:
     dependencies:
       '@intlify/core-base': 9.2.0-beta.29
       '@intlify/shared': 9.2.0-beta.29
-    dev: false
 
   /@istanbuljs/load-nyc-config/1.1.0:
     resolution: {integrity: sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ==}
@@ -6360,7 +6355,6 @@ packages:
 
   /@vue/devtools-api/6.0.0-beta.21.1:
     resolution: {integrity: sha512-FqC4s3pm35qGVeXRGOjTsRzlkJjrBLriDS9YXbflHLsfA9FrcKzIyWnLXoNm+/7930E8rRakXuAc2QkC50swAw==}
-    dev: false
 
   /@vue/reactivity-transform/3.2.29:
     resolution: {integrity: sha512-YF6HdOuhdOw6KyRm59+3rML8USb9o8mYM1q+SH0G41K3/q/G7uhPnHGKvspzceD7h9J3VR1waOQ93CUZj7J7OA==}
@@ -6404,7 +6398,6 @@ packages:
     dependencies:
       '@vue/reactivity': 3.2.33
       '@vue/shared': 3.2.33
-    dev: false
 
   /@vue/runtime-dom/3.2.29:
     resolution: {integrity: sha512-YJgLQLwr+SQyORzTsBQLL5TT/5UiV83tEotqjL7F9aFDIQdFBTCwpkCFvX9jqwHoyi9sJqM9XtTrMcc8z/OjPA==}
@@ -6420,7 +6413,6 @@ packages:
       '@vue/runtime-core': 3.2.33
       '@vue/shared': 3.2.33
       csstype: 2.6.19
-    dev: false
 
   /@vue/server-renderer/3.2.29_vue@3.2.29:
     resolution: {integrity: sha512-lpiYx7ciV7rWfJ0tPkoSOlLmwqBZ9FTmQm33S+T4g0j1fO/LmhJ9b9Ctl1o5xvIFVDk9QkSUWANZn7H2pXuxVw==}
@@ -6440,7 +6432,6 @@ packages:
       '@vue/compiler-ssr': 3.2.33
       '@vue/shared': 3.2.33
       vue: 3.2.33
-    dev: false
 
   /@vue/shared/3.2.29:
     resolution: {integrity: sha512-BjNpU8OK6Z0LVzGUppEk0CMYm/hKDnZfYdjSmPOs0N+TR1cLKJAkDwW8ASZUvaaSLEi6d3hVM7jnWnX+6yWnHw==}
@@ -18265,7 +18256,6 @@ packages:
       '@intlify/vue-devtools': 9.2.0-beta.29
       '@vue/devtools-api': 6.0.0-beta.21.1
       vue: 3.2.33
-    dev: false
 
   /vue-inbrowser-compiler-utils/4.44.0:
     resolution: {integrity: sha512-JSX7b/hiUUhGLKK1umzMhVT0Vm3msAo0Za07sP6hl7t4bNP0exgDtPqRfkSVHNURCW+rODDt6fTa5uBHVfVAyw==}
@@ -18352,7 +18342,6 @@ packages:
       '@vue/runtime-dom': 3.2.33
       '@vue/server-renderer': 3.2.33_vue@3.2.33
       '@vue/shared': 3.2.33
-    dev: false
 
   /vue3-jest/27.0.0-alpha.2_d4eb0492b78fc7b9eea372f601f3a0e3:
     resolution: {integrity: sha512-1UkRp+DLFWZQ6fFRQe4T3jpY/Rd+6zjwuLlnMNTbP8PgDrcykSS8aZaYZqFhNG6ECZ6qmV1F2jXcg9lMGRzLuw==}
@@ -18879,8 +18868,8 @@ packages:
       mongoose: 6.0.14
     dev: false
 
-  github.com/geprog/feathers-casl/4253644043fb8d4408c386f675a190d4451a29e7:
-    resolution: {tarball: https://codeload.github.com/geprog/feathers-casl/tar.gz/4253644043fb8d4408c386f675a190d4451a29e7}
+  github.com/geprog/feathers-casl/9d62d9cbffe66a8dc7bbeec4cac6c8d9138dd582:
+    resolution: {tarball: https://codeload.github.com/geprog/feathers-casl/tar.gz/9d62d9cbffe66a8dc7bbeec4cac6c8d9138dd582}
     name: feathers-casl
     version: 0.7.0
     dependencies:

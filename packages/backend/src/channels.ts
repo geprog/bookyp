@@ -3,13 +3,17 @@
 import { Application } from '@bookyp/core';
 import { channels } from 'feathers-casl';
 
+import { defineAbilitiesFor } from './services/authentication/authentication.abilities';
+
 export default function (app: Application): void {
   if (typeof app.channel !== 'function') {
     // If no real-time functionality has been configured just return
     return;
   }
 
-  const caslOptions = channels.makeOptions(app);
+  const caslOptions = channels.makeOptions(app, {
+    ability: (a, conn) => defineAbilitiesFor(conn.user, a),
+  });
 
   app.on('connection', (connection: any) => {
     // On a new real-time connection, add it to the anonymous channel

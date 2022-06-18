@@ -25,7 +25,7 @@
     "@feathersjs/socketio": "5.0.0-pre.17",
     "@geprog/node-migrate-ts": "3.1.12",
     "express": "4.17.1",
-    "feathers-casl": "github:geprog/feathers-casl#4253644043fb8d4408c386f675a190d4451a29e7",
+    "feathers-casl": "github:geprog/feathers-casl#9d62d9cbffe66a8dc7bbeec4cac6c8d9138dd582",
     "feathers-mongoose": "github:GEPROG/feathers-mongoose#c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed",
     "handlebars": "4.7.7",
     "lightship": "6.7.2",
