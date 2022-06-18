@@ -457,7 +457,6 @@ e2e-stop:
     url: https://${CI_ENVIRONMENT_SLUG}.app.${BASE_DOMAIN}/
     deployment_tier: development
     on_stop: review-stop
-    auto_stop_in: 3 days # stop after 3 days without new commits
     kubernetes:
       namespace: bookyp-review
   rules:
