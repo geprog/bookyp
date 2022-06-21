@@ -4,6 +4,7 @@ import replace from '@rollup/plugin-replace';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import { defineConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 import WindiCSS from 'vite-plugin-windicss';
 import svgLoader from 'vite-svg-loader';
 
@@ -29,6 +30,40 @@ const config = defineConfig({
         'Object.defineProperty(exports || {}, "__esModule", { value: true });',
       delimiters: ['\n', '\n'],
       preventAssignment: true,
+    }),
+    VitePWA({
+      includeAssets: ['favicon.ico', 'favicon.svg'],
+      manifest: {
+        name: 'BOOKYP - Book your place easily',
+        short_name: 'BOOKYP',
+        description: 'Book your place easily',
+        display: 'standalone',
+        theme_color: '#f59e0b',
+        background_color: '#ffffff',
+        icons: [
+          {
+            src: './pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: './pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+          {
+            src: './pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+          {
+            src: './favicon.svg',
+            sizes: '512x512',
+            type: 'image/svg+xml',
+          },
+        ],
+      },
     }),
   ],
   server: {

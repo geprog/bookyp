@@ -1,14 +1,18 @@
 <template>
   <div class="app flex flex-col m-auto w-full h-full">
     <router-view />
+    <UpdateApp />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import UpdateApp from '~/components/layout/UpdateApp.vue';
+
 export default defineComponent({
   name: 'App',
+  components: { UpdateApp },
 });
 </script>
 
