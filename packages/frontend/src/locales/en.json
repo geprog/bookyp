@@ -72,5 +72,10 @@
     "max_members_reached": "Please upgrade your plan to add more than 10 members.",
     "public_plan_description": "You are currently using the public-plan.",
     "change": "Change plan"
+  },
+  "app": {
+    "new_version": "An update of the app is available.",
+    "install": "Install",
+    "cancel": "Cancel"
   }
 }
