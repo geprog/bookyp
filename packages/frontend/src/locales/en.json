@@ -46,6 +46,7 @@
   "invite_new_member": "Invite new member",
   "invitation": {
     "pending_invitations": "Pending invitations",
+    "send": "Send invitation",
     "edit": "Edit invitation",
     "already_in_space": "E-mail address is already member of this space",
     "already_invited": "E-mail address is already invited to this space"

@@ -30,6 +30,7 @@ import PlusICon from '~/assets/icons/plus.svg';
 import RadioChecked from '~/assets/icons/radio-checked.svg';
 import RadioUnchecked from '~/assets/icons/radio-unchecked.svg';
 import Save from '~/assets/icons/save.svg';
+import SendIcon from '~/assets/icons/send.svg';
 import SettingsIcon from '~/assets/icons/settings.svg';
 import SignOutIcon from '~/assets/icons/sign-out.svg';
 import StopIcon from '~/assets/icons/stop.svg';
@@ -70,6 +71,7 @@ const icons = {
   location: LocationIcon,
   email: Email,
   save: Save,
+  send: SendIcon,
   'text-box': TextBoxIcon,
   people: PeopleIcon,
   plus: PlusICon,
