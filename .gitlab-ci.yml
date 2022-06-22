@@ -272,7 +272,9 @@ unit-test-backend:
       - packages/backend/coverage
     expire_in: 1 day
     reports:
-      cobertura: packages/backend/coverage/cobertura-coverage.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: packages/backend/coverage/cobertura-coverage.xml
       junit:
         - packages/backend/junit.xml
   script:
@@ -286,7 +288,9 @@ unit-test-frontend:
       - packages/frontend/coverage
     expire_in: 1 day
     reports:
-      cobertura: packages/frontend/coverage/cobertura-coverage.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: packages/frontend/coverage/cobertura-coverage.xml
       junit:
         - packages/frontend/junit.xml
   script:
@@ -300,7 +304,9 @@ unit-test-core:
       - packages/core/coverage
     expire_in: 1 day
     reports:
-      cobertura: packages/core/coverage/cobertura-coverage.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: packages/core/coverage/cobertura-coverage.xml
       junit:
         - packages/core/junit.xml
   script:
