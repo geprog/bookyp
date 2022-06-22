@@ -26,7 +26,8 @@
     "Vue.volar",
     "streetsidesoftware.code-spell-checker",
     "streetsidesoftware.code-spell-checker-german",
-    "ms-kubernetes-tools.vscode-kubernetes-tools"
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "ms-playwright.playwright"
   ],
   "forwardPorts": [8081]
 }

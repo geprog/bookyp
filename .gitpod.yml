@@ -2,7 +2,12 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - init: |
+  - name: Install Playwright dependencies
+    command: |
+      cd packages/e2e
+      pnpm playwright:install
+  - name: Run bookyp
+    init: |
       pnpm install
       pnpm run build:libs
       cp docs/.env.example .env
@@ -24,3 +29,4 @@ vscode:
     - johnsoncodehk.volar
     - streetsidesoftware.code-spell-checker
     - ms-kubernetes-tools.vscode-kubernetes-tools
+    - ms-playwright.playwright
