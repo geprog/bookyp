@@ -164,7 +164,7 @@ importers:
       '@geprog/eslint-config': 1.0.5
       '@playwright/test': 1.20.1
       dayjs: 1.10.5
-      dotenv-cli: 4.0.0
+      dotenv: 16.0.1
       eslint: 8.10.0
       mongodb: 4.1.4
       typescript: 4.6.2
@@ -174,7 +174,7 @@ importers:
       '@bookyp/core': link:../core
       '@geprog/eslint-config': 1.0.5_5525c2e07b31effaf36f6d3b0d051a37
       '@playwright/test': 1.20.1
-      dotenv-cli: 4.0.0
+      dotenv: 16.0.1
       eslint: 8.10.0
       mongodb: 4.1.4
       typescript: 4.6.2
@@ -9140,6 +9140,11 @@ packages:
 
   /dotenv-expand/5.1.0:
     resolution: {integrity: sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==}
+    dev: true
+
+  /dotenv/16.0.1:
+    resolution: {integrity: sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==}
+    engines: {node: '>=12'}
     dev: true
 
   /dotenv/8.6.0:
