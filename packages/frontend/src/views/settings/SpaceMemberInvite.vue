@@ -1,12 +1,19 @@
 <template>
-  <Header :title="t('invite_new_member')" has-back>
-    <IconButton type="submit" form="spaceMemberInviteForm" icon="save" />
-  </Header>
+  <Header :title="t('invite_new_member')" has-back />
   <AppContent>
     <form id="spaceMemberInviteForm" data-test="form" class="mx-4" @submit.prevent="inviteSpaceMember">
       <InputField icon-name="email">
         <TextField v-model="invitationForm.email" data-test="form-email" :placeholder="t('email_address')" />
       </InputField>
+
+      <Button
+        type="submit"
+        form="spaceMemberInviteForm"
+        :aria-label="t('invitation.send')"
+        icon="send"
+        class="w-full"
+        :text="t('invitation.send').toLocaleUpperCase()"
+      />
 
       <SelectableListItem
         :selected="invitationForm.role === 'user'"
@@ -32,7 +39,7 @@ import { defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
-import IconButton from '~/components/buttons/IconButton.vue';
+import Button from '~/components/buttons/Button.vue';
 import Header from '~/components/headers/Header.vue';
 import InputField from '~/components/InputField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
@@ -44,7 +51,7 @@ import useFeathers from '~/compositions/useFeathers';
 export default defineComponent({
   name: 'SpaceMemberInvite',
 
-  components: { Header, IconButton, InputField, TextField, SelectableListItem, AppContent },
+  components: { Header, InputField, TextField, SelectableListItem, AppContent, Button },
 
   setup() {
     const { t } = useI18n();
