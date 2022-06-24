@@ -78,5 +78,7 @@
     "new_version": "An update of the app is available.",
     "install": "Install",
     "cancel": "Cancel"
-  }
+  },
+  "available_bookables": "Available bookables",
+  "occupied_bookables": "Occupied bookables"
 }
