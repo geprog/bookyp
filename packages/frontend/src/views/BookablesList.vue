@@ -2,19 +2,31 @@
   <HomeHeader />
 
   <AppContent>
-    <div v-if="sortedBookablesWithFilterMatched" class="pb-25">
+    <div v-if="bookablesWithFilterMatched.length" class="pb-25">
+      <h2 class="mt-6 font-bold">
+        {{ t('available_bookables') }}
+      </h2>
       <ListItem
-        v-for="bookable in sortedBookablesWithFilterMatched"
+        v-for="bookable in availableBookables"
         :key="bookable._id"
-        :disabled="bookable.isFilterMatched === false"
         :label="bookable.name"
-        :status-color="getBookableStatusColor(bookable.isFilterMatched)"
+        status-color="bg-green-text"
         :description="bookable.description"
         class="cursor-pointer my-3"
-        :class="{ 'cursor-not-allowed': bookable.isFilterMatched === false }"
-        @click="
-          bookable.isFilterMatched && $router.push({ name: 'booking-create', params: { bookableId: bookable._id } })
-        "
+        @click="$router.push({ name: 'booking-create', params: { bookableId: bookable._id } })"
+      />
+
+      <h2 class="mt-6 font-bold">
+        {{ t('occupied_bookables') }}
+      </h2>
+      <ListItem
+        v-for="bookable in occupiedBookables"
+        :key="bookable._id"
+        :disabled="true"
+        :label="bookable.name"
+        status-color="bg-red-text"
+        :description="bookable.description"
+        class="cursor-not-allowed my-3"
       />
     </div>
   </AppContent>
@@ -23,6 +35,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import HomeHeader from '~/components/headers/HomeHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
@@ -38,6 +51,8 @@ export default defineComponent({
   components: { HomeHeader, HomeActionsButtons, ListItem, AppContent },
 
   setup() {
+    const { t } = useI18n();
+
     const { spaceId } = useCurrentSpace();
 
     const { data: bookables } = useFind(
@@ -46,24 +61,19 @@ export default defineComponent({
     );
     const { bookablesWithFilterMatched } = useBookablesFilter(bookables);
 
-    function getBookableStatusColor(isFilterMatched?: boolean): string {
-      if (isFilterMatched === undefined) {
-        return 'bg-primary-normal';
-      }
-      if (isFilterMatched) {
-        return 'bg-green-text';
-      }
+    const availableBookables = computed(() =>
+      bookablesWithFilterMatched.value.filter((bookable) => bookable.isFilterMatched),
+    );
 
-      return 'bg-red-text';
-    }
-
-    const sortedBookablesWithFilterMatched = computed(() =>
-      [...bookablesWithFilterMatched.value].sort((bookable) => (!bookable.isFilterMatched ? 1 : -1)),
+    const occupiedBookables = computed(() =>
+      bookablesWithFilterMatched.value.filter((bookable) => !bookable.isFilterMatched),
     );
 
     return {
-      sortedBookablesWithFilterMatched,
-      getBookableStatusColor,
+      t,
+      bookablesWithFilterMatched,
+      availableBookables,
+      occupiedBookables,
     };
   },
 });
