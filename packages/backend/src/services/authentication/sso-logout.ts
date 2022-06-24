@@ -2,6 +2,8 @@ import { Request, Response, Router } from 'express';
 
 import getConfig from '~/config';
 
+import { oauthServerUrl } from './utils';
+
 export default function SSOLogoutRoute(): Router {
   const router = Router();
 
@@ -16,7 +18,9 @@ export default function SSOLogoutRoute(): Router {
       return;
     }
 
-    res.redirect(`https://${keycloakSubdomain}/protocol/openid-connect/logout?redirect_uri=${encodeURI(redirectUri)}`);
+    res.redirect(
+      `${oauthServerUrl(keycloakSubdomain)}/protocol/openid-connect/logout?redirect_uri=${encodeURI(redirectUri)}`,
+    );
   });
 
   return router;

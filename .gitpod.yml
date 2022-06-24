@@ -14,6 +14,7 @@ tasks:
     command: |
       sed -i "s,BACKEND_OAUTH_REDIRECT_URL=.*,BACKEND_OAUTH_REDIRECT_URL=https://3000-$GITPOD_WORKSPACE_ID.${GITPOD_WORKSPACE_CLUSTER_HOST}/," .env
       sed -i "s,FRONTEND_BACKEND_URL=.*,FRONTEND_BACKEND_URL=https://4000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}," .env
+      sed -i "s,BACKEND_KEYCLOAK_SUBDOMAIN=.*,BACKEND_KEYCLOAK_SUBDOMAIN=5000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}/auth/realms/bookyp," .env
       sed -i "s,BACKEND_HOST=.*,BACKEND_HOST=4000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}," .env
       pnpm run docker:up
       pnpm run start
@@ -30,3 +31,14 @@ vscode:
     - streetsidesoftware.code-spell-checker
     - ms-kubernetes-tools.vscode-kubernetes-tools
     - ms-playwright.playwright
+
+ports:
+  - name: Web App
+    port: 3000
+  - name: Backend
+    port: 4000
+    onOpen: ignore
+  - name: OAuth
+    port: 5000
+    visibility: public # TODO: check if we can avoid it
+    onOpen: ignore

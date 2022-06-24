@@ -20,9 +20,11 @@ Object {
       "origin": undefined,
     },
     "keycloak": Object {
+      "access_url": "https://auth.example.org/auth/realms/main/protocol/openid-connect/token",
+      "authorize_url": "https://auth.example.org/auth/realms/main/protocol/openid-connect/auth",
       "client_id": "bookyp",
+      "profile_url": "https://auth.example.org/auth/realms/main/protocol/openid-connect/userinfo",
       "secret": "i-wont-tell-you",
-      "subdomain": "auth.example.org/auth/realms/main",
     },
     "redirect": "http://localhost:3000/",
   },
