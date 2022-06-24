@@ -4,7 +4,7 @@
       v-model="dateTime"
       mode="dateTime"
       is24hr
-      :minute-increment="5"
+      :minute-increment="15"
       :masks="masks"
       color="orange"
       :popover="{ visibility: 'focus' }"
