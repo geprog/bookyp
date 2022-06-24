@@ -39,12 +39,20 @@ export default defineComponent({
     );
     const { bookablesFilter } = useBookablesFilter(bookables);
 
+    function ceilDate(_date: Date, amount: number, unit: 'minutes'): Date {
+      const date = dayjs(_date);
+      return date
+        .add(amount - (date.get(unit) % amount), unit)
+        .startOf(unit)
+        .toDate();
+    }
+
     const bookablesFilterEndDate = computed<Date>({
       get() {
-        return bookablesFilter.value?.end || dayjs().add(2, 'hour').toDate();
+        return bookablesFilter.value?.end || ceilDate(dayjs().add(2, 'hour').toDate(), 15, 'minutes');
       },
       set(value) {
-        bookablesFilter.value = { ...bookablesFilter.value, end: value };
+        bookablesFilter.value = { ...bookablesFilter.value, end: ceilDate(value, 15, 'minutes') };
       },
     });
 
@@ -53,8 +61,8 @@ export default defineComponent({
     onMounted(() => {
       if (bookablesFilter.value === undefined) {
         bookablesFilter.value = {
-          start: new Date(),
-          end: dayjs().add(2, 'hour').toDate(),
+          start: ceilDate(dayjs().toDate(), 15, 'minutes'),
+          end: ceilDate(dayjs().add(2, 'hour').toDate(), 15, 'minutes'),
           quickFilterEnabled: true,
         };
       }
@@ -67,7 +75,7 @@ export default defineComponent({
 
         bookablesFilter.value = {
           ...bookablesFilter.value,
-          start: new Date(),
+          start: ceilDate(dayjs().toDate(), 15, 'minutes'),
         };
       }, 1000 * 60);
     });
