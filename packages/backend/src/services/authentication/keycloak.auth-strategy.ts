@@ -14,9 +14,7 @@ type KeycloakProfile = OAuthProfile & {
 
 export class KeycloakStrategy extends OAuthStrategy {
   getEntityQuery(profile: KeycloakProfile): Promise<{ [x: string]: string }> {
-    return new Promise((resolve) => {
-      resolve({ email: profile.email });
-    });
+    return Promise.resolve({ email: profile.email });
   }
 
   async getEntityData(profile: KeycloakProfile, existing: unknown, params: Params): Promise<EntityData> {

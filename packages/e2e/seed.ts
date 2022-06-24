@@ -1,6 +1,8 @@
 import { Model, SampleModel } from '@bookyp/core';
 import { MongoClient, ObjectId } from 'mongodb';
 
+import { credentials } from './credentials';
+
 type WithObjectId<T> = Omit<T, '_id'> & { _id: ObjectId };
 
 export async function seed(): Promise<void> {
@@ -10,10 +12,6 @@ export async function seed(): Promise<void> {
   const client = await MongoClient.connect(process.env.BACKEND_DB_URI);
   const db = client.db();
   await db.dropDatabase();
-
-  if (!process.env.E2E_AUTH_USERNAME) {
-    throw new Error('E2E_AUTH_USERNAME is not set');
-  }
 
   function convertId2ObjectId<T extends Model.AbstractEntity>(m: T): WithObjectId<T> {
     return {
@@ -25,7 +23,7 @@ export async function seed(): Promise<void> {
   const sampleUsers = SampleModel.sampleUsers;
 
   // set email for first user to test with interesting data of authenticated test user
-  sampleUsers[0] = { ...SampleModel.sampleUsers[0], email: process.env.E2E_AUTH_USERNAME };
+  sampleUsers[0] = { ...SampleModel.sampleUsers[0], email: credentials.username };
 
   await db.collection('users').insertMany(sampleUsers.map(convertId2ObjectId));
   await db.collection('spaces').insertMany(SampleModel.sampleSpaces.map(convertId2ObjectId));

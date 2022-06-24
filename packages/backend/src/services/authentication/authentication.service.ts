@@ -7,6 +7,7 @@ import getConfig from '~/config';
 
 import { defineAbilitiesFor } from './authentication.abilities';
 import { KeycloakStrategy } from './keycloak.auth-strategy';
+import { oauthServerUrl } from './utils';
 
 declare module '@bookyp/core' {
   interface ServiceTypes {
@@ -34,9 +35,11 @@ export default function (app: Application): void {
     oauth: {
       redirect: config.oauth.redirect_url,
       keycloak: {
+        authorize_url: `${oauthServerUrl(config.oauth.keycloak.subdomain)}/protocol/openid-connect/auth`,
+        access_url: `${oauthServerUrl(config.oauth.keycloak.subdomain)}/protocol/openid-connect/token`,
         secret: config.oauth.keycloak.secret,
         client_id: config.oauth.keycloak.client,
-        subdomain: config.oauth.keycloak.subdomain,
+        profile_url: `${oauthServerUrl(config.oauth.keycloak.subdomain)}/protocol/openid-connect/userinfo`,
       },
       defaults: {
         origin: config.oauth.defaults.origin,

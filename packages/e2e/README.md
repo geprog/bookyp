@@ -6,14 +6,8 @@
 
    ```sh
    BACKEND_DB_URI=mongodb://<DB_USERNAME>:<DB_PASSWORD>@localhost:<DB_PORT>/bookyp-e2e?authSource=admin
-
-   BACKEND_KEYCLOAK_SUBDOMAIN=auth.geprog.com/auth/realms/testing
-   BACKEND_KEYCLOAK_CLIENT=bookyp-testing
-   BACKEND_KEYCLOAK_SECRET=
    ```
 
-1. Set `E2E_AUTH_USERNAME` and `E2E_AUTH_PASSWORD` in that env file (use the `E2E Testing Account - Bookyp` from <https://vault.geprog.com>)
-1. Set `BACKEND_KEYCLOAK_SECRET` in that env file (use `KEYCLOAK_CLIENT_SECRET testing` from <https://vault.geprog.com>)
 1. Ensure mongodb is running
 1. `cd packages/e2e`
 1. Install playwright browsers: `pnpm playwright:install`

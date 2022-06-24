@@ -1,0 +1,21 @@
+{
+  "name": "@bookyp/oauth-mock-server",
+  "version": "0.0.1",
+  "scripts": {
+    "clean": "rm -rf node_modules/ test-results/ storageState.json",
+    "lint": "eslint --max-warnings 0 .",
+    "start": "tsx watch src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@geprog/eslint-config": "1.0.5",
+    "eslint": "8.10.0",
+    "typescript": "4.6.2"
+  },
+  "dependencies": {
+    "@fastify/formbody": "7.0.1",
+    "fastify": "4.1.0",
+    "jsonwebtoken": "8.5.1",
+    "tsx": "3.5.0"
+  }
+}
