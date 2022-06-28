@@ -9,6 +9,7 @@
       color="orange"
       :popover="{ visibility: 'focus' }"
       :min-date="internalMinDate"
+      is-required
     >
       <template #default="{ inputValue, inputEvents }">
         <TextField :value="inputValue" :placeholder="placeholder" v-on="inputEvents" />
@@ -34,8 +35,8 @@ export default defineComponent({
 
   props: {
     modelValue: {
-      type: Date,
-      default: new Date(),
+      type: [Object, String, Number] as PropType<ConfigType>,
+      required: true,
     },
 
     placeholder: {
@@ -60,10 +61,10 @@ export default defineComponent({
 
     const dateTime = computed({
       get() {
-        return modelValue.value;
+        return dayjs(modelValue.value).toDate();
       },
       set(date: Date) {
-        emit('update:modelValue', date);
+        emit('update:modelValue', dayjs(date).toDate());
       },
     });
 

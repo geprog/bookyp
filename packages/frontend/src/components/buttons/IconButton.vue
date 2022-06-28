@@ -10,7 +10,7 @@
       rounded-full
       focus:outline-transparent
       hover:text-primary-dark
-      disabled:cursor-not-allowed disabled:bg-gray-background disabled:text-white
+      disabled:cursor-default disabled:text-gray-inactive disabled:hover:text-gray-inactive
     "
     :disabled="disabled"
   >

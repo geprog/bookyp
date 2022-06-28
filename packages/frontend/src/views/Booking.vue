@@ -1,6 +1,6 @@
 <template>
   <Header :title="t('book_a_bookable', { bookable: bookable?.name })" has-back>
-    <IconButton type="submit" form="booking" icon="check-mark" />
+    <IconButton type="submit" form="booking" icon="check-mark" :disabled="isBookingOverlapping" />
   </Header>
 
   <AppContent>
@@ -9,7 +9,19 @@
         <TextField v-model="description" :placeholder="t('description')" />
       </InputField>
 
-      <DateRangePicker v-model:start="start" v-model:end="end" :bookings="bookings" />
+      <DateRangePicker
+        v-model:start="start"
+        v-model:end="end"
+        :bookings="bookings"
+        :initial-date="bookablesFilter?.start"
+      >
+        <template #info-box>
+          <InfoBox class="mr-2 flex flex-col" :class="{ 'bg-red-400 text-white': isBookingOverlapping }">
+            <p v-if="isBookingOverlapping">{{ t('booking_overlaps') }}</p>
+            <p>{{ t('booking_drag') }}</p>
+          </InfoBox></template
+        >
+      </DateRangePicker>
     </form>
   </AppContent>
 </template>
@@ -22,6 +34,7 @@ import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
+import InfoBox from '~/components/InfoBox.vue';
 import InputField from '~/components/InputField.vue';
 import DateRangePicker from '~/components/inputs/DateRangePicker.vue';
 import AppContent from '~/components/layout/AppContent.vue';
@@ -31,12 +44,11 @@ import { user } from '~/compositions/useAuthentication';
 import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
-import useGet from '~/compositions/useGet';
 
 export default defineComponent({
   name: 'Booking',
 
-  components: { Header, IconButton, InputField, TextField, DateRangePicker, AppContent },
+  components: { Header, IconButton, InputField, TextField, DateRangePicker, AppContent, InfoBox },
 
   props: {
     bookableId: {
@@ -50,10 +62,18 @@ export default defineComponent({
     const router = useRouter();
     const feathers = useFeathers();
     const { spaceId } = useCurrentSpace();
-    const { bookablesFilter } = useBookablesFilter();
 
     const bookableId = toRef(props, 'bookableId');
-    const { data: bookable } = useGet('bookables', bookableId);
+    const { data: bookables } = useFind(
+      'bookables',
+      computed(() => ({})),
+    );
+    const { bookablesFilter, bookablesWithFilterMatched } = useBookablesFilter(bookables);
+    const bookable = computed(() =>
+      bookablesWithFilterMatched.value.find(
+        (bookableWithFilterMatched) => bookableWithFilterMatched._id === bookableId.value,
+      ),
+    );
 
     const { data: bookings } = useFind(
       'bookings',
@@ -68,6 +88,12 @@ export default defineComponent({
     const end = ref(bookablesFilter.value?.end || dayjs().add(1, 'hour').toDate());
 
     const description = ref('');
+
+    const isBookingOverlapping = computed(() =>
+      bookings.value.some(
+        (booking) => dayjs(booking.start).isBefore(end.value) && dayjs(booking.end).isAfter(start.value),
+      ),
+    );
 
     const submit = async () => {
       /* istanbul ignore next */
@@ -103,7 +129,7 @@ export default defineComponent({
       }
     };
 
-    return { submit, bookable, description, start, end, t, bookings };
+    return { submit, bookable, description, start, end, t, bookings, bookablesFilter, isBookingOverlapping };
   },
 });
 </script>

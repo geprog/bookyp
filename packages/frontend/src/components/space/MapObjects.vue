@@ -8,13 +8,12 @@
     :transform="`translate(${mapObject.xPos},${mapObject.yPos}) rotate(${mapObject.rotation})`"
     class="transform-box-fill"
     :class="{
-      'cursor-pointer':
-        isMapObjectClickable(mapObject) && (!considerFilter || isFilterMatched(mapObject.bookable) !== false),
+      'cursor-pointer': isMapObjectClickable(mapObject),
       'map-object':
         isMapObjectClickable(mapObject) && (!considerFilter || isFilterMatched(mapObject.bookable) === null),
       'map-object-filter-matched':
         isMapObjectClickable(mapObject) && considerFilter && isFilterMatched(mapObject.bookable) === true,
-      'cursor-not-allowed map-object-filter-unmatched':
+      'map-object-filter-unmatched':
         isMapObjectClickable(mapObject) && considerFilter && isFilterMatched(mapObject.bookable) === false,
     }"
     @click.stop="clickOnMapObject(mapObject)"
@@ -100,7 +99,7 @@ export default defineComponent({
     }
 
     function clickOnMapObject(mapObject: Model.MapObject) {
-      if (isMapObjectClickable(mapObject) && isFilterMatched(mapObject.bookable) !== false) {
+      if (isMapObjectClickable(mapObject)) {
         context.emit('clickOnMapObject', mapObject);
       }
     }
@@ -122,6 +121,6 @@ export default defineComponent({
 }
 
 .map-object-filter-unmatched:hover path {
-  @apply stroke-black;
+  @apply stroke-red-text;
 }
 </style>
