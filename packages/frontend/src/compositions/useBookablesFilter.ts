@@ -29,7 +29,7 @@ export const useBookablesFilter = (
     };
   });
 
-  const { data: bookings } = useFind('bookings', bookingsParams);
+  const { data: bookings, isLoading } = useFind('bookings', bookingsParams);
 
   const bookablesWithFilterMatched = computed<BookableWithFilterMatched[]>(() => {
     if (!bookables?.value) {
@@ -39,15 +39,14 @@ export const useBookablesFilter = (
       return bookables.value;
     }
 
-    return bookables.value.map((bookable: BookableWithFilterMatched) => {
-      if (!bookings.value) {
-        return bookable;
-      }
-      return {
-        ...bookable,
-        isFilterMatched: !bookings.value.some((booking) => booking.bookable === bookable._id),
-      };
-    });
+    if (isLoading.value) {
+      return bookables.value;
+    }
+
+    return bookables.value.map((bookable: BookableWithFilterMatched) => ({
+      ...bookable,
+      isFilterMatched: !bookings.value.some((booking) => booking.bookable === bookable._id),
+    }));
   });
 
   const bookablesByID = computed(() =>

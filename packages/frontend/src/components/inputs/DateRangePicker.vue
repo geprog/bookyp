@@ -18,9 +18,11 @@
   </div>
 
   <div class="flex flex-row justify-center items-center my-2">
-    <InfoBox class="mr-2">
-      {{ t('booking_drag') }}
-    </InfoBox>
+    <slot name="info-box">
+      <InfoBox class="mr-2">
+        {{ t('booking_drag') }}
+      </InfoBox>
+    </slot>
     <ButtonPair
       icon-left="chevron-left"
       icon-right="chevron-right"
@@ -49,7 +51,6 @@ import ButtonPair from '~/components/buttons/ButtonPair.vue';
 import InfoBox from '~/components/InfoBox.vue';
 import InputField from '~/components/InputField.vue';
 import DateTimePicker from '~/components/inputs/DateTimePicker.vue';
-import { useBookablesFilter } from '~/compositions/useBookablesFilter';
 
 export default defineComponent({
   name: 'DateRangePicker',
@@ -76,6 +77,11 @@ export default defineComponent({
       type: [Object, String, Number] as PropType<ConfigType>,
       required: true,
     },
+
+    initialDate: {
+      type: [Object, String, Number] as PropType<ConfigType>,
+      default: new Date(),
+    },
   },
 
   emits: {
@@ -89,11 +95,10 @@ export default defineComponent({
     const bookings = toRef(props, 'bookings');
     const start = toRef(props, 'start');
     const end = toRef(props, 'end');
+    const initialDate = toRef(props, 'initialDate');
     const { t } = useI18n();
-    const { bookablesFilter } = useBookablesFilter();
 
     const viewStartDate = ref<Date>();
-    const hasActiveBookablesFilter = computed(() => !bookablesFilter.value?.quickFilterEnabled);
 
     const fullCalendar = ref<InstanceType<typeof FullCalendar>>();
     const api = ref<Calendar>();
@@ -108,7 +113,7 @@ export default defineComponent({
         return dayjs(start.value).toDate();
       },
       set(date) {
-        emit('update:start', date);
+        emit('update:start', dayjs(date).toDate());
       },
     });
 
@@ -117,7 +122,7 @@ export default defineComponent({
         return dayjs(end.value).toDate();
       },
       set(date) {
-        emit('update:end', date);
+        emit('update:end', dayjs(date).toDate());
       },
     });
 
@@ -150,7 +155,7 @@ export default defineComponent({
       height: '70vh',
       headerToolbar: false,
       initialView: 'timeGridFourDay',
-      initialDate: !hasActiveBookablesFilter.value ? dayjs().toISOString() : bookablesFilter.value?.start,
+      initialDate: dayjs(initialDate.value).toISOString(),
       nowIndicator: true,
       validRange: {
         start: dayjs().toISOString(),
@@ -158,7 +163,7 @@ export default defineComponent({
       datesSet: ({ start: _start }) => {
         viewStartDate.value = _start;
       },
-      scrollTime: dayjs(start.value).format('HH:mm'),
+      scrollTime: dayjs(initialDate.value).format('HH:mm'),
       scrollTimeReset: false,
       slotDuration: '00:30:00',
       allDaySlot: false,
@@ -194,11 +199,10 @@ export default defineComponent({
       longPressDelay: 300,
       events: [
         ...bookings.value.map((booking) => ({
-          color: 'rgba(220,38,38,1)',
+          color: 'rgba(248, 113, 113, 1)',
           title: booking.description || '',
           start: dayjs(booking.start).toISOString(),
           end: dayjs(booking.end).toISOString(),
-          display: 'background',
         })),
         {
           color: 'rgba(5,150,105,1)',

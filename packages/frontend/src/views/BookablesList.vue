@@ -22,11 +22,11 @@
       <ListItem
         v-for="bookable in occupiedBookables"
         :key="bookable._id"
-        :disabled="true"
         :label="bookable.name"
         status-color="bg-red-text"
         :description="bookable.description"
-        class="cursor-not-allowed my-3"
+        class="cursor-pointer my-3"
+        @click="$router.push({ name: 'booking-create', params: { bookableId: bookable._id } })"
       />
     </div>
   </AppContent>

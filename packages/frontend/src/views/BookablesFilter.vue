@@ -4,7 +4,7 @@
   </Header>
   <AppContent>
     <form id="filterBookablesForm" class="my-2" @submit.prevent="submitBookablesFilter">
-      <DateRangePicker v-model:start="start" v-model:end="end" :bookings="[]">
+      <DateRangePicker v-model:start="start" v-model:end="end" :bookings="[]" :initial-date="start">
         <Button
           v-if="hasActiveBookablesFilter"
           icon="dismiss"
