@@ -16,5 +16,5 @@ test('Add a bookable and find it in the settings bookables list', async ({ page 
   await expect(newBookableItem).toContainText(SampleModel.sampleBookableThird.name);
   await expect(newBookableItem).toContainText(SampleModel.sampleBookableThird.description);
   await page.mouse.move(0, 0); // move mouse away from menu icons so that nothing is hovered by accident
-  expect(await page.screenshot()).toMatchSnapshot('added-bookable.png');
+  await expect(page).toHaveScreenshot('added-bookable.png');
 });

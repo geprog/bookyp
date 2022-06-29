@@ -28,7 +28,7 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import DateRangePicker from '~/components/inputs/DateRangePicker.vue';
 import AppContent from '~/components/layout/AppContent.vue';
-import { useBookablesFilter } from '~/compositions/useBookablesFilter';
+import { useBookables } from '~/compositions/useBookables';
 
 export default defineComponent({
   name: 'BookablesFilter',
@@ -38,7 +38,7 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const router = useRouter();
-    const { bookablesFilter } = useBookablesFilter();
+    const { bookablesFilter } = useBookables();
 
     const hasActiveBookablesFilter = computed(() => !bookablesFilter.value?.quickFilterEnabled);
 

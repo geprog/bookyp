@@ -422,7 +422,7 @@ e2e-run:
   extends:
     - .e2e-environment
     - .node-template
-  image: mcr.microsoft.com/playwright:v1.20.1
+  image: mcr.microsoft.com/playwright:v1.23.0
   needs:
     - build-core
     - e2e-deployment-test

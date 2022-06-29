@@ -2,6 +2,7 @@ import { Model } from '@bookyp/core';
 import { Params } from '@feathersjs/feathers';
 import { computed, Ref, ref } from 'vue';
 
+import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
 
 type BookablesFilter = Partial<{ start: Date; end: Date; quickFilterEnabled: boolean }>;
@@ -10,12 +11,14 @@ const bookablesFilter: Ref<BookablesFilter | undefined> = ref();
 
 export type BookableWithFilterMatched = Model.Bookable & { isFilterMatched?: boolean };
 
-export const useBookablesFilter = (
+export const useBookables = (
   bookables?: Ref<Model.Bookable[]>,
 ): {
   bookablesFilter: Ref<BookablesFilter | undefined>;
   bookablesWithFilterMatched: Ref<BookableWithFilterMatched[]>;
   isFilterMatched: (bookableID?: Model.Ref<Model.Bookable>) => boolean | null;
+  userBookings: Ref<Model.Booking[]>;
+  isBookedByMe: (bookableID?: Model.Ref<Model.Bookable>) => boolean;
 } => {
   const bookingsParams = computed<Params | null>(() => {
     if (!bookablesFilter.value) {
@@ -69,5 +72,14 @@ export const useBookablesFilter = (
     return bookablesByID.value[bookableID] && bookablesByID.value[bookableID].isFilterMatched === true;
   };
 
-  return { bookablesFilter, bookablesWithFilterMatched, isFilterMatched };
+  const userBookings = computed(() => bookings.value?.filter((booking) => booking.bookedBy === user.value?._id));
+
+  const isBookedByMe = (bookableID?: Model.Ref<Model.Bookable>): boolean => {
+    if (bookableID === undefined) {
+      return false;
+    }
+    return userBookings.value.some((booking) => booking.bookable === bookableID);
+  };
+
+  return { bookablesFilter, bookablesWithFilterMatched, isFilterMatched, userBookings, isBookedByMe };
 };

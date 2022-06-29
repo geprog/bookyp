@@ -35,7 +35,7 @@
     </template>
 
     <SelectableListItem
-      v-for="space in spaces"
+      v-for="space in sortedSpaces"
       :key="space._id"
       :selected="spaceId === space._id"
       :label="space.name"
@@ -85,6 +85,8 @@ export default defineComponent({
       computed(() => ({ paginate: false })),
     );
 
+    const sortedSpaces = computed(() => [...spaces.value].sort((a, b) => a.name.localeCompare(b.name)));
+
     const { data: invitations } = useFind(
       'invitations',
       computed(() => (user.value === undefined ? null : { paginate: false, query: { email: user.value.email } })),
@@ -106,7 +108,7 @@ export default defineComponent({
       void feathers.service('invitations').remove(invitationId);
     }
 
-    return { t, spaces, roleInSpace, changeSpace, invitations, acceptInvitation, rejectInvitation, spaceId };
+    return { t, sortedSpaces, roleInSpace, changeSpace, invitations, acceptInvitation, rejectInvitation, spaceId };
   },
 });
 </script>

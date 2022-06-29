@@ -49,7 +49,7 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { isSpaceAdmin } from '~/compositions/useAuthorization';
-import { useBookablesFilter } from '~/compositions/useBookablesFilter';
+import { useBookables } from '~/compositions/useBookables';
 
 export default defineComponent({
   name: 'HomeHeader',
@@ -80,7 +80,7 @@ export default defineComponent({
 
     const title = computed(() => currentSpace.value?.name || t('bookyp').toUpperCase());
 
-    const { bookablesFilter } = useBookablesFilter();
+    const { bookablesFilter } = useBookables();
 
     const appliedFilters = computed(() =>
       !bookablesFilter.value || bookablesFilter.value?.quickFilterEnabled ? 0 : 1,

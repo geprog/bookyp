@@ -26,6 +26,9 @@
         status-color="bg-red-text"
         :description="bookable.description"
         class="cursor-pointer my-3"
+        :class="{
+          'shadow-orange-glow border-1 border-primary-normal': isBookedByMe(bookable._id),
+        }"
         @click="$router.push({ name: 'booking-create', params: { bookableId: bookable._id } })"
       />
     </div>
@@ -42,7 +45,7 @@ import AppContent from '~/components/layout/AppContent.vue';
 import HomeActionsButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
-import { useBookablesFilter } from '~/compositions/useBookablesFilter';
+import { useBookables } from '~/compositions/useBookables';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
@@ -59,7 +62,7 @@ export default defineComponent({
       'bookables',
       computed(() => ({ paginate: false, query: { space: spaceId.value } })),
     );
-    const { bookablesWithFilterMatched } = useBookablesFilter(bookables);
+    const { bookablesWithFilterMatched, isBookedByMe } = useBookables(bookables);
 
     const availableBookables = computed(() =>
       bookablesWithFilterMatched.value.filter((bookable) => bookable.isFilterMatched),
@@ -74,6 +77,7 @@ export default defineComponent({
       bookablesWithFilterMatched,
       availableBookables,
       occupiedBookables,
+      isBookedByMe,
     };
   },
 });
