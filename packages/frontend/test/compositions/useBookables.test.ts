@@ -6,15 +6,15 @@ import { prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
 jest.mock('~/compositions/useFind');
 
-let useBookablesFilter: typeof import('~/compositions/useBookablesFilter');
+let useBookables: typeof import('~/compositions/useBookables');
 
-describe('useBookablesFilter composition', () => {
+describe('useBookables composition', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.isolateModules(() => {
       // TODO: use import(), see https://github.com/facebook/jest/issues/10428
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      useBookablesFilter = require('~/compositions/useBookablesFilter');
+      useBookables = require('~/compositions/useBookables');
     });
   });
 
@@ -23,7 +23,7 @@ describe('useBookablesFilter composition', () => {
     prepareUseFindMockOnce();
 
     // when
-    const { bookablesWithFilterMatched } = useBookablesFilter.useBookablesFilter(ref(sampleBookables));
+    const { bookablesWithFilterMatched } = useBookables.useBookables(ref(sampleBookables));
 
     // then
     expect(bookablesWithFilterMatched.value).toStrictEqual(sampleBookables);
@@ -35,7 +35,7 @@ describe('useBookablesFilter composition', () => {
     prepareUseFindMockOnce();
 
     // when
-    const { bookablesWithFilterMatched, bookablesFilter } = useBookablesFilter.useBookablesFilter(ref(sampleBookables));
+    const { bookablesWithFilterMatched, bookablesFilter } = useBookables.useBookables(ref(sampleBookables));
     bookablesFilter.value = { start: new Date(), end: new Date() };
 
     // then
@@ -49,9 +49,7 @@ describe('useBookablesFilter composition', () => {
     prepareUseFindMockOnce([sampleBooking]);
 
     // when
-    const { bookablesWithFilterMatched, bookablesFilter } = useBookablesFilter.useBookablesFilter(
-      ref([sampleBookable]),
-    );
+    const { bookablesWithFilterMatched, bookablesFilter } = useBookables.useBookables(ref([sampleBookable]));
     bookablesFilter.value = {
       start: new Date('2018-08-08T08:00:00'),
       end: new Date('2018-08-08T08:01:00'),

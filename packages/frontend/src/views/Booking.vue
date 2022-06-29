@@ -41,7 +41,7 @@ import AppContent from '~/components/layout/AppContent.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
-import { useBookablesFilter } from '~/compositions/useBookablesFilter';
+import { useBookables } from '~/compositions/useBookables';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 
@@ -68,7 +68,7 @@ export default defineComponent({
       'bookables',
       computed(() => ({})),
     );
-    const { bookablesFilter, bookablesWithFilterMatched } = useBookablesFilter(bookables);
+    const { bookablesFilter, bookablesWithFilterMatched } = useBookables(bookables);
     const bookable = computed(() =>
       bookablesWithFilterMatched.value.find(
         (bookableWithFilterMatched) => bookableWithFilterMatched._id === bookableId.value,

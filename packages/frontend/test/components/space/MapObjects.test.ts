@@ -4,8 +4,9 @@ import { computed, nextTick, ref } from 'vue';
 
 import MapObjects from '~/components/space/MapObjects.vue';
 import useViewBox, { mapObjectsToPaths } from '~/compositions/space/useViewBox';
-import { useBookablesFilter } from '~/compositions/useBookablesFilter';
+import { useBookables } from '~/compositions/useBookables';
 import { SpaceMapKey } from '~/symbols/space-map';
+import { sampleBookings } from '$/__fixtures__/booking';
 import { sampleMapObject, sampleMapObjects, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
 import {
   prepareUseCurrentSpaceMockOnce,
@@ -15,7 +16,7 @@ import {
 
 jest.mock('~/compositions/space/useMapObjects');
 jest.mock('~/compositions/useFind');
-jest.mock('~/compositions/useBookablesFilter');
+jest.mock('~/compositions/useBookables');
 jest.mock('~/compositions/space/useCurrentSpace');
 
 const SpaceMapMock = {
@@ -29,11 +30,13 @@ const globalOptions = {
   },
 };
 
-const prepareUseBookablesFilterOnce = () => {
-  mocked(useBookablesFilter).mockReturnValueOnce({
+const prepareUseBookablesOnce = () => {
+  mocked(useBookables).mockReturnValueOnce({
     bookablesWithFilterMatched: computed(() => []),
     bookablesFilter: ref(),
     isFilterMatched: jest.fn().mockReturnValue(true),
+    userBookings: ref([]),
+    isBookedByMe: jest.fn().mockReturnValue(false),
   });
 };
 
@@ -46,7 +49,8 @@ describe('MapObjects component', () => {
   it('should render correctly when clickable', () => {
     // given
     prepareUseMapObjectsMockOnce(sampleMapObjects);
-    prepareUseBookablesFilterOnce();
+
+    prepareUseBookablesOnce();
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -68,7 +72,7 @@ describe('MapObjects component', () => {
   it('should render correctly when not clickable', () => {
     // given
     prepareUseMapObjectsMockOnce(sampleMapObjects);
-    prepareUseBookablesFilterOnce();
+    prepareUseBookablesOnce();
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -90,7 +94,7 @@ describe('MapObjects component', () => {
   it('should render correctly with a selectedMapObject', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObject]);
-    prepareUseBookablesFilterOnce();
+    prepareUseBookablesOnce();
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -112,7 +116,7 @@ describe('MapObjects component', () => {
     expect.assertions(3);
     // given
     prepareUseMapObjectsMockOnce(sampleMapObjects);
-    prepareUseBookablesFilterOnce();
+    prepareUseBookablesOnce();
 
     const wrapper = shallowMount(MapObjects, {
       props: {
@@ -134,7 +138,7 @@ describe('MapObjects component', () => {
     expect.assertions(1);
     // given
     prepareUseMapObjectsMockOnce(sampleMapObjects);
-    prepareUseBookablesFilterOnce();
+    prepareUseBookablesOnce();
 
     const wrapper = shallowMount(MapObjects, {
       props: {
@@ -153,7 +157,8 @@ describe('MapObjects component', () => {
   it('should use white fill color when the object is not linked with a bookable', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObject]);
-    prepareUseBookablesFilterOnce();
+    prepareUseBookablesOnce();
+    prepareUseFindMockOnce(sampleBookings);
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -172,7 +177,7 @@ describe('MapObjects component', () => {
   it('should use primary fill color when the object is linked with a bookable', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObjectWithBookable]);
-    prepareUseBookablesFilterOnce();
+    prepareUseBookablesOnce();
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -195,7 +200,7 @@ describe('MapObjects component', () => {
   it('should use green fill color when the filter matches', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObjectWithBookable]);
-    prepareUseBookablesFilterOnce();
+    prepareUseBookablesOnce();
 
     // when
     const wrapper = shallowMount(MapObjects, {
@@ -219,10 +224,13 @@ describe('MapObjects component', () => {
   it('should use red fill color when the filter matches', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObjectWithBookable]);
-    mocked(useBookablesFilter).mockReturnValueOnce({
+
+    mocked(useBookables).mockReturnValueOnce({
       bookablesWithFilterMatched: computed(() => []),
       bookablesFilter: ref(),
       isFilterMatched: jest.fn().mockReturnValue(false),
+      userBookings: ref([]),
+      isBookedByMe: jest.fn().mockReturnValue(false),
     });
 
     // when
@@ -248,7 +256,8 @@ describe('MapObjects component', () => {
     it('should register view box if handler provided', () => {
       // given
       prepareUseMapObjectsMockOnce(sampleMapObjects);
-      prepareUseBookablesFilterOnce();
+
+      prepareUseBookablesOnce();
       const viewBox = useViewBox(mapObjectsToPaths(ref(sampleMapObjects)), { strokeWidth: 1 });
 
       // when
@@ -269,7 +278,8 @@ describe('MapObjects component', () => {
     it('should unregister view box when unmount if handler provided', () => {
       // given
       prepareUseMapObjectsMockOnce(sampleMapObjects);
-      prepareUseBookablesFilterOnce();
+      prepareUseBookablesOnce();
+
       const wrapper = shallowMount(MapObjects, {
         props: {
           clickable: true,

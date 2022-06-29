@@ -22,7 +22,7 @@ import { computed, defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 import HourControlButton from '~/components/buttons/HourControlButton.vue';
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
-import { useBookablesFilter } from '~/compositions/useBookablesFilter';
+import { useBookables } from '~/compositions/useBookables';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
@@ -37,7 +37,7 @@ export default defineComponent({
       'bookables',
       computed(() => ({ paginate: false, query: { space: spaceId.value } })),
     );
-    const { bookablesFilter } = useBookablesFilter(bookables);
+    const { bookablesFilter } = useBookables(bookables);
 
     function ceilDate(_date: Date, amount: number, unit: 'minutes'): Date {
       const date = dayjs(_date);

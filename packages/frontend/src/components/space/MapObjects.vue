@@ -33,10 +33,16 @@
           considerFilter &&
           isFilterMatched(mapObject.bookable) === true &&
           isMapObjectLinkedToDeletedBookable(mapObject) === false,
+        'stroke-2 stroke-primary-normal fill-red-background filter drop-shadow-orangeGlow':
+          considerFilter &&
+          isFilterMatched(mapObject.bookable) === false &&
+          isMapObjectLinkedToDeletedBookable(mapObject) === false &&
+          isBookedByMe(mapObject.bookable),
         'stroke-black fill-red-background':
           considerFilter &&
           isFilterMatched(mapObject.bookable) === false &&
-          isMapObjectLinkedToDeletedBookable(mapObject) === false,
+          isMapObjectLinkedToDeletedBookable(mapObject) === false &&
+          !isBookedByMe(mapObject.bookable),
         'stroke-current fill-primary-light':
           selectedMapObjectId === mapObject._id && isMapObjectLinkedToDeletedBookable(mapObject) === false,
         'stroke-black fill-white':
@@ -54,7 +60,7 @@ import { computed, defineComponent, toRef } from 'vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import getMapObjects from '~/compositions/space/useMapObjects';
 import { mapObjectsToPaths, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
-import { useBookablesFilter } from '~/compositions/useBookablesFilter';
+import { useBookables } from '~/compositions/useBookables';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
@@ -88,7 +94,8 @@ export default defineComponent({
       'bookables',
       computed(() => ({ paginate: false, query: { space: spaceId.value, $disableSoftDelete: true } })),
     );
-    const { isFilterMatched } = useBookablesFilter(bookables);
+
+    const { isFilterMatched, isBookedByMe } = useBookables(bookables);
 
     function isMapObjectLinkedToDeletedBookable(mapObject: Model.MapObject) {
       return bookables.value.find((bookable) => bookable._id === mapObject.bookable)?.deleted === true;
@@ -106,7 +113,14 @@ export default defineComponent({
 
     useAndRegisterViewBox('MapObjects', mapObjectsToPaths(mapObjects), { strokeWidth: 1 });
 
-    return { mapObjects, clickOnMapObject, isFilterMatched, isMapObjectClickable, isMapObjectLinkedToDeletedBookable };
+    return {
+      mapObjects,
+      clickOnMapObject,
+      isFilterMatched,
+      isMapObjectClickable,
+      isMapObjectLinkedToDeletedBookable,
+      isBookedByMe,
+    };
   },
 });
 </script>
