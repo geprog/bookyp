@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "de.bookyp.app",
+                     "sha256_cert_fingerprints": ["8C:09:03:80:9C:35:93:C7:30:02:31:2C:81:88:81:52:09:FC:2C:4B:96:75:DB:2B:7C:4C:57:29:B2:CA:7C:A8"] }
+      }
+]

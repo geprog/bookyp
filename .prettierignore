@@ -6,3 +6,5 @@ storybook-static/
 .pnpm-store/
 .ci/charts/
 storageState.json
+assetlinks.json
+twa-manifest.json
