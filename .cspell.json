@@ -4,6 +4,7 @@
   "words": [
     "ADMINPASSWORD",
     "ADMINUSERNAME",
+    "assetlinks",
     "auths",
     "Automerge",
     "autoremove",
@@ -15,6 +16,7 @@
     "bracke",
     "browserconfig",
     "bson",
+    "bubblewrap",
     "bufferutil",
     "Buildkit",
     "buildscript",
@@ -79,6 +81,7 @@
     "saslprep",
     "sdks",
     "socketio",
+    "stdc",
     "svgpath",
     "timegrid",
     "traefik",
@@ -115,6 +118,8 @@
     "**/*.log",
     "**/*.svg",
     "junit.xml",
-    ".gitpod.yml"
+    ".gitpod.yml",
+    "android.keystore",
+    "twa-manifest.json"
   ]
 }
