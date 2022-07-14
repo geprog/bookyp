@@ -13,14 +13,15 @@
   "enableNotifications": true,
   "startUrl": "/",
   "iconUrl": "https://app.bookyp.de/pwa-512x512.png",
-  "maskableIconUrl": "https://app.bookyp.de/pwa-512x512.png",
+  "maskableIconUrl": "https://app.bookyp.de/pwa-maskable-512x512.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
     "path": "/app/android.keystore",
     "alias": "android"
   },
-  "appVersionName": "4",
-  "appVersionCode": 4,
+  "appVersion": "6",
+  "appVersionName": "6",
+  "appVersionCode": 6,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://app.bookyp.de/manifest.webmanifest",
@@ -32,6 +33,7 @@
   "enableSiteSettingsShortcut": true,
   "isChromeOSOnly": false,
   "isMetaQuest": false,
+  "fullScopeUrl": "https://app.bookyp.de/",
   "minSdkVersion": 19,
   "orientation": "default",
   "fingerprints": [
@@ -45,6 +47,5 @@
   "additionalTrustedOrigins": [
     "auth.geprog.com"
   ],
-  "retainedBundles": [],
-  "appVersion": "4"
+  "retainedBundles": []
 }
