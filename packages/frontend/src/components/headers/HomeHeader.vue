@@ -1,9 +1,7 @@
 <template>
   <Header :title="title" has-logo>
     <template #start>
-      <router-link :to="{ name: 'spaces-list' }" data-test="spaces-button">
-        <BookypIcon />
-      </router-link>
+      <BookypIcon />
     </template>
     <div class="relative">
       <span
@@ -30,6 +28,7 @@
     </div>
 
     <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
+    <IconButton data-test="spaces-button" icon="location" @click="$router.push({ name: 'spaces-list' })" />
     <IconButton
       v-show="isAdmin"
       data-test="button-settings"
