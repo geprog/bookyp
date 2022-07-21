@@ -10,7 +10,7 @@
       </template>
     </SettingsHeader>
 
-    <div class="m-4 flex flex-col flex-grow min-h-0">
+    <div class="flex flex-col flex-grow min-h-0">
       <SpaceMap data-test="space-map" :disable-panning="mode !== 'none'">
         <FloorPlanEditing
           :mode="mode"
@@ -27,8 +27,7 @@
           @select-map-object="selectMapObject"
         />
       </SpaceMap>
-
-      <div class="m-auto flex flex-row gap-2">
+      <div class="m-auto flex flex-row gap-2 mb-4">
         <template v-if="isMapObjectSelected">
           <FloatingButton data-test="edit-button" icon="edit" @click="openMapObjectSettings" />
           <FloatingButton data-test="delete-button" icon="delete" @click="removeSelectedMapObject" />

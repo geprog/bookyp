@@ -1,7 +1,7 @@
 <template>
   <svg
     ref="svgElement"
-    class="w-full flex-grow p-4 min-h-0 touch-none"
+    class="w-full flex-grow min-h-0 touch-none"
     :viewBox="`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

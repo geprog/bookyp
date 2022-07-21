@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="text-center flex justify-center">{{ t('next', { count }) }}</span>
+    <span class="text-center flex justify-center bg-white bg-opacity-75 rounded-lg">{{ t('next', { count }) }}</span>
     <ButtonPair icon-left="minus" icon-right="plus" @left="count > 1 && (count -= 1)" @right="count += 1" />
   </div>
 </template>
