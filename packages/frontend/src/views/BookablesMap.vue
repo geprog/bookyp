@@ -1,7 +1,7 @@
 <template>
   <HomeHeader />
 
-  <div class="m-4 mb-5 lg:mb-20 flex flex-col flex-grow min-h-0">
+  <div class="flex flex-col flex-grow min-h-0">
     <SpaceMap>
       <FloorPlan />
       <MapObjects clickable consider-filter @click-on-map-object="openCreateBooking" />
