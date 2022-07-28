@@ -1,7 +1,7 @@
 <template>
   <!-- if the map object is resizable we might need to change the rotation origin -->
   <g
-    v-for="mapObject in mapObjects"
+    v-for="mapObject in highlightedMapObjects"
     :key="mapObject._id"
     data-test="map-object"
     transform-origin="center"
@@ -21,7 +21,7 @@
     <path
       v-for="path in mapObject.paths"
       :key="path"
-      data-test="map-object-path"
+      :data-test="mapObject.highlighted ? 'highlighted-map-object-path' : 'map-object-path'"
       :d="path"
       :class="{
         'stroke-black fill-primary-light':
@@ -37,12 +37,12 @@
           considerFilter &&
           isFilterMatched(mapObject.bookable) === false &&
           isMapObjectLinkedToDeletedBookable(mapObject) === false &&
-          isBookedByMe(mapObject.bookable),
+          mapObject.highlighted,
         'stroke-black fill-red-background':
           considerFilter &&
           isFilterMatched(mapObject.bookable) === false &&
           isMapObjectLinkedToDeletedBookable(mapObject) === false &&
-          !isBookedByMe(mapObject.bookable),
+          !mapObject.highlighted,
         'stroke-current fill-primary-light':
           selectedMapObjectId === mapObject._id && isMapObjectLinkedToDeletedBookable(mapObject) === false,
         'stroke-black fill-white':
@@ -63,6 +63,10 @@ import { mapObjectsToPaths, useAndRegisterViewBox } from '~/compositions/space/u
 import { useBookables } from '~/compositions/useBookables';
 import useFind from '~/compositions/useFind';
 
+type HighlightedMapObject = Model.MapObject & {
+  highlighted: boolean;
+};
+
 export default defineComponent({
   name: 'MapObjects',
   props: {
@@ -78,15 +82,21 @@ export default defineComponent({
       type: String,
       default: null,
     },
+
+    highlightedBookableId: {
+      type: String,
+      default: null,
+    },
   },
 
   emits: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    clickOnMapObject: (__mapObject: Model.MapObject) => true,
+    clickOnMapObject: (__bookableId: Model.MapObject['bookable']) => true,
   },
 
   setup(props, context) {
     const clickable = toRef(props, 'clickable');
+    const highlightedBookableId = toRef(props, 'highlightedBookableId');
     const { data: mapObjects } = getMapObjects();
     const { spaceId } = useCurrentSpace();
 
@@ -97,29 +107,41 @@ export default defineComponent({
 
     const { isFilterMatched, isBookedByMe } = useBookables(bookables);
 
-    function isMapObjectLinkedToDeletedBookable(mapObject: Model.MapObject) {
+    const highlightedMapObjects = computed<HighlightedMapObject[]>(() =>
+      mapObjects.value.map((mapObject) => {
+        let highlighted = false;
+        if (mapObject.bookable === highlightedBookableId.value) {
+          highlighted = true;
+        }
+        if (highlightedBookableId.value === null) {
+          highlighted = isBookedByMe(mapObject.bookable);
+        }
+        return { ...mapObject, highlighted };
+      }),
+    );
+
+    function isMapObjectLinkedToDeletedBookable(mapObject: HighlightedMapObject) {
       return bookables.value.find((bookable) => bookable._id === mapObject.bookable)?.deleted === true;
     }
 
-    function isMapObjectClickable(mapObject: Model.MapObject): boolean {
+    function isMapObjectClickable(mapObject: HighlightedMapObject): boolean {
       return clickable.value && 'bookable' in mapObject && isMapObjectLinkedToDeletedBookable(mapObject) === false;
     }
 
-    function clickOnMapObject(mapObject: Model.MapObject) {
+    function clickOnMapObject(mapObject: HighlightedMapObject) {
       if (isMapObjectClickable(mapObject)) {
-        context.emit('clickOnMapObject', mapObject);
+        context.emit('clickOnMapObject', mapObject.bookable);
       }
     }
 
     useAndRegisterViewBox('MapObjects', mapObjectsToPaths(mapObjects), { strokeWidth: 1 });
 
     return {
-      mapObjects,
       clickOnMapObject,
       isFilterMatched,
       isMapObjectClickable,
       isMapObjectLinkedToDeletedBookable,
-      isBookedByMe,
+      highlightedMapObjects,
     };
   },
 });

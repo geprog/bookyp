@@ -28,7 +28,7 @@ describe('BookablesMap view', () => {
     const wrapper = shallowMount(BookablesMap);
 
     // when
-    wrapper.getComponent(MapObjects).vm.$emit('click-on-map-object', sampleMapObjectWithBookable);
+    wrapper.getComponent(MapObjects).vm.$emit('click-on-map-object', sampleMapObjectWithBookable.bookable);
     await nextTick();
 
     // then
@@ -45,7 +45,7 @@ describe('BookablesMap view', () => {
     const wrapper = shallowMount(BookablesMap);
 
     // when
-    wrapper.getComponent(MapObjects).vm.$emit('click-on-map-object', sampleMapObject);
+    wrapper.getComponent(MapObjects).vm.$emit('click-on-map-object', sampleMapObject.bookable);
     await nextTick();
 
     // then

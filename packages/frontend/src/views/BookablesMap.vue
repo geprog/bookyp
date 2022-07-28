@@ -30,9 +30,9 @@ export default defineComponent({
   setup() {
     const router = useRouter();
 
-    async function openCreateBooking(mapObject: Model.MapObject) {
-      if (mapObject.bookable) {
-        await router.push({ name: 'booking-create', params: { bookableId: mapObject.bookable } });
+    async function openCreateBooking(bookableId: Model.MapObject['bookable']) {
+      if (bookableId) {
+        await router.push({ name: 'booking-create', params: { bookableId } });
       }
     }
 
