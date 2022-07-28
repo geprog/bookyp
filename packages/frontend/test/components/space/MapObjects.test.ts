@@ -131,7 +131,7 @@ describe('MapObjects component', () => {
     // then
     expect(wrapper.emitted('clickOnMapObject')).toBeTruthy();
     expect(wrapper.emitted('clickOnMapObject')).toHaveLength(1);
-    expect(wrapper.emitted('clickOnMapObject')?.[0]).toStrictEqual([sampleMapObjects[0]]);
+    expect(wrapper.emitted('clickOnMapObject')?.[0]).toStrictEqual([sampleMapObjects[0].bookable]);
   });
 
   it('should skip clickOnMapObject event when not clickable', async () => {

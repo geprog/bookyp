@@ -9,15 +9,21 @@
   </Header>
 
   <AppContent>
-    <div v-if="bookable" class="flex flex-col p-3 rounded-lg shadow-full bg-white m-3 gap-y-1">
+    <div v-if="bookable" class="flex flex-col p-4 rounded-lg shadow-full bg-white m-4 gap-y-1">
       <h2 class="text-md">{{ bookable?.name }}</h2>
       <p class="italic text-sm text-gray-500">{{ space?.name }}</p>
       <div v-if="booking" class="grid grid-cols-[auto,1fr] grid-rows-2 text-gray-500 text-sm gap-1">
         <span> {{ t('start') }}:</span><span>{{ dayjs(booking.start).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
         <span>{{ t('end') }}:</span><span>{{ dayjs(booking?.end).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
       </div>
-      <DeleteDialog data-test="delete-dialog" :visible="modalVisible" @confirmation="deleteBooking" />
     </div>
+    <div class="flex flex-col p-4 rounded-lg shadow-full bg-white m-4 gap-y-1">
+      <SpaceMap>
+        <FloorPlan />
+        <MapObjects consider-filter :highlighted-bookable-id="bookableId" />
+      </SpaceMap>
+    </div>
+    <DeleteDialog data-test="delete-dialog" :visible="modalVisible" @confirmation="deleteBooking" />
   </AppContent>
 </template>
 
@@ -31,6 +37,9 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import DeleteDialog from '~/components/DeleteDialog.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import FloorPlan from '~/components/space/FloorPlan.vue';
+import MapObjects from '~/components/space/MapObjects.vue';
+import SpaceMap from '~/components/space/SpaceMap.vue';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
@@ -42,6 +51,9 @@ export default defineComponent({
     IconButton,
     DeleteDialog,
     AppContent,
+    FloorPlan,
+    MapObjects,
+    SpaceMap,
   },
 
   props: {
@@ -76,7 +88,7 @@ export default defineComponent({
       router.back();
     }
 
-    return { t, booking, bookable, space, dayjs, deleteBooking, modalVisible };
+    return { t, booking, bookable, bookableId, space, dayjs, deleteBooking, modalVisible };
   },
 });
 </script>
