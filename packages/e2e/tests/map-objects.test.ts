@@ -11,7 +11,6 @@ test('My Booking Object should be glowing orange color in Map-View', async ({ pa
   await page.fill('[data-test="form-address"]', 'e2e');
   await page.fill('[data-test="form-description"]', 'This is a new space from the e2e test');
   await page.click('button[type="submit"]');
-  await page.click(`[data-test="space-item"]:has-text("${spaceName}")`);
 
   // Creating a Bookable Item
   await page.click('[data-test="button-settings"]');

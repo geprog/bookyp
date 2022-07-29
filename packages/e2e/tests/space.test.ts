@@ -9,7 +9,9 @@ test('Create a space and find it in the spaces list', async ({ page }) => {
   await page.fill('[data-test="form-address"]', 'e2e');
   await page.fill('[data-test="form-description"]', 'This is a new space from the e2e test');
   await page.click('button[type="submit"]');
-  await expect(page).toHaveURL('/spaces');
+  await expect(page).toHaveURL('/bookables/map');
+  await page.goto('/spaces');
+
   const space = page.locator('[data-test="space-item"]').first();
   await expect(space.locator('[data-test="label"]')).toContainText(spaceName);
   await expect(space.locator('[data-test="description"]')).toContainText('admin');
@@ -45,7 +47,6 @@ test('Create a space and add a mapObject', async ({ page }) => {
   const spaceName = 'Space with instant mapObject creation';
   await page.fill('[data-test="form-name"]', spaceName);
   await page.click('button[type="submit"]');
-  await page.click(`[data-test="space-item"]:has-text("${spaceName}")`);
   await page.click('[data-test="button-settings"]');
   await page.click('[data-test="add-map-object-button"]');
   await page.click('[data-test="save-button"]');
@@ -61,7 +62,6 @@ test('Create a space and invite a member', async ({ page }) => {
   const spaceName = 'Space with invitation';
   await page.fill('[data-test="form-name"]', spaceName);
   await page.click('button[type="submit"]');
-  await page.click(`[data-test="space-item"]:has-text("${spaceName}")`);
   await page.click('[data-test="button-settings"]');
   await page.click('[data-test="button-space-members"]');
   await page.click('[data-test="button-invite-member"]');
