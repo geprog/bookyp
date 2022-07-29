@@ -7,41 +7,28 @@
   />
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from 'vue';
+<script lang="ts" setup>
+import { computed } from 'vue';
 
-export default defineComponent({
-  name: 'TextField',
-
-  components: {},
-
-  props: {
-    modelValue: {
-      type: String,
-      default: '',
-    },
-
-    placeholder: {
-      type: String,
-      default: '',
-    },
+const props = withDefaults(
+  defineProps<{
+    modelValue?: string;
+    placeholder?: string;
+  }>(),
+  {
+    modelValue: '',
+    placeholder: '',
   },
+);
 
-  emits: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    'update:modelValue': (_value: string): boolean => true,
-  },
+const emit = defineEmits<{
+  (e: 'update:modelValue', v: string): void;
+}>();
 
-  setup: (props, ctx) => {
-    const innerValue = computed({
-      get: () => props.modelValue,
-      set: (value) => {
-        ctx.emit('update:modelValue', value);
-      },
-    });
-    return {
-      innerValue,
-    };
+const innerValue = computed({
+  get: () => props.modelValue,
+  set: (value) => {
+    emit('update:modelValue', value);
   },
 });
 </script>
