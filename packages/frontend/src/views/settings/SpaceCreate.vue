@@ -17,6 +17,7 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SpaceForm from '~/components/space/SpaceForm.vue';
+import { spaceId } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 
@@ -41,7 +42,7 @@ export default defineComponent({
         throw new Error('No user available to create a space for');
       }
 
-      await feathers.service('spaces').create({
+      const _space = await feathers.service('spaces').create({
         members: [
           {
             role: 'admin',
@@ -50,7 +51,8 @@ export default defineComponent({
         ],
         ...space.value,
       });
-      await router.replace({ name: 'spaces-list' });
+      spaceId.value = _space._id;
+      await router.push({ name: 'bookables-map' });
     };
 
     return { saveSpace, space, t };
