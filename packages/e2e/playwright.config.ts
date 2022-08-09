@@ -8,7 +8,7 @@ const config: PlaywrightTestConfig = {
         command: 'pnpm run start:e2e',
         port: 3000,
         timeout: 120 * 1000,
-        reuseExistingServer: false,
+        reuseExistingServer: true,
       },
   maxFailures: process.env.CI ? 1 : undefined,
   use: {
