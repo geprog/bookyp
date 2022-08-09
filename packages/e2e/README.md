@@ -26,7 +26,14 @@ When developing inside a container you have to start `codegen` from your host sy
 
 - open a second editor on your host and check out your branch
 - copy `storageState.json` to your host environment
-- start your dev server inside the container
-- execute `pnpm run codegen` on your host
+- start your dev server inside the container by executing `pnpm start:e2e`
+- while the dev server is running, execute `pnpm run codegen` on your host
 - copy generated code snippets to a new test inside the container
 - execute `pnpm run test` inside the container
+
+## Debugging e2e tests in VNC Server
+
+- start your dev server by executing `pnpm start:e2e`
+- open the VNC web interface in your browser on port 6080
+- Add breakpoints in the desired file
+- Start debugging a test: <https://github.com/microsoft/playwright-vscode#debug-step-by-step-explore-selectors>
