@@ -14,7 +14,7 @@
 
 ### Without devcontainer
 
-- install pnpm globally: `curl -f https://get.pnpm.io/v6.js | node - add --global pnpm@6`
+- install pnpm globally: `npm install -g pnpm@7`
 - copy env-file: `cp docs/.env.example .env`
 - set properties in `.env` file (`BACKEND_KEYCLOAK_SECRET` can be found at <https://vault.geprog.com>)
 - install project dependencies: `pnpm install`

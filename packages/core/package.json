@@ -5,10 +5,10 @@
   "main": "dist/",
   "types": "dist/",
   "scripts": {
-    "start": "pnpm build -- --watch src/",
+    "start": "pnpm build --watch src/",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --forceExit --detectOpenHandles",
-    "test:watch": "pnpm test -- --watchAll",
+    "test:watch": "pnpm test --watchAll",
     "lint": "eslint --max-warnings 0 .",
     "typecheck": "ttsc --noEmit",
     "clean": "rm -rf dist/ node_modules/ *.tsbuildinfo .eslintcache"

@@ -1,5 +1,4 @@
-image:
-  file: .gitpod.Dockerfile
+image: gitpod/workspace-full-vnc:latest
 
 tasks:
   - name: Install Playwright dependencies

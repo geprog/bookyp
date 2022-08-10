@@ -29,6 +29,6 @@
   "prCreation": "not-pending",
   "labels": ["renovate", "👀 Ready for Review"],
   "constraints": {
-    "pnpm": "6"
+    "pnpm": "7"
   }
 }
