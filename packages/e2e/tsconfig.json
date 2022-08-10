@@ -3,7 +3,6 @@
 
   "compilerOptions": {
     "lib": ["esnext"],
-    "types": ["node"],
     "outDir": "dist",
     "rootDir": ".",
     "baseUrl": "."

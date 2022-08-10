@@ -8,26 +8,23 @@
   ],
   "engines": {
     "node": "16",
-    "pnpm": "6"
+    "pnpm": "7"
   },
   "scripts": {
     "start": "dotenv -- pnpm --filter @bookyp/frontend... --filter @bookyp/backend... --filter @bookyp/oauth-mock-server... --parallel start",
     "start:frontend": "dotenv -- pnpm --filter @bookyp/frontend start",
     "start:backend": "dotenv -- pnpm --filter @bookyp/backend start",
     "docker-compose": "docker-compose -f .devcontainer/docker-compose.without-devcontainer.yml -f .devcontainer/docker-compose.database.yml -p bookyp",
-    "docker:up": "pnpm --filter . -- docker-compose up -d",
-    "docker:remove-volumes": "pnpm --filter . -- docker-compose down --volumes --remove-orphans",
+    "docker:up": "pnpm docker-compose up -d",
+    "docker:remove-volumes": "pnpm docker-compose down --volumes --remove-orphans",
     "build": "pnpm --filter @bookyp/frontend... --filter @bookyp/backend... build",
     "build:libs": "pnpm --filter @bookyp/core build",
-    "lint": "pnpm --filter . lint:formatting && pnpm --filter ./packages lint",
+    "lint": "pnpm lint:formatting && pnpm -r lint",
     "lint:formatting": "prettier -c .",
-    "lint:changed": "pnpm lint:formatting && pnpm --filter \"...[master]\" lint",
     "spellcheck": "cspell lint --no-progress --gitignore '{**,.*}/{*,.*}'",
-    "test": "pnpm --filter ./packages test",
-    "test:changed": "pnpm --filter \"...[master]\" --filter=!./ test",
-    "typecheck": "pnpm --filter ./packages typecheck",
-    "typecheck:changed": "pnpm --filter \"...[master]\" --filter=!./ typecheck",
-    "clean": "pnpm --filter ./packages clean",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "clean": "pnpm -r clean",
     "postinstall": "rm -rf ./node_modules/.pnpm/@fullcalendar+core@5.11.0/node_modules/preact/src/jsx.d.ts"
   },
   "devDependencies": {
