@@ -5,7 +5,7 @@ tasks:
     command: |
       cd packages/e2e
       pnpm playwright:install
-  - name: Run bookyp
+  - name: Setup bookyp
     init: |
       pnpm install
       pnpm run build:libs
@@ -16,7 +16,24 @@ tasks:
       sed -i "s,BACKEND_KEYCLOAK_SUBDOMAIN=.*,BACKEND_KEYCLOAK_SUBDOMAIN=5000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}/auth/realms/bookyp," .env
       sed -i "s,BACKEND_HOST=.*,BACKEND_HOST=4000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}," .env
       pnpm run docker:up
-      pnpm run start
+      gp sync-done setup
+      exit 0
+  - name: Run app
+    command: |
+      gp sync-await setup
+      pnpm run start:frontend
+  - name: Run backend
+    command: |
+      gp sync-await setup
+      pnpm run start:backend
+  - name: Run oauth-mock-server
+    command: |
+      gp sync-await setup
+      pnpm run start:frontend
+  - name: Run core
+    command: |
+      gp sync-await setup
+      pnpm run start:core
 
 vscode:
   extensions:
