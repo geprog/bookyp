@@ -5,6 +5,7 @@ tasks:
     command: |
       cd packages/e2e
       pnpm playwright:install
+      exit 0
   - name: Setup bookyp
     init: |
       pnpm install
@@ -29,7 +30,7 @@ tasks:
   - name: Run oauth-mock-server
     command: |
       gp sync-await setup
-      pnpm run start:frontend
+      pnpm run start:oauth-mock-server
   - name: Run core
     command: |
       gp sync-await setup
