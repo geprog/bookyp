@@ -19,7 +19,7 @@ type MapObject = {
   bookable?: ObjectId;
 };
 
-export const seed: Migration = {
+export const v001_seed: Migration = {
   id: 'seed-038e215e-e648-11eb-ac5b-5b98cceacb59',
   async up(context) {
     if (!context || !context.db) {

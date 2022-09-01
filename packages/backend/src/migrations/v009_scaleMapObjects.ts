@@ -21,7 +21,7 @@ const oldMapObjectPaths = [
 const scaleX = 80 / (56.9259 - 17.0648); // scaleX = desiredTableWidth / currentTableWidth (see `oldMapObjectPaths` for the current table width)
 const scaleY = 140 / (83.4525 - 1.12463); // scaleY = desiredTableHeight / currentTableHeight (see `oldMapObjectPaths` for the current table height)
 
-export const scaleMapObjects: Migration = {
+export const v009_scaleMapObjects: Migration = {
   id: 'scale-map-objects',
   async up(context) {
     if (!context || !context.db) {

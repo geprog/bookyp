@@ -6,7 +6,7 @@ type Space = {
   floorPlan: string[];
 };
 
-export const refactorFloorPlan: Migration = {
+export const v004_refactorFloorPlan: Migration = {
   id: 'refactor-floor-plan-to-allow-wall-selection',
   async up(context) {
     if (!context || !context.db) {

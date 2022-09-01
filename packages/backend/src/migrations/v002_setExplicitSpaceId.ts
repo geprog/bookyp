@@ -6,7 +6,7 @@ type Space = {
   floorPlan: string[];
 };
 
-export const setExplicitSpaceId: Migration = {
+export const v002_setExplicitSpaceId: Migration = {
   id: 'set-explicit-space-id',
   async up(context) {
     if (!context || !context.db) {
