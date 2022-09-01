@@ -3,27 +3,23 @@ import { ObjectId } from 'mongodb';
 
 type Space = {
   _id: ObjectId;
-  plan: undefined | 'sponsored';
+  floorPlan: string[];
 };
 
-export const setGeprogSpacePlanSponsored: Migration = {
-  id: 'set-geprog-space-plan-sponsored',
+export const v006_setSpaceName: Migration = {
+  id: 'set-Space-Name',
   async up(context) {
     if (!context || !context.db) {
       throw new Error('Please pass a context with a db object');
     }
     const { db } = context;
-    await db
-      .collection<Space>('spaces')
-      .updateOne({ _id: new ObjectId('626999802f7088caaa96206e') }, { $set: { plan: 'sponsored' } });
+    await db.collection<Space>('spaces').updateMany({ name: undefined }, { $set: { name: 'New Space' } });
   },
   async down(context) {
     if (!context || !context.db) {
       throw new Error('Please pass a context with a db object');
     }
     const { db } = context;
-    await db
-      .collection<Space>('spaces')
-      .updateOne({ _id: new ObjectId('626999802f7088caaa96206e') }, { $unset: { plan: '' } });
+    await db.collection<Space>('spaces').updateMany({}, { $unset: { name: '' } });
   },
 };

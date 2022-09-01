@@ -1,7 +1,7 @@
 import { Migration } from '@geprog/node-migrate-ts';
 import { ObjectId } from 'mongodb';
 
-import { newFloorPlan, oldFloorPlan } from './data/waterkantFloorPlan';
+import { newFloorPlan } from './data/deckMueritzFloorPlan';
 
 type Space = {
   _id: ObjectId;
@@ -9,8 +9,10 @@ type Space = {
   floorPlan: string[];
 };
 
-export const customizeWaterkantSpace: Migration = {
-  id: 'customize-waterkant-space',
+const deckMueritzSpaceId = new ObjectId('631124385a99c3845e4160b4');
+
+export const v012_customizeDECKMueritzSpace: Migration = {
+  id: 'v012-customize-deck-mueritz-space',
   async up(context) {
     if (!context || !context.db) {
       throw new Error('Please pass a context with a db object');
@@ -18,10 +20,7 @@ export const customizeWaterkantSpace: Migration = {
     const { db } = context;
     await db
       .collection<Space>('spaces')
-      .updateOne(
-        { _id: new ObjectId('62a2f978e81ee2740e697644') },
-        { $set: { plan: 'public', floorPlan: newFloorPlan } },
-      );
+      .updateOne({ _id: deckMueritzSpaceId }, { $set: { plan: 'public', floorPlan: newFloorPlan } });
   },
   async down(context) {
     if (!context || !context.db) {
@@ -30,9 +29,6 @@ export const customizeWaterkantSpace: Migration = {
     const { db } = context;
     await db
       .collection<Space>('spaces')
-      .updateOne(
-        { _id: new ObjectId('62a2f978e81ee2740e697644') },
-        { $unset: { plan: '' }, $set: { floorPlan: oldFloorPlan } },
-      );
+      .updateOne({ _id: deckMueritzSpaceId }, { $unset: { plan: '' }, $set: { floorPlan: [] } });
   },
 };

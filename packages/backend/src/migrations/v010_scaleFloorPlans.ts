@@ -10,7 +10,7 @@ type Space = {
 const scaleX = 80 / (56.9259 - 17.0648); // scaleX = desiredTableWidth / currentTableWidth (see `scaleMapObjects.ts#oldMapObjectPaths` for the current table height)
 const scaleY = 140 / (83.4525 - 1.12463); // scaleY = desiredTableHeight / currentTableHeight (see `scaleMapObjects.ts#oldMapObjectPaths` for the current table height)
 
-export const scaleFloorPlans: Migration = {
+export const v010_scaleFloorPlans: Migration = {
   id: 'scale-floor-plans',
   async up(context) {
     if (!context || !context.db) {

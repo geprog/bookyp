@@ -11,7 +11,7 @@ type Invitation = {
   email: string;
 };
 
-export const emailsToLowerCase: Migration = {
+export const v007_emailsToLowerCase: Migration = {
   id: 'emails-to-lowercase',
   async up(context) {
     if (!context || !context.db) {

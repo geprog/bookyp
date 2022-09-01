@@ -14,7 +14,7 @@ type Space = {
   members: Member[];
 };
 
-export const addExistingUsersToSpace: Migration = {
+export const v005_addExistingUsersToSpace: Migration = {
   id: 'add-existing-users-to-space',
   async up(context) {
     if (!context || !context.db) {

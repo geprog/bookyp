@@ -2,31 +2,33 @@ import { Migration, MongoMigrationStore, up } from '@geprog/node-migrate-ts';
 import { Db, MongoClient } from 'mongodb';
 
 import { getConnectionUri } from '~/database';
-import { addExistingUsersToSpace } from '~/migrations/addExistingUsersToSpace';
-import { addSpaceReference } from '~/migrations/addSpaceReference';
-import { customizeWaterkantSpace } from '~/migrations/customizeWaterkantSpace';
-import { emailsToLowerCase } from '~/migrations/emailsToLowerCase';
-import { refactorFloorPlan } from '~/migrations/refactorFloorPlan';
-import { scaleFloorPlans } from '~/migrations/scaleFloorPlans';
-import { scaleMapObjects } from '~/migrations/scaleMapObjects';
-import { seed } from '~/migrations/seed';
-import { setExplicitSpaceId } from '~/migrations/setExplicitSpaceId';
-import { setGeprogSpacePlanSponsored } from '~/migrations/setGeprogSpacePlanSponsored';
-import { setSpaceName } from '~/migrations/setSpaceName';
+import { v001_seed } from '~/migrations/v001_seed';
+import { v002_setExplicitSpaceId } from '~/migrations/v002_setExplicitSpaceId';
+import { v003_addSpaceReference } from '~/migrations/v003_addSpaceReference';
+import { v004_refactorFloorPlan } from '~/migrations/v004_refactorFloorPlan';
+import { v005_addExistingUsersToSpace } from '~/migrations/v005_addExistingUsersToSpace';
+import { v006_setSpaceName } from '~/migrations/v006_setSpaceName';
+import { v007_emailsToLowerCase } from '~/migrations/v007_emailsToLowerCase';
+import { v008_setGeprogSpacePlanSponsored } from '~/migrations/v008_setGeprogSpacePlanSponsored';
+import { v009_scaleMapObjects } from '~/migrations/v009_scaleMapObjects';
+import { v010_scaleFloorPlans } from '~/migrations/v010_scaleFloorPlans';
+import { v011_customizeWaterkantSpace } from '~/migrations/v011_customizeWaterkantSpace';
+import { v012_customizeDECKMueritzSpace } from '~/migrations/v012_customizeDECKMueritzSpace';
 
 // migrations are applied in the order defined here
 const migrations: Migration[] = [
-  seed,
-  setExplicitSpaceId,
-  addSpaceReference,
-  refactorFloorPlan,
-  addExistingUsersToSpace,
-  setSpaceName,
-  emailsToLowerCase,
-  setGeprogSpacePlanSponsored,
-  scaleMapObjects,
-  scaleFloorPlans,
-  customizeWaterkantSpace,
+  v001_seed,
+  v002_setExplicitSpaceId,
+  v003_addSpaceReference,
+  v004_refactorFloorPlan,
+  v005_addExistingUsersToSpace,
+  v006_setSpaceName,
+  v007_emailsToLowerCase,
+  v008_setGeprogSpacePlanSponsored,
+  v009_scaleMapObjects,
+  v010_scaleFloorPlans,
+  v011_customizeWaterkantSpace,
+  v012_customizeDECKMueritzSpace,
 ];
 
 const migrationStore = new MongoMigrationStore();

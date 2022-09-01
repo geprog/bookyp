@@ -6,7 +6,7 @@ type ModelWithSpaceReference = {
 
 const spaceId = '60f53bede6f8313dff7f99e0';
 
-export const addSpaceReference: Migration = {
+export const v003_addSpaceReference: Migration = {
   id: 'add-space-reference',
   async up(context) {
     if (!context || !context.db) {
