@@ -1,9 +1,9 @@
-import AbstractEntity, { Ref } from '~/model/AbstractEntity';
-import Bookable from '~/model/Bookable';
-import Space from '~/model/Space';
+import { AbstractEntity, Ref } from '~/model/AbstractEntity';
+import { Bookable } from '~/model/Bookable';
+import { Space } from '~/model/Space';
 import { MapObjectTypes } from '~/model/TemplateGenerator';
 
-export default class MapObject extends AbstractEntity {
+export class MapObject extends AbstractEntity {
   /**
    * position in x-axis from the top left corner
    * one unit represents 1m
