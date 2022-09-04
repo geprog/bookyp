@@ -1,6 +1,6 @@
 import ObjectID from 'bson-objectid';
 
-export default abstract class AbstractEntity {
+export abstract class AbstractEntity {
   readonly _id!: string;
   deleted?: boolean;
 

@@ -1,8 +1,8 @@
-import AbstractEntity, { Ref } from '~/model/AbstractEntity';
-import Space from '~/model/Space';
-import User from '~/model/User';
+import { AbstractEntity, Ref } from '~/model/AbstractEntity';
+import { Space } from '~/model/Space';
+import { User } from '~/model/User';
 
-export default class Invitation extends AbstractEntity {
+export class Invitation extends AbstractEntity {
   role!: Space['members'][0]['role'];
   email!: User['email'];
   spaceId!: Ref<Space>;

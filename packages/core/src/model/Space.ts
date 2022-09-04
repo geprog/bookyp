@@ -1,5 +1,5 @@
-import AbstractEntity, { Ref } from '~/model/AbstractEntity';
-import User from '~/model/User';
+import { AbstractEntity, Ref } from '~/model/AbstractEntity';
+import { User } from '~/model/User';
 
 export type Member = {
   role: 'admin' | 'user';
@@ -10,7 +10,7 @@ export type Member = {
 
 export type Plan = 'sponsored' | 'public';
 
-export default class Space extends AbstractEntity {
+export class Space extends AbstractEntity {
   floorPlan!: string[];
   members!: Member[];
   name!: string;
