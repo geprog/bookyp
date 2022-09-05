@@ -1,9 +1,8 @@
 import { Application, Model } from '@bookyp/core';
-import { authenticate } from '@feathersjs/authentication';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
 import { Document, model, Schema } from 'mongoose';
 
-import { authorizeWithFreshAbility, feathersCaslAllowlist } from '~/casl';
+import { feathersCaslAllowlist } from '~/casl';
 
 import { preventInvalidDateRange } from './hooks/preventInvalidDateRange';
 import { preventOverlappingBookings } from './hooks/preventOverlappingBookings';
@@ -30,11 +29,7 @@ export default (app: Application): void => {
   app.use(name, new Service<Model.Booking>(options));
   app.service(name).hooks({
     before: {
-      all: [authenticate('jwt'), authorizeWithFreshAbility],
       create: [preventInvalidDateRange, preventOverlappingBookings],
-    },
-    after: {
-      all: [authorizeWithFreshAbility],
     },
   });
 };

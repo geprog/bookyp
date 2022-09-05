@@ -1,9 +1,8 @@
 import { Application, Model } from '@bookyp/core';
-import { authenticate } from '@feathersjs/authentication';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
 import { Document, model, Schema } from 'mongoose';
 
-import { authorizeWithFreshAbility, feathersCaslAllowlist } from '~/casl';
+import { feathersCaslAllowlist } from '~/casl';
 import softDelete from '~/hooks/softDelete';
 
 const BookableSchema = new Schema<Model.Bookable>({
@@ -26,10 +25,7 @@ export default (app: Application): void => {
   app.use(name, new Service<Model.Bookable>(options));
   app.service(name).hooks({
     before: {
-      all: [authenticate('jwt'), authorizeWithFreshAbility, softDelete],
-    },
-    after: {
-      all: [authorizeWithFreshAbility],
+      all: [softDelete],
     },
   });
 };

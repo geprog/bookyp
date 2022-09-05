@@ -12,6 +12,7 @@ export const createApplication = jest.fn().mockImplementation(() => ({
   setup: jest.fn(),
   set: jest.fn(),
   get: jest.fn(),
+  hooks: jest.fn(),
   version: '4.0.0',
 }));
 
