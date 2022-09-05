@@ -1,15 +1,14 @@
 import { Application, Model } from '@bookyp/core';
-import { authenticate } from '@feathersjs/authentication';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
 import { Document, model, Schema } from 'mongoose';
 
-import { authorizeWithFreshAbility, feathersCaslAllowlist } from '~/casl';
+import { feathersCaslAllowlist } from '~/casl';
 
-import accept from './accept.hook';
-import addSpaceName from './addSpaceName.hook';
-import checkUserAlreadyInSpace from './checkUserAlreadyInSpace.hook';
-import emailToLowerCase from './emailToLowerCase.hook';
-import sendSpaceInvitationMail from './sendInvitationMail';
+import accept from './hooks/accept';
+import addSpaceName from './hooks/addSpaceName';
+import checkUserAlreadyInSpace from './hooks/checkUserAlreadyInSpace';
+import emailToLowerCase from './hooks/emailToLowerCase';
+import sendSpaceInvitationMail from './hooks/sendInvitationMail';
 
 const InvitationSchema = new Schema<Model.Invitation>({
   role: { type: String, required: true },
@@ -32,12 +31,11 @@ export default (app: Application): void => {
   app.use(name, new Service<Model.Invitation>(options));
   app.service(name).hooks({
     before: {
-      all: [authenticate('jwt'), authorizeWithFreshAbility],
       create: [emailToLowerCase, checkUserAlreadyInSpace, sendSpaceInvitationMail],
       remove: [accept],
     },
     after: {
-      all: [addSpaceName, authorizeWithFreshAbility],
+      all: [addSpaceName],
     },
   });
 };

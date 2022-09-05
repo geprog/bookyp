@@ -1,13 +1,11 @@
 import { Application, Model } from '@bookyp/core';
-import { authenticate } from '@feathersjs/authentication';
-import { authorize } from 'feathers-casl';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
 import { Document, model, Schema } from 'mongoose';
 
 import { feathersCaslAllowlist } from '~/casl';
 
-import addSpaceMemberFields from './addSpaceMemberFields.hook';
-import removePlanFromCreate from './removePlanFromCreate.hook';
+import addSpaceMemberFields from './hooks/addSpaceMemberFields';
+import removePlanFromCreate from './hooks/removePlanFromCreate';
 
 const SpaceSchema = new Schema<Model.Space>({
   floorPlan: { type: [String], required: true },
@@ -36,11 +34,10 @@ export default (app: Application): void => {
   app.use(name, new Service<Model.Space>(options));
   app.service(name).hooks({
     before: {
-      all: [authenticate('jwt'), authorize({ adapter: 'feathers-mongoose' })],
       create: [removePlanFromCreate],
     },
     after: {
-      all: [addSpaceMemberFields, authorize({ adapter: 'feathers-mongoose' })],
+      all: [addSpaceMemberFields],
     },
   });
 };

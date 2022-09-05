@@ -13,10 +13,12 @@ export const feathersCaslAllowlist = ['$nor', '$and'];
  *
  * For more info see https://github.com/fratzinger/feathers-casl/issues/33#issuecomment-995987497
  */
-export const authorizeWithFreshAbility = async (context: HookContext): Promise<HookContext> => {
-  delete context.params.ability;
-  return authorize({
-    adapter: 'feathers-mongoose',
-    ability: async (c: HookContext<Application>) => defineAbilitiesFor(c.params.user as Model.User, c.app),
-  })(context);
-};
+export const authorizeWithFreshAbility =
+  (adapter: 'feathers-mongoose' | 'feathers-memory' = 'feathers-mongoose') =>
+  async (context: HookContext): Promise<HookContext> => {
+    delete context.params.ability;
+    return authorize({
+      adapter,
+      ability: async (c: HookContext<Application>) => defineAbilitiesFor(c.params.user as Model.User, c.app),
+    })(context);
+  };

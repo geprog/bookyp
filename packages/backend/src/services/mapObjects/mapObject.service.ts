@@ -1,9 +1,8 @@
 import { Application, Model } from '@bookyp/core';
-import { authenticate } from '@feathersjs/authentication';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
 import { Document, model, Schema } from 'mongoose';
 
-import { authorizeWithFreshAbility, feathersCaslAllowlist } from '~/casl';
+import { feathersCaslAllowlist } from '~/casl';
 
 const MapObjectSchema = new Schema<Model.MapObject>({
   xPos: { type: Number, required: true },
@@ -26,12 +25,4 @@ export default (app: Application): void => {
   };
 
   app.use(name, new Service<Model.MapObject>(options));
-  app.service(name).hooks({
-    before: {
-      all: [authenticate('jwt'), authorizeWithFreshAbility],
-    },
-    after: {
-      all: [authorizeWithFreshAbility],
-    },
-  });
 };
