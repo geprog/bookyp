@@ -80,5 +80,9 @@
     "cancel": "Cancel"
   },
   "available_bookables": "Available bookables",
-  "occupied_bookables": "Occupied bookables"
+  "occupied_bookables": "Occupied bookables",
+  "feature_flags": {
+    "enable_all_unstable_features": "Enable all unstable features",
+    "disable_all_unstable_features": "Disable all unstable features"
+  }
 }

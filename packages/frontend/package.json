@@ -24,6 +24,7 @@
     "@fullcalendar/vue3": "5.11.0",
     "@geprog/use-feathers": "3.2.1",
     "@types/lodash": "4.14.170",
+    "@vueuse/core": "9.2.0",
     "dayjs": "1.10.5",
     "events": "3.3.0",
     "lodash": "4.17.21",
