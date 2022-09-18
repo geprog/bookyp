@@ -10,7 +10,7 @@ describe('Icon component', () => {
     const originalIcon = icons[iconName];
     Object.defineProperty(icons, iconName, { get: () => originalIcon });
 
-    const iconSpy = jest.spyOn(icons, iconName, 'get');
+    const iconSpy = vi.spyOn(icons, iconName, 'get');
 
     const resetIconSpy = () => {
       iconSpy.mockReset();
@@ -63,7 +63,7 @@ describe('Icon component', () => {
     const iconName = 'add';
     const changedIconName = 'link';
     const { resetIconSpy, iconSpy } = spyIcon(iconName);
-    const { resetIconSpy: resetIconSpyChanged, iconSpy: iconSpyChanged } = spyIcon(iconName);
+    const { resetIconSpy: resetIconSpyChanged, iconSpy: iconSpyChanged } = spyIcon(changedIconName);
     const wrapper = mount(Icon, {
       props: {
         name: iconName,

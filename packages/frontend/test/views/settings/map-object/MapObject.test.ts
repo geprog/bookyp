@@ -1,12 +1,13 @@
 import { UseFindFunc } from '@geprog/use-feathers';
-import { shallowMount } from '@vue/test-utils';
-import { mocked } from 'ts-jest/utils';
-import { nextTick, ref } from 'vue';
+import { config, shallowMount } from '@vue/test-utils';
+import { ref } from 'vue';
 
+import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import useFind from '~/compositions/useFind';
 import MapObject from '~/views/settings/map-object/MapObject.vue';
 import { sampleBookable, sampleBookables } from '$/__fixtures__/bookable';
 import { sampleMapObject, sampleMapObjects } from '$/__fixtures__/mapObject';
+import { i18n } from '$/__helpers__/i18n';
 import {
   prepareUseCurrentSpaceMockOnce,
   prepareUseFeathersMockOnce,
@@ -16,14 +17,21 @@ import {
   prepareUseRouterMockOnce,
 } from '$/__helpers__/mocks';
 
-jest.mock('~/compositions/useFeathers');
-jest.mock('~/compositions/useGet');
-jest.mock('~/compositions/useFind');
-jest.mock('~/compositions/space/useCurrentSpace');
-jest.mock('vue-i18n');
-jest.mock('vue-router');
+vi.mock('~/compositions/useFeathers');
+vi.mock('~/compositions/useGet');
+vi.mock('~/compositions/useFind');
+vi.mock('~/compositions/space/useCurrentSpace');
+vi.mock('vue-router');
 
 describe('MapObject view', () => {
+  beforeAll(() => {
+    config.renderStubDefaultSlot = true;
+  });
+
+  afterAll(() => {
+    config.renderStubDefaultSlot = false;
+  });
+
   beforeEach(() => {
     prepareUseCurrentSpaceMockOnce();
   });
@@ -47,6 +55,7 @@ describe('MapObject view', () => {
             $router: useRouterMock,
             $route: useRouteMock,
           },
+          plugins: [i18n],
         },
       });
 
@@ -72,6 +81,7 @@ describe('MapObject view', () => {
             $router: useRouterMock,
             $route: useRouteMock,
           },
+          plugins: [i18n],
         },
       });
 
@@ -87,14 +97,14 @@ describe('MapObject view', () => {
     prepareUseGetMockOnce(sampleMapObject);
     prepareUseGetMockOnce(sampleBookable);
     let params: Parameters<UseFindFunc<unknown>>[1];
-    mocked(useFind, true).mockImplementationOnce((_, _params) => {
+    vi.mocked(useFind, true).mockImplementationOnce((_, _params) => {
       params = _params;
 
       return {
         data: ref([sampleBookable]),
         isLoading: ref(false),
         error: ref(),
-        unload: jest.fn(),
+        unload: vi.fn(),
       };
     });
 
@@ -108,6 +118,7 @@ describe('MapObject view', () => {
           $router: useRouterMock,
           $route: useRouteMock,
         },
+        plugins: [i18n],
       },
     });
 
@@ -135,12 +146,12 @@ describe('MapObject view', () => {
           $router: useRouterMock,
           $route: useRouteMock,
         },
+        plugins: [i18n],
       },
     });
 
     // when
-    wrapper.findComponent('[data-test=select-bookable]').vm.$emit('click');
-    await nextTick();
+    await wrapper.findComponent(SelectableListItem).trigger('click');
 
     // then
     expect(mapObject.value).toStrictEqual({
@@ -179,12 +190,12 @@ describe('MapObject view', () => {
             template: '<div><slot /><slot name="end"/></div>',
           },
         },
+        plugins: [i18n],
       },
     });
 
     // when
-    wrapper.findComponent('[data-test=unlink-button]').vm.$emit('click');
-    await nextTick();
+    await wrapper.findComponent('[data-test=unlink-button]').trigger('click');
 
     // then
     expect(sampleMapObject.bookable).toBeUndefined();

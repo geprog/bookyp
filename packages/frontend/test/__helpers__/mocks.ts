@@ -1,5 +1,4 @@
 import { Model } from '@bookyp/core';
-import { mocked } from 'ts-jest/utils';
 import { computed, ref } from 'vue';
 import { RouteLocationNormalized, Router, useRoute, useRouter } from 'vue-router';
 
@@ -18,9 +17,9 @@ export function prepareUseGetMockOnce<T>(initialValue?: T) {
     data,
     isLoading,
     error: ref(),
-    unload: jest.fn(),
+    unload: vi.fn(),
   };
-  mocked(useGet, true).mockReturnValueOnce(useGetMock);
+  vi.mocked(useGet).mockReturnValueOnce(useGetMock);
 
   return {
     data,
@@ -37,9 +36,9 @@ export function prepareUseFindMockOnce<T>(initialValue: T[] = []) {
     data,
     isLoading,
     error: ref(),
-    unload: jest.fn(),
+    unload: vi.fn(),
   };
-  mocked(useFind, true).mockReturnValueOnce(useFindMock);
+  vi.mocked(useFind).mockReturnValueOnce(useFindMock);
 
   return {
     data,
@@ -55,7 +54,7 @@ export function prepareUseCurrentSpaceMockOnce(space?: Model.Space): void {
     currentSpace,
     spaceId,
   };
-  mocked(useCurrentSpace, true).mockReturnValueOnce(useCurrentSpaceMock);
+  vi.mocked(useCurrentSpace).mockReturnValueOnce(useCurrentSpaceMock);
 }
 
 export function prepareUseMapObjectsMockOnce(mapObjects: Model.MapObject[]): void {
@@ -66,23 +65,23 @@ export function prepareUseMapObjectsMockOnce(mapObjects: Model.MapObject[]): voi
     data,
     isLoading,
     error: ref(),
-    unload: jest.fn(),
+    unload: vi.fn(),
   };
-  mocked(useMapObjects, true).mockReturnValueOnce(useMapObjectsMock);
+  vi.mocked(useMapObjects).mockReturnValueOnce(useMapObjectsMock);
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function prepareUseRouterMockOnce() {
-  const replace = jest.fn();
-  const push = jest.fn();
-  const back = jest.fn();
+  const replace = vi.fn();
+  const push = vi.fn();
+  const back = vi.fn();
   const useRouterMock = {
     replace,
     push,
     back,
   } as unknown as Router;
 
-  mocked(useRouter).mockReturnValueOnce(useRouterMock);
+  vi.mocked(useRouter).mockReturnValueOnce(useRouterMock);
 
   return { replace, push, back };
 }
@@ -93,20 +92,20 @@ export function prepareUseRouteMockOnce({ name } = { name: '' }) {
     name,
   } as unknown as RouteLocationNormalized;
 
-  mocked(useRoute).mockReturnValueOnce(useRouterMock);
+  vi.mocked(useRoute).mockReturnValueOnce(useRouterMock);
 
   return { name };
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function prepareUseFeathersMockOnce() {
-  const get = jest.fn();
-  const find = jest.fn();
-  const create = jest.fn();
-  const update = jest.fn();
-  const patch = jest.fn();
-  const remove = jest.fn();
-  const service = jest.fn(() => ({
+  const get = vi.fn();
+  const find = vi.fn();
+  const create = vi.fn();
+  const update = vi.fn();
+  const patch = vi.fn();
+  const remove = vi.fn();
+  const service = vi.fn(() => ({
     get,
     find,
     create,
@@ -114,15 +113,15 @@ export function prepareUseFeathersMockOnce() {
     update,
     remove,
   }));
-  const on = jest.fn();
-  const off = jest.fn();
+  const on = vi.fn();
+  const off = vi.fn();
 
   const useFeathersMock = {
     service,
     on,
     off,
   } as unknown as ClientApplication;
-  mocked(useFeathers).mockReturnValueOnce(useFeathersMock);
+  vi.mocked(useFeathers).mockReturnValueOnce(useFeathersMock);
 
   return { get, find, create, update, patch, remove, service, on, off };
 }

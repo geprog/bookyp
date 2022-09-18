@@ -1,5 +1,4 @@
 import { mount, shallowMount } from '@vue/test-utils';
-import { h } from 'vue';
 
 import Header from '~/components/headers/Header.vue';
 
@@ -22,8 +21,7 @@ describe('Header component', () => {
 
   it('should include content for right side', () => {
     // given
-    // need to use h(...) instead of '<p>Horst</p>' due to https://github.com/vuejs/vue-test-utils-next/issues/549
-    const content = h('p', {}, 'Horst');
+    const content = '<p>Horst</p>';
 
     // when
     const header = mount(Header, {
@@ -36,13 +34,12 @@ describe('Header component', () => {
     });
 
     // then
-    expect(header.html()).toContain(content.el?.outerHTML);
+    expect(header.html()).toContain(content);
   });
 
   it('should include content for second row', () => {
     // given
-    // need to use h(...) instead of '<p>Alice</p>' due to https://github.com/vuejs/vue-test-utils-next/issues/549
-    const content = h('p', {}, 'Alice');
+    const content = '<p>Alice</p>';
 
     // when
     const header = mount(Header, {
@@ -55,7 +52,7 @@ describe('Header component', () => {
     });
 
     // then
-    expect(header.html()).toContain(content.el?.outerHTML);
+    expect(header.html()).toContain(content);
   });
 
   it('should include a back button', () => {
@@ -92,7 +89,7 @@ describe('Header component', () => {
 
   it('should go back when pressing the back button', () => {
     // given
-    const goMock = jest.fn();
+    const goMock = vi.fn();
     const mockRouter = {
       go: goMock,
     };

@@ -1,6 +1,5 @@
-import { DOMWrapper, shallowMount } from '@vue/test-utils';
-import { mocked } from 'ts-jest/utils';
-import { h, inject, nextTick, ref } from 'vue';
+import { DOMWrapper, mount, shallowMount } from '@vue/test-utils';
+import { inject, nextTick, ref } from 'vue';
 
 import SpaceMap from '~/components/space/SpaceMap.vue';
 import { ViewBox } from '~/compositions/space/useViewBox';
@@ -16,7 +15,7 @@ function prepareCreateSVGPoint(wrapper: { find: (arg0: string) => DOMWrapper<Ele
     matrixTransform: () => position,
   } as SVGPoint;
   const svg = mockSvg(wrapper.find('[data-test=space-map]'));
-  let svgMock = mocked(svg.element.createSVGPoint);
+  let svgMock = vi.mocked(svg.element.createSVGPoint);
   while (count > 0) {
     svgMock = svgMock.mockReturnValueOnce(svgPoint);
     count--;
@@ -37,7 +36,7 @@ describe('SpaceMap component', () => {
 
   describe('Provide event emitter', () => {
     function prepareProvideEventEmitter(eventType: SpaceEventTypes, objectType: SpaceObjectTypes) {
-      const eventCallback = jest.fn();
+      const eventCallback = vi.fn();
       const childComponent = {
         template: '<p>Horst</p>',
 
@@ -47,9 +46,9 @@ describe('SpaceMap component', () => {
         },
       };
 
-      const wrapper = shallowMount(SpaceMap, {
+      const wrapper = mount(SpaceMap, {
         slots: {
-          default: h(childComponent),
+          default: childComponent,
         },
       });
       return { wrapper, eventCallback };
@@ -71,9 +70,9 @@ describe('SpaceMap component', () => {
       };
 
       // when
-      shallowMount(SpaceMap, {
+      mount(SpaceMap, {
         slots: {
-          default: h(childComponent),
+          default: childComponent,
         },
       });
     });
@@ -139,9 +138,9 @@ describe('SpaceMap component', () => {
       };
 
       // when
-      const wrapper = shallowMount(SpaceMap, {
+      const wrapper = mount(SpaceMap, {
         slots: {
-          default: h(childComponent),
+          default: childComponent,
         },
       });
       await nextTick();
@@ -165,9 +164,9 @@ describe('SpaceMap component', () => {
           spaceMap?.registerViewBox('ViewBoxTestComponent', viewBoxRef);
         },
       };
-      const wrapper = shallowMount(SpaceMap, {
+      const wrapper = mount(SpaceMap, {
         slots: {
-          default: h(childComponent),
+          default: childComponent,
         },
       });
       await nextTick();

@@ -2,6 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 
 import BookableForm from '~/components/bookables/BookableForm.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
+import { i18n } from '$/__helpers__/i18n';
 
 describe('BookableForm component', () => {
   describe('Template', () => {
@@ -20,6 +21,7 @@ describe('BookableForm component', () => {
               template: '<div><slot /></div>',
             },
           },
+          plugins: [i18n],
         },
       });
 
@@ -42,6 +44,7 @@ describe('BookableForm component', () => {
               template: '<div><slot /></div>',
             },
           },
+          plugins: [i18n],
         },
       });
 
@@ -57,6 +60,9 @@ describe('BookableForm component', () => {
     const wrapper = shallowMount(BookableForm, {
       props: {
         bookable: sampleBookable,
+      },
+      global: {
+        plugins: [i18n],
       },
     });
 
@@ -85,6 +91,7 @@ describe('BookableForm component', () => {
             template: '<input type="text" />',
           },
         },
+        plugins: [i18n],
       },
     });
 
@@ -112,6 +119,7 @@ describe('BookableForm component', () => {
             template: '<div><slot /></div>',
           },
         },
+        plugins: [i18n],
       },
     });
 
@@ -138,6 +146,7 @@ describe('BookableForm component', () => {
             template: '<div><slot /></div>',
           },
         },
+        plugins: [i18n],
       },
     });
 

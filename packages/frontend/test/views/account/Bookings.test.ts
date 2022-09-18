@@ -1,16 +1,24 @@
-import { shallowMount } from '@vue/test-utils';
+import { config, shallowMount } from '@vue/test-utils';
 
 import Bookings from '~/views/account/Bookings.vue';
 import { sampleBookings } from '$/__fixtures__/booking';
+import { i18n } from '$/__helpers__/i18n';
 import { prepareUseCurrentSpaceMockOnce, prepareUseFindMockOnce, prepareUseRouteMockOnce } from '$/__helpers__/mocks';
 
-jest.mock('vue-router');
-jest.mock('~/compositions/useFind');
-jest.mock('~/compositions/space/useCurrentSpace');
-jest.mock('vue-i18n');
-jest.mock('~/compositions/useAuthentication');
+vi.mock('vue-router');
+vi.mock('~/compositions/useFind');
+vi.mock('~/compositions/space/useCurrentSpace');
+vi.mock('~/compositions/useAuthentication');
 
 describe('Bookings component', () => {
+  beforeAll(() => {
+    config.renderStubDefaultSlot = true;
+  });
+
+  afterAll(() => {
+    config.renderStubDefaultSlot = false;
+  });
+
   it('should render correctly', () => {
     // given
     const useRouteMock = prepareUseRouteMockOnce();
@@ -24,6 +32,7 @@ describe('Bookings component', () => {
           $route: useRouteMock,
         },
         stubs: ['router-link'],
+        plugins: [i18n],
       },
     });
 
@@ -44,6 +53,7 @@ describe('Bookings component', () => {
           $route: useRouteMock,
         },
         stubs: ['router-link'],
+        plugins: [i18n],
       },
     });
 

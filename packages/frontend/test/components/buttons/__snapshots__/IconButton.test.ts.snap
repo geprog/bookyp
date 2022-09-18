@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`IconButton component should render correctly 1`] = `
+exports[`IconButton component > should render correctly 1`] = `
 "<button type=\\"button\\" class=\\"flex items-center justify-center p-1 bg-white rounded-full focus:outline-transparent hover:text-primary-dark disabled:cursor-default disabled:text-gray-inactive disabled:hover:text-gray-inactive\\">
   <icon-stub name=\\"settings\\" color=\\"\\" data-test=\\"button-icon\\"></icon-stub>
 </button>"

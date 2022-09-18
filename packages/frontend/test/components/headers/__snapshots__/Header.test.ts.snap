@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Header component should render correctly 1`] = `
+exports[`Header component > should render correctly 1`] = `
 "<header class=\\"shadow-md flex flex-col\\">
   <div class=\\"w-full max-w-5xl mx-auto\\">
     <div class=\\"flex items-center p-2 content-center\\">

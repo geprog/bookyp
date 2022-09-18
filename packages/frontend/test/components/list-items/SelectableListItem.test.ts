@@ -1,5 +1,6 @@
 import { mount, shallowMount } from '@vue/test-utils';
 
+import Icon from '~/components/Icon.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 
 describe('SelectableListItem component', () => {
@@ -55,7 +56,7 @@ describe('SelectableListItem component', () => {
       });
 
       // then
-      expect(wrapper.findComponent('[data-test=icon]').props('name')).toBe('radio-checked');
+      expect(wrapper.findComponent(Icon).props('name')).toBe('radio-checked');
     });
 
     it('should not be selected', () => {
@@ -70,7 +71,7 @@ describe('SelectableListItem component', () => {
       });
 
       // then
-      expect(wrapper.findComponent('[data-test=icon]').props('name')).toBe('radio-unchecked');
+      expect(wrapper.findComponent(Icon).props('name')).toBe('radio-unchecked');
     });
   });
 });

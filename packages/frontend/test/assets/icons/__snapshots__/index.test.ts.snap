@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Icons should contain all needed icons 1`] = `
-Array [
+exports[`Icons > should contain all needed icons 1`] = `
+[
   "add-circle",
   "add",
   "apps-list",

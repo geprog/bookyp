@@ -1,14 +1,23 @@
-import { mount, shallowMount } from '@vue/test-utils';
+import { config, mount, shallowMount } from '@vue/test-utils';
 
 import BookingItem from '~/components/list-items/BookingItem.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
 import { sampleBooking, sampleBookingNextDay } from '$/__fixtures__/booking';
 import { sampleSpace } from '$/__fixtures__/space';
+import { i18n } from '$/__helpers__/i18n';
 import { prepareUseGetMockOnce } from '$/__helpers__/mocks';
 
-jest.mock('~/compositions/useGet');
+vi.mock('~/compositions/useGet');
 
 describe('BookingItem component', () => {
+  beforeAll(() => {
+    config.renderStubDefaultSlot = true;
+  });
+
+  afterAll(() => {
+    config.renderStubDefaultSlot = false;
+  });
+
   it('should render correctly', () => {
     // given
     prepareUseGetMockOnce(sampleSpace);
@@ -19,6 +28,7 @@ describe('BookingItem component', () => {
       props: {
         booking: sampleBooking,
       },
+      global: { plugins: [i18n] },
     });
 
     // then
@@ -35,6 +45,7 @@ describe('BookingItem component', () => {
       props: {
         booking: sampleBooking,
       },
+      global: { plugins: [i18n] },
     });
 
     // then
@@ -51,6 +62,7 @@ describe('BookingItem component', () => {
       props: {
         booking: sampleBooking,
       },
+      global: { plugins: [i18n] },
     });
 
     // then
@@ -67,6 +79,7 @@ describe('BookingItem component', () => {
       props: {
         booking: sampleBookingNextDay,
       },
+      global: { plugins: [i18n] },
     });
 
     // then

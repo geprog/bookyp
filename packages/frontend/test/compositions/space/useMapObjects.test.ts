@@ -1,23 +1,18 @@
 import { UseFind, UseFindFunc } from '@geprog/use-feathers';
-import { mocked } from 'ts-jest/utils';
 
 import useFind from '~/compositions/useFind';
 import { sampleMapObjects } from '$/__fixtures__/mapObject';
 import { prepareUseCurrentSpaceMockOnce, prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
-jest.mock('~/compositions/useFind');
-jest.mock('~/compositions/space/useCurrentSpace');
+vi.mock('~/compositions/useFind');
+vi.mock('~/compositions/space/useCurrentSpace');
 
 let useMapObjects: typeof import('~/compositions/space/useMapObjects');
 
 describe('useMapObjects composition', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-    jest.isolateModules(() => {
-      // TODO: use import(), see https://github.com/facebook/jest/issues/10428
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      useMapObjects = require('~/compositions/space/useMapObjects');
-    });
+  beforeEach(async () => {
+    vi.clearAllMocks();
+    useMapObjects = await import('~/compositions/space/useMapObjects');
   });
 
   it('should get mapObjects', () => {
@@ -36,7 +31,7 @@ describe('useMapObjects composition', () => {
     // given
     prepareUseCurrentSpaceMockOnce();
     let params: Parameters<UseFindFunc<unknown>>[1];
-    mocked(useFind, true).mockImplementationOnce((_, _params): UseFind<unknown> => {
+    vi.mocked(useFind, true).mockImplementationOnce((_, _params): UseFind<unknown> => {
       params = _params;
       return {} as UseFind<unknown>;
     });

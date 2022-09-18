@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import { mocked } from 'ts-jest/utils';
 import { computed, nextTick, ref } from 'vue';
 
 import MapObjects from '~/components/space/MapObjects.vue';
@@ -14,14 +13,14 @@ import {
   prepareUseMapObjectsMockOnce,
 } from '$/__helpers__/mocks';
 
-jest.mock('~/compositions/space/useMapObjects');
-jest.mock('~/compositions/useFind');
-jest.mock('~/compositions/useBookables');
-jest.mock('~/compositions/space/useCurrentSpace');
+vi.mock('~/compositions/space/useMapObjects');
+vi.mock('~/compositions/useFind');
+vi.mock('~/compositions/useBookables');
+vi.mock('~/compositions/space/useCurrentSpace');
 
 const SpaceMapMock = {
-  registerViewBox: jest.fn(),
-  unregisterViewBox: jest.fn(),
+  registerViewBox: vi.fn(),
+  unregisterViewBox: vi.fn(),
 };
 
 const globalOptions = {
@@ -31,12 +30,12 @@ const globalOptions = {
 };
 
 const prepareUseBookablesOnce = () => {
-  mocked(useBookables).mockReturnValueOnce({
+  vi.mocked(useBookables).mockReturnValueOnce({
     bookablesWithFilterMatched: computed(() => []),
     bookablesFilter: ref(),
-    isFilterMatched: jest.fn().mockReturnValue(true),
+    isFilterMatched: vi.fn().mockReturnValue(true),
     userBookings: ref([]),
-    isBookedByMe: jest.fn().mockReturnValue(false),
+    isBookedByMe: vi.fn().mockReturnValue(false),
   });
 };
 
@@ -225,12 +224,12 @@ describe('MapObjects component', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObjectWithBookable]);
 
-    mocked(useBookables).mockReturnValueOnce({
+    vi.mocked(useBookables).mockReturnValueOnce({
       bookablesWithFilterMatched: computed(() => []),
       bookablesFilter: ref(),
-      isFilterMatched: jest.fn().mockReturnValue(false),
+      isFilterMatched: vi.fn().mockReturnValue(false),
       userBookings: ref([]),
-      isBookedByMe: jest.fn().mockReturnValue(false),
+      isBookedByMe: vi.fn().mockReturnValue(false),
     });
 
     // when

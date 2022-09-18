@@ -1,7 +1,7 @@
 <template>
   <ListItem :label="label" :description="description">
     <template #start>
-      <Icon :name="icon" :color="iconColor" class="my-auto" data-test="icon" />
+      <Icon :name="icon" :color="iconColor" class="my-auto" />
     </template>
     <slot />
     <template #end>

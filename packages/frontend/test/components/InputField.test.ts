@@ -1,5 +1,4 @@
 import { mount, shallowMount } from '@vue/test-utils';
-import { h } from 'vue';
 
 import InputField from '~/components/InputField.vue';
 
@@ -25,8 +24,7 @@ describe('InputField component', () => {
 
   it('should include content put into slot', () => {
     // given
-    // need to use h(...) instead of '<p>Horst</p>' due to https://github.com/vuejs/vue-test-utils-next/issues/549
-    const content = h('p', {}, 'Horst');
+    const content = '<p>Horst</p>';
 
     // when
     const wrapper = mount(InputField, {
@@ -39,7 +37,7 @@ describe('InputField component', () => {
     });
 
     // then
-    expect(wrapper.html()).toContain(content.el?.outerHTML);
+    expect(wrapper.html()).toContain(content);
   });
 
   it('should load the correct icon', () => {

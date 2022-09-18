@@ -1,12 +1,10 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`InputField component should render correctly 1`] = `
+exports[`InputField component > should render correctly 1`] = `
 "<div class=\\"flex my-2 items-center\\">
   <icon-stub name=\\"settings\\" color=\\"\\" data-test=\\"input-field-icon\\" class=\\"mr-4\\"></icon-stub>
   <div class=\\"flex flex-col w-full border-b-1 py-2\\">
-    <slot-wrapper-stub>
-      <p>Horst</p>
-    </slot-wrapper-stub>
+    <p>Horst</p>
   </div>
 </div>"
 `;

@@ -1,18 +1,27 @@
-import { shallowMount } from '@vue/test-utils';
+import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
+import BookableForm from '~/components/bookables/BookableForm.vue';
 import Bookable from '~/views/settings/Bookable.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
+import { i18n } from '$/__helpers__/i18n';
 import { prepareUseFeathersMockOnce, prepareUseGetMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
 
-jest.mock('~/compositions/useFeathers');
-jest.mock('~/compositions/useGet');
-jest.mock('vue-i18n');
-jest.mock('vue-router', () => ({
-  useRouter: jest.fn(),
+vi.mock('~/compositions/useFeathers');
+vi.mock('~/compositions/useGet');
+vi.mock('vue-router', () => ({
+  useRouter: vi.fn(),
 }));
 
 describe('Bookable view', () => {
+  beforeAll(() => {
+    config.renderStubDefaultSlot = true;
+  });
+
+  afterAll(() => {
+    config.renderStubDefaultSlot = false;
+  });
+
   it('should render correctly', () => {
     // given
     prepareUseFeathersMockOnce();
@@ -23,6 +32,9 @@ describe('Bookable view', () => {
     const wrapper = shallowMount(Bookable, {
       props: {
         bookableId: sampleBookable._id,
+      },
+      global: {
+        plugins: [i18n],
       },
     });
 
@@ -41,10 +53,13 @@ describe('Bookable view', () => {
       props: {
         bookableId: sampleBookable._id,
       },
+      global: {
+        plugins: [i18n],
+      },
     });
 
     // then
-    expect(wrapper.getComponent('[data-test=bookable-form]').props('bookable')).toStrictEqual(sampleBookable);
+    expect(wrapper.getComponent(BookableForm).props('bookable')).toStrictEqual(sampleBookable);
   });
 
   it('should update bookable', async () => {
@@ -59,10 +74,13 @@ describe('Bookable view', () => {
       props: {
         bookableId: sampleBookable._id,
       },
+      global: {
+        plugins: [i18n],
+      },
     });
 
     // when
-    wrapper.getComponent('[data-test=bookable-form]').vm.$emit('save');
+    wrapper.getComponent(BookableForm).vm.$emit('save');
     await nextTick();
 
     // then

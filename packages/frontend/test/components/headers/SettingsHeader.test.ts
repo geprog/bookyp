@@ -1,11 +1,20 @@
-import { shallowMount } from '@vue/test-utils';
+import { config, shallowMount } from '@vue/test-utils';
 
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
+import { i18n } from '$/__helpers__/i18n';
 import { prepareUseRouteMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
 
-jest.mock('vue-router');
+vi.mock('vue-router');
 
 describe('SettingsHeader component', () => {
+  beforeAll(() => {
+    config.renderStubDefaultSlot = true;
+  });
+
+  afterAll(() => {
+    config.renderStubDefaultSlot = false;
+  });
+
   it('should render correctly when active', () => {
     // given
     const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-space' });
@@ -21,6 +30,7 @@ describe('SettingsHeader component', () => {
           $route: useRouteMock,
           $router: useRouterMock,
         },
+        plugins: [i18n],
       },
     });
 
@@ -46,6 +56,7 @@ describe('SettingsHeader component', () => {
           $route: useRouteMock,
           $router: useRouterMock,
         },
+        plugins: [i18n],
       },
     });
 

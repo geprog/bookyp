@@ -1,42 +1,63 @@
-import { mocked } from 'ts-jest/utils';
+import { createApplication } from '@bookyp/core';
+import socketio from '@feathersjs/socketio-client';
+import { getEnvConfig } from '@geprog/vite-plugin-env-config';
+import { io } from 'socket.io-client';
 
 import { getId, PotentialIds } from '~/compositions/useFeathers';
 
+vi.mock('@bookyp/core', () => ({
+  createApplication: vi.fn().mockImplementation(() => ({
+    configure: vi.fn(),
+    service: vi.fn().mockImplementation(() => ({
+      hooks: vi.fn(),
+    })),
+    use: vi.fn(),
+    setup: vi.fn(),
+    set: vi.fn(),
+    get: vi.fn(),
+    version: '4.0.0',
+  })),
+}));
+
+const connect = vi.fn();
+vi.mock('socket.io-client', () => ({
+  io: vi.fn().mockImplementation(() => ({
+    connect,
+  })),
+}));
+
+vi.mock('@feathersjs/socketio-client');
+vi.mock('@geprog/vite-plugin-env-config');
+
 describe('Feathers composition', () => {
   beforeEach(() => {
-    jest.resetAllMocks();
-    jest.resetModules();
+    vi.clearAllMocks();
+    vi.resetModules();
   });
 
   it('should use @bookyp/core createApplication', async () => {
     expect.assertions(1);
     // given
-    jest.mock('@bookyp/core');
-    const bookypCore = await import('@bookyp/core');
     const useFeathers = await import('~/compositions/useFeathers');
 
     // when
     useFeathers.default();
 
     // then
-    expect(bookypCore.createApplication).toHaveBeenCalledTimes(1);
+    expect(createApplication).toHaveBeenCalledTimes(1);
   });
 
   it('should init a socket with socket.io-client with @feathersjs/socketio-client', async () => {
     expect.assertions(2);
     // given
-    jest.mock('@feathersjs/socketio-client');
-    const feathersSocketioClient = await import('@feathersjs/socketio-client');
-    jest.mock('socket.io-client');
-    const socketioClient = await import('socket.io-client');
     const useFeathers = await import('~/compositions/useFeathers');
 
     // when
     useFeathers.default();
 
     // then
-    expect(feathersSocketioClient.default).toHaveBeenCalledTimes(1);
-    expect(socketioClient.io).toHaveBeenCalledWith({
+    expect(socketio).toHaveBeenCalledTimes(1);
+    expect(io).toHaveBeenCalledWith({
       path: '/api/v1/socket',
       transports: ['websocket'],
       autoConnect: false,
@@ -46,21 +67,15 @@ describe('Feathers composition', () => {
   it('should init a socket with a specific backend url', async () => {
     expect.assertions(1);
     // given
-    jest.mock('@feathersjs/socketio-client');
-    jest.mock('socket.io-client');
-    jest.mock('@geprog/vite-plugin-env-config');
-    const socketioClient = await import('socket.io-client');
-    const { getEnvConfig } = await import('@geprog/vite-plugin-env-config');
     const BACKEND_URL = '123';
-    const getEnvConfigMock = mocked(getEnvConfig, true);
-    getEnvConfigMock.mockReturnValueOnce(BACKEND_URL);
+    vi.mocked(getEnvConfig).mockReturnValueOnce(BACKEND_URL);
     const useFeathers = await import('~/compositions/useFeathers');
 
     // when
     useFeathers.default();
 
     // then
-    expect(socketioClient.io).toHaveBeenCalledWith(BACKEND_URL, {
+    expect(io).toHaveBeenCalledWith(BACKEND_URL, {
       path: '/api/v1/socket',
       transports: ['websocket'],
       autoConnect: false,
@@ -70,9 +85,6 @@ describe('Feathers composition', () => {
   it('should connect to the socket', async () => {
     expect.assertions(1);
     // given
-    jest.mock('socket.io-client');
-    const { io } = await import('socket.io-client');
-    const socket = io();
     const useFeathers = await import('~/compositions/useFeathers');
     useFeathers.default();
 
@@ -80,7 +92,7 @@ describe('Feathers composition', () => {
     useFeathers.connect();
 
     // then
-    expect(socket.connect).toHaveBeenCalledWith();
+    expect(connect).toHaveBeenCalledOnce();
   });
 
   it('should re-use an already initialized application', async () => {

@@ -1,5 +1,6 @@
 import { mount, shallowMount } from '@vue/test-utils';
 
+import Icon from '~/components/Icon.vue';
 import IconListItem from '~/components/list-items/IconListItem.vue';
 
 describe('IconListItem component', () => {
@@ -34,6 +35,6 @@ describe('IconListItem component', () => {
     });
 
     // then
-    expect(wrapper.findComponent('[data-test=icon]').props('name')).toBe(icon);
+    expect(wrapper.getComponent(Icon).props('name')).toBe(icon);
   });
 });
