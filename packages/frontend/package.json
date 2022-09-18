@@ -23,6 +23,7 @@
     "@fullcalendar/timegrid": "5.11.0",
     "@fullcalendar/vue3": "5.11.0",
     "@geprog/use-feathers": "3.2.1",
+    "@popperjs/core": "2.11.6",
     "@types/lodash": "4.14.170",
     "@vueuse/core": "9.2.0",
     "dayjs": "1.10.5",

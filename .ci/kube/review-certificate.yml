@@ -27,18 +27,3 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-
----
-apiVersion: cert-manager.io/v1alpha2
-kind: Certificate
-metadata:
-  name: bookyp-storybook-review-certificate
-spec:
-  secretName: bookyp-storybook-review-tls
-  commonName: '*.storybook.bookyp.de'
-  dnsNames:
-    - storybook.bookyp.de
-    - '*.storybook.bookyp.de'
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
