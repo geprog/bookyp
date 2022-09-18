@@ -1,23 +1,23 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`BookableForm component Template should render correctly 1`] = `
+exports[`BookableForm component > Template > should render correctly 1`] = `
 "<form id=\\"bookable\\" data-test=\\"form\\" class=\\"bookable mx-4 mx-auto w-full\\">
   <div icon-name=\\"edit\\">
-    <text-field-stub modelvalue=\\"Couch\\" placeholder=\\"Mock translation\\" data-test=\\"form-name\\"></text-field-stub>
+    <text-field-stub modelvalue=\\"Couch\\" placeholder=\\"name\\" data-test=\\"form-name\\"></text-field-stub>
   </div>
   <div icon-name=\\"document-one-page\\">
-    <text-field-stub modelvalue=\\"Super long description\\" placeholder=\\"Mock translation\\" data-test=\\"form-description\\"></text-field-stub>
+    <text-field-stub modelvalue=\\"Super long description\\" placeholder=\\"description\\" data-test=\\"form-description\\"></text-field-stub>
   </div>
 </form>"
 `;
 
-exports[`BookableForm component Template should render correctly with new bookable 1`] = `
+exports[`BookableForm component > Template > should render correctly with new bookable 1`] = `
 "<form id=\\"bookable\\" data-test=\\"form\\" class=\\"bookable mx-4 mx-auto w-full\\">
   <div icon-name=\\"edit\\">
-    <text-field-stub modelvalue=\\"\\" placeholder=\\"Mock translation\\" data-test=\\"form-name\\"></text-field-stub>
+    <text-field-stub modelvalue=\\"\\" placeholder=\\"name\\" data-test=\\"form-name\\"></text-field-stub>
   </div>
   <div icon-name=\\"document-one-page\\">
-    <text-field-stub modelvalue=\\"\\" placeholder=\\"Mock translation\\" data-test=\\"form-description\\"></text-field-stub>
+    <text-field-stub modelvalue=\\"\\" placeholder=\\"description\\" data-test=\\"form-description\\"></text-field-stub>
   </div>
 </form>"
 `;

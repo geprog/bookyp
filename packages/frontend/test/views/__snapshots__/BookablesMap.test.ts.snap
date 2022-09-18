@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`BookablesMap view should render correctly 1`] = `
+exports[`BookablesMap view > should render correctly 1`] = `
 "<home-header-stub></home-header-stub>
 <div class=\\"flex flex-col flex-grow min-h-0\\">
   <space-map-stub disablepanning=\\"false\\">

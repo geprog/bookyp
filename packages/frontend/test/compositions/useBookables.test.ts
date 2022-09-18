@@ -4,18 +4,14 @@ import { sampleBookable, sampleBookables } from '$/__fixtures__/bookable';
 import { sampleBooking } from '$/__fixtures__/booking';
 import { prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
-jest.mock('~/compositions/useFind');
+vi.mock('~/compositions/useFind');
 
 let useBookables: typeof import('~/compositions/useBookables');
 
 describe('useBookables composition', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-    jest.isolateModules(() => {
-      // TODO: use import(), see https://github.com/facebook/jest/issues/10428
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      useBookables = require('~/compositions/useBookables');
-    });
+  beforeEach(async () => {
+    vi.clearAllMocks();
+    useBookables = await import('~/compositions/useBookables');
   });
 
   it('should return original bookables when no filter is set', () => {

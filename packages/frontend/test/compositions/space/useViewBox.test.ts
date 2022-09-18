@@ -1,6 +1,6 @@
 import { Model } from '@bookyp/core';
-import { shallowMount } from '@vue/test-utils';
-import { h, provide, ref } from 'vue';
+import { mount, shallowMount } from '@vue/test-utils';
+import { provide, ref } from 'vue';
 
 import useViewBox, {
   combineViewBoxes,
@@ -242,9 +242,9 @@ describe('useViewBox composition', () => {
     it('should calc view box and register it for SpaceMap', () => {
       // given
       const spaceMapMock = {
-        registerViewBox: jest.fn(),
-        unregisterViewBox: jest.fn(),
-        on: jest.fn(),
+        registerViewBox: vi.fn(),
+        unregisterViewBox: vi.fn(),
+        on: vi.fn(),
       };
       const paths = ref([]);
       const viewBoxKey = 'Test';
@@ -262,9 +262,9 @@ describe('useViewBox composition', () => {
         },
       };
       // when
-      shallowMount(component, {
+      mount(component, {
         slots: {
-          default: h(childComponent),
+          default: childComponent,
         },
       });
       // then
@@ -277,9 +277,9 @@ describe('useViewBox composition', () => {
     it('should unregister view box onBeforeUnmount', () => {
       // given
       const spaceMapMock = {
-        registerViewBox: jest.fn(),
-        unregisterViewBox: jest.fn(),
-        on: jest.fn(),
+        registerViewBox: vi.fn(),
+        unregisterViewBox: vi.fn(),
+        on: vi.fn(),
       };
       const paths = ref([]);
       const viewBoxKey = 'Test';
@@ -296,9 +296,9 @@ describe('useViewBox composition', () => {
           useAndRegisterViewBox(viewBoxKey, paths, { strokeWidth: 1 });
         },
       };
-      const wrapper = shallowMount(component, {
+      const wrapper = mount(component, {
         slots: {
-          default: h(childComponent),
+          default: childComponent,
         },
       });
       // when

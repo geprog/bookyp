@@ -1,32 +1,44 @@
-import { shallowMount } from '@vue/test-utils';
+import { config, shallowMount } from '@vue/test-utils';
 import { cloneDeep } from 'lodash';
-import { mocked } from 'ts-jest/utils';
 import { computed, ref } from 'vue';
 
 import { BookableWithFilterMatched, useBookables } from '~/compositions/useBookables';
 import BookablesList from '~/views/BookablesList.vue';
 import { sampleBookables } from '$/__fixtures__/bookable';
+import { i18n } from '$/__helpers__/i18n';
 import { prepareUseCurrentSpaceMockOnce, prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
-jest.mock('~/compositions/useFind');
-jest.mock('~/compositions/useBookables');
-jest.mock('~/compositions/space/useCurrentSpace');
+vi.mock('~/compositions/useFind');
+vi.mock('~/compositions/useBookables');
+vi.mock('~/compositions/space/useCurrentSpace');
 
 describe('BookablesList component', () => {
+  beforeAll(() => {
+    config.renderStubDefaultSlot = true;
+  });
+
+  afterAll(() => {
+    config.renderStubDefaultSlot = false;
+  });
+
   it('should render correctly without filter', () => {
     // given
     prepareUseFindMockOnce(sampleBookables);
     prepareUseCurrentSpaceMockOnce();
-    mocked(useBookables).mockReturnValueOnce({
+    vi.mocked(useBookables).mockReturnValueOnce({
       bookablesWithFilterMatched: computed(() => sampleBookables),
       bookablesFilter: ref(),
-      isFilterMatched: jest.fn(),
+      isFilterMatched: vi.fn(),
       userBookings: ref([]),
-      isBookedByMe: jest.fn().mockReturnValue(false),
+      isBookedByMe: vi.fn().mockReturnValue(false),
     });
 
     // when
-    const wrapper = shallowMount(BookablesList);
+    const wrapper = shallowMount(BookablesList, {
+      global: {
+        plugins: [i18n],
+      },
+    });
 
     // then
     expect(wrapper.html()).toMatchSnapshot();
@@ -36,7 +48,7 @@ describe('BookablesList component', () => {
     // given
     prepareUseFindMockOnce(sampleBookables);
     prepareUseCurrentSpaceMockOnce();
-    mocked(useBookables).mockReturnValueOnce({
+    vi.mocked(useBookables).mockReturnValueOnce({
       bookablesWithFilterMatched: computed(() => {
         const bookablesWithFilterMatched: BookableWithFilterMatched[] = cloneDeep(sampleBookables);
         bookablesWithFilterMatched[0].isFilterMatched = true;
@@ -44,13 +56,17 @@ describe('BookablesList component', () => {
         return bookablesWithFilterMatched;
       }),
       bookablesFilter: ref(),
-      isFilterMatched: jest.fn(),
+      isFilterMatched: vi.fn(),
       userBookings: ref([]),
-      isBookedByMe: jest.fn().mockReturnValue(false),
+      isBookedByMe: vi.fn().mockReturnValue(false),
     });
 
     // when
-    const wrapper = shallowMount(BookablesList);
+    const wrapper = shallowMount(BookablesList, {
+      global: {
+        plugins: [i18n],
+      },
+    });
 
     // then
     expect(wrapper.html()).toMatchSnapshot();

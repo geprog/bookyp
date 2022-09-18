@@ -1,14 +1,14 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`SettingsHeader component should allow overwriting actions e.g. for save/cancel actions 1`] = `"<header-stub title=\\"Title\\" hasback=\\"true\\">Custom actions</header-stub>"`;
+exports[`SettingsHeader component > should allow overwriting actions e.g. for save/cancel actions 1`] = `"<header-stub title=\\"Title\\" hasback=\\"true\\">Custom actions</header-stub>"`;
 
-exports[`SettingsHeader component should render correctly when active 1`] = `
+exports[`SettingsHeader component > should render correctly when active 1`] = `
 "<header-stub title=\\"Title\\" hasback=\\"true\\">
   <div class=\\"flex gap-x-2\\">
-    <icon-button-stub icon=\\"map\\" iconcolor=\\"\\" disabled=\\"false\\" aria-label=\\"Mock translation\\" data-test=\\"button-map-objects\\"></icon-button-stub>
-    <icon-button-stub icon=\\"apps-list\\" iconcolor=\\"\\" disabled=\\"false\\" aria-label=\\"Mock translation\\" data-test=\\"button-bookables\\"></icon-button-stub>
-    <icon-button-stub icon=\\"people\\" iconcolor=\\"\\" disabled=\\"false\\" aria-label=\\"Mock translation\\" data-test=\\"button-space-members\\"></icon-button-stub>
-    <icon-button-stub icon=\\"info\\" iconcolor=\\"\\" disabled=\\"false\\" aria-label=\\"Mock translation\\" data-test=\\"button-space-information\\"></icon-button-stub>
+    <icon-button-stub icon=\\"map\\" iconcolor=\\"\\" disabled=\\"false\\" aria-label=\\"map_editor\\" data-test=\\"button-map-objects\\"></icon-button-stub>
+    <icon-button-stub icon=\\"apps-list\\" iconcolor=\\"\\" disabled=\\"false\\" aria-label=\\"bookables\\" data-test=\\"button-bookables\\"></icon-button-stub>
+    <icon-button-stub icon=\\"people\\" iconcolor=\\"\\" disabled=\\"false\\" aria-label=\\"members\\" data-test=\\"button-space-members\\"></icon-button-stub>
+    <icon-button-stub icon=\\"info\\" iconcolor=\\"\\" disabled=\\"false\\" aria-label=\\"space_information\\" data-test=\\"button-space-information\\"></icon-button-stub>
   </div>
 </header-stub>"
 `;

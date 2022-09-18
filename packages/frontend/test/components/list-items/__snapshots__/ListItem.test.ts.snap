@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`ListItem component should render correctly 1`] = `
+exports[`ListItem component > should render correctly 1`] = `
 "<div class=\\"flex p-3 rounded-lg shadow-full bg-white\\">
   <div class=\\"flex flex-shrink-0\\">
     <div class=\\"color w-2 rounded\\"></div>

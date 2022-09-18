@@ -1,4 +1,4 @@
-import { shallowMount } from '@vue/test-utils';
+import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
 import MapObjects from '~/components/space/MapObjects.vue';
@@ -6,11 +6,17 @@ import BookablesMap from '~/views/BookablesMap.vue';
 import { sampleMapObject, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
 import { prepareUseRouterMockOnce } from '$/__helpers__/mocks';
 
-jest.mock('vue-router');
-jest.mock('~/compositions/useFind');
-jest.mock('~/compositions/useAuthentication');
+vi.mock('vue-router');
 
 describe('BookablesMap view', () => {
+  beforeAll(() => {
+    config.renderStubDefaultSlot = true;
+  });
+
+  afterAll(() => {
+    config.renderStubDefaultSlot = false;
+  });
+
   it('should render correctly', () => {
     // given
 
@@ -28,7 +34,7 @@ describe('BookablesMap view', () => {
     const wrapper = shallowMount(BookablesMap);
 
     // when
-    wrapper.getComponent(MapObjects).vm.$emit('click-on-map-object', sampleMapObjectWithBookable.bookable);
+    wrapper.getComponent(MapObjects).vm.$emit('clickOnMapObject', sampleMapObjectWithBookable.bookable);
     await nextTick();
 
     // then
@@ -45,7 +51,7 @@ describe('BookablesMap view', () => {
     const wrapper = shallowMount(BookablesMap);
 
     // when
-    wrapper.getComponent(MapObjects).vm.$emit('click-on-map-object', sampleMapObject.bookable);
+    wrapper.getComponent(MapObjects).vm.$emit('clickOnMapObject', sampleMapObject.bookable);
     await nextTick();
 
     // then

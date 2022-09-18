@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`SaveAbort component should render correctly 1`] = `
+exports[`SaveAbort component > should render correctly 1`] = `
 "<icon-button-stub icon=\\"dismiss\\" iconcolor=\\"\\" disabled=\\"false\\" data-test=\\"abort-button\\"></icon-button-stub>
 <icon-button-stub icon=\\"check-mark\\" iconcolor=\\"\\" disabled=\\"false\\" data-test=\\"save-button\\" type=\\"submit\\"></icon-button-stub>"
 `;

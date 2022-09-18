@@ -1,10 +1,10 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`BookingItem component should display a hours 1`] = `"07:43 - 08:13"`;
+exports[`BookingItem component > should display a hours 1`] = `"07:43 - 08:13"`;
 
-exports[`BookingItem component should display date when different day 1`] = `"13:37 - 02 Jan 13:37"`;
+exports[`BookingItem component > should display date when different day 1`] = `"13:37 - 02 Jan 13:37"`;
 
-exports[`BookingItem component should render correctly 1`] = `
+exports[`BookingItem component > should render correctly 1`] = `
 "<list-item-stub label=\\"\\" statuscolor=\\"bg-primary-normal\\" description=\\"\\" disabled=\\"false\\" data-test=\\"booking-item\\">
   <div class=\\"flex ml-3 flex-grow min-w-0 py-1\\">
     <div class=\\"flex flex-col min-w-0 flex-grow space-y-1\\"><span data-test=\\"label\\" class=\\"text-base truncate text-gray-900\\">Couch</span><span data-test=\\"description\\" class=\\"w-full text-sm truncate text-gray-500 italic\\"></span></div>

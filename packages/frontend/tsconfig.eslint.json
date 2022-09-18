@@ -1,12 +1,4 @@
 {
   "extends": "./tsconfig.json",
-  "include": [
-    ".eslintrc.js",
-    "jest.config.ts",
-    "vite.config.ts",
-    "tailwind.config.ts",
-    "src",
-    "test",
-    "svgTransform.js"
-  ]
+  "include": [".eslintrc.js", "vite.config.ts", "tailwind.config.ts", "src", "test", "svgTransform.js"]
 }

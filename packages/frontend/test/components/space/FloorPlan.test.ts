@@ -7,11 +7,11 @@ import { SpaceMapKey } from '~/symbols/space-map';
 import { sampleFloorPlan } from '$/__fixtures__/floorPlan';
 import { prepareUseCurrentSpaceMockOnce } from '$/__helpers__/mocks';
 
-jest.mock('~/compositions/space/useCurrentSpace');
+vi.mock('~/compositions/space/useCurrentSpace');
 
 const SpaceMapMock = {
-  registerViewBox: jest.fn(),
-  unregisterViewBox: jest.fn(),
+  registerViewBox: vi.fn(),
+  unregisterViewBox: vi.fn(),
 };
 
 const globalOptions = {
@@ -56,7 +56,7 @@ describe('FloorPlan component', () => {
 
   describe('view box handling', () => {
     it('should register view box if handler provided', () => {
-      jest.resetAllMocks();
+      vi.resetAllMocks();
       // given
       prepareUseCurrentSpaceMockOnce({
         _id: 'dummy-id',
@@ -80,7 +80,7 @@ describe('FloorPlan component', () => {
     });
 
     it('should unregister view box on unmount if handler provided', () => {
-      jest.resetAllMocks();
+      vi.resetAllMocks();
       // given
       prepareUseCurrentSpaceMockOnce({
         _id: 'dummy-id',

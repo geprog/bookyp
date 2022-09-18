@@ -1,22 +1,31 @@
-import { shallowMount } from '@vue/test-utils';
+import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
+import BookableForm from '~/components/bookables/BookableForm.vue';
 import BookableCreate from '~/views/settings/BookableCreate.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
+import { i18n } from '$/__helpers__/i18n';
 import {
   prepareUseCurrentSpaceMockOnce,
   prepareUseFeathersMockOnce,
   prepareUseRouterMockOnce,
 } from '$/__helpers__/mocks';
 
-jest.mock('~/compositions/useFeathers');
-jest.mock('~/compositions/space/useCurrentSpace');
-jest.mock('vue-i18n');
-jest.mock('vue-router', () => ({
-  useRouter: jest.fn(),
+vi.mock('~/compositions/useFeathers');
+vi.mock('~/compositions/space/useCurrentSpace');
+vi.mock('vue-router', () => ({
+  useRouter: vi.fn(),
 }));
 
 describe('BookableCreate view', () => {
+  beforeAll(() => {
+    config.renderStubDefaultSlot = true;
+  });
+
+  afterAll(() => {
+    config.renderStubDefaultSlot = false;
+  });
+
   it('should render correctly', () => {
     // given
     prepareUseFeathersMockOnce();
@@ -24,7 +33,11 @@ describe('BookableCreate view', () => {
     prepareUseCurrentSpaceMockOnce();
 
     // when
-    const wrapper = shallowMount(BookableCreate);
+    const wrapper = shallowMount(BookableCreate, {
+      global: {
+        plugins: [i18n],
+      },
+    });
 
     // then
     expect(wrapper.html()).toMatchSnapshot();
@@ -37,12 +50,16 @@ describe('BookableCreate view', () => {
     const useFeathersMock = prepareUseFeathersMockOnce();
     const useRouterMock = prepareUseRouterMockOnce();
     prepareUseCurrentSpaceMockOnce();
-    const wrapper = shallowMount(BookableCreate);
+    const wrapper = shallowMount(BookableCreate, {
+      global: {
+        plugins: [i18n],
+      },
+    });
 
-    await wrapper.getComponent('[data-test=bookable-form]').setValue(sampleBookable, 'bookable');
+    await wrapper.getComponent(BookableForm).setValue(sampleBookable, 'bookable');
 
     // when
-    wrapper.getComponent('[data-test=bookable-form]').vm.$emit('save');
+    wrapper.getComponent(BookableForm).vm.$emit('save');
     await nextTick();
 
     // then

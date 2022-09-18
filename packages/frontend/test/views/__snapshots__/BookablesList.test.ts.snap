@@ -1,24 +1,24 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`BookablesList component should render correctly with filter 1`] = `
+exports[`BookablesList component > should render correctly with filter 1`] = `
 "<home-header-stub></home-header-stub>
 <app-content-stub>
   <div class=\\"pb-25\\">
-    <h2 class=\\"mt-6 font-bold\\">Mock translation</h2>
+    <h2 class=\\"mt-6 font-bold\\">available_bookables</h2>
     <list-item-stub label=\\"Couch\\" statuscolor=\\"bg-green-text\\" description=\\"Super long description\\" disabled=\\"false\\" class=\\"cursor-pointer my-3\\"></list-item-stub>
-    <h2 class=\\"mt-6 font-bold\\">Mock translation</h2>
+    <h2 class=\\"mt-6 font-bold\\">occupied_bookables</h2>
     <list-item-stub label=\\"Table\\" statuscolor=\\"bg-red-text\\" description=\\"Funny bunny description\\" disabled=\\"false\\" class=\\"cursor-pointer my-3\\"></list-item-stub>
   </div>
 </app-content-stub>
 <home-actions-buttons-stub></home-actions-buttons-stub>"
 `;
 
-exports[`BookablesList component should render correctly without filter 1`] = `
+exports[`BookablesList component > should render correctly without filter 1`] = `
 "<home-header-stub></home-header-stub>
 <app-content-stub>
   <div class=\\"pb-25\\">
-    <h2 class=\\"mt-6 font-bold\\">Mock translation</h2>
-    <h2 class=\\"mt-6 font-bold\\">Mock translation</h2>
+    <h2 class=\\"mt-6 font-bold\\">available_bookables</h2>
+    <h2 class=\\"mt-6 font-bold\\">occupied_bookables</h2>
     <list-item-stub label=\\"Couch\\" statuscolor=\\"bg-red-text\\" description=\\"Super long description\\" disabled=\\"false\\" class=\\"cursor-pointer my-3\\"></list-item-stub>
     <list-item-stub label=\\"Table\\" statuscolor=\\"bg-red-text\\" description=\\"Funny bunny description\\" disabled=\\"false\\" class=\\"cursor-pointer my-3\\"></list-item-stub>
   </div>

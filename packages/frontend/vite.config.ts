@@ -3,15 +3,16 @@ import vueI18n from '@intlify/vite-plugin-vue-i18n';
 import replace from '@rollup/plugin-replace';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
-import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import WindiCSS from 'vite-plugin-windicss';
 import svgLoader from 'vite-svg-loader';
+import { defineConfig } from 'vitest/config';
 
 const config = defineConfig({
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
+      '$/': `${path.resolve(__dirname, 'test')}/`,
     },
   },
   plugins: [
@@ -75,6 +76,16 @@ const config = defineConfig({
   server: {
     hmr: {
       clientPort: process.env.FRONTEND_BACKEND_URL !== 'http://localhost:4000' ? 443 : undefined,
+    },
+    port: 3000,
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    onConsoleLog: (log, type) => {
+      if (type === 'stderr') {
+        throw new Error(`Unexpected call to console.warn or console.error: ${log}`);
+      }
     },
   },
 });

@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Bookings component should render correctly 1`] = `
-"<header-stub title=\\"Mock translation\\" hasback=\\"true\\">
-  <router-link-stub to=\\"[object Object]\\" class=\\"flex items-center\\" aria-label=\\"Mock translation\\">
+exports[`Bookings component > should render correctly 1`] = `
+"<header-stub title=\\"bookings\\" hasback=\\"true\\">
+  <router-link-stub to=\\"[object Object]\\" class=\\"flex items-center\\" aria-label=\\"bookings\\">
     <icon-stub name=\\"apps-list\\" color=\\"\\"></icon-stub>
   </router-link-stub>
   <external-link-stub href=\\"https://auth.geprog.com/auth/realms/bookyp/account\\">
