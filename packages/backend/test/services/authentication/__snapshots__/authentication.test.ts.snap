@@ -1,25 +1,25 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Authentication service Configuration should match snapshot 1`] = `
-Object {
-  "authStrategies": Array [
+exports[`Authentication service > Configuration > should match snapshot 1`] = `
+{
+  "authStrategies": [
     "jwt",
     "keycloak",
   ],
   "entity": "user",
-  "jwtOptions": Object {
+  "jwtOptions": {
     "algorithm": "HS256",
     "audience": "api",
     "expiresIn": "1d",
-    "header": Object {
+    "header": {
       "typ": "access",
     },
   },
-  "oauth": Object {
-    "defaults": Object {
+  "oauth": {
+    "defaults": {
       "origin": undefined,
     },
-    "keycloak": Object {
+    "keycloak": {
       "access_url": "https://auth.example.org/auth/realms/main/protocol/openid-connect/token",
       "authorize_url": "https://auth.example.org/auth/realms/main/protocol/openid-connect/auth",
       "client_id": "bookyp",

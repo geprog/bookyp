@@ -80,7 +80,7 @@ describe('SoftDelete hook', () => {
         all: [softDelete],
       },
     });
-    jest.spyOn(userService, 'patch').mockImplementation();
+    vi.spyOn(userService, 'patch');
 
     // when
     await userService.remove(null);

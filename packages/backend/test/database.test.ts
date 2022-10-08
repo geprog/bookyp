@@ -1,20 +1,22 @@
-import getConfig from '~/config';
+import mongoose from 'mongoose';
 
-jest.mock('mongoose');
-jest.mock('~/config');
+import { getConnectionUri } from '~/database';
+import { prepareGetConfigMockOnce } from '$/__helpers__/mocks';
+
+vi.mock('mongoose');
+vi.mock('~/config');
 
 describe('Database', () => {
   it('should successfully connect with an uri', async () => {
     expect.assertions(2);
     // given
     const uri = 'fake-uri';
-    (getConfig as jest.Mock).mockReturnValueOnce({
+    prepareGetConfigMockOnce({
       db: {
         uri,
       },
     });
 
-    const mongoose = await import('mongoose');
     const { connect: connectDatabase } = await import('~/database');
 
     // when
@@ -25,15 +27,14 @@ describe('Database', () => {
     expect(mongoose.connect).toHaveBeenCalledWith(uri);
   });
 
-  it('should throw an error if not db uri has been provided', async () => {
+  it('should throw an error if not db uri has been provided', () => {
     expect.assertions(1);
     // given
-    (getConfig as jest.Mock).mockReturnValueOnce({
+    prepareGetConfigMockOnce({
       db: {
         uri: '',
       },
     });
-    const { getConnectionUri } = await import('~/database');
 
     // when
     // then

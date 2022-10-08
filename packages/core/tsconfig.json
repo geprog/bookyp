@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
 
   "compilerOptions": {
+    "types": ["vitest/globals"],
     "outDir": "dist",
     "rootDir": ".",
     "baseUrl": "src",
@@ -11,5 +12,5 @@
     }
   },
 
-  "include": ["src", "test", "mocks"]
+  "include": ["src", "test", "vitest.config.ts"]
 }
