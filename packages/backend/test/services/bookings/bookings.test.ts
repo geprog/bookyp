@@ -2,19 +2,18 @@ import { Service as MongooseService } from 'feathers-mongoose';
 
 import serviceIndex from '~/services';
 import BookingsService from '~/services/bookings/bookings.service';
+import { prepareAppMock } from '$/__helpers__/mocks';
 
 describe('bookings service', () => {
   beforeEach(() => {
-    jest.resetAllMocks();
-    jest.resetModules();
+    vi.resetAllMocks();
+    vi.resetModules();
   });
 
-  it('should configure the service', async () => {
+  it('should configure the service', () => {
     expect.assertions(1);
     // given
-    jest.mock('@bookyp/core');
-    const bookypCore = await import('@bookyp/core');
-    const app = bookypCore.createApplication();
+    const app = prepareAppMock();
 
     // when
     serviceIndex(app);
@@ -23,12 +22,10 @@ describe('bookings service', () => {
     expect(app.configure).toHaveBeenCalledWith(BookingsService);
   });
 
-  it('should register the service', async () => {
+  it('should register the service', () => {
     expect.assertions(2);
     // given
-    jest.mock('@bookyp/core');
-    const bookypCore = await import('@bookyp/core');
-    const app = bookypCore.createApplication();
+    const app = prepareAppMock();
 
     // when
     BookingsService(app);

@@ -1,13 +1,14 @@
-describe('Application', () => {
-  it('shall create an application', async () => {
-    expect.assertions(1);
-    // given
-    jest.mock('@feathersjs/feathers');
-    const feathers = await import('@feathersjs/feathers');
-    const application = await import('~/application');
+import feathers from '@feathersjs/feathers';
 
+import { createApplication } from '~/application';
+
+vi.mock('@feathersjs/feathers');
+
+describe('Application', () => {
+  it('shall create an application', () => {
+    expect.assertions(1);
     // when
-    application.createApplication();
+    createApplication();
 
     // then
     expect(feathers).toHaveBeenCalledTimes(1);

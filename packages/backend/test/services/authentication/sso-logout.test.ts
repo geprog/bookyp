@@ -1,10 +1,10 @@
 import express from 'express';
 import supertest from 'supertest';
 
-import getConfig from '~/config';
 import SSOLogoutRoute from '~/services/authentication/sso-logout';
+import { prepareGetConfigMockOnce } from '$/__helpers__/mocks';
 
-jest.mock('~/config');
+vi.mock('~/config');
 
 const configMockReturnValue = {
   oauth: {
@@ -14,6 +14,9 @@ const configMockReturnValue = {
       client: 'bookyp',
       subdomain: 'auth.example.org/auth/realms/main',
     },
+    defaults: {
+      origin: undefined,
+    },
   },
 };
 
@@ -22,7 +25,7 @@ describe('Authentication SSO logout', () => {
     expect.assertions(2);
 
     // given
-    (getConfig as jest.Mock).mockReturnValueOnce(configMockReturnValue);
+    prepareGetConfigMockOnce(configMockReturnValue);
     const app = express();
     app.use(SSOLogoutRoute());
 
@@ -39,8 +42,9 @@ describe('Authentication SSO logout', () => {
     expect.assertions(1);
 
     // given
-    (getConfig as jest.Mock).mockReturnValueOnce({
+    prepareGetConfigMockOnce({
       oauth: {
+        // @ts-expect-error - we want to test the case where the config is not properly set
         keycloak: {},
       },
     });

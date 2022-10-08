@@ -1,28 +1,30 @@
-import { jest } from '@jest/globals';
+import { createApplication } from '@bookyp/core';
+
+import { prepareAppMock } from './__helpers__/mocks';
+
+vi.mock('@bookyp/core', () => ({
+  createApplication: vi.fn().mockImplementation(() => prepareAppMock()),
+  Model: {
+    MapObjectTypes: {},
+  },
+}));
 
 describe('App', () => {
-  beforeEach(() => {
-    jest.resetAllMocks();
-    jest.resetModules();
-  });
-
   it('should use @bookyp/core createApplication', async () => {
     expect.assertions(1);
     // given
-    jest.mock('@bookyp/core');
-    const bookypCore = await import('@bookyp/core');
 
     // when
     await import('~/app');
 
     // then
-    expect(bookypCore.createApplication).toHaveBeenCalledTimes(1);
+    expect(createApplication).toHaveBeenCalledTimes(1);
   });
 
   it('should init a socket with @feathersjs/socketio', async () => {
     expect.assertions(1);
     // given
-    jest.mock('@feathersjs/socketio');
+    vi.mock('@feathersjs/socketio');
     const socketio = await import('@feathersjs/socketio');
 
     // when
