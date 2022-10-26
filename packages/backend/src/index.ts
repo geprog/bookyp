@@ -2,7 +2,7 @@ import { createLightship } from 'lightship';
 
 import migrate from '~/migrations';
 
-import app from './app';
+import { configureApplication } from './app';
 import config from './config';
 import { connect as databaseConnect } from './database';
 import { init as initMail } from './mail';
@@ -10,6 +10,8 @@ import { init as initMail } from './mail';
 async function start(): Promise<void> {
   // eslint-disable-next-line no-console
   console.log('⚡ Backend starting ...');
+
+  const app = configureApplication();
 
   const lightship = createLightship();
 
