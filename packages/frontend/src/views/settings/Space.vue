@@ -62,16 +62,27 @@
             <Icon name="add" color="text-white" />
             <Icon name="wall" color="text-white" />
           </FloatingButton>
+          <input
+            ref="floorPlanFileInput"
+            type="file"
+            class="hidden"
+            accept="image/svg+xml"
+            @change="uploadFloorPlan($event.target as HTMLInputElement)"
+          />
+          <FloatingButton @click.stop="floorPlanFileInput?.click()">
+            <Icon name="arrow-upload" color="text-white" />
+            <Icon name="svg" color="text-white" />
+          </FloatingButton>
         </template>
       </div>
     </div>
   </template>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { Model } from '@bookyp/core';
 import { clone, cloneDeep, isEqual, omit } from 'lodash';
-import { computed, defineComponent, PropType, Ref, ref, toRef, watch } from 'vue';
+import { computed, Ref, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -92,229 +103,199 @@ import { EditingMapObject } from './space/EditingMapObject';
 
 export type Mode = 'wall' | 'none';
 
-export default defineComponent({
-  name: 'Space',
+const props = defineProps<{
+  selectedMapObjectId?: string;
+}>();
+const { t } = useI18n();
 
-  components: {
-    SaveAbort,
-    SpaceMap,
-    FloatingButton,
-    MapObjectsEditing,
-    FloorPlanEditing,
-    SettingsHeader,
-    Icon,
-    InfoBox,
+const changed = ref(false);
+
+const router = useRouter();
+const feathers = useFeathers();
+const { currentSpace } = useCurrentSpace();
+
+const selectedMapObjectId = toRef(props, 'selectedMapObjectId');
+
+const { data: mapObjects, isLoading: isLoadingMapObjects } = getMapObjects();
+const mapObjectsCopy: Ref<EditingMapObject[]> = ref([]);
+const floorPlan: Ref<string[]> = ref([]);
+
+const selectedFloorPlanObjectId: Ref<string | null> = ref(null);
+const mode = ref<Mode>('none');
+
+function updateFloorPlanCopy(newFloorPlan: string[]) {
+  floorPlan.value = newFloorPlan;
+  if (isEqual(floorPlan.value, currentSpace.value?.floorPlan)) {
+    changed.value = false;
+  } else {
+    changed.value = true;
+  }
+}
+
+watch(
+  mapObjects,
+  () => {
+    mapObjectsCopy.value = cloneDeep(mapObjects.value);
   },
+  { immediate: true },
+);
 
-  props: {
-    selectedMapObjectId: {
-      type: String as PropType<string | undefined>,
-      default: undefined,
-    },
+watch(
+  currentSpace,
+  () => {
+    if (currentSpace.value !== undefined) {
+      floorPlan.value = clone(currentSpace.value.floorPlan);
+    }
   },
+  { immediate: true },
+);
 
-  setup(props) {
-    const { t } = useI18n();
+async function selectMapObject(mapObjectId: string | null) {
+  if (mode.value !== 'none') {
+    return;
+  }
+  if (mapObjectId) {
+    selectedFloorPlanObjectId.value = null;
+    await router.replace({ params: { selectedMapObjectId: mapObjectId } });
+  } else {
+    await router.replace({ params: { selectedMapObjectId: '' } });
+  }
+}
 
-    const changed = ref(false);
+async function selectFloorPlanObject(floorPlanObjectId: string | null) {
+  if (mode.value === 'wall') {
+    return;
+  }
+  selectedFloorPlanObjectId.value = floorPlanObjectId;
+  await selectMapObject(null);
+}
 
-    const router = useRouter();
-    const feathers = useFeathers();
-    const { currentSpace } = useCurrentSpace();
+const { addMapObject, resetNewMapObjectId } = useNewMapObject(mapObjectsCopy, selectMapObject);
 
-    const selectedMapObjectId = toRef(props, 'selectedMapObjectId');
-
-    const { data: mapObjects, isLoading: isLoadingMapObjects } = getMapObjects();
-    const mapObjectsCopy: Ref<EditingMapObject[]> = ref([]);
-    const floorPlan: Ref<string[]> = ref([]);
-
-    const selectedFloorPlanObjectId: Ref<string | null> = ref(null);
-    const mode = ref<Mode>('none');
-
-    function updateFloorPlanCopy(newFloorPlan: string[]) {
-      floorPlan.value = newFloorPlan;
-      if (isEqual(floorPlan.value, currentSpace.value?.floorPlan)) {
-        changed.value = false;
-      } else {
-        changed.value = true;
-      }
+async function saveMapObjectCopy() {
+  // update all map objects as we do not know which one changed
+  for (const mapObject of mapObjectsCopy.value) {
+    if (isNewMapObject(mapObject) && !mapObject.isDeleted) {
+      await feathers.service('mapObjects').create(omit(mapObject, '_id'));
+    } else if (mapObject.isDeleted && !isNewMapObject(mapObject)) {
+      await feathers.service('mapObjects').remove(mapObject._id);
+    } else if (!mapObject.isDeleted) {
+      await feathers.service('mapObjects').update(mapObject._id, mapObject);
     }
+  }
+  resetNewMapObjectId();
+}
 
-    watch(
-      mapObjects,
-      () => {
-        mapObjectsCopy.value = cloneDeep(mapObjects.value);
-      },
-      { immediate: true },
-    );
+async function reset() {
+  changed.value = false;
+  mode.value = 'none';
+  await selectFloorPlanObject(null);
+  await selectMapObject(null);
+}
 
-    watch(
-      currentSpace,
-      () => {
-        if (currentSpace.value !== undefined) {
-          floorPlan.value = clone(currentSpace.value.floorPlan);
-        }
-      },
-      { immediate: true },
-    );
+async function save() {
+  // map objects
+  await saveMapObjectCopy();
 
-    async function selectMapObject(mapObjectId: string | null) {
-      if (mode.value !== 'none') {
-        return;
-      }
-      if (mapObjectId) {
-        selectedFloorPlanObjectId.value = null;
-        await router.replace({ params: { selectedMapObjectId: mapObjectId } });
-      } else {
-        await router.replace({ params: { selectedMapObjectId: '' } });
-      }
-    }
+  // floor plan
+  if (currentSpace.value !== undefined) {
+    await feathers
+      .service('spaces')
+      .update(currentSpace.value._id, { ...currentSpace.value, floorPlan: floorPlan.value });
+  }
 
-    async function selectFloorPlanObject(floorPlanObjectId: string | null) {
-      if (mode.value === 'wall') {
-        return;
-      }
-      selectedFloorPlanObjectId.value = floorPlanObjectId;
-      await selectMapObject(null);
-    }
+  await reset();
+}
 
-    const { addMapObject, resetNewMapObjectId } = useNewMapObject(mapObjectsCopy, selectMapObject);
+async function abort() {
+  // map objects
+  mapObjectsCopy.value = cloneDeep(mapObjects.value);
 
-    async function saveMapObjectCopy() {
-      // update all map objects as we do not know which one changed
-      for (const mapObject of mapObjectsCopy.value) {
-        if (isNewMapObject(mapObject) && !mapObject.isDeleted) {
-          await feathers.service('mapObjects').create(omit(mapObject, '_id'));
-        } else if (mapObject.isDeleted && !isNewMapObject(mapObject)) {
-          await feathers.service('mapObjects').remove(mapObject._id);
-        } else if (!mapObject.isDeleted) {
-          await feathers.service('mapObjects').update(mapObject._id, mapObject);
-        }
-      }
-      resetNewMapObjectId();
-    }
+  // floor plan
+  if (currentSpace.value !== undefined) {
+    floorPlan.value = clone(currentSpace.value.floorPlan);
+  }
 
-    async function reset() {
+  await reset();
+}
+
+function updateMapObjectsCopy(updateValue: Ref<Model.MapObject[]>) {
+  mapObjectsCopy.value = cloneDeep(updateValue.value);
+}
+
+watch(
+  mapObjectsCopy,
+  () => {
+    if (isEqual(mapObjectsCopy.value, mapObjects.value)) {
       changed.value = false;
-      mode.value = 'none';
-      await selectFloorPlanObject(null);
-      await selectMapObject(null);
-    }
-
-    async function save() {
-      // map objects
-      await saveMapObjectCopy();
-
-      // floor plan
-      if (currentSpace.value !== undefined) {
-        await feathers
-          .service('spaces')
-          .update(currentSpace.value._id, { ...currentSpace.value, floorPlan: floorPlan.value });
-      }
-
-      await reset();
-    }
-
-    async function abort() {
-      // map objects
-      mapObjectsCopy.value = cloneDeep(mapObjects.value);
-
-      // floor plan
-      if (currentSpace.value !== undefined) {
-        floorPlan.value = clone(currentSpace.value.floorPlan);
-      }
-
-      await reset();
-    }
-
-    function updateMapObjectsCopy(updateValue: Ref<Model.MapObject[]>) {
-      mapObjectsCopy.value = cloneDeep(updateValue.value);
-    }
-
-    watch(
-      mapObjectsCopy,
-      () => {
-        if (isEqual(mapObjectsCopy.value, mapObjects.value)) {
-          changed.value = false;
-        } else {
-          changed.value = true;
-        }
-      },
-      { deep: true },
-    );
-
-    const selectedMapObject = computed(() =>
-      mapObjectsCopy.value.find((mapObject) => mapObject._id === selectedMapObjectId.value),
-    );
-    const isMapObjectSelected = computed<boolean>(() => !!selectedMapObjectId.value);
-
-    const isFloorPlanObjectSelected = computed<boolean>(() => selectedFloorPlanObjectId.value !== null);
-
-    async function removeSelectedMapObject(): Promise<void> {
-      /* istanbul ignore next */
-      if (!selectedMapObject.value) {
-        return;
-      }
-      selectedMapObject.value.isDeleted = true;
-      await selectMapObject(null);
-    }
-
-    async function openMapObjectSettings(): Promise<void> {
-      /* istanbul ignore next */
-      if (!selectedMapObjectId.value) {
-        throw new Error('Unexpected: No map-object selected');
-      }
-
-      await router.push({ name: 'settings-map-object', params: { selectedMapObjectId: selectedMapObjectId.value } });
-    }
-
-    function rotateSelectedMapObject() {
-      /* istanbul ignore next */
-      if (!selectedMapObject.value) {
-        return;
-      }
-      selectedMapObject.value.rotation = (selectedMapObject.value.rotation + 90) % 360;
-    }
-
-    async function clickOnAddButton() {
-      await selectMapObject(null);
+    } else {
       changed.value = true;
-      await addMapObject();
     }
-
-    function removeSelectedFloorPlanObject() {
-      if (selectedFloorPlanObjectId.value !== null) {
-        const newFloorPlan = clone(floorPlan.value);
-        newFloorPlan.splice(Number(selectedFloorPlanObjectId.value), 1);
-        selectedFloorPlanObjectId.value = null;
-        floorPlan.value = newFloorPlan;
-        changed.value = true;
-      }
-    }
-
-    return {
-      t,
-      changed,
-      save,
-      abort,
-      mode,
-      selectedMapObject,
-      isMapObjectSelected,
-      isFloorPlanObjectSelected,
-      mapObjectsCopy,
-      selectMapObject,
-      clickOnAddButton,
-      removeSelectedMapObject,
-      openMapObjectSettings,
-      rotateSelectedMapObject,
-      updateMapObjectsCopy,
-      isLoadingMapObjects,
-      selectFloorPlanObject,
-      updateFloorPlanCopy,
-      floorPlan,
-      selectedFloorPlanObjectId,
-      removeSelectedFloorPlanObject,
-    };
   },
-});
+  { deep: true },
+);
+
+const selectedMapObject = computed(() =>
+  mapObjectsCopy.value.find((mapObject) => mapObject._id === selectedMapObjectId.value),
+);
+const isMapObjectSelected = computed<boolean>(() => !!selectedMapObjectId.value);
+
+const isFloorPlanObjectSelected = computed<boolean>(() => selectedFloorPlanObjectId.value !== null);
+
+async function removeSelectedMapObject(): Promise<void> {
+  /* istanbul ignore next */
+  if (!selectedMapObject.value) {
+    return;
+  }
+  selectedMapObject.value.isDeleted = true;
+  await selectMapObject(null);
+}
+
+async function openMapObjectSettings(): Promise<void> {
+  /* istanbul ignore next */
+  if (!selectedMapObjectId.value) {
+    throw new Error('Unexpected: No map-object selected');
+  }
+
+  await router.push({ name: 'settings-map-object', params: { selectedMapObjectId: selectedMapObjectId.value } });
+}
+
+function rotateSelectedMapObject() {
+  /* istanbul ignore next */
+  if (!selectedMapObject.value) {
+    return;
+  }
+  selectedMapObject.value.rotation = (selectedMapObject.value.rotation + 90) % 360;
+}
+
+async function clickOnAddButton() {
+  await selectMapObject(null);
+  changed.value = true;
+  await addMapObject();
+}
+
+function removeSelectedFloorPlanObject() {
+  if (selectedFloorPlanObjectId.value !== null) {
+    const newFloorPlan = clone(floorPlan.value);
+    newFloorPlan.splice(Number(selectedFloorPlanObjectId.value), 1);
+    selectedFloorPlanObjectId.value = null;
+    floorPlan.value = newFloorPlan;
+    changed.value = true;
+  }
+}
+
+const floorPlanFileInput = ref<HTMLInputElement>();
+
+async function uploadFloorPlan(target: HTMLInputElement) {
+  if (target.files === null || target.files.length !== 1) {
+    return;
+  }
+
+  const doc = new DOMParser().parseFromString(await target.files[0].text(), 'image/svg+xml');
+  floorPlan.value = Array.from(doc.getElementsByTagName('path'))
+    .map((path) => path.getAttribute('d'))
+    .filter((d) => d !== null) as string[];
+
+  changed.value = true;
+}
 </script>

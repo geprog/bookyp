@@ -3,6 +3,7 @@ import AddCircleIcon from '~/assets/icons/add-circle.svg';
 import AppsListIcon from '~/assets/icons/apps-list.svg';
 import ArrowClockwiseIcon from '~/assets/icons/arrow-clockwise.svg';
 import ArrowLeftIcon from '~/assets/icons/arrow-left.svg';
+import ArrowUploadIcon from '~/assets/icons/arrow-upload.svg';
 import BookypIcon from '~/assets/icons/bookyp.svg';
 import CheckMarkIcon from '~/assets/icons/check-mark.svg';
 import ChevronDownIcon from '~/assets/icons/chevron-down.svg';
@@ -34,6 +35,7 @@ import SendIcon from '~/assets/icons/send.svg';
 import SettingsIcon from '~/assets/icons/settings.svg';
 import SignOutIcon from '~/assets/icons/sign-out.svg';
 import StopIcon from '~/assets/icons/stop.svg';
+import SvgIcon from '~/assets/icons/svg.svg';
 import TableIcon from '~/assets/icons/table.svg';
 import TextBoxIcon from '~/assets/icons/text-box.svg';
 import WallIcon from '~/assets/icons/wall.svg';
@@ -78,6 +80,8 @@ const icons = {
   minus: MinusIcon,
   wall: WallIcon,
   info: InfoIcon,
+  'arrow-upload': ArrowUploadIcon,
+  svg: SvgIcon,
 };
 
 export default icons;

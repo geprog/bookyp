@@ -11,12 +11,12 @@ dotenvConfig({ path: path.join(__dirname, '..', '..', '.env') });
 async function globalSetup(config: FullConfig): Promise<void> {
   await seed();
 
-  const { baseURL, storageState } = config.projects[0].use;
+  const { baseURL, storageState, headless } = config.projects[0].use;
   if (!baseURL) {
     throw new Error('baseURL is not set');
   }
 
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ headless });
   const page = await browser.newPage();
   await page.goto(baseURL);
   await page.fill('input[name="username"]', credentials.username);
