@@ -25,6 +25,7 @@
     "lint:formatting": "prettier -c .",
     "spellcheck": "cspell lint --no-progress --gitignore '{**,.*}/{*,.*}'",
     "test": "pnpm -r test",
+    "e2e": "cd packages/e2e && pnpm test",
     "typecheck": "pnpm -r typecheck",
     "clean": "pnpm -r clean",
     "postinstall": "rm -rf ./node_modules/.pnpm/@fullcalendar+core@5.11.0/node_modules/preact/src/jsx.d.ts"

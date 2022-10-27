@@ -77,7 +77,7 @@ const config = defineConfig({
     hmr: {
       clientPort: process.env.FRONTEND_BACKEND_URL !== 'http://localhost:4000' ? 443 : undefined,
     },
-    port: 3000,
+    port: parseInt(process.env.FRONTEND_PORT || '3000'),
   },
   test: {
     globals: true,
