@@ -2,16 +2,18 @@
 
 ## Running tests
 
-1. Create `packages/e2e/.env` for e2e tests (adjust the db credentials according to your main `.env`)
+1. _Optional_: Create `packages/e2e/.env` for e2e tests (adjust the db credentials according to your main `.env`)
 
    ```sh
    BACKEND_DB_URI=mongodb://<DB_USERNAME>:<DB_PASSWORD>@localhost:<DB_PORT>/bookyp-e2e?authSource=admin
    ```
 
 1. Ensure mongodb is running
+1. Ensure the oauth-mock-server is running e.g. via `pnpm run start:oauth-mock-server` from the project root
 1. `cd packages/e2e`
 1. Install playwright browsers: `pnpm playwright:install`
 1. `pnpm run test` to run the e2e tests
+   - Alternatively you can also execute `pnpm run e2e` from the project root.
 
 ## Adding new tests
 

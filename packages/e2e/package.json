@@ -6,9 +6,9 @@
     "codegen": "playwright codegen --load-storage=storageState.json localhost:3000",
     "lint": "eslint --max-warnings 0 .",
     "playwright:install": "playwright install && playwright install-deps",
-    "start:e2e": "BACKEND_HOST=localhost BACKEND_OAUTH_REDIRECT_URL=http://localhost:3000/ FRONTEND_BACKEND_URL=http://localhost:4000 dotenv -e .env -e ../../.env -- pnpm --filter @bookyp/frontend --filter @bookyp/backend start",
+    "start:e2e": "BACKEND_HOST=localhost BACKEND_PORT=4010 FRONTEND_PORT=3010 BACKEND_OAUTH_REDIRECT_URL=http://localhost:3010/ FRONTEND_BACKEND_URL=http://localhost:4010 dotenv -e .env -e ../../.env -- pnpm --filter @bookyp/frontend --filter @bookyp/backend start",
     "seed": "ts-node-transpile-only --skip-project seedCli.ts",
-    "test": "playwright test",
+    "test": "FRONTEND_PORT=3010 playwright test",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
