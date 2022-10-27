@@ -15,6 +15,7 @@ import { v010_scaleFloorPlans } from '~/migrations/v010_scaleFloorPlans';
 import { v011_customizeWaterkantSpace } from '~/migrations/v011_customizeWaterkantSpace';
 import { v012_customizeDECKMueritzSpace } from '~/migrations/v012_customizeDECKMueritzSpace';
 import { v013_kitzSilentSpace } from '~/migrations/v013_kitzSilentSpace';
+import { v014_geprogMeetingRoom } from '~/migrations/v014_geprogMeetingRoom';
 
 // migrations are applied in the order defined here
 const migrations: Migration[] = [
@@ -31,6 +32,7 @@ const migrations: Migration[] = [
   v011_customizeWaterkantSpace,
   v012_customizeDECKMueritzSpace,
   v013_kitzSilentSpace,
+  v014_geprogMeetingRoom,
 ];
 
 const migrationStore = new MongoMigrationStore();
