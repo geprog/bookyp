@@ -10,12 +10,14 @@
           class="float-right justify-end"
           @click.prevent="$emit('confirmation', false)"
         />
-        <span data-test="label" class="text-base text-2xl font-bold truncate">{{ t('message.label') }}</span>
+        <span data-test="label" class="text-base text-2xl font-bold truncate">{{ t('delete_dialog.label') }}</span>
       </div>
-      <span data-test="description" class="w-full text-gray-700 text-sm truncate">{{ t('message.description') }}</span>
+      <span data-test="description" class="w-full text-gray-700 text-sm truncate">{{
+        t('delete_dialog.description', { objectLabel })
+      }}</span>
       <div class="flex flex-row gap-x-4 justify-end rounded-none pt-4">
-        <Button class="flex" @click.prevent="$emit('confirmation', true)">{{ t('message.label') }}</Button>
-        <Button @click.prevent="$emit('confirmation', false)">{{ t('message.cancel') }}</Button>
+        <Button class="flex" @click.prevent="$emit('confirmation', true)">{{ t('delete_dialog.label') }}</Button>
+        <Button @click.prevent="$emit('confirmation', false)">{{ t('delete_dialog.cancel') }}</Button>
       </div>
     </div>
   </div>
@@ -40,6 +42,11 @@ export default defineComponent({
   props: {
     visible: {
       type: Boolean,
+    },
+
+    objectLabel: {
+      type: String,
+      required: true,
     },
   },
 

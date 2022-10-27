@@ -20,6 +20,11 @@ onMounted(() => {
     void router.replace({ name: 'spaces-list' });
   }
 });
+watch(spaceId, (newSpaceId, oldSpaceId) => {
+  if (oldSpaceId !== null && newSpaceId === null) {
+    void router.replace({ name: 'spaces-list' });
+  }
+});
 
 const redirectOnUnauthorized = async () => {
   if (!space.value) {

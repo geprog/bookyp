@@ -3,6 +3,7 @@ import { MongooseServiceOptions, Service } from 'feathers-mongoose';
 import { Document, model, Schema } from 'mongoose';
 
 import { feathersCaslAllowlist } from '~/casl';
+import softDelete from '~/hooks/softDelete';
 
 import addSpaceMemberFields from './hooks/addSpaceMemberFields';
 import removePlanFromCreate from './hooks/removePlanFromCreate';
@@ -19,6 +20,7 @@ const SpaceSchema = new Schema<Model.Space>({
   description: { type: String },
   address: { type: String },
   plan: { type: String },
+  deleted: { type: Boolean },
 });
 
 export const name = 'spaces';
@@ -34,6 +36,7 @@ export default (app: Application): void => {
   app.use(name, new Service<Model.Space>(options));
   app.service(name).hooks({
     before: {
+      all: [softDelete],
       create: [removePlanFromCreate],
     },
     after: {

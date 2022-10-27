@@ -11,37 +11,34 @@
     </InputField>
   </form>
 
-  <div
-    v-if="isEditingSpace"
-    class="
-      flex flex-col
-      p-4
-      mt-10
-      sm:max-w-xl
-      <sm:max-w-xs
-      mx-auto
-      border-primary-dark border-2
-      shadow-full
-      text-center
-      rounded-md
-    "
-  >
-    <h2 class="font-bold">{{ t('plan.plan') }}</h2>
+  <div v-if="isEditingSpace" class="flex flex-col gap-y-6 mt-6 sm:max-w-xl <sm:max-w-xs mx-auto">
+    <div class="flex flex-col p-4 border-primary-dark border-2 shadow-full text-center rounded-md">
+      <h2 class="font-bold">{{ t('plan.plan') }}</h2>
 
-    <template v-if="space.plan === 'public'">
-      <p>{{ t('plan.public_plan_description') }}</p>
+      <template v-if="space.plan === 'public'">
+        <p>{{ t('plan.public_plan_description') }}</p>
 
-      <a :href="mailtoUpgrade" class="mx-auto mt-4">
-        <Button :text="t('plan.change')" />
-      </a>
-    </template>
-    <template v-else>
-      <p>{{ t('plan.free_plan_description', { amountOfMembers: spaceMembers.length }) }}</p>
+        <a :href="mailtoUpgrade" class="mx-auto mt-4">
+          <Button :text="t('plan.change')" />
+        </a>
+      </template>
+      <template v-else>
+        <p>{{ t('plan.free_plan_description', { amountOfMembers: spaceMembers.length }) }}</p>
 
-      <a :href="mailtoUpgrade" class="mx-auto mt-4">
-        <Button :text="t('plan.upgrade')" />
-      </a>
-    </template>
+        <a :href="mailtoUpgrade" class="mx-auto mt-4">
+          <Button :text="t('plan.upgrade')" />
+        </a>
+      </template>
+    </div>
+
+    <Button
+      :aria-label="t('delete_space')"
+      icon="delete"
+      :text="t('delete_space').toLocaleUpperCase()"
+      class="w-full"
+      outlined
+      @click="deleteSpace"
+    />
   </div>
 </template>
 
@@ -76,6 +73,7 @@ export default defineComponent({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     'update:space': (_space: Partial<Model.Space>) => true,
     save: () => true,
+    delete: () => true,
   },
 
   setup(props, { emit }) {
@@ -128,7 +126,11 @@ export default defineComponent({
     const mailtoUpgradeSubject = encodeURIComponent(`[${space.value?._id || ''}] Upgrade plan`);
     const mailtoUpgrade = `mailto:bookyp@geprog.com?subject=${mailtoUpgradeSubject}`;
 
-    return { t, saveSpace, spaceCreate, spaceMembers, mailtoUpgrade, isEditingSpace };
+    const deleteSpace = () => {
+      emit('delete');
+    };
+
+    return { t, saveSpace, spaceCreate, spaceMembers, mailtoUpgrade, isEditingSpace, deleteSpace };
   },
 });
 </script>

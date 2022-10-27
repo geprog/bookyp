@@ -7,6 +7,6 @@ exports[`Bookable view > should render correctly 1`] = `
 </header-stub>
 <app-content-stub>
   <bookable-form-stub bookable=\\"[object Object]\\" data-test=\\"bookable-form\\"></bookable-form-stub>
-  <delete-dialog-stub visible=\\"false\\" data-test=\\"delete-dialog\\"></delete-dialog-stub>
+  <delete-dialog-stub objectlabel=\\"bookable\\" visible=\\"false\\" data-test=\\"delete-dialog\\"></delete-dialog-stub>
 </app-content-stub>"
 `;

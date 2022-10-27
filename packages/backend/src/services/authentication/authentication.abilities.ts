@@ -24,8 +24,8 @@ const defineRulesFor = async (
     members: { $elemMatch: { role: 'admin', userId: user._id } },
     plan: 'public',
   });
-  can('read', 'spaces', { members: { $elemMatch: { role: 'admin', userId: user._id } } });
-  can('update', 'spaces', ['floorPlan', 'members', 'name', 'description', 'address'], {
+  can(['read', 'delete'], 'spaces', { members: { $elemMatch: { role: 'admin', userId: user._id } } });
+  can('update', 'spaces', ['floorPlan', 'members', 'name', 'description', 'address', 'deleted'], {
     members: { $elemMatch: { role: 'admin', userId: user._id } },
   });
   can('create', 'spaces');
