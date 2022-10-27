@@ -10,7 +10,12 @@
   </Header>
   <AppContent>
     <BookableForm v-if="bookable" v-model:bookable="bookable" data-test="bookable-form" @save="saveBookable" />
-    <DeleteDialog data-test="delete-dialog" :visible="modalVisible" @confirmation="deleteBookable" />
+    <DeleteDialog
+      data-test="delete-dialog"
+      :object-label="t('bookable')"
+      :visible="modalVisible"
+      @confirmation="deleteBookable"
+    />
   </AppContent>
 </template>
 

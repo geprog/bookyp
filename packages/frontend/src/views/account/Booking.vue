@@ -23,7 +23,12 @@
         <MapObjects consider-filter :highlighted-bookable-id="bookableId" />
       </SpaceMap>
     </div>
-    <DeleteDialog data-test="delete-dialog" :visible="modalVisible" @confirmation="deleteBooking" />
+    <DeleteDialog
+      data-test="delete-dialog"
+      :object-label="t('booking')"
+      :visible="modalVisible"
+      @confirmation="deleteBooking"
+    />
   </AppContent>
 </template>
 
