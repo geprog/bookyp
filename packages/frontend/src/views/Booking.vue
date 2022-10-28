@@ -68,7 +68,7 @@ export default defineComponent({
       'bookables',
       computed(() => ({})),
     );
-    const { bookablesFilter, bookablesWithFilterMatched } = useBookables(bookables);
+    const { bookablesFilter, bookablesWithFilterMatched, resetBookablesFilter } = useBookables(bookables);
     const bookable = computed(() =>
       bookablesWithFilterMatched.value.find(
         (bookableWithFilterMatched) => bookableWithFilterMatched._id === bookableId.value,
@@ -114,7 +114,7 @@ export default defineComponent({
           bookedBy: user.value._id,
           space: spaceId.value,
         });
-        bookablesFilter.value = undefined;
+        resetBookablesFilter();
         await router.replace({ name: 'account-bookings' });
       } catch (error) {
         if (error instanceof Error && error.message === 'Booking overlaps with existing bookings') {
