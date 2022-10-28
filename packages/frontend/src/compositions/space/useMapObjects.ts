@@ -1,12 +1,10 @@
 import { Model } from '@bookyp/core';
 import { UseFind } from '@geprog/use-feathers';
-import { computed } from 'vue';
+import { computed, Ref } from 'vue';
 
-import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
 
-export default function getMapObjects(): UseFind<Model.MapObject> {
-  const { spaceId } = useCurrentSpace();
+export default function getMapObjects(spaceId: Ref<string | null>): UseFind<Model.MapObject> {
   const params = computed(() => {
     if (spaceId.value === null) {
       return undefined;

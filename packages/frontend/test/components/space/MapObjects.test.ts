@@ -7,16 +7,11 @@ import { useBookables } from '~/compositions/useBookables';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { sampleBookings } from '$/__fixtures__/booking';
 import { sampleMapObject, sampleMapObjects, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
-import {
-  prepareUseCurrentSpaceMockOnce,
-  prepareUseFindMockOnce,
-  prepareUseMapObjectsMockOnce,
-} from '$/__helpers__/mocks';
+import { prepareUseFindMockOnce, prepareUseMapObjectsMockOnce } from '$/__helpers__/mocks';
 
 vi.mock('~/compositions/space/useMapObjects');
 vi.mock('~/compositions/useFind');
 vi.mock('~/compositions/useBookables');
-vi.mock('~/compositions/space/useCurrentSpace');
 
 const SpaceMapMock = {
   registerViewBox: vi.fn(),
@@ -43,7 +38,6 @@ const prepareUseBookablesOnce = () => {
 describe('MapObjects component', () => {
   beforeEach(() => {
     prepareUseFindMockOnce();
-    prepareUseCurrentSpaceMockOnce();
   });
 
   it('should render correctly when clickable', () => {
@@ -55,6 +49,7 @@ describe('MapObjects component', () => {
     // when
     const wrapper = shallowMount(MapObjects, {
       props: {
+        spaceId: '123',
         clickable: true,
       },
       global: globalOptions,
@@ -77,6 +72,7 @@ describe('MapObjects component', () => {
     // when
     const wrapper = shallowMount(MapObjects, {
       props: {
+        spaceId: '123',
         clickable: false,
       },
       global: globalOptions,
@@ -99,6 +95,7 @@ describe('MapObjects component', () => {
     // when
     const wrapper = shallowMount(MapObjects, {
       props: {
+        spaceId: '123',
         clickable: true,
         selectedMapObjectId: sampleMapObject._id,
       },
@@ -120,6 +117,7 @@ describe('MapObjects component', () => {
 
     const wrapper = shallowMount(MapObjects, {
       props: {
+        spaceId: '123',
         clickable: true,
       },
       global: globalOptions,
@@ -142,6 +140,7 @@ describe('MapObjects component', () => {
 
     const wrapper = shallowMount(MapObjects, {
       props: {
+        spaceId: '123',
         clickable: false,
       },
       global: globalOptions,
@@ -163,6 +162,7 @@ describe('MapObjects component', () => {
     // when
     const wrapper = shallowMount(MapObjects, {
       props: {
+        spaceId: '123',
         clickable: true,
       },
       global: globalOptions,
@@ -182,6 +182,7 @@ describe('MapObjects component', () => {
     // when
     const wrapper = shallowMount(MapObjects, {
       props: {
+        spaceId: '123',
         clickable: true,
       },
       global: globalOptions,
@@ -205,6 +206,7 @@ describe('MapObjects component', () => {
     // when
     const wrapper = shallowMount(MapObjects, {
       props: {
+        spaceId: '123',
         clickable: true,
         considerFilter: true,
       },
@@ -237,6 +239,7 @@ describe('MapObjects component', () => {
     // when
     const wrapper = shallowMount(MapObjects, {
       props: {
+        spaceId: '123',
         clickable: true,
         considerFilter: true,
       },
@@ -264,6 +267,7 @@ describe('MapObjects component', () => {
       // when
       shallowMount(MapObjects, {
         props: {
+          spaceId: '123',
           clickable: true,
         },
         global: globalOptions,
@@ -283,6 +287,7 @@ describe('MapObjects component', () => {
 
       const wrapper = shallowMount(MapObjects, {
         props: {
+          spaceId: '123',
           clickable: true,
         },
         global: globalOptions,

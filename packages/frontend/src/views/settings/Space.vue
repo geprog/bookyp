@@ -112,11 +112,11 @@ const changed = ref(false);
 
 const router = useRouter();
 const feathers = useFeathers();
-const { currentSpace } = useCurrentSpace();
+const { currentSpace, spaceId } = useCurrentSpace();
 
 const selectedMapObjectId = toRef(props, 'selectedMapObjectId');
 
-const { data: mapObjects, isLoading: isLoadingMapObjects } = getMapObjects();
+const { data: mapObjects, isLoading: isLoadingMapObjects } = getMapObjects(spaceId);
 const mapObjectsCopy: Ref<EditingMapObject[]> = ref([]);
 const floorPlan: Ref<string[]> = ref([]);
 

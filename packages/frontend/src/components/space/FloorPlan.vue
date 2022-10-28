@@ -3,21 +3,29 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, toRef } from 'vue';
 
-import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { useAndRegisterViewBox } from '~/compositions/space/useViewBox';
+import useGet from '~/compositions/useGet';
 
 export default defineComponent({
   name: 'FloorPlan',
 
-  setup() {
-    const { currentSpace } = useCurrentSpace();
+  props: {
+    spaceId: {
+      type: String,
+      required: true,
+    },
+  },
+
+  setup(props) {
+    const spaceId = toRef(props, 'spaceId');
+    const { data: space } = useGet('spaces', spaceId);
     const floorPlan = computed(() => {
-      if (currentSpace.value === undefined) {
+      if (space.value === undefined) {
         return [];
       }
-      return currentSpace.value.floorPlan;
+      return space.value.floorPlan;
     });
     useAndRegisterViewBox('FloorPlan', floorPlan, { strokeWidth: 2 });
     return { floorPlan };

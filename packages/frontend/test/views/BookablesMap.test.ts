@@ -4,8 +4,9 @@ import { nextTick } from 'vue';
 import MapObjects from '~/components/space/MapObjects.vue';
 import BookablesMap from '~/views/BookablesMap.vue';
 import { sampleMapObject, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
-import { prepareUseRouterMockOnce } from '$/__helpers__/mocks';
+import { prepareUseCurrentSpaceMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
 
+vi.mock('~/compositions/space/useCurrentSpace');
 vi.mock('vue-router');
 
 describe('BookablesMap view', () => {
@@ -19,6 +20,7 @@ describe('BookablesMap view', () => {
 
   it('should render correctly', () => {
     // given
+    prepareUseCurrentSpaceMockOnce(undefined);
 
     // when
     const wrapper = shallowMount(BookablesMap);
@@ -30,6 +32,7 @@ describe('BookablesMap view', () => {
   it('should open booking-create view when clicked on mapObject', async () => {
     expect.assertions(1);
     // given
+    prepareUseCurrentSpaceMockOnce(undefined);
     const useRouterMockOnce = prepareUseRouterMockOnce();
     const wrapper = shallowMount(BookablesMap);
 
@@ -47,6 +50,7 @@ describe('BookablesMap view', () => {
   it('should not open booking-create view when clicked on mapObject that is not linked to a bookable', async () => {
     expect.assertions(1);
     // given
+    prepareUseCurrentSpaceMockOnce(undefined);
     const useRouterMockOnce = prepareUseRouterMockOnce();
     const wrapper = shallowMount(BookablesMap);
 

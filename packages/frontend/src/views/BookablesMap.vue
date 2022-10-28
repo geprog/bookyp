@@ -2,9 +2,9 @@
   <HomeHeader />
 
   <div class="flex flex-col flex-grow min-h-0">
-    <SpaceMap>
-      <FloorPlan />
-      <MapObjects clickable consider-filter @click-on-map-object="openCreateBooking" />
+    <SpaceMap v-if="spaceId">
+      <FloorPlan :space-id="spaceId" />
+      <MapObjects clickable consider-filter :space-id="spaceId" @click-on-map-object="openCreateBooking" />
     </SpaceMap>
   </div>
 
@@ -21,6 +21,7 @@ import HomeActionButtons from '~/components/layout/toolbars/HomeActionButtons.vu
 import FloorPlan from '~/components/space/FloorPlan.vue';
 import MapObjects from '~/components/space/MapObjects.vue';
 import SpaceMap from '~/components/space/SpaceMap.vue';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 
 export default defineComponent({
   name: 'BookablesMap',
@@ -30,6 +31,8 @@ export default defineComponent({
   setup() {
     const router = useRouter();
 
+    const { spaceId } = useCurrentSpace();
+
     async function openCreateBooking(bookableId: Model.MapObject['bookable']) {
       if (bookableId) {
         await router.push({ name: 'booking-create', params: { bookableId } });
@@ -38,6 +41,7 @@ export default defineComponent({
 
     return {
       openCreateBooking,
+      spaceId,
     };
   },
 });

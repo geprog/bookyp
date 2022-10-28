@@ -57,7 +57,6 @@
 import { Model } from '@bookyp/core';
 import { computed, defineComponent, toRef } from 'vue';
 
-import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import getMapObjects from '~/compositions/space/useMapObjects';
 import { mapObjectsToPaths, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 import { useBookables } from '~/compositions/useBookables';
@@ -70,6 +69,11 @@ type HighlightedMapObject = Model.MapObject & {
 export default defineComponent({
   name: 'MapObjects',
   props: {
+    spaceId: {
+      type: String,
+      required: true,
+    },
+
     clickable: {
       type: Boolean,
     },
@@ -97,8 +101,8 @@ export default defineComponent({
   setup(props, context) {
     const clickable = toRef(props, 'clickable');
     const highlightedBookableId = toRef(props, 'highlightedBookableId');
-    const { data: mapObjects } = getMapObjects();
-    const { spaceId } = useCurrentSpace();
+    const spaceId = toRef(props, 'spaceId');
+    const { data: mapObjects } = getMapObjects(spaceId);
 
     const { data: bookables } = useFind(
       'bookables',

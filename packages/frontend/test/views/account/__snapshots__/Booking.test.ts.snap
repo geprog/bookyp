@@ -12,8 +12,8 @@ exports[`Booking view > should render correctly 1`] = `
   </div>
   <div class=\\"flex flex-col p-4 rounded-lg shadow-full bg-white m-4 gap-y-1\\">
     <space-map-stub disablepanning=\\"false\\">
-      <floor-plan-stub></floor-plan-stub>
-      <map-objects-stub clickable=\\"false\\" considerfilter=\\"true\\" highlightedbookableid=\\"123\\"></map-objects-stub>
+      <floor-plan-stub spaceid=\\"first\\"></floor-plan-stub>
+      <map-objects-stub spaceid=\\"first\\" clickable=\\"false\\" considerfilter=\\"true\\" highlightedbookableid=\\"123\\"></map-objects-stub>
     </space-map-stub>
   </div>
   <delete-dialog-stub objectlabel=\\"booking\\" visible=\\"false\\" data-test=\\"delete-dialog\\"></delete-dialog-stub>
