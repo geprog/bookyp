@@ -1,8 +1,9 @@
 import { UseFind, UseFindFunc } from '@geprog/use-feathers';
+import { ref } from 'vue';
 
 import useFind from '~/compositions/useFind';
 import { sampleMapObjects } from '$/__fixtures__/mapObject';
-import { prepareUseCurrentSpaceMockOnce, prepareUseFindMockOnce } from '$/__helpers__/mocks';
+import { prepareUseFindMockOnce } from '$/__helpers__/mocks';
 
 vi.mock('~/compositions/useFind');
 vi.mock('~/compositions/space/useCurrentSpace');
@@ -18,10 +19,9 @@ describe('useMapObjects composition', () => {
   it('should get mapObjects', () => {
     // given
     prepareUseFindMockOnce(sampleMapObjects);
-    prepareUseCurrentSpaceMockOnce();
 
     // when
-    const { data: mapObjects } = useMapObjects.default();
+    const { data: mapObjects } = useMapObjects.default(ref('60f53bede6f8313dff7f99e0'));
 
     // then
     expect(mapObjects.value).toMatchSnapshot();
@@ -29,7 +29,6 @@ describe('useMapObjects composition', () => {
 
   it('should call useFind with a query containing space', () => {
     // given
-    prepareUseCurrentSpaceMockOnce();
     let params: Parameters<UseFindFunc<unknown>>[1];
     vi.mocked(useFind, true).mockImplementationOnce((_, _params): UseFind<unknown> => {
       params = _params;
@@ -37,7 +36,7 @@ describe('useMapObjects composition', () => {
     });
 
     // when
-    useMapObjects.default();
+    useMapObjects.default(ref('60f53bede6f8313dff7f99e0'));
 
     // then
     expect(params?.value).toMatchSnapshot();

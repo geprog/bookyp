@@ -5,9 +5,9 @@ import FloorPlan from '~/components/space/FloorPlan.vue';
 import useViewBox from '~/compositions/space/useViewBox';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { sampleFloorPlan } from '$/__fixtures__/floorPlan';
-import { prepareUseCurrentSpaceMockOnce } from '$/__helpers__/mocks';
+import { prepareUseGetMockOnce } from '$/__helpers__/mocks';
 
-vi.mock('~/compositions/space/useCurrentSpace');
+vi.mock('~/compositions/useGet');
 
 const SpaceMapMock = {
   registerViewBox: vi.fn(),
@@ -23,8 +23,9 @@ const globalOptions = {
 describe('FloorPlan component', () => {
   it('should render correctly', () => {
     // given
-    prepareUseCurrentSpaceMockOnce({
-      _id: 'dummy-id',
+    const spaceId = 'dummy-id';
+    prepareUseGetMockOnce({
+      _id: spaceId,
       floorPlan: sampleFloorPlan,
       members: [],
       name: 'space',
@@ -33,6 +34,9 @@ describe('FloorPlan component', () => {
     // when
     const wrapper = shallowMount(FloorPlan, {
       global: globalOptions,
+      props: {
+        spaceId,
+      },
     });
 
     // then
@@ -43,11 +47,14 @@ describe('FloorPlan component', () => {
 
   it('should not render anything when Space is undefined', () => {
     // given
-    prepareUseCurrentSpaceMockOnce(undefined);
+    prepareUseGetMockOnce(undefined);
 
     // when
     const wrapper = shallowMount(FloorPlan, {
       global: globalOptions,
+      props: {
+        spaceId: '123',
+      },
     });
 
     // then
@@ -58,7 +65,8 @@ describe('FloorPlan component', () => {
     it('should register view box if handler provided', () => {
       vi.resetAllMocks();
       // given
-      prepareUseCurrentSpaceMockOnce({
+      const spaceId = 'dummy-id';
+      prepareUseGetMockOnce({
         _id: 'dummy-id',
         floorPlan: sampleFloorPlan,
         members: [],
@@ -70,6 +78,9 @@ describe('FloorPlan component', () => {
       // when
       shallowMount(FloorPlan, {
         global: globalOptions,
+        props: {
+          spaceId,
+        },
       });
 
       // then
@@ -82,8 +93,9 @@ describe('FloorPlan component', () => {
     it('should unregister view box on unmount if handler provided', () => {
       vi.resetAllMocks();
       // given
-      prepareUseCurrentSpaceMockOnce({
-        _id: 'dummy-id',
+      const spaceId = 'dummy-id';
+      prepareUseGetMockOnce({
+        _id: spaceId,
         floorPlan: sampleFloorPlan,
         members: [],
         name: 'space',
@@ -91,6 +103,9 @@ describe('FloorPlan component', () => {
 
       const wrapper = shallowMount(FloorPlan, {
         global: globalOptions,
+        props: {
+          spaceId,
+        },
       });
 
       // when
