@@ -31,6 +31,7 @@ describe('BookablesList component', () => {
       isFilterMatched: vi.fn(),
       userBookings: ref([]),
       isBookedByMe: vi.fn().mockReturnValue(false),
+      resetBookablesFilter: vi.fn(),
     });
 
     // when
@@ -59,6 +60,7 @@ describe('BookablesList component', () => {
       isFilterMatched: vi.fn(),
       userBookings: ref([]),
       isBookedByMe: vi.fn().mockReturnValue(false),
+      resetBookablesFilter: vi.fn(),
     });
 
     // when

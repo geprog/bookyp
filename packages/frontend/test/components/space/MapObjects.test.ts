@@ -36,6 +36,7 @@ const prepareUseBookablesOnce = () => {
     isFilterMatched: vi.fn().mockReturnValue(true),
     userBookings: ref([]),
     isBookedByMe: vi.fn().mockReturnValue(false),
+    resetBookablesFilter: vi.fn(),
   });
 };
 
@@ -230,6 +231,7 @@ describe('MapObjects component', () => {
       isFilterMatched: vi.fn().mockReturnValue(false),
       userBookings: ref([]),
       isBookedByMe: vi.fn().mockReturnValue(false),
+      resetBookablesFilter: vi.fn(),
     });
 
     // when

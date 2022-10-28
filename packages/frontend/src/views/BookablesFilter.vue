@@ -5,13 +5,7 @@
   <AppContent>
     <form id="filterBookablesForm" class="my-2" @submit.prevent="submitBookablesFilter">
       <DateRangePicker v-model:start="start" v-model:end="end" :bookings="[]" :initial-date="start">
-        <Button
-          v-if="hasActiveBookablesFilter"
-          icon="dismiss"
-          outlined
-          class="ml-4 px-1"
-          @click="resetBookablesFilter"
-        />
+        <Button v-if="hasActiveBookablesFilter" icon="dismiss" outlined class="ml-4 px-1" @click="reset" />
       </DateRangePicker>
     </form>
   </AppContent>
@@ -38,7 +32,7 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const router = useRouter();
-    const { bookablesFilter } = useBookables();
+    const { bookablesFilter, resetBookablesFilter } = useBookables();
 
     const hasActiveBookablesFilter = computed(() => !bookablesFilter.value?.quickFilterEnabled);
 
@@ -57,12 +51,12 @@ export default defineComponent({
       router.back();
     };
 
-    const resetBookablesFilter = () => {
-      bookablesFilter.value = undefined;
+    const reset = () => {
+      resetBookablesFilter();
       router.back();
     };
 
-    return { t, submitBookablesFilter, resetBookablesFilter, start, end, hasActiveBookablesFilter };
+    return { t, submitBookablesFilter, reset, start, end, hasActiveBookablesFilter };
   },
 });
 </script>

@@ -17,12 +17,12 @@
 
 <script lang="ts">
 import dayjs from 'dayjs';
-import { computed, defineComponent, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 
 import HourControlButton from '~/components/buttons/HourControlButton.vue';
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
-import { useBookables } from '~/compositions/useBookables';
+import { ceilDate, useBookables } from '~/compositions/useBookables';
 import useFind from '~/compositions/useFind';
 
 export default defineComponent({
@@ -39,14 +39,6 @@ export default defineComponent({
     );
     const { bookablesFilter } = useBookables(bookables);
 
-    function ceilDate(_date: Date, amount: number, unit: 'minutes'): Date {
-      const date = dayjs(_date);
-      return date
-        .add(amount - (date.get(unit) % amount), unit)
-        .startOf(unit)
-        .toDate();
-    }
-
     const bookablesFilterEndDate = computed<Date>({
       get() {
         return bookablesFilter.value?.end || ceilDate(dayjs().add(2, 'hour').toDate(), 15, 'minutes');
@@ -54,36 +46,6 @@ export default defineComponent({
       set(value) {
         bookablesFilter.value = { ...bookablesFilter.value, end: ceilDate(value, 15, 'minutes') };
       },
-    });
-
-    const startUpdateInterval = ref<ReturnType<typeof setTimeout>>();
-
-    onMounted(() => {
-      if (bookablesFilter.value === undefined) {
-        bookablesFilter.value = {
-          start: ceilDate(dayjs().toDate(), 15, 'minutes'),
-          end: ceilDate(dayjs().add(2, 'hour').toDate(), 15, 'minutes'),
-          quickFilterEnabled: true,
-        };
-      }
-
-      // update start of quick filter every minute. end date will be adjusted accordingly by watcher
-      startUpdateInterval.value = setInterval(() => {
-        if (!bookablesFilter.value?.quickFilterEnabled) {
-          return;
-        }
-
-        bookablesFilter.value = {
-          ...bookablesFilter.value,
-          start: ceilDate(dayjs().toDate(), 15, 'minutes'),
-        };
-      }, 1000 * 60);
-    });
-
-    onBeforeUnmount(() => {
-      if (startUpdateInterval.value) {
-        clearInterval(startUpdateInterval.value);
-      }
     });
 
     return {

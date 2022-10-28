@@ -1,6 +1,7 @@
 import { Model } from '@bookyp/core';
 import { Params } from '@feathersjs/feathers';
-import { computed, Ref, ref } from 'vue';
+import dayjs from 'dayjs';
+import { computed, onBeforeUnmount, onMounted, Ref, ref } from 'vue';
 
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
@@ -9,7 +10,17 @@ type BookablesFilter = Partial<{ start: Date; end: Date; quickFilterEnabled: boo
 
 const bookablesFilter: Ref<BookablesFilter | undefined> = ref();
 
+const startUpdateInterval = ref<ReturnType<typeof setTimeout>>();
+
 export type BookableWithFilterMatched = Model.Bookable & { isFilterMatched?: boolean };
+
+export function ceilDate(_date: Date, amount: number, unit: 'minutes'): Date {
+  const date = dayjs(_date);
+  return date
+    .add(amount - (date.get(unit) % amount), unit)
+    .startOf(unit)
+    .toDate();
+}
 
 export const useBookables = (
   bookables?: Ref<Model.Bookable[]>,
@@ -19,6 +30,7 @@ export const useBookables = (
   isFilterMatched: (bookableID?: Model.Ref<Model.Bookable>) => boolean | null;
   userBookings: Ref<Model.Booking[]>;
   isBookedByMe: (bookableID?: Model.Ref<Model.Bookable>) => boolean;
+  resetBookablesFilter: () => void;
 } => {
   const bookingsParams = computed<Params | null>(() => {
     if (!bookablesFilter.value) {
@@ -81,5 +93,51 @@ export const useBookables = (
     return userBookings.value.some((booking) => booking.bookable === bookableID);
   };
 
-  return { bookablesFilter, bookablesWithFilterMatched, isFilterMatched, userBookings, isBookedByMe };
+  const resetBookablesFilter = () => {
+    bookablesFilter.value = {
+      start: ceilDate(dayjs().toDate(), 15, 'minutes'),
+      end: ceilDate(dayjs().add(2, 'hour').toDate(), 15, 'minutes'),
+      quickFilterEnabled: true,
+    };
+  };
+
+  onMounted(() => {
+    if (bookablesFilter.value === undefined) {
+      resetBookablesFilter();
+    }
+
+    // update start and end of quick filter every minute
+    if (startUpdateInterval.value === undefined) {
+      startUpdateInterval.value = setInterval(() => {
+        if (!bookablesFilter.value?.quickFilterEnabled) {
+          return;
+        }
+
+        const newStart = ceilDate(dayjs().toDate(), 15, 'minutes');
+        bookablesFilter.value = {
+          ...bookablesFilter.value,
+          start: newStart,
+          end: dayjs(newStart)
+            .add(Math.abs(dayjs(bookablesFilter.value.start).diff(dayjs(bookablesFilter.value.end))))
+            .toDate(),
+        };
+      }, 1000 * 60);
+    }
+  });
+
+  onBeforeUnmount(() => {
+    if (startUpdateInterval.value) {
+      clearInterval(startUpdateInterval.value);
+      startUpdateInterval.value = undefined;
+    }
+  });
+
+  return {
+    bookablesFilter,
+    bookablesWithFilterMatched,
+    isFilterMatched,
+    userBookings,
+    isBookedByMe,
+    resetBookablesFilter,
+  };
 };
