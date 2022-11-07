@@ -11,7 +11,7 @@
     "pnpm": "7"
   },
   "scripts": {
-    "start": "dotenv -- pnpm --filter @bookyp/frontend --filter @bookyp/backend... --parallel start",
+    "start": "dotenv -- pnpm --filter @bookyp/frontend --filter @bookyp/backend... --filter @bookyp/oauth-mock-server --parallel start",
     "start:frontend": "dotenv -- pnpm --filter @bookyp/frontend start",
     "start:backend": "dotenv -- pnpm --filter @bookyp/backend start",
     "start:core": "dotenv -- pnpm --filter @bookyp/core start",
