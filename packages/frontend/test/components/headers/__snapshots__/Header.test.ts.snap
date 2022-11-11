@@ -1,10 +1,10 @@
 // Vitest Snapshot v1
 
 exports[`Header component > should render correctly 1`] = `
-"<header class=\\"shadow-md flex flex-col\\">
+"<header class=\\"shadow-md flex flex-col\\" hasback=\\"true\\">
   <div class=\\"w-full max-w-5xl mx-auto\\">
     <div class=\\"flex items-center p-2 content-center\\">
-      <icon-button-stub icon=\\"arrow-left\\" iconcolor=\\"\\" disabled=\\"false\\" data-test=\\"back-button\\"></icon-button-stub>
+      <bookyp-icon-stub data-test=\\"button-spaces\\"></bookyp-icon-stub>
       <h1 class=\\"ml-2 mr-auto text-base font-medium whitespace-nowrap overflow-hidden overflow-ellipsis\\">Home</h1>
       <div class=\\"flex space-x-2\\"></div>
     </div>

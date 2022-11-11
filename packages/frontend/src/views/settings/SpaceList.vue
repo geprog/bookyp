@@ -1,5 +1,8 @@
 <template>
-  <Header :title="t('select_office')" has-back />
+  <Header :title="t('bookyp')" has-logo>
+    <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
+    <IconButton icon="sign-out" @click="logout" />
+  </Header>
 
   <AppContent>
     <div class="m-3">
@@ -60,7 +63,7 @@ import AppContent from '~/components/layout/AppContent.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { spaceId } from '~/compositions/space/useCurrentSpace';
-import { user } from '~/compositions/useAuthentication';
+import { logout, user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 
@@ -108,7 +111,17 @@ export default defineComponent({
       void feathers.service('invitations').remove(invitationId);
     }
 
-    return { t, sortedSpaces, roleInSpace, changeSpace, invitations, acceptInvitation, rejectInvitation, spaceId };
+    return {
+      t,
+      sortedSpaces,
+      roleInSpace,
+      changeSpace,
+      invitations,
+      acceptInvitation,
+      rejectInvitation,
+      spaceId,
+      logout,
+    };
   },
 });
 </script>

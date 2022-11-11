@@ -68,7 +68,7 @@ describe('Header component', () => {
     });
 
     // then
-    expect(header.find('[data-test=back-button]').exists()).toBe(true);
+    expect(header.find('[data-test=back-button]').exists()).toBe(false);
   });
 
   it('should not include a back button', () => {
@@ -85,31 +85,6 @@ describe('Header component', () => {
 
     // then
     expect(header.find('[data-test=back-button]').exists()).toBe(false);
-  });
-
-  it('should go back when pressing the back button', () => {
-    // given
-    const goMock = vi.fn();
-    const mockRouter = {
-      go: goMock,
-    };
-
-    // when
-    const header = shallowMount(Header, {
-      props: {
-        title: '',
-        hasBack: true,
-      },
-      global: {
-        mocks: {
-          $router: mockRouter,
-        },
-      },
-    });
-    header.find<HTMLElement>('*[data-test=back-button]').element.click();
-
-    // then
-    expect(goMock).toHaveBeenCalledWith(-1);
   });
 
   it('should include the title text', () => {
