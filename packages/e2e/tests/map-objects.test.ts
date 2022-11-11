@@ -19,22 +19,21 @@ test('My Booking Object should be glowing orange color in Map-View', async ({ pa
   await page.fill('[data-test="form-name"]', SampleModel.sampleBookableThird.name);
   await page.fill('[data-test="form-description"]', SampleModel.sampleBookableThird.description);
   await page.click('button[type="submit"]');
-  await page.click('[data-test="back-button"]');
+  await page.click('[data-test="button-map-objects"]');
 
   // Creating a Map Object and Linking it with Bookable Item
-  await page.click('[data-test="button-settings"]');
   await page.click('[data-test="add-map-object-button"]');
   await page.click('[data-test="edit-button"]');
   await page.click('button:has-text("Link to bookable object")');
   await page.click('main >> div >>  nth=1 ');
-  await page.click('[data-test="back-button"]');
+  await page.goBack();
   await page.click('[data-test="save-button"]');
-  await page.click('[data-test="back-button"]');
+  await page.goBack();
 
   // Booking a Map Object and checking bookable list
   await Promise.all([page.waitForNavigation(), page.click('[data-test="map-object-path"]')]);
   await Promise.all([page.waitForNavigation(), page.click('button[type=submit]')]);
-  await page.click('[data-test="back-button"]');
+  await page.goBack();
 
   await expect(page).toHaveURL('/bookables/map');
 

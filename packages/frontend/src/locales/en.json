@@ -37,7 +37,6 @@
   "not_found_message": "Whoa 404, either we broke something or you had a typing mishap :-/",
   "oops": "Oops!",
   "settings": "Settings",
-  "select_office": "Select Office",
   "map_editor": "Map editor",
   "map_editing": {
     "adding_wall_instruction": "Click and drag on the map to add a wall"
