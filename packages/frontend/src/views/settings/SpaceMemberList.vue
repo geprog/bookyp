@@ -33,14 +33,33 @@
         data-test="invitation-item"
         @click="$router.push({ name: 'settings-space-member-invitation', params: { invitationId: invitation._id } })"
       />
-
-      <h2 class="m-3 font-bold">
-        {{ t('members') }}
-      </h2>
     </template>
+
+    <h2 class="m-3 font-bold">
+      {{ t('invited_members') }}
+    </h2>
 
     <ListItem
       v-for="member in spaceMembers"
+      :key="member.userId"
+      :description="t(`roles.${member.role}.name`)"
+      :label="
+        t('member_name_and_email', {
+          name: member.name,
+          email: member.userId === user?._id ? t('its_you') : member.email,
+        })
+      "
+      class="cursor-pointer m-3 relative"
+      :class="{ 'cursor-not-allowed font-bold': member.userId === user?._id }"
+      @click="editSpaceMember(member.userId)"
+    />
+
+    <h2 class="m-3 font-bold">
+      {{ t('members_with_bookings') }}
+    </h2>
+
+    <ListItem
+      v-for="member in hasBookings"
       :key="member.userId"
       :description="t(`roles.${member.role}.name`)"
       :label="
@@ -81,6 +100,10 @@ export default defineComponent({
       'invitations',
       computed(() => (spaceId.value === null ? null : { paginate: false, query: { spaceId: spaceId.value } })),
     );
+    const { data: bookings } = useFind(
+      'bookings',
+      computed(() => (spaceId.value === null ? null : { paginate: false, query: { space: spaceId.value } })),
+    );
 
     const editSpaceMember = async (spaceMemberId: string) => {
       if (spaceMemberId === user.value?._id) {
@@ -91,7 +114,14 @@ export default defineComponent({
 
     const spaceMembers = computed(() => currentSpace.value?.members || []);
 
-    return { t, spaceMembers, invitations, user, editSpaceMember, currentSpace };
+    const hasBookings = computed(
+      () =>
+        currentSpace.value?.members.filter(
+          (member) => bookings.value.find((booking) => member.userId === booking.bookedBy) !== undefined,
+        ) || [],
+    );
+
+    return { t, spaceMembers, invitations, user, editSpaceMember, currentSpace, hasBookings };
   },
 });
 </script>
