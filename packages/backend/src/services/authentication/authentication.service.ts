@@ -57,16 +57,12 @@ export default function (app: Application): void {
       create: [
         // see https://github.com/fratzinger/feathers-casl/blob/0adfa65b00dcfb4d538a2bca51b3f52c23aa806d/docs/getting-started.md#add-abilities-to-hooks-context
         async (context: HookContext<Application>): Promise<HookContext> => {
-          const { user } = context.result as { user: Model.User };
-          if (!user) {
-            return context;
-          }
+          const user = (context.result as { user: Model.User | undefined })?.user;
           const ability = await defineAbilitiesFor(user, context.app);
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           context.result.ability = ability;
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           context.result.rules = ability.rules;
-
           return context;
         },
       ],
