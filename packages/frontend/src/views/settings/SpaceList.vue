@@ -5,13 +5,19 @@
   </Header>
 
   <AppContent>
-    <div class="m-3">
+    <div class="m-3 flex gap-2">
       <Button
         :aria-label="t('space_create')"
         icon="add"
         :text="t('space_create').toLocaleUpperCase()"
-        class="w-full"
+        class="flex-grow"
         @click="$router.push({ name: 'space-create' })"
+      />
+      <Button
+        v-if="allUnstableFeaturesEnabled"
+        class="flex-grow"
+        :text="t('create_sample_space')"
+        @click="createSampleSpace"
       />
     </div>
 
@@ -65,6 +71,7 @@ import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
 import { logout, user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
+import { useFeatureFlags } from '~/compositions/useFeatureFlags';
 import useFind from '~/compositions/useFind';
 
 const { t } = useI18n();
@@ -97,4 +104,44 @@ function acceptInvitation(invitationId: string) {
 function rejectInvitation(invitationId: string) {
   void feathers.service('invitations').remove(invitationId);
 }
+
+const { allUnstableFeaturesEnabled } = useFeatureFlags();
+const createSampleSpace = async (): Promise<void> => {
+  if (!user.value) {
+    throw new Error('A user must be authenticated before coming here');
+  }
+
+  const space = await feathers.service('spaces').create(
+    new Model.Space({
+      name: `Sample Space of ${new Date().toISOString()}`,
+      address: 'test address',
+      description: 'test description',
+      members: [{ role: 'admin', userId: user.value?._id }],
+      floorPlan: [
+        'M1 1 L1 255',
+        'M0 255 L30 255',
+        'M30 255 L30 324',
+        'M30 324 L287 324',
+        'M287 324 L287 1',
+        'M287 1 L1 1',
+      ],
+    }),
+  );
+
+  const bookable = await feathers
+    .service('bookables')
+    .create(new Model.Bookable({ name: 'test desk 1', space: space._id, description: 'desk of multiple uses' }));
+
+  await feathers.service('mapObjects').create(
+    new Model.MapObject({
+      xPos: 0,
+      yPos: 0,
+      rotation: 180,
+      paths: ['M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z', 'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z'],
+      type: Model.MapObjectTypes.table,
+      space: space._id,
+      bookable: bookable._id,
+    }),
+  );
+};
 </script>
