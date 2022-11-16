@@ -23,7 +23,7 @@ import DeleteDialog from '~/components/DeleteDialog.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SpaceForm from '~/components/space/SpaceForm.vue';
-import { spaceId, useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { savedSpaceId, useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 
 export default defineComponent({
@@ -59,7 +59,7 @@ export default defineComponent({
       }
 
       await feathers.service('spaces').remove(space.value._id);
-      spaceId.value = null;
+      savedSpaceId.value = null;
       await router.push({ name: 'home' });
     };
 

@@ -94,7 +94,7 @@ import FloorPlanEditing from '~/components/space/FloorPlanEditing.vue';
 import MapObjectsEditing from '~/components/space/MapObjectsEditing.vue';
 import SaveAbort from '~/components/space/SaveAbort.vue';
 import SpaceMap from '~/components/space/SpaceMap.vue';
-import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { savedSpaceId, useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import getMapObjects from '~/compositions/space/useMapObjects';
 import useNewMapObject, { isNewMapObject } from '~/compositions/space/useNewMapObject';
 import useFeathers from '~/compositions/useFeathers';
@@ -112,11 +112,11 @@ const changed = ref(false);
 
 const router = useRouter();
 const feathers = useFeathers();
-const { currentSpace, spaceId } = useCurrentSpace();
+const { currentSpace } = useCurrentSpace();
 
 const selectedMapObjectId = toRef(props, 'selectedMapObjectId');
 
-const { data: mapObjects, isLoading: isLoadingMapObjects } = getMapObjects(spaceId);
+const { data: mapObjects, isLoading: isLoadingMapObjects } = getMapObjects(savedSpaceId);
 const mapObjectsCopy: Ref<EditingMapObject[]> = ref([]);
 const floorPlan: Ref<string[]> = ref([]);
 

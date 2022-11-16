@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`Booking view > should render correctly 1`] = `
-"<header-stub title=\\"booking_details\\" has-back=\\"\\">
+"<header-stub title=\\"booking_details\\" hasback=\\"true\\">
   <icon-button-stub icon=\\"delete\\" iconcolor=\\"text-red-text hover:text-red-background\\" disabled=\\"false\\" data-test=\\"delete-button\\"></icon-button-stub>
 </header-stub>
 <app-content-stub>

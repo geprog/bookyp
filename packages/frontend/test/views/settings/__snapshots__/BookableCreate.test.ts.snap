@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`BookableCreate view > should render correctly 1`] = `
-"<header-stub title=\\"bookable_create\\" has-back=\\"\\">
+"<header-stub title=\\"bookable_create\\" hasback=\\"true\\">
   <icon-button-stub icon=\\"check-mark\\" iconcolor=\\"\\" disabled=\\"false\\" type=\\"submit\\" form=\\"bookable\\"></icon-button-stub>
 </header-stub>
 <app-content-stub>

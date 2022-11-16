@@ -35,7 +35,7 @@ test('My Booking Object should be glowing orange color in Map-View', async ({ pa
   await Promise.all([page.waitForNavigation(), page.click('button[type=submit]')]);
   await page.goBack();
 
-  await expect(page).toHaveURL('/bookables/map');
+  await expect(page).toHaveURL(new RegExp('/map$'));
 
   await expect(page).toHaveScreenshot('my-booked-mapObject.png');
 

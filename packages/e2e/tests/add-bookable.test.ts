@@ -9,7 +9,7 @@ test('Add a bookable and find it in the settings bookables list', async ({ page 
   await page.fill('[data-test="form-name"]', SampleModel.sampleBookableThird.name);
   await page.fill('[data-test="form-description"]', SampleModel.sampleBookableThird.description);
   await page.click('button[type="submit"]');
-  await expect(page).toHaveURL('/settings/bookables');
+  await expect(page).toHaveURL(new RegExp('/bookables$'));
   const bookableItems = page.locator('[data-test="bookable-item"]');
   await expect(bookableItems).toHaveCount(3);
   const newBookableItem = bookableItems.last();

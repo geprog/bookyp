@@ -40,7 +40,7 @@
     <SelectableListItem
       v-for="space in sortedSpaces"
       :key="space._id"
-      :selected="spaceId === space._id"
+      :selected="savedSpaceId === space._id"
       :label="space.name"
       :description="roleInSpace(space)"
       class="m-3"
@@ -62,7 +62,7 @@ import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
-import { spaceId } from '~/compositions/space/useCurrentSpace';
+import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
 import { logout, user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
@@ -99,8 +99,7 @@ export default defineComponent({
       space.members?.find((member) => member.userId === user.value?._id)?.role || 'user';
 
     const changeSpace = async (_spaceId: string) => {
-      spaceId.value = _spaceId;
-      await router.push({ name: 'home' });
+      await router.push({ name: 'space', params: { spaceId: _spaceId } });
     };
 
     function acceptInvitation(invitationId: string) {
@@ -119,7 +118,7 @@ export default defineComponent({
       invitations,
       acceptInvitation,
       rejectInvitation,
-      spaceId,
+      savedSpaceId,
       logout,
     };
   },

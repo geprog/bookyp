@@ -1,8 +1,5 @@
 <template>
   <Header :title="title" has-logo>
-    <template #start>
-      <BookypIcon />
-    </template>
     <div class="relative">
       <span
         v-if="appliedFilters > 0"
@@ -39,53 +36,36 @@
   </Header>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, ref, watch } from 'vue';
+<script lang="ts" setup>
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import BookypIcon from '~/assets/icons/bookyp.svg?component';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { isSpaceAdmin } from '~/compositions/useAuthorization';
 import { useBookables } from '~/compositions/useBookables';
 
-export default defineComponent({
-  name: 'HomeHeader',
+const { t } = useI18n();
 
-  components: {
-    Header,
-    IconButton,
-    BookypIcon,
+const { currentSpace } = useCurrentSpace();
+
+const isAdmin = ref<boolean>(false);
+watch(
+  currentSpace,
+  async () => {
+    if (currentSpace.value === undefined) {
+      isAdmin.value = false;
+      return;
+    }
+    isAdmin.value = await isSpaceAdmin(currentSpace.value);
   },
+  { immediate: true },
+);
 
-  setup() {
-    const { t } = useI18n();
+const title = computed(() => currentSpace.value?.name || t('bookyp').toUpperCase());
 
-    const { currentSpace } = useCurrentSpace();
+const { bookablesFilter } = useBookables();
 
-    const isAdmin = ref<boolean>(false);
-    watch(
-      currentSpace,
-      async () => {
-        if (currentSpace.value === undefined) {
-          isAdmin.value = false;
-          return;
-        }
-        isAdmin.value = await isSpaceAdmin(currentSpace.value);
-      },
-      { immediate: true },
-    );
-
-    const title = computed(() => currentSpace.value?.name || t('bookyp').toUpperCase());
-
-    const { bookablesFilter } = useBookables();
-
-    const appliedFilters = computed(() =>
-      !bookablesFilter.value || bookablesFilter.value?.quickFilterEnabled ? 0 : 1,
-    );
-
-    return { t, isAdmin, title, appliedFilters };
-  },
-});
+const appliedFilters = computed(() => (!bookablesFilter.value || bookablesFilter.value?.quickFilterEnabled ? 0 : 1));
 </script>
