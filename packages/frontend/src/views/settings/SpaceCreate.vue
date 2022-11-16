@@ -17,7 +17,6 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SpaceForm from '~/components/space/SpaceForm.vue';
-import { spaceId } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 
@@ -51,8 +50,10 @@ export default defineComponent({
         ],
         ...space.value,
       });
-      spaceId.value = _space._id;
-      await router.push({ name: 'bookables-map' });
+      await router.push({
+        name: 'space',
+        params: { spaceId: _space._id },
+      });
     };
 
     return { saveSpace, space, t };

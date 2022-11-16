@@ -5,7 +5,7 @@ const localStorageSpaceIdKey = 'bookyp.spaceId';
 
 const _spaceId = ref<string | null>(localStorage.getItem(localStorageSpaceIdKey));
 
-export const spaceId = computed<Model.Ref<Model.Space> | null>({
+export const savedSpaceId = computed<Model.Ref<Model.Space> | null>({
   get() {
     return _spaceId.value;
   },
@@ -23,13 +23,14 @@ export const currentSpaceInjectionKey: InjectionKey<Ref<Model.Space | undefined>
 
 export const useCurrentSpace = (): {
   currentSpace: Ref<Model.Space | undefined>;
-  spaceId: Ref<string | null>;
+  spaceId: Ref<string | undefined>;
 } => {
   const currentSpace = inject(currentSpaceInjectionKey);
 
   if (!currentSpace) {
     throw new Error('useCurrentSpace must be used inside a component inside SpaceLoader');
   }
+  const spaceId = computed(() => currentSpace.value?._id);
 
   return { currentSpace, spaceId };
 };

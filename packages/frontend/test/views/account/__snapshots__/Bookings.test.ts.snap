@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`Bookings component > should render correctly 1`] = `
-"<header-stub title=\\"bookings\\">
+"<header-stub title=\\"bookings\\" hasback=\\"false\\">
   <router-link-stub to=\\"[object Object]\\" class=\\"flex items-center\\" aria-label=\\"bookings\\">
     <icon-stub name=\\"apps-list\\" color=\\"\\"></icon-stub>
   </router-link-stub>

@@ -3,28 +3,28 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, provide, watch } from 'vue';
+import { provide, toRef, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { currentSpaceInjectionKey, spaceId } from '~/compositions/space/useCurrentSpace';
+import { currentSpaceInjectionKey, savedSpaceId } from '~/compositions/space/useCurrentSpace';
 import { isSpaceAdmin } from '~/compositions/useAuthorization';
 import useGet from '~/compositions/useGet';
+
+const props = defineProps<{ spaceId: string }>();
+const spaceId = toRef(props, 'spaceId');
 
 const { data: space, error } = useGet('spaces', spaceId);
 
 const router = useRouter();
 const route = useRoute();
 
-onMounted(() => {
-  if (!spaceId.value) {
-    void router.replace({ name: 'spaces-list' });
-  }
-});
-watch(spaceId, (newSpaceId, oldSpaceId) => {
-  if (oldSpaceId !== null && newSpaceId === null) {
-    void router.replace({ name: 'spaces-list' });
-  }
-});
+watch(
+  spaceId,
+  (newSpaceId) => {
+    savedSpaceId.value = newSpaceId;
+  },
+  { immediate: true },
+);
 
 const redirectOnUnauthorized = async () => {
   if (!space.value) {
@@ -38,7 +38,7 @@ watch(route, redirectOnUnauthorized);
 watch(space, redirectOnUnauthorized);
 
 watch(error, () => {
-  spaceId.value = null;
+  savedSpaceId.value = null;
   void router.replace({ name: 'spaces-list' });
 });
 

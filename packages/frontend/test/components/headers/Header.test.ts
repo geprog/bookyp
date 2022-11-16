@@ -68,7 +68,7 @@ describe('Header component', () => {
     });
 
     // then
-    expect(header.find('[data-test=back-button]').exists()).toBe(false);
+    expect(header.find('[data-test=back-button]').exists()).toBe(hasBack);
   });
 
   it('should not include a back button', () => {
@@ -84,7 +84,7 @@ describe('Header component', () => {
     });
 
     // then
-    expect(header.find('[data-test=back-button]').exists()).toBe(false);
+    expect(header.find('[data-test=back-button]').exists()).toBe(hasBack);
   });
 
   it('should include the title text', () => {

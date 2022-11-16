@@ -9,7 +9,7 @@ test('Create a space and find it in the spaces list', async ({ page }) => {
   await page.fill('[data-test="form-address"]', 'e2e');
   await page.fill('[data-test="form-description"]', 'This is a new space from the e2e test');
   await page.click('button[type="submit"]');
-  await expect(page).toHaveURL('/bookables/map');
+  await expect(page).toHaveURL(new RegExp('/map$'));
   await page.goto('/spaces');
 
   const space = page.locator('[data-test="space-item"]').first();
@@ -31,7 +31,7 @@ test('Edit the currently selected space', async ({ page }) => {
   await page.fill('[data-test="form-address"]', space.address);
   await page.fill('[data-test="form-description"]', space.description);
   await page.click('button[type="submit"]');
-  await expect(page).toHaveURL('/bookables/map');
+  await expect(page).toHaveURL(new RegExp('/map$'));
   await page.click('[data-test="button-settings"]');
   await page.click('[data-test="button-space-information"]');
   expect(await page.inputValue('[data-test="form-name"]')).toBe(space.name);
@@ -50,7 +50,7 @@ test('Create a space and add a mapObject', async ({ page }) => {
   await page.click('[data-test="button-settings"]');
   await page.click('[data-test="add-map-object-button"]');
   await page.click('[data-test="save-button"]');
-  await expect(page).toHaveURL('/settings/space/map');
+  await expect(page).toHaveURL(new RegExp('/map$'));
   await expect(page.locator('#app > div > div > svg > g')).toHaveCount(1);
   await expect(page).toHaveScreenshot('add-map-object.png');
 });
@@ -77,5 +77,5 @@ test('Select a space with user role and try accessing admin route', async ({ pag
   await page.click('[data-test="spaces-button"]');
   await page.locator('[data-test="space-item"]', { hasText: 'user' }).click();
   await page.goto('/settings/space/map');
-  await expect(page).toHaveURL('/bookables/map');
+  await expect(page).toHaveURL(new RegExp('/map$'));
 });

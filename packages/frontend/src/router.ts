@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
+import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
 import { isAuthenticated, reAuthenticate } from '~/compositions/useAuthentication';
 import NotFound from '~/views/NotFound.vue';
 
@@ -14,95 +15,89 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
-    redirect: { name: 'bookables-map' },
+    redirect: () =>
+      savedSpaceId.value ? { name: 'bookables-map', params: { spaceId: savedSpaceId.value } } : { name: 'spaces-list' },
   },
   {
-    path: '/',
+    path: '/space/:spaceId',
     component: () => import('~/views/SpaceLoader.vue'),
+    props: true,
     children: [
       {
-        path: '/bookables/map',
+        path: '',
+        name: 'space',
+        redirect: { name: 'bookables-map' },
+      },
+      {
+        path: 'bookables/map',
         name: 'bookables-map',
         meta: { accessibleByUserRole: true, authentication: 'ignored' },
         component: () => import('~/views/BookablesMap.vue'),
       },
       {
-        path: '/bookables/list',
+        path: 'bookables/list',
         name: 'bookables-list',
         meta: { accessibleByUserRole: true, authentication: 'ignored' },
         component: () => import('~/views/BookablesList.vue'),
       },
       {
-        path: '/bookables/filter',
+        path: 'bookables/filter',
         name: 'bookables-filter',
         meta: { accessibleByUserRole: true, authentication: 'ignored' },
         component: () => import('./views/BookablesFilter.vue'),
       },
       {
-        path: '/bookable/:bookableId/book',
+        path: 'bookable/:bookableId/book',
         name: 'booking-create',
         meta: { accessibleByUserRole: true },
         component: () => import('~/views/Booking.vue'),
         props: true,
       },
       {
-        path: '/account/bookings',
-        name: 'account-bookings',
-        meta: { accessibleByUserRole: true },
-        component: () => import('~/views/account/Bookings.vue'),
-      },
-      {
-        path: '/account/booking/:bookingId',
-        name: 'account-booking',
-        meta: { accessibleByUserRole: true },
-        component: () => import('~/views/account/Booking.vue'),
-        props: true,
-      },
-      {
-        path: '/settings/bookables',
+        path: 'settings/bookables',
         name: 'settings-bookables',
         component: () => import('~/views/settings/Bookables.vue'),
       },
       {
-        path: '/settings/space/members',
+        path: 'settings/space/members',
         name: 'settings-space-members',
         component: () => import('~/views/settings/SpaceMemberList.vue'),
       },
       {
-        path: '/settings/space/member/:spaceMemberId',
+        path: 'settings/space/member/:spaceMemberId',
         name: 'settings-space-member',
         component: () => import('~/views/settings/SpaceMember.vue'),
         props: true,
       },
       {
-        path: '/settings/space/member/invite',
+        path: 'settings/space/member/invite',
         name: 'settings-space-member-invite',
         component: () => import('~/views/settings/SpaceMemberInvite.vue'),
       },
       {
-        path: '/settings/space/member/invite/:invitationId',
+        path: 'settings/space/member/invite/:invitationId',
         name: 'settings-space-member-invitation',
         component: () => import('~/views/settings/SpaceMemberInvitation.vue'),
         props: true,
       },
       {
-        path: '/settings/bookable/create',
+        path: 'settings/bookable/create',
         name: 'settings-bookable-create',
         component: () => import('~/views/settings/BookableCreate.vue'),
       },
       {
-        path: '/settings/bookable/:bookableId',
+        path: 'settings/bookable/:bookableId',
         name: 'settings-bookable',
         component: () => import('~/views/settings/Bookable.vue'),
         props: true,
       },
       {
-        path: '/settings/space/edit',
+        path: 'settings/space/edit',
         name: 'settings-space-edit',
         component: () => import('~/views/settings/SpaceEdit.vue'),
       },
       {
-        path: '/settings/space/map/:selectedMapObjectId?',
+        path: 'settings/space/map/:selectedMapObjectId?',
         name: 'settings-space-map',
         component: () => import('./views/settings/Space.vue'),
         props: true,
@@ -120,6 +115,19 @@ const routes: RouteRecordRaw[] = [
         ],
       },
     ],
+  },
+  {
+    path: '/account/bookings',
+    name: 'account-bookings',
+    meta: { accessibleByUserRole: true },
+    component: () => import('~/views/account/Bookings.vue'),
+  },
+  {
+    path: '/account/booking/:bookingId',
+    name: 'account-booking',
+    meta: { accessibleByUserRole: true },
+    component: () => import('~/views/account/Booking.vue'),
+    props: true,
   },
   {
     path: '/spaces',
