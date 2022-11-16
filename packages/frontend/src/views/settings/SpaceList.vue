@@ -1,7 +1,7 @@
 <template>
   <Header :title="t('bookyp')" has-logo>
     <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
-    <IconButton icon="sign-out" @click="logout" />
+    <IconButton v-if="user" icon="sign-out" @click="logout" />
   </Header>
 
   <AppContent>
@@ -50,9 +50,9 @@
   </AppContent>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { Model } from '@bookyp/core';
-import { computed, defineComponent } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -67,60 +67,34 @@ import { logout, user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 
-export default defineComponent({
-  name: 'SpaceList',
-  components: {
-    Button,
-    IconButton,
-    ListItem,
-    SelectableListItem,
-    Header,
-    AppContent,
-  },
+const { t } = useI18n();
+const feathers = useFeathers();
+const router = useRouter();
 
-  setup() {
-    const { t } = useI18n();
-    const feathers = useFeathers();
-    const router = useRouter();
+const { data: spaces } = useFind(
+  'spaces',
+  computed(() => ({ paginate: false })),
+);
 
-    const { data: spaces } = useFind(
-      'spaces',
-      computed(() => ({ paginate: false })),
-    );
+const sortedSpaces = computed(() => [...spaces.value].sort((a, b) => a.name.localeCompare(b.name)));
 
-    const sortedSpaces = computed(() => [...spaces.value].sort((a, b) => a.name.localeCompare(b.name)));
+const { data: invitations } = useFind(
+  'invitations',
+  computed(() => (user.value === undefined ? null : { paginate: false, query: { email: user.value.email } })),
+);
 
-    const { data: invitations } = useFind(
-      'invitations',
-      computed(() => (user.value === undefined ? null : { paginate: false, query: { email: user.value.email } })),
-    );
+const roleInSpace = (space: Model.Space) =>
+  space.members?.find((member) => member.userId === user.value?._id)?.role || 'user';
 
-    const roleInSpace = (space: Model.Space) =>
-      space.members?.find((member) => member.userId === user.value?._id)?.role || 'user';
+const changeSpace = async (_spaceId: string) => {
+  await router.push({ name: 'space', params: { spaceId: _spaceId } });
+};
 
-    const changeSpace = async (_spaceId: string) => {
-      await router.push({ name: 'space', params: { spaceId: _spaceId } });
-    };
+function acceptInvitation(invitationId: string) {
+  void feathers.service('invitations').remove(invitationId, { query: { accept: true } });
+}
 
-    function acceptInvitation(invitationId: string) {
-      void feathers.service('invitations').remove(invitationId, { query: { accept: true } });
-    }
-
-    function rejectInvitation(invitationId: string) {
-      void feathers.service('invitations').remove(invitationId);
-    }
-
-    return {
-      t,
-      sortedSpaces,
-      roleInSpace,
-      changeSpace,
-      invitations,
-      acceptInvitation,
-      rejectInvitation,
-      savedSpaceId,
-      logout,
-    };
-  },
-});
+function rejectInvitation(invitationId: string) {
+  void feathers.service('invitations').remove(invitationId);
+}
 </script>
