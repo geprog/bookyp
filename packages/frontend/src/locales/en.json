@@ -5,6 +5,7 @@
   "bookable_details": "Bookable: {bookable}",
   "space_information": "Space information",
   "space_create": "Create new space",
+  "create_sample_space": "Create sample space",
   "members": "Members",
   "invited_members": "Invited Members",
   "members_with_bookings": "Members with bookings",
