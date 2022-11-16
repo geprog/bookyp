@@ -23,19 +23,19 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/bookables/map',
         name: 'bookables-map',
-        meta: { accessibleByUserRole: true },
+        meta: { accessibleByUserRole: true, authentication: 'ignored' },
         component: () => import('~/views/BookablesMap.vue'),
       },
       {
         path: '/bookables/list',
         name: 'bookables-list',
-        meta: { accessibleByUserRole: true },
+        meta: { accessibleByUserRole: true, authentication: 'ignored' },
         component: () => import('~/views/BookablesList.vue'),
       },
       {
         path: '/bookables/filter',
         name: 'bookables-filter',
-        meta: { accessibleByUserRole: true },
+        meta: { accessibleByUserRole: true, authentication: 'ignored' },
         component: () => import('./views/BookablesFilter.vue'),
       },
       {
@@ -124,7 +124,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/spaces',
     name: 'spaces-list',
-    meta: { accessibleByUserRole: true },
+    meta: { accessibleByUserRole: true, authentication: 'ignored' },
     component: () => import('~/views/settings/SpaceList.vue'),
   },
   {

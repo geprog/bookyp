@@ -1,5 +1,4 @@
 import { createApplication } from '@bookyp/core';
-import { authenticate } from '@feathersjs/authentication';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
 
@@ -44,18 +43,10 @@ export const configureApplication = () => {
     before: {
       all: [
         (ctx) => {
-          if (ctx.path === 'authentication') {
+          if (ctx.params.provider === undefined || (ctx.path === 'authentication' && ctx.method === 'create')) {
             return ctx;
           }
-          return authenticate('jwt')(ctx);
-        },
-        (ctx) => {
-          if (ctx.path === 'authentication') {
-            return ctx;
-          }
-          if (ctx.path === 'users' && ctx.method === 'get') {
-            return ctx;
-          }
+
           return authorizeWithFreshAbility(memoryServices.includes(ctx.path) ? 'feathers-memory' : 'feathers-mongoose')(
             ctx,
           );
@@ -65,9 +56,10 @@ export const configureApplication = () => {
     after: {
       all: [
         (ctx) => {
-          if (ctx.path === 'authentication') {
+          if (ctx.params.provider === undefined || (ctx.path === 'authentication' && ctx.method === 'create')) {
             return ctx;
           }
+
           return authorizeWithFreshAbility(memoryServices.includes(ctx.path) ? 'feathers-memory' : 'feathers-mongoose')(
             ctx,
           );
