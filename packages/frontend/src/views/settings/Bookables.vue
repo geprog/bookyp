@@ -8,7 +8,7 @@
         icon="add"
         data-test="button-add-bookable"
         :text="t('bookable_create').toLocaleUpperCase()"
-        @click="$router.replace({ name: 'settings-bookable-create' })"
+        @click="$router.push({ name: 'settings-bookable-create' })"
       />
     </div>
     <ListItem
