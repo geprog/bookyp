@@ -56,7 +56,7 @@ export default defineComponent({
     const router = useRouter();
 
     const bookableId = toRef(props, 'bookableId');
-    const { data: bookable } = useGet('bookables', bookableId);
+    const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
 
     const saveBookable = async () => {
       /* istanbul ignore next */

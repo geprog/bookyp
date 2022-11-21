@@ -81,7 +81,7 @@ export default defineComponent({
     );
 
     const bookableId = computed(() => booking.value?.bookable);
-    const { data: bookable } = useGet('bookables', bookableId);
+    const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
     const modalVisible = ref(false);
 
     async function deleteBooking(confirmation: boolean) {
