@@ -17,7 +17,7 @@
 <script lang="ts">
 import { Model } from '@bookyp/core';
 import dayjs from 'dayjs';
-import { computed, defineComponent, PropType, ref, toRef } from 'vue';
+import { computed, defineComponent, PropType, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import ListItem from '~/components/list-items/ListItem.vue';
@@ -43,7 +43,7 @@ export default defineComponent({
       computed(() => booking.value.space),
     );
     const bookableId = computed(() => booking.value.bookable);
-    const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
+    const { data: bookable } = useGet('bookables', bookableId);
     const bookingEnd = computed(() => {
       if (dayjs(booking.value.end).isAfter(dayjs(booking.value.start), 'days')) {
         return dayjs(booking.value.end).format('DD MMM HH:mm');
