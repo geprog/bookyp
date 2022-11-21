@@ -106,7 +106,7 @@ export default defineComponent({
 
     const { data: bookables } = useFind(
       'bookables',
-      computed(() => ({ paginate: false, query: { space: spaceId.value, $disableSoftDelete: true } })),
+      computed(() => ({ paginate: false, query: { space: spaceId.value } })),
     );
 
     const { isFilterMatched, isBookedByMe } = useBookables(bookables);

@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { Model } from '@bookyp/core';
-import { computed, defineComponent, PropType, ref, toRef } from 'vue';
+import { computed, defineComponent, PropType, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -79,11 +79,7 @@ export default defineComponent({
     const mapObject = toRef(props, 'mapObject');
 
     const linkedBookableId = computed(() => mapObject.value?.bookable);
-    const { data: linkedBookable } = useGet(
-      'bookables',
-      linkedBookableId,
-      ref({ query: { $disableSoftDelete: true } }),
-    );
+    const { data: linkedBookable } = useGet('bookables', linkedBookableId);
 
     const { data: bookables } = useFind(
       'bookables',
