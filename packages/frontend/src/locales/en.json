@@ -90,5 +90,6 @@
     "enable_all_unstable_features": "Enable all unstable features",
     "disable_all_unstable_features": "Disable all unstable features"
   },
-  "delete_space": "Delete space"
+  "delete_space": "Delete space",
+  "sign_in": "Sign In"
 }
