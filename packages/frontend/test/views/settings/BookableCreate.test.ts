@@ -63,7 +63,7 @@ describe('BookableCreate view', () => {
     await nextTick();
 
     // then
-    expect(useRouterMock.replace).toHaveBeenCalledTimes(1);
+    expect(useRouterMock.back).toHaveBeenCalledTimes(1);
     expect(useFeathersMock.create).toHaveBeenCalledWith(sampleBookable);
   });
 });

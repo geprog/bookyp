@@ -7,9 +7,9 @@
   </AppContent>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { Model } from '@bookyp/core';
-import { defineComponent, ref } from 'vue';
+import { ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -20,33 +20,36 @@ import AppContent from '~/components/layout/AppContent.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 
-export default defineComponent({
-  name: 'BookableCreate',
+const props = defineProps<{
+  mapObject?: Model.MapObject;
+}>();
 
-  components: { AppContent, Header, BookableForm, IconButton },
+const emit = defineEmits<{
+  (event: 'update:mapObject', mapObject: Model.MapObject): void;
+}>();
 
-  setup() {
-    const { t } = useI18n();
-    const router = useRouter();
-    const feathers = useFeathers();
-    const { spaceId } = useCurrentSpace();
+const mapObject = toRef(props, 'mapObject');
 
-    if (!spaceId.value) {
-      throw new Error('Unexpected: A space must be selected');
-    }
+const { t } = useI18n();
+const router = useRouter();
+const feathers = useFeathers();
+const { spaceId } = useCurrentSpace();
 
-    const bookable = ref<Partial<Model.Bookable>>({
-      description: '',
-      name: '',
-      space: spaceId.value,
-    });
+if (!spaceId.value) {
+  throw new Error('Unexpected: A space must be selected');
+}
 
-    const saveBookable = async () => {
-      await feathers.service('bookables').create(bookable.value);
-      await router.replace({ name: 'settings-bookables' });
-    };
-
-    return { saveBookable, bookable, t };
-  },
+const bookable = ref<Partial<Model.Bookable>>({
+  description: '',
+  name: '',
+  space: spaceId.value,
 });
+
+const saveBookable = async () => {
+  const createdBookable = await feathers.service('bookables').create(bookable.value);
+  if (mapObject.value !== undefined) {
+    emit('update:mapObject', { ...mapObject.value, bookable: createdBookable._id });
+  }
+  router.back();
+};
 </script>

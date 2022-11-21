@@ -1,3 +1,4 @@
+import { Model } from '@bookyp/core';
 import { UseFindFunc } from '@geprog/use-feathers';
 import { config, shallowMount } from '@vue/test-utils';
 import { ref } from 'vue';
@@ -128,9 +129,9 @@ describe('MapObject view', () => {
   });
 
   it('should select a bookable from the list', async () => {
-    expect.assertions(2);
+    expect.assertions(3);
     // given
-    const { data: mapObject } = prepareUseGetMockOnce(sampleMapObject);
+    prepareUseGetMockOnce(sampleMapObject);
     prepareUseGetMockOnce(sampleBookable);
     prepareUseFindMockOnce(sampleBookables);
     prepareUseFeathersMockOnce();
@@ -154,16 +155,20 @@ describe('MapObject view', () => {
     await wrapper.findComponent(SelectableListItem).trigger('click');
 
     // then
-    expect(mapObject.value).toStrictEqual({
-      ...sampleMapObject,
-      bookable: sampleBookables[0]._id,
-    });
+    const emittedValues = wrapper.emitted<Model.MapObject[]>()['update:mapObject'];
+    expect(emittedValues).toHaveLength(1);
+    expect(emittedValues[0]).toStrictEqual([
+      {
+        ...sampleMapObject,
+        bookable: sampleBookables[0]._id,
+      },
+    ]);
     expect(useRouterMock.back).toHaveBeenCalledTimes(1);
   });
 
   it('should unlink a bookable from the map-object', async () => {
     // unlinkBookable
-    expect.assertions(1);
+    expect.assertions(2);
     // given
 
     const linkedBookable = sampleBookable;
@@ -198,6 +203,8 @@ describe('MapObject view', () => {
     await wrapper.findComponent('[data-test=unlink-button]').trigger('click');
 
     // then
-    expect(sampleMapObject.bookable).toBeUndefined();
+    const emittedValues = wrapper.emitted<Model.MapObject[]>()['update:mapObject'];
+    expect(emittedValues).toHaveLength(1);
+    expect(emittedValues[0][0].bookable).toBeUndefined();
   });
 });

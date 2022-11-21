@@ -4,6 +4,13 @@
   <AppContent>
     <div class="flex flex-col mx-auto w-full py-3">
       <template v-if="isChoosingLink">
+        <Button
+          icon="plus"
+          class="mb-3"
+          :text="t('bookable_create').toLocaleUpperCase()"
+          @click="router.push({ name: 'settings-map-object-link-create-bookable' })"
+        />
+
         <SelectableListItem
           v-for="bookable in bookables"
           :key="bookable._id"
@@ -42,9 +49,9 @@
   </AppContent>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { Model } from '@bookyp/core';
-import { computed, defineComponent, PropType, ref, toRef } from 'vue';
+import { computed, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -58,57 +65,37 @@ import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
 import useGet from '~/compositions/useGet';
 
-export default defineComponent({
-  name: 'MapObject',
+const props = defineProps<{
+  mapObject: Model.MapObject;
+}>();
 
-  components: { AppContent, IconButton, Header, Button, SelectableListItem, IconListItem },
+const emit = defineEmits<{
+  (event: 'update:mapObject', mapObject: Model.MapObject): void;
+}>();
 
-  props: {
-    mapObject: {
-      type: Object as PropType<Model.MapObject>,
-      required: true,
-    },
-  },
+const { t } = useI18n();
+const router = useRouter();
+const route = useRoute();
+const { spaceId } = useCurrentSpace();
 
-  setup(props) {
-    const { t } = useI18n();
-    const router = useRouter();
-    const route = useRoute();
-    const { spaceId } = useCurrentSpace();
+const mapObject = toRef(props, 'mapObject');
 
-    const mapObject = toRef(props, 'mapObject');
+const linkedBookableId = computed(() => mapObject.value?.bookable);
+const { data: linkedBookable } = useGet('bookables', linkedBookableId, ref({ query: { $disableSoftDelete: true } }));
 
-    const linkedBookableId = computed(() => mapObject.value?.bookable);
-    const { data: linkedBookable } = useGet(
-      'bookables',
-      linkedBookableId,
-      ref({ query: { $disableSoftDelete: true } }),
-    );
+const { data: bookables } = useFind(
+  'bookables',
+  computed(() => ({ query: { space: spaceId.value } })),
+);
 
-    const { data: bookables } = useFind(
-      'bookables',
-      computed(() => ({ query: { space: spaceId.value } })),
-    );
+const isChoosingLink = computed(() => route.name === 'settings-map-object-link');
 
-    const isChoosingLink = computed(() => route.name === 'settings-map-object-link');
+function unlinkBookable() {
+  emit('update:mapObject', { ...mapObject.value, bookable: undefined });
+}
 
-    function unlinkBookable() {
-      mapObject.value.bookable = undefined;
-    }
-
-    function selectBookable(bookable: Model.Bookable) {
-      mapObject.value.bookable = bookable._id;
-      router.back();
-    }
-
-    return {
-      t,
-      isChoosingLink,
-      selectBookable,
-      unlinkBookable,
-      bookables,
-      linkedBookable,
-    };
-  },
-});
+function selectBookable(bookable: Model.Bookable) {
+  emit('update:mapObject', { ...mapObject.value, bookable: bookable._id });
+  router.back();
+}
 </script>

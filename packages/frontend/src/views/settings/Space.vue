@@ -1,6 +1,6 @@
 <template>
   <template v-if="$route.name !== 'settings-space-map' && (isLoadingMapObjects || selectedMapObject)">
-    <router-view v-if="selectedMapObject" :map-object="selectedMapObject" />
+    <router-view v-if="selectedMapObject" v-model:map-object="selectedMapObject" />
   </template>
 
   <template v-else>
@@ -235,9 +235,17 @@ watch(
   { deep: true },
 );
 
-const selectedMapObject = computed(() =>
-  mapObjectsCopy.value.find((mapObject) => mapObject._id === selectedMapObjectId.value),
-);
+const selectedMapObject = computed({
+  get: () => mapObjectsCopy.value.find((mapObject) => mapObject._id === selectedMapObjectId.value),
+
+  set: (mapObject?: EditingMapObject) => {
+    if (mapObject === undefined) {
+      return;
+    }
+    const index = mapObjectsCopy.value.findIndex((_mapObject) => _mapObject._id === selectedMapObjectId.value);
+    mapObjectsCopy.value[index] = mapObject;
+  },
+});
 const isMapObjectSelected = computed<boolean>(() => !!selectedMapObjectId.value);
 
 const isFloorPlanObjectSelected = computed<boolean>(() => selectedFloorPlanObjectId.value !== null);
