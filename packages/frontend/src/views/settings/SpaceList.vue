@@ -1,6 +1,12 @@
 <template>
   <Header :title="t('bookyp')" has-logo>
-    <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
+    <Button v-if="!user" class="py-1 px-3" :text="t('sign_in')" @click="$router.push({ name: 'auth-login' })" />
+    <IconButton
+      v-if="user"
+      data-test="button-account"
+      icon="person"
+      @click="$router.push({ name: 'account-bookings' })"
+    />
     <IconButton v-if="user" icon="sign-out" @click="logout" />
   </Header>
 
