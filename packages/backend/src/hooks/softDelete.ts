@@ -2,6 +2,15 @@ import { Application, Model } from '@bookyp/core';
 import { AdapterService } from '@feathersjs/adapter-commons';
 import { HookContext } from '@feathersjs/feathers';
 
+export function extractSoftDeleteFlag(context: HookContext): HookContext {
+  if (context.params.query && context.params.query.$disableSoftDelete) {
+    context.params.$disableSoftDelete = context.params.query.$disableSoftDelete as boolean;
+    delete context.params.query.$disableSoftDelete;
+  }
+
+  return context;
+}
+
 export default async <T extends Model.AbstractEntity>(
   context: HookContext<Application, AdapterService<T>>,
 ): Promise<HookContext<Application, AdapterService<T>>> => {
@@ -12,8 +21,8 @@ export default async <T extends Model.AbstractEntity>(
     throw new Error(`The softDelete hook can only be used as a before hook!!!`);
   }
 
-  if (query.$disableSoftDelete === true) {
-    delete query.$disableSoftDelete;
+  if (params.$disableSoftDelete === true) {
+    delete params.$disableSoftDelete;
     return context;
   }
 

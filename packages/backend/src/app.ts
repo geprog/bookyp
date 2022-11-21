@@ -5,6 +5,7 @@ import socketio from '@feathersjs/socketio';
 import { authorizeWithFreshAbility, feathersCasl } from '~/casl';
 import channels from '~/channels';
 import config from '~/config';
+import { extractSoftDeleteFlag } from '~/hooks/softDelete';
 import services from '~/services';
 import SSOLogoutRoute from '~/services/authentication/sso-logout';
 
@@ -42,6 +43,7 @@ export const configureApplication = () => {
   app.hooks({
     before: {
       all: [
+        extractSoftDeleteFlag,
         (ctx) => {
           if (ctx.params.provider === undefined || (ctx.path === 'authentication' && ctx.method === 'create')) {
             return ctx;
