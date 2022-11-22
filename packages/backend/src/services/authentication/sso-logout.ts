@@ -11,15 +11,18 @@ export default function SSOLogoutRoute(): Router {
   router.get('/authentication/logout', (_: Request, res: Response) => {
     const config = getConfig();
     const keycloakSubdomain = config.oauth.keycloak.subdomain;
+    const clientId = config.oauth.keycloak.client;
     const redirectUri = config.oauth.redirect_url;
 
-    if (!keycloakSubdomain || !redirectUri) {
+    if (!keycloakSubdomain || !redirectUri || !clientId) {
       res.sendStatus(500);
       return;
     }
 
     res.redirect(
-      `${oauthServerUrl(keycloakSubdomain)}/protocol/openid-connect/logout?redirect_uri=${encodeURI(redirectUri)}`,
+      `${oauthServerUrl(keycloakSubdomain)}/protocol/openid-connect/logout?client_id=${encodeURIComponent(
+        clientId,
+      )}&post_logout_redirect_uri=${encodeURIComponent(redirectUri)}`,
     );
   });
 
