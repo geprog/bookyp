@@ -23,23 +23,25 @@
         <MapObjects consider-filter :highlighted-bookable-id="bookableId" :space-id="space._id" />
       </SpaceMap>
     </div>
-    <DeleteDialog
+    <Dialog
       data-test="delete-dialog"
-      :object-label="t('booking')"
+      :description="t('delete_dialog_description', { objectLabel: t('booking') })"
+      :label="t('delete')"
+      :confirm="t('delete')"
       :visible="modalVisible"
       @confirmation="deleteBooking"
     />
   </AppContent>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import dayjs from 'dayjs';
-import { computed, defineComponent, ref, toRef } from 'vue';
+import { computed, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
-import DeleteDialog from '~/components/DeleteDialog.vue';
+import Dialog from '~/components/Dialog.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import FloorPlan from '~/components/space/FloorPlan.vue';
@@ -48,52 +50,31 @@ import SpaceMap from '~/components/space/SpaceMap.vue';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
-export default defineComponent({
-  name: 'Booking',
+const props = defineProps<{
+  bookingId: string;
+}>();
 
-  components: {
-    Header,
-    IconButton,
-    DeleteDialog,
-    AppContent,
-    FloorPlan,
-    MapObjects,
-    SpaceMap,
-  },
+const { t } = useI18n();
+const feathers = useFeathers();
+const router = useRouter();
 
-  props: {
-    bookingId: {
-      type: String,
-      required: true,
-    },
-  },
+const bookingId = toRef(props, 'bookingId');
+const { data: booking } = useGet('bookings', bookingId);
+const { data: space } = useGet(
+  'spaces',
+  computed(() => booking.value?.space),
+);
 
-  setup(props) {
-    const { t } = useI18n();
-    const feathers = useFeathers();
-    const router = useRouter();
+const bookableId = computed(() => booking.value?.bookable);
+const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
+const modalVisible = ref(false);
 
-    const bookingId = toRef(props, 'bookingId');
-    const { data: booking } = useGet('bookings', bookingId);
-    const { data: space } = useGet(
-      'spaces',
-      computed(() => booking.value?.space),
-    );
-
-    const bookableId = computed(() => booking.value?.bookable);
-    const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
-    const modalVisible = ref(false);
-
-    async function deleteBooking(confirmation: boolean) {
-      if (!confirmation) {
-        modalVisible.value = false;
-        return;
-      }
-      await feathers.service('bookings').remove(bookingId.value);
-      router.back();
-    }
-
-    return { t, booking, bookable, bookableId, space, dayjs, deleteBooking, modalVisible };
-  },
-});
+async function deleteBooking(confirmation: boolean) {
+  if (!confirmation) {
+    modalVisible.value = false;
+    return;
+  }
+  await feathers.service('bookings').remove(bookingId.value);
+  router.back();
+}
 </script>

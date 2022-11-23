@@ -27,11 +27,12 @@
     "edit": "Edit map object",
     "link_to_bookable": "Link to bookable object"
   },
-  "delete_dialog": {
+  "dialog": {
     "cancel": "Cancel",
-    "description": "Do you want to delete this {objectLabel}?",
-    "label": "Delete"
+    "confirm": "OK"
   },
+  "delete": "Delete",
+  "delete_dialog_description": "Do you want to delete this {objectLabel}?",
   "booking_overlaps": "Someone already booked {bookable} in your desired time",
   "booking_invalid_end_date": "End date must be after start date",
   "name": "Name",
@@ -91,5 +92,7 @@
     "disable_all_unstable_features": "Disable all unstable features"
   },
   "delete_space": "Delete space",
+  "confirm_unsaved_changes": "You have unsaved changes. Are you sure you want discard them?",
+  "discard": "Discard",
   "sign_in": "Sign In"
 }
