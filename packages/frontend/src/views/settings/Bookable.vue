@@ -10,9 +10,11 @@
   </Header>
   <AppContent>
     <BookableForm v-if="bookable" v-model:bookable="bookable" data-test="bookable-form" @save="saveBookable" />
-    <DeleteDialog
+    <Dialog
       data-test="delete-dialog"
-      :object-label="t('bookable')"
+      :description="t('delete_dialog_description', { objectLabel: t('bookable') })"
+      :label="t('delete')"
+      :confirm="t('delete')"
       :visible="modalVisible"
       @confirmation="deleteBookable"
     />
@@ -26,7 +28,7 @@ import { useRouter } from 'vue-router';
 
 import BookableForm from '~/components/bookables/BookableForm.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
-import DeleteDialog from '~/components/DeleteDialog.vue';
+import Dialog from '~/components/Dialog.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import useFeathers from '~/compositions/useFeathers';
@@ -39,7 +41,7 @@ export default defineComponent({
     AppContent,
     IconButton,
     Header,
-    DeleteDialog,
+    Dialog,
     BookableForm,
   },
 

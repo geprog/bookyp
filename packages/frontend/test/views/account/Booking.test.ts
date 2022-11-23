@@ -1,7 +1,7 @@
 import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
-import DeleteDialog from '~/components/DeleteDialog.vue';
+import Dialog from '~/components/Dialog.vue';
 import Booking from '~/views/account/Booking.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
 import { sampleBooking } from '$/__fixtures__/booking';
@@ -59,7 +59,7 @@ describe('Booking view', () => {
 
     // when
     await wrapper.findComponent('[data-test=delete-button]').trigger('click');
-    wrapper.findComponent(DeleteDialog).vm.$emit('confirmation', true);
+    wrapper.findComponent(Dialog).vm.$emit('confirmation', true);
     await nextTick();
 
     // then
