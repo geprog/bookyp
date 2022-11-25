@@ -29,12 +29,12 @@ describe('MapObject view', () => {
     config.renderStubDefaultSlot = true;
   });
 
-  afterAll(() => {
-    config.renderStubDefaultSlot = false;
-  });
-
   beforeEach(() => {
     prepareUseCurrentSpaceMockOnce();
+  });
+
+  afterAll(() => {
+    config.renderStubDefaultSlot = false;
   });
 
   describe('Template', () => {
