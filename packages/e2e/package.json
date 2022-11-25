@@ -13,10 +13,10 @@
   },
   "devDependencies": {
     "@bookyp/core": "workspace:*",
-    "@geprog/eslint-config": "1.1.1",
+    "@geprog/eslint-config": "2.1.0",
     "@playwright/test": "1.23.0",
     "dotenv": "16.0.1",
-    "eslint": "8.10.0",
+    "eslint": "8.27.0",
     "mongodb": "4.1.4",
     "typescript": "4.6.2"
   },

@@ -12,7 +12,7 @@
     "istanbul-reports": "3.0.2"
   },
   "devDependencies": {
-    "@geprog/eslint-config": "1.1.1",
-    "eslint": "8.10.0"
+    "@geprog/eslint-config": "2.1.0",
+    "eslint": "8.27.0"
   }
 }
