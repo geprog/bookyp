@@ -3,7 +3,7 @@
     <div class="w-full max-w-5xl mx-auto">
       <div class="flex items-center p-2 content-center">
         <slot name="start">
-          <IconButton v-if="hasBack" data-test="back-button" icon="arrow-left" @click="$router.go(-1)" />
+          <IconButton v-if="hasBack" data-test="back-button" icon="arrow-left" @click="$router.back()" />
           <BookypIcon
             v-else
             data-test="button-spaces"

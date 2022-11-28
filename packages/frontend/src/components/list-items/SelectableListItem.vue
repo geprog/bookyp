@@ -4,7 +4,7 @@
     :description="description"
     :icon="icon"
     :icon-color="selected ? 'text-primary-normal' : ''"
-    :class="{ 'cursor-pointer': !selected, 'bg-primary-light': selected }"
+    :class="{ 'cursor-pointer': !selected || enableClickOnSelected, 'bg-primary-light': selected }"
     @click="$emit('update:selected', !selected)"
   />
 </template>
@@ -33,6 +33,10 @@ export default defineComponent({
     selected: {
       type: Boolean,
       required: true,
+    },
+
+    enableClickOnSelected: {
+      type: Boolean,
     },
   },
 

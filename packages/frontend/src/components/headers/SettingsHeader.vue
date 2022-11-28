@@ -28,7 +28,7 @@
           :icon-color="$route.name === 'settings-space-edit' ? 'text-primary-normal' : undefined"
           :aria-label="t('space_information')"
           data-test="button-space-information"
-          @click="$router.replace({ name: 'settings-space-edit' })"
+          @click="$router.push({ name: 'settings-space-edit' })"
         />
       </div>
     </slot>
