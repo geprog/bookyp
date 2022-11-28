@@ -1,8 +1,5 @@
 <template>
-  <Header :title="t('bookyp')">
-    <template #start>
-      <BookypIcon class="cursor-pointer" @click="$router.push({ name: 'home' })" />
-    </template>
+  <Header :title="t('bookyp')" :has-back="!!savedSpaceId">
     <Button v-if="!user" class="py-1 px-3" :text="t('sign_in')" @click="$router.push({ name: 'auth-login' })" />
     <IconButton v-else data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
     <IconButton v-if="user" icon="sign-out" @click="logout" />
@@ -53,6 +50,7 @@
       :selected="savedSpaceId === space._id"
       :label="space.name"
       :description="roleInSpace(space)"
+      enable-click-on-selected
       class="m-3"
       data-test="space-item"
       @click="changeSpace(space._id)"
@@ -66,7 +64,6 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
-import BookypIcon from '~/assets/icons/bookyp.svg?component';
 import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';

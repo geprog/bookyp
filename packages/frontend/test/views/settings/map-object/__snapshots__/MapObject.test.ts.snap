@@ -15,8 +15,8 @@ exports[`MapObject view > Template > should render correctly when selecting book
 <app-content-stub>
   <div class=\\"flex flex-col mx-auto w-full py-3\\">
     <button-stub icon=\\"plus\\" text=\\"BOOKABLE_CREATE\\" disabled=\\"false\\" outlined=\\"false\\" class=\\"mb-3\\"></button-stub>
-    <selectable-list-item-stub label=\\"Couch\\" description=\\"\\" selected=\\"false\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>
-    <selectable-list-item-stub label=\\"Table\\" description=\\"\\" selected=\\"false\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>
+    <selectable-list-item-stub label=\\"Couch\\" description=\\"\\" selected=\\"false\\" enableclickonselected=\\"false\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>
+    <selectable-list-item-stub label=\\"Table\\" description=\\"\\" selected=\\"false\\" enableclickonselected=\\"false\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>
   </div>
 </app-content-stub>"
 `;
