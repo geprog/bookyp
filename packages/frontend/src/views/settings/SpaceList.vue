@@ -1,12 +1,10 @@
 <template>
-  <Header :title="t('bookyp')" has-logo>
+  <Header :title="t('bookyp')">
+    <template #start>
+      <BookypIcon class="cursor-pointer" @click="$router.push({ name: 'home' })" />
+    </template>
     <Button v-if="!user" class="py-1 px-3" :text="t('sign_in')" @click="$router.push({ name: 'auth-login' })" />
-    <IconButton
-      v-if="user"
-      data-test="button-account"
-      icon="person"
-      @click="$router.push({ name: 'account-bookings' })"
-    />
+    <IconButton v-else data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
     <IconButton v-if="user" icon="sign-out" @click="logout" />
   </Header>
 
@@ -68,6 +66,7 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
+import BookypIcon from '~/assets/icons/bookyp.svg?component';
 import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';

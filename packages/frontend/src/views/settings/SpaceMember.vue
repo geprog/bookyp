@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('edit_member')" has-back>
+  <Header :title="t('edit_member')" has-back @click="$router.push({ name: 'settings-space-members' })">
     <IconButton
       icon="delete"
       icon-color="text-red-text hover:text-red-background"

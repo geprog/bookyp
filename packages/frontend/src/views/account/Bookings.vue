@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('bookings')" @click="$router.push({ name: 'spaces-list' })">
+  <Header :title="t('bookings')" has-back>
     <router-link
       :to="{ name: 'account-bookings' }"
       class="flex items-center"
