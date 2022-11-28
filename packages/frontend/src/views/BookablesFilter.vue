@@ -1,5 +1,8 @@
 <template>
-  <Header :title="t('filter_bookables')" has-back>
+  <Header :title="t('filter_bookables')">
+    <template #start>
+      <IconButton icon="dismiss" @click="$router.back()" />
+    </template>
     <IconButton type="submit" form="filterBookablesForm" icon="check-mark" />
   </Header>
   <AppContent>

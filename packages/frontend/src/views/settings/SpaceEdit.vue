@@ -1,5 +1,8 @@
 <template>
   <Header :title="t('space_information')" has-back>
+    <template #start>
+      <IconButton icon="dismiss" @click="$router.back()" />
+    </template>
     <IconButton type="submit" form="space" icon="save" />
   </Header>
   <AppContent>
