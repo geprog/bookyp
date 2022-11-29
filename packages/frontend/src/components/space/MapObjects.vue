@@ -1,154 +1,128 @@
 <template>
   <!-- if the map object is resizable we might need to change the rotation origin -->
   <g
-    v-for="mapObject in highlightedMapObjects"
+    v-for="mapObject in extendedMapObjects"
     :key="mapObject._id"
     data-test="map-object"
     transform-origin="center"
     :transform="`translate(${mapObject.xPos},${mapObject.yPos}) rotate(${mapObject.rotation})`"
     class="transform-box-fill"
     :class="{
-      'cursor-pointer': isMapObjectClickable(mapObject),
-      'map-object':
-        isMapObjectClickable(mapObject) && (!considerFilter || isFilterMatched(mapObject.bookable) === null),
-      'map-object-filter-matched':
-        isMapObjectClickable(mapObject) && considerFilter && isFilterMatched(mapObject.bookable) === true,
-      'map-object-filter-unmatched':
-        isMapObjectClickable(mapObject) && considerFilter && isFilterMatched(mapObject.bookable) === false,
+      'cursor-pointer': mapObject.isClickable,
+      'map-object': mapObject.isClickable && !considerFilter,
+      'map-object-filter-matched': mapObject.isClickable && mapObject.matchesFilter,
+      'map-object-filter-unmatched': mapObject.isClickable && !mapObject.matchesFilter,
     }"
     @click.stop="clickOnMapObject(mapObject)"
   >
     <path
       v-for="path in mapObject.paths"
       :key="path"
-      :data-test="mapObject.highlighted ? 'highlighted-map-object-path' : 'map-object-path'"
+      :data-test="mapObject.isHighlighted ? 'highlighted-map-object-path' : 'map-object-path'"
       :d="path"
-      :class="{
-        'stroke-black fill-primary-light':
-          selectedMapObjectId !== mapObject._id &&
-          mapObject.bookable &&
-          (!considerFilter || isFilterMatched(mapObject.bookable) === null) &&
-          isMapObjectLinkedToDeletedBookable(mapObject) === false,
-        'stroke-black fill-green-background':
-          considerFilter &&
-          isFilterMatched(mapObject.bookable) === true &&
-          isMapObjectLinkedToDeletedBookable(mapObject) === false,
-        'stroke-2 stroke-primary-normal fill-red-background filter drop-shadow-orangeGlow':
-          considerFilter &&
-          isFilterMatched(mapObject.bookable) === false &&
-          isMapObjectLinkedToDeletedBookable(mapObject) === false &&
-          mapObject.highlighted,
-        'stroke-black fill-red-background':
-          considerFilter &&
-          isFilterMatched(mapObject.bookable) === false &&
-          isMapObjectLinkedToDeletedBookable(mapObject) === false &&
-          !mapObject.highlighted,
-        'stroke-current fill-primary-light':
-          selectedMapObjectId === mapObject._id && isMapObjectLinkedToDeletedBookable(mapObject) === false,
-        'stroke-black fill-white':
-          selectedMapObjectId !== mapObject._id &&
-          (!mapObject.bookable || isMapObjectLinkedToDeletedBookable(mapObject) === true),
-      }"
+      :class="mapObject.style"
     />
   </g>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { Model } from '@bookyp/core';
-import { computed, defineComponent, toRef } from 'vue';
+import { computed, toRef } from 'vue';
 
 import getMapObjects from '~/compositions/space/useMapObjects';
 import { mapObjectsToPaths, useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 import { useBookables } from '~/compositions/useBookables';
 import useFind from '~/compositions/useFind';
 
-type HighlightedMapObject = Model.MapObject & {
-  highlighted: boolean;
-};
+const props = defineProps<{
+  spaceId: string;
+  clickable?: boolean;
+  considerFilter?: boolean;
+  highlightedBookableId?: string;
+}>();
 
-export default defineComponent({
-  name: 'MapObjects',
-  props: {
-    spaceId: {
-      type: String,
-      required: true,
-    },
+const emit = defineEmits<{
+  (event: 'clickOnMapObject', __bookableId: Model.MapObject['bookable']): void;
+}>();
 
-    clickable: {
-      type: Boolean,
-    },
+const clickable = toRef(props, 'clickable');
+const highlightedBookableId = toRef(props, 'highlightedBookableId');
+const spaceId = toRef(props, 'spaceId');
+const considerFilter = toRef(props, 'considerFilter');
 
-    considerFilter: {
-      type: Boolean,
-    },
+const { data: mapObjects } = getMapObjects(spaceId);
 
-    selectedMapObjectId: {
-      type: String,
-      default: null,
-    },
+const { data: bookables } = useFind(
+  'bookables',
+  computed(() => ({ paginate: false, query: { space: spaceId.value, $disableSoftDelete: true } })),
+);
 
-    highlightedBookableId: {
-      type: String,
-      default: null,
-    },
-  },
+const { isFilterMatched, isBookedByMe: _isBookedByMe } = useBookables(bookables);
 
-  emits: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    clickOnMapObject: (__bookableId: Model.MapObject['bookable']) => true,
-  },
+function clickOnMapObject(mapObject: Model.MapObject & { isClickable: boolean }) {
+  if (mapObject.isClickable) {
+    emit('clickOnMapObject', mapObject.bookable);
+  }
+}
 
-  setup(props, context) {
-    const clickable = toRef(props, 'clickable');
-    const highlightedBookableId = toRef(props, 'highlightedBookableId');
-    const spaceId = toRef(props, 'spaceId');
-    const { data: mapObjects } = getMapObjects(spaceId);
+useAndRegisterViewBox('MapObjects', mapObjectsToPaths(mapObjects), { strokeWidth: 1 });
 
-    const { data: bookables } = useFind(
-      'bookables',
-      computed(() => ({ paginate: false, query: { space: spaceId.value, $disableSoftDelete: true } })),
-    );
+function getMapObjectStyle(
+  mapObject: Model.MapObject,
+  isHighlighted: boolean,
+  isBookedByMe: boolean,
+  isLinkedToDeletedBookable: boolean,
+) {
+  const highlightStyle = 'stroke-2 stroke-primary-normal filter drop-shadow-orangeGlow';
 
-    const { isFilterMatched, isBookedByMe } = useBookables(bookables);
+  if (isHighlighted) {
+    return highlightStyle + ' fill-primary-light';
+  }
 
-    const highlightedMapObjects = computed<HighlightedMapObject[]>(() =>
-      mapObjects.value.map((mapObject) => {
-        let highlighted = false;
-        if (mapObject.bookable === highlightedBookableId.value) {
-          highlighted = true;
-        }
-        if (highlightedBookableId.value === null) {
-          highlighted = isBookedByMe(mapObject.bookable);
-        }
-        return { ...mapObject, highlighted };
-      }),
-    );
+  if (!mapObject.bookable || isLinkedToDeletedBookable) {
+    return 'stroke-black fill-white';
+  }
 
-    function isMapObjectLinkedToDeletedBookable(mapObject: HighlightedMapObject) {
-      return bookables.value.find((bookable) => bookable._id === mapObject.bookable)?.deleted === true;
+  if (considerFilter.value) {
+    if (isFilterMatched(mapObject.bookable)) {
+      return 'stroke-black fill-green-background';
     }
 
-    function isMapObjectClickable(mapObject: HighlightedMapObject): boolean {
-      return clickable.value && 'bookable' in mapObject && isMapObjectLinkedToDeletedBookable(mapObject) === false;
+    if (isBookedByMe) {
+      return highlightStyle + ' stroke-black fill-red-background';
     }
 
-    function clickOnMapObject(mapObject: HighlightedMapObject) {
-      if (isMapObjectClickable(mapObject)) {
-        context.emit('clickOnMapObject', mapObject.bookable);
-      }
-    }
+    return 'stroke-black fill-red-background';
+  }
 
-    useAndRegisterViewBox('MapObjects', mapObjectsToPaths(mapObjects), { strokeWidth: 1 });
+  if (mapObject.bookable && !considerFilter.value) {
+    return 'stroke-black fill-white';
+  }
+
+  return 'stroke-black fill-primary-light';
+}
+
+const extendedMapObjects = computed(() =>
+  mapObjects.value.map((mapObject) => {
+    const matchesFilter = !!considerFilter.value && !!isFilterMatched(mapObject.bookable);
+    const isHighlighted = !!highlightedBookableId.value && highlightedBookableId.value === mapObject.bookable;
+    const isBookedByMe = _isBookedByMe(mapObject.bookable);
+    const isLinkedToDeletedBookable =
+      bookables.value.find((bookable) => bookable._id === mapObject.bookable)?.deleted === true;
+    const isClickable = !!clickable.value && !!mapObject.bookable && !isLinkedToDeletedBookable;
+    const style = getMapObjectStyle(mapObject, isHighlighted, isBookedByMe, isLinkedToDeletedBookable);
 
     return {
-      clickOnMapObject,
-      isFilterMatched,
-      isMapObjectClickable,
-      isMapObjectLinkedToDeletedBookable,
-      highlightedMapObjects,
+      ...mapObject,
+      isHighlighted,
+      style,
+      isClickable,
+      matchesFilter,
+      isLinkedToDeletedBookable,
+      isBookedByMe,
     };
-  },
-});
+  }),
+);
 </script>
 
 <style scoped>

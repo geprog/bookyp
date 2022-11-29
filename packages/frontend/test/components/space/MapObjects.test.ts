@@ -91,7 +91,7 @@ describe('MapObjects component', () => {
     /* eslint-enable jest/max-expects */
   });
 
-  it('should render correctly with a selectedMapObject', () => {
+  it('should render correctly with a highlightedBookableId', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObject]);
     prepareUseBookablesOnce();
@@ -101,7 +101,7 @@ describe('MapObjects component', () => {
       props: {
         spaceId: '123',
         clickable: true,
-        selectedMapObjectId: sampleMapObject._id,
+        highlightedBookableId: sampleMapObject._id,
       },
       global: globalOptions,
     });
@@ -126,14 +126,15 @@ describe('MapObjects component', () => {
       },
       global: globalOptions,
     });
+
     // when
-    await wrapper.get('[data-test="map-object"]').trigger('click');
+    await wrapper.get('[data-test="map-object"].map-object').trigger('click');
     await nextTick();
 
     // then
     expect(wrapper.emitted('clickOnMapObject')).toBeTruthy();
     expect(wrapper.emitted('clickOnMapObject')).toHaveLength(1);
-    expect(wrapper.emitted('clickOnMapObject')?.[0]).toStrictEqual([sampleMapObjects[0].bookable]);
+    expect(wrapper.emitted('clickOnMapObject')?.[0]).toStrictEqual([sampleMapObjects[1].bookable]);
   });
 
   it('should skip clickOnMapObject event when not clickable', async () => {
@@ -178,7 +179,7 @@ describe('MapObjects component', () => {
     expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('stroke-black fill-white');
   });
 
-  it('should use primary fill color when the object is linked with a bookable', () => {
+  it('should use white fill color when the object is linked with a bookable, but no filter is checked', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObjectWithBookable]);
     prepareUseBookablesOnce();
@@ -188,18 +189,15 @@ describe('MapObjects component', () => {
       props: {
         spaceId: '123',
         clickable: true,
+        considerFilter: false,
       },
       global: globalOptions,
     });
 
     // then
     expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
-    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe(
-      'stroke-black fill-primary-light',
-    );
-    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe(
-      'stroke-black fill-primary-light',
-    );
+    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe('stroke-black fill-white');
+    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('stroke-black fill-white');
   });
 
   it('should use green fill color when the filter matches', () => {

@@ -5,15 +5,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script lang="ts" setup>
 import UpdateApp from '~/components/layout/UpdateApp.vue';
-
-export default defineComponent({
-  name: 'App',
-  components: { UpdateApp },
-});
 </script>
 
 <style scoped>
