@@ -2,10 +2,12 @@ import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
 import Dialog from '~/components/Dialog.vue';
+import { user } from '~/compositions/useAuthentication';
 import Booking from '~/views/account/Booking.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
 import { sampleBooking } from '$/__fixtures__/booking';
 import { sampleSpace } from '$/__fixtures__/space';
+import { sampleUser } from '$/__fixtures__/user';
 import { i18n } from '$/__helpers__/i18n';
 import { prepareUseFeathersMockOnce, prepareUseGetMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
 
@@ -48,6 +50,8 @@ describe('Booking view', () => {
     prepareUseGetMockOnce(sampleSpace);
     prepareUseGetMockOnce(sampleBookable);
     prepareUseRouterMockOnce();
+    user.value = sampleUser;
+
     const useFeathersMock = prepareUseFeathersMockOnce();
 
     const wrapper = shallowMount(Booking, {

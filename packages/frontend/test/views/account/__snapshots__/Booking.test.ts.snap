@@ -2,7 +2,7 @@
 
 exports[`Booking view > should render correctly 1`] = `
 "<header-stub title=\\"booking_details\\" hasback=\\"true\\">
-  <icon-button-stub icon=\\"delete\\" iconcolor=\\"text-red-text hover:text-red-background\\" disabled=\\"false\\" data-test=\\"delete-button\\"></icon-button-stub>
+  <!--v-if-->
 </header-stub>
 <app-content-stub>
   <div class=\\"flex flex-col p-4 rounded-lg shadow-full bg-white m-4 gap-y-1\\">

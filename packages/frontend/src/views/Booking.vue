@@ -14,21 +14,23 @@
         v-model:end="end"
         :bookings="bookings"
         :initial-date="bookablesFilter?.start"
+        @booking:click="openBooking"
       >
         <template #info-box>
           <InfoBox class="mr-2 flex flex-col" :class="{ 'bg-red-400 text-white': isBookingOverlapping }">
             <p v-if="isBookingOverlapping">{{ t('booking_overlaps') }}</p>
             <p>{{ t('booking_drag') }}</p>
-          </InfoBox></template
-        >
+          </InfoBox>
+        </template>
       </DateRangePicker>
     </form>
   </AppContent>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { Model } from '@bookyp/core';
 import dayjs from 'dayjs';
-import { computed, defineComponent, ref, toRef } from 'vue';
+import { computed, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -45,91 +47,80 @@ import { useBookables } from '~/compositions/useBookables';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 
-export default defineComponent({
-  name: 'Booking',
+const props = defineProps<{
+  bookableId: string;
+}>();
 
-  components: { Header, IconButton, InputField, TextField, DateRangePicker, AppContent, InfoBox },
+const { t } = useI18n();
+const router = useRouter();
+const feathers = useFeathers();
+const { spaceId } = useCurrentSpace();
 
-  props: {
-    bookableId: {
-      type: String,
-      required: true,
+const bookableId = toRef(props, 'bookableId');
+const { data: bookables } = useFind(
+  'bookables',
+  computed(() => ({})),
+);
+const { bookablesFilter, bookablesWithFilterMatched, resetBookablesFilter } = useBookables(bookables);
+const bookable = computed(() =>
+  bookablesWithFilterMatched.value.find(
+    (bookableWithFilterMatched) => bookableWithFilterMatched._id === bookableId.value,
+  ),
+);
+
+const { data: bookings } = useFind(
+  'bookings',
+  computed(() => ({
+    query: {
+      bookable: bookableId.value,
     },
-  },
+  })),
+);
 
-  setup(props) {
-    const { t } = useI18n();
-    const router = useRouter();
-    const feathers = useFeathers();
-    const { spaceId } = useCurrentSpace();
+const start = ref(bookablesFilter.value?.start || new Date());
+const end = ref(bookablesFilter.value?.end || dayjs().add(1, 'hour').toDate());
 
-    const bookableId = toRef(props, 'bookableId');
-    const { data: bookables } = useFind(
-      'bookables',
-      computed(() => ({})),
-    );
-    const { bookablesFilter, bookablesWithFilterMatched, resetBookablesFilter } = useBookables(bookables);
-    const bookable = computed(() =>
-      bookablesWithFilterMatched.value.find(
-        (bookableWithFilterMatched) => bookableWithFilterMatched._id === bookableId.value,
-      ),
-    );
+const description = ref('');
 
-    const { data: bookings } = useFind(
-      'bookings',
-      computed(() => ({
-        query: {
-          bookable: bookableId.value,
-        },
-      })),
-    );
+const isBookingOverlapping = computed(() =>
+  bookings.value.some((booking) => dayjs(booking.start).isBefore(end.value) && dayjs(booking.end).isAfter(start.value)),
+);
 
-    const start = ref(bookablesFilter.value?.start || new Date());
-    const end = ref(bookablesFilter.value?.end || dayjs().add(1, 'hour').toDate());
+const submit = async () => {
+  /* istanbul ignore next */
+  if (!user.value) {
+    throw new Error('Unexpected: User should be loaded');
+  }
 
-    const description = ref('');
+  if (!spaceId.value) {
+    throw new Error('Unexpected: A space must be selected');
+  }
 
-    const isBookingOverlapping = computed(() =>
-      bookings.value.some(
-        (booking) => dayjs(booking.start).isBefore(end.value) && dayjs(booking.end).isAfter(start.value),
-      ),
-    );
+  try {
+    await feathers.service('bookings').create({
+      start: start.value,
+      end: end.value,
+      description: description.value,
+      bookable: props.bookableId,
+      bookedBy: user.value._id,
+      space: spaceId.value,
+    });
+    resetBookablesFilter();
+    await router.replace({ name: 'account-bookings' });
+  } catch (error) {
+    if (error instanceof Error && error.message === 'Booking overlaps with existing bookings') {
+      alert(t('booking_overlaps', { bookable: bookable.value?.name }));
+      return;
+    }
+    if (error instanceof Error && error.message === 'End date must be after start date') {
+      alert(t('booking_invalid_end_date'));
+      return;
+    }
+    throw error;
+  }
+};
 
-    const submit = async () => {
-      /* istanbul ignore next */
-      if (!user.value) {
-        throw new Error('Unexpected: User should be loaded');
-      }
-
-      if (!spaceId.value) {
-        throw new Error('Unexpected: A space must be selected');
-      }
-
-      try {
-        await feathers.service('bookings').create({
-          start: start.value,
-          end: end.value,
-          description: description.value,
-          bookable: props.bookableId,
-          bookedBy: user.value._id,
-          space: spaceId.value,
-        });
-        resetBookablesFilter();
-        await router.replace({ name: 'account-bookings' });
-      } catch (error) {
-        if (error instanceof Error && error.message === 'Booking overlaps with existing bookings') {
-          alert(t('booking_overlaps', { bookable: bookable.value?.name }));
-          return;
-        }
-        if (error instanceof Error && error.message === 'End date must be after start date') {
-          alert(t('booking_invalid_end_date'));
-          return;
-        }
-        throw error;
-      }
-    };
-
-    return { submit, bookable, description, start, end, t, bookings, bookablesFilter, isBookingOverlapping };
-  },
-});
+async function openBooking(bookingId: Model.Ref<Model.Booking>) {
+  await router.push({ name: 'account-booking', params: { bookingId } });
+}
 </script>
