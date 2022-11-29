@@ -84,7 +84,9 @@ export const useBookables = (
     return bookablesByID.value[bookableID] && bookablesByID.value[bookableID].isFilterMatched === true;
   };
 
-  const userBookings = computed(() => bookings.value?.filter((booking) => booking.bookedBy === user.value?._id));
+  const userBookings = computed(() =>
+    bookings.value?.filter((booking) => user.value?._id && booking.bookedBy === user.value?._id),
+  );
 
   const isBookedByMe = (bookableID?: Model.Ref<Model.Bookable>): boolean => {
     if (bookableID === undefined) {

@@ -20,7 +20,7 @@
     <div class="flex flex-col p-4 rounded-lg shadow-full bg-white m-4 gap-y-1">
       <SpaceMap v-if="space">
         <FloorPlan :space-id="space._id" />
-        <MapObjects consider-filter :highlighted-bookable-id="bookableId" :space-id="space._id" />
+        <MapObjects :highlighted-bookable-id="bookableId" :space-id="space._id" />
       </SpaceMap>
     </div>
     <DeleteDialog
