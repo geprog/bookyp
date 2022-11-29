@@ -58,7 +58,7 @@
     "vite-plugin-windicss": "1.8.8",
     "vite-svg-loader": "3.6.0",
     "vitest": "0.23.4",
-    "vue-tsc": "0.40.13",
+    "vue-tsc": "1.0.9",
     "windicss": "3.5.4",
     "workbox-window": "6.5.3"
   }

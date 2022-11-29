@@ -34,189 +34,179 @@
   <FullCalendar ref="fullCalendar" :options="calendarOptions" class="full-calendar" />
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import '@fullcalendar/core/vdom';
 
 import { Model } from '@bookyp/core';
-import { Calendar, CalendarOptions } from '@fullcalendar/core';
+import { Calendar, CalendarOptions, EventInput } from '@fullcalendar/core';
 import deLocale from '@fullcalendar/core/locales/de';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import FullCalendar from '@fullcalendar/vue3';
 import dayjs, { ConfigType } from 'dayjs';
-import { computed, defineComponent, onMounted, PropType, ref, toRef, watch } from 'vue';
+import { computed, onMounted, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import ButtonPair from '~/components/buttons/ButtonPair.vue';
 import InfoBox from '~/components/InfoBox.vue';
 import InputField from '~/components/InputField.vue';
 import DateTimePicker from '~/components/inputs/DateTimePicker.vue';
+import { user } from '~/compositions/useAuthentication';
 
-export default defineComponent({
-  name: 'DateRangePicker',
-  components: {
-    ButtonPair,
-    FullCalendar,
-    InfoBox,
-    InputField,
-    DateTimePicker,
+const props = withDefaults(
+  defineProps<{
+    bookings: Model.Booking[];
+    start: ConfigType;
+    end: ConfigType;
+    initialDate?: ConfigType;
+  }>(),
+  {
+    initialDate: () => new Date(),
   },
+);
 
-  props: {
-    bookings: {
-      type: Array as PropType<Model.Booking[]>,
-      required: true,
-    },
+const emit = defineEmits<{
+  (event: 'update:start', __value: Date): void;
+  (event: 'update:end', __value: Date): void;
+  (event: 'booking:click', bookingId: Model.Ref<Model.Booking>): void;
+}>();
 
-    start: {
-      type: [Object, String, Number] as PropType<ConfigType>,
-      required: true,
-    },
+const bookings = toRef(props, 'bookings');
+const start = toRef(props, 'start');
+const end = toRef(props, 'end');
+const initialDate = toRef(props, 'initialDate');
+const { t } = useI18n();
 
-    end: {
-      type: [Object, String, Number] as PropType<ConfigType>,
-      required: true,
-    },
+const viewStartDate = ref<Date>();
 
-    initialDate: {
-      type: [Object, String, Number] as PropType<ConfigType>,
-      default: new Date(),
-    },
+const fullCalendar = ref<InstanceType<typeof FullCalendar>>();
+const api = ref<Calendar>();
+
+onMounted(() => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  api.value = fullCalendar.value!.getApi();
+});
+
+const internalStart = computed<Date>({
+  get() {
+    return dayjs(start.value).toDate();
   },
-
-  emits: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    'update:start': (__value: Date) => true,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    'update:end': (__value: Date) => true,
-  },
-
-  setup(props, { emit }) {
-    const bookings = toRef(props, 'bookings');
-    const start = toRef(props, 'start');
-    const end = toRef(props, 'end');
-    const initialDate = toRef(props, 'initialDate');
-    const { t } = useI18n();
-
-    const viewStartDate = ref<Date>();
-
-    const fullCalendar = ref<InstanceType<typeof FullCalendar>>();
-    const api = ref<Calendar>();
-
-    onMounted(() => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      api.value = fullCalendar.value!.getApi();
-    });
-
-    const internalStart = computed<Date>({
-      get() {
-        return dayjs(start.value).toDate();
-      },
-      set(date) {
-        emit('update:start', dayjs(date).toDate());
-      },
-    });
-
-    const internalEnd = computed<Date>({
-      get() {
-        return dayjs(end.value).toDate();
-      },
-      set(date) {
-        emit('update:end', dayjs(date).toDate());
-      },
-    });
-
-    const changeStartDate = (date: Date) => {
-      const oldStart = start.value;
-      internalStart.value = date;
-      emit(
-        'update:end',
-        dayjs(date)
-          .add(Math.abs(dayjs(oldStart).diff(dayjs(end.value))))
-          .toDate(),
-      );
-    };
-
-    watch(start, () => {
-      if (!api.value) {
-        return;
-      }
-      api.value.scrollToTime(dayjs(start.value).subtract(1, 'hour').format('HH:mm'));
-      const calendarDate = api.value.getDate();
-      if (dayjs(start.value).isBefore(calendarDate) || dayjs(start.value).isAfter(dayjs(calendarDate).add(3, 'days'))) {
-        api.value.gotoDate(dayjs(start.value).toISOString());
-      }
-    });
-
-    const calendarOptions = computed<CalendarOptions>(() => ({
-      plugins: [interactionPlugin, timeGridPlugin],
-      locales: [deLocale],
-      locale: 'de',
-      height: '70vh',
-      headerToolbar: false,
-      initialView: 'timeGridFourDay',
-      initialDate: dayjs(initialDate.value).toISOString(),
-      nowIndicator: true,
-      validRange: {
-        start: dayjs().toISOString(),
-      },
-      datesSet: ({ start: _start }) => {
-        viewStartDate.value = _start;
-      },
-      scrollTime: dayjs(initialDate.value).format('HH:mm'),
-      scrollTimeReset: false,
-      slotDuration: '00:30:00',
-      allDaySlot: false,
-      views: {
-        timeGridFourDay: {
-          type: 'timeGrid',
-          duration: { days: 3 },
-          buttonText: '3 day',
-        },
-      },
-      dateIncrement: { days: 1 },
-      eventOverlap: false,
-      eventDrop: ({ event }) => {
-        if (event.start === null || event.end === null) {
-          return;
-        }
-        emit('update:start', event.start);
-        emit('update:end', event.end);
-      },
-      eventResize: ({ event }) => {
-        if (event.end === null) {
-          return;
-        }
-        emit('update:end', event.end);
-      },
-      selectable: true,
-      selectOverlap: false,
-      select: ({ start: _start, end: _end }) => {
-        emit('update:start', _start);
-        emit('update:end', _end);
-        api.value?.unselect();
-      },
-      longPressDelay: 300,
-      events: [
-        ...bookings.value.map((booking) => ({
-          color: 'rgba(248, 113, 113, 1)',
-          title: booking.description || '',
-          start: dayjs(booking.start).toISOString(),
-          end: dayjs(booking.end).toISOString(),
-        })),
-        {
-          color: 'rgba(5,150,105,1)',
-          title: 'Booking',
-          start: dayjs(start.value).toISOString(),
-          end: dayjs(end.value).toISOString(),
-          editable: true,
-        },
-      ],
-    }));
-
-    return { calendarOptions, fullCalendar, api, t, viewStartDate, dayjs, internalStart, internalEnd, changeStartDate };
+  set(date) {
+    emit('update:start', dayjs(date).toDate());
   },
 });
+
+const internalEnd = computed<Date>({
+  get() {
+    return dayjs(end.value).toDate();
+  },
+  set(date) {
+    emit('update:end', dayjs(date).toDate());
+  },
+});
+
+const changeStartDate = (date: Date) => {
+  const oldStart = start.value;
+  internalStart.value = date;
+  emit(
+    'update:end',
+    dayjs(date)
+      .add(Math.abs(dayjs(oldStart).diff(dayjs(end.value))))
+      .toDate(),
+  );
+};
+
+watch(start, () => {
+  if (!api.value) {
+    return;
+  }
+  api.value.scrollToTime(dayjs(start.value).subtract(1, 'hour').format('HH:mm'));
+  const calendarDate = api.value.getDate();
+  if (dayjs(start.value).isBefore(calendarDate) || dayjs(start.value).isAfter(dayjs(calendarDate).add(3, 'days'))) {
+    api.value.gotoDate(dayjs(start.value).toISOString());
+  }
+});
+
+const calendarOptions = computed<CalendarOptions>(() => ({
+  plugins: [interactionPlugin, timeGridPlugin],
+  locales: [deLocale],
+  locale: 'de',
+  height: '70vh',
+  headerToolbar: false,
+  initialView: 'timeGridFourDay',
+  initialDate: dayjs(initialDate.value).toISOString(),
+  nowIndicator: true,
+  validRange: {
+    start: dayjs().toISOString(),
+  },
+  datesSet: ({ start: _start }) => {
+    viewStartDate.value = _start;
+  },
+  scrollTime: dayjs(initialDate.value).format('HH:mm'),
+  scrollTimeReset: false,
+  slotDuration: '00:30:00',
+  allDaySlot: false,
+  views: {
+    timeGridFourDay: {
+      type: 'timeGrid',
+      duration: { days: 3 },
+      buttonText: '3 day',
+    },
+  },
+  dateIncrement: { days: 1 },
+  eventOverlap: false,
+  eventDrop: ({ event }) => {
+    if (event.start === null || event.end === null) {
+      return;
+    }
+    emit('update:start', event.start);
+    emit('update:end', event.end);
+  },
+  eventResize: ({ event }) => {
+    if (event.end === null) {
+      return;
+    }
+    emit('update:end', event.end);
+  },
+  eventClick: ({ event }) => {
+    if (event.id) {
+      emit('booking:click', event.id);
+    }
+  },
+  selectable: true,
+  selectOverlap: false,
+  select: ({ start: _start, end: _end }) => {
+    emit('update:start', _start);
+    emit('update:end', _end);
+    api.value?.unselect();
+  },
+  longPressDelay: 300,
+  events: [
+    ...bookings.value.map((booking) => {
+      const classNames = ['cursor-pointer'];
+
+      if (booking.bookedBy === user.value?._id) {
+        classNames.push('filter', 'drop-shadow-orangeGlow');
+      }
+
+      return <EventInput>{
+        id: booking._id,
+        color: 'rgba(248, 113, 113, 1)',
+        title: booking.description || '',
+        start: dayjs(booking.start).toISOString(),
+        end: dayjs(booking.end).toISOString(),
+        classNames,
+      };
+    }),
+    {
+      color: 'rgba(5,150,105,1)',
+      title: 'Booking',
+      start: dayjs(start.value).toISOString(),
+      end: dayjs(end.value).toISOString(),
+      editable: true,
+    },
+  ],
+}));
 </script>
 
 <style scoped>

@@ -1,6 +1,7 @@
 <template>
   <Header :title="t('booking_details')" has-back>
     <IconButton
+      v-if="booking?.bookedBy === user?._id"
       data-test="delete-button"
       icon="delete"
       icon-color="text-red-text hover:text-red-background"
@@ -47,6 +48,7 @@ import AppContent from '~/components/layout/AppContent.vue';
 import FloorPlan from '~/components/space/FloorPlan.vue';
 import MapObjects from '~/components/space/MapObjects.vue';
 import SpaceMap from '~/components/space/SpaceMap.vue';
+import { user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 

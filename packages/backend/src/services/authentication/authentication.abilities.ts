@@ -47,6 +47,9 @@ const defineRulesFor = async (
     can('create', 'spaces');
 
     // access own bookings & invitations
+    cannot('read', 'bookings', ['_id', 'start', 'end', 'bookable', 'space'], {
+      space: { $in: publicSpaceIds },
+    });
     can(['read', 'remove'], 'bookings', { bookedBy: user._id });
     can(['read', 'remove'], 'invitations', { email: user.email });
 

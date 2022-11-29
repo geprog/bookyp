@@ -2,11 +2,12 @@ import { Model } from '@bookyp/core';
 
 import { sampleAdditionalBookable, sampleBookable } from './bookable';
 import { sampleSpace } from './space';
+import { sampleUser } from './user';
 
 export const sampleBooking: Model.Booking = {
   _id: '123',
   bookable: sampleBookable._id,
-  bookedBy: 'userId123',
+  bookedBy: sampleUser._id,
   description: 'test description',
   start: new Date('2018-08-08T07:43:00'),
   end: new Date('2018-08-08T08:13:00'),
