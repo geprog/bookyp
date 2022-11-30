@@ -25,10 +25,10 @@
         />
         <IconButton
           icon="info"
-          :icon-color="$route.name === 'settings-space-edit' ? 'text-primary-normal' : undefined"
+          :icon-color="$route.name === 'settings-space-info' ? 'text-primary-normal' : undefined"
           :aria-label="t('space_information')"
           data-test="button-space-information"
-          @click="$router.push({ name: 'settings-space-edit' })"
+          @click="$router.push({ name: 'settings-space-info' })"
         />
       </div>
     </slot>

@@ -14,7 +14,7 @@ import Icon from '~/components/Icon.vue';
 import { ExtractedComponentProp } from '~/vue-helpers';
 
 export default defineComponent({
-  name: 'InputField',
+  name: 'LabelField',
 
   components: { Icon },
 

@@ -1,18 +1,18 @@
 <template>
   <div class="flex flex-row">
     <div class="flex flex-col flex-grow">
-      <InputField icon-name="play">
+      <LabelField icon-name="play">
         <DateTimePicker
           :model-value="internalStart"
           :placeholder="t('start')"
           :min-date="new Date()"
           @update:model-value="changeStartDate"
         />
-      </InputField>
+      </LabelField>
 
-      <InputField icon-name="stop">
+      <LabelField icon-name="stop">
         <DateTimePicker v-model="internalEnd" :placeholder="t('end')" :min-date="new Date()" />
-      </InputField>
+      </LabelField>
     </div>
     <slot />
   </div>
@@ -49,8 +49,8 @@ import { useI18n } from 'vue-i18n';
 
 import ButtonPair from '~/components/buttons/ButtonPair.vue';
 import InfoBox from '~/components/InfoBox.vue';
-import InputField from '~/components/InputField.vue';
 import DateTimePicker from '~/components/inputs/DateTimePicker.vue';
+import LabelField from '~/components/LabelField.vue';
 import { user } from '~/compositions/useAuthentication';
 
 const props = withDefaults(

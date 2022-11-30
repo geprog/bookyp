@@ -6,12 +6,12 @@
     class="bookable mx-4 mx-auto w-full"
     @submit.prevent="saveBookable"
   >
-    <InputField icon-name="edit">
+    <LabelField icon-name="edit">
       <TextField v-model="bookableForm.name" data-test="form-name" :placeholder="t('name')" />
-    </InputField>
-    <InputField icon-name="document-one-page">
+    </LabelField>
+    <LabelField icon-name="document-one-page">
       <TextField v-model="bookableForm.description" data-test="form-description" :placeholder="t('description')" />
-    </InputField>
+    </LabelField>
   </form>
 </template>
 
@@ -20,14 +20,14 @@ import { Model } from '@bookyp/core';
 import { computed, defineComponent, PropType, reactive, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import InputField from '~/components/InputField.vue';
+import LabelField from '~/components/LabelField.vue';
 import TextField from '~/components/TextField.vue';
 
 export default defineComponent({
   name: 'BookableForm',
 
   components: {
-    InputField,
+    LabelField,
     TextField,
   },
 

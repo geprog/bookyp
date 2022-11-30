@@ -92,6 +92,11 @@ const routes: RouteRecordRaw[] = [
         props: true,
       },
       {
+        path: 'settings/space/info',
+        name: 'settings-space-info',
+        component: () => import('~/views/settings/SpaceInfo.vue'),
+      },
+      {
         path: 'settings/space/edit',
         name: 'settings-space-edit',
         component: () => import('~/views/settings/SpaceEdit.vue'),
