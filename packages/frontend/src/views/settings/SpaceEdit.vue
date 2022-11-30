@@ -43,7 +43,7 @@ const saveSpace = async () => {
   }
 
   await feathers.service('spaces').update(space.value?._id, space.value);
-  await router.push({ name: 'home' });
+  router.back();
 };
 
 const deleteDialogVisible = ref(false);

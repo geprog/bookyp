@@ -5,9 +5,9 @@
 
   <AppContent>
     <form id="booking" class="booking px-4" @submit.prevent="submit">
-      <InputField icon-name="document-one-page">
+      <LabelField icon-name="document-one-page">
         <TextField v-model="description" :placeholder="t('description')" />
-      </InputField>
+      </LabelField>
 
       <DateRangePicker
         v-model:start="start"
@@ -37,8 +37,8 @@ import { useRouter } from 'vue-router';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import InfoBox from '~/components/InfoBox.vue';
-import InputField from '~/components/InputField.vue';
 import DateRangePicker from '~/components/inputs/DateRangePicker.vue';
+import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';

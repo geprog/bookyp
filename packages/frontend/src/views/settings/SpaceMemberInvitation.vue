@@ -16,9 +16,9 @@
       class="mx-4"
       @submit.prevent="saveInvitation"
     >
-      <InputField icon-name="email">
+      <LabelField icon-name="email">
         <span>{{ invitation.email }}</span>
-      </InputField>
+      </LabelField>
 
       <SelectableListItem
         :selected="invitation.role === 'user'"
@@ -45,7 +45,7 @@ import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
-import InputField from '~/components/InputField.vue';
+import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
@@ -55,7 +55,7 @@ import useGet from '~/compositions/useGet';
 export default defineComponent({
   name: 'SpaceMemberInvitation',
 
-  components: { Header, IconButton, InputField, SelectableListItem, AppContent },
+  components: { Header, IconButton, LabelField, SelectableListItem, AppContent },
 
   props: {
     invitationId: {

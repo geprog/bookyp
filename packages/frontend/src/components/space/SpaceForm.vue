@@ -1,14 +1,14 @@
 <template>
   <form v-if="space" id="space" data-test="form" class="space" @submit.prevent="saveSpace">
-    <InputField icon-name="home">
+    <LabelField icon-name="home">
       <TextField v-model="spaceCreate.name" data-test="form-name" :placeholder="t('name')" />
-    </InputField>
-    <InputField icon-name="location">
+    </LabelField>
+    <LabelField icon-name="location">
       <TextField v-model="spaceCreate.address" data-test="form-address" :placeholder="t('address')" />
-    </InputField>
-    <InputField icon-name="text-box">
+    </LabelField>
+    <LabelField icon-name="text-box">
       <TextField v-model="spaceCreate.description" data-test="form-description" :placeholder="t('description')" />
-    </InputField>
+    </LabelField>
   </form>
 
   <div v-if="isEditingSpace" class="flex flex-col gap-y-6 mt-6 sm:max-w-xl <sm:max-w-xs mx-auto">
@@ -49,7 +49,7 @@ import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 
 import Button from '~/components/buttons/Button.vue';
-import InputField from '~/components/InputField.vue';
+import LabelField from '~/components/LabelField.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 
@@ -57,7 +57,7 @@ export default defineComponent({
   name: 'SpaceForm',
 
   components: {
-    InputField,
+    LabelField,
     TextField,
     Button,
   },

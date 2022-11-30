@@ -2,9 +2,9 @@
   <Header :title="t('invite_new_member')" has-back />
   <AppContent>
     <form id="spaceMemberInviteForm" data-test="form" class="mx-4" @submit.prevent="inviteSpaceMember">
-      <InputField icon-name="email">
+      <LabelField icon-name="email">
         <TextField v-model="invitationForm.email" data-test="form-email" :placeholder="t('email_address')" />
-      </InputField>
+      </LabelField>
 
       <Button
         type="submit"
@@ -41,7 +41,7 @@ import { useRouter } from 'vue-router';
 
 import Button from '~/components/buttons/Button.vue';
 import Header from '~/components/headers/Header.vue';
-import InputField from '~/components/InputField.vue';
+import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import TextField from '~/components/TextField.vue';
@@ -51,7 +51,7 @@ import useFeathers from '~/compositions/useFeathers';
 export default defineComponent({
   name: 'SpaceMemberInvite',
 
-  components: { Header, InputField, TextField, SelectableListItem, AppContent, Button },
+  components: { Header, LabelField, TextField, SelectableListItem, AppContent, Button },
 
   setup() {
     const { t } = useI18n();

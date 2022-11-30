@@ -1,15 +1,15 @@
 import { mount, shallowMount } from '@vue/test-utils';
 
-import InputField from '~/components/InputField.vue';
+import LabelField from '~/components/LabelField.vue';
 
-describe('InputField component', () => {
+describe('LabelField component', () => {
   it('should render correctly', () => {
     // given
     const iconName = 'settings';
     const content = '<p>Horst</p>';
 
     // when
-    const wrapper = shallowMount(InputField, {
+    const wrapper = shallowMount(LabelField, {
       props: {
         iconName,
       },
@@ -27,7 +27,7 @@ describe('InputField component', () => {
     const content = '<p>Horst</p>';
 
     // when
-    const wrapper = mount(InputField, {
+    const wrapper = mount(LabelField, {
       props: {
         iconName: 'document-one-page',
       },
@@ -45,7 +45,7 @@ describe('InputField component', () => {
     const iconName = 'settings';
 
     // when
-    const wrapper = shallowMount(InputField, {
+    const wrapper = shallowMount(LabelField, {
       props: {
         iconName,
       },

@@ -81,14 +81,13 @@ describe('MapObjects component', () => {
     });
 
     // then
-    /* eslint-disable jest/max-expects */
     expect(wrapper.html()).toMatchSnapshot();
     expect(wrapper.findAll('path')).toHaveLength(4);
     expect(wrapper.findAll('path')[0].attributes('d')).toStrictEqual(sampleMapObjects[0].paths[0]);
     expect(wrapper.findAll('path')[1].attributes('d')).toStrictEqual(sampleMapObjects[0].paths[1]);
     expect(wrapper.findAll('path')[2].attributes('d')).toStrictEqual(sampleMapObjects[1].paths[0]);
+    // eslint-disable-next-line jest/max-expects
     expect(wrapper.findAll('path')[3].attributes('d')).toStrictEqual(sampleMapObjects[1].paths[1]);
-    /* eslint-enable jest/max-expects */
   });
 
   it('should render correctly with a highlightedBookableId', () => {

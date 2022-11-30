@@ -17,7 +17,7 @@ describe('BookableForm component', () => {
         global: {
           // stub needed due to caching issue. see https://github.com/vuejs/vue-test-utils-next/issues/530
           stubs: {
-            InputField: {
+            LabelField: {
               template: '<div><slot /></div>',
             },
           },
@@ -40,7 +40,7 @@ describe('BookableForm component', () => {
         global: {
           // stub needed due to caching issue. see https://github.com/vuejs/vue-test-utils-next/issues/530
           stubs: {
-            InputField: {
+            LabelField: {
               template: '<div><slot /></div>',
             },
           },
@@ -84,7 +84,7 @@ describe('BookableForm component', () => {
       },
       global: {
         stubs: {
-          InputField: {
+          LabelField: {
             template: '<div><slot /></div>',
           },
           TextField: {
@@ -115,7 +115,7 @@ describe('BookableForm component', () => {
       },
       global: {
         stubs: {
-          InputField: {
+          LabelField: {
             template: '<div><slot /></div>',
           },
         },
@@ -142,7 +142,7 @@ describe('BookableForm component', () => {
       },
       global: {
         stubs: {
-          InputField: {
+          LabelField: {
             template: '<div><slot /></div>',
           },
         },
