@@ -14,5 +14,6 @@
   "volar.tsPlugin": true,
   "volar.codeLens.pugTools": false,
   "volar.codeLens.references": false,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "gitlens.remotes": [{ "domain": "git.geprog.com", "type": "GitLab" }]
 }
