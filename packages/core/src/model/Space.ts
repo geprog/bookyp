@@ -16,6 +16,7 @@ export class Space extends AbstractEntity {
   name!: string;
   description?: string;
   address?: string;
+  email?: string;
   plan?: Plan;
 
   constructor(data: Partial<Space> = {}) {

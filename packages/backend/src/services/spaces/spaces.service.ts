@@ -19,6 +19,7 @@ const SpaceSchema = new Schema<Model.Space>({
   name: { type: String, required: true },
   description: { type: String },
   address: { type: String },
+  email: { type: String },
   plan: { type: String },
   deleted: { type: Boolean },
 });

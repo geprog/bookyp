@@ -49,6 +49,7 @@ importers:
       '@types/supertest': 2.0.11
       '@vitest/coverage-c8': 0.23.4
       '@vitest/ui': 0.23.4
+      dayjs: 1.10.5
       esbuild: 0.9.6
       eslint: 8.27.0
       express: 4.17.1
@@ -77,6 +78,7 @@ importers:
       '@feathersjs/feathers': 5.0.0-pre.17
       '@feathersjs/socketio': 5.0.0-pre.17
       '@geprog/node-migrate-ts': 3.1.12_mongodb@4.1.4
+      dayjs: 1.10.5
       express: 4.17.1
       feathers-casl: github.com/geprog/feathers-casl/9d62d9cbffe66a8dc7bbeec4cac6c8d9138dd582
       feathers-mongoose: github.com/GEPROG/feathers-mongoose/c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed_mongoose@6.0.14
