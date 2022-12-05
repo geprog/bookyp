@@ -11,6 +11,9 @@
       <LabelField icon-name="text-box">
         <TextField v-model="space.description" readonly data-test="space-description" :placeholder="t('description')" />
       </LabelField>
+      <LabelField icon-name="email">
+        <TextField v-model="space.email" readonly :placeholder="t('email_space')" />
+      </LabelField>
     </div>
     <Button
       icon="edit"

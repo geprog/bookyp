@@ -9,6 +9,9 @@
     <LabelField icon-name="text-box">
       <TextField v-model="spaceCreate.description" data-test="form-description" :placeholder="t('description')" />
     </LabelField>
+    <LabelField icon-name="email">
+      <TextField v-model="spaceCreate.email" :placeholder="t('email_space')" />
+    </LabelField>
   </form>
 
   <div v-if="isEditingSpace" class="flex flex-col gap-y-6 mt-6 sm:max-w-xl <sm:max-w-xs mx-auto">
@@ -104,6 +107,14 @@ export default defineComponent({
         },
         set(description: string) {
           emit('update:space', { ...space.value, description });
+        },
+      }),
+      email: computed({
+        get() {
+          return space.value.email || '';
+        },
+        set(email: string) {
+          emit('update:space', { ...space.value, email });
         },
       }),
     });

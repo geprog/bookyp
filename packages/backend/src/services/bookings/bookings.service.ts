@@ -6,6 +6,7 @@ import { feathersCaslAllowlist } from '~/casl';
 
 import { preventInvalidDateRange } from './hooks/preventInvalidDateRange';
 import { preventOverlappingBookings } from './hooks/preventOverlappingBookings';
+import sendBookingAdminMail from './hooks/sendSpaceBookingAdminMail';
 
 const BookingSchema = new Schema<Model.Booking>({
   start: { type: Schema.Types.Date, required: true },
@@ -30,6 +31,9 @@ export default (app: Application): void => {
   app.service(name).hooks({
     before: {
       create: [preventInvalidDateRange, preventOverlappingBookings],
+    },
+    after: {
+      create: [sendBookingAdminMail],
     },
   });
 };

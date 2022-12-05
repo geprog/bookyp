@@ -1,4 +1,5 @@
 import { Model } from '@bookyp/core';
+import dayjs from 'dayjs';
 import handlebars from 'handlebars';
 import nodemailer from 'nodemailer';
 
@@ -45,6 +46,16 @@ Wir wünschen dir viel Spaß mit Bookyp!
 
 Dein Bookyp-Team
 `);
+
+const spaceBookingAdminMailTemplate = handlebars.compile(`
+Moin!
+
+"{{ user }}" hat den Tisch "{{ table }}" in deinem Space "{{ space }}" von {{ start }} bis {{ end }} gebucht.
+
+Um die Buchung zu sehen, klicke hier: {{ bookingLink }}
+
+Dein Bookyp-Team
+`);
 /* spell-checker: enable */
 
 export async function sendSpaceInvitationMail(space: Model.Space, email: string, admin: Model.Member): Promise<void> {
@@ -70,5 +81,58 @@ export async function sendSpaceInvitationMail(space: Model.Space, email: string,
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Problem sending invitation mail', error);
+  }
+}
+
+export async function sendSpaceBookingAdminMail(
+  space: Model.Space,
+  email: string,
+  user: Model.User,
+  currentBookable: Model.Bookable,
+  booking: Partial<Model.Booking>,
+): Promise<void> {
+  if (!transporter) {
+    return;
+  }
+
+  if (booking.start === undefined || booking.end === undefined) {
+    throw new Error('No start and end Date for Booking found.');
+  }
+
+  const start = dayjs(booking.start).format('DD.MM.YYYY HH:mm');
+  const end = dayjs(booking.end).format('DD.MM.YYYY HH:mm');
+
+  const { frontendUrl } = config().app;
+
+  if (!booking._id) {
+    throw new Error('No booking id found.');
+  }
+
+  if (!frontendUrl) {
+    throw new Error('No frontendUrl configured.');
+  }
+
+  const bookingLink = `${frontendUrl}account/${booking._id}`;
+  const text = spaceBookingAdminMailTemplate({
+    space: space.name,
+    user: user.name,
+    table: currentBookable.name,
+    start,
+    end,
+    bookingLink,
+    email,
+  });
+
+  try {
+    await transporter.sendMail({
+      from: config().mail.from,
+      to: email,
+      // cspell:disable-next-line
+      subject: `Neue Buchung in "${space.name}".`,
+      text,
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Problem sending new booking mail', error);
   }
 }
