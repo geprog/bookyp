@@ -84,7 +84,7 @@ export async function sendSpaceInvitationMail(space: Model.Space, email: string,
   }
 }
 
-export async function sendSpaceBookingAdminMail(
+export async function sendBookingNotificationToAdminMail(
   space: Model.Space,
   email: string,
   user: Model.User,
@@ -112,7 +112,7 @@ export async function sendSpaceBookingAdminMail(
     throw new Error('No frontendUrl configured.');
   }
 
-  const bookingLink = `${frontendUrl}account/${booking._id}`;
+  const bookingLink = `${frontendUrl}/account/booking/${booking._id}`;
   const text = spaceBookingAdminMailTemplate({
     space: space.name,
     user: user.name,
@@ -128,7 +128,7 @@ export async function sendSpaceBookingAdminMail(
       from: config().mail.from,
       to: email,
       // cspell:disable-next-line
-      subject: `Neue Buchung in "${space.name}".`,
+      subject: `Neue Buchung in "${space.name}"`,
       text,
     });
   } catch (error) {

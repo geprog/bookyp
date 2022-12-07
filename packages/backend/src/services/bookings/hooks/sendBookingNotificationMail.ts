@@ -2,9 +2,9 @@ import { Application, Model } from '@bookyp/core';
 import { AdapterService } from '@feathersjs/adapter-commons';
 import { HookContext } from '@feathersjs/feathers';
 
-import { sendSpaceBookingAdminMail } from '~/mail';
+import { sendBookingNotificationToAdminMail as _sendBookingNotificationToAdminMail } from '~/mail';
 
-async function sendBookingEmails(
+async function sendBookingNotificationToAdminMail(
   bookings: Model.Booking[],
   context: HookContext<Application, AdapterService<Model.Booking>>,
 ) {
@@ -21,17 +21,17 @@ async function sendBookingEmails(
 
     const { user } = context.params as { user: Model.User };
 
-    const admin = space.email;
-    if (admin === undefined) {
+    const email = space.email;
+    if (email === undefined) {
       return;
     }
 
-    await sendSpaceBookingAdminMail(space, admin, user, currentBookable, booking);
+    await _sendBookingNotificationToAdminMail(space, email, user, currentBookable, booking);
   }
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
-export default async function sendBookingAdminMail(
+export async function sendBookingNotificationMail(
   context: HookContext<Application, AdapterService<Model.Booking>>,
 ): Promise<HookContext<Application, AdapterService<Model.Booking>>> {
   const bookingsData = context.result;
@@ -41,8 +41,8 @@ export default async function sendBookingAdminMail(
   }
   const bookings = Array.isArray(bookingsData) ? bookingsData : [bookingsData as Model.Booking];
 
-  // don't await to send emails in parallel to booking
-  void sendBookingEmails(bookings, context);
+  // don't await to send emails in background
+  void sendBookingNotificationToAdminMail(bookings, context);
 
   return context;
 }
