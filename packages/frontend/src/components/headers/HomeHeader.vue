@@ -33,6 +33,13 @@
       :aria-label="t('settings')"
       @click="$router.push({ name: 'settings-space-map' })"
     />
+    <IconButton
+      v-show="!isAdmin"
+      icon="info"
+      :aria-label="t('space_information')"
+      data-test="button-space-information"
+      @click="$router.push({ name: 'space-info' })"
+    />
   </Header>
 </template>
 
