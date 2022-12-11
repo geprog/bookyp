@@ -135,6 +135,16 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
+      {
+        path: 'bookings',
+        name: 'space-bookings',
+        redirect: { name: 'space-bookings-calendar' },
+      },
+      {
+        path: 'bookings/calendar',
+        name: 'space-bookings-calendar',
+        component: () => import('~/views/space/bookings/SpaceBookingsCalendar.vue'),
+      },
     ],
   },
   {
