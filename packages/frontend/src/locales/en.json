@@ -36,7 +36,8 @@
   "booking_overlaps": "Someone already booked {bookable} in your desired time",
   "booking_invalid_end_date": "End date must be after start date",
   "name": "Name",
-  "email_address": "E-mail address",
+  "email": "E-Mail",
+  "email_address": "E-Mail address",
   "email_space": "E-Mail (used for booking notifications)",
   "no_bookable": "No bookable found",
   "not_found_message": "Whoa 404, either we broke something or you had a typing mishap :-/",
@@ -56,8 +57,8 @@
     "pending_invitations": "Pending invitations",
     "send": "Send invitation",
     "edit": "Edit invitation",
-    "already_in_space": "E-mail address is already member of this space",
-    "already_invited": "E-mail address is already invited to this space"
+    "already_in_space": "E-Mail address is already member of this space",
+    "already_invited": "E-Mail address is already invited to this space"
   },
   "edit_member": "Edit member",
   "next": "Next {count}h",
