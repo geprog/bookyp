@@ -12,6 +12,7 @@ import emailToLowerCase from './hooks/emailToLowerCase';
 const UserSchema = new Schema<Model.User>({
   name: { type: String },
   email: { type: String, required: true, unique: true },
+  starredSpaces: { type: [String], required: true },
 });
 
 export const name = 'users';
@@ -42,6 +43,7 @@ export default (app: Application): void => {
         authorize({ adapter: 'feathers-mongoose' }),
       ],
       create: [emailToLowerCase],
+      update: [emailToLowerCase],
     },
   });
 };

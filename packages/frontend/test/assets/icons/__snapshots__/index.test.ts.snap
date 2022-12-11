@@ -41,6 +41,8 @@ exports[`Icons > should contain all needed icons 1`] = `
   "minus",
   "wall",
   "info",
+  "star",
+  "star-filled",
   "arrow-upload",
   "svg",
   "more-dots-horizontal",
