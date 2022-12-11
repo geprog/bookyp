@@ -6,7 +6,7 @@
     <IconButton type="submit" form="space" icon="save" />
   </Header>
   <AppContent>
-    <SpaceForm v-if="space" v-model:space="space" @save="saveSpace" @delete="deleteDialogVisible = true" />
+    <SpaceForm v-if="spaceToSave" v-model:space="spaceToSave" @save="saveSpace" @delete="deleteDialogVisible = true" />
     <Dialog
       data-test="delete-dialog"
       :description="t('delete_dialog_description', { objectLabel: t('space') })"
@@ -19,7 +19,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { Model } from '@bookyp/core';
+import { cloneDeep } from 'lodash';
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -37,12 +39,21 @@ const feathers = useFeathers();
 
 const { currentSpace: space } = useCurrentSpace();
 
+const spaceToSave = ref<Model.Space>();
+watch(
+  space,
+  (_space) => {
+    spaceToSave.value = cloneDeep(_space);
+  },
+  { immediate: true },
+);
+
 const saveSpace = async () => {
-  if (space.value === undefined) {
+  if (spaceToSave.value === undefined) {
     throw new Error('No space available');
   }
 
-  await feathers.service('spaces').update(space.value?._id, space.value);
+  await feathers.service('spaces').update(spaceToSave.value?._id, spaceToSave.value);
   router.back();
 };
 
@@ -53,11 +64,11 @@ const deleteSpace = async (confirmation: boolean) => {
     return;
   }
 
-  if (space.value === undefined) {
+  if (spaceToSave.value === undefined) {
     throw new Error('No space available');
   }
 
-  await feathers.service('spaces').remove(space.value._id);
+  await feathers.service('spaces').remove(spaceToSave.value._id);
   savedSpaceId.value = null;
   await router.push({ name: 'home' });
 };
