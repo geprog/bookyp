@@ -35,12 +35,14 @@
         @click="spaceMember!.role = 'admin'"
       />
     </form>
+
+    <SpaceMemberBookings :space-member-id="spaceMemberId" class="mx-4 mt-8" />
   </AppContent>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { Model } from '@bookyp/core';
-import { computed, defineComponent, ref, toRef, watch } from 'vue';
+import { computed, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -49,79 +51,67 @@ import Header from '~/components/headers/Header.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
+import SpaceMemberBookings from '~/components/space/SpaceMemberBookings.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 
-export default defineComponent({
-  name: 'SpaceMember',
+const props = defineProps<{
+  spaceMemberId: string;
+}>();
 
-  components: { Header, IconButton, LabelField, SelectableListItem, AppContent },
+const { t } = useI18n();
+const router = useRouter();
+const feathers = useFeathers();
+const { spaceId, currentSpace } = useCurrentSpace();
+const spaceMemberId = toRef(props, 'spaceMemberId');
 
-  props: {
-    spaceMemberId: {
-      type: String,
-      required: true,
-    },
-  },
+const spaceMemberIndex = computed(() =>
+  (currentSpace.value?.members || []).findIndex((member) => member.userId === spaceMemberId.value),
+);
 
-  setup(props) {
-    const { t } = useI18n();
-    const router = useRouter();
-    const feathers = useFeathers();
-    const { spaceId, currentSpace } = useCurrentSpace();
-    const spaceMemberId = toRef(props, 'spaceMemberId');
-
-    const spaceMemberIndex = computed(() =>
-      (currentSpace.value?.members || []).findIndex((member) => member.userId === spaceMemberId.value),
-    );
-
-    const spaceMember = ref<Model.Member>();
-    watch(
-      currentSpace,
-      () => {
-        if (spaceMemberIndex.value !== undefined) {
-          spaceMember.value = currentSpace.value?.members[spaceMemberIndex.value];
-        }
-      },
-      { immediate: true },
-    );
-
-    const saveSpaceMember = async () => {
-      if (currentSpace.value === undefined) {
-        throw new Error('Unexpected: A space must be loaded');
-      }
-      if (spaceMemberIndex.value === undefined || spaceMember.value === undefined) {
-        throw new Error('Unexpected: A space member must be loaded');
-      }
-      const members = currentSpace.value.members;
-      const updatedMembers = [
-        ...members.slice(0, spaceMemberIndex.value),
-        spaceMember.value,
-        ...members.slice(spaceMemberIndex.value + 1),
-      ];
-      await feathers.service('spaces').update(currentSpace.value._id, {
-        ...currentSpace.value,
-        members: updatedMembers,
-      });
-      await router.replace({ name: 'settings-space-members', params: { spaceId: spaceId.value } });
-    };
-
-    async function removeSpaceMember(): Promise<void> {
-      if (currentSpace.value === undefined) {
-        throw new Error('Unexpected: A space must be loaded');
-      }
-      if (spaceMemberIndex.value === undefined) {
-        throw new Error('Unexpected: A space member must be loaded');
-      }
-      const members = currentSpace.value.members;
-      await feathers.service('spaces').update(currentSpace.value._id, {
-        ...currentSpace.value,
-        members: [...members.slice(0, spaceMemberIndex.value), ...members.slice(spaceMemberIndex.value + 1)],
-      });
-      await router.replace({ name: 'settings-space-members', params: { spaceId: spaceId.value } });
+const spaceMember = ref<Model.Member>();
+watch(
+  currentSpace,
+  () => {
+    if (spaceMemberIndex.value !== undefined) {
+      spaceMember.value = currentSpace.value?.members[spaceMemberIndex.value];
     }
-
-    return { saveSpaceMember, removeSpaceMember, t, spaceMember };
   },
-});
+  { immediate: true },
+);
+
+const saveSpaceMember = async () => {
+  if (currentSpace.value === undefined) {
+    throw new Error('Unexpected: A space must be loaded');
+  }
+  if (spaceMemberIndex.value === undefined || spaceMember.value === undefined) {
+    throw new Error('Unexpected: A space member must be loaded');
+  }
+  const members = currentSpace.value.members;
+  const updatedMembers = [
+    ...members.slice(0, spaceMemberIndex.value),
+    spaceMember.value,
+    ...members.slice(spaceMemberIndex.value + 1),
+  ];
+  await feathers.service('spaces').update(currentSpace.value._id, {
+    ...currentSpace.value,
+    members: updatedMembers,
+  });
+  await router.replace({ name: 'settings-space-members', params: { spaceId: spaceId.value } });
+};
+
+async function removeSpaceMember(): Promise<void> {
+  if (currentSpace.value === undefined) {
+    throw new Error('Unexpected: A space must be loaded');
+  }
+  if (spaceMemberIndex.value === undefined) {
+    throw new Error('Unexpected: A space member must be loaded');
+  }
+  const members = currentSpace.value.members;
+  await feathers.service('spaces').update(currentSpace.value._id, {
+    ...currentSpace.value,
+    members: [...members.slice(0, spaceMemberIndex.value), ...members.slice(spaceMemberIndex.value + 1)],
+  });
+  await router.replace({ name: 'settings-space-members', params: { spaceId: spaceId.value } });
+}
 </script>

@@ -47,6 +47,7 @@
     "adding_wall_instruction": "Click and drag on the map to add a wall"
   },
   "start": "Start",
+  "hours": "Hours",
   "today": "Today",
   "tomorrow": "Tomorrow",
   "try_again": "Try again",

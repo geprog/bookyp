@@ -1,6 +1,8 @@
 import 'windi.css';
 import '~/assets/styles.css';
 
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import { createApp } from 'vue';
 
 import App from '~/App.vue';
@@ -10,6 +12,7 @@ import router from '~/router';
 
 initFeathers();
 connectFeathers();
+dayjs.extend(duration);
 
 const app = createApp(App);
 
