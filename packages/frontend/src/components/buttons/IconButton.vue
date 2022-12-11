@@ -6,7 +6,6 @@
       items-center
       justify-center
       p-1
-      bg-white
       rounded-full
       focus:outline-transparent
       hover:text-primary-dark

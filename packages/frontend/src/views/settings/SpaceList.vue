@@ -53,8 +53,17 @@
       enable-click-on-selected
       class="m-3"
       data-test="space-item"
-      @click="changeSpace(space._id)"
-    />
+      @update:selected="changeSpace(space._id)"
+    >
+      <template v-if="space.starred !== undefined" #end>
+        <IconButton
+          :icon="space.starred ? 'star-filled' : 'star'"
+          :icon-color="space.starred ? 'text-primary-normal' : ''"
+          class="flex-shrink-0"
+          @click.stop="updateStarForSpace(space._id, !space.starred)"
+        />
+      </template>
+    </SelectableListItem>
   </AppContent>
 </template>
 
@@ -85,7 +94,24 @@ const { data: spaces } = useFind(
   computed(() => ({ paginate: false })),
 );
 
-const sortedSpaces = computed(() => [...spaces.value].sort((a, b) => a.name.localeCompare(b.name)));
+// sort spaces by name and starred
+const sortedSpaces = computed(() => {
+  const starredSpaces = user.value?.starredSpaces || [];
+  return [...spaces.value]
+    .map((space) => ({
+      ...space,
+      starred: user.value ? starredSpaces.includes(space._id) : undefined,
+    }))
+    .sort((a, b) => {
+      if (a.starred && !b.starred) {
+        return -1;
+      }
+      if (!a.starred && b.starred) {
+        return 1;
+      }
+      return a.name.localeCompare(b.name);
+    });
+});
 
 const { data: invitations } = useFind(
   'invitations',
@@ -105,6 +131,19 @@ function acceptInvitation(invitationId: string) {
 
 function rejectInvitation(invitationId: string) {
   void feathers.service('invitations').remove(invitationId);
+}
+
+async function updateStarForSpace(_spaceId: string, starred: boolean) {
+  if (user.value === undefined) {
+    throw new Error('User is not logged in');
+  }
+  const userToUpdate = user.value;
+  if (starred) {
+    userToUpdate.starredSpaces = [...(userToUpdate.starredSpaces || []), _spaceId];
+  } else {
+    userToUpdate.starredSpaces = (userToUpdate.starredSpaces || []).filter((spaceId) => spaceId !== _spaceId);
+  }
+  await feathers.service('users').patch(userToUpdate._id, userToUpdate);
 }
 
 const { allUnstableFeaturesEnabled } = useFeatureFlags();

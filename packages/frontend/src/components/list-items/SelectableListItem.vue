@@ -4,9 +4,14 @@
     :description="description"
     :icon="icon"
     :icon-color="selected ? 'text-primary-normal' : ''"
+    data-test="selectable-list-item"
     :class="{ 'cursor-pointer': !selected || enableClickOnSelected, 'bg-primary-light': selected }"
     @click="$emit('update:selected', !selected)"
-  />
+  >
+    <template #end>
+      <slot name="end" />
+    </template>
+  </IconListItem>
 </template>
 
 <script lang="ts">

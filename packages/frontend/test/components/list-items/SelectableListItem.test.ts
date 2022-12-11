@@ -28,14 +28,17 @@ describe('SelectableListItem component', () => {
 
     // given
     const selected = false;
+    const starred = false;
     const wrapper = mount(SelectableListItem, {
       props: {
         selected,
+        starred,
       },
     });
 
     // when
-    await wrapper.trigger('click');
+    const selectedButton = wrapper.find('[data-test=selectable-list-item]');
+    await selectedButton.trigger('click');
 
     // then
     const emittedValues = wrapper.emitted()['update:selected'];

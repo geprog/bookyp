@@ -42,6 +42,7 @@ const defineRulesFor = async (
 
     // access your own user
     can('get', 'users', { _id: user._id });
+    can('update', 'users', ['starredSpaces'], { _id: user._id });
 
     // as a user you can create spaces
     can('create', 'spaces');
