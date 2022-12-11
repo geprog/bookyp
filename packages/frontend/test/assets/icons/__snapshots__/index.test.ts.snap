@@ -45,6 +45,8 @@ exports[`Icons > should contain all needed icons 1`] = `
   "star-filled",
   "arrow-upload",
   "svg",
+  "diagram",
+  "calendar",
   "more-dots-horizontal",
 ]
 `;

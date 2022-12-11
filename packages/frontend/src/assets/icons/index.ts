@@ -5,12 +5,14 @@ import ArrowClockwiseIcon from '~/assets/icons/arrow-clockwise.svg';
 import ArrowLeftIcon from '~/assets/icons/arrow-left.svg';
 import ArrowUploadIcon from '~/assets/icons/arrow-upload.svg';
 import BookypIcon from '~/assets/icons/bookyp.svg';
+import CalendarIcon from '~/assets/icons/calendar.svg';
 import CheckMarkIcon from '~/assets/icons/check-mark.svg';
 import ChevronDownIcon from '~/assets/icons/chevron-down.svg';
 import ChevronLeftIcon from '~/assets/icons/chevron-left.svg';
 import ChevronRightIcon from '~/assets/icons/chevron-right.svg';
 import ClockIcon from '~/assets/icons/clock.svg';
 import DeleteIcon from '~/assets/icons/delete.svg';
+import DiagramIcon from '~/assets/icons/diagram.svg';
 import DismissIcon from '~/assets/icons/dismiss.svg';
 import DocumentOnePageIcon from '~/assets/icons/document-one-page.svg';
 import EditIcon from '~/assets/icons/edit.svg';
@@ -87,6 +89,8 @@ const icons = {
   'star-filled': FilledStarIcon,
   'arrow-upload': ArrowUploadIcon,
   svg: SvgIcon,
+  diagram: DiagramIcon,
+  calendar: CalendarIcon,
   'more-dots-horizontal': MoreDotsHorizontalIcon,
 };
 

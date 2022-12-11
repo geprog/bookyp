@@ -15,11 +15,12 @@
       cursor-pointer
       focus:outline-transparent
       disabled:cursor-not-allowed
+      border-2
     "
     :class="{
-      'border-2 border-primary-normal hover:border-primary-dark disabled:border-gray-background text-primary-normal hover:text-primary-dark disabled:text-gray-background':
+      'border-primary-normal hover:border-primary-dark disabled:border-gray-background text-primary-normal hover:text-primary-dark disabled:text-gray-background':
         outlined,
-      'bg-primary-normal hover:bg-primary-dark disabled:bg-gray-background': !outlined,
+      'border-transparent bg-primary-normal hover:bg-primary-dark disabled:bg-gray-background': !outlined,
     }"
     :disabled="disabled"
   >

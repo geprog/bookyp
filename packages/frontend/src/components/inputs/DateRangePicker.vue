@@ -227,13 +227,3 @@ const calendarOptions = computed<CalendarOptions>(() => ({
   border-right: none;
 }
 </style>
-
-<!-- eslint-disable-next-line vue-scoped-css/enforce-style-type vue-scoped-css/require-scoped -->
-<style>
-:root {
-  --fc-today-bg-color: rgba(156, 163, 176, 0.15);
-  --fc-now-indicator-color: #f59e0b;
-  --fc-small-font-size: 0.8rem;
-  --fc-highlight-color: rgba(5, 150, 105, 0.4);
-}
-</style>

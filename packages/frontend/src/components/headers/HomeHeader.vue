@@ -27,14 +27,20 @@
     <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
     <IconButton data-test="spaces-button" icon="location" @click="$router.push({ name: 'spaces-list' })" />
     <IconButton
-      v-show="isAdmin"
+      v-if="isAdmin"
+      icon="diagram"
+      :aria-label="t('bookings')"
+      @click="$router.push({ name: 'space-bookings' })"
+    />
+    <IconButton
+      v-if="isAdmin"
       data-test="button-settings"
       icon="settings"
       :aria-label="t('settings')"
       @click="$router.push({ name: 'settings-space-map' })"
     />
     <IconButton
-      v-show="!isAdmin"
+      v-if="!isAdmin"
       icon="info"
       :aria-label="t('space_information')"
       data-test="button-space-information"
