@@ -15,13 +15,16 @@
         <TextField v-model="space.email" readonly :placeholder="t('email_space')" />
       </LabelField>
     </div>
+
     <Button
       icon="edit"
       :aria-label="t('edit_space_information')"
       :text="t('edit_space_information').toLocaleUpperCase()"
-      class="w-full"
+      class="mt-4 w-full"
       @click="$router.push({ name: 'settings-space-edit' })"
     />
+
+    <SpacePlan v-if="space" :space="space" class="mt-8" />
   </AppContent>
 </template>
 
@@ -32,6 +35,7 @@ import Button from '~/components/buttons/Button.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import SpacePlan from '~/components/space/settings/SpacePlan.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 

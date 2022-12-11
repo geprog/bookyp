@@ -77,7 +77,7 @@ const defineRulesFor = async (
       plan: 'public',
     });
     can(['read', 'delete'], 'spaces', { members: { $elemMatch: { role: 'admin', userId: user._id } } });
-    can('update', 'spaces', ['floorPlan', 'members', 'name', 'description', 'address', 'email', 'deleted'], {
+    can('update', 'spaces', ['floorPlan', 'members', 'name', 'description', 'address', 'email', 'deleted', 'plan'], {
       members: { $elemMatch: { role: 'admin', userId: user._id } },
     });
     can(['read', 'create', 'update', 'remove'], 'mapObjects', { space: { $in: spaceIdsAdmin } });
