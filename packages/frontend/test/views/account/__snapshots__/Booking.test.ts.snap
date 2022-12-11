@@ -9,6 +9,7 @@ exports[`Booking view > should render correctly 1`] = `
     <h2 class=\\"text-md\\">Couch</h2>
     <p class=\\"italic text-sm text-gray-500\\"></p>
     <div class=\\"grid grid-cols-[auto,1fr] grid-rows-2 text-gray-500 text-sm gap-1\\"><span>start:</span><span>Wed, 08. Aug. 2018 - 07:43</span><span>end:</span><span>Wed, 08. Aug. 2018 - 08:13</span></div>
+    <div class=\\"mt-2 grid grid-cols-[auto,1fr] grid-rows-2 text-sm gap-1\\"><span>name:</span><span>Alice Wonderland</span><span>email:</span><a class=\\"text-blue-600 underline-current underline\\" href=\\"mailto:alice@wonderland.xyz\\">alice@wonderland.xyz</a></div>
   </div>
   <div class=\\"flex flex-col p-4 rounded-lg shadow-full bg-white m-4 gap-y-1\\">
     <space-map-stub disablepanning=\\"false\\">

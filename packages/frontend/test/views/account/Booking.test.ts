@@ -28,6 +28,7 @@ describe('Booking view', () => {
     // given
     prepareUseGetMockOnce(sampleBooking);
     prepareUseGetMockOnce(sampleSpace);
+    prepareUseGetMockOnce(sampleUser);
     prepareUseGetMockOnce(sampleBookable);
     prepareUseRouterMockOnce();
 
@@ -48,6 +49,7 @@ describe('Booking view', () => {
     // given
     prepareUseGetMockOnce(sampleBooking);
     prepareUseGetMockOnce(sampleSpace);
+    prepareUseGetMockOnce(sampleUser);
     prepareUseGetMockOnce(sampleBookable);
     prepareUseRouterMockOnce();
     user.value = sampleUser;

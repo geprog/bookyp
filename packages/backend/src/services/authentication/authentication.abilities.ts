@@ -89,6 +89,7 @@ const defineRulesFor = async (
     });
     can(['create', 'update'], 'bookings', { bookedBy: user._id, space: { $in: spaceIdsAdmin } });
     can(['read', 'create', 'remove', 'update'], 'invitations', { spaceId: { $in: spaceIdsAdmin } });
+
     const bookingsAdmin = (await app.service('bookings').find({
       query: { space: { $in: spaceIdsAdmin } },
     })) as Model.Booking[];

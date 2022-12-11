@@ -17,6 +17,15 @@
         <span> {{ t('start') }}:</span><span>{{ dayjs(booking.start).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
         <span>{{ t('end') }}:</span><span>{{ dayjs(booking?.end).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
       </div>
+      <div v-if="bookedByUser" class="mt-2 grid grid-cols-[auto,1fr] grid-rows-2 text-sm gap-1">
+        <template v-if="bookedByUser.name">
+          <span>{{ t('name') }}:</span><span>{{ bookedByUser.name }}</span>
+        </template>
+        <span>{{ t('email') }}:</span>
+        <a class="text-blue-600 underline-current underline" :href="`mailto:${bookedByUser.email}`">
+          {{ bookedByUser.email }}
+        </a>
+      </div>
     </div>
     <div class="flex flex-col p-4 rounded-lg shadow-full bg-white m-4 gap-y-1">
       <SpaceMap v-if="space">
@@ -65,6 +74,11 @@ const { data: booking } = useGet('bookings', bookingId);
 const { data: space } = useGet(
   'spaces',
   computed(() => booking.value?.space),
+);
+
+const { data: bookedByUser } = useGet(
+  'users',
+  computed(() => booking.value?.bookedBy),
 );
 
 const bookableId = computed(() => booking.value?.bookable);
