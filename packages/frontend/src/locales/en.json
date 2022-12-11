@@ -79,7 +79,8 @@
     "upgrade": "Upgrade plan",
     "max_members_reached": "Please upgrade your plan to add more than 10 members.",
     "public_plan_description": "You are currently using the public-plan.",
-    "change": "Change plan"
+    "make_space_public": "Make space public",
+    "make_space_free": "Make space private"
   },
   "app": {
     "new_version": "An update of the app is available.",

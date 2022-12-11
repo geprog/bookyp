@@ -7,6 +7,18 @@
   </Header>
   <AppContent>
     <SpaceForm v-if="spaceToSave" v-model:space="spaceToSave" @save="saveSpace" @delete="deleteDialogVisible = true" />
+
+    <div class="flex flex-col gap-y-6 mt-6 sm:max-w-xl <sm:max-w-xs mx-auto">
+      <Button
+        :aria-label="t('delete_space')"
+        icon="delete"
+        :text="t('delete_space').toLocaleUpperCase()"
+        class="w-full"
+        outlined
+        @click="deleteSpace"
+      />
+    </div>
+
     <Dialog
       data-test="delete-dialog"
       :description="t('delete_dialog_description', { objectLabel: t('space') })"
@@ -25,6 +37,7 @@ import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
+import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Dialog from '~/components/Dialog.vue';
 import Header from '~/components/headers/Header.vue';

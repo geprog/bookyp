@@ -8,7 +8,7 @@ export type Member = {
   email?: User['email'];
 };
 
-export type Plan = 'sponsored' | 'public';
+export type SpacePlan = 'sponsored' | 'public' | 'free';
 
 export class Space extends AbstractEntity {
   floorPlan!: string[];
@@ -17,7 +17,7 @@ export class Space extends AbstractEntity {
   description?: string;
   address?: string;
   email?: string;
-  plan?: Plan;
+  plan?: SpacePlan;
 
   constructor(data: Partial<Space> = {}) {
     super();
