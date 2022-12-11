@@ -7,18 +7,20 @@
           flex flex-col
           p-2
           w-12
-          hover:bg-gray-inactive
-          bg-gray-background
           disabled:hover:bg-gray-background disabled:cursor-default disabled:text-gray-inactive
           items-center
           justify-center
           rounded-l-full
           hover:shadow-lg
         "
+        :class="{
+          'bg-primary-normal hover:bg-primary-dark text-white': primaryLeft,
+          'hover:bg-gray-inactive bg-gray-background': !primaryLeft,
+        }"
         :disabled="disabledLeft"
         @click.stop="$emit('left')"
       >
-        <Icon :name="iconLeft" data-test="icon-start" />
+        <slot name="left"><Icon :name="iconLeft" data-test="icon-start" /></slot>
       </button>
       <button
         type="button"
@@ -37,46 +39,26 @@
         :disabled="disabledRight"
         @click.stop="$emit('right')"
       >
-        <Icon :name="iconRight" />
+        <slot name="right"><Icon :name="iconRight" /></slot>
       </button>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
-
+<script lang="ts" setup>
 import icons from '~/assets/icons';
 import Icon from '~/components/Icon.vue';
 
-export default defineComponent({
-  name: 'ButtonPair',
+defineProps<{
+  iconLeft: keyof typeof icons;
+  iconRight: keyof typeof icons;
+  disabledLeft?: boolean;
+  disabledRight?: boolean;
+  primaryLeft?: boolean;
+}>();
 
-  components: { Icon },
-
-  props: {
-    iconLeft: {
-      type: String as PropType<keyof typeof icons>,
-      required: true,
-    },
-
-    iconRight: {
-      type: String as PropType<keyof typeof icons>,
-      required: true,
-    },
-
-    disabledLeft: {
-      type: Boolean,
-    },
-
-    disabledRight: {
-      type: Boolean,
-    },
-  },
-
-  emits: {
-    left: () => true,
-    right: () => true,
-  },
-});
+defineEmits<{
+  (event: 'left'): void;
+  (event: 'right'): void;
+}>();
 </script>

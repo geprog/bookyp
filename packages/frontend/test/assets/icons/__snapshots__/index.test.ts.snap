@@ -43,5 +43,6 @@ exports[`Icons > should contain all needed icons 1`] = `
   "info",
   "arrow-upload",
   "svg",
+  "more-dots-horizontal",
 ]
 `;

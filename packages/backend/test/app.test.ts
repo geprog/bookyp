@@ -8,9 +8,7 @@ import { prepareAppMock } from './__helpers__/mocks';
 vi.mock('@feathersjs/socketio');
 vi.mock('@bookyp/core', () => ({
   createApplication: vi.fn().mockImplementation(() => prepareAppMock()),
-  Model: {
-    MapObjectTypes: {},
-  },
+  Model: {},
 }));
 
 describe('App', () => {

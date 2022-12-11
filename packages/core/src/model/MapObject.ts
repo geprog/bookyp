@@ -1,7 +1,6 @@
 import { AbstractEntity, Ref } from '~/model/AbstractEntity';
 import { Bookable } from '~/model/Bookable';
 import { Space } from '~/model/Space';
-import { MapObjectTypes } from '~/model/TemplateGenerator';
 
 export class MapObject extends AbstractEntity {
   /**
@@ -26,7 +25,7 @@ export class MapObject extends AbstractEntity {
   /**
    * describes the type of the mapObject to be able to handle them differently
    */
-  type!: MapObjectTypes;
+  type!: string;
   /**
    * reference to a bookable for which this mapObject is a representation
    */

@@ -128,6 +128,11 @@ const routes: RouteRecordRaw[] = [
             name: 'settings-map-object-link-create-bookable',
             component: () => import('~/views/settings/BookableCreate.vue'),
           },
+          {
+            path: 'select-map-object',
+            name: 'settings-map-select-map-object-type',
+            component: () => import('~/views/settings/SelectMapObjectType.vue'),
+          },
         ],
       },
     ],
