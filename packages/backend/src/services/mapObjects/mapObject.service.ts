@@ -9,7 +9,7 @@ const MapObjectSchema = new Schema<Model.MapObject>({
   yPos: { type: Number, required: true },
   rotation: { type: Number, required: true },
   paths: { type: [String], required: true },
-  type: { type: String, enum: Object.values(Model.MapObjectTypes), required: true },
+  type: { type: String, required: true },
   bookable: String,
   space: { type: String, required: true },
 });

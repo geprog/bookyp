@@ -140,7 +140,7 @@ const createSampleSpace = async (): Promise<void> => {
       yPos: 0,
       rotation: 180,
       paths: ['M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z', 'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z'],
-      type: Model.MapObjectTypes.table,
+      type: 'table',
       space: space._id,
       bookable: bookable._id,
     }),

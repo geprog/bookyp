@@ -14,7 +14,7 @@ export const sampleMapObject = new Model.MapObject({
     'M38.0279 6.96729H29.5242V40.4296H38.0279V6.96729Z',
     'M38.0279 40.4296H29.5242V74.423H38.0279V40.4296Z',
   ],
-  type: Model.MapObjectTypes.table,
+  type: 'table',
   space: sampleSpace._id,
 });
 
@@ -24,7 +24,7 @@ export const sampleMapObjectSecond = new Model.MapObject({
   yPos: 90,
   rotation: 0,
   paths: ['M56.9259 1.12463H17.0648V83.4525H56.9259V1.12463Z', 'M17.0648 26.6198H1.12036V58.4886H17.0648V26.6198Z'],
-  type: Model.MapObjectTypes.table,
+  type: 'table',
   bookable: sampleBookable._id,
   space: sampleSpace._id,
 });

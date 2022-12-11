@@ -96,5 +96,6 @@
   "edit_space_information": "Edit space information",
   "confirm_unsaved_changes": "You have unsaved changes. Are you sure you want discard them?",
   "discard": "Discard",
-  "sign_in": "Sign In"
+  "sign_in": "Sign In",
+  "select_map_object_type": "Select a map object type"
 }

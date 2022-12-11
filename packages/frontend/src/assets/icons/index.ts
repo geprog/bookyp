@@ -23,6 +23,7 @@ import LinkIcon from '~/assets/icons/link.svg';
 import LocationIcon from '~/assets/icons/location.svg';
 import MapIcon from '~/assets/icons/map.svg';
 import MinusIcon from '~/assets/icons/minus.svg';
+import MoreDotsHorizontalIcon from '~/assets/icons/more-dots-horizontal.svg';
 import PasswordIcon from '~/assets/icons/password.svg';
 import PeopleIcon from '~/assets/icons/people.svg';
 import PersonIcon from '~/assets/icons/person.svg';
@@ -82,6 +83,7 @@ const icons = {
   info: InfoIcon,
   'arrow-upload': ArrowUploadIcon,
   svg: SvgIcon,
+  'more-dots-horizontal': MoreDotsHorizontalIcon,
 };
 
 export default icons;

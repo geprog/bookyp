@@ -1,5 +1,12 @@
 <template>
-  <template v-if="$route.name !== 'settings-space-map' && (isLoadingMapObjects || selectedMapObject)">
+  <template v-if="$route.name === 'settings-map-select-map-object-type'">
+    <router-view
+      :selected-map-object-type="selectedMapObjectType"
+      @update:selected-map-object-type="updateSelectedMapObjectType"
+    />
+  </template>
+
+  <template v-else-if="$route.name !== 'settings-space-map' && (isLoadingMapObjects || selectedMapObject)">
     <router-view v-if="selectedMapObject" v-model:map-object="selectedMapObject" />
   </template>
 
@@ -54,10 +61,22 @@
           </FloatingButton>
         </template>
         <template v-else>
-          <FloatingButton data-test="add-map-object-button" @click="clickOnAddButton">
-            <Icon name="add" color="text-white" />
-            <Icon name="table" color="text-white" />
-          </FloatingButton>
+          <ButtonPair
+            icon-left="table"
+            icon-right="more-dots-horizontal"
+            primary-left
+            data-test="add-map-object-button"
+            @left="addMapObject"
+            @right="$router.push({ name: 'settings-map-select-map-object-type' })"
+          >
+            <template #left>
+              <MapObject
+                :paths="selectedMapObjectType.paths"
+                :viewBox="selectedMapObjectType.viewBox"
+                path-style="stroke-white stroke-2"
+              />
+            </template>
+          </ButtonPair>
           <FloatingButton @click.stop="mode = 'wall'">
             <Icon name="add" color="text-white" />
             <Icon name="wall" color="text-white" />
@@ -92,18 +111,20 @@ import { computed, Ref, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { onBeforeRouteLeave, useRouter } from 'vue-router';
 
+import ButtonPair from '~/components/buttons/ButtonPair.vue';
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import Dialog from '~/components/Dialog.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import Icon from '~/components/Icon.vue';
 import InfoBox from '~/components/InfoBox.vue';
 import FloorPlanEditing from '~/components/space/FloorPlanEditing.vue';
+import MapObject from '~/components/space/MapObject.vue';
 import MapObjectsEditing from '~/components/space/MapObjectsEditing.vue';
 import SaveAbort from '~/components/space/SaveAbort.vue';
 import SpaceMap from '~/components/space/SpaceMap.vue';
 import { savedSpaceId, useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import getMapObjects from '~/compositions/space/useMapObjects';
-import useNewMapObject, { isNewMapObject } from '~/compositions/space/useNewMapObject';
+import useNewMapObject, { isNewMapObject, MapObjectType } from '~/compositions/space/useNewMapObject';
 import useFeathers from '~/compositions/useFeathers';
 
 import { EditingMapObject } from './space/EditingMapObject';
@@ -179,7 +200,11 @@ async function selectFloorPlanObject(floorPlanObjectId: string | null) {
   await selectMapObject(null);
 }
 
-const { addMapObject, resetNewMapObjectId } = useNewMapObject(mapObjectsCopy, selectMapObject);
+const {
+  addMapObject: _addMapObject,
+  resetNewMapObjectId,
+  selectedMapObjectType,
+} = useNewMapObject(mapObjectsCopy, selectMapObject);
 
 async function saveMapObjectCopy() {
   // update all map objects as we do not know which one changed
@@ -303,10 +328,10 @@ function rotateSelectedMapObject() {
   selectedMapObject.value.rotation = (selectedMapObject.value.rotation + 90) % 360;
 }
 
-async function clickOnAddButton() {
+async function addMapObject() {
   await selectMapObject(null);
   changed.value = true;
-  await addMapObject();
+  await _addMapObject();
 }
 
 function removeSelectedFloorPlanObject() {
@@ -332,6 +357,11 @@ async function uploadFloorPlan(target: HTMLInputElement) {
     .filter((d) => d !== null) as string[];
 
   changed.value = true;
+}
+
+async function updateSelectedMapObjectType(_selectedMapObjectType: MapObjectType) {
+  selectedMapObjectType.value = _selectedMapObjectType;
+  await addMapObject();
 }
 
 onBeforeRouteLeave(() => {
