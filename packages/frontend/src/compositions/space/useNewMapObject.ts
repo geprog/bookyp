@@ -9,7 +9,7 @@ export type MapObjectType = {
   paths: string[];
 };
 
-export const mapObjectTypes: MapObjectType[] = [
+const defaultMapObjectTypes = [
   {
     name: 'couch',
     viewBox: '-20 0 80 80', // TODO: calculate viewBox from paths on upload
@@ -30,7 +30,9 @@ export const mapObjectTypes: MapObjectType[] = [
   },
 ];
 
-const selectedMapObjectType = ref<MapObjectType>(mapObjectTypes[1]);
+export const mapObjectTypes = ref<MapObjectType[]>(defaultMapObjectTypes);
+
+const selectedMapObjectType = ref<MapObjectType>(mapObjectTypes.value[1]);
 
 type UseNewMapObject = {
   addMapObject: () => Promise<void>;
