@@ -106,5 +106,8 @@
     "month": "Month",
     "week": "Week",
     "work_week": "Work week"
-  }
+  },
+  "upload_new_map_object_type": "Upload new type",
+  "enter_name_for_new_map_object_type": "Please enter a name for the map-object type.",
+  "could_not_find_view_box": "The uploaded SVG file does not have a viewBox attribute."
 }
