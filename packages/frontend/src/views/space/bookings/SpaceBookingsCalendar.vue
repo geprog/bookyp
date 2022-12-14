@@ -1,13 +1,5 @@
 <template>
-  <Header :title="t('bookings')" has-back>
-    <IconButton
-      icon="calendar"
-      :icon-color="$route.name === 'space-bookings-calendar' ? 'text-primary-normal' : undefined"
-      :aria-label="t('space_information')"
-      data-test="btn-space-bookings-calendar"
-      @click="$router.push({ name: 'space-bookings-calendar' })"
-    />
-  </Header>
+  <SpaceBookingsHeader />
 
   <div class="flex flex-col mx-8 mb-4 flex-grow">
     <div class="flex items-center my-2 gap-2">
@@ -59,8 +51,7 @@ import { useRouter } from 'vue-router';
 
 import Button from '~/components/buttons/Button.vue';
 import ButtonPair from '~/components/buttons/ButtonPair.vue';
-import IconButton from '~/components/buttons/IconButton.vue';
-import Header from '~/components/headers/Header.vue';
+import SpaceBookingsHeader from '~/components/headers/SpaceBookingsHeader.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';

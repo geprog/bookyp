@@ -53,30 +53,11 @@
       :class="{ 'cursor-not-allowed font-bold': member.userId === user?._id }"
       @click="editSpaceMember(member.userId)"
     />
-
-    <h2 class="m-3 font-bold">
-      {{ t('members_with_bookings') }}
-    </h2>
-
-    <ListItem
-      v-for="member in hasBookings"
-      :key="member.userId"
-      :description="t(`roles.${member.role}.name`)"
-      :label="
-        t('member_name_and_email', {
-          name: member.name,
-          email: member.userId === user?._id ? t('its_you') : member.email,
-        })
-      "
-      class="cursor-pointer m-3 relative"
-      :class="{ 'cursor-not-allowed font-bold': member.userId === user?._id }"
-      @click="editSpaceMember(member.userId)"
-    />
   </AppContent>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from 'vue';
+<script lang="ts" setup>
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -88,40 +69,21 @@ import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
 
-export default defineComponent({
-  name: 'SpaceMemberList',
-  components: { ListItem, SettingsHeader, Button, AppContent },
-  setup() {
-    const { t } = useI18n();
-    const router = useRouter();
-    const { currentSpace, spaceId } = useCurrentSpace();
+const { t } = useI18n();
+const router = useRouter();
+const { currentSpace, spaceId } = useCurrentSpace();
 
-    const { data: invitations } = useFind(
-      'invitations',
-      computed(() => (spaceId.value === null ? null : { paginate: false, query: { spaceId: spaceId.value } })),
-    );
-    const { data: bookings } = useFind(
-      'bookings',
-      computed(() => (spaceId.value === null ? null : { paginate: false, query: { space: spaceId.value } })),
-    );
+const { data: invitations } = useFind(
+  'invitations',
+  computed(() => (spaceId.value === null ? null : { paginate: false, query: { spaceId: spaceId.value } })),
+);
 
-    const editSpaceMember = async (spaceMemberId: string) => {
-      if (spaceMemberId === user.value?._id) {
-        return;
-      }
-      await router.push({ name: 'settings-space-member', params: { spaceMemberId } });
-    };
+const editSpaceMember = async (spaceMemberId: string) => {
+  if (spaceMemberId === user.value?._id) {
+    return;
+  }
+  await router.push({ name: 'settings-space-member', params: { spaceMemberId } });
+};
 
-    const spaceMembers = computed(() => currentSpace.value?.members || []);
-
-    const hasBookings = computed(
-      () =>
-        currentSpace.value?.members.filter(
-          (member) => bookings.value.find((booking) => member.userId === booking.bookedBy) !== undefined,
-        ) || [],
-    );
-
-    return { t, spaceMembers, invitations, user, editSpaceMember, currentSpace, hasBookings };
-  },
-});
+const spaceMembers = computed(() => currentSpace.value?.members || []);
 </script>
