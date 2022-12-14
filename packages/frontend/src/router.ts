@@ -145,6 +145,16 @@ const routes: RouteRecordRaw[] = [
         name: 'space-bookings-calendar',
         component: () => import('~/views/space/bookings/SpaceBookingsCalendar.vue'),
       },
+      {
+        path: 'bookings/members',
+        name: 'space-bookings-members',
+        component: () => import('~/views/space/bookings/SpaceMembers.vue'),
+      },
+      {
+        path: 'bookings/member/:spaceMemberId/booking',
+        name: 'space-member-bookings',
+        component: () => import('~/views/space/bookings/SpaceMemberBookings.vue'),
+      },
     ],
   },
   {

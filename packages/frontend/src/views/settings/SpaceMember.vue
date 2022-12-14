@@ -35,8 +35,6 @@
         @click="spaceMember!.role = 'admin'"
       />
     </form>
-
-    <SpaceMemberBookings :space-member-id="spaceMemberId" class="mx-4 mt-8" />
   </AppContent>
 </template>
 
@@ -51,7 +49,6 @@ import Header from '~/components/headers/Header.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
-import SpaceMemberBookings from '~/components/space/SpaceMemberBookings.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 
