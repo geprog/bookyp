@@ -30,6 +30,18 @@ export function init(): void {
     autoConnect: false,
   };
   socket = backendUrl ? io(backendUrl, socketOptions) : io(socketOptions);
+  socket.on('connect', () => {
+    // eslint-disable-next-line no-console
+    console.log('[socket] connected');
+  });
+  socket.on('disconnect', () => {
+    // eslint-disable-next-line no-console
+    console.log('[socket] disconnected');
+  });
+  socket.on('error', (err) => {
+    // eslint-disable-next-line no-console
+    console.error('[socket] error', err);
+  });
 
   app.configure(socketio(socket));
 

@@ -23,6 +23,7 @@ const connect = vi.fn();
 vi.mock('socket.io-client', () => ({
   io: vi.fn().mockImplementation(() => ({
     connect,
+    on: vi.fn(),
   })),
 }));
 
