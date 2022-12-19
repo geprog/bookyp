@@ -174,7 +174,7 @@ const routes: RouteRecordRaw[] = [
     path: '/spaces',
     name: 'spaces-list',
     meta: { accessibleByUserRole: true, authentication: 'ignored' },
-    component: () => import('~/views/settings/SpaceList.vue'),
+    component: () => import('~/views/SpacesList.vue'),
   },
   {
     path: '/spaces/create',

@@ -15,7 +15,7 @@
         @click="$router.push({ name: 'space-create' })"
       />
       <Button
-        v-if="allUnstableFeaturesEnabled"
+        v-if="allUnstableFeaturesEnabled && user"
         class="flex-grow"
         :text="t('create_sample_space')"
         @click="createSampleSpace"
@@ -155,7 +155,7 @@ const createSampleSpace = async (): Promise<void> => {
   const space = await feathers.service('spaces').create(
     new Model.Space({
       name: `Sample Space of ${new Date().toISOString()}`,
-      address: 'test address',
+      address: 'test address\n test address 2\n test address 3',
       description: 'test description',
       members: [{ role: 'admin', userId: user.value?._id }],
       floorPlan: [
@@ -184,5 +184,7 @@ const createSampleSpace = async (): Promise<void> => {
       bookable: bookable._id,
     }),
   );
+
+  await router.push({ name: 'space', params: { spaceId: space._id } });
 };
 </script>
