@@ -46,7 +46,6 @@ vscode:
     - lokalise.i18n-ally
     - Vue.volar
     - streetsidesoftware.code-spell-checker
-    - ms-kubernetes-tools.vscode-kubernetes-tools
     - ms-playwright.playwright
 
 ports:
