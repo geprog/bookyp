@@ -44,26 +44,31 @@
       </h2>
     </template>
 
-    <SelectableListItem
+    <router-link
       v-for="space in sortedSpaces"
       :key="space._id"
-      :selected="savedSpaceId === space._id"
-      :label="space.name"
-      :description="roleInSpace(space)"
-      enable-click-on-selected
-      class="m-3"
+      class="flex flex-col sm:flex-row border-1 border-gray-200 rounded-md overflow-hidden m-3 relative"
       data-test="space-item"
-      @update:selected="changeSpace(space._id)"
+      :to="{ name: 'space', params: { spaceId: space._id } }"
     >
-      <template v-if="space.starred !== undefined" #end>
-        <IconButton
-          :icon="space.starred ? 'star-filled' : 'star'"
-          :icon-color="space.starred ? 'text-primary-normal' : ''"
-          class="flex-shrink-0"
-          @click.stop="updateStarForSpace(space._id, !space.starred)"
-        />
-      </template>
-    </SelectableListItem>
+      <div class="sm:min-w-1/2 sm:w-1/2">
+        <img v-if="space.image" :src="space.image" class="w-full object-cover aspect-video" />
+        <img v-else src="/src/assets/img/bookyp-logo-text.svg?url" class="w-full object-contain aspect-video p-2" />
+      </div>
+      <div class="w-full p-4 flex flex-col">
+        <div class="w-full flex flex-row justify-between">
+          <span>{{ space.name }}</span>
+          <IconButton
+            :icon="space.starred ? 'star-filled' : 'star'"
+            :icon-color="space.starred ? 'text-primary-normal' : ''"
+            class="flex-shrink-0"
+            @click.prevent="updateStarForSpace(space._id, !space.starred)"
+          />
+        </div>
+        <span class="text-gray-500">{{ roleInSpace(space) }}</span>
+        <span class="text-gray-500">{{ space.description }}</span>
+      </div>
+    </router-link>
   </AppContent>
 </template>
 
@@ -78,7 +83,6 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
-import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
 import { logout, user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
@@ -120,10 +124,6 @@ const { data: invitations } = useFind(
 
 const roleInSpace = (space: Model.Space) =>
   space.members?.find((member) => member.userId === user.value?._id)?.role || 'user';
-
-const changeSpace = async (_spaceId: string) => {
-  await router.push({ name: 'space', params: { spaceId: _spaceId } });
-};
 
 function acceptInvitation(invitationId: string) {
   void feathers.service('invitations').remove(invitationId, { query: { accept: true } });

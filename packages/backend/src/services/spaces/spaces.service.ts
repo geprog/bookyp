@@ -6,6 +6,7 @@ import { feathersCaslAllowlist } from '~/casl';
 import softDelete from '~/hooks/softDelete';
 
 import addSpaceMemberFields from './hooks/addSpaceMemberFields';
+import { cleanupUploadedFiles } from './hooks/cleanupUploadedFiles';
 import removePlanFromCreate from './hooks/removePlanFromCreate';
 
 const SpaceSchema = new Schema<Model.Space>({
@@ -21,6 +22,7 @@ const SpaceSchema = new Schema<Model.Space>({
   address: { type: String },
   email: { type: String },
   plan: { type: String },
+  image: { type: String },
   deleted: { type: Boolean },
 });
 
@@ -41,7 +43,7 @@ export default (app: Application): void => {
       create: [removePlanFromCreate],
     },
     after: {
-      all: [addSpaceMemberFields],
+      all: [addSpaceMemberFields, cleanupUploadedFiles],
     },
   });
 };

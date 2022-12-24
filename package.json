@@ -16,7 +16,7 @@
     "start:backend": "dotenv -- pnpm --filter @bookyp/backend start",
     "start:core": "dotenv -- pnpm --filter @bookyp/core start",
     "start:oauth-mock-server": "dotenv -- pnpm --filter @bookyp/oauth-mock-server start",
-    "docker-compose": "docker-compose -f .devcontainer/docker-compose.without-devcontainer.yml -f .devcontainer/docker-compose.database.yml -p bookyp",
+    "docker-compose": "docker-compose -f .devcontainer/docker-compose.without-devcontainer.yml -f .devcontainer/docker-compose.services.yml -p bookyp",
     "docker:up": "pnpm docker-compose up -d",
     "docker:remove-volumes": "pnpm docker-compose down --volumes --remove-orphans",
     "build": "pnpm --filter @bookyp/frontend... --filter @bookyp/backend... build",

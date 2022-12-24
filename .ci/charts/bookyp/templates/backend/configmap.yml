@@ -20,3 +20,8 @@ data:
   BACKEND_MAIL_SECURE: {{ .Values.backend.mail.secure | quote }}
   BACKEND_MAIL_REQUIRE_TLS: {{ .Values.backend.mail.requireTls | quote }}
   BACKEND_FRONTEND_URL: "https://{{ include "bookyp.frontendURL" . }}"
+  BACKEND_S3_ENDPOINT:  {{ .Values.cdn.s3.address | quote }}
+  BACKEND_S3_ACCESS_KEY:  {{ .Values.cdn.s3.accessKey | quote }}
+  BACKEND_S3_SECRET_KEY:  {{ .Values.cdn.s3.secretKey | quote }}
+  BACKEND_S3_BUCKET:  {{ .Values.cdn.s3.bucket | quote }}
+  BACKEND_S3_PUBLIC_FILE_URL_PREFIX: "https://{{ include "bookyp.cdnURL" . }}"

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ include "bookyp.fullname" . }}-cdn"
+  labels:
+    {{- include "bookyp.labels" . | nindent 4 }}
+  annotations:
+    {{- with .Values.cdn.deploymentAnnotations }}
+      {{- toYaml . | nindent 8 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "bookyp.selectorLabelsCdn" . | nindent 6 }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      annotations:
+        {{- with .Values.cdn.podAnnotations }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "bookyp.selectorLabelsCdn" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "bookyp.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.cdn.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.cdn.securityContext | nindent 12 }}
+          image: "{{ .Values.cdn.image.repository }}:{{ .Values.cdn.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.cdn.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: "{{ include "bookyp.fullname" . }}-cdn-config"
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.cdn.resources | nindent 12 }}

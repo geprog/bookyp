@@ -18,6 +18,7 @@ export class Space extends AbstractEntity {
   address?: string;
   email?: string;
   plan?: SpacePlan;
+  image?: string;
 
   constructor(data: Partial<Space> = {}) {
     super();

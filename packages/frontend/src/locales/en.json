@@ -112,5 +112,7 @@
   "enter_name_for_new_map_object_type": "Please enter a name for the map-object type.",
   "could_not_find_view_box": "The uploaded SVG file does not have a viewBox attribute.",
   "member_newest_booking": "Newest booking: {date}",
-  "bookings_of": "Bookings of {name}"
+  "bookings_of": "Bookings of {name}",
+  "click_or_drag_and_drop_to_upload": "Click here or drag and drop to upload",
+  "upload_space_image": "You can upload a space image here!"
 }

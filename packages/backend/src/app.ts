@@ -6,6 +6,7 @@ import { authorizeWithFreshAbility, feathersCasl } from '~/casl';
 import channels from '~/channels';
 import config from '~/config';
 import { extractSoftDeleteFlag } from '~/hooks/softDelete';
+import s3 from '~/s3';
 import services from '~/services';
 import SSOLogoutRoute from '~/services/authentication/sso-logout';
 
@@ -26,6 +27,8 @@ export const configureApplication = () => {
   );
 
   app.configure(feathersCasl);
+
+  app.configure(s3);
 
   // Set up our services (see `services/index.js`)
   app.configure(services);

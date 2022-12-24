@@ -31,6 +31,16 @@ const config = {
     username: process.env.BACKEND_MAIL_USERNAME,
     password: process.env.BACKEND_MAIL_PASSWORD,
   },
+  s3: {
+    endpoint: process.env.BACKEND_S3_ENDPOINT,
+    port: parseInt(process.env.BACKEND_S3_PORT || '443'),
+    useSSL: (process.env.BACKEND_S3_SSL || 'true') === 'true',
+    accessKey: process.env.BACKEND_S3_ACCESS_KEY,
+    secretKey: process.env.BACKEND_S3_SECRET_KEY,
+    bucket: process.env.BACKEND_S3_BUCKET,
+    publicFileUrlPrefix: process.env.BACKEND_S3_PUBLIC_FILE_URL_PREFIX,
+    publicUploadUrlPrefix: process.env.BACKEND_S3_PUBLIC_UPLOAD_URL_PREFIX,
+  },
 };
 
 export type Config = typeof config;

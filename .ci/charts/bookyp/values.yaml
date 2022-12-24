@@ -106,3 +106,39 @@ backend:
     # requests:
     #   cpu: 100m
     #   memory: 128Mi
+
+###############################################################################
+# S3
+cdn:
+  image:
+    repository: registry.geprog.com/docker.io/anbraten/s3www
+    pullPolicy: IfNotPresent
+    tag: v0.6.8
+
+  s3:
+    address: "s3.geprog.com"
+    accessKey: ""
+    secretKey: ""
+    bucket: "bookyp-files"
+
+  podAnnotations: {}
+  deploymentAnnotations: {}
+
+  ingress:
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: 'true'
+    tls:
+      secretName: bookyp-tls
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
