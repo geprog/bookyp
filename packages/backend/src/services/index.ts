@@ -6,6 +6,7 @@ import BookingsService from './bookings/bookings.service';
 import InvitationsService from './invitations/invitations.service';
 import MapObjectService from './mapObjects/mapObject.service';
 import SpacesService from './spaces/spaces.service';
+import uploadFileService from './upload-file/upload-file.service';
 import UsersService from './users/users.service';
 
 export default function (app: Application): void {
@@ -16,4 +17,5 @@ export default function (app: Application): void {
   app.configure(SpacesService);
   app.configure(MapObjectService);
   app.configure(InvitationsService);
+  app.configure(uploadFileService);
 }

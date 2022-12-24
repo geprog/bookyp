@@ -56,11 +56,11 @@
     "typescript-transform-paths": "3.3.1",
     "vite": "3.1.2",
     "vite-plugin-pwa": "0.12.8",
-    "vite-plugin-windicss": "1.8.8",
+    "vite-plugin-windicss": "1.8.10",
     "vite-svg-loader": "3.6.0",
     "vitest": "0.23.4",
     "vue-tsc": "1.0.9",
-    "windicss": "3.5.4",
+    "windicss": "3.5.6",
     "workbox-window": "6.5.3"
   }
 }

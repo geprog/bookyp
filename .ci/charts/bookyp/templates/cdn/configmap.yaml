@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ include "bookyp.fullname" . }}-cdn-config"
+  labels:
+    {{- include "bookyp.labels" . | nindent 4 }}
+data:
+  S3WWW_ADDRESS:  "0.0.0.0:8080"
+  S3WWW_ENDPOINT:  "https://{{ .Values.cdn.s3.address }}"
+  S3WWW_ACCESS_KEY:  {{ .Values.cdn.s3.accessKey | quote }}
+  S3WWW_SECRET_KEY:  {{ .Values.cdn.s3.secretKey | quote }}
+  S3WWW_BUCKET:  {{ .Values.cdn.s3.bucket | quote }}

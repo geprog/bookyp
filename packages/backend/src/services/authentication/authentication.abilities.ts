@@ -19,7 +19,7 @@ const defineRulesFor = async (
   const publicSpaceIds = publicSpaces.map((s) => s._id.toString());
 
   // read access public spaces for everyone (authorized and unauthorized)
-  can('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address', 'plan'], {
+  can('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address', 'plan', 'image'], {
     plan: 'public',
   });
   can('read', 'mapObjects', { space: { $in: publicSpaceIds } });
@@ -56,10 +56,11 @@ const defineRulesFor = async (
 
     // write access to public spaces
     can(['create', 'update'], 'bookings', { bookedBy: user._id, space: { $in: publicSpaceIds } });
+    // can('read', 'upload-files', { space: { $in: publicSpaceIds } });
 
     // access to spaces where you are a member of
     const spaceIdsUser = getSpaceIds('user');
-    can('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address', 'plan'], {
+    can('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address', 'plan', 'image'], {
       members: { $elemMatch: { role: 'user', userId: user._id } },
     });
     can('read', 'mapObjects', { space: { $in: spaceIdsUser } });
@@ -69,18 +70,24 @@ const defineRulesFor = async (
       bookedBy: { $ne: user._id },
       space: { $in: spaceIdsUser },
     });
+    // can('read', 'upload-files', { space: { $in: spaceIdsUser } });
 
     // admin access to spaces you are an admin of
     const spaceIdsAdmin = getSpaceIds('admin');
     // this cannot rule ensures that admins work properly for public spaces
-    cannot('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address', 'plan'], {
+    cannot('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address', 'plan', 'image'], {
       members: { $elemMatch: { role: 'admin', userId: user._id } },
       plan: 'public',
     });
     can(['read', 'delete'], 'spaces', { members: { $elemMatch: { role: 'admin', userId: user._id } } });
-    can('update', 'spaces', ['floorPlan', 'members', 'name', 'description', 'address', 'email', 'deleted', 'plan'], {
-      members: { $elemMatch: { role: 'admin', userId: user._id } },
-    });
+    can(
+      'update',
+      'spaces',
+      ['floorPlan', 'members', 'name', 'description', 'address', 'email', 'deleted', 'plan', 'image'],
+      {
+        members: { $elemMatch: { role: 'admin', userId: user._id } },
+      },
+    );
     can(['read', 'create', 'update', 'remove'], 'mapObjects', { space: { $in: spaceIdsAdmin } });
     can(['read', 'create', 'update', 'remove'], 'bookables', { space: { $in: spaceIdsAdmin } });
     can('read', 'bookings', ['_id', 'start', 'end', 'bookable', 'space', 'bookedBy'], {
@@ -89,6 +96,7 @@ const defineRulesFor = async (
     });
     can(['create', 'update'], 'bookings', { bookedBy: user._id, space: { $in: spaceIdsAdmin } });
     can(['read', 'create', 'remove', 'update'], 'invitations', { spaceId: { $in: spaceIdsAdmin } });
+    can(['read', 'create'], 'upload-files', { spaceId: { $in: spaceIdsAdmin } });
 
     const bookingsAdmin = (await app.service('bookings').find({
       query: { space: { $in: spaceIdsAdmin } },

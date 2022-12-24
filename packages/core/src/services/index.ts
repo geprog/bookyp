@@ -1,7 +1,7 @@
 import { AdapterService } from '@feathersjs/adapter-commons';
 import { AuthenticationService } from '@feathersjs/authentication';
 
-import { Bookable, Booking, Invitation, MapObject, Space, User } from '~/model';
+import { Bookable, Booking, FileUpload, Invitation, MapObject, Space, User } from '~/model';
 
 export type ServiceModels = {
   users: User;
@@ -20,4 +20,5 @@ export type ServiceTypes = {
   spaces: AdapterService<Space>;
   mapObjects: AdapterService<MapObject>;
   invitations: AdapterService<Invitation>;
+  'upload-files': AdapterService<FileUpload>;
 };

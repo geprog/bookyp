@@ -16,6 +16,8 @@ tasks:
       sed -i "s,FRONTEND_BACKEND_URL=.*,FRONTEND_BACKEND_URL=https://4000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}," .env
       sed -i "s,BACKEND_KEYCLOAK_SUBDOMAIN=.*,BACKEND_KEYCLOAK_SUBDOMAIN=5000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}/auth/realms/bookyp," .env
       sed -i "s,BACKEND_HOST=.*,BACKEND_HOST=4000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}," .env
+      sed -i "s,BACKEND_S3_PUBLIC_FILE_URL_PREFIX=.*,BACKEND_S3_PUBLIC_FILE_URL_PREFIX=https://9080-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}," .env
+      sed -i "s,BACKEND_S3_PUBLIC_UPLOAD_URL_PREFIX=.*,BACKEND_S3_PUBLIC_UPLOAD_URL_PREFIX=https://9000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}," .env
       pnpm run docker:up
       gp sync-done setup
       exit 0
@@ -69,4 +71,14 @@ ports:
     onOpen: ignore
   - name: E2E Backend
     port: 4010
+    onOpen: ignore
+  - name: S3
+    port: 9000
+    visibility: public # TODO: check if we can avoid it
+    onOpen: ignore
+  - name: S3 console
+    port: 9001
+    onOpen: ignore
+  - name: s3www
+    port: 9080
     onOpen: ignore

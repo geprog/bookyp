@@ -9,6 +9,7 @@ spec:
   dnsNames:
     - app.bookyp.de
     - api.bookyp.de
+    - cdn.bookyp.de
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

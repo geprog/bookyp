@@ -30,6 +30,7 @@
     "feathers-mongoose": "github:GEPROG/feathers-mongoose#c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed",
     "handlebars": "4.7.7",
     "lightship": "6.7.2",
+    "minio": "7.0.32",
     "mongodb": "4.1.4",
     "mongodb-client-encryption": "1.2.7",
     "mongoose": "6.0.14",
@@ -39,6 +40,7 @@
   "devDependencies": {
     "@geprog/eslint-config": "2.1.0",
     "@types/express": "4.17.13",
+    "@types/minio": "7.0.15",
     "@types/nodemailer": "^6.4.4",
     "@types/supertest": "2.0.11",
     "@vitest/coverage-c8": "0.23.4",
