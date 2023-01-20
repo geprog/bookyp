@@ -16,6 +16,8 @@
       <div v-if="booking" class="grid grid-cols-[auto,1fr] grid-rows-2 text-gray-500 text-sm gap-1">
         <span> {{ t('start') }}:</span><span>{{ dayjs(booking.start).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
         <span>{{ t('end') }}:</span><span>{{ dayjs(booking?.end).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>
+        <span>{{ t('description') }}:</span>
+        <pre>{{ booking.description }}</pre>
       </div>
       <div v-if="bookedByUser" class="mt-2 grid grid-cols-[auto,1fr] grid-rows-2 text-sm gap-1">
         <template v-if="bookedByUser.name">

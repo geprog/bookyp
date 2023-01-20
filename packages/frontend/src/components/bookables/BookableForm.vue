@@ -10,7 +10,12 @@
       <TextField v-model="bookableForm.name" data-test="form-name" :placeholder="t('name')" />
     </LabelField>
     <LabelField icon-name="document-one-page">
-      <TextField v-model="bookableForm.description" data-test="form-description" :placeholder="t('description')" />
+      <TextField
+        v-model="bookableForm.description"
+        :rows="5"
+        data-test="form-description"
+        :placeholder="t('description')"
+      />
     </LabelField>
   </form>
 </template>

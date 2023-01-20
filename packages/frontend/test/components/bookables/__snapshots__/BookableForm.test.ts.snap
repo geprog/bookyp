@@ -6,7 +6,7 @@ exports[`BookableForm component > Template > should render correctly 1`] = `
     <text-field-stub modelvalue=\\"Couch\\" placeholder=\\"name\\" data-test=\\"form-name\\"></text-field-stub>
   </div>
   <div icon-name=\\"document-one-page\\">
-    <text-field-stub modelvalue=\\"Super long description\\" placeholder=\\"description\\" data-test=\\"form-description\\"></text-field-stub>
+    <text-field-stub modelvalue=\\"Super long description\\" placeholder=\\"description\\" rows=\\"5\\" data-test=\\"form-description\\"></text-field-stub>
   </div>
 </form>"
 `;
@@ -17,7 +17,7 @@ exports[`BookableForm component > Template > should render correctly with new bo
     <text-field-stub modelvalue=\\"\\" placeholder=\\"name\\" data-test=\\"form-name\\"></text-field-stub>
   </div>
   <div icon-name=\\"document-one-page\\">
-    <text-field-stub modelvalue=\\"\\" placeholder=\\"description\\" data-test=\\"form-description\\"></text-field-stub>
+    <text-field-stub modelvalue=\\"\\" placeholder=\\"description\\" rows=\\"5\\" data-test=\\"form-description\\"></text-field-stub>
   </div>
 </form>"
 `;
