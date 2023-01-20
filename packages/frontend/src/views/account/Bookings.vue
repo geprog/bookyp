@@ -14,6 +14,18 @@
     <IconButton icon="sign-out" @click="logout" />
   </Header>
   <AppContent>
+    <div v-if="noBookings" class="flex flex-col items-center justify-center gap-2 pt-40">
+      <img src="/src/assets/img/bookyp-logo-no-bookings.svg?url" />
+      <p class="text-gray-900">{{ t('no_bookings') }}</p>
+      <i18n-t v-if="!savedSpaceId" keypath="route_to_space.text_without_space" tag="p" class="text-center">
+        <router-link :to="{ name: 'home' }" class="underline">{{ t('route_to_space.list_of_spaces') }}</router-link>
+      </i18n-t>
+      <i18n-t v-else keypath="route_to_space.text_with_space" tag="p" class="text-center">
+        <router-link :to="{ name: 'space', params: { spaceId: savedSpaceId } }" class="underline">{{
+          t('route_to_space.click_map_object')
+        }}</router-link>
+      </i18n-t>
+    </div>
     <div class="mt-4">
       <div v-for="(bookings, date) in groupedBookings" :key="date">
         <p data-test="groupByDates" class="ml-2">
@@ -37,11 +49,11 @@
   </AppContent>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { Model } from '@bookyp/core';
 import dayjs from 'dayjs';
 import { groupBy } from 'lodash';
-import { computed, defineComponent } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import ExternalLink from '~/components/buttons/ExternalLink.vue';
@@ -50,43 +62,30 @@ import Header from '~/components/headers/Header.vue';
 import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import BookingItem from '~/components/list-items/BookingItem.vue';
+import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
 import { logout, user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
 
-export default defineComponent({
-  name: 'Bookings',
-  components: {
-    Header,
-    BookingItem,
-    IconButton,
-    ExternalLink,
-    Icon,
-    AppContent,
+const { t } = useI18n();
+
+const bookingsQuery = computed(() => ({
+  query: {
+    bookedBy: user.value?._id,
+    end: { $gte: dayjs().toISOString() },
   },
+}));
+const { data: rawBookings } = useFind('bookings', bookingsQuery);
 
-  setup() {
-    const { t } = useI18n();
+const sortedBookings = computed(() =>
+  [...rawBookings.value].sort((a, b) => (dayjs(a.start).isBefore(b.start) ? -1 : 1)),
+);
 
-    const bookingsQuery = computed(() => ({
-      query: {
-        bookedBy: user.value?._id,
-        end: { $gte: dayjs().toISOString() },
-      },
-    }));
-    const { data: bookings } = useFind('bookings', bookingsQuery);
+const groupedBookings = computed(() =>
+  groupBy(sortedBookings.value, (booking: Model.Booking) => {
+    const dayDate: string = dayjs(booking.start).format('DD/MM/YYYY');
+    return dayDate;
+  }),
+);
 
-    const sortedBookings = computed(() =>
-      [...bookings.value].sort((a, b) => (dayjs(a.start).isBefore(b.start) ? -1 : 1)),
-    );
-
-    const groupedBookings = computed(() =>
-      groupBy(sortedBookings.value, (booking: Model.Booking) => {
-        const dayDate: string = dayjs(booking.start).format('DD/MM/YYYY');
-        return dayDate;
-      }),
-    );
-
-    return { t, groupedBookings, dayjs, logout };
-  },
-});
+const noBookings = computed(() => sortedBookings.value.length === 0);
 </script>

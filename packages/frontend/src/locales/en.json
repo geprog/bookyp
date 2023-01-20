@@ -21,6 +21,13 @@
   "description": "Description",
   "end": "End",
   "booked": "Booked",
+  "no_bookings": "No bookings yet!",
+  "route_to_space": {
+    "text_with_space": "Go back to the {0} and click on an object to book it.",
+    "text_without_space": "Go back to the {0} and select a space to click on an object to book it.",
+    "click_map_object": "map",
+    "list_of_spaces": "space list"
+  },
   "filter_bookables": "Filter for your place",
   "address": "Address",
   "map_object": {

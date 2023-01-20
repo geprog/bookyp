@@ -11,6 +11,7 @@ exports[`Bookings component > should render correctly 1`] = `
   <icon-button-stub icon=\\"sign-out\\" iconcolor=\\"\\" disabled=\\"false\\"></icon-button-stub>
 </header-stub>
 <app-content-stub>
+  <!--v-if-->
   <div class=\\"mt-4\\">
     <div>
       <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">17 Dec.</span>
