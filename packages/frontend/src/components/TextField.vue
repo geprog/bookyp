@@ -1,15 +1,21 @@
 <template>
+  <p v-if="readonly" class="w-full min-h-6">
+    <span v-if="innerValue" class="text-gray-900 whitespace-pre-line">{{ innerValue }}</span>
+    <span v-else class="text-gray-600">{{ placeholder }}</span>
+  </p>
+  <textarea
+    v-else-if="rows && rows > 1"
+    v-model="innerValue"
+    class="w-full min-h-6 text-gray-900 placeholder-gray-600 focus:outline-none"
+    :placeholder="placeholder"
+  />
   <input
-    v-if="!readonly"
+    v-else
     v-model="innerValue"
     class="w-full min-h-6 text-gray-900 placeholder-gray-600 focus:outline-none"
     type="text"
     :placeholder="placeholder"
   />
-  <p v-else class="w-full min-h-6">
-    <span v-if="innerValue" class="text-gray-900">{{ innerValue }}</span>
-    <span v-else class="text-gray-600">{{ placeholder }}</span>
-  </p>
 </template>
 
 <script lang="ts" setup>
@@ -20,10 +26,12 @@ const props = withDefaults(
     modelValue?: string;
     readonly?: boolean;
     placeholder?: string;
+    rows?: number;
   }>(),
   {
     modelValue: '',
     placeholder: '',
+    rows: undefined,
   },
 );
 

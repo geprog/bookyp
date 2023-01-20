@@ -4,10 +4,15 @@
       <TextField v-model="spaceCreate.name" data-test="form-name" :placeholder="t('name')" />
     </LabelField>
     <LabelField icon-name="location">
-      <TextField v-model="spaceCreate.address" data-test="form-address" :placeholder="t('address')" />
+      <TextField v-model="spaceCreate.address" :rows="5" data-test="form-address" :placeholder="t('address')" />
     </LabelField>
     <LabelField icon-name="text-box">
-      <TextField v-model="spaceCreate.description" data-test="form-description" :placeholder="t('description')" />
+      <TextField
+        v-model="spaceCreate.description"
+        :rows="5"
+        data-test="form-description"
+        :placeholder="t('description')"
+      />
     </LabelField>
     <LabelField icon-name="email">
       <TextField v-model="spaceCreate.email" :placeholder="t('email_space')" />

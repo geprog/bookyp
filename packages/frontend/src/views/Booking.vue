@@ -6,7 +6,7 @@
   <AppContent>
     <form id="booking" class="booking px-4" @submit.prevent="submit">
       <LabelField icon-name="document-one-page">
-        <TextField v-model="description" :placeholder="t('description')" />
+        <TextField v-model="description" :rows="5" :placeholder="t('description')" />
       </LabelField>
 
       <DateRangePicker
