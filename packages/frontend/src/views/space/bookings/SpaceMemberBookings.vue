@@ -64,7 +64,7 @@ const { data: spaceMember } = useGet('users', spaceMemberId);
 
 const bookingsQuery = computed(() => ({
   query: {
-    spaceId: spaceId.value,
+    space: spaceId.value,
     bookedBy: spaceMemberId.value,
   },
 }));

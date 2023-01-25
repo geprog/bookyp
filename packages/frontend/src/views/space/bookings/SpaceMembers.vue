@@ -63,20 +63,14 @@ const { data: bookings } = useFind(
 );
 
 const newestBookingOfMembers = computed(() =>
-  bookings.value.reduce((acc, booking) => {
-    if (!booking.bookedBy) {
+  bookings.value
+    .filter((booking) => booking.space === currentSpace.value?._id)
+    .reduce((acc, booking) => {
+      if (!booking.bookedBy) {
+        return acc;
+      }
       return acc;
-    }
-
-    if (
-      !acc.has(booking.bookedBy) ||
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      dayjs(booking.start).isAfter(acc.get(booking.bookedBy)!.start)
-    ) {
-      acc.set(booking.bookedBy, booking);
-    }
-    return acc;
-  }, new Map<string, Model.Booking>()),
+    }, new Map<string, Model.Booking>()),
 );
 
 const spaceMembersWithABookingIDs = computed(() => [
