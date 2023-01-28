@@ -39,6 +39,9 @@ export default defineConfig({
         full: '0px 0px 4.8px rgb(0, 0, 0, 0.1), 0px 0px 20.8px rgb(0, 0, 0, 0.13)',
         'orange-glow': '-2px -2px 4px rgba(245, 158, 11, 0.5), 2px 2px 4px rgba(245, 162, 11, 0.5)',
       },
+      backgroundImage: {
+        'not-found': "url('/src/assets/img/404PageLightVertical.gif')",
+      },
     },
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     stroke: (theme) => theme('colors'),

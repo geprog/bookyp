@@ -1,5 +1,4 @@
 {
-  "back_to_home": "Back to home",
   "book_a_bookable": "Book {bookable}",
   "bookable_create": "Add new bookable",
   "bookable_details": "Bookable: {bookable}",
@@ -48,7 +47,6 @@
   "email_address": "E-Mail address",
   "email_space": "E-Mail (used for booking notifications)",
   "no_bookable": "No bookable found",
-  "not_found_message": "Whoa 404, either we broke something or you had a typing mishap :-/",
   "oops": "Oops!",
   "settings": "Settings",
   "map_editor": "Map editor",
