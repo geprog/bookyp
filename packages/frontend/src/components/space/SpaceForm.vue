@@ -1,7 +1,7 @@
 <template>
   <form v-if="space" id="space" data-test="form" class="space" @submit.prevent="$emit('save')">
     <LabelField icon-name="home">
-      <TextField v-model="spaceCreate.name" data-test="form-name" :placeholder="t('name')" />
+      <TextField v-model="spaceCreate.name" data-test="form-name" :placeholder="t('name')" required />
     </LabelField>
     <LabelField icon-name="location">
       <TextField v-model="spaceCreate.address" :rows="5" data-test="form-address" :placeholder="t('address')" />
