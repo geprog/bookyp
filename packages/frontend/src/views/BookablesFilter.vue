@@ -6,7 +6,7 @@
     <IconButton type="submit" form="filterBookablesForm" icon="check-mark" />
   </Header>
   <AppContent>
-    <form id="filterBookablesForm" class="my-2" @submit.prevent="submitBookablesFilter">
+    <form id="filterBookablesForm" class="my-2 flex flex-col flex-grow" @submit.prevent="submitBookablesFilter">
       <DateRangePicker v-model:start="start" v-model:end="end" :bookings="[]" :initial-date="start">
         <Button v-if="hasActiveBookablesFilter" icon="dismiss" outlined class="ml-4 px-1" @click="reset" />
       </DateRangePicker>
@@ -14,9 +14,9 @@
   </AppContent>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import dayjs from 'dayjs';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -27,39 +27,29 @@ import DateRangePicker from '~/components/inputs/DateRangePicker.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import { useBookables } from '~/compositions/useBookables';
 
-export default defineComponent({
-  name: 'BookablesFilter',
+const { t } = useI18n();
+const router = useRouter();
+const { bookablesFilter, resetBookablesFilter } = useBookables();
 
-  components: { AppContent, Header, IconButton, Button, DateRangePicker },
+const hasActiveBookablesFilter = computed(() => !bookablesFilter.value?.quickFilterEnabled);
 
-  setup() {
-    const { t } = useI18n();
-    const router = useRouter();
-    const { bookablesFilter, resetBookablesFilter } = useBookables();
+const start = ref<Date>(bookablesFilter.value?.start || new Date());
 
-    const hasActiveBookablesFilter = computed(() => !bookablesFilter.value?.quickFilterEnabled);
+const defaultEndDate = dayjs(start.value).add(2, 'hour').toDate();
 
-    const start = ref<Date>(bookablesFilter.value?.start || new Date());
+const end = ref<Date>(bookablesFilter.value?.end || defaultEndDate);
 
-    const defaultEndDate = dayjs(start.value).add(2, 'hour').toDate();
+const submitBookablesFilter = () => {
+  bookablesFilter.value = {
+    start: dayjs(start.value).toDate(),
+    end: dayjs(end.value).toDate(),
+    quickFilterEnabled: false,
+  };
+  router.back();
+};
 
-    const end = ref<Date>(bookablesFilter.value?.end || defaultEndDate);
-
-    const submitBookablesFilter = () => {
-      bookablesFilter.value = {
-        start: dayjs(start.value).toDate(),
-        end: dayjs(end.value).toDate(),
-        quickFilterEnabled: false,
-      };
-      router.back();
-    };
-
-    const reset = () => {
-      resetBookablesFilter();
-      router.back();
-    };
-
-    return { t, submitBookablesFilter, reset, start, end, hasActiveBookablesFilter };
-  },
-});
+const reset = () => {
+  resetBookablesFilter();
+  router.back();
+};
 </script>

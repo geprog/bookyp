@@ -4,7 +4,7 @@
   </Header>
 
   <AppContent>
-    <form id="booking" class="booking px-4" @submit.prevent="submit">
+    <form id="booking" class="booking px-4 flex flex-col mb-2 flex-grow" @submit.prevent="submit">
       <LabelField icon-name="document-one-page">
         <TextField v-model="description" :rows="5" :placeholder="t('description')" />
       </LabelField>
