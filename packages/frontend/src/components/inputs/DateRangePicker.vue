@@ -31,7 +31,10 @@
       @right="api!.next()"
     />
   </div>
-  <FullCalendar ref="fullCalendar" :options="calendarOptions" class="full-calendar" />
+
+  <div class="flex-grow">
+    <FullCalendar ref="fullCalendar" :options="calendarOptions" class="full-calendar" />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -131,7 +134,7 @@ const calendarOptions = computed<CalendarOptions>(() => ({
   plugins: [interactionPlugin, timeGridPlugin],
   locales: [deLocale],
   locale: 'de',
-  height: '70vh',
+  height: '100%',
   headerToolbar: false,
   initialView: 'timeGridFourDay',
   initialDate: dayjs(initialDate.value).toISOString(),
