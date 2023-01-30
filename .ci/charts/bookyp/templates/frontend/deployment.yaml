@@ -62,3 +62,17 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.frontend.resources | nindent 12 }}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: geprog.com/node.type
+                operator: In
+                values:
+                - {{ include "bookyp.nodeType" . }}
+      tolerations:
+      - key: "geprog.com/node.type"
+        operator: "Equal"
+        value: "{{ include "bookyp.nodeType" . }}"
+        effect: "NoSchedule"

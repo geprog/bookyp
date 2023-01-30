@@ -109,6 +109,17 @@ because some Kubernetes name fields are limited to this (by the DNS naming spec)
 {{- end }}
 
 {{/*
+Define the nodeType the environment should run on. Will effect pod affinity and tolerations.
+*/}}
+{{- define "bookyp.nodeType" -}}
+{{- if eq .Values.environment.type "production" }}
+{{- printf "production" }}
+{{- else }}
+{{- printf "development" }}
+{{- end }}
+{{- end }}
+
+{{/*
 Special annotations to support gitlab kubernetes integration
 */}}
 {{- define "bookyp.gitlabAnnotations" -}}
