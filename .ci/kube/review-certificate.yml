@@ -1,5 +1,5 @@
 ---
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: bookyp-review-frontend-certificate
@@ -14,7 +14,7 @@ spec:
     kind: ClusterIssuer
 
 ---
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: bookyp-review-backend-certificate
@@ -29,7 +29,7 @@ spec:
     kind: ClusterIssuer
 
 ---
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: bookyp-review-cdn-certificate

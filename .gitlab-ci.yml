@@ -29,21 +29,17 @@ variables:
       - .pnpm-store
     policy: pull # cache should normally only be read to save time
 
-.helm-template:
-  image:
-    name: registry.geprog.com/docker.io/alpine/helm:3.5.3
-    entrypoint: ['']
-  dependencies: [] # don't load any artifacts
-
 .kubectl-template:
   image:
-    name: registry.geprog.com/docker.io/bitnami/kubectl:1.20.5
+    name: registry.geprog.com/docker.io/alpine/k8s:1.26.1
     entrypoint: ['']
   dependencies: [] # don't load any artifacts
+  before_script:
+    - kubectl config use-context bookyp/bookyp:bookyp-k3s-runner
 
 .kaniko-template:
   image:
-    name: gcr.io/kaniko-project/executor:v1.6.0-debug
+    name: gcr.io/kaniko-project/executor:v1.9.1-debug
     entrypoint: ['']
 
 .minio-template:
@@ -317,7 +313,7 @@ spell-check:
 
 helm-lint:
   extends:
-    - .helm-template
+    - .kubectl-template
   needs: []
   script:
     - helm lint .ci/charts/bookyp
@@ -334,8 +330,8 @@ helm-lint:
   environment:
     name: e2e/$CI_COMMIT_REF_SLUG
     deployment_tier: testing
-    kubernetes:
-      namespace: bookyp-e2e
+  variables:
+    KUBE_NAMESPACE: bookyp-e2e
   rules:
     - if: '$CI_MERGE_REQUEST_ID'
       changes: *main_pipeline_files
@@ -373,7 +369,7 @@ e2e-prepare-s3:
 
 e2e-deployment:
   extends:
-    - .helm-template
+    - .kubectl-template
     - .e2e-environment
   needs:
     - build-docker-frontend
@@ -402,7 +398,7 @@ e2e-deployment:
 
 e2e-deployment-test:
   extends:
-    - .helm-template
+    - .kubectl-template
     - .e2e-environment
   needs:
     - e2e-deployment
@@ -456,7 +452,7 @@ e2e-delete-s3:
 
 e2e-stop:
   extends:
-    - .helm-template
+    - .kubectl-template
     - .e2e-environment
   needs:
     - e2e-run
@@ -477,8 +473,8 @@ e2e-stop:
     url: https://${CI_ENVIRONMENT_SLUG}.app.${BASE_DOMAIN}/
     deployment_tier: development
     on_stop: review-stop
-    kubernetes:
-      namespace: bookyp-review
+  variables:
+    KUBE_NAMESPACE: bookyp-review
   rules:
     # if pipeline runs on merge request and is triggered by renovate
     - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
@@ -521,7 +517,7 @@ review-prepare-s3:
 
 review-deployment:
   extends:
-    - .helm-template
+    - .kubectl-template
     - .review-environment
   needs:
     - build-docker-frontend
@@ -551,7 +547,7 @@ review-deployment:
 
 review-deployment-test:
   extends:
-    - .helm-template
+    - .kubectl-template
     - .review-environment
   needs:
     - review-deployment
@@ -562,7 +558,7 @@ review-deployment-test:
 
 review-stop:
   extends:
-    - .helm-template
+    - .kubectl-template
     - .review-environment
   needs:
     - review-deployment
@@ -605,8 +601,8 @@ review-delete-s3:
     name: app/production
     url: https://app.${BASE_DOMAIN}/
     deployment_tier: production
-    kubernetes:
-      namespace: bookyp-production
+  variables:
+    KUBE_NAMESPACE: bookyp-production
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
@@ -657,7 +653,7 @@ production-prepare-s3:
 
 production-deployment:
   extends:
-    - .helm-template
+    - .kubectl-template
     - .production-environment
   needs:
     - build-docker-frontend
@@ -687,7 +683,7 @@ production-deployment:
 
 production-rollback:
   extends:
-    - .helm-template
+    - .kubectl-template
     - .production-environment
   needs:
     - production-deployment
