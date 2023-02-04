@@ -4,7 +4,7 @@
   <AppContent>
     <div class="m-3">
       <Button
-        v-if="spaceMembers.length < 10 || currentSpace?.plan === 'sponsored'"
+        v-if="canAddNewUsers"
         :aria-label="t('invite_new_member')"
         icon="add"
         class="w-full"
@@ -57,6 +57,7 @@
 </template>
 
 <script lang="ts" setup>
+import dayjs from 'dayjs';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -85,5 +86,23 @@ const editSpaceMember = async (spaceMemberId: string) => {
   await router.push({ name: 'settings-space-member', params: { spaceMemberId } });
 };
 
+const currentPlan = computed(() => currentSpace.value?.plan || 'free');
+
+const currentPlanIsActive = computed(
+  () => currentSpace.value?.activeUntil && dayjs(currentSpace.value?.activeUntil).isAfter(dayjs()),
+);
+
 const spaceMembers = computed(() => currentSpace.value?.members || []);
+
+const canAddNewUsers = computed(() => {
+  if (currentPlan.value === 'free' && spaceMembers.value.length < 10) {
+    return true;
+  }
+
+  if (currentPlan.value !== 'free' && currentPlanIsActive.value) {
+    return true;
+  }
+
+  return false;
+});
 </script>

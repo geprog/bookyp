@@ -8,7 +8,7 @@ export type Member = {
   email?: User['email'];
 };
 
-export type SpacePlan = 'sponsored' | 'public' | 'free';
+export type SpacePlan = 'free' | 'enterprise' | 'public';
 
 export class Space extends AbstractEntity {
   floorPlan!: string[];
@@ -16,8 +16,9 @@ export class Space extends AbstractEntity {
   name!: string;
   description?: string;
   address?: string;
+  plan: SpacePlan = 'free';
+  activeUntil?: Date; // a timestamp until which the plan is valid (undefined / past timestamp sets the plan back to default: free)
   email?: string;
-  plan?: SpacePlan;
   image?: string;
 
   constructor(data: Partial<Space> = {}) {
