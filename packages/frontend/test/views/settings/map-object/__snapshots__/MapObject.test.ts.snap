@@ -4,8 +4,10 @@ exports[`MapObject view > Template > should render correctly 1`] = `
 "<header-stub title=\\"map_object.edit\\" hasback=\\"true\\"></header-stub>
 <app-content-stub>
   <div class=\\"flex flex-col mx-auto w-full py-3\\">
-    <icon-list-item-stub icon=\\"link\\" label=\\"\\" description=\\"\\" data-test=\\"linked-bookable\\" class=\\"mb-3\\"></icon-list-item-stub>
-    <button-stub icon=\\"link\\" text=\\"MAP_OBJECT.LINK_TO_BOOKABLE\\" disabled=\\"false\\" outlined=\\"false\\"></button-stub>
+    <div class=\\"w-full flex flex-col gap-2\\">
+      <button-stub icon=\\"link\\" text=\\"MAP_OBJECT.LINK_TO_BOOKABLE\\" disabled=\\"false\\" outlined=\\"false\\" class=\\"w-full\\"></button-stub>
+      <button-stub icon=\\"link\\" text=\\"MAP_OBJECT.LINK_TO_WEBSITE\\" disabled=\\"false\\" outlined=\\"false\\" class=\\"w-full\\"></button-stub>
+    </div>
   </div>
 </app-content-stub>"
 `;

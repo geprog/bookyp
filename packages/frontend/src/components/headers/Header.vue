@@ -7,7 +7,7 @@
           <BookypIcon
             v-else
             data-test="button-spaces"
-            class="cursor-pointer"
+            class="cursor-pointer flex-shrink-0"
             @click="$router.push({ name: 'spaces-list' })"
           />
         </slot>

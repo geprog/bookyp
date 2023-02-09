@@ -48,7 +48,7 @@ const bookable = ref<Partial<Model.Bookable>>({
 const saveBookable = async () => {
   const createdBookable = await feathers.service('bookables').create(bookable.value);
   if (mapObject.value !== undefined) {
-    emit('update:mapObject', { ...mapObject.value, bookable: createdBookable._id });
+    emit('update:mapObject', { ...mapObject.value, link: { type: 'bookable', bookable: createdBookable._id } });
   }
   router.back();
 };

@@ -42,7 +42,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (event: 'clickOnMapObject', __bookableId: Model.MapObject['bookable']): void;
+  (event: 'clickOnMapObject', mapObject: Model.MapObject): void;
 }>();
 
 const clickable = toRef(props, 'clickable');
@@ -61,7 +61,7 @@ const { isFilterMatched, isBookedByMe: _isBookedByMe } = useBookables(bookables)
 
 function clickOnMapObject(mapObject: Model.MapObject & { isClickable: boolean }) {
   if (mapObject.isClickable) {
-    emit('clickOnMapObject', mapObject.bookable);
+    emit('clickOnMapObject', mapObject);
   }
 }
 
@@ -75,16 +75,20 @@ function getMapObjectStyle(
 ) {
   const highlightStyle = 'stroke-2 stroke-primary-normal filter drop-shadow-orange-glow';
 
+  if (mapObject.link?.type === 'url') {
+    return 'stroke-black fill-primary-light';
+  }
+
   if (isHighlighted) {
     return highlightStyle + ' fill-primary-light';
   }
 
-  if (!mapObject.bookable || isLinkedToDeletedBookable) {
+  if (!mapObject.link || isLinkedToDeletedBookable) {
     return 'stroke-black fill-white';
   }
 
   if (considerFilter.value) {
-    if (isFilterMatched(mapObject.bookable)) {
+    if (isFilterMatched(mapObject.link?.bookable)) {
       return 'stroke-black fill-green-background';
     }
 
@@ -95,7 +99,7 @@ function getMapObjectStyle(
     return 'stroke-black fill-red-background';
   }
 
-  if (mapObject.bookable && !considerFilter.value) {
+  if (mapObject.link?.type === 'bookable' && !considerFilter.value) {
     return 'stroke-black fill-white';
   }
 
@@ -104,12 +108,15 @@ function getMapObjectStyle(
 
 const extendedMapObjects = computed(() =>
   mapObjects.value.map((mapObject) => {
-    const matchesFilter = !!considerFilter.value && !!isFilterMatched(mapObject.bookable);
-    const isHighlighted = !!highlightedBookableId.value && highlightedBookableId.value === mapObject.bookable;
-    const isBookedByMe = _isBookedByMe(mapObject.bookable);
+    const matchesFilter =
+      !!considerFilter.value && mapObject.link?.type === 'bookable' && !!isFilterMatched(mapObject.link?.bookable);
+    const isHighlighted = mapObject.link?.type === 'bookable' && highlightedBookableId.value === mapObject.link?.type;
+    const isBookedByMe = mapObject.link?.type === 'bookable' && _isBookedByMe(mapObject.link?.bookable);
     const isLinkedToDeletedBookable =
-      bookables.value.find((bookable) => bookable._id === mapObject.bookable)?.deleted === true;
-    const isClickable = !!clickable.value && !!mapObject.bookable && !isLinkedToDeletedBookable;
+      mapObject.link?.type === 'bookable' &&
+      bookables.value.find((bookable) => bookable._id === (mapObject.link as { bookable: string }).bookable)
+        ?.deleted === true;
+    const isClickable = !!clickable.value && !!mapObject.link && !isLinkedToDeletedBookable;
     const style = getMapObjectStyle(mapObject, isHighlighted, isBookedByMe, isLinkedToDeletedBookable);
 
     return {

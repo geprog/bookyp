@@ -4,16 +4,15 @@
   <div class="flex flex-col flex-grow min-h-0">
     <SpaceMap v-if="spaceId">
       <FloorPlan :space-id="spaceId" />
-      <MapObjects clickable consider-filter :space-id="spaceId" @click-on-map-object="openCreateBooking" />
+      <MapObjects clickable consider-filter :space-id="spaceId" @click-on-map-object="clickOnMapObject" />
     </SpaceMap>
   </div>
 
   <HomeActionButtons />
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { Model } from '@bookyp/core';
-import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
 import HomeHeader from '~/components/headers/HomeHeader.vue';
@@ -23,26 +22,17 @@ import MapObjects from '~/components/space/MapObjects.vue';
 import SpaceMap from '~/components/space/SpaceMap.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 
-export default defineComponent({
-  name: 'BookablesMap',
+const router = useRouter();
 
-  components: { HomeHeader, HomeActionButtons, FloorPlan, MapObjects, SpaceMap },
+const { spaceId } = useCurrentSpace();
 
-  setup() {
-    const router = useRouter();
-
-    const { spaceId } = useCurrentSpace();
-
-    async function openCreateBooking(bookableId: Model.MapObject['bookable']) {
-      if (bookableId) {
-        await router.push({ name: 'booking-create', params: { bookableId } });
-      }
-    }
-
-    return {
-      openCreateBooking,
-      spaceId,
-    };
-  },
-});
+async function clickOnMapObject(mapObject: Model.MapObject) {
+  if (mapObject.link && mapObject.link.type === 'bookable') {
+    await router.push({ name: 'booking-create', params: { bookableId: mapObject.link.bookable } });
+    return;
+  }
+  if (mapObject.link && mapObject.link.type === 'url') {
+    window.open(`${mapObject.link.url}`, '_blank');
+  }
+}
 </script>

@@ -16,6 +16,8 @@ import { v011_customizeWaterkantSpace } from '~/migrations/v011_customizeWaterka
 import { v012_customizeDECKMueritzSpace } from '~/migrations/v012_customizeDECKMueritzSpace';
 import { v013_kitzSilentSpace } from '~/migrations/v013_kitzSilentSpace';
 import { v014_geprogMeetingRoom } from '~/migrations/v014_geprogMeetingRoom';
+import { v015_updateSponsoredSpaces } from '~/migrations/v015_updateSponsoredSpaces';
+import { v016_refactorMapObjectLink } from '~/migrations/v016_refactorMapObjectLink';
 
 // migrations are applied in the order defined here
 const migrations: Migration[] = [
@@ -33,6 +35,8 @@ const migrations: Migration[] = [
   v012_customizeDECKMueritzSpace,
   v013_kitzSilentSpace,
   v014_geprogMeetingRoom,
+  v015_updateSponsoredSpaces,
+  v016_refactorMapObjectLink,
 ];
 
 const migrationStore = new MongoMigrationStore();

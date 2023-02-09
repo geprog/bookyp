@@ -29,10 +29,14 @@
   },
   "filter_bookables": "Filter for your place",
   "address": "Address",
+  "link_map_objects": "e.g. https://www.example.com",
   "map_object": {
-    "change_bookable_link": "Change link",
+    "change_link": "Change link",
     "edit": "Edit map object",
-    "link_to_bookable": "Link to bookable object"
+    "edit_link": "Edit Link",
+    "link_to_bookable": "Link to bookable object",
+    "link_to_website": "Link to website",
+    "save_url": "Save Link"
   },
   "dialog": {
     "cancel": "Cancel",
