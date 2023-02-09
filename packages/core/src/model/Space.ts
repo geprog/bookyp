@@ -20,6 +20,7 @@ export class Space extends AbstractEntity {
   activeUntil?: Date; // a timestamp until which the plan is valid (undefined / past timestamp sets the plan back to default: free)
   email?: string;
   image?: string;
+  coordinates?: { lng: number; lat: number };
 
   constructor(data: Partial<Space> = {}) {
     super();

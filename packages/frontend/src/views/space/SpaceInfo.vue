@@ -11,11 +11,13 @@
       <LabelField v-if="space.description" icon-name="text-box">
         <TextField v-model="space.description" readonly data-test="space-description" :placeholder="t('description')" />
       </LabelField>
+      <div id="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
     </div>
   </AppContent>
 </template>
 
 <script lang="ts" setup>
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import Header from '~/components/headers/Header.vue';
@@ -23,8 +25,13 @@ import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { useMap } from '~/compositions/useMap';
 
 const { t } = useI18n();
 
 const { currentSpace: space } = useCurrentSpace();
+
+const coordinates = computed(() => space.value?.coordinates);
+
+useMap({ coordinates, followCoordinates: ref(true) });
 </script>

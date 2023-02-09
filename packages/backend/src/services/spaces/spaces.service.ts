@@ -24,6 +24,7 @@ const SpaceSchema = new Schema<Model.Space>({
   plan: { type: String },
   image: { type: String },
   deleted: { type: Boolean },
+  coordinates: { lng: Number, lat: Number },
 });
 
 export const name = 'spaces';

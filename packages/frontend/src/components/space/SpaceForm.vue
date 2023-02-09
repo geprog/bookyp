@@ -18,6 +18,8 @@
       <TextField v-model="spaceCreate.email" :placeholder="t('email_space')" />
     </LabelField>
 
+    <div id="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
+
     <div
       class="relative flex flex-col w-full border-1 rounded-md overflow-hidden"
       :class="{ 'border-primary-normal': isOverDropZone }"
@@ -66,6 +68,7 @@ import Icon from '~/components/Icon.vue';
 import LabelField from '~/components/LabelField.vue';
 import TextField from '~/components/TextField.vue';
 import useFeathers from '~/compositions/useFeathers';
+import { useMap } from '~/compositions/useMap';
 
 const props = defineProps<{
   space: Partial<Model.Space>;
@@ -122,6 +125,17 @@ const spaceCreate = reactive({
     },
   }),
 });
+
+const coordinates = computed({
+  get() {
+    return space.value.coordinates;
+  },
+  set(_coordinates?: { lng: number; lat: number }) {
+    emit('update:space', { ...space.value, coordinates: _coordinates });
+  },
+});
+
+useMap({ coordinates, clickable: ref(true) });
 
 const feathers = useFeathers();
 
