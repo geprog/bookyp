@@ -95,7 +95,7 @@ const currentPlanIsActive = computed(
 const spaceMembers = computed(() => currentSpace.value?.members || []);
 
 const canAddNewUsers = computed(() => {
-  if (currentPlan.value === 'free' && spaceMembers.value.length < 10) {
+  if (currentPlan.value === 'free' && spaceMembers.value.length + invitations.value.length < 10) {
     return true;
   }
 
