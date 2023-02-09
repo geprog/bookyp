@@ -384,16 +384,22 @@ e2e-deployment:
       --set frontend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
       --set backend.ingress.tls.secretName=bookyp-review-backend-tls
       --set backend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
-      --set cdn.ingress.tls.secretName=bookyp-review-cdn-tls
       --set backend.database.password=$DEPLOY_DATABASE_PASSWORD
       --set backend.keycloak.subdomain=auth.geprog.com/auth/realms/testing
       --set backend.keycloak.client=bookyp-testing
       --set backend.keycloak.secret=$E2E_KEYCLOAK_SECRET
       --set backend.jwtSecret=$BACKEND_JWT_SECRET
       --set backend.mail.password=$DEPLOY_MAIL_PASSWORD
+      --set backend.payment.token=$GRINGOTTS_PROJECT_TOKEN
+      --set cdn.ingress.tls.secretName=bookyp-review-cdn-tls
       --set cdn.s3.accessKey=$S3_ACCESS_KEY
       --set cdn.s3.secretKey=$S3_SECRET_KEY
       --set cdn.s3.bucket=bookyp-$CI_ENVIRONMENT_SLUG
+      --set payment.ingress.tls.secretName=bookyp-production-tls
+      --set payment.adminToken=$GRINGOTTS_ADMIN_TOKEN
+      --set payment.projectToken=$GRINGOTTS_PROJECT_TOKEN
+      --set payment.mollieToken=$MOLLIE_TEST_TOKEN
+      --set payment.database.password=$GRINGOTTS_DATABASE_PASSWORD
       bookyp-e2e-${CI_ENVIRONMENT_SLUG} .ci/charts/bookyp
 
 e2e-deployment-test:
@@ -533,14 +539,20 @@ review-deployment:
       --set frontend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
       --set backend.ingress.tls.secretName=bookyp-review-backend-tls
       --set backend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
-      --set cdn.ingress.tls.secretName=bookyp-review-cdn-tls
       --set backend.database.password=$DEPLOY_DATABASE_PASSWORD
       --set backend.keycloak.secret=$KEYCLOAK_SECRET
       --set backend.jwtSecret=$BACKEND_JWT_SECRET
       --set backend.mail.password=$DEPLOY_MAIL_PASSWORD
+      --set backend.payment.token=$GRINGOTTS_PROJECT_TOKEN
+      --set cdn.ingress.tls.secretName=bookyp-review-cdn-tls
       --set cdn.s3.accessKey=$S3_ACCESS_KEY
       --set cdn.s3.secretKey=$S3_SECRET_KEY
       --set cdn.s3.bucket=bookyp-$CI_ENVIRONMENT_SLUG
+      --set payment.ingress.tls.secretName=bookyp-review-payment-tls
+      --set payment.adminToken=$GRINGOTTS_ADMIN_TOKEN
+      --set payment.projectToken=$GRINGOTTS_PROJECT_TOKEN
+      --set payment.mollieToken=$MOLLIE_TEST_TOKEN
+      --set payment.database.password=$GRINGOTTS_DATABASE_PASSWORD
       --set gitlab.app=$CI_PROJECT_PATH_SLUG
       --set gitlab.env=$CI_ENVIRONMENT_SLUG
       bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/bookyp
@@ -666,17 +678,23 @@ production-deployment:
       --set environment.name=$CI_ENVIRONMENT_SLUG
       --set environment.url=$CI_ENVIRONMENT_URL
       --set frontend.ingress.tls.secretName=bookyp-production-tls
-      --set backend.ingress.tls.secretName=bookyp-production-tls
-      --set cdn.ingress.tls.secretName=bookyp-production-tls
       --set frontend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
+      --set backend.ingress.tls.secretName=bookyp-production-tls
       --set backend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
       --set backend.database.password=$DEPLOY_DATABASE_PASSWORD
       --set backend.keycloak.secret=$KEYCLOAK_SECRET
       --set backend.jwtSecret=$BACKEND_JWT_SECRET
       --set backend.mail.password=$DEPLOY_MAIL_PASSWORD
+      --set backend.payment.token=$GRINGOTTS_PROJECT_TOKEN
+      --set cdn.ingress.tls.secretName=bookyp-production-tls
       --set cdn.s3.accessKey=$S3_ACCESS_KEY
       --set cdn.s3.secretKey=$S3_SECRET_KEY
       --set cdn.s3.bucket=bookyp-$CI_ENVIRONMENT_SLUG
+      --set payment.ingress.tls.secretName=bookyp-production-tls
+      --set payment.adminToken=$GRINGOTTS_ADMIN_TOKEN
+      --set payment.projectToken=$GRINGOTTS_PROJECT_TOKEN
+      --set payment.mollieToken=$MOLLIE_PRODUCTION_TOKEN
+      --set payment.database.password=$GRINGOTTS_DATABASE_PASSWORD
       --set gitlab.app=$CI_PROJECT_PATH_SLUG
       --set gitlab.env=$CI_ENVIRONMENT_SLUG
       bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/bookyp

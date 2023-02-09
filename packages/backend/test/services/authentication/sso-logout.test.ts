@@ -2,23 +2,11 @@ import express from 'express';
 import supertest from 'supertest';
 
 import SSOLogoutRoute from '~/services/authentication/sso-logout';
-import { prepareGetConfigMockOnce } from '$/__helpers__/mocks';
+import { prepareGetConfigMockOnce, sampleConfig } from '$/__helpers__/mocks';
 
 vi.mock('~/config');
 
-const configMockReturnValue = {
-  oauth: {
-    redirect_url: 'http://localhost:3000/',
-    keycloak: {
-      secret: 'i-wont-tell-you',
-      client: 'bookyp',
-      subdomain: 'auth.example.org/auth/realms/main',
-    },
-    defaults: {
-      origin: undefined,
-    },
-  },
-};
+const configMockReturnValue = sampleConfig;
 
 describe('Authentication SSO logout', () => {
   it('should redirect to the SSO provider', async () => {

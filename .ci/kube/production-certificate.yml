@@ -10,6 +10,7 @@ spec:
     - app.bookyp.de
     - api.bookyp.de
     - cdn.bookyp.de
+    - payment.bookyp.de
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

@@ -85,14 +85,53 @@
     }
   },
   "booking_drag": "Drag on the calendar to change the time",
-  "plan": {
-    "plan": "Plan",
+  "subscription": {
+    "plans": "Plans",
+    "members": "members",
+    "of_ten": " / 10",
+    "of_infinity": " / ∞",
+    "edit_customer": "Edit customer",
+    "space_subscription": "Space subscription",
+    "currently_upgrading_to_plan": "Currently upgrading to '{plan}' plan ...",
+    "upgrade_successful": "Upgrade successful! Have fun with your new plan ;)",
+    "upgrade_to": "Upgrade to {plan}",
+    "estimated_price_for_new_plan": "Estimated price for the new plan: {estimatedPrice}€",
+    "payment_verification_description": "We will charge you 1€ now to verify your payment method. You will get it back as credit for your next invoice.",
+    "back": "Back",
+    "done": "Done",
+    "free_plan": "Free Plan",
+    "enterprise_plan": "Enterprise Plan",
+    "public_plan": "Public Plan",
+    "current_plan": "Current plan",
     "free_plan_description": "You are currently using the free-plan with {amountOfMembers} of 10 members.",
-    "upgrade": "Upgrade plan",
+    "upgrade": "Upgrade",
     "max_members_reached": "Please upgrade your plan to add more than 10 members.",
     "public_plan_description": "You are currently using the public-plan.",
+    "downgrade": "Downgrade",
+    "change_plan": "Change plan",
+    "proceed_to_checkout": "Proceed to checkout",
+    "proceed": "Proceed",
+    "price_per_month": "{price}€ per month",
+    "price_per_member_per_month": "{price}€ per member / month",
+    "free": "free",
+    "features": {
+      "map_editor": "✓ Map Editor",
+      "everything_from_free": "✓ Everything from free",
+      "unlimited_bookables": "✓ Unlimited bookable items",
+      "space_listed_on_discover_page": "✓ Listed on discover page"
+    },
+    "customer": {
+      "name": "Name",
+      "email": "E-Mail",
+      "address_line_1": "AddressLine 1",
+      "address_line_2": "AddressLine 2",
+      "city": "City",
+      "country": "Country",
+      "zip_code": "Zip code"
+    },
     "make_space_public": "Make space public",
-    "make_space_free": "Make space private"
+    "make_space_free": "Make space private",
+    "plan": "Plan"
   },
   "app": {
     "new_version": "An update of the app is available.",

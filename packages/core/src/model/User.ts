@@ -5,6 +5,7 @@ import { Space } from './Space';
 export class User extends AbstractEntity {
   name?: string;
   email!: string;
+  paymentCustomerId?: string;
   starredSpaces!: Ref<Space>[];
 
   constructor(data: Partial<User> = {}) {

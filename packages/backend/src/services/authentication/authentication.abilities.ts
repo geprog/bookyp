@@ -44,6 +44,9 @@ const defineRulesFor = async (
     can('get', 'users', { _id: user._id });
     can('update', 'users', ['starredSpaces'], { _id: user._id });
 
+    // users can access payment services
+    can(['read', 'update'], 'paymentCustomers');
+
     // as a user you can create spaces
     can('create', 'spaces');
 
@@ -96,6 +99,7 @@ const defineRulesFor = async (
     });
     can(['create', 'update'], 'bookings', { bookedBy: user._id, space: { $in: spaceIdsAdmin } });
     can(['read', 'create', 'remove', 'update'], 'invitations', { spaceId: { $in: spaceIdsAdmin } });
+    can(['read', 'patch'], 'spaceSubscriptions', { space: { $in: spaceIdsAdmin } });
     can(['read', 'create'], 'upload-files', { spaceId: { $in: spaceIdsAdmin } });
 
     const bookingsAdmin = (await app.service('bookings').find({

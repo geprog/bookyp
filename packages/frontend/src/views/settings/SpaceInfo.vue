@@ -25,7 +25,7 @@
       @click="$router.push({ name: 'settings-space-edit' })"
     />
 
-    <SpacePlan v-if="space" :space="space" class="mt-8" />
+    <SpacePlan v-if="!allUnstableFeaturesEnabled && space" :space="space" class="mt-8" />
   </AppContent>
 </template>
 
@@ -37,15 +37,17 @@ import Button from '~/components/buttons/Button.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
-import SpacePlan from '~/components/space/settings/SpacePlan.vue';
+import SpacePlan from '~/components/space/settings/SpacePlanOld.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { useFeatureFlags } from '~/compositions/useFeatureFlags';
 import { useMap } from '~/compositions/useMap';
 
 const { t } = useI18n();
 
 const { currentSpace: space } = useCurrentSpace();
 
+const { allUnstableFeaturesEnabled } = useFeatureFlags();
 const coordinates = computed(() => space.value?.coordinates);
 
 useMap({ coordinates, followCoordinates: ref(true) });
