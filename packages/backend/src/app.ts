@@ -9,6 +9,7 @@ import { extractSoftDeleteFlag } from '~/hooks/softDelete';
 import s3 from '~/s3';
 import services from '~/services';
 import SSOLogoutRoute from '~/services/authentication/sso-logout';
+import PaymentWebhookRouter from '~/services/spaceSubscriptions/webhook';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const configureApplication = () => {
@@ -36,12 +37,13 @@ export const configureApplication = () => {
   app.configure(channels);
 
   app.use(SSOLogoutRoute());
+  app.use(PaymentWebhookRouter(app));
 
   app.use('/', (_req, res) => {
     res.send('You found the backend of Bookyp! ;-)');
   });
 
-  const memoryServices: string[] = [];
+  const memoryServices: string[] = ['spaceSubscriptions', 'paymentCustomers'];
 
   app.hooks({
     before: {
@@ -74,9 +76,6 @@ export const configureApplication = () => {
     error: {
       all: [
         (ctx) => {
-          if (process.env.NODE_ENV === 'production') {
-            return;
-          }
           // eslint-disable-next-line no-console
           console.log(`🔥 Error ${ctx.path}.${ctx.method}:`, ctx.error);
         },

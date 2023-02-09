@@ -97,6 +97,16 @@ const routes: RouteRecordRaw[] = [
         component: () => import('~/views/settings/SpaceInfo.vue'),
       },
       {
+        path: 'settings/space/subscription',
+        name: 'space-settings-subscription',
+        component: () => import('~/views/settings/SpaceSubscription.vue'),
+      },
+      {
+        path: 'settings/space/subscription/customer',
+        name: 'space-settings-subscription-customer',
+        component: () => import('~/views/settings/SpaceSubscription.vue'),
+      },
+      {
         path: 'info',
         name: 'space-info',
         component: () => import('~/views/space/SpaceInfo.vue'),

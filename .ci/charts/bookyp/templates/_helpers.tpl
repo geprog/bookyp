@@ -59,6 +59,14 @@ app.kubernetes.io/package: cdn
 {{- end }}
 
 {{/*
+Payment selector labels
+*/}}
+{{- define "bookyp.selectorLabelsPayment" -}}
+{{ include "bookyp.selectorLabels" . }}
+app.kubernetes.io/package: payment
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "bookyp.serviceAccountName" -}}
@@ -109,6 +117,19 @@ because some Kubernetes name fields are limited to this (by the DNS naming spec)
 {{- end }}
 
 {{/*
+Create fully qualified payment URL.
+We truncate the environment name at 63 chars,
+because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "bookyp.paymentURL" -}}
+{{- if eq .Values.environment.type "production" }}
+{{- printf "payment.bookyp.de" }}
+{{- else }}
+{{- printf "%s.payment.bookyp.de" (.Values.environment.name | trunc 63 | trimSuffix "-") }}
+{{- end }}
+{{- end }}
+
+{{/*
 Define the nodeType the environment should run on. Will effect pod affinity and tolerations.
 */}}
 {{- define "bookyp.nodeType" -}}
@@ -138,4 +159,15 @@ Combine DB credentials to a mongo database URI
 {{- $dbUser := default (include "bookyp.fullname" .) .Values.backend.database.username -}}
 {{- $dbPassword := .Values.backend.database.password -}}
 {{ printf "mongodb://%s:%s@%s/%s" $dbUser $dbPassword $dbHost $dbName }}
+{{- end }}
+
+{{/*
+Combine DB credentials to a postgres database URI
+*/}}
+{{- define "bookyp.paymentDatabaseURI" -}}
+{{- $dbHost := .Values.payment.database.host -}}
+{{- $dbName := default (include "bookyp.fullname" .) .Values.payment.database.name -}}
+{{- $dbUser := default (include "bookyp.fullname" .) .Values.payment.database.username -}}
+{{- $dbPassword := .Values.payment.database.password -}}
+{{ printf "postgres://%s:%s@%s/%s" $dbUser $dbPassword $dbHost $dbName }}
 {{- end }}

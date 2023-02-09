@@ -12,6 +12,7 @@ import emailToLowerCase from './hooks/emailToLowerCase';
 const UserSchema = new Schema<Model.User>({
   name: { type: String },
   email: { type: String, required: true, unique: true },
+  paymentCustomerId: { type: String },
   starredSpaces: { type: [String], required: true },
 });
 

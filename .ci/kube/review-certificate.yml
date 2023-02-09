@@ -42,3 +42,18 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: bookyp-review-payment-certificate
+spec:
+  secretName: bookyp-review-payment-tls
+  commonName: '*.payment.bookyp.de'
+  dnsNames:
+    - payment.bookyp.de
+    - '*.payment.bookyp.de'
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer

@@ -4,6 +4,8 @@ const config = {
     port: parseInt(process.env.BACKEND_PORT || '4000'),
     secret: process.env.BACKEND_SECRET,
     frontendUrl: process.env.BACKEND_FRONTEND_URL,
+    backendUrl:
+      process.env.BACKEND_URL || (process.env.BACKEND_HOST ? `https://${process.env.BACKEND_HOST}` : undefined),
   },
   oauth: {
     redirect_url: process.env.BACKEND_OAUTH_REDIRECT_URL,
@@ -30,6 +32,10 @@ const config = {
     requireTLS: process.env.BACKEND_MAIL_REQUIRE_TLS === 'true',
     username: process.env.BACKEND_MAIL_USERNAME,
     password: process.env.BACKEND_MAIL_PASSWORD,
+  },
+  payment: {
+    gringottsUrl: process.env.BACKEND_PAYMENT_URL,
+    gringottsToken: process.env.BACKEND_PAYMENT_TOKEN,
   },
   s3: {
     endpoint: process.env.BACKEND_S3_ENDPOINT,

@@ -9,6 +9,7 @@ exports[`SettingsHeader component > should render correctly when active 1`] = `
     <icon-button-stub icon=\\"apps-list\\" iconcolor=\\"\\" disabled=\\"false\\" aria-label=\\"bookables\\" data-test=\\"button-bookables\\"></icon-button-stub>
     <icon-button-stub icon=\\"people\\" iconcolor=\\"\\" disabled=\\"false\\" aria-label=\\"members\\" data-test=\\"button-space-members\\"></icon-button-stub>
     <icon-button-stub icon=\\"info\\" iconcolor=\\"\\" disabled=\\"false\\" aria-label=\\"space_information\\" data-test=\\"button-space-information\\"></icon-button-stub>
+    <icon-button-stub icon=\\"credit-card\\" iconcolor=\\"\\" disabled=\\"false\\" aria-label=\\"subscription.space_subscription\\" data-test=\\"button-space-subscription\\"></icon-button-stub>
   </div>
 </header-stub>"
 `;

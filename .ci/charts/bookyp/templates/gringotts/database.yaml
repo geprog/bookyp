@@ -1,0 +1,11 @@
+apiVersion: anbraten.github.io/v1alpha1
+kind: Database
+metadata:
+  name: "{{ include "bookyp.fullname" . }}-payment"
+  labels:
+    {{- include "bookyp.labels" . | nindent 4 }}
+spec:
+  type: postgres
+  database: {{ default (include "bookyp.fullname" .) .Values.payment.database.name }}
+  username: {{ default (include "bookyp.fullname" .) .Values.payment.database.username }}
+  password: {{ .Values.payment.database.password | quote }}

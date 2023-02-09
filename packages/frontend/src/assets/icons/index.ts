@@ -11,6 +11,7 @@ import ChevronDownIcon from '~/assets/icons/chevron-down.svg';
 import ChevronLeftIcon from '~/assets/icons/chevron-left.svg';
 import ChevronRightIcon from '~/assets/icons/chevron-right.svg';
 import ClockIcon from '~/assets/icons/clock.svg';
+import CreditCardIcon from '~/assets/icons/credit-card.svg';
 import DeleteIcon from '~/assets/icons/delete.svg';
 import DiagramIcon from '~/assets/icons/diagram.svg';
 import DismissIcon from '~/assets/icons/dismiss.svg';
@@ -92,6 +93,7 @@ const icons = {
   diagram: DiagramIcon,
   calendar: CalendarIcon,
   'more-dots-horizontal': MoreDotsHorizontalIcon,
+  'credit-card': CreditCardIcon,
 };
 
 export default icons;

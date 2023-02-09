@@ -1,36 +1,10 @@
 import serviceIndex from '~/services';
 import AuthenticationService from '~/services/authentication/authentication.service';
-import { prepareAppMock, prepareGetConfigMockOnce } from '$/__helpers__/mocks';
+import { prepareAppMock, prepareGetConfigMockOnce, sampleConfig } from '$/__helpers__/mocks';
 
 vi.mock('~/config');
 
-const configMockReturnValue = {
-  app: {
-    host: 'localhost',
-    port: 4000,
-    secret: 'i-wont-tell-you',
-    frontendUrl: undefined,
-  },
-  oauth: {
-    redirect_url: 'http://localhost:3000/',
-    keycloak: {
-      secret: 'i-wont-tell-you',
-      client: 'bookyp',
-      subdomain: 'auth.example.org/auth/realms/main',
-    },
-    defaults: {
-      origin: undefined,
-    },
-  },
-  db: {
-    uri: undefined,
-    host: 'db',
-    port: '27017',
-    name: 'bookyp',
-    user: 'admin',
-    password: 'i-wont-tell-you',
-  },
-};
+const configMockReturnValue = sampleConfig;
 
 describe('Authentication service', () => {
   beforeEach(() => {

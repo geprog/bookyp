@@ -9,11 +9,9 @@ export default function emailToLowerCase(
     throw new Error('No data available');
   }
 
-  if (Array.isArray(context.data)) {
-    context.data.map((user) => ({ ...user, email: user.email?.toLowerCase() }));
-  } else {
-    context.data = { ...context.data, email: context.data.email?.toLowerCase() };
-  }
+  let users = Array.isArray(context.data) ? context.data : [context.data];
+  users = users.map((user) => ({ ...user, email: user.email?.toLowerCase() }));
+  context.data = Array.isArray(context.data) ? users : users[0];
 
   return context;
 }

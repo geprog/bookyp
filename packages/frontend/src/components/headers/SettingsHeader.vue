@@ -30,35 +30,35 @@
           data-test="button-space-information"
           @click="$router.push({ name: 'settings-space-info' })"
         />
+        <IconButton
+          v-if="allUnstableFeaturesEnabled"
+          icon="credit-card"
+          :icon-color="
+            $route.name === 'space-settings-subscription' || $route.name === 'space-settings-subscription-customer'
+              ? 'text-primary-normal'
+              : undefined
+          "
+          :aria-label="t('subscription.space_subscription')"
+          data-test="button-space-subscription"
+          @click="$router.push({ name: 'space-settings-subscription' })"
+        />
       </div>
     </slot>
   </Header>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
-import { ExtractedComponentProp } from '~/vue-helpers';
+import { useFeatureFlags } from '~/compositions/useFeatureFlags';
 
-export default defineComponent({
-  name: 'SettingsHeader',
+defineProps<{
+  title: string;
+}>();
 
-  components: { Header, IconButton },
+const { t } = useI18n();
 
-  props: {
-    title: {
-      type: String as ExtractedComponentProp<typeof Header, 'title'>,
-      required: true,
-    },
-  },
-
-  setup() {
-    const { t } = useI18n();
-
-    return { t };
-  },
-});
+const { allUnstableFeaturesEnabled } = useFeatureFlags();
 </script>
