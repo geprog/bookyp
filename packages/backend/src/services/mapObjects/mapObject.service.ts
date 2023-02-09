@@ -10,8 +10,8 @@ const MapObjectSchema = new Schema<Model.MapObject>({
   rotation: { type: Number, required: true },
   paths: { type: [String], required: true },
   type: { type: String, required: true },
-  bookable: String,
   space: { type: String, required: true },
+  link: { type: { type: String }, bookable: String, url: String },
 });
 
 export const name = 'mapObjects';

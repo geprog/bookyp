@@ -1,9 +1,9 @@
 <template>
-  <Header :title="isChoosingLink ? t('map_object.link_to_bookable') : t('map_object.edit')" has-back />
+  <Header :title="isChoosingBookableLink ? t('map_object.link_to_bookable') : t('map_object.edit')" has-back />
 
   <AppContent>
     <div class="flex flex-col mx-auto w-full py-3">
-      <template v-if="isChoosingLink">
+      <template v-if="isChoosingBookableLink">
         <Button
           icon="plus"
           class="mb-3"
@@ -14,7 +14,7 @@
         <SelectableListItem
           v-for="bookable in bookables"
           :key="bookable._id"
-          :selected="mapObject.bookable === bookable._id"
+          :selected="mapObject.link?.type === 'bookable' && mapObject.link.bookable === bookable._id"
           :label="bookable.name"
           data-test="select-bookable"
           class="cursor-pointer mb-3"
@@ -22,7 +22,16 @@
         />
       </template>
 
-      <template v-else>
+      <template v-else-if="mapObject.link?.type === 'url'">
+        <IconListItem icon="link" :label="mapObject.link.url" data-test="linked-bookable" class="mb-3">
+          <template #end>
+            <IconButton icon="delete" data-test="unlink-button" @click="unlinkMapObject" />
+          </template>
+        </IconListItem>
+        <Button class="w-full" icon="link" :text="t('map_object.change_link').toUpperCase()" @click="unlinkMapObject" />
+      </template>
+
+      <template v-else-if="mapObject.link?.type === 'bookable'">
         <IconListItem
           v-if="linkedBookable"
           icon="link"
@@ -31,19 +40,28 @@
           class="mb-3"
         >
           <template #end>
-            <IconButton icon="delete" data-test="unlink-button" @click="unlinkBookable" />
+            <IconButton icon="delete" data-test="unlink-button" @click="unlinkMapObject" />
           </template>
         </IconListItem>
+        <Button class="w-full" icon="link" :text="t('map_object.change_link').toUpperCase()" @click="unlinkMapObject" />
+      </template>
 
-        <Button
-          icon="link"
-          :text="
-            mapObject.bookable
-              ? t('map_object.change_bookable_link').toUpperCase()
-              : t('map_object.link_to_bookable').toUpperCase()
-          "
-          @click="$router.push({ name: 'settings-map-object-link', params: { selectedMapObjectId: mapObject._id } })"
-        />
+      <template v-else>
+        <div class="w-full flex flex-col gap-2">
+          <Button
+            icon="link"
+            class="w-full"
+            :text="t('map_object.link_to_bookable').toUpperCase()"
+            @click="$router.push({ name: 'settings-map-object-link', params: { selectedMapObjectId: mapObject._id } })"
+          />
+          <Button
+            v-if="!mapObject.link"
+            class="w-full"
+            icon="link"
+            :text="t('map_object.link_to_website').toUpperCase()"
+            @click="$router.push({ name: 'settings-map-object-url', params: { selectedMapObjectId: mapObject._id } })"
+          />
+        </div>
       </template>
     </div>
   </AppContent>
@@ -80,7 +98,7 @@ const { spaceId } = useCurrentSpace();
 
 const mapObject = toRef(props, 'mapObject');
 
-const linkedBookableId = computed(() => mapObject.value?.bookable);
+const linkedBookableId = computed(() => (mapObject.value?.link as { bookable?: string })?.bookable);
 const { data: linkedBookable } = useGet('bookables', linkedBookableId, ref({ query: { $disableSoftDelete: true } }));
 
 const { data: bookables } = useFind(
@@ -88,14 +106,14 @@ const { data: bookables } = useFind(
   computed(() => ({ query: { space: spaceId.value } })),
 );
 
-const isChoosingLink = computed(() => route.name === 'settings-map-object-link');
+const isChoosingBookableLink = computed(() => route.name === 'settings-map-object-link');
 
-function unlinkBookable() {
-  emit('update:mapObject', { ...mapObject.value, bookable: undefined });
+function unlinkMapObject() {
+  emit('update:mapObject', { ...mapObject.value, link: undefined });
 }
 
 function selectBookable(bookable: Model.Bookable) {
-  emit('update:mapObject', { ...mapObject.value, bookable: bookable._id });
+  emit('update:mapObject', { ...mapObject.value, link: { type: 'bookable', bookable: bookable._id } });
   router.back();
 }
 </script>

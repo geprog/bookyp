@@ -1,3 +1,4 @@
+import { Model } from '@bookyp/core';
 import { shallowMount } from '@vue/test-utils';
 import { computed, nextTick, ref } from 'vue';
 
@@ -133,7 +134,9 @@ describe('MapObjects component', () => {
     // then
     expect(wrapper.emitted('clickOnMapObject')).toBeTruthy();
     expect(wrapper.emitted('clickOnMapObject')).toHaveLength(1);
-    expect(wrapper.emitted('clickOnMapObject')?.[0]).toStrictEqual([sampleMapObjects[1].bookable]);
+    expect(wrapper.emitted<[Model.MapObject]>('clickOnMapObject')?.[0]?.[0]?._id).toStrictEqual(
+      sampleMapObjects[1]._id,
+    );
   });
 
   it('should skip clickOnMapObject event when not clickable', async () => {

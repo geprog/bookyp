@@ -29,7 +29,8 @@ export class MapObject extends AbstractEntity {
   /**
    * reference to a bookable for which this mapObject is a representation
    */
-  bookable?: Ref<Bookable>;
+
+  link?: { type: 'url'; url: string } | { type: 'bookable'; bookable: Ref<Bookable> };
 
   space!: Ref<Space>;
 

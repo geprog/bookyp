@@ -160,7 +160,7 @@ describe('MapObject view', () => {
     expect(emittedValues[0]).toStrictEqual([
       {
         ...sampleMapObject,
-        bookable: sampleBookables[0]._id,
+        link: { type: 'bookable', bookable: sampleBookables[0]._id },
       },
     ]);
     expect(useRouterMock.back).toHaveBeenCalledTimes(1);
@@ -173,7 +173,7 @@ describe('MapObject view', () => {
 
     const linkedBookable = sampleBookable;
     const mapObject = sampleMapObject;
-    mapObject.bookable = linkedBookable._id;
+    mapObject.link = { type: 'bookable', bookable: linkedBookable._id };
 
     prepareUseGetMockOnce(mapObject);
     prepareUseGetMockOnce(linkedBookable);
@@ -205,6 +205,6 @@ describe('MapObject view', () => {
     // then
     const emittedValues = wrapper.emitted<Model.MapObject[]>()['update:mapObject'];
     expect(emittedValues).toHaveLength(1);
-    expect(emittedValues[0][0].bookable).toBeUndefined();
+    expect(emittedValues[0][0].link?.type).toBeUndefined();
   });
 });

@@ -37,13 +37,13 @@ describe('BookablesMap view', () => {
     const wrapper = shallowMount(BookablesMap);
 
     // when
-    wrapper.getComponent(MapObjects).vm.$emit('clickOnMapObject', sampleMapObjectWithBookable.bookable);
+    wrapper.getComponent(MapObjects).vm.$emit('clickOnMapObject', sampleMapObjectWithBookable);
     await nextTick();
 
     // then
     expect(useRouterMockOnce.push).toHaveBeenCalledWith({
       name: 'booking-create',
-      params: { bookableId: sampleMapObjectWithBookable.bookable },
+      params: { bookableId: (sampleMapObjectWithBookable.link as { bookable: string }).bookable },
     });
   });
 
@@ -55,7 +55,7 @@ describe('BookablesMap view', () => {
     const wrapper = shallowMount(BookablesMap);
 
     // when
-    wrapper.getComponent(MapObjects).vm.$emit('clickOnMapObject', sampleMapObject.bookable);
+    wrapper.getComponent(MapObjects).vm.$emit('clickOnMapObject', sampleMapObject);
     await nextTick();
 
     // then
