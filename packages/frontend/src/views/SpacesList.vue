@@ -70,6 +70,7 @@
       </div>
     </router-link>
   </AppContent>
+  <SpacesActionButtons />
 </template>
 
 <script lang="ts" setup>
@@ -82,6 +83,7 @@ import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import SpacesActionButtons from '~/components/layout/toolbars/SpacesActionButtons.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
 import { logout, user } from '~/compositions/useAuthentication';
