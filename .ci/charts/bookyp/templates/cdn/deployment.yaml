@@ -42,6 +42,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: "{{ include "bookyp.fullname" . }}-cdn-config"
+            - secretRef:
+                name: "{{ include "bookyp.fullname" . }}-cdn-secret"
           ports:
             - name: http
               containerPort: 8080
