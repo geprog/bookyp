@@ -1,8 +1,8 @@
 <template>
   <Header :title="t('select_map_object_type')" has-back />
 
-  <AppContent class="flex flex-row gap-4 p-4">
-    <div v-for="mapObjectType in mapObjectTypes" :key="mapObjectType.name" class="flex flex-col gap-2">
+  <AppContent class="flex !flex-row gap-4 p-4 flex-wrap">
+    <div v-for="mapObjectType in mapObjectTypes" :key="mapObjectType.name" class="flex flex-col gap-2 w-min">
       <MapObject
         :viewBox="mapObjectType.viewBox"
         :paths="mapObjectType.paths"
