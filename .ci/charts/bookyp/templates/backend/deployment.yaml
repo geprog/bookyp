@@ -55,6 +55,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: "{{ include "bookyp.fullname" . }}-backend-config"
+            - secretRef:
+                name: "{{ include "bookyp.fullname" . }}-backend-secret"
           readinessProbe:
             httpGet:
               path: /ready

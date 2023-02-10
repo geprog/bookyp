@@ -6,24 +6,18 @@ metadata:
     {{- include "bookyp.labels" . | nindent 4 }}
 data:
   BACKEND_HOST: {{ include "bookyp.backendURL" . }}
-  BACKEND_SECRET: {{ .Values.backend.jwtSecret | quote }}
   BACKEND_OAUTH_REDIRECT_URL: "https://{{ include "bookyp.frontendURL" . }}/"
   BACKEND_KEYCLOAK_SUBDOMAIN: {{ .Values.backend.keycloak.subdomain | quote }}
   BACKEND_KEYCLOAK_CLIENT: {{ .Values.backend.keycloak.client | quote }}
-  BACKEND_KEYCLOAK_SECRET: {{ .Values.backend.keycloak.secret | quote }}
-  BACKEND_DB_URI: {{ include "bookyp.backendDatabaseURI" . | quote }}
   BACKEND_MAIL_HOST: {{ .Values.backend.mail.host | quote }}
   BACKEND_MAIL_PORT: {{ .Values.backend.mail.port | quote }}
   BACKEND_MAIL_USERNAME: {{ .Values.backend.mail.username | quote }}
-  BACKEND_MAIL_PASSWORD: {{ .Values.backend.mail.password | quote }}
   BACKEND_MAIL_FROM: {{ .Values.backend.mail.from | quote }}
   BACKEND_MAIL_SECURE: {{ .Values.backend.mail.secure | quote }}
   BACKEND_MAIL_REQUIRE_TLS: {{ .Values.backend.mail.requireTls | quote }}
   BACKEND_FRONTEND_URL: "https://{{ include "bookyp.frontendURL" . }}"
-  BACKEND_S3_ENDPOINT:  {{ .Values.cdn.s3.address | quote }}
-  BACKEND_S3_ACCESS_KEY:  {{ .Values.cdn.s3.accessKey | quote }}
-  BACKEND_S3_SECRET_KEY:  {{ .Values.cdn.s3.secretKey | quote }}
-  BACKEND_S3_BUCKET:  {{ .Values.cdn.s3.bucket | quote }}
+  BACKEND_S3_ENDPOINT: {{ .Values.cdn.s3.address | quote }}
+  BACKEND_S3_ACCESS_KEY: {{ .Values.cdn.s3.accessKey | quote }}
+  BACKEND_S3_BUCKET: {{ .Values.cdn.s3.bucket | quote }}
   BACKEND_S3_PUBLIC_FILE_URL_PREFIX: "https://{{ include "bookyp.cdnURL" . }}"
   BACKEND_PAYMENT_URL: "https://{{ default (include "bookyp.paymentURL" .) .Values.backend.payment.url }}"
-  BACKEND_PAYMENT_TOKEN: {{ .Values.backend.payment.token }}

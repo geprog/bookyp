@@ -52,5 +52,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: "{{ include "bookyp.fullname" . }}-payment-config"
+            - secretRef:
+                name: "{{ include "bookyp.fullname" . }}-payment-secret"
           resources:
             {{- toYaml .Values.payment.resources | nindent 12 }}
