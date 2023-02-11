@@ -31,7 +31,7 @@
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 import { Model } from '@bookyp/core';
-import { FeatureCollection, Point, Position } from 'geojson';
+import type { FeatureCollection, Point, Position } from 'geojson';
 import { computed, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
