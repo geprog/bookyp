@@ -32,7 +32,12 @@ async function clickOnMapObject(mapObject: Model.MapObject) {
     return;
   }
   if (mapObject.link && mapObject.link.type === 'url') {
-    window.open(`${mapObject.link.url}`, '_blank');
+    const url = new URL(mapObject.link.url);
+    if (url.host === location.host) {
+      await router.push(url.pathname + url.search + url.hash);
+    } else {
+      window.open(url.toString(), '_blank');
+    }
   }
 }
 </script>
