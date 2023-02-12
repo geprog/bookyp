@@ -14,10 +14,11 @@ import PaymentWebhookRouter from '~/services/spaceSubscriptions/webhook';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const configureApplication = () => {
   const app = express(createApplication());
+  const { host, port, frontendUrl } = config().app;
 
   // configure oauth
-  app.set('host', config().app.host);
-  app.set('port', config().app.port);
+  app.set('host', host);
+  app.set('port', port);
 
   // Configure Socket.io real-time APIs
   app.configure(
@@ -40,6 +41,10 @@ export const configureApplication = () => {
   app.use(PaymentWebhookRouter(app));
 
   app.use('/', (_req, res) => {
+    if (frontendUrl !== undefined) {
+      res.redirect(frontendUrl);
+      return;
+    }
     res.send('You found the backend of Bookyp! ;-)');
   });
 
