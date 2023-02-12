@@ -36,7 +36,7 @@ async function clickOnMapObject(mapObject: Model.MapObject) {
     if (url.host === location.host) {
       await router.push(url.pathname + url.search + url.hash);
     } else {
-      window.open(url.toString(), '_blank');
+      window.open(url.toString(), '_blank', 'noopener,noreferrer');
     }
   }
 }
