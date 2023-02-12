@@ -106,6 +106,7 @@
 
 <script lang="ts" setup>
 import { Model } from '@bookyp/core';
+import { onKeyStroke } from '@vueuse/core';
 import { clone, cloneDeep, isEqual, omit } from 'lodash';
 import { computed, Ref, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -370,5 +371,15 @@ onBeforeRouteLeave(() => {
   }
 
   return confirm();
+});
+
+onKeyStroke('Delete', (e) => {
+  e.preventDefault();
+  if (selectedMapObjectId.value !== undefined) {
+    void removeSelectedMapObject();
+  }
+  if (selectedFloorPlanObjectId.value !== null) {
+    removeSelectedFloorPlanObject();
+  }
 });
 </script>
