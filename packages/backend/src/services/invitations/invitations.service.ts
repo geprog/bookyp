@@ -6,6 +6,7 @@ import { feathersCaslAllowlist } from '~/casl';
 
 import accept from './hooks/accept';
 import addSpaceName from './hooks/addSpaceName';
+import canAddNewMembers from './hooks/canAddNewMembers';
 import checkUserAlreadyInSpace from './hooks/checkUserAlreadyInSpace';
 import emailToLowerCase from './hooks/emailToLowerCase';
 import sendSpaceInvitationMail from './hooks/sendInvitationMail';
@@ -31,7 +32,7 @@ export default (app: Application): void => {
   app.use(name, new Service<Model.Invitation>(options));
   app.service(name).hooks({
     before: {
-      create: [emailToLowerCase, checkUserAlreadyInSpace, sendSpaceInvitationMail],
+      create: [emailToLowerCase, canAddNewMembers, checkUserAlreadyInSpace, sendSpaceInvitationMail],
       remove: [accept],
     },
     after: {
