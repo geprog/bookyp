@@ -2,7 +2,6 @@
   <Steps v-model:active-step="activeStep" class="mt-8">
     <Step>
       <h2 class="text-xl text-center">{{ t('subscription.plans') }}</h2>
-
       <div class="flex gap-4 mt-4">
         <!-- free plan -->
         <div
@@ -112,10 +111,15 @@
         {{ t('subscription.currently_upgrading_to_plan', { plan: space.requestedPlan }) }}
       </div>
 
-      <div class="flex mt-6">
+      <div class="flex mt-6 justify-between items-center">
         <router-link :to="{ name: 'space-settings-subscription-customer' }" replace>
           <Button :text="t('subscription.edit_customer')" />
         </router-link>
+        <i18n-t scope="global" keypath="terms_and_conditions.using_bookyp" tag="p" class="text-sm">
+          <a class="text-primary-normal underline" href="https://bookyp.de/nutzungsbedingungen" target="_blank">
+            {{ t('terms_and_conditions.terms_and_conditions') }}
+          </a>
+        </i18n-t>
       </div>
     </Step>
 

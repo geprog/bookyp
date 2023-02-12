@@ -162,5 +162,9 @@
   "member_newest_booking": "Newest booking: {date}",
   "bookings_of": "Bookings of {name}",
   "click_or_drag_and_drop_to_upload": "Click here or drag and drop to upload",
-  "upload_space_image": "You can upload a space image here!"
+  "upload_space_image": "You can upload a space image here!",
+  "terms_and_conditions": {
+    "using_bookyp": "By using Bookyp you are agreeing to our {0}",
+    "terms_and_conditions": "Terms and Conditions"
+  }
 }
