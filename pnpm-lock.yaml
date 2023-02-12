@@ -276,9 +276,9 @@ importers:
 
   packages/oauth-mock-server:
     specifiers:
-      '@geprog/oauth-mock-server': 1.1.0
+      '@geprog/oauth-mock-server': 1.4.1
     devDependencies:
-      '@geprog/oauth-mock-server': 1.1.0
+      '@geprog/oauth-mock-server': 1.4.1
 
   packages/test-coverage:
     specifiers:
@@ -1484,12 +1484,6 @@ packages:
       '@ucast/mongo2js': 1.3.3
     dev: false
 
-  /@casl/ability/5.4.4:
-    resolution: {integrity: sha512-7+GOnMUq6q4fqtDDesymBXTS9LSDVezYhFiSJ8Rn3f0aQLeRm7qHn66KWbej4niCOvm0XzNj9jzpkK0yz6hUww==}
-    dependencies:
-      '@ucast/mongo2js': 1.3.3
-    dev: false
-
   /@cspell/cspell-bundled-dicts/5.18.5:
     resolution: {integrity: sha512-jFvwF8bb8HUYqMUPQiGZUHAf8zfriZRagzoCW8w4NLLJB1IZNGlQvQCQskQG9cYtOmKAYHCbOwm8SjA9FKwQow==}
     engines: {node: '>=12.13.0'}
@@ -2016,8 +2010,8 @@ packages:
       mongodb: 4.1.4
     dev: false
 
-  /@geprog/oauth-mock-server/1.1.0:
-    resolution: {integrity: sha512-96bULpjM7GMOdpfIGUOboULye2pcgfC4UqWKkMtJYKQzKsVZ/fttflR0o9NJqQOTdplvY0UB7a6FIuC2YkQQyA==}
+  /@geprog/oauth-mock-server/1.4.1:
+    resolution: {integrity: sha512-O+dbtXg3WH/yqfFSprUf5XD+OLGVAssvlvy3RgP/TgN7t5E53PGS5+WtHT5K0zjEa9ZuWm57vlh5boQDXy6VEg==}
     engines: {pnpm: '7'}
     hasBin: true
     dependencies:
@@ -2071,8 +2065,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@intlify/bundle-utils/3.4.0_vue-i18n@9.2.0-beta.35:
-    resolution: {integrity: sha512-2UQkqiSAOSPEHMGWlybqWm4G2K0X+FyYho5AwXz6QklSX1EY5EDmOSxZmwscn2qmKBnp6OYsme5kUrnN9xrWzQ==}
+  /@intlify/bundle-utils/4.0.0_vue-i18n@9.2.0-beta.35:
+    resolution: {integrity: sha512-klXrYT9VXyKEXsD6UY3pShg0O5MPC07n0TZ5RrSs5ry6T1eZVolIFGJi9c3qcDrh1qjJxgikRnPBmD7qGDqbjw==}
     engines: {node: '>= 12'}
     peerDependencies:
       petite-vue-i18n: '*'
@@ -2218,7 +2212,7 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@intlify/bundle-utils': 3.4.0_vue-i18n@9.2.0-beta.35
+      '@intlify/bundle-utils': 4.0.0_vue-i18n@9.2.0-beta.35
       '@intlify/shared': 9.3.0-beta.16
       '@rollup/pluginutils': 4.2.1
       debug: 4.3.4
@@ -10699,7 +10693,7 @@ packages:
     name: feathers-casl
     version: 0.7.0
     dependencies:
-      '@casl/ability': 5.4.4
+      '@casl/ability': 5.4.3
       '@feathersjs/errors': 5.0.0-pre.17
       '@feathersjs/feathers': 5.0.0-pre.17
       '@feathersjs/transport-commons': 5.0.0-pre.17
