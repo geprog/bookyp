@@ -1,7 +1,7 @@
 <template>
   <div class="flex my-2 items-center">
     <Icon data-test="input-field-icon" :name="iconName" class="mr-4" />
-    <div class="flex flex-col w-full border-b-1 py-2">
+    <div class="flex flex-col w-full py-2" :class="{ 'border-b-1': readonly === false }">
       <slot />
     </div>
   </div>
@@ -22,6 +22,10 @@ export default defineComponent({
     iconName: {
       type: String as ExtractedComponentProp<typeof Icon, 'name'>,
       required: true,
+    },
+
+    readonly: {
+      type: Boolean,
     },
   },
 });
