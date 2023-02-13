@@ -144,6 +144,11 @@
     "enable_all_unstable_features": "Enable all unstable features",
     "disable_all_unstable_features": "Disable all unstable features"
   },
+  "confirmation": {
+    "confirm_a_bookable": "Confirm {bookable}",
+    "confirm_booking_in_public_space": "You are about to book in a public space. Read the information on the space carefully.",
+    "confirm_personal_data_warning": "Your name and e-mail address will be visible to the admin of the public space."
+  },
   "delete_space": "Delete space",
   "edit_space_information": "Edit space information",
   "confirm_unsaved_changes": "You have unsaved changes. Are you sure you want discard them?",

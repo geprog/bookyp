@@ -48,10 +48,25 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: 'bookable/:bookableId/book',
-        name: 'booking-create',
         meta: { accessibleByUserRole: true },
-        component: () => import('~/views/Booking.vue'),
+        component: () => import('~/views/space/booking/BookingCreate.vue'),
         props: true,
+        children: [
+          {
+            path: '',
+            name: 'booking-create',
+            meta: { accessibleByUserRole: true },
+            component: () => import('~/views/space/booking/BookingSelectDate.vue'),
+            props: true,
+          },
+          {
+            path: 'confirmation',
+            name: 'booking-confirm',
+            meta: { accessibleByUserRole: true },
+            component: () => import('~/views/space/booking/BookingConfirmation.vue'),
+            props: true,
+          },
+        ],
       },
       {
         path: 'settings/bookables',

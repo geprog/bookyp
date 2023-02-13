@@ -42,21 +42,23 @@ import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
-import { user } from '~/compositions/useAuthentication';
 import { useBookables } from '~/compositions/useBookables';
-import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 
 const props = defineProps<{
-  bookableId: string;
+  booking?: Partial<Model.Booking>;
+}>();
+
+const emit = defineEmits<{
+  (event: 'update:booking', booking: Partial<Model.Booking>): void;
+  (event: 'submit'): void;
 }>();
 
 const { t } = useI18n();
 const router = useRouter();
-const feathers = useFeathers();
-const { spaceId } = useCurrentSpace();
 
-const bookableId = toRef(props, 'bookableId');
+const booking = toRef(props, 'booking');
+const bookableId = computed(() => booking.value?.bookable);
 const { data: bookables } = useFind(
   'bookables',
   computed(() => ({})),
@@ -83,40 +85,18 @@ const end = ref(bookablesFilter.value?.end || dayjs().add(1, 'hour').toDate());
 const description = ref('');
 
 const isBookingOverlapping = computed(() =>
-  bookings.value.some((booking) => dayjs(booking.start).isBefore(end.value) && dayjs(booking.end).isAfter(start.value)),
+  bookings.value.some((b) => dayjs(b.start).isBefore(end.value) && dayjs(b.end).isAfter(start.value)),
 );
 
+const { currentSpace } = useCurrentSpace();
+
 const submit = async () => {
-  /* istanbul ignore next */
-  if (!user.value) {
-    throw new Error('Unexpected: User should be loaded');
-  }
-
-  if (!spaceId.value) {
-    throw new Error('Unexpected: A space must be selected');
-  }
-
-  try {
-    await feathers.service('bookings').create({
-      start: start.value,
-      end: end.value,
-      description: description.value,
-      bookable: props.bookableId,
-      bookedBy: user.value._id,
-      space: spaceId.value,
-    });
-    resetBookablesFilter();
-    await router.replace({ name: 'account-bookings' });
-  } catch (error) {
-    if (error instanceof Error && error.message === 'Booking overlaps with existing bookings') {
-      alert(t('booking_overlaps', { bookable: bookable.value?.name }));
-      return;
-    }
-    if (error instanceof Error && error.message === 'End date must be after start date') {
-      alert(t('booking_invalid_end_date'));
-      return;
-    }
-    throw error;
+  emit('update:booking', { ...booking.value, start: start.value, end: end.value, description: description.value });
+  resetBookablesFilter();
+  if (currentSpace.value?.plan === 'public') {
+    await router.push({ name: 'booking-confirm' });
+  } else {
+    emit('submit');
   }
 };
 

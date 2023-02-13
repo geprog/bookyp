@@ -3,7 +3,7 @@
 exports[`LabelField component > should render correctly 1`] = `
 "<div class=\\"flex my-2 items-center\\">
   <icon-stub name=\\"settings\\" color=\\"\\" data-test=\\"input-field-icon\\" class=\\"mr-4\\"></icon-stub>
-  <div class=\\"flex flex-col w-full border-b-1 py-2\\">
+  <div class=\\"flex flex-col w-full py-2 border-b-1\\">
     <p>Horst</p>
   </div>
 </div>"
