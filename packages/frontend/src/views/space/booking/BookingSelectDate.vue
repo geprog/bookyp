@@ -72,11 +72,16 @@ const bookable = computed(() =>
 
 const { data: bookings } = useFind(
   'bookings',
-  computed(() => ({
-    query: {
-      bookable: bookableId.value,
-    },
-  })),
+  computed(() => {
+    if (!bookableId.value) {
+      return undefined;
+    }
+    return {
+      query: {
+        bookable: bookableId.value,
+      },
+    };
+  }),
 );
 
 const start = ref(bookablesFilter.value?.start || new Date());
