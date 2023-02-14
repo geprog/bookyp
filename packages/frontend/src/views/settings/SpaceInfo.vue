@@ -15,6 +15,7 @@
         <TextField v-model="space.email" readonly :placeholder="t('email_space')" />
       </LabelField>
       <div id="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
+      <img v-if="space.image" :src="space.image" class="w-full object-cover aspect-video" />
     </div>
 
     <Button
