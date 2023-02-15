@@ -11,7 +11,7 @@
       <LabelField v-if="space.description" icon-name="text-box">
         <TextField v-model="space.description" readonly data-test="space-description" :placeholder="t('description')" />
       </LabelField>
-      <div id="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
+      <div ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
       <img v-if="space.image" :src="space.image" class="w-full object-cover aspect-video" />
     </div>
   </AppContent>
@@ -34,5 +34,6 @@ const { currentSpace: space } = useCurrentSpace();
 
 const coordinates = computed(() => space.value?.coordinates);
 
-useMap({ coordinates, followCoordinates: ref(true) });
+const map = ref<HTMLElement>();
+useMap({ coordinates, followCoordinates: ref(true), container: map });
 </script>

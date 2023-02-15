@@ -18,7 +18,7 @@
       <TextField v-model="spaceCreate.email" :placeholder="t('email_space')" />
     </LabelField>
 
-    <div id="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
+    <div ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
 
     <div
       class="relative flex flex-col w-full border-1 rounded-md overflow-hidden"
@@ -135,7 +135,8 @@ const coordinates = computed({
   },
 });
 
-useMap({ coordinates, clickable: ref(true) });
+const map = ref<HTMLElement>();
+useMap({ coordinates, clickable: ref(true), container: map });
 
 const feathers = useFeathers();
 
