@@ -5,7 +5,7 @@
     <IconButton v-if="user" icon="sign-out" @click="logout" />
   </Header>
 
-  <div id="map" class="w-full h-full" />
+  <div ref="map" class="w-full h-full" />
   <div v-if="selectedSpace" class="fixed bottom-0 flex justify-center w-full">
     <router-link
       :to="{ name: 'space', params: { spaceId: selectedSpaceId } }"
@@ -32,7 +32,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 
 import { Model } from '@bookyp/core';
 import type { FeatureCollection, Point, Position } from 'geojson';
-import { computed, toRef } from 'vue';
+import { computed, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -97,6 +97,7 @@ const geojson = computed<FeatureCollection>(() => ({
     })),
 }));
 
+const map = ref<HTMLElement>();
 useMap({
   selectedMarkerId: selectedSpaceId,
   geojson,
@@ -123,6 +124,7 @@ useMap({
 
     void router.replace({ name: 'spaces-map', params: { selectedSpaceId: feature.properties.id } });
   },
+  container: map,
 });
 
 async function updateStarForSpace(_spaceId: string, starred: boolean) {

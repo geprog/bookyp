@@ -8,7 +8,7 @@ import {
   Source,
   SymbolLayerSpecification,
 } from 'maplibre-gl';
-import { computed, onMounted, Ref, watch } from 'vue';
+import { computed, Ref, watch } from 'vue';
 
 import { getConfig } from '~/config';
 
@@ -20,6 +20,7 @@ export const useMap = (options: {
   clickHandler?: (event: MapMouseEvent) => void;
   geojson?: Ref<FeatureCollection>;
   selectedMarkerId?: Ref<string | undefined>;
+  container: Ref<HTMLElement | undefined>;
 }) => {
   const { coordinates } = options;
   let map: Map;
@@ -104,9 +105,13 @@ export const useMap = (options: {
 
   const config = getConfig();
 
-  onMounted(() => {
+  watch(options.container, (newContainer) => {
+    if (!newContainer) {
+      return;
+    }
+
     map = new Map({
-      container: 'map',
+      container: newContainer,
       style: config.map.brightMapStyle,
       minZoom: config.map.minZoom,
       maxZoom: config.map.maxZoom,
