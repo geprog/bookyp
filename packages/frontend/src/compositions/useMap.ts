@@ -12,12 +12,14 @@ import { computed, Ref, watch } from 'vue';
 
 import { getConfig } from '~/config';
 
+const isGeoJsonSource = (source?: Source): source is GeoJSONSource => source?.type === 'geojson';
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useMap = (options: {
   coordinates?: Ref<{ lng: number; lat: number } | undefined>;
   followCoordinates?: Ref<boolean>;
   clickable?: Ref<boolean>;
-  clickHandler?: (event: MapMouseEvent) => void;
+  clickHandler?: (event: MapMouseEvent) => { continueDefaultClickHandler: boolean };
   geojson?: Ref<FeatureCollection>;
   selectedMarkerId?: Ref<string | undefined>;
   container: Ref<HTMLElement | undefined>;
@@ -30,7 +32,7 @@ export const useMap = (options: {
       return;
     }
 
-    map.flyTo({
+    map.easeTo({
       center,
       padding: {
         bottom: 84, // 84px is the height of the bottom panel
@@ -96,6 +98,7 @@ export const useMap = (options: {
     id: 'spaces',
     type: 'symbol',
     source: 'geojson',
+    filter: ['!', ['has', 'point_count']],
     layout: {
       'icon-image': ['match', ['get', 'id'], options.selectedMarkerId?.value || '', 'pin-red-border', 'pin'],
       'icon-size': 0.5,
@@ -128,18 +131,54 @@ export const useMap = (options: {
       map.addSource('geojson', {
         type: 'geojson',
         data: Object.freeze(geojson.value),
+        cluster: true,
+        clusterMaxZoom: 14,
+        clusterRadius: 15,
       });
 
       void loadImage('pin', '/pin-green.png');
       void loadImage('pin-red-border', '/pin-red-border.png');
+
+      map.addLayer({
+        id: 'clusters',
+        type: 'circle',
+        source: 'geojson',
+        filter: ['has', 'point_count'],
+        paint: {
+          // primary-normal, 20px circles when point count is less than 10
+          // primary-dark, 30px circles when point count is between 10 and 30
+          // primary-dark, 40px circles when point count is greater than or equal to 30
+          'circle-color': ['step', ['get', 'point_count'], '#F59E0B', 10, '#D97706', 30, '#D97706'],
+          'circle-radius': ['step', ['get', 'point_count'], 20, 10, 30, 30, 40],
+        },
+      });
+
+      map.addLayer({
+        id: 'cluster-count',
+        type: 'symbol',
+        source: 'geojson',
+        filter: ['has', 'point_count'],
+        layout: {
+          'text-field': '{point_count_abbreviated}',
+          'text-font': ['Metropolis Regular', 'Klokantech Noto Sans Regular'],
+          'text-size': 15,
+          'text-offset': [0, 0.2],
+          'text-overlap': 'cooperative',
+        },
+        paint: {
+          'text-color': '#fff',
+        },
+      });
 
       map.addLayer(spacesLayer.value);
     });
 
     map.on('click', (e) => {
       if (options.clickHandler) {
-        options.clickHandler(e);
-        return;
+        const { continueDefaultClickHandler } = options.clickHandler(e);
+        if (continueDefaultClickHandler === false) {
+          return;
+        }
       }
       if (!options.clickable?.value) {
         return;
@@ -147,6 +186,36 @@ export const useMap = (options: {
       if (coordinates !== undefined) {
         coordinates.value = e.lngLat;
       }
+      const features = map.queryRenderedFeatures(e.point, {
+        layers: ['clusters'],
+      });
+      const clusterId = features[0].properties.cluster_id as number;
+      const geoJSONSource = map.getSource('geojson');
+      if (isGeoJsonSource(geoJSONSource)) {
+        // eslint-disable-next-line promise/prefer-await-to-callbacks
+        geoJSONSource.getClusterExpansionZoom(clusterId, (err, zoom) => {
+          if (err || !zoom || features[0].geometry.type !== 'Point') {
+            return;
+          }
+          map.easeTo({
+            center: features[0].geometry.coordinates as LngLatLike,
+            zoom,
+          });
+        });
+      }
+    });
+
+    map.on('mouseenter', 'clusters', () => {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'clusters', () => {
+      map.getCanvas().style.cursor = '';
+    });
+    map.on('mouseenter', 'spaces', () => {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'spaces', () => {
+      map.getCanvas().style.cursor = '';
     });
   });
 
@@ -165,7 +234,6 @@ export const useMap = (options: {
     }
 
     const geoJSONSource = map.getSource('geojson');
-    const isGeoJsonSource = (source?: Source): source is GeoJSONSource => source?.type === 'geojson';
     if (isGeoJsonSource(geoJSONSource)) {
       geoJSONSource.setData(Object.freeze(geojson.value));
     }
