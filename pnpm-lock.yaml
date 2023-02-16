@@ -218,6 +218,7 @@ importers:
       vue-i18n: 9.2.0-beta.35
       vue-router: 4.0.12
       vue-tsc: 1.0.9
+      vue3-promise-dialog: 0.3.4
       windicss: 3.5.6
       workbox-window: 6.5.3
     dependencies:
@@ -248,6 +249,7 @@ importers:
       vue: 3.2.33
       vue-i18n: 9.2.0-beta.35_vue@3.2.33
       vue-router: 4.0.12_vue@3.2.33
+      vue3-promise-dialog: 0.3.4_vue@3.2.33
     devDependencies:
       '@babel/core': 7.13.10
       '@geprog/eslint-config': 2.1.0_npli4tdgtr6r6coobkebrlmheu
@@ -10292,6 +10294,14 @@ packages:
       '@vue/runtime-dom': 3.2.33
       '@vue/server-renderer': 3.2.33_vue@3.2.33
       '@vue/shared': 3.2.33
+
+  /vue3-promise-dialog/0.3.4_vue@3.2.33:
+    resolution: {integrity: sha512-JquYYE+1lxuGgncD8Q+8KTFAWUJsNWnhuYPSsOFRKzz3kz66Rjz5pdlEW6GLfUlV3cKak9T8b3mV49B4ouEgVg==}
+    peerDependencies:
+      vue: ^3.x
+    dependencies:
+      vue: 3.2.33
+    dev: false
 
   /w3c-hr-time/1.0.2:
     resolution: {integrity: sha512-z8P5DvDNjKDoFIHK7q8r8lackT6l+jo/Ye3HOle7l9nICP9lf1Ci25fy9vHd0JOWewkIFzXIEig3TdKT7JQ5fQ==}

@@ -2,10 +2,13 @@
   <div class="app flex flex-col m-auto w-full h-full">
     <router-view />
     <UpdateApp />
+    <DialogWrapper />
   </div>
 </template>
 
 <script lang="ts" setup>
+import { DialogWrapper } from 'vue3-promise-dialog';
+
 import UpdateApp from '~/components/layout/UpdateApp.vue';
 </script>
 
