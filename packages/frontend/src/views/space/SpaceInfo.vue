@@ -12,7 +12,7 @@
         <TextField v-model="space.description" readonly data-test="space-description" :placeholder="t('description')" />
       </LabelField>
       <div v-if="space.coordinates" ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
-      <img v-if="space.image" :src="space.image" class="w-full object-cover aspect-video" />
+      <img v-if="space.image" :src="space.image" class="w-full object-cover rounded-md aspect-video" />
     </div>
   </AppContent>
 </template>
