@@ -106,7 +106,7 @@ const defineRulesFor = async (
       query: { space: { $in: spaceIdsAdmin } },
     })) as Model.Booking[];
     can('read', 'users', ['_id', 'email', 'name'], {
-      _id: { $in: bookingsAdmin.map((booking) => booking.bookedBy) },
+      _id: { $in: bookingsAdmin.map((booking) => booking.bookedBy).filter((id) => id !== user._id) },
     });
   }
 
