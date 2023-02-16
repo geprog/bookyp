@@ -2,31 +2,42 @@
   <SpaceBookingsHeader />
 
   <div class="flex flex-col mx-8 mb-4 flex-grow">
-    <div class="flex items-center my-2 gap-2">
-      <Button
-        :text="t('calendar.work_week')"
-        :outlined="selectedView === 'timeGridWorkWeek'"
-        @click="selectedView = 'timeGridWorkWeek'"
-      />
-      <Button
-        :text="t('calendar.week')"
-        :outlined="selectedView === 'timeGridWeek'"
-        @click="selectedView = 'timeGridWeek'"
-      />
-      <Button
-        :text="t('calendar.month')"
-        :outlined="selectedView === 'dayGridMonth'"
-        @click="selectedView = 'dayGridMonth'"
-      />
-
-      <Button :text="t('calendar.today')" class="ml-auto" @click="api!.today()" />
-      <ButtonPair
-        icon-left="chevron-left"
-        icon-right="chevron-right"
-        :disabled-left="dayjs(viewStartDate).isSame(dayjs(), 'day')"
-        @left="api!.prev()"
-        @right="api!.next()"
-      />
+    <div class="flex flex-col items-center md:flex-row md:justify-between my-2 gap-2">
+      <div class="flex gap-2">
+        <Button
+          class="md:hidden"
+          :text="t('calendar.day')"
+          :outlined="selectedView === 'timeGridDay'"
+          @click="selectedView = 'timeGridDay'"
+        />
+        <Button
+          class="hidden md:block"
+          :text="t('calendar.work_week')"
+          :outlined="selectedView === 'timeGridWorkWeek'"
+          @click="selectedView = 'timeGridWorkWeek'"
+        />
+        <Button
+          class="hidden md:block"
+          :text="t('calendar.week')"
+          :outlined="selectedView === 'timeGridWeek'"
+          @click="selectedView = 'timeGridWeek'"
+        />
+        <Button
+          :text="t('calendar.month')"
+          :outlined="selectedView === 'dayGridMonth'"
+          @click="selectedView = 'dayGridMonth'"
+        />
+      </div>
+      <div class="flex gap-2">
+        <Button :text="t('calendar.today')" @click="api!.today()" />
+        <ButtonPair
+          icon-left="chevron-left"
+          icon-right="chevron-right"
+          :disabled-left="dayjs(viewStartDate).isSame(dayjs(), 'day')"
+          @left="api!.prev()"
+          @right="api!.next()"
+        />
+      </div>
     </div>
 
     <div class="flex-grow">
@@ -44,6 +55,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import FullCalendar from '@fullcalendar/vue3';
+import { useWindowSize } from '@vueuse/core';
 import dayjs from 'dayjs';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -86,11 +98,23 @@ const extendedBookings = computed(() =>
 const viewStartDate = ref<Date>();
 const fullCalendar = ref<InstanceType<typeof FullCalendar>>();
 const api = ref<Calendar>();
-
-const selectedView = ref('timeGridWeek');
+const selectedView = ref<'timeGridDay' | 'timeGridWeek' | 'timeGridWorkWeek' | 'dayGridMonth'>('timeGridWeek');
 watch(selectedView, (value) => {
   api?.value?.changeView(value);
 });
+
+const { width, height } = useWindowSize();
+watch(
+  [width, height],
+  () => {
+    if (width.value < 768 && selectedView.value !== 'timeGridDay' && selectedView.value !== 'dayGridMonth') {
+      selectedView.value = 'timeGridDay';
+    } else if (width.value > 768 && selectedView.value === 'timeGridDay') {
+      selectedView.value = 'timeGridWeek';
+    }
+  },
+  { immediate: true },
+);
 
 onMounted(() => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -108,15 +132,24 @@ const calendarOptions = computed<CalendarOptions>(() => ({
   datesSet: ({ start: _start }) => {
     viewStartDate.value = _start;
   },
+  validViews:
+    width.value < 768 ? ['timeGridDay', 'dayGridMonth'] : ['timeGridWeek', 'timeGridWorkWeek', 'dayGridMonth'],
   scrollTime: dayjs().format('HH:mm'),
   scrollTimeReset: false,
   slotDuration: '00:30:00',
   allDaySlot: false,
   views: {
+    timeGridDay: {
+      dayHeaderFormat: {
+        weekday: 'long',
+        month: 'numeric',
+        day: 'numeric',
+        year: 'numeric',
+      },
+    },
     timeGridWorkWeek: {
       type: 'timeGridWeek',
-      dayCount: 5,
-      hiddenDays: [0, 6],
+      weekends: false,
     },
   },
   headerToolbar: false,

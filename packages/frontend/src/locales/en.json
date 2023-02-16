@@ -157,6 +157,7 @@
   "select_map_object_type": "Select a map object type",
   "calendar": {
     "today": "Today",
+    "day": "Day",
     "month": "Month",
     "week": "Week",
     "work_week": "Work week"
