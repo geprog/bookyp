@@ -109,7 +109,7 @@ useMap({
     // Deselect marker when the map is clicked
     if (features.length === 0) {
       void router.replace({ name: 'spaces-map' });
-      return;
+      return { continueDefaultClickHandler: true };
     }
 
     const feature = features[0] as unknown as {
@@ -119,11 +119,13 @@ useMap({
 
     // Prevent reloading the same marker
     if (feature.properties.id === selectedSpaceId.value) {
-      return;
+      return { continueDefaultClickHandler: true };
     }
 
     void router.replace({ name: 'spaces-map', params: { selectedSpaceId: feature.properties.id } });
+    return { continueDefaultClickHandler: false };
   },
+  clickable: ref(true),
   container: map,
 });
 
