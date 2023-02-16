@@ -14,7 +14,7 @@
       <LabelField v-if="space.email" icon-name="email">
         <TextField v-model="space.email" readonly :placeholder="t('email_space')" />
       </LabelField>
-      <div ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
+      <div v-if="space.coordinates" ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
       <img v-if="space.image" :src="space.image" class="w-full object-cover aspect-video" />
     </div>
 
