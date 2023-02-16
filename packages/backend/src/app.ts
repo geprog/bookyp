@@ -55,7 +55,7 @@ export const configureApplication = () => {
       all: [
         extractSoftDeleteFlag,
         (ctx) => {
-          if (ctx.params.provider === undefined || (ctx.path === 'authentication' && ctx.method === 'create')) {
+          if (ctx.params.provider === undefined || ctx.path === 'authentication') {
             return ctx;
           }
 
@@ -68,7 +68,7 @@ export const configureApplication = () => {
     after: {
       all: [
         (ctx) => {
-          if (ctx.params.provider === undefined || (ctx.path === 'authentication' && ctx.method === 'create')) {
+          if (ctx.params.provider === undefined || ctx.path === 'authentication') {
             return ctx;
           }
 
