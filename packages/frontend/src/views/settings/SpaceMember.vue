@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('edit_member')" has-back @click="$router.push({ name: 'settings-space-members' })">
+  <Header :title="t('edit_member')" has-back>
     <IconButton
       icon="delete"
       icon-color="text-red-text hover:text-red-background"
@@ -59,7 +59,7 @@ const props = defineProps<{
 const { t } = useI18n();
 const router = useRouter();
 const feathers = useFeathers();
-const { spaceId, currentSpace } = useCurrentSpace();
+const { currentSpace } = useCurrentSpace();
 const spaceMemberId = toRef(props, 'spaceMemberId');
 
 const spaceMemberIndex = computed(() =>
@@ -94,7 +94,7 @@ const saveSpaceMember = async () => {
     ...currentSpace.value,
     members: updatedMembers,
   });
-  await router.replace({ name: 'settings-space-members', params: { spaceId: spaceId.value } });
+  router.back();
 };
 
 async function removeSpaceMember(): Promise<void> {
@@ -109,6 +109,6 @@ async function removeSpaceMember(): Promise<void> {
     ...currentSpace.value,
     members: [...members.slice(0, spaceMemberIndex.value), ...members.slice(spaceMemberIndex.value + 1)],
   });
-  await router.replace({ name: 'settings-space-members', params: { spaceId: spaceId.value } });
+  router.back();
 }
 </script>
