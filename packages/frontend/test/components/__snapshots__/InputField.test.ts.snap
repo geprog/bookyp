@@ -1,8 +1,8 @@
 // Vitest Snapshot v1
 
 exports[`LabelField component > should render correctly 1`] = `
-"<div class=\\"flex my-2 items-center\\">
-  <icon-stub name=\\"settings\\" color=\\"\\" data-test=\\"input-field-icon\\" class=\\"mr-4\\"></icon-stub>
+"<div class=\\"flex my-2 gap-4\\">
+  <icon-stub name=\\"settings\\" color=\\"\\" class=\\"my-2\\" data-test=\\"input-field-icon\\"></icon-stub>
   <div class=\\"flex flex-col w-full py-2 border-b-1\\">
     <p>Horst</p>
   </div>

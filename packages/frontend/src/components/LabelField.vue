@@ -1,6 +1,6 @@
 <template>
-  <div class="flex my-2 items-center">
-    <Icon data-test="input-field-icon" :name="iconName" class="mr-4" />
+  <div class="flex my-2 gap-4">
+    <Icon class="my-2" :name="iconName" data-test="input-field-icon" />
     <div class="flex flex-col w-full py-2" :class="{ 'border-b-1': readonly === false }">
       <slot />
     </div>
