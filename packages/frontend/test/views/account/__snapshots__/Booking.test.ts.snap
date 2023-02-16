@@ -18,6 +18,5 @@ exports[`Booking view > should render correctly 1`] = `
       <map-objects-stub highlightedbookableid=\\"123\\" spaceid=\\"first\\" clickable=\\"false\\" considerfilter=\\"false\\"></map-objects-stub>
     </space-map-stub>
   </div>
-  <dialog-stub description=\\"delete_dialog_description\\" label=\\"delete\\" confirm=\\"delete\\" visible=\\"false\\" data-test=\\"delete-dialog\\"></dialog-stub>
 </app-content-stub>"
 `;

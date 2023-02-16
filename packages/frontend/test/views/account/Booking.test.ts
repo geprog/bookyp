@@ -1,7 +1,7 @@
 import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
+import { openDialog } from 'vue3-promise-dialog';
 
-import Dialog from '~/components/Dialog.vue';
 import { user } from '~/compositions/useAuthentication';
 import Booking from '~/views/account/Booking.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
@@ -14,6 +14,7 @@ import { prepareUseFeathersMockOnce, prepareUseGetMockOnce, prepareUseRouterMock
 vi.mock('~/compositions/useGet');
 vi.mock('~/compositions/useFeathers');
 vi.mock('vue-router');
+vi.mock('vue3-promise-dialog');
 
 describe('Booking view', () => {
   beforeAll(() => {
@@ -45,7 +46,7 @@ describe('Booking view', () => {
   });
 
   it('should delete the booking', async () => {
-    expect.assertions(1);
+    expect.assertions(2);
     // given
     prepareUseGetMockOnce(sampleBooking);
     prepareUseGetMockOnce(sampleSpace);
@@ -53,6 +54,7 @@ describe('Booking view', () => {
     prepareUseGetMockOnce(sampleBookable);
     prepareUseRouterMockOnce();
     user.value = sampleUser;
+    vi.mocked(openDialog).mockResolvedValue(true);
 
     const useFeathersMock = prepareUseFeathersMockOnce();
 
@@ -65,10 +67,10 @@ describe('Booking view', () => {
 
     // when
     await wrapper.findComponent('[data-test=delete-button]').trigger('click');
-    wrapper.findComponent(Dialog).vm.$emit('confirmation', true);
     await nextTick();
 
     // then
+    expect(openDialog).toHaveBeenCalledOnce();
     expect(useFeathersMock.remove).toHaveBeenCalledWith(sampleBooking._id);
   });
 });

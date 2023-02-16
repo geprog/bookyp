@@ -95,12 +95,6 @@
         </template>
       </div>
     </div>
-    <Dialog
-      :description="t('confirm_unsaved_changes')"
-      :label="t('discard')"
-      :visible="dialogVisible"
-      @confirmation="confirmResolve"
-    />
   </template>
 </template>
 
@@ -111,6 +105,7 @@ import { clone, cloneDeep, isEqual, omit } from 'lodash';
 import { computed, Ref, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { onBeforeRouteLeave, useRouter } from 'vue-router';
+import { openDialog } from 'vue3-promise-dialog';
 
 import ButtonPair from '~/components/buttons/ButtonPair.vue';
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
@@ -151,8 +146,6 @@ const floorPlan: Ref<string[]> = ref([]);
 
 const selectedFloorPlanObjectId: Ref<string | null> = ref(null);
 const mode = ref<Mode>('none');
-
-const dialogVisible = ref(false);
 
 function updateFloorPlanCopy(newFloorPlan: string[]) {
   floorPlan.value = newFloorPlan;
@@ -242,22 +235,8 @@ async function save() {
   await reset();
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const confirmResolve = ref<(value: boolean) => void>(() => {});
-const confirmPromise = ref<Promise<boolean>>();
-const confirm = async () => {
-  confirmPromise.value = new Promise((resolve) => {
-    confirmResolve.value = resolve;
-  });
-
-  dialogVisible.value = true;
-  const confirmed = await confirmPromise.value;
-  dialogVisible.value = false;
-  return confirmed;
-};
-
 async function abort() {
-  if (!(await confirm())) {
+  if (!(await openDialog(Dialog, { description: t('confirm_unsaved_changes'), label: t('discard') }))) {
     return;
   }
 

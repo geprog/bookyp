@@ -15,18 +15,9 @@
         :text="t('delete_space').toLocaleUpperCase()"
         class="w-full"
         outlined
-        @click="deleteDialogVisible = true"
+        @click="deleteSpace"
       />
     </div>
-
-    <Dialog
-      data-test="delete-dialog"
-      :description="t('delete_dialog_description', { objectLabel: t('space') })"
-      :label="t('delete')"
-      :confirm="t('delete')"
-      :visible="deleteDialogVisible"
-      @confirmation="deleteSpace"
-    />
   </AppContent>
 </template>
 
@@ -36,6 +27,7 @@ import { cloneDeep } from 'lodash';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+import { openDialog } from 'vue3-promise-dialog';
 
 import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
@@ -61,19 +53,23 @@ watch(
   { immediate: true },
 );
 
-const saveSpace = async () => {
+async function saveSpace() {
   if (spaceToSave.value === undefined) {
     throw new Error('No space available');
   }
 
   await feathers.service('spaces').update(spaceToSave.value?._id, spaceToSave.value);
   router.back();
-};
+}
 
-const deleteDialogVisible = ref(false);
-const deleteSpace = async (confirmation: boolean) => {
-  if (!confirmation) {
-    deleteDialogVisible.value = false;
+async function deleteSpace() {
+  if (
+    !(await openDialog(Dialog, {
+      description: t('delete_dialog_description', { objectLabel: t('space') }),
+      label: t('delete'),
+      confirm: t('delete'),
+    }))
+  ) {
     return;
   }
 
@@ -84,5 +80,5 @@ const deleteSpace = async (confirmation: boolean) => {
   await feathers.service('spaces').remove(spaceToSave.value._id);
   savedSpaceId.value = null;
   await router.push({ name: 'home' });
-};
+}
 </script>

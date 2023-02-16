@@ -4,27 +4,20 @@
       data-test="delete-button"
       icon="delete"
       icon-color="text-red-text hover:text-red-background"
-      @click="modalVisible = true"
+      @click="deleteBookable"
     />
     <IconButton type="submit" form="bookable" icon="check-mark" />
   </Header>
   <AppContent>
     <BookableForm v-if="bookable" v-model:bookable="bookable" data-test="bookable-form" @save="saveBookable" />
-    <Dialog
-      data-test="delete-dialog"
-      :description="t('delete_dialog_description', { objectLabel: t('bookable') })"
-      :label="t('delete')"
-      :confirm="t('delete')"
-      :visible="modalVisible"
-      @confirmation="deleteBookable"
-    />
   </AppContent>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, toRef } from 'vue';
+<script lang="ts" setup>
+import { ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+import { openDialog } from 'vue3-promise-dialog';
 
 import BookableForm from '~/components/bookables/BookableForm.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
@@ -34,52 +27,39 @@ import AppContent from '~/components/layout/AppContent.vue';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
-export default defineComponent({
-  name: 'Bookable',
+const props = defineProps<{
+  bookableId: string;
+}>();
 
-  components: {
-    AppContent,
-    IconButton,
-    Header,
-    Dialog,
-    BookableForm,
-  },
+const { t } = useI18n();
+const feathers = useFeathers();
+const router = useRouter();
 
-  props: {
-    bookableId: {
-      type: String,
-      required: true,
-    },
-  },
+const bookableId = toRef(props, 'bookableId');
+const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
 
-  setup(props) {
-    const { t } = useI18n();
-    const feathers = useFeathers();
-    const router = useRouter();
+const saveBookable = async () => {
+  /* istanbul ignore next */
+  if (!bookable.value) {
+    return;
+  }
 
-    const bookableId = toRef(props, 'bookableId');
-    const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
+  await feathers.service('bookables').update(bookableId.value, bookable.value);
+  await router.replace({ name: 'settings-bookables' });
+};
 
-    const saveBookable = async () => {
-      /* istanbul ignore next */
-      if (!bookable.value) {
-        return;
-      }
+async function deleteBookable() {
+  if (
+    !(await openDialog(Dialog, {
+      description: t('delete_dialog_description', { objectLabel: t('bookable') }),
+      label: t('delete'),
+      confirm: t('delete'),
+    }))
+  ) {
+    return;
+  }
 
-      await feathers.service('bookables').update(bookableId.value, bookable.value);
-      await router.replace({ name: 'settings-bookables' });
-    };
-    const modalVisible = ref(false);
-    async function deleteBookable(confirmation: boolean) {
-      if (!confirmation) {
-        modalVisible.value = false;
-        return;
-      }
-      await feathers.service('bookables').remove(bookableId.value);
-      router.back();
-    }
-
-    return { t, bookable, saveBookable, deleteBookable, modalVisible };
-  },
-});
+  await feathers.service('bookables').remove(bookableId.value);
+  router.back();
+}
 </script>

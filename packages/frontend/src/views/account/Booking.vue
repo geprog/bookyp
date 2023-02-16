@@ -5,7 +5,7 @@
       data-test="delete-button"
       icon="delete"
       icon-color="text-red-text hover:text-red-background"
-      @click="modalVisible = true"
+      @click="deleteBooking"
     />
   </Header>
 
@@ -35,14 +35,6 @@
         <MapObjects :highlighted-bookable-id="bookableId" :space-id="space._id" />
       </SpaceMap>
     </div>
-    <Dialog
-      data-test="delete-dialog"
-      :description="t('delete_dialog_description', { objectLabel: t('booking') })"
-      :label="t('delete')"
-      :confirm="t('delete')"
-      :visible="modalVisible"
-      @confirmation="deleteBooking"
-    />
   </AppContent>
 </template>
 
@@ -51,6 +43,7 @@ import dayjs from 'dayjs';
 import { computed, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+import { openDialog } from 'vue3-promise-dialog';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import Dialog from '~/components/Dialog.vue';
@@ -85,13 +78,18 @@ const { data: bookedByUser } = useGet(
 
 const bookableId = computed(() => booking.value?.bookable);
 const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
-const modalVisible = ref(false);
 
-async function deleteBooking(confirmation: boolean) {
-  if (!confirmation) {
-    modalVisible.value = false;
+async function deleteBooking() {
+  if (
+    !(await openDialog(Dialog, {
+      description: t('delete_dialog_description', { objectLabel: t('booking') }),
+      label: t('delete'),
+      confirm: t('delete'),
+    }))
+  ) {
     return;
   }
+
   await feathers.service('bookings').remove(bookingId.value);
   router.back();
 }
