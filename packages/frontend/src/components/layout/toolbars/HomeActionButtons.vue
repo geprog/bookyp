@@ -21,9 +21,7 @@ import { computed, defineComponent } from 'vue';
 
 import HourControlButton from '~/components/buttons/HourControlButton.vue';
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
-import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { ceilDate, useBookables } from '~/compositions/useBookables';
-import useFind from '~/compositions/useFind';
 
 export default defineComponent({
   name: 'HomeActionButtons',
@@ -31,13 +29,7 @@ export default defineComponent({
   components: { ToggleBar, HourControlButton },
 
   setup() {
-    const { spaceId } = useCurrentSpace();
-
-    const { data: bookables } = useFind(
-      'bookables',
-      computed(() => ({ paginate: false, query: { space: spaceId.value } })),
-    );
-    const { bookablesFilter } = useBookables(bookables);
+    const { bookablesFilter } = useBookables();
 
     const bookablesFilterEndDate = computed<Date>({
       get() {
