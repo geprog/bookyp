@@ -5,12 +5,16 @@ import { HookContext } from '@feathersjs/feathers';
 export default function checkUserAlreadyInSpace(
   context: HookContext<Application, AdapterService<Model.Space>>,
 ): HookContext<Application, AdapterService<Model.Space>> {
-  if (context.data === undefined) {
+  const { data, params } = context;
+  const { user } = params as { user: Model.User };
+  if (data === undefined) {
     throw new Error('No data available');
   }
-  if (Array.isArray(context.data)) {
+  if (Array.isArray(data)) {
     throw new Error('Multi create not supported');
   }
-  delete context.data.plan;
+  if (!user.isAdmin) {
+    delete data.plan;
+  }
   return context;
 }

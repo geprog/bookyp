@@ -8,12 +8,14 @@ import { feathersCaslAllowlist } from '~/casl';
 import { defineAbilitiesFor } from '~/services/authentication/authentication.abilities';
 
 import emailToLowerCase from './hooks/emailToLowerCase';
+import { populateIsAdmin } from './hooks/populateIsAdmin';
 
 const UserSchema = new Schema<Model.User>({
   name: { type: String },
   email: { type: String, required: true, unique: true },
   paymentCustomerId: { type: String },
   starredSpaces: { type: [String], required: true },
+  isAdmin: { type: Boolean },
 });
 
 export const name = 'users';
@@ -45,6 +47,10 @@ export default (app: Application): void => {
       ],
       create: [emailToLowerCase],
       update: [emailToLowerCase],
+    },
+    after: {
+      get: [populateIsAdmin],
+      find: [populateIsAdmin],
     },
   });
 };

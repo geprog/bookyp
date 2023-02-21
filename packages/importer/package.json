@@ -1,0 +1,31 @@
+{
+  "name": "@bookyp/importer",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "dotenv -- tsx watch ./src/index.ts",
+    "lint": "eslint --max-warnings 0 .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@feathersjs/adapter-commons": "5.0.0-pre.17",
+    "@feathersjs/authentication": "5.0.0-pre.17",
+    "@feathersjs/authentication-client": "5.0.0-pre.17",
+    "@feathersjs/feathers": "5.0.0-pre.17",
+    "@feathersjs/socketio-client": "5.0.0-pre.17",
+    "cross-fetch": "3.1.5",
+    "jsonwebtoken": "9.0.0",
+    "socket.io-client": "4.6.0",
+    "uuid": "^9.0.0",
+    "yaml": "2.2.1"
+  },
+  "devDependencies": {
+    "@bookyp/core": "workspace:*",
+    "@geprog/eslint-config": "2.1.0",
+    "@types/jsonwebtoken": "9.0.1",
+    "@types/uuid": "^9.0.0",
+    "eslint": "8.27.0",
+    "tsx": "3.12.3",
+    "typescript": "4.6.2"
+  }
+}

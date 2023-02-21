@@ -172,5 +172,6 @@
   "terms_and_conditions": {
     "using_bookyp": "By using Bookyp you are agreeing to our {0}",
     "terms_and_conditions": "Terms and Conditions"
-  }
+  },
+  "claim_space": "Claim this space"
 }

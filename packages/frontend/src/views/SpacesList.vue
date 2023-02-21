@@ -49,7 +49,7 @@
       :key="space._id"
       class="flex flex-col sm:flex-row border-1 border-gray-200 rounded-md overflow-hidden m-3 relative"
       data-test="space-item"
-      :to="{ name: 'space', params: { spaceId: space._id } }"
+      :to="{ name: space.importId ? 'space-info' : 'space', params: { spaceId: space._id } }"
     >
       <div class="sm:min-w-1/2 sm:w-1/2">
         <img v-if="space.image" :src="space.image" class="w-full object-cover aspect-video" />

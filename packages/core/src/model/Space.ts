@@ -35,6 +35,7 @@ export class Space extends AbstractEntity {
   email?: string;
   image?: string;
   coordinates?: { lng: number; lat: number };
+  importId?: string;
 
   constructor(data: Partial<Space> = {}) {
     super();
