@@ -7,6 +7,7 @@ export class User extends AbstractEntity {
   email!: string;
   paymentCustomerId?: string;
   starredSpaces!: Ref<Space>[];
+  isAdmin?: boolean;
 
   constructor(data: Partial<User> = {}) {
     super();

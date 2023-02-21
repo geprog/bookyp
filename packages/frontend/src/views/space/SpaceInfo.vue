@@ -13,6 +13,9 @@
       </LabelField>
       <div v-if="space.coordinates" ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
       <img v-if="space.image" :src="space.image" class="w-full object-cover rounded-md aspect-video" />
+      <Button v-if="space.importId" :href="mailtoUpgrade">
+        {{ t('claim_space') }}
+      </Button>
     </div>
   </AppContent>
 </template>
@@ -21,6 +24,7 @@
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import Button from '~/components/buttons/Button.vue';
 import Header from '~/components/headers/Header.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
@@ -36,4 +40,7 @@ const coordinates = computed(() => space.value?.coordinates);
 
 const map = ref<HTMLElement>();
 useMap({ coordinates, followCoordinates: ref(true), container: map });
+
+const mailtoClaimSubject = encodeURIComponent(`[${space.value?._id || ''}] Claim Space`);
+const mailtoUpgrade = `mailto:bookyp@geprog.com?subject=${mailtoClaimSubject}`;
 </script>

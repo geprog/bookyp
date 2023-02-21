@@ -184,6 +184,11 @@ typecheck-e2e:
   script:
     - pnpm run --filter @bookyp/e2e typecheck
 
+typecheck-importer:
+  extends: .typecheck-template
+  script:
+    - pnpm run --filter @bookyp/importer typecheck
+
 ### Lint
 .lint-template:
   extends: .node-template
@@ -222,6 +227,11 @@ lint-e2e:
   extends: .lint-template
   script:
     - pnpm run --filter @bookyp/e2e lint
+
+lint-importer:
+  extends: .lint-template
+  script:
+    - pnpm run --filter @bookyp/importer lint
 
 ### Unit test
 .unit-test-template:

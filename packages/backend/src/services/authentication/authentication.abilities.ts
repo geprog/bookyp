@@ -18,8 +18,19 @@ const defineRulesFor = async (
 
   const publicSpaceIds = publicSpaces.map((s) => s._id.toString());
 
+  const userReadableSpaceProperties = [
+    '_id',
+    'floorPlan',
+    'name',
+    'description',
+    'address',
+    'plan',
+    'image',
+    'coordinates',
+    'importId',
+  ];
   // read access public spaces for everyone (authorized and unauthorized)
-  can('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address', 'plan', 'image', 'coordinates'], {
+  can('read', 'spaces', userReadableSpaceProperties, {
     plan: 'public',
   });
   can('read', 'mapObjects', { space: { $in: publicSpaceIds } });
@@ -63,7 +74,7 @@ const defineRulesFor = async (
 
     // access to spaces where you are a member of
     const spaceIdsUser = getSpaceIds('user');
-    can('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address', 'plan', 'image', 'coordinates'], {
+    can('read', 'spaces', userReadableSpaceProperties, {
       members: { $elemMatch: { role: 'user', userId: user._id } },
     });
     can('read', 'mapObjects', { space: { $in: spaceIdsUser } });
@@ -78,7 +89,7 @@ const defineRulesFor = async (
     // admin access to spaces you are an admin of
     const spaceIdsAdmin = getSpaceIds('admin');
     // this cannot rule ensures that admins work properly for public spaces
-    cannot('read', 'spaces', ['_id', 'floorPlan', 'name', 'description', 'address', 'plan', 'image', 'coordinates'], {
+    cannot('read', 'spaces', userReadableSpaceProperties, {
       members: { $elemMatch: { role: 'admin', userId: user._id } },
       plan: 'public',
     });
