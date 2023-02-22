@@ -59,6 +59,7 @@
         <div class="w-full flex flex-row justify-between">
           <span>{{ space.name }}</span>
           <IconButton
+            v-if="isAuthenticated"
             :icon="space.starred ? 'star-filled' : 'star'"
             :icon-color="space.starred ? 'text-primary-normal' : ''"
             class="flex-shrink-0"
@@ -86,7 +87,7 @@ import AppContent from '~/components/layout/AppContent.vue';
 import SpacesActionButtons from '~/components/layout/toolbars/SpacesActionButtons.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
-import { logout, user } from '~/compositions/useAuthentication';
+import { isAuthenticated, logout, user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 import { useFeatureFlags } from '~/compositions/useFeatureFlags';
 import useFind from '~/compositions/useFind';
