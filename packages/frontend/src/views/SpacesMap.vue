@@ -16,6 +16,7 @@
         <span class="truncate text-gray-500 text-sm h-5">{{ selectedSpace.description }}</span>
       </div>
       <IconButton
+        v-if="isAuthenticated"
         :icon="isSpaceStarred ? 'star-filled' : 'star'"
         :icon-color="isSpaceStarred ? 'text-primary-normal' : ''"
         class="p-0"
@@ -41,7 +42,7 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import SpacesActionButtons from '~/components/layout/toolbars/SpacesActionButtons.vue';
 import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
-import { logout, user } from '~/compositions/useAuthentication';
+import { isAuthenticated, logout, user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 import { useMap } from '~/compositions/useMap';
