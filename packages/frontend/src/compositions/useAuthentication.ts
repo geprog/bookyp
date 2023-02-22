@@ -6,6 +6,8 @@ import { computed, ref } from 'vue';
 import { ability } from '~/compositions/useAuthorization';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 
+import { savedSpaceId } from './space/useCurrentSpace';
+
 export const user = ref<Model.User>();
 
 export const isAuthenticated = computed(() => !!user.value);
@@ -61,6 +63,7 @@ export async function logout(): Promise<void> {
 
   await feathers.logout();
   user.value = undefined;
+  savedSpaceId.value = null;
 
   // redirect user to backend to logout from SSO provider
   const backendURL = getEnvConfig('FRONTEND_BACKEND_URL');
