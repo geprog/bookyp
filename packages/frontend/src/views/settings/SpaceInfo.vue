@@ -2,16 +2,16 @@
   <SettingsHeader :title="t('space_information')" />
   <AppContent>
     <div v-if="space">
-      <LabelField v-if="space.name" icon-name="home">
+      <LabelField v-if="space.name" readonly icon-name="home">
         <TextField v-model="space.name" readonly data-test="space-name" :placeholder="t('name')" />
       </LabelField>
-      <LabelField v-if="space.address" icon-name="location">
+      <LabelField v-if="space.address" readonly icon-name="location">
         <TextField v-model="space.address" readonly data-test="space-address" />
       </LabelField>
-      <LabelField v-if="space.description" icon-name="text-box">
+      <LabelField v-if="space.description" readonly icon-name="text-box">
         <TextField v-model="space.description" readonly data-test="space-description" :placeholder="t('description')" />
       </LabelField>
-      <LabelField v-if="space.email" icon-name="email">
+      <LabelField v-if="space.email" readonly icon-name="email">
         <TextField v-model="space.email" readonly :placeholder="t('email_space')" />
       </LabelField>
       <div v-if="space.coordinates" ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
