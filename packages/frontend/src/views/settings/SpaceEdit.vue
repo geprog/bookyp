@@ -8,7 +8,7 @@
   <AppContent>
     <SpaceForm v-if="spaceToSave" v-model:space="spaceToSave" @save="saveSpace" />
 
-    <div class="flex flex-col gap-y-6 mt-6 sm:max-w-xl <sm:max-w-xs mx-auto">
+    <div class="flex flex-col gap-y-6 my-6 sm:max-w-xl <sm:max-w-xs mx-auto">
       <Button
         :aria-label="t('delete_space')"
         icon="delete"
