@@ -173,5 +173,9 @@
     "using_bookyp": "By using Bookyp you are agreeing to our {0}",
     "terms_and_conditions": "Terms and Conditions"
   },
-  "claim_space": "Claim this space"
+  "claim_space": "Claim this space",
+  "not_found": "You're lost!",
+  "site_not_exist": "This site doesn't exist.",
+  "back_home": "Back to home",
+  "bookyp_logo": "Bookyp Logo with Bookyp written beneath"
 }
