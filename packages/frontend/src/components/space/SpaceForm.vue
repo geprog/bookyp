@@ -7,11 +7,13 @@
       <TextField v-model="spaceCreate.address" :rows="5" data-test="form-address" :placeholder="t('address')" />
     </LabelField>
     <LabelField icon-name="text-box">
-      <TextField
-        v-model="spaceCreate.description"
-        :rows="5"
-        data-test="form-description"
-        :placeholder="t('description')"
+      <TextField v-model="spaceCreate.description" data-test="form-description" :placeholder="t('description')" />
+    </LabelField>
+    <LabelField icon-name="text-box">
+      <MarkdownEditor
+        v-model="spaceCreate.generalInformation"
+        data-test="form-general-information"
+        :placeholder="t('general_information')"
       />
     </LabelField>
     <LabelField icon-name="email">
@@ -66,6 +68,7 @@ import { useI18n } from 'vue-i18n';
 
 import Icon from '~/components/Icon.vue';
 import LabelField from '~/components/LabelField.vue';
+import MarkdownEditor from '~/components/markdown/MarkdownEditor.vue';
 import TextField from '~/components/TextField.vue';
 import useFeathers from '~/compositions/useFeathers';
 import { useMap } from '~/compositions/useMap';
@@ -106,6 +109,14 @@ const spaceCreate = reactive({
     },
     set(description: string) {
       emit('update:space', { ...space.value, description });
+    },
+  }),
+  generalInformation: computed({
+    get() {
+      return space.value.generalInformation || '';
+    },
+    set(generalInformation: string) {
+      emit('update:space', { ...space.value, generalInformation });
     },
   }),
   email: computed({

@@ -16,7 +16,13 @@ const config = defineConfig({
     },
   },
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith(`md-`) || tag === 'markdown-toolbar',
+        },
+      },
+    }),
     WindiCSS(),
     svgLoader(),
     vueI18n({

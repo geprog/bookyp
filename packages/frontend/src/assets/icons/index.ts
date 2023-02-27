@@ -4,6 +4,7 @@ import AppsListIcon from '~/assets/icons/apps-list.svg';
 import ArrowClockwiseIcon from '~/assets/icons/arrow-clockwise.svg';
 import ArrowLeftIcon from '~/assets/icons/arrow-left.svg';
 import ArrowUploadIcon from '~/assets/icons/arrow-upload.svg';
+import BoldIcon from '~/assets/icons/bold.svg';
 import BookypIcon from '~/assets/icons/bookyp.svg';
 import CalendarIcon from '~/assets/icons/calendar.svg';
 import CheckMarkIcon from '~/assets/icons/check-mark.svg';
@@ -11,6 +12,7 @@ import ChevronDownIcon from '~/assets/icons/chevron-down.svg';
 import ChevronLeftIcon from '~/assets/icons/chevron-left.svg';
 import ChevronRightIcon from '~/assets/icons/chevron-right.svg';
 import ClockIcon from '~/assets/icons/clock.svg';
+import CodeIcon from '~/assets/icons/code.svg';
 import CreditCardIcon from '~/assets/icons/credit-card.svg';
 import DeleteIcon from '~/assets/icons/delete.svg';
 import DiagramIcon from '~/assets/icons/diagram.svg';
@@ -20,18 +22,23 @@ import EditIcon from '~/assets/icons/edit.svg';
 import Email from '~/assets/icons/email.svg';
 import FilterIcon from '~/assets/icons/filter.svg';
 import FloorPlanIcon from '~/assets/icons/floor-plan.svg';
+import FormatLinkIcon from '~/assets/icons/format-link.svg';
 import HomeIcon from '~/assets/icons/home.svg';
+import ImageIcon from '~/assets/icons/image.svg';
 import InfoIcon from '~/assets/icons/info.svg';
+import ItalicIcon from '~/assets/icons/italic.svg';
 import LinkIcon from '~/assets/icons/link.svg';
 import LocationIcon from '~/assets/icons/location.svg';
 import MapIcon from '~/assets/icons/map.svg';
 import MinusIcon from '~/assets/icons/minus.svg';
 import MoreDotsHorizontalIcon from '~/assets/icons/more-dots-horizontal.svg';
+import OrderedListIcon from '~/assets/icons/ordered-list.svg';
 import PasswordIcon from '~/assets/icons/password.svg';
 import PeopleIcon from '~/assets/icons/people.svg';
 import PersonIcon from '~/assets/icons/person.svg';
 import PlayIcon from '~/assets/icons/play.svg';
 import PlusICon from '~/assets/icons/plus.svg';
+import QuoteIcon from '~/assets/icons/quote.svg';
 import RadioChecked from '~/assets/icons/radio-checked.svg';
 import RadioUnchecked from '~/assets/icons/radio-unchecked.svg';
 import Save from '~/assets/icons/save.svg';
@@ -43,7 +50,9 @@ import FilledStarIcon from '~/assets/icons/star-filled.svg';
 import StopIcon from '~/assets/icons/stop.svg';
 import SvgIcon from '~/assets/icons/svg.svg';
 import TableIcon from '~/assets/icons/table.svg';
+import TaskListIcon from '~/assets/icons/task-list.svg';
 import TextBoxIcon from '~/assets/icons/text-box.svg';
+import UnorderedListIcon from '~/assets/icons/unordered-list.svg';
 import WallIcon from '~/assets/icons/wall.svg';
 
 const icons = {
@@ -52,12 +61,14 @@ const icons = {
   'apps-list': AppsListIcon,
   'arrow-clockwise': ArrowClockwiseIcon,
   'arrow-left': ArrowLeftIcon,
+  bold: BoldIcon,
   bookyp: BookypIcon,
   'check-mark': CheckMarkIcon,
   'chevron-down': ChevronDownIcon,
   'chevron-left': ChevronLeftIcon,
   'chevron-right': ChevronRightIcon,
   clock: ClockIcon,
+  code: CodeIcon,
   delete: DeleteIcon,
   dismiss: DismissIcon,
   'document-one-page': DocumentOnePageIcon,
@@ -65,11 +76,16 @@ const icons = {
   filter: FilterIcon,
   'floor-plan': FloorPlanIcon,
   home: HomeIcon,
+  image: ImageIcon,
+  italic: ItalicIcon,
   link: LinkIcon,
+  'format-link': FormatLinkIcon,
   map: MapIcon,
+  'ordered-list': OrderedListIcon,
   password: PasswordIcon,
   person: PersonIcon,
   play: PlayIcon,
+  quote: QuoteIcon,
   'radio-checked': RadioChecked,
   'radio-unchecked': RadioUnchecked,
   settings: SettingsIcon,
@@ -80,7 +96,9 @@ const icons = {
   email: Email,
   save: Save,
   send: SendIcon,
+  'task-list': TaskListIcon,
   'text-box': TextBoxIcon,
+  'unordered-list': UnorderedListIcon,
   people: PeopleIcon,
   plus: PlusICon,
   minus: MinusIcon,
