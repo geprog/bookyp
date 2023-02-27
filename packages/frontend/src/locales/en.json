@@ -1,4 +1,9 @@
 {
+  "markdown": "Markdown",
+  "supports_markdown": "Supports {0}",
+  "general_information": "General information",
+  "preview": "Preview",
+  "write": "Write",
   "book_a_bookable": "Book {bookable}",
   "bookable_create": "Add new bookable",
   "bookable_details": "Bookable: {bookable}",

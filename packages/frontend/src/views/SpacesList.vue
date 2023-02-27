@@ -66,7 +66,6 @@
             @click.prevent="updateStarForSpace(space._id, !space.starred)"
           />
         </div>
-        <span class="text-gray-500">{{ roleInSpace(space) }}</span>
         <span class="text-gray-500">{{ space.description }}</span>
       </div>
     </router-link>
@@ -124,9 +123,6 @@ const { data: invitations } = useFind(
   'invitations',
   computed(() => (user.value === undefined ? null : { paginate: false, query: { email: user.value.email } })),
 );
-
-const roleInSpace = (space: Model.Space) =>
-  space.members?.find((member) => member.userId === user.value?._id)?.role || 'user';
 
 function acceptInvitation(invitationId: string) {
   void feathers.service('invitations').remove(invitationId, { query: { accept: true } });

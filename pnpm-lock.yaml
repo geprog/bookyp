@@ -185,11 +185,13 @@ importers:
       '@geprog/eslint-config': 2.1.0
       '@geprog/use-feathers': 3.2.1
       '@geprog/vite-plugin-env-config': 4.0.8
+      '@github/markdown-toolbar-element': 2.1.1
       '@intlify/vite-plugin-vue-i18n': 6.0.1
       '@popperjs/core': 2.11.6
       '@rollup/plugin-replace': 2.4.2
-      '@types/geojson': ^7946.0.10
+      '@types/geojson': 7946.0.10
       '@types/lodash': 4.14.170
+      '@types/marked': 4.0.8
       '@types/svg-path-bbox': 0.2.0
       '@vitejs/plugin-vue': 3.1.0
       '@vitest/coverage-c8': 0.23.4
@@ -203,6 +205,7 @@ importers:
       jsdom: 20.0.0
       lodash: 4.17.21
       maplibre-gl: 3.0.0-pre.3
+      marked: 4.2.12
       socket.io-client: 4.6.0
       svg-path-bbox: 0.2.0
       svgpath: 2.5.0
@@ -235,6 +238,7 @@ importers:
       '@fullcalendar/timegrid': 5.11.0
       '@fullcalendar/vue3': 5.11.0_vue@3.2.33
       '@geprog/use-feathers': 3.2.1_4ne2ihcjmfxeh65dredjdv7ari
+      '@github/markdown-toolbar-element': 2.1.1
       '@popperjs/core': 2.11.6
       '@types/lodash': 4.14.170
       '@vueuse/core': 9.2.0_vue@3.2.33
@@ -242,6 +246,7 @@ importers:
       events: 3.3.0
       lodash: 4.17.21
       maplibre-gl: 3.0.0-pre.3
+      marked: 4.2.12
       socket.io-client: 4.6.0
       svg-path-bbox: 0.2.0
       svgpath: 2.5.0
@@ -257,6 +262,7 @@ importers:
       '@intlify/vite-plugin-vue-i18n': 6.0.1_wjx5iyiqrnjtsdz3jnisp276va
       '@rollup/plugin-replace': 2.4.2
       '@types/geojson': 7946.0.10
+      '@types/marked': 4.0.8
       '@types/svg-path-bbox': 0.2.0
       '@vitejs/plugin-vue': 3.1.0_vite@3.1.2+vue@3.2.33
       '@vitest/coverage-c8': 0.23.4_y2hohvmcqnhseytaw4yjcnsnkm
@@ -2289,6 +2295,10 @@ packages:
       vite: 3.1.2
     dev: true
 
+  /@github/markdown-toolbar-element/2.1.1:
+    resolution: {integrity: sha512-J++rpd5H9baztabJQB82h26jtueOeBRSTqetk9Cri+Lj/s28ndu6Tovn0uHQaOKtBWDobFunk9b5pP5vcqt7cA==}
+    dev: false
+
   /@humanwhocodes/config-array/0.11.7:
     resolution: {integrity: sha512-kBbPWzN8oVMLb0hOUYXhmxggL/1cJE6ydvjDIGi9EnAGUyA7cLVKQg+d/Dsm+KZwx2czGHrCmMVLiyg8s5JPKw==}
     engines: {node: '>=10.10.0'}
@@ -2891,6 +2901,10 @@ packages:
       '@types/mapbox__point-geometry': 0.1.2
       '@types/pbf': 3.0.2
     dev: false
+
+  /@types/marked/4.0.8:
+    resolution: {integrity: sha512-HVNzMT5QlWCOdeuBsgXP8EZzKUf0+AXzN+sLmjvaB3ZlLqO+e4u0uXrdw9ub69wBKFs+c6/pA4r9sy6cCDvImw==}
+    dev: true
 
   /@types/mime/1.3.2:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
@@ -7659,6 +7673,12 @@ packages:
       supercluster: 7.1.5
       tinyqueue: 2.0.3
       vt-pbf: 3.1.3
+    dev: false
+
+  /marked/4.2.12:
+    resolution: {integrity: sha512-yr8hSKa3Fv4D3jdZmtMMPghgVt6TWbk86WQaWhDloQjRSQhMMYCAro7jP7VDJrjjdV8pxVxMssXS8B8Y5DZ5aw==}
+    engines: {node: '>= 12'}
+    hasBin: true
     dev: false
 
   /md5.js/1.3.5:

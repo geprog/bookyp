@@ -23,6 +23,7 @@ const defineRulesFor = async (
     'floorPlan',
     'name',
     'description',
+    'generalInformation',
     'address',
     'plan',
     'image',
@@ -97,7 +98,19 @@ const defineRulesFor = async (
     can(
       'update',
       'spaces',
-      ['floorPlan', 'members', 'name', 'description', 'address', 'email', 'deleted', 'plan', 'image', 'coordinates'],
+      [
+        'floorPlan',
+        'members',
+        'name',
+        'description',
+        'generalInformation',
+        'address',
+        'email',
+        'deleted',
+        'plan',
+        'image',
+        'coordinates',
+      ],
       {
         members: { $elemMatch: { role: 'admin', userId: user._id } },
       },

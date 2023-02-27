@@ -11,6 +11,9 @@
       <LabelField v-if="space.description" readonly icon-name="text-box">
         <TextField v-model="space.description" readonly data-test="space-description" :placeholder="t('description')" />
       </LabelField>
+      <LabelField v-if="space.generalInformation" icon-name="text-box">
+        <MarkdownViewer :source="space.generalInformation" data-test="space-general-information" />
+      </LabelField>
       <div v-if="space.coordinates" ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
       <img v-if="space.image" :src="space.image" class="w-full object-cover rounded-md aspect-video" />
       <Button v-if="space.importId" :href="mailtoUpgrade">

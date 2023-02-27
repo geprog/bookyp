@@ -11,6 +11,9 @@
       <LabelField v-if="space.description" readonly icon-name="text-box">
         <TextField v-model="space.description" readonly data-test="space-description" :placeholder="t('description')" />
       </LabelField>
+      <LabelField v-if="space.generalInformation" icon-name="text-box">
+        <MarkdownViewer :source="space.generalInformation" data-test="space-general-information" />
+      </LabelField>
       <LabelField v-if="space.email" readonly icon-name="email">
         <TextField v-model="space.email" readonly :placeholder="t('email_space')" />
       </LabelField>
@@ -38,6 +41,7 @@ import Button from '~/components/buttons/Button.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import MarkdownViewer from '~/components/markdown/MarkdownViewer.vue';
 import SpacePlan from '~/components/space/settings/SpacePlanOld.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';

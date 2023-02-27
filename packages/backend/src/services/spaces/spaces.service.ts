@@ -19,6 +19,7 @@ const SpaceSchema = new Schema<Model.Space>({
   ],
   name: { type: String, required: true },
   description: { type: String },
+  generalInformation: { type: String },
   address: { type: String },
   plan: { type: String, default: 'free' },
   requestedPlan: { type: String },
