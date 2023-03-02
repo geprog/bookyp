@@ -1,5 +1,6 @@
 import 'windi.css';
 import '~/assets/styles.css';
+import '@fontsource/roboto';
 
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';

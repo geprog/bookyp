@@ -18,6 +18,7 @@
     "@feathersjs/errors": "5.0.0-pre.17",
     "@feathersjs/feathers": "5.0.0-pre.17",
     "@feathersjs/socketio-client": "5.0.0-pre.17",
+    "@fontsource/roboto": "4.5.8",
     "@fullcalendar/core": "5.11.0",
     "@fullcalendar/daygrid": "5.11.0",
     "@fullcalendar/interaction": "5.11.0",
