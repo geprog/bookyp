@@ -177,6 +177,7 @@ importers:
       '@feathersjs/errors': 5.0.0-pre.17
       '@feathersjs/feathers': 5.0.0-pre.17
       '@feathersjs/socketio-client': 5.0.0-pre.17
+      '@fontsource/roboto': 4.5.8
       '@fullcalendar/core': 5.11.0
       '@fullcalendar/daygrid': 5.11.0
       '@fullcalendar/interaction': 5.11.0
@@ -232,6 +233,7 @@ importers:
       '@feathersjs/errors': 5.0.0-pre.17
       '@feathersjs/feathers': 5.0.0-pre.17
       '@feathersjs/socketio-client': 5.0.0-pre.17
+      '@fontsource/roboto': 4.5.8
       '@fullcalendar/core': 5.11.0
       '@fullcalendar/daygrid': 5.11.0
       '@fullcalendar/interaction': 5.11.0
@@ -2139,6 +2141,10 @@ packages:
       '@feathersjs/errors': 5.0.0-pre.17
       '@feathersjs/feathers': 5.0.0-pre.17
       lodash: 4.17.21
+    dev: false
+
+  /@fontsource/roboto/4.5.8:
+    resolution: {integrity: sha512-CnD7zLItIzt86q4Sj3kZUiLcBk1dSk81qcqgMGaZe7SQ1P8hFNxhMl5AZthK1zrDM5m74VVhaOpuMGIL4gagaA==}
     dev: false
 
   /@fullcalendar/common/5.11.0:
