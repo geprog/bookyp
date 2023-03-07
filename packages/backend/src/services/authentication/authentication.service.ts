@@ -40,6 +40,7 @@ export default function (app: Application): void {
         secret: config.oauth.keycloak.secret,
         client_id: config.oauth.keycloak.client,
         profile_url: `${oauthServerUrl(config.oauth.keycloak.subdomain)}/protocol/openid-connect/userinfo`,
+        scope: 'openid profile email',
       },
       defaults: {
         origin: config.oauth.defaults.origin,

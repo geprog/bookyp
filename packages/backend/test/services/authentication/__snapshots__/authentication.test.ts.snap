@@ -24,6 +24,7 @@ exports[`Authentication service > Configuration > should match snapshot 1`] = `
       "authorize_url": "https://auth.example.org/auth/realms/main/protocol/openid-connect/auth",
       "client_id": "bookyp",
       "profile_url": "https://auth.example.org/auth/realms/main/protocol/openid-connect/userinfo",
+      "scope": "openid profile email",
       "secret": "i-wont-tell-you",
     },
     "redirect": "http://localhost:3000/",
