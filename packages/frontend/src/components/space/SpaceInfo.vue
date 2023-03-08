@@ -1,12 +1,12 @@
 <template>
   <div v-if="space">
-    <LabelField v-if="space.name" icon-name="home">
+    <LabelField v-if="space.name" icon-name="home" readonly>
       <TextField :model-value="space.name" readonly data-test="space-name" :placeholder="t('name')" />
     </LabelField>
-    <LabelField v-if="space.address" icon-name="location">
+    <LabelField v-if="space.address" icon-name="location" readonly>
       <TextField :model-value="space.address" readonly data-test="space-address" />
     </LabelField>
-    <LabelField v-if="space.description" icon-name="text-box">
+    <LabelField v-if="space.description" icon-name="text-box" readonly>
       <TextField
         :model-value="space.description"
         readonly
@@ -14,10 +14,10 @@
         :placeholder="t('description')"
       />
     </LabelField>
-    <LabelField v-if="space.generalInformation" icon-name="text-box">
+    <LabelField v-if="space.generalInformation" icon-name="text-box" readonly>
       <MarkdownViewer :source="space.generalInformation" data-test="space-general-information" />
     </LabelField>
-    <LabelField v-if="space.email" icon-name="email">
+    <LabelField v-if="space.email" icon-name="email" readonly>
       <TextField :model-value="space.email" readonly :placeholder="t('email_space')" />
     </LabelField>
     <div v-if="space.coordinates" ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
