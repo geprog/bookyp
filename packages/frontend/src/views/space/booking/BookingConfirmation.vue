@@ -13,18 +13,7 @@
         </div>
       </div>
       <div class="flex flex-col gap-4">
-        <LabelField v-if="currentSpace?.name" readonly icon-name="home">
-          <TextField readonly :model-value="currentSpace?.name" />
-        </LabelField>
-        <LabelField v-if="currentSpace?.address" readonly icon-name="location">
-          <TextField readonly :model-value="currentSpace?.address" />
-        </LabelField>
-        <LabelField v-if="currentSpace?.description" readonly icon-name="document-one-page">
-          <TextField readonly :model-value="currentSpace?.description" />
-        </LabelField>
-        <LabelField v-if="currentSpace?.email" readonly icon-name="email">
-          <TextField readonly :model-value="currentSpace?.email" />
-        </LabelField>
+        <SpaceInfo :space="currentSpace" />
         <LabelField readonly icon-name="play">
           <TextField readonly :model-value="start" />
         </LabelField>
@@ -47,6 +36,7 @@ import Header from '~/components/headers/Header.vue';
 import Icon from '~/components/Icon.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import SpaceInfo from '~/components/space/SpaceInfo.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useGet from '~/compositions/useGet';
