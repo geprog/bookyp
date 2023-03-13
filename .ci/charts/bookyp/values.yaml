@@ -89,6 +89,8 @@ backend:
     url: ''
     token: ''
 
+  timezone: 'Europe/Berlin'
+
   podAnnotations: {}
   deploymentAnnotations: {}
 

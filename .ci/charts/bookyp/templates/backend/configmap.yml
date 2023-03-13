@@ -21,3 +21,4 @@ data:
   BACKEND_S3_BUCKET: {{ .Values.cdn.s3.bucket | quote }}
   BACKEND_S3_PUBLIC_FILE_URL_PREFIX: "https://{{ include "bookyp.cdnURL" . }}"
   BACKEND_PAYMENT_URL: "https://{{ default (include "bookyp.paymentURL" .) .Values.backend.payment.url }}"
+  TZ: {{ .Values.backend.timezone | quote }}
