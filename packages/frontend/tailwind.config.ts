@@ -2,6 +2,7 @@ import colors from 'windicss/colors';
 import { defineConfig } from 'windicss/helpers';
 import plugin from 'windicss/plugin';
 import aspectRatio from 'windicss/plugin/aspect-ratio';
+import lineClamp from 'windicss/plugin/line-clamp';
 import typography from 'windicss/plugin/typography';
 
 export default defineConfig({
@@ -64,5 +65,6 @@ export default defineConfig({
       addUtilities(newUtilities);
     }),
     aspectRatio,
+    lineClamp,
   ],
 });
