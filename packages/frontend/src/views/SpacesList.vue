@@ -55,7 +55,7 @@
         <img v-if="space.image" :src="space.image" class="w-full object-cover aspect-video" />
         <img v-else src="/src/assets/img/bookyp-logo-text.svg?url" class="w-full object-contain aspect-video p-2" />
       </div>
-      <div class="w-full p-4 flex flex-col">
+      <div class="w-full p-4 flex flex-col overflow-hidden">
         <div class="w-full flex flex-row justify-between">
           <span>{{ space.name }}</span>
           <IconButton
@@ -66,7 +66,7 @@
             @click.prevent="updateStarForSpace(space._id, !space.starred)"
           />
         </div>
-        <span class="text-gray-500">{{ space.description }}</span>
+        <span class="text-gray-500 overflow-hidden overflow-ellipsis line-clamp-5">{{ space.description }}</span>
       </div>
     </router-link>
   </AppContent>
