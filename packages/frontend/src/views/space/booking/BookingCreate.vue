@@ -7,6 +7,7 @@ import { Model } from '@bookyp/core';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+import { useToast } from 'vue-toastification';
 
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
@@ -19,6 +20,7 @@ const props = defineProps<{
 
 const { t } = useI18n();
 const router = useRouter();
+const toast = useToast();
 const feathers = useFeathers();
 const { currentSpace } = useCurrentSpace();
 
@@ -50,11 +52,11 @@ async function submit() {
     await router.replace({ name: 'account-bookings' });
   } catch (error) {
     if (error instanceof Error && error.message === 'Booking overlaps with existing bookings') {
-      alert(t('booking_overlaps', { bookable: bookable.value?.name }));
+      toast.error(t('booking_overlaps', { bookable: bookable.value?.name }));
       return;
     }
     if (error instanceof Error && error.message === 'End date must be after start date') {
-      alert(t('booking_invalid_end_date'));
+      toast.error(t('booking_invalid_end_date'));
       return;
     }
     throw error;

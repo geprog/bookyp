@@ -38,6 +38,7 @@ import { Model } from '@bookyp/core';
 import { defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+import { useToast } from 'vue-toastification';
 
 import Button from '~/components/buttons/Button.vue';
 import Header from '~/components/headers/Header.vue';
@@ -56,6 +57,7 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const router = useRouter();
+    const toast = useToast();
     const feathers = useFeathers();
     const { spaceId } = useCurrentSpace();
 
@@ -80,9 +82,9 @@ export default defineComponent({
           throw error;
         }
         if (error.message === 'User already in space') {
-          alert(t('invitation.already_in_space'));
+          toast.error(t('invitation.already_in_space'));
         } else if (error.message === 'email: value already exists.') {
-          alert(t('invitation.already_invited'));
+          toast.error(t('invitation.already_invited'));
         } else {
           throw error;
         }

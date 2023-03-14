@@ -54,6 +54,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useToast } from 'vue-toastification';
 
 import Header from '~/components/headers/Header.vue';
 import Icon from '~/components/Icon.vue';
@@ -62,6 +63,7 @@ import MapObject from '~/components/space/MapObject.vue';
 import { MapObjectType, mapObjectTypes } from '~/compositions/space/useNewMapObject';
 
 const { t } = useI18n();
+const toast = useToast();
 
 defineProps<{
   selectedMapObjectType: MapObjectType;
@@ -91,7 +93,7 @@ async function uploadNewMapObject(target: HTMLInputElement) {
   const viewBox = doc.getElementsByTagName('svg')[0].getAttribute('viewBox');
 
   if (!viewBox) {
-    alert(t('could_not_find_view_box'));
+    toast.error(t('could_not_find_view_box'));
     return;
   }
 
