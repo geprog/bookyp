@@ -26,6 +26,18 @@ watch(
   { immediate: true },
 );
 
+const redirectOnImportedSpace = () => {
+  if (!space.value) {
+    return;
+  }
+  if (space.value.importId && route.name !== 'space-info' && route.matched.some((m) => m.name === 'space-loader')) {
+    void router.replace({ name: 'space-info', params: { spaceId: space.value._id } });
+  }
+};
+
+watch(space, redirectOnImportedSpace);
+watch(route, redirectOnImportedSpace);
+
 const redirectOnUnauthorized = async () => {
   if (!space.value) {
     return;

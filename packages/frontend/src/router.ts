@@ -20,6 +20,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/space/:spaceId',
+    name: 'space-loader',
     component: () => import('~/views/SpaceLoader.vue'),
     props: true,
     children: [

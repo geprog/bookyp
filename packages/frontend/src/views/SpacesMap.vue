@@ -8,7 +8,7 @@
   <div ref="map" class="w-full h-full" />
   <div v-if="selectedSpace" class="fixed bottom-0 flex justify-center w-full">
     <router-link
-      :to="{ name: selectedSpace.importId ? 'space-info' : 'space', params: { spaceId: selectedSpaceId } }"
+      :to="{ name: 'space', params: { spaceId: selectedSpaceId } }"
       class="flex flex-row w-3/4 max-w-128 mb-4 p-4 bg-white rounded-md justify-between"
     >
       <div class="flex flex-col justify-between w-[calc(100%-2rem)]">
