@@ -7,9 +7,19 @@
 </template>
 
 <script lang="ts" setup>
+import { onErrorCaptured } from 'vue';
+import { useToast } from 'vue-toastification';
 import { DialogWrapper } from 'vue3-promise-dialog';
 
 import UpdateApp from '~/components/layout/UpdateApp.vue';
+
+const toast = useToast();
+// eslint-disable-next-line promise/prefer-await-to-callbacks
+onErrorCaptured((err) => {
+  // eslint-disable-next-line no-console
+  console.error(err);
+  toast.error(err.message);
+});
 </script>
 
 <style scoped>
@@ -47,5 +57,21 @@ body {
 
 *::-webkit-scrollbar-corner {
   @apply bg-transparent;
+}
+
+.Vue-Toastification__container.top-right {
+  @apply top-12;
+}
+.Vue-Toastification__toast--success {
+  @apply bg-green-text text-gray-50;
+}
+.Vue-Toastification__toast--info {
+  @apply bg-gray-500 text-gray-50;
+}
+.Vue-Toastification__toast--error {
+  @apply bg-red-text text-gray-50;
+}
+.Vue-Toastification__progress-bar {
+  @apply bg-gray-100;
 }
 </style>
