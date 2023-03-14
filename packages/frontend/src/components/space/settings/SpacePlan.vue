@@ -121,6 +121,24 @@
           </a>
         </i18n-t>
       </div>
+
+      <div v-if="invoices.length > 0" class="flex flex-col mt-8">
+        <span class="text-xl mb-2">{{ t('invoices') }}</span>
+        <ListItem
+          v-for="invoice in invoices.filter((i) => i.status !== 'draft')"
+          :key="invoice._id"
+          :status-color="invoice.status === 'paid' ? 'bg-green-text' : 'bg-primary-normal'"
+          class="mb-2"
+        >
+          <div class="flex w-full items-center gap-2 ml-3">
+            <span>{{ dayjs(invoice.date).format('DD.MM.YYYY') }}</span>
+            <span v-if="invoice.totalAmount && invoice.currency" class="ml-auto">{{
+              amountToPrice(invoice.totalAmount, invoice.currency)
+            }}</span>
+            <Button :text="$t('pdf')" outlined class="ml-4" @click="downloadInvoice(invoice)" />
+          </div>
+        </ListItem>
+      </div>
     </Step>
 
     <Step>
@@ -182,6 +200,7 @@
 
 <script lang="ts" setup>
 import { Model } from '@bookyp/core';
+import dayjs from 'dayjs';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
@@ -189,9 +208,11 @@ import { useRoute } from 'vue-router';
 import Button from '~/components/buttons/Button.vue';
 import Step from '~/components/layout/Step.vue';
 import Steps from '~/components/layout/Steps.vue';
+import ListItem from '~/components/list-items/ListItem.vue';
 import PaymentCustomerForm from '~/components/space/settings/PaymentCustomerForm.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
+import useFind from '~/compositions/useFind';
 import router from '~/router';
 
 const { t } = useI18n();
@@ -199,6 +220,15 @@ const { t } = useI18n();
 const { currentSpace: space } = useCurrentSpace();
 const spaceMembers = computed(() => space.value?.members || []);
 const plan = computed(() => space.value?.plan || 'free');
+
+const { data: invoices } = useFind(
+  'invoices',
+  ref({
+    query: {
+      spaceId: space.value?._id,
+    },
+  }),
+);
 
 const feathers = useFeathers();
 
@@ -249,4 +279,28 @@ onMounted(async () => {
     await router.replace({ name: 'space-settings-subscription' });
   }
 });
+
+function amountToPrice(amount: number, currency: string): string {
+  const round = Math.round((amount + Number.EPSILON) * 100) / 100;
+  switch (currency) {
+    case 'EUR':
+      return `${round}€`;
+    default:
+      return `${round} ${currency}`;
+  }
+}
+
+async function downloadInvoice(invoice: Model.Invoice) {
+  if (!invoice._id || !invoice.number) {
+    throw new Error('Invoice has no id and no number');
+  }
+
+  const { url } = await feathers.service('invoice-download').get(invoice._id, { query: { spaceId: space.value?._id } });
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `invoice-${invoice.number}.pdf`;
+  link.target = '_blank';
+  link.dispatchEvent(new MouseEvent('click'));
+}
 </script>

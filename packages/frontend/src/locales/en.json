@@ -182,5 +182,7 @@
   "not_found": "You're lost!",
   "site_not_exist": "This site doesn't exist.",
   "back_home": "Back to home",
-  "bookyp_logo": "Bookyp Logo with Bookyp written beneath"
+  "bookyp_logo": "Bookyp Logo with Bookyp written beneath",
+  "invoices": "Invoices",
+  "pdf": "PDF"
 }

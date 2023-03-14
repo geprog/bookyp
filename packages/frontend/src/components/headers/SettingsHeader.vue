@@ -28,7 +28,7 @@
           :icon-color="$route.name === 'settings-space-info' ? 'text-primary-normal' : undefined"
           :aria-label="t('space_information')"
           data-test="button-space-information"
-          @click="$router.push({ name: 'settings-space-info' })"
+          @click="$router.replace({ name: 'settings-space-info' })"
         />
         <IconButton
           v-if="allUnstableFeaturesEnabled"
@@ -40,7 +40,7 @@
           "
           :aria-label="t('subscription.space_subscription')"
           data-test="button-space-subscription"
-          @click="$router.push({ name: 'space-settings-subscription' })"
+          @click="$router.replace({ name: 'space-settings-subscription' })"
         />
       </div>
     </slot>
