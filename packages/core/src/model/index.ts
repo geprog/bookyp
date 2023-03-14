@@ -3,6 +3,7 @@ import { Bookable } from './Bookable';
 import { Booking } from './Booking';
 import { FileUpload } from './FileUpload';
 import { Invitation } from './Invitation';
+import { Invoice, InvoiceDownload } from './Invoice';
 import { MapObject } from './MapObject';
 import { PaymentCustomer } from './PaymentCustomer';
 import { Member, Space, SpacePlan, SpacePlans } from './Space';
@@ -15,6 +16,8 @@ export {
   Booking,
   FileUpload,
   Invitation,
+  Invoice,
+  InvoiceDownload,
   MapObject,
   Member,
   PaymentCustomer,

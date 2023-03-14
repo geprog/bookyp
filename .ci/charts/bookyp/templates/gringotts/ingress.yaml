@@ -16,6 +16,6 @@ spec:
       kind: Rule
       services:
         - name: "{{ include "bookyp.fullname" . }}-payment"
-          port: 3000
+          port: 7171
   tls:
     secretName: {{ .Values.payment.ingress.tls.secretName }}
