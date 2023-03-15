@@ -15,7 +15,7 @@
   </Header>
   <AppContent>
     <div v-if="noBookings" class="flex flex-col items-center justify-center gap-2 pt-40">
-      <img src="/src/assets/img/bookyp-logo-no-bookings.svg?url" />
+      <img src="/src/assets/img/bookyp-logo-text.svg?url" />
       <p class="text-gray-900">{{ t('no_bookings') }}</p>
       <i18n-t v-if="!savedSpaceId" keypath="route_to_space.text_without_space" tag="p" class="text-center">
         <router-link :to="{ name: 'home' }" class="underline">{{ t('route_to_space.list_of_spaces') }}</router-link>
