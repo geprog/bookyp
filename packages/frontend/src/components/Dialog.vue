@@ -1,6 +1,6 @@
 <template>
-  <div class="absolute flex content-center justify-center left-0 top-0 right-0 bottom-0">
-    <div class="absolute bg-gray-700 opacity-50 w-full h-full z-1" />
+  <div class="fixed flex content-center justify-center left-0 top-0 right-0 bottom-0">
+    <div class="absolute bg-gray-700 opacity-50 w-full z-1 h-full" />
     <div class="flex flex-col flex-grow border-solid border-1 bg-white max-w-xl m-auto mx-4 p-5 z-2 rounded-lg">
       <div class="flex flex-row justify-between items-center mb-5">
         <span data-test="label" class="text-base text-2xl font-bold truncate">{{ label }}</span>
