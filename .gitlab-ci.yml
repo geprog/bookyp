@@ -158,6 +158,10 @@ build-docker-backend:
     - install-dependencies
   variables:
     NODE_ENV: 'test'
+    KUBERNETES_CPU_REQUEST: '0.6'
+    KUBERNETES_CPU_LIMIT: '1'
+    KUBERNETES_MEMORY_REQUEST: '1Gi'
+    KUBERNETES_MEMORY_LIMIT: '2Gi'
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -197,6 +201,10 @@ typecheck-importer:
     - install-dependencies
   variables:
     NODE_ENV: 'test'
+    KUBERNETES_CPU_REQUEST: '0.6'
+    KUBERNETES_CPU_LIMIT: '1'
+    KUBERNETES_MEMORY_REQUEST: '1Gi'
+    KUBERNETES_MEMORY_LIMIT: '2Gi'
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -242,6 +250,10 @@ lint-importer:
   coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
   variables:
     NODE_ENV: 'test'
+    KUBERNETES_CPU_REQUEST: '0.6'
+    KUBERNETES_CPU_LIMIT: '1'
+    KUBERNETES_MEMORY_REQUEST: '1Gi'
+    KUBERNETES_MEMORY_LIMIT: '2Gi'
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
