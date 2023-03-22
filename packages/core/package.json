@@ -18,7 +18,7 @@
     "@feathersjs/adapter-commons": "5.0.0-pre.17",
     "@feathersjs/authentication": "5.0.0-pre.17",
     "@feathersjs/feathers": "5.0.0-pre.17",
-    "@geprog/gringotts-client": "1.0.1",
+    "@geprog/gringotts-client": "1.0.2",
     "bson-objectid": "2.0.3"
   },
   "devDependencies": {
