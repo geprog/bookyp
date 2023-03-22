@@ -95,15 +95,9 @@
     "members": "members",
     "of_ten": " / 10",
     "of_infinity": " / ∞",
-    "edit_customer": "Edit customer",
     "space_subscription": "Space subscription",
     "currently_upgrading_to_plan": "Currently upgrading to '{plan}' plan ...",
-    "upgrade_successful": "Upgrade successful! Have fun with your new plan ;)",
-    "upgrade_to": "Upgrade to {plan}",
-    "estimated_price_for_new_plan": "Estimated price for the new plan: {estimatedPrice}€",
-    "payment_verification_description": "We will charge you 1€ now to verify your payment method. You will get it back as credit for your next invoice.",
-    "back": "Back",
-    "done": "Done",
+    "payment_verification_description": "We will charge you 1€ to verify your payment method. You will get it back as credit for your next invoice.",
     "free_plan": "Free Plan",
     "enterprise_plan": "Enterprise Plan",
     "public_plan": "Public Plan",
@@ -113,9 +107,6 @@
     "max_members_reached": "Please upgrade your plan to add more than 10 members.",
     "public_plan_description": "You are currently using the public-plan.",
     "downgrade": "Downgrade",
-    "change_plan": "Change plan",
-    "proceed_to_checkout": "Proceed to checkout",
-    "proceed": "Proceed",
     "price_per_month": "{price}€ per month",
     "price_per_member_per_month": "{price}€ per member / month",
     "free": "free",
@@ -136,7 +127,15 @@
     },
     "make_space_public": "Make space public",
     "make_space_free": "Make space private",
-    "plan": "Plan"
+    "plan": "Plan",
+    "add_payment_method": "Add payment method",
+    "change_space_plan": "Change plan of space",
+    "payment_method": "Payment method",
+    "billing_details": "Billing details",
+    "new_plan": "New plan",
+    "estimated_total": "Estimated total",
+    "save": "Save",
+    "payment_verification": "Payment verification"
   },
   "app": {
     "new_version": "An update of the app is available.",
@@ -184,5 +183,6 @@
   "back_home": "Back to home",
   "bookyp_logo": "Bookyp Logo with Bookyp written beneath",
   "invoices": "Invoices",
-  "pdf": "PDF"
+  "pdf": "PDF",
+  "ok": "OK"
 }

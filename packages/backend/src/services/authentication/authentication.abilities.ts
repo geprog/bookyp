@@ -58,6 +58,7 @@ const defineRulesFor = async (
 
     // users can access payment services
     can(['read', 'update'], 'paymentCustomers');
+    can(['read', 'create', 'delete'], 'payment-methods');
 
     // as a user you can create spaces
     can('create', 'spaces');

@@ -43,7 +43,7 @@ importers:
       '@feathersjs/feathers': 5.0.0-pre.17
       '@feathersjs/socketio': 5.0.0-pre.17
       '@geprog/eslint-config': 2.1.0
-      '@geprog/gringotts-client': 0.8.5
+      '@geprog/gringotts-client': 1.0.1
       '@geprog/node-migrate-ts': 3.1.12
       '@types/express': 4.17.13
       '@types/minio': 7.0.15
@@ -83,7 +83,7 @@ importers:
       '@feathersjs/express': 5.0.0-pre.17
       '@feathersjs/feathers': 5.0.0-pre.17
       '@feathersjs/socketio': 5.0.0-pre.17
-      '@geprog/gringotts-client': 0.8.5
+      '@geprog/gringotts-client': 1.0.1
       '@geprog/node-migrate-ts': 3.1.12_mongodb@4.1.4
       body-parser: 1.20.0
       cross-fetch: 3.1.5
@@ -124,7 +124,7 @@ importers:
       '@feathersjs/authentication': 5.0.0-pre.17
       '@feathersjs/feathers': 5.0.0-pre.17
       '@geprog/eslint-config': 2.1.0
-      '@geprog/gringotts-client': 0.8.5
+      '@geprog/gringotts-client': 1.0.1
       '@vitest/coverage-c8': 0.23.4
       '@vitest/ui': 0.23.4
       bson-objectid: 2.0.3
@@ -138,7 +138,7 @@ importers:
       '@feathersjs/adapter-commons': 5.0.0-pre.17
       '@feathersjs/authentication': 5.0.0-pre.17
       '@feathersjs/feathers': 5.0.0-pre.17
-      '@geprog/gringotts-client': 0.8.5
+      '@geprog/gringotts-client': 1.0.1
       bson-objectid: 2.0.3
     devDependencies:
       '@geprog/eslint-config': 2.1.0_npli4tdgtr6r6coobkebrlmheu
@@ -2360,8 +2360,8 @@ packages:
       - typescript
     dev: true
 
-  /@geprog/gringotts-client/0.8.5:
-    resolution: {integrity: sha512-qGR9G6DEkcOxJphlI1qb22NU2TUu2fuiq18pYROO5ltaDiJKxeAFKNImInXsY3Mnjqy49CpyE3uUUFsb2asbig==}
+  /@geprog/gringotts-client/1.0.1:
+    resolution: {integrity: sha512-zzZYYPqgMhq5r/pQiFGNxz7NTr9XBGr8aMicBLzM+Yo4ORDZ+rR9f+PhNpwY7Rj4W4lKVJHjaGurAQ0Z0yEq7w==}
     dev: false
 
   /@geprog/node-migrate-ts/3.1.12_mongodb@4.1.4:
@@ -2434,8 +2434,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@intlify/bundle-utils/5.0.1_vue-i18n@9.2.0-beta.35:
-    resolution: {integrity: sha512-qF6reZHDm+h7jUId2npzwNZYCvrUcr0bAYnJXgiShKBxTFpxOq7nrqy7UrRWj8M2w4GTCJczeQZmQGFxc/GdFA==}
+  /@intlify/bundle-utils/5.2.0_vue-i18n@9.2.0-beta.35:
+    resolution: {integrity: sha512-rIfoNUTBoZK6IfaEeuoYMQZSuAXhPyZoy+UsdZj+V4eM632ynN1bGt5ttkpGO8xe0c+esfYslgJxBz//bdu4qg==}
     engines: {node: '>= 12'}
     peerDependencies:
       petite-vue-i18n: '*'
@@ -2446,16 +2446,14 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@babel/parser': 7.21.2
-      '@babel/traverse': 7.21.2
-      '@intlify/message-compiler': 9.3.0-beta.16
-      '@intlify/shared': 9.3.0-beta.16
+      '@intlify/message-compiler': 9.3.0-beta.17
+      '@intlify/shared': 9.3.0-beta.17
+      acorn: 8.8.2
+      estree-walker: 2.0.2
       jsonc-eslint-parser: 1.4.1
       source-map: 0.6.1
       vue-i18n: 9.2.0-beta.35_vue@3.2.33
       yaml-eslint-parser: 0.3.2
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /@intlify/core-base/9.1.9:
@@ -2534,11 +2532,11 @@ packages:
       '@intlify/shared': 9.2.0-beta.35
       source-map: 0.6.1
 
-  /@intlify/message-compiler/9.3.0-beta.16:
-    resolution: {integrity: sha512-CGQI3xRcs1ET75eDQ0DUy3MRYOqTauRIIgaMoISKiF83gqRWg93FqN8lGMKcpBqaF4tI0JhsfosCaGiBL9+dnw==}
+  /@intlify/message-compiler/9.3.0-beta.17:
+    resolution: {integrity: sha512-i7hvVIRk1Ax2uKa9xLRJCT57to08OhFMhFXXjWN07rmx5pWQYQ23MfX1xgggv9drnWTNhqEiD+u4EJeHoS5+Ww==}
     engines: {node: '>= 14'}
     dependencies:
-      '@intlify/shared': 9.3.0-beta.16
+      '@intlify/shared': 9.3.0-beta.17
       source-map: 0.6.1
     dev: true
 
@@ -2565,8 +2563,8 @@ packages:
     resolution: {integrity: sha512-DXf7xrwf08GKhr93XPQ8EgaEN0CIELl+mAS6SlRhi/aLtZv5HSGSMkz4M/ICwoWzFLSgOx/ZdBSasex19MMogg==}
     engines: {node: '>= 12'}
 
-  /@intlify/shared/9.3.0-beta.16:
-    resolution: {integrity: sha512-kXbm4svALe3lX+EjdJxfnabOphqS4yQ1Ge/iIlR8tvUiYRCoNz3hig1M4336iY++Dfx5ytEQJPNjIcknNIuvig==}
+  /@intlify/shared/9.3.0-beta.17:
+    resolution: {integrity: sha512-mscf7RQsUTOil35jTij4KGW1RC9SWQjYScwLxP53Ns6g24iEd5HN7ksbt9O6FvTmlQuX77u+MXpBdfJsGqizLQ==}
     engines: {node: '>= 14'}
     dev: true
 
@@ -2585,8 +2583,8 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@intlify/bundle-utils': 5.0.1_vue-i18n@9.2.0-beta.35
-      '@intlify/shared': 9.3.0-beta.16
+      '@intlify/bundle-utils': 5.2.0_vue-i18n@9.2.0-beta.35
+      '@intlify/shared': 9.3.0-beta.17
       '@rollup/pluginutils': 4.2.1
       debug: 4.3.4
       fast-glob: 3.2.11
@@ -3748,6 +3746,12 @@ packages:
 
   /acorn/8.8.0:
     resolution: {integrity: sha512-QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+    dev: true
+
+  /acorn/8.8.2:
+    resolution: {integrity: sha512-xjIYgE8HBrkpd/sJqOGNspf8uHG+NOHGOw6a/Urj8taM2EXfdNAH2oFcPeIFfsv3+kz/mJrS5VuMqbNLjCa2vw==}
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
@@ -9722,7 +9726,7 @@ packages:
       acorn:
         optional: true
     dependencies:
-      acorn: 8.8.0
+      acorn: 8.8.2
       commander: 2.20.3
       source-map: 0.7.3
       source-map-support: 0.5.21

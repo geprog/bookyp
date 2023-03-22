@@ -21,11 +21,7 @@ export function gringottsPayments(): Api<unknown> {
   });
 }
 
-export async function createSpaceSubscription(
-  app: Application,
-  user: Model.User,
-  space: Model.Space,
-): Promise<{ checkoutUrl?: string }> {
+export async function createSpaceSubscription(app: Application, user: Model.User, space: Model.Space): Promise<void> {
   const config = getConfig();
   const payment = gringottsPayments();
 
@@ -49,17 +45,13 @@ export async function createSpaceSubscription(
     pricePerUnit,
     units,
     customerId,
-    redirectUrl: `${config.app.frontendUrl}/space/${space._id}/settings/space/subscription?checkout=true`,
   });
 
-  const { checkoutUrl, subscriptionId } = response.data as { checkoutUrl: string; subscriptionId: string };
+  const subscription = response.data;
   await app.service('spaces').patch(space._id, {
-    subscription: subscriptionId,
+    subscription: subscription._id,
+    activeUntil: subscription.activeUntil ? new Date(subscription.activeUntil) : undefined,
   });
-
-  return {
-    checkoutUrl,
-  };
 }
 
 export async function updateSpaceSubscription(app: Application, user: Model.User, space: Model.Space): Promise<void> {

@@ -33,11 +33,6 @@ class PaymentCustomerService extends AdapterService<Model.PaymentCustomer> {
     const response = await payment.customer.customerDetail(user.paymentCustomerId);
     const customer = response.data;
 
-    if (!customer) {
-      // TODO: use proper feathers error
-      throw new Error('Customer not found');
-    }
-
     return customer;
   }
 
@@ -91,6 +86,7 @@ class PaymentCustomerService extends AdapterService<Model.PaymentCustomer> {
         city: data?.city || '',
         country: data?.country || '',
         zipCode: data?.zipCode || '',
+        activePaymentMethod: data?.activePaymentMethod,
       },
       { type: ContentType.Json },
     );

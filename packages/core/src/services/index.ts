@@ -10,6 +10,7 @@ import {
   InvoiceDownload,
   MapObject,
   PaymentCustomer,
+  PaymentMethod,
   Space,
   User,
 } from '~/model';
@@ -37,4 +38,5 @@ export type ServiceTypes = {
   'upload-files': AdapterService<FileUpload>;
   invoices: AdapterService<Invoice>;
   'invoice-download': AdapterService<InvoiceDownload>;
+  'payment-methods': AdapterService<PaymentMethod>;
 };

@@ -118,9 +118,10 @@ const routes: RouteRecordRaw[] = [
         component: () => import('~/views/settings/SpaceSubscription.vue'),
       },
       {
-        path: 'settings/space/subscription/customer',
-        name: 'space-settings-subscription-customer',
-        component: () => import('~/views/settings/SpaceSubscription.vue'),
+        path: 'settings/space/subscription/upgrade/:requestPlan',
+        name: 'space-settings-subscription-upgrade',
+        component: () => import('~/views/settings/SpaceSubscriptionUpgrade.vue'),
+        props: true,
       },
       {
         path: 'info',
