@@ -16,6 +16,7 @@ import CodeIcon from '~/assets/icons/code.svg';
 import CreditCardIcon from '~/assets/icons/credit-card.svg';
 import DeleteIcon from '~/assets/icons/delete.svg';
 import DiagramIcon from '~/assets/icons/diagram.svg';
+import DirectDebitIcon from '~/assets/icons/direct-debit.svg';
 import DismissIcon from '~/assets/icons/dismiss.svg';
 import DocumentOnePageIcon from '~/assets/icons/document-one-page.svg';
 import EditIcon from '~/assets/icons/edit.svg';
@@ -112,6 +113,7 @@ const icons = {
   calendar: CalendarIcon,
   'more-dots-horizontal': MoreDotsHorizontalIcon,
   'credit-card': CreditCardIcon,
+  'direct-debit': DirectDebitIcon,
 };
 
 export default icons;

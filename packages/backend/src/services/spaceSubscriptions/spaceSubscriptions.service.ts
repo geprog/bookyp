@@ -69,14 +69,13 @@ class SpaceSubscriptionsService extends AdapterService<Model.SpaceSubscription> 
       };
     }
 
-    const { checkoutUrl } = await createSpaceSubscription(this.app, user, space);
+    await createSpaceSubscription(this.app, user, space);
 
-    await this.app.service('spaces').patch(spaceId, { requestedPlan: plan });
+    await this.app.service('spaces').patch(spaceId, { plan });
 
     return {
       space: spaceId,
       plan,
-      checkoutUrl,
     };
   }
 }

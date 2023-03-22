@@ -8,6 +8,7 @@ import InvoiceDownloadService from './invoice-download/invoice-download.service'
 import InvoicesService from './invoices/invoices.service';
 import MapObjectService from './mapObjects/mapObject.service';
 import PaymentCustomersService from './paymentCustomers/paymentCustomers.service';
+import paymentMethodsService from './paymentMethods/paymentMethods.service';
 import SpacesService from './spaces/spaces.service';
 import SpaceSubscriptionsService from './spaceSubscriptions/spaceSubscriptions.service';
 import uploadFileService from './upload-file/upload-file.service';
@@ -26,4 +27,5 @@ export default function (app: Application): void {
   app.configure(uploadFileService);
   app.configure(InvoicesService);
   app.configure(InvoiceDownloadService);
+  app.configure(paymentMethodsService);
 }
