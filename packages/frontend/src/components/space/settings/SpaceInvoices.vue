@@ -48,7 +48,7 @@ function amountToPrice(amount: number, currency: string): string {
   const round = Math.round((amount + Number.EPSILON) * 100) / 100;
   switch (currency) {
     case 'EUR':
-      return `${round}€`;
+      return `${round.toFixed(2)} €`;
     default:
       return `${round} ${currency}`;
   }
