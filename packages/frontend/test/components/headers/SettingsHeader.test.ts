@@ -5,6 +5,7 @@ import { i18n } from '$/__helpers__/i18n';
 import { prepareUseRouteMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
 
 vi.mock('vue-router');
+vi.mock('~/router');
 
 describe('SettingsHeader component', () => {
   beforeAll(() => {

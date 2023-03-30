@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('invitation.edit')" has-back>
+  <Header :title="t('invitation.edit')" :back-fallback="{ name: 'settings-space-members' }">
     <IconButton
       icon="delete"
       icon-color="text-red-text hover:text-red-background"
@@ -41,16 +41,15 @@
 <script lang="ts">
 import { defineComponent, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
-import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
+import { back } from '~/compositions/useRouter';
 
 export default defineComponent({
   name: 'SpaceMemberInvitation',
@@ -66,9 +65,7 @@ export default defineComponent({
 
   setup(props) {
     const { t } = useI18n();
-    const router = useRouter();
     const feathers = useFeathers();
-    const { spaceId } = useCurrentSpace();
     const invitationId = toRef(props, 'invitationId');
 
     const { data: invitation } = useGet('invitations', invitationId);
@@ -81,7 +78,7 @@ export default defineComponent({
         ...invitation.value,
         role: invitation.value.role,
       });
-      await router.replace({ name: 'settings-space-members', params: { spaceId: spaceId.value } });
+      void back({ name: 'settings-space-members' });
     };
 
     async function removeInvitation(): Promise<void> {
@@ -89,7 +86,7 @@ export default defineComponent({
         throw new Error('Unexpected: An invitation must be loaded');
       }
       await feathers.service('invitations').remove(invitationId.value);
-      await router.replace({ name: 'settings-space-members', params: { spaceId: spaceId.value } });
+      void back({ name: 'settings-space-members' });
     }
 
     return { saveInvitation, removeInvitation, t, invitation };

@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`MapObject view > Template > should render correctly 1`] = `
-"<header-stub title=\\"map_object.edit\\" hasback=\\"true\\"></header-stub>
+"<header-stub title=\\"map_object.edit\\" backfallback=\\"[object Object]\\"></header-stub>
 <app-content-stub>
   <div class=\\"flex flex-col mx-auto w-full py-3\\">
     <div class=\\"w-full flex flex-col gap-2\\">
@@ -13,7 +13,7 @@ exports[`MapObject view > Template > should render correctly 1`] = `
 `;
 
 exports[`MapObject view > Template > should render correctly when selecting bookable 1`] = `
-"<header-stub title=\\"map_object.link_to_bookable\\" hasback=\\"true\\"></header-stub>
+"<header-stub title=\\"map_object.link_to_bookable\\" backfallback=\\"[object Object]\\"></header-stub>
 <app-content-stub>
   <div class=\\"flex flex-col mx-auto w-full py-3\\">
     <button-stub icon=\\"plus\\" text=\\"BOOKABLE_CREATE\\" disabled=\\"false\\" outlined=\\"false\\" class=\\"mb-3\\"></button-stub>

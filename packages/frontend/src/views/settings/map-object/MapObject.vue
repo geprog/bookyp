@@ -1,5 +1,8 @@
 <template>
-  <Header :title="isChoosingBookableLink ? t('map_object.link_to_bookable') : t('map_object.edit')" has-back />
+  <Header
+    :title="isChoosingBookableLink ? t('map_object.link_to_bookable') : t('map_object.edit')"
+    :back-fallback="isChoosingBookableLink ? { name: 'settings-map-object' } : { name: 'settings-space-map' }"
+  />
 
   <AppContent>
     <div class="flex flex-col mx-auto w-full py-3">
@@ -8,7 +11,7 @@
           icon="plus"
           class="mb-3"
           :text="t('bookable_create').toLocaleUpperCase()"
-          @click="router.push({ name: 'settings-map-object-link-create-bookable' })"
+          @click="$router.push({ name: 'settings-map-object-link-create-bookable' })"
         />
 
         <SelectableListItem
@@ -71,7 +74,7 @@
 import { Model } from '@bookyp/core';
 import { computed, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
@@ -82,6 +85,7 @@ import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
 import useGet from '~/compositions/useGet';
+import { back } from '~/compositions/useRouter';
 
 const props = defineProps<{
   mapObject: Model.MapObject;
@@ -92,7 +96,6 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
-const router = useRouter();
 const route = useRoute();
 const { spaceId } = useCurrentSpace();
 
@@ -114,6 +117,6 @@ function unlinkMapObject() {
 
 function selectBookable(bookable: Model.Bookable) {
   emit('update:mapObject', { ...mapObject.value, link: { type: 'bookable', bookable: bookable._id } });
-  router.back();
+  void back({ name: 'settings-map-object' });
 }
 </script>

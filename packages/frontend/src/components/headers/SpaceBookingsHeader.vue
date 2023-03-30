@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('bookings')" has-back>
+  <Header :title="t('bookings')" :back-fallback="{ name: 'bookables-map' }">
     <IconButton
       icon="calendar"
       :icon-color="$route.name === 'space-bookings-calendar' ? 'text-primary-normal' : undefined"

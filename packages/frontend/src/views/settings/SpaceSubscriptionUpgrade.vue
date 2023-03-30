@@ -1,9 +1,5 @@
 <template>
-  <Header :title="$t('subscription.change_space_plan')">
-    <template #start>
-      <IconButton icon="arrow-left" @click="$router.replace({ name: 'space-settings-subscription' })" />
-    </template>
-  </Header>
+  <Header :title="$t('subscription.change_space_plan')" :back-fallback="{ name: 'space-settings-subscription' }" />
   <AppContent>
     <template v-if="requestPlan && customer && customer._id !== 'ignore'">
       <div class="my-4">
@@ -62,11 +58,9 @@
 import { Model } from '@bookyp/core';
 import { computed, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 import { openDialog } from 'vue3-promise-dialog';
 
 import Button from '~/components/buttons/Button.vue';
-import IconButton from '~/components/buttons/IconButton.vue';
 import Dialog from '~/components/Dialog.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
@@ -76,10 +70,10 @@ import SpacePlanCard from '~/components/space/settings/SpacePlanCard.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
+import { back } from '~/compositions/useRouter';
 
 const { t } = useI18n();
 const feathers = useFeathers();
-const router = useRouter();
 
 const props = defineProps<{
   requestPlan?: Model.SpacePlan;
@@ -186,7 +180,7 @@ async function checkOut() {
 
   await feathers.service('spaceSubscriptions').patch(spaceId, { plan: requestPlan.value });
 
-  await router.replace({ name: 'space-settings-subscription' });
+  void back({ name: 'space-settings-subscription' });
 }
 
 async function createCustomer() {

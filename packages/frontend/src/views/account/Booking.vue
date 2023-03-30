@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('booking_details')" has-back>
+  <Header :title="t('booking_details')" :back-fallback="{ name: 'account-bookings' }">
     <IconButton
       v-if="booking?.bookedBy === user?._id"
       data-test="delete-button"
@@ -42,7 +42,6 @@
 import dayjs from 'dayjs';
 import { computed, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 import { openDialog } from 'vue3-promise-dialog';
 
 import IconButton from '~/components/buttons/IconButton.vue';
@@ -55,6 +54,7 @@ import SpaceMap from '~/components/space/SpaceMap.vue';
 import { user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
+import { back } from '~/compositions/useRouter';
 
 const props = defineProps<{
   bookingId: string;
@@ -62,7 +62,6 @@ const props = defineProps<{
 
 const { t } = useI18n();
 const feathers = useFeathers();
-const router = useRouter();
 
 const bookingId = toRef(props, 'bookingId');
 const { data: booking } = useGet('bookings', bookingId);
@@ -91,6 +90,6 @@ async function deleteBooking() {
   }
 
   await feathers.service('bookings').remove(bookingId.value);
-  router.back();
+  void back({ name: 'account-bookings' });
 }
 </script>

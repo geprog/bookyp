@@ -1,5 +1,8 @@
 <template>
-  <Header has-back :title="t('space_information')" />
+  <Header
+    :title="t('space_information')"
+    :back-fallback="space?.importId ? { name: 'spaces-list' } : { name: 'bookables-map' }"
+  />
   <AppContent>
     <SpaceInfo :space="space" />
     <Button v-if="space?.importId" :href="mailtoUpgrade">

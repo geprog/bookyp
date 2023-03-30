@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('space_create')" has-back>
+  <Header :title="t('space_create')" :back-fallback="{ name: 'spaces-list' }">
     <IconButton type="submit" form="space" icon="save" />
   </Header>
   <AppContent>

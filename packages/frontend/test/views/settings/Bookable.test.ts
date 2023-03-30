@@ -2,16 +2,15 @@ import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
 import BookableForm from '~/components/bookables/BookableForm.vue';
+import { back } from '~/compositions/useRouter';
 import Bookable from '~/views/settings/Bookable.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
 import { i18n } from '$/__helpers__/i18n';
-import { prepareUseFeathersMockOnce, prepareUseGetMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
+import { prepareUseFeathersMockOnce, prepareUseGetMockOnce } from '$/__helpers__/mocks';
 
 vi.mock('~/compositions/useFeathers');
 vi.mock('~/compositions/useGet');
-vi.mock('vue-router', () => ({
-  useRouter: vi.fn(),
-}));
+vi.mock('~/compositions/useRouter');
 
 describe('Bookable view', () => {
   beforeAll(() => {
@@ -25,7 +24,6 @@ describe('Bookable view', () => {
   it('should render correctly', () => {
     // given
     prepareUseFeathersMockOnce();
-    prepareUseRouterMockOnce();
     prepareUseGetMockOnce(sampleBookable);
 
     // when
@@ -45,7 +43,6 @@ describe('Bookable view', () => {
   it('should pass the bookable to BookableForm', () => {
     // given
     prepareUseFeathersMockOnce();
-    prepareUseRouterMockOnce();
     prepareUseGetMockOnce(sampleBookable);
 
     // when
@@ -67,7 +64,7 @@ describe('Bookable view', () => {
 
     // given
     const useFeathersMock = prepareUseFeathersMockOnce();
-    const useRouterMock = prepareUseRouterMockOnce();
+    const backMock = vi.mocked(back);
     prepareUseGetMockOnce(sampleBookable);
 
     const wrapper = shallowMount(Bookable, {
@@ -84,7 +81,7 @@ describe('Bookable view', () => {
     await nextTick();
 
     // then
-    expect(useRouterMock.replace).toHaveBeenCalledTimes(1);
+    expect(backMock).toHaveBeenCalledTimes(1);
     expect(useFeathersMock.update).toHaveBeenCalledWith(sampleBookable._id, sampleBookable);
   });
 });

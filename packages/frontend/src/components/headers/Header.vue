@@ -3,7 +3,12 @@
     <div class="w-full max-w-5xl mx-auto">
       <div class="flex items-center p-2 content-center">
         <slot name="start">
-          <IconButton v-if="hasBack" data-test="back-button" icon="arrow-left" @click="$router.back()" />
+          <IconButton
+            v-if="backFallback"
+            data-test="back-button"
+            icon="arrow-left"
+            @click="backFallback && back(backFallback)"
+          />
           <BookypIcon
             v-else
             data-test="button-spaces"
@@ -24,11 +29,14 @@
 </template>
 
 <script lang="ts" setup>
+import { RouteLocationRaw } from 'vue-router';
+
 import BookypIcon from '~/assets/icons/bookyp.svg?component';
 import IconButton from '~/components/buttons/IconButton.vue';
+import { back } from '~/compositions/useRouter';
 
 defineProps<{
   title: string;
-  hasBack?: boolean;
+  backFallback?: RouteLocationRaw;
 }>();
 </script>

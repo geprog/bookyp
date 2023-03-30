@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('select_map_object_type')" has-back />
+  <Header :title="t('select_map_object_type')" :back-fallback="{ name: 'settings-space-map' }" />
 
   <AppContent class="flex !flex-row gap-4 p-4 flex-wrap">
     <div v-for="mapObjectType in mapObjectTypes" :key="mapObjectType.name" class="flex flex-col gap-2 w-min">
@@ -11,9 +11,9 @@
           'bg-primary-light': selectedMapObjectType.name === mapObjectType.name,
         }"
         @click="
-          () => {
+          async () => {
             $emit('update:selectedMapObjectType', mapObjectType);
-            $router.back();
+            await back({ name: 'settings-space-map' });
           }
         "
       />
@@ -61,6 +61,7 @@ import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import MapObject from '~/components/space/MapObject.vue';
 import { MapObjectType, mapObjectTypes } from '~/compositions/space/useNewMapObject';
+import { back } from '~/compositions/useRouter';
 
 const { t } = useI18n();
 const toast = useToast();

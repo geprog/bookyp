@@ -57,34 +57,32 @@ describe('Header component', () => {
 
   it('should include a back button', () => {
     // given
-    const hasBack = true;
+    const backFallback = { name: 'test' };
 
     // when
     const header = shallowMount(Header, {
       props: {
         title: '',
-        hasBack,
+        backFallback,
       },
     });
 
     // then
-    expect(header.find('[data-test=back-button]').exists()).toBe(hasBack);
+    expect(header.find('[data-test=back-button]').exists()).toBe(true);
   });
 
   it('should not include a back button', () => {
     // given
-    const hasBack = false;
 
     // when
     const header = shallowMount(Header, {
       props: {
         title: '',
-        hasBack,
       },
     });
 
     // then
-    expect(header.find('[data-test=back-button]').exists()).toBe(hasBack);
+    expect(header.find('[data-test=back-button]').exists()).toBe(false);
   });
 
   it('should include the title text', () => {

@@ -1,7 +1,7 @@
 <template>
   <Header :title="t('filter_bookables')">
     <template #start>
-      <IconButton icon="dismiss" @click="$router.back()" />
+      <IconButton icon="dismiss" @click="back({ name: 'bookables-map' })" />
     </template>
     <IconButton type="submit" form="filterBookablesForm" icon="check-mark" />
   </Header>
@@ -18,7 +18,6 @@
 import dayjs from 'dayjs';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 
 import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
@@ -26,9 +25,9 @@ import Header from '~/components/headers/Header.vue';
 import DateRangePicker from '~/components/inputs/DateRangePicker.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import { useBookables } from '~/compositions/useBookables';
+import { back } from '~/compositions/useRouter';
 
 const { t } = useI18n();
-const router = useRouter();
 const { bookablesFilter, resetBookablesFilter } = useBookables();
 
 const hasActiveBookablesFilter = computed(() => !bookablesFilter.value?.quickFilterEnabled);
@@ -45,11 +44,11 @@ const submitBookablesFilter = () => {
     end: dayjs(end.value).toDate(),
     quickFilterEnabled: false,
   };
-  router.back();
+  void back({ name: 'bookables-map' });
 };
 
 const reset = () => {
   resetBookablesFilter();
-  router.back();
+  void back({ name: 'bookables-map' });
 };
 </script>

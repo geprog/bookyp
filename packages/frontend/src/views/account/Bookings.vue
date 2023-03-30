@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('bookings')" has-back>
+  <Header :title="t('bookings')" :back-fallback="{ name: 'space', params: { spaceId: savedSpaceId } }">
     <router-link
       :to="{ name: 'account-bookings' }"
       class="flex items-center"
