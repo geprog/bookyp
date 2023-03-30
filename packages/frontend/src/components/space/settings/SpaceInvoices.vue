@@ -12,7 +12,7 @@
         <span v-if="invoice.totalAmount !== undefined && invoice.currency" class="ml-auto">{{
           amountToPrice(invoice.totalAmount, invoice.currency)
         }}</span>
-        <Button :text="$t('pdf')" outlined class="ml-4" @click="downloadInvoice(invoice)" />
+        <Button :text="$t('pdf')" outlined class="ml-4" :action="() => downloadInvoice(invoice)" />
       </div>
     </ListItem>
   </div>

@@ -5,8 +5,8 @@ exports[`MapObject view > Template > should render correctly 1`] = `
 <app-content-stub>
   <div class=\\"flex flex-col mx-auto w-full py-3\\">
     <div class=\\"w-full flex flex-col gap-2\\">
-      <button-stub icon=\\"link\\" text=\\"MAP_OBJECT.LINK_TO_BOOKABLE\\" disabled=\\"false\\" outlined=\\"false\\" class=\\"w-full\\"></button-stub>
-      <button-stub icon=\\"link\\" text=\\"MAP_OBJECT.LINK_TO_WEBSITE\\" disabled=\\"false\\" outlined=\\"false\\" class=\\"w-full\\"></button-stub>
+      <button-stub icon=\\"link\\" text=\\"MAP_OBJECT.LINK_TO_BOOKABLE\\" disabled=\\"false\\" outlined=\\"false\\" loading=\\"false\\" class=\\"w-full\\"></button-stub>
+      <button-stub icon=\\"link\\" text=\\"MAP_OBJECT.LINK_TO_WEBSITE\\" disabled=\\"false\\" outlined=\\"false\\" loading=\\"false\\" class=\\"w-full\\"></button-stub>
     </div>
   </div>
 </app-content-stub>"
@@ -16,7 +16,7 @@ exports[`MapObject view > Template > should render correctly when selecting book
 "<header-stub title=\\"map_object.link_to_bookable\\" hasback=\\"true\\"></header-stub>
 <app-content-stub>
   <div class=\\"flex flex-col mx-auto w-full py-3\\">
-    <button-stub icon=\\"plus\\" text=\\"BOOKABLE_CREATE\\" disabled=\\"false\\" outlined=\\"false\\" class=\\"mb-3\\"></button-stub>
+    <button-stub icon=\\"plus\\" text=\\"BOOKABLE_CREATE\\" disabled=\\"false\\" outlined=\\"false\\" loading=\\"false\\" class=\\"mb-3\\"></button-stub>
     <selectable-list-item-stub label=\\"Couch\\" description=\\"\\" selected=\\"false\\" enableclickonselected=\\"false\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>
     <selectable-list-item-stub label=\\"Table\\" description=\\"\\" selected=\\"false\\" enableclickonselected=\\"false\\" data-test=\\"select-bookable\\" class=\\"cursor-pointer mb-3\\"></selectable-list-item-stub>
   </div>

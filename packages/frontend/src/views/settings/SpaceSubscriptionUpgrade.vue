@@ -33,7 +33,7 @@
                 <span class="font-bold">{{ t('subscription.estimated_total') }}:</span>
                 <span>{{ t('subscription.price_per_month', { price: estimatedPrice }) }}</span>
               </div>
-              <Button :text="t('subscription.upgrade')" :disabled="!isUpgradeValid" class="mt-4" @click="checkOut" />
+              <Button :text="t('subscription.upgrade')" :disabled="!isUpgradeValid" class="mt-4" :action="checkOut" />
 
               <i18n-t
                 scope="global"
@@ -53,7 +53,12 @@
     <div v-else class="my-4 flex flex-col">
       <span class="text-center mb-2">{{ t('subscription.billing_details') }}</span>
       <PaymentCustomerForm v-model:customer="customer" />
-      <Button :text="t('subscription.save')" :disabled="!customer?.name" class="mt-4 mx-auto" @click="createCustomer" />
+      <Button
+        :text="t('subscription.save')"
+        :disabled="!customer?.name"
+        class="mt-4 mx-auto"
+        :action="createCustomer"
+      />
     </div>
   </AppContent>
 </template>

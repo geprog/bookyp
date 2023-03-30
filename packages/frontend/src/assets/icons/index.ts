@@ -39,6 +39,7 @@ import PeopleIcon from '~/assets/icons/people.svg';
 import PersonIcon from '~/assets/icons/person.svg';
 import PlayIcon from '~/assets/icons/play.svg';
 import PlusICon from '~/assets/icons/plus.svg';
+import ProgressIcon from '~/assets/icons/progress.svg';
 import QuoteIcon from '~/assets/icons/quote.svg';
 import RadioChecked from '~/assets/icons/radio-checked.svg';
 import RadioUnchecked from '~/assets/icons/radio-unchecked.svg';
@@ -114,6 +115,7 @@ const icons = {
   'more-dots-horizontal': MoreDotsHorizontalIcon,
   'credit-card': CreditCardIcon,
   'direct-debit': DirectDebitIcon,
+  progress: ProgressIcon,
 };
 
 export default icons;

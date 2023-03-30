@@ -13,35 +13,44 @@
     :target="href && '_blank'"
     :rel="href && 'noopener noreferrer'"
     :type="!to && !href && 'button'"
+    @click="handleClick"
   >
-    <Icon
-      v-if="icon"
-      data-test="button-icon"
-      :class="{
-        'text-inherit': outlined,
-        'text-white': !outlined,
-      }"
-      :name="icon"
-    />
-    <slot>
-      <span v-if="text" data-test="button-text">{{ text }}</span>
-    </slot>
-    <Icon
-      v-if="iconEnd"
-      data-test="button-icon-end"
-      :class="{ 'text-inherit': outlined, 'text-white': !outlined }"
-      :name="iconEnd"
-    />
+    <Icon v-if="loading || _loading" name="progress" class="animate-spin" />
+    <template v-else>
+      <Icon
+        v-if="icon"
+        data-test="button-icon"
+        :class="{
+          'text-inherit': outlined,
+          'text-white': !outlined,
+        }"
+        :name="icon"
+      />
+      <slot>
+        <span v-if="text" data-test="button-text">{{ text }}</span>
+      </slot>
+      <Icon
+        v-if="iconEnd"
+        data-test="button-icon-end"
+        :class="{ 'text-inherit': outlined, 'text-white': !outlined }"
+        :name="iconEnd"
+      />
+    </template>
   </component>
 </template>
 
 <script lang="ts" setup>
+import { ref, toRef } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
 
 import icons from '~/assets/icons';
 import Icon from '~/components/Icon.vue';
 
-defineProps<{
+const emit = defineEmits<{
+  (event: 'click', mouse: MouseEvent): void;
+}>();
+
+const props = defineProps<{
   to?: RouteLocationRaw;
   href?: string;
   icon?: keyof typeof icons;
@@ -49,5 +58,20 @@ defineProps<{
   text?: string;
   disabled?: boolean;
   outlined?: boolean;
+  loading?: boolean;
+  action?: () => void | Promise<void>;
 }>();
+
+const action = toRef(props, 'action');
+const _loading = ref(false);
+
+const handleClick = async (event: MouseEvent) => {
+  if (action.value) {
+    _loading.value = true;
+    await action.value();
+    _loading.value = false;
+  } else {
+    emit('click', event);
+  }
+};
 </script>

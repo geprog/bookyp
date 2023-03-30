@@ -59,5 +59,6 @@ exports[`Icons > should contain all needed icons 1`] = `
   "more-dots-horizontal",
   "credit-card",
   "direct-debit",
+  "progress",
 ]
 `;
