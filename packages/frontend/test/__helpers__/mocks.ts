@@ -4,6 +4,7 @@ import { RouteLocationNormalized, Router, useRoute, useRouter } from 'vue-router
 
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useMapObjects from '~/compositions/space/useMapObjects';
+import { useBack } from '~/compositions/useBack';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 import useGet from '~/compositions/useGet';
@@ -95,6 +96,16 @@ export function prepareUseRouteMockOnce({ name } = { name: '' }) {
   vi.mocked(useRoute).mockReturnValueOnce(useRouterMock);
 
   return { name };
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function prepareUseBackMockOnce() {
+  const backMock = vi.fn();
+  vi.mocked(useBack).mockReturnValueOnce({
+    back: backMock,
+  });
+
+  return { backMock };
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

@@ -47,9 +47,9 @@ import Header from '~/components/headers/Header.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
+import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
-import { back } from '~/compositions/useRouter';
 
 export default defineComponent({
   name: 'SpaceMemberInvitation',
@@ -66,6 +66,7 @@ export default defineComponent({
   setup(props) {
     const { t } = useI18n();
     const feathers = useFeathers();
+    const { back } = useBack();
     const invitationId = toRef(props, 'invitationId');
 
     const { data: invitation } = useGet('invitations', invitationId);

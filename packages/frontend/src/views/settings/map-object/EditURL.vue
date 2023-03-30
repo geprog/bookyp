@@ -21,7 +21,7 @@ import Header from '~/components/headers/Header.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import TextField from '~/components/TextField.vue';
-import { back } from '~/compositions/useRouter';
+import { useBack } from '~/compositions/useBack';
 
 const props = defineProps<{
   mapObject: Model.MapObject;
@@ -32,6 +32,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
+const { back } = useBack();
 
 const mapObject = toRef(props, 'mapObject');
 

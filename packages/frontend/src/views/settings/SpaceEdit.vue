@@ -36,12 +36,13 @@ import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SpaceForm from '~/components/space/SpaceForm.vue';
 import { savedSpaceId, useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
-import { back } from '~/compositions/useRouter';
 
 const { t } = useI18n();
 const router = useRouter();
 const feathers = useFeathers();
+const { back } = useBack();
 
 const { currentSpace: space } = useCurrentSpace();
 

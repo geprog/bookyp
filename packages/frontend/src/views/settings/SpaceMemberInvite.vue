@@ -46,8 +46,8 @@ import AppContent from '~/components/layout/AppContent.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
-import { back } from '~/compositions/useRouter';
 
 export default defineComponent({
   name: 'SpaceMemberInvite',
@@ -59,6 +59,7 @@ export default defineComponent({
     const toast = useToast();
     const feathers = useFeathers();
     const { spaceId } = useCurrentSpace();
+    const { back } = useBack();
 
     const invitationForm = ref<Partial<Model.Invitation>>({
       email: '',

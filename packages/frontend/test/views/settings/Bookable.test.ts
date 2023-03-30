@@ -2,15 +2,14 @@ import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
 import BookableForm from '~/components/bookables/BookableForm.vue';
-import { back } from '~/compositions/useRouter';
 import Bookable from '~/views/settings/Bookable.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
 import { i18n } from '$/__helpers__/i18n';
-import { prepareUseFeathersMockOnce, prepareUseGetMockOnce } from '$/__helpers__/mocks';
+import { prepareUseBackMockOnce, prepareUseFeathersMockOnce, prepareUseGetMockOnce } from '$/__helpers__/mocks';
 
 vi.mock('~/compositions/useFeathers');
 vi.mock('~/compositions/useGet');
-vi.mock('~/compositions/useRouter');
+vi.mock('~/compositions/useBack');
 
 describe('Bookable view', () => {
   beforeAll(() => {
@@ -25,6 +24,7 @@ describe('Bookable view', () => {
     // given
     prepareUseFeathersMockOnce();
     prepareUseGetMockOnce(sampleBookable);
+    prepareUseBackMockOnce();
 
     // when
     const wrapper = shallowMount(Bookable, {
@@ -44,6 +44,7 @@ describe('Bookable view', () => {
     // given
     prepareUseFeathersMockOnce();
     prepareUseGetMockOnce(sampleBookable);
+    prepareUseBackMockOnce();
 
     // when
     const wrapper = shallowMount(Bookable, {
@@ -64,7 +65,7 @@ describe('Bookable view', () => {
 
     // given
     const useFeathersMock = prepareUseFeathersMockOnce();
-    const backMock = vi.mocked(back);
+    const { backMock } = prepareUseBackMockOnce();
     prepareUseGetMockOnce(sampleBookable);
 
     const wrapper = shallowMount(Bookable, {

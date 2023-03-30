@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`Header component > should render correctly 1`] = `
-"<header class=\\"shadow-md flex flex-col\\" hasback=\\"true\\">
+"<header class=\\"shadow-md flex flex-col\\">
   <div class=\\"w-full max-w-5xl mx-auto\\">
     <div class=\\"flex items-center p-2 content-center\\">
       <bookyp-icon-stub data-test=\\"button-spaces\\" class=\\"cursor-pointer flex-shrink-0\\"></bookyp-icon-stub>

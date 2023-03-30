@@ -17,8 +17,8 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
-import { back } from '~/compositions/useRouter';
 
 const props = defineProps<{
   mapObject?: Model.MapObject;
@@ -33,6 +33,7 @@ const mapObject = toRef(props, 'mapObject');
 const { t } = useI18n();
 const feathers = useFeathers();
 const { spaceId } = useCurrentSpace();
+const { back } = useBack();
 
 if (!spaceId.value) {
   throw new Error('Unexpected: A space must be selected');

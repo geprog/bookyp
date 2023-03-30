@@ -83,9 +83,9 @@ import AppContent from '~/components/layout/AppContent.vue';
 import IconListItem from '~/components/list-items/IconListItem.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { useBack } from '~/compositions/useBack';
 import useFind from '~/compositions/useFind';
 import useGet from '~/compositions/useGet';
-import { back } from '~/compositions/useRouter';
 
 const props = defineProps<{
   mapObject: Model.MapObject;
@@ -98,6 +98,7 @@ const emit = defineEmits<{
 const { t } = useI18n();
 const route = useRoute();
 const { spaceId } = useCurrentSpace();
+const { back } = useBack();
 
 const mapObject = toRef(props, 'mapObject');
 

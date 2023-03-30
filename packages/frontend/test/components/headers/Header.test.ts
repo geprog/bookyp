@@ -2,6 +2,12 @@ import { mount, shallowMount } from '@vue/test-utils';
 
 import Header from '~/components/headers/Header.vue';
 
+vi.mock('~/compositions/useBack', () => ({
+  useBack: () => ({
+    back: vi.fn(),
+  }),
+}));
+
 describe('Header component', () => {
   it('should render correctly', () => {
     // given
@@ -11,7 +17,6 @@ describe('Header component', () => {
     const header = shallowMount(Header, {
       props: {
         title,
-        hasBack: true,
       },
     });
 

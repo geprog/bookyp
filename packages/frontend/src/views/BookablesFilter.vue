@@ -24,11 +24,12 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import DateRangePicker from '~/components/inputs/DateRangePicker.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import { useBack } from '~/compositions/useBack';
 import { useBookables } from '~/compositions/useBookables';
-import { back } from '~/compositions/useRouter';
 
 const { t } = useI18n();
 const { bookablesFilter, resetBookablesFilter } = useBookables();
+const { back } = useBack();
 
 const hasActiveBookablesFilter = computed(() => !bookablesFilter.value?.quickFilterEnabled);
 

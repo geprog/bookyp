@@ -26,9 +26,9 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Dialog from '~/components/Dialog.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
-import { back } from '~/compositions/useRouter';
 
 const props = defineProps<{
   bookableId: string;
@@ -36,6 +36,7 @@ const props = defineProps<{
 
 const { t } = useI18n();
 const feathers = useFeathers();
+const { back } = useBack();
 
 const bookableId = toRef(props, 'bookableId');
 const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));

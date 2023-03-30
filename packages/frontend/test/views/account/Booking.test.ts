@@ -14,7 +14,11 @@ import { prepareUseFeathersMockOnce, prepareUseGetMockOnce } from '$/__helpers__
 vi.mock('~/compositions/useGet');
 vi.mock('~/compositions/useFeathers');
 vi.mock('vue3-promise-dialog');
-vi.mock('~/compositions/useRouter');
+vi.mock('~/compositions/useBack', () => ({
+  useBack: () => ({
+    back: vi.fn(),
+  }),
+}));
 
 describe('Booking view', () => {
   beforeAll(() => {
