@@ -61,10 +61,11 @@ import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import MapObject from '~/components/space/MapObject.vue';
 import { MapObjectType, mapObjectTypes } from '~/compositions/space/useNewMapObject';
-import { back } from '~/compositions/useRouter';
+import { useBack } from '~/compositions/useBack';
 
 const { t } = useI18n();
 const toast = useToast();
+const { back } = useBack();
 
 defineProps<{
   selectedMapObjectType: MapObjectType;

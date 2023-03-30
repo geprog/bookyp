@@ -5,12 +5,12 @@ import { ref } from 'vue';
 
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import useFind from '~/compositions/useFind';
-import { back } from '~/compositions/useRouter';
 import MapObject from '~/views/settings/map-object/MapObject.vue';
 import { sampleBookable, sampleBookables } from '$/__fixtures__/bookable';
 import { sampleMapObject, sampleMapObjects } from '$/__fixtures__/mapObject';
 import { i18n } from '$/__helpers__/i18n';
 import {
+  prepareUseBackMockOnce,
   prepareUseCurrentSpaceMockOnce,
   prepareUseFeathersMockOnce,
   prepareUseFindMockOnce,
@@ -24,7 +24,7 @@ vi.mock('~/compositions/useGet');
 vi.mock('~/compositions/useFind');
 vi.mock('~/compositions/space/useCurrentSpace');
 vi.mock('vue-router');
-vi.mock('~/compositions/useRouter');
+vi.mock('~/compositions/useBack');
 
 describe('MapObject view', () => {
   beforeAll(() => {
@@ -47,6 +47,7 @@ describe('MapObject view', () => {
       prepareUseFindMockOnce(sampleBookables);
       const useRouterMock = prepareUseRouterMockOnce();
       const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-map-object' });
+      prepareUseBackMockOnce();
 
       // when
       const wrapper = shallowMount(MapObject, {
@@ -73,6 +74,7 @@ describe('MapObject view', () => {
       prepareUseFindMockOnce(sampleBookables);
       const useRouterMock = prepareUseRouterMockOnce();
       const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-map-object-link' });
+      prepareUseBackMockOnce();
 
       // when
       const wrapper = shallowMount(MapObject, {
@@ -97,6 +99,7 @@ describe('MapObject view', () => {
     // given
     const useRouterMock = prepareUseRouterMockOnce();
     const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-map-object-link' });
+    prepareUseBackMockOnce();
     prepareUseGetMockOnce(sampleMapObject);
     prepareUseGetMockOnce(sampleBookable);
     let params: Parameters<UseFindFunc<unknown>>[1];
@@ -138,7 +141,7 @@ describe('MapObject view', () => {
     prepareUseFindMockOnce(sampleBookables);
     prepareUseFeathersMockOnce();
     const useRouterMock = prepareUseRouterMockOnce();
-    const backMock = vi.mocked(back);
+    const { backMock } = prepareUseBackMockOnce();
     const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-map-object-link' });
 
     const wrapper = shallowMount(MapObject, {
@@ -183,6 +186,7 @@ describe('MapObject view', () => {
     prepareUseFindMockOnce(sampleBookables);
     const useRouterMock = prepareUseRouterMockOnce();
     const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-map-object' });
+    prepareUseBackMockOnce();
 
     const wrapper = shallowMount(MapObject, {
       props: {

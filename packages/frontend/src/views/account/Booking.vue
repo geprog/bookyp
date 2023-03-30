@@ -52,9 +52,9 @@ import FloorPlan from '~/components/space/FloorPlan.vue';
 import MapObjects from '~/components/space/MapObjects.vue';
 import SpaceMap from '~/components/space/SpaceMap.vue';
 import { user } from '~/compositions/useAuthentication';
+import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
-import { back } from '~/compositions/useRouter';
 
 const props = defineProps<{
   bookingId: string;
@@ -62,6 +62,7 @@ const props = defineProps<{
 
 const { t } = useI18n();
 const feathers = useFeathers();
+const { back } = useBack();
 
 const bookingId = toRef(props, 'bookingId');
 const { data: booking } = useGet('bookings', bookingId);

@@ -49,8 +49,8 @@ import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
-import { back } from '~/compositions/useRouter';
 
 const props = defineProps<{
   spaceMemberId: string;
@@ -60,6 +60,7 @@ const { t } = useI18n();
 const feathers = useFeathers();
 const { currentSpace } = useCurrentSpace();
 const spaceMemberId = toRef(props, 'spaceMemberId');
+const { back } = useBack();
 
 const spaceMemberIndex = computed(() =>
   (currentSpace.value?.members || []).findIndex((member) => member.userId === spaceMemberId.value),

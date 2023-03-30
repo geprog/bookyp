@@ -68,12 +68,13 @@ import PaymentCustomerForm from '~/components/space/settings/PaymentCustomerForm
 import PaymentMethodsForm from '~/components/space/settings/PaymentMethodsForm.vue';
 import SpacePlanCard from '~/components/space/settings/SpacePlanCard.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
-import { back } from '~/compositions/useRouter';
 
 const { t } = useI18n();
 const feathers = useFeathers();
+const { back } = useBack();
 
 const props = defineProps<{
   requestPlan?: Model.SpacePlan;

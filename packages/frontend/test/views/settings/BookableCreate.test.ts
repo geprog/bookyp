@@ -2,15 +2,18 @@ import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
 import BookableForm from '~/components/bookables/BookableForm.vue';
-import { back } from '~/compositions/useRouter';
 import BookableCreate from '~/views/settings/BookableCreate.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
 import { i18n } from '$/__helpers__/i18n';
-import { prepareUseCurrentSpaceMockOnce, prepareUseFeathersMockOnce } from '$/__helpers__/mocks';
+import {
+  prepareUseBackMockOnce,
+  prepareUseCurrentSpaceMockOnce,
+  prepareUseFeathersMockOnce,
+} from '$/__helpers__/mocks';
 
 vi.mock('~/compositions/useFeathers');
 vi.mock('~/compositions/space/useCurrentSpace');
-vi.mock('~/compositions/useRouter');
+vi.mock('~/compositions/useBack');
 
 describe('BookableCreate view', () => {
   beforeAll(() => {
@@ -25,6 +28,7 @@ describe('BookableCreate view', () => {
     // given
     prepareUseFeathersMockOnce();
     prepareUseCurrentSpaceMockOnce();
+    prepareUseBackMockOnce();
 
     // when
     const wrapper = shallowMount(BookableCreate, {
@@ -42,7 +46,7 @@ describe('BookableCreate view', () => {
 
     // given
     const useFeathersMock = prepareUseFeathersMockOnce();
-    const backMock = vi.mocked(back);
+    const { backMock } = prepareUseBackMockOnce();
     prepareUseCurrentSpaceMockOnce();
     const wrapper = shallowMount(BookableCreate, {
       global: {

@@ -33,10 +33,12 @@ import { RouteLocationRaw } from 'vue-router';
 
 import BookypIcon from '~/assets/icons/bookyp.svg?component';
 import IconButton from '~/components/buttons/IconButton.vue';
-import { back } from '~/compositions/useRouter';
+import { useBack } from '~/compositions/useBack';
 
 defineProps<{
   title: string;
   backFallback?: RouteLocationRaw;
 }>();
+
+const { back } = useBack();
 </script>
