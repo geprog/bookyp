@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('bookable_create')" has-back>
+  <Header :title="t('bookable_create')" :back-fallback="{ name: 'settings-bookables' }">
     <IconButton type="submit" form="bookable" icon="check-mark" />
   </Header>
   <AppContent>
@@ -11,7 +11,6 @@
 import { Model } from '@bookyp/core';
 import { ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 
 import BookableForm from '~/components/bookables/BookableForm.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
@@ -19,6 +18,7 @@ import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
+import { back } from '~/compositions/useRouter';
 
 const props = defineProps<{
   mapObject?: Model.MapObject;
@@ -31,7 +31,6 @@ const emit = defineEmits<{
 const mapObject = toRef(props, 'mapObject');
 
 const { t } = useI18n();
-const router = useRouter();
 const feathers = useFeathers();
 const { spaceId } = useCurrentSpace();
 
@@ -50,6 +49,6 @@ const saveBookable = async () => {
   if (mapObject.value !== undefined) {
     emit('update:mapObject', { ...mapObject.value, link: { type: 'bookable', bookable: createdBookable._id } });
   }
-  router.back();
+  void back({ name: 'settings-bookables' });
 };
 </script>

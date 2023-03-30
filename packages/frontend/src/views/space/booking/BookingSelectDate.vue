@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('book_a_bookable', { bookable: bookable?.name })" has-back>
+  <Header :title="t('book_a_bookable', { bookable: bookable?.name })" :back-fallback="{ name: 'bookables-map' }">
     <IconButton type="submit" form="booking" icon="check-mark" :disabled="isBookingOverlapping" />
   </Header>
 

@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('edit_member')" has-back>
+  <Header :title="t('edit_member')" :back-fallback="{ name: 'settings-space-members' }">
     <IconButton
       icon="delete"
       icon-color="text-red-text hover:text-red-background"
@@ -42,7 +42,6 @@
 import { Model } from '@bookyp/core';
 import { computed, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
@@ -51,13 +50,13 @@ import AppContent from '~/components/layout/AppContent.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
+import { back } from '~/compositions/useRouter';
 
 const props = defineProps<{
   spaceMemberId: string;
 }>();
 
 const { t } = useI18n();
-const router = useRouter();
 const feathers = useFeathers();
 const { currentSpace } = useCurrentSpace();
 const spaceMemberId = toRef(props, 'spaceMemberId');
@@ -94,7 +93,7 @@ const saveSpaceMember = async () => {
     ...currentSpace.value,
     members: updatedMembers,
   });
-  router.back();
+  void back({ name: 'settings-space-members' });
 };
 
 async function removeSpaceMember(): Promise<void> {
@@ -109,6 +108,6 @@ async function removeSpaceMember(): Promise<void> {
     ...currentSpace.value,
     members: [...members.slice(0, spaceMemberIndex.value), ...members.slice(spaceMemberIndex.value + 1)],
   });
-  router.back();
+  void back({ name: 'settings-space-members' });
 }
 </script>

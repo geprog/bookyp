@@ -1,7 +1,7 @@
 <template>
-  <Header :title="t('space_information')" has-back>
+  <Header :title="t('space_information')">
     <template #start>
-      <IconButton icon="dismiss" @click="$router.back()" />
+      <IconButton icon="dismiss" @click="back({ name: 'settings-space-info' })" />
     </template>
     <IconButton type="submit" form="space" icon="save" />
   </Header>
@@ -37,6 +37,7 @@ import AppContent from '~/components/layout/AppContent.vue';
 import SpaceForm from '~/components/space/SpaceForm.vue';
 import { savedSpaceId, useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
+import { back } from '~/compositions/useRouter';
 
 const { t } = useI18n();
 const router = useRouter();
@@ -59,7 +60,7 @@ async function saveSpace() {
   }
 
   await feathers.service('spaces').update(spaceToSave.value?._id, spaceToSave.value);
-  router.back();
+  void back({ name: 'settings-space-info' });
 }
 
 async function deleteSpace() {

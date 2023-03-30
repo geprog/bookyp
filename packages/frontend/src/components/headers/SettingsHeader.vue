@@ -1,5 +1,5 @@
 <template>
-  <Header :title="title" has-back>
+  <Header :title="title" :back-fallback="{ name: 'bookables-map' }">
     <slot name="actions">
       <div class="flex gap-x-2">
         <IconButton

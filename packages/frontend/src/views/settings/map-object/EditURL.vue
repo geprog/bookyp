@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('map_object.edit_link')" has-back />
+  <Header :title="t('map_object.edit_link')" :back-fallback="{ name: 'settings-map-object' }" />
 
   <AppContent>
     <form class="flex flex-col mx-auto w-full py-3" @submit.prevent="updateLink">
@@ -15,13 +15,13 @@
 import { Model } from '@bookyp/core';
 import { ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 
 import Button from '~/components/buttons/Button.vue';
 import Header from '~/components/headers/Header.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import TextField from '~/components/TextField.vue';
+import { back } from '~/compositions/useRouter';
 
 const props = defineProps<{
   mapObject: Model.MapObject;
@@ -32,7 +32,6 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
-const router = useRouter();
 
 const mapObject = toRef(props, 'mapObject');
 
@@ -50,6 +49,6 @@ watch(
 
 function updateLink() {
   emit('update:mapObject', { ...mapObject.value, link: { type: 'url', url: mapObjectLink.value } });
-  router.back();
+  void back({ name: 'settings-map-object' });
 }
 </script>

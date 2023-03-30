@@ -1,5 +1,8 @@
 <template>
-  <Header :title="t('bookable_details', { bookable: bookable && bookable.name })" has-back>
+  <Header
+    :title="t('bookable_details', { bookable: bookable && bookable.name })"
+    :back-fallback="{ name: 'settings-bookables' }"
+  >
     <IconButton
       data-test="delete-button"
       icon="delete"
@@ -16,7 +19,6 @@
 <script lang="ts" setup>
 import { ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 import { openDialog } from 'vue3-promise-dialog';
 
 import BookableForm from '~/components/bookables/BookableForm.vue';
@@ -26,6 +28,7 @@ import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
+import { back } from '~/compositions/useRouter';
 
 const props = defineProps<{
   bookableId: string;
@@ -33,7 +36,6 @@ const props = defineProps<{
 
 const { t } = useI18n();
 const feathers = useFeathers();
-const router = useRouter();
 
 const bookableId = toRef(props, 'bookableId');
 const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disableSoftDelete: true } }));
@@ -45,7 +47,7 @@ const saveBookable = async () => {
   }
 
   await feathers.service('bookables').update(bookableId.value, bookable.value);
-  await router.replace({ name: 'settings-bookables' });
+  void back({ name: 'settings-bookables' });
 };
 
 async function deleteBookable() {
@@ -60,6 +62,6 @@ async function deleteBookable() {
   }
 
   await feathers.service('bookables').remove(bookableId.value);
-  router.back();
+  void back({ name: 'settings-bookables' });
 }
 </script>

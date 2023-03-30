@@ -9,6 +9,7 @@ vi.mock('vue-router');
 vi.mock('~/compositions/useFind');
 vi.mock('~/compositions/space/useCurrentSpace');
 vi.mock('~/compositions/useAuthentication');
+vi.mock('~/router');
 
 describe('Bookings component', () => {
   beforeAll(() => {

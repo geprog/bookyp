@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('invite_new_member')" has-back />
+  <Header :title="t('invite_new_member')" :back-fallback="{ name: 'settings-space-members' }" />
   <AppContent>
     <form id="spaceMemberInviteForm" data-test="form" class="mx-4" @submit.prevent="inviteSpaceMember">
       <LabelField icon-name="email">
@@ -37,7 +37,6 @@
 import { Model } from '@bookyp/core';
 import { defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 
 import Button from '~/components/buttons/Button.vue';
@@ -48,6 +47,7 @@ import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
+import { back } from '~/compositions/useRouter';
 
 export default defineComponent({
   name: 'SpaceMemberInvite',
@@ -56,7 +56,6 @@ export default defineComponent({
 
   setup() {
     const { t } = useI18n();
-    const router = useRouter();
     const toast = useToast();
     const feathers = useFeathers();
     const { spaceId } = useCurrentSpace();
@@ -76,7 +75,7 @@ export default defineComponent({
           role: invitationForm.value.role,
           spaceId: spaceId.value,
         });
-        await router.replace({ name: 'settings-space-members', params: { spaceId: spaceId.value } });
+        void back({ name: 'settings-space-members' });
       } catch (error) {
         if (!(error instanceof Error)) {
           throw error;

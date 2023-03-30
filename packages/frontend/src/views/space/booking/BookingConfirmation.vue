@@ -1,5 +1,8 @@
 <template>
-  <Header :title="t('confirmation.confirm_a_bookable', { bookable: bookable?.name })" has-back>
+  <Header
+    :title="t('confirmation.confirm_a_bookable', { bookable: bookable?.name })"
+    :back-fallback="{ name: 'booking-create' }"
+  >
     <IconButton icon="check-mark" @click="$emit('submit')" />
   </Header>
 

@@ -5,6 +5,7 @@ import { ref } from 'vue';
 
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import useFind from '~/compositions/useFind';
+import { back } from '~/compositions/useRouter';
 import MapObject from '~/views/settings/map-object/MapObject.vue';
 import { sampleBookable, sampleBookables } from '$/__fixtures__/bookable';
 import { sampleMapObject, sampleMapObjects } from '$/__fixtures__/mapObject';
@@ -23,6 +24,7 @@ vi.mock('~/compositions/useGet');
 vi.mock('~/compositions/useFind');
 vi.mock('~/compositions/space/useCurrentSpace');
 vi.mock('vue-router');
+vi.mock('~/compositions/useRouter');
 
 describe('MapObject view', () => {
   beforeAll(() => {
@@ -136,6 +138,7 @@ describe('MapObject view', () => {
     prepareUseFindMockOnce(sampleBookables);
     prepareUseFeathersMockOnce();
     const useRouterMock = prepareUseRouterMockOnce();
+    const backMock = vi.mocked(back);
     const useRouteMock = prepareUseRouteMockOnce({ name: 'settings-map-object-link' });
 
     const wrapper = shallowMount(MapObject, {
@@ -163,7 +166,7 @@ describe('MapObject view', () => {
         link: { type: 'bookable', bookable: sampleBookables[0]._id },
       },
     ]);
-    expect(useRouterMock.back).toHaveBeenCalledTimes(1);
+    expect(backMock).toHaveBeenCalledTimes(1);
   });
 
   it('should unlink a bookable from the map-object', async () => {

@@ -9,12 +9,12 @@ import { sampleBooking } from '$/__fixtures__/booking';
 import { sampleSpace } from '$/__fixtures__/space';
 import { sampleUser } from '$/__fixtures__/user';
 import { i18n } from '$/__helpers__/i18n';
-import { prepareUseFeathersMockOnce, prepareUseGetMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
+import { prepareUseFeathersMockOnce, prepareUseGetMockOnce } from '$/__helpers__/mocks';
 
 vi.mock('~/compositions/useGet');
 vi.mock('~/compositions/useFeathers');
-vi.mock('vue-router');
 vi.mock('vue3-promise-dialog');
+vi.mock('~/compositions/useRouter');
 
 describe('Booking view', () => {
   beforeAll(() => {
@@ -31,7 +31,6 @@ describe('Booking view', () => {
     prepareUseGetMockOnce(sampleSpace);
     prepareUseGetMockOnce(sampleUser);
     prepareUseGetMockOnce(sampleBookable);
-    prepareUseRouterMockOnce();
 
     // when
     const wrapper = shallowMount(Booking, {
@@ -52,7 +51,6 @@ describe('Booking view', () => {
     prepareUseGetMockOnce(sampleSpace);
     prepareUseGetMockOnce(sampleUser);
     prepareUseGetMockOnce(sampleBookable);
-    prepareUseRouterMockOnce();
     user.value = sampleUser;
     vi.mocked(openDialog).mockResolvedValue(true);
 

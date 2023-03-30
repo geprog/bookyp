@@ -1,5 +1,8 @@
 <template>
-  <Header :title="t('bookyp')" :has-back="!!savedSpaceId">
+  <Header
+    :title="t('bookyp')"
+    :back-fallback="savedSpaceId ? { name: 'space', params: { spaceId: savedSpaceId } } : undefined"
+  >
     <Button v-if="!user" class="py-1 px-3" :text="t('sign_in')" @click="$router.push({ name: 'auth-login' })" />
     <IconButton v-else data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
     <IconButton v-if="user" icon="sign-out" @click="logout" />
