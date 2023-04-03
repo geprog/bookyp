@@ -135,6 +135,10 @@ const defineRulesFor = async (
     can('read', 'users', ['_id', 'email', 'name'], {
       _id: { $in: bookingsAdmin.map((booking) => booking.bookedBy).filter((id) => id !== user._id.toString()) },
     });
+
+    if (user.isAdmin) {
+      can('update', 'spaces', { importId: { $exists: true } });
+    }
   }
 
   return rules;
