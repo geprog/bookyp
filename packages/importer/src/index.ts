@@ -95,7 +95,16 @@ async function init() {
   for await (const { name, address, description, email, id, location } of spaces) {
     const existingSpaces = (await app.service('spaces').find({ query: { importId: id } })) as Model.Space[];
     if (existingSpaces.length > 0) {
-      console.log(`"${name}" already exists`);
+      console.log(`Updating space "${name}"...`);
+      await app.service('spaces').patch(existingSpaces[0]._id, {
+        name,
+        plan: 'public',
+        importId: id,
+        address,
+        description,
+        email,
+        coordinates: { lat: location.lat, lng: location.lon },
+      });
       continue;
     }
     console.log(`Creating space "${name}"...`);
