@@ -31,13 +31,8 @@
           @click="$router.replace({ name: 'settings-space-info' })"
         />
         <IconButton
-          v-if="allUnstableFeaturesEnabled"
           icon="credit-card"
-          :icon-color="
-            $route.name === 'space-settings-subscription' || $route.name === 'space-settings-subscription-customer'
-              ? 'text-primary-normal'
-              : undefined
-          "
+          :icon-color="$route.name === 'space-settings-subscription' ? 'text-primary-normal' : undefined"
           :aria-label="t('subscription.space_subscription')"
           data-test="button-space-subscription"
           @click="$router.replace({ name: 'space-settings-subscription' })"
@@ -52,13 +47,10 @@ import { useI18n } from 'vue-i18n';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
-import { useFeatureFlags } from '~/compositions/useFeatureFlags';
 
 defineProps<{
   title: string;
 }>();
 
 const { t } = useI18n();
-
-const { allUnstableFeaturesEnabled } = useFeatureFlags();
 </script>
