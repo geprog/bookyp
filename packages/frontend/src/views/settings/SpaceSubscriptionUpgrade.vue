@@ -29,7 +29,12 @@
                 <span class="font-bold">{{ t('subscription.estimated_total') }}:</span>
                 <span>{{ t('subscription.price_per_month', { price: estimatedPrice }) }}</span>
               </div>
-              <Button :text="t('subscription.upgrade')" :disabled="!isUpgradeValid" class="mt-4" :action="checkOut" />
+              <Button
+                :text="t('subscription.change_plan')"
+                :disabled="!isUpgradeValid"
+                class="mt-4"
+                :action="checkOut"
+              />
 
               <i18n-t
                 scope="global"

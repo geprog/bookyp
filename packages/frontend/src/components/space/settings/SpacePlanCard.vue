@@ -21,21 +21,29 @@
       <span class="w-full">{{ t('subscription.members') }}</span>
     </div>
 
-    <div class="flex flex-col flex-grow items-start mt-8">
+    <ul class="flex flex-col flex-grow items-start mt-8 text-left ml-4">
       <template v-if="plan === 'free'">
-        <span>{{ t('subscription.features.map_editor') }}</span>
-        <span>{{ t('subscription.features.unlimited_bookables') }}</span>
+        <li>{{ t('subscription.features.private_space') }}</li>
+        <li>{{ t('subscription.features.limited_users') }}</li>
+        <li>{{ t('subscription.features.visible_invited') }}</li>
+        <li>{{ t('subscription.features.map_editor') }}</li>
+        <li>{{ t('subscription.features.unlimited_bookables') }}</li>
       </template>
       <template v-if="plan === 'enterprise'">
-        <span>{{ t('subscription.features.everything_from_free') }}</span>
-        <span>{{ t('subscription.features.unlimited_bookables') }}</span>
+        <li>{{ t('subscription.features.private_space') }}</li>
+        <li>{{ t('subscription.features.unlimited_users') }}</li>
+        <li>{{ t('subscription.features.visible_invited') }}</li>
+        <li>{{ t('subscription.features.map_editor') }}</li>
+        <li>{{ t('subscription.features.unlimited_bookables') }}</li>
       </template>
       <template v-if="plan === 'public'">
-        <span>{{ t('subscription.features.everything_from_free') }}</span>
-        <span>{{ t('subscription.features.unlimited_bookables') }}</span>
-        <span>{{ t('subscription.features.space_listed_on_discover_page') }}</span>
+        <li>{{ t('subscription.features.public_space') }}</li>
+        <li>{{ t('subscription.features.unlimited_users') }}</li>
+        <li>{{ t('subscription.features.visible_public') }}</li>
+        <li>{{ t('subscription.features.map_editor') }}</li>
+        <li>{{ t('subscription.features.unlimited_bookables') }}</li>
       </template>
-    </div>
+    </ul>
 
     <span v-if="plan === 'free'" class="mt-4 uppercase">{{ t('subscription.free') }}</span>
     <span v-if="plan === 'enterprise'" class="mt-4 uppercase">{{
@@ -59,3 +67,9 @@ defineProps<{
 
 const { t } = useI18n();
 </script>
+
+<style scoped>
+ul li {
+  list-style-type: '✓';
+}
+</style>

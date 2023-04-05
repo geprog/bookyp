@@ -102,6 +102,7 @@
     "enterprise_plan": "Enterprise Plan",
     "public_plan": "Public Plan",
     "current_plan": "Current plan",
+    "change_plan": "Change plan",
     "free_plan_description": "You are currently using the free-plan with {amountOfMembers} of 10 members.",
     "upgrade": "Upgrade",
     "max_members_reached": "Please upgrade your plan to add more than 10 members.",
@@ -111,10 +112,14 @@
     "price_per_member_per_month": "{price}€ per member / month",
     "free": "free",
     "features": {
-      "map_editor": "✓ Map Editor",
-      "everything_from_free": "✓ Everything from free",
-      "unlimited_bookables": "✓ Unlimited bookable items",
-      "space_listed_on_discover_page": "✓ Listed on discover page"
+      "map_editor": "Map Editor",
+      "private_space": "1 private space",
+      "public_space": "1 public space",
+      "limited_users": "10 users",
+      "unlimited_users": "unlimited users",
+      "visible_invited": "visible for invited members",
+      "unlimited_bookables": "unlimited bookable items",
+      "visible_public": "visible for everyone"
     },
     "customer": {
       "name": "Name",
