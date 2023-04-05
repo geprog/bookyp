@@ -56,10 +56,7 @@ const newestBookingOfMembers = computed(() =>
   }, new Map<string, Model.Booking>()),
 );
 
-const spaceMembersWithABookingIDs = computed(() => [
-  ...Array.from(newestBookingOfMembers.value.keys()),
-  ...(currentSpace.value?.members?.map((member) => member.userId) || []),
-]);
+const spaceMembersWithABookingIDs = computed(() => Array.from(newestBookingOfMembers.value.keys()));
 
 const { data: spaceMembersWithABooking } = useFind(
   'users',
