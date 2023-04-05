@@ -41,26 +41,22 @@ const { data: bookings } = useFind(
   'bookings',
   computed(() => ({
     query: {
-      spaceId: currentSpace.value?._id,
+      space: currentSpace.value?._id,
     },
   })),
 );
 
 const newestBookingOfMembers = computed(() =>
-  bookings.value
-    .filter((booking) => booking.space === currentSpace.value?._id)
-    .reduce((acc, booking) => {
-      if (!booking.bookedBy) {
-        return acc;
-      }
-      return acc;
-    }, new Map<string, Model.Booking>()),
+  bookings.value.reduce((acc, booking) => {
+    const bookedBy = acc.get(booking.bookedBy);
+    if (!bookedBy || bookedBy.start < booking.start) {
+      acc.set(booking.bookedBy, booking);
+    }
+    return acc;
+  }, new Map<string, Model.Booking>()),
 );
 
-const spaceMembersWithABookingIDs = computed(() => [
-  ...Array.from(newestBookingOfMembers.value.keys()),
-  ...(currentSpace.value?.members?.map((member) => member.userId) || []),
-]);
+const spaceMembersWithABookingIDs = computed(() => Array.from(newestBookingOfMembers.value.keys()));
 
 const { data: spaceMembersWithABooking } = useFind(
   'users',
