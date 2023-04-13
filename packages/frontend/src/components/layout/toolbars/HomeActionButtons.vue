@@ -8,42 +8,33 @@
       @selected-end="$router.replace({ name: 'bookables-list' })"
     />
 
-    <HourControlButton
-      v-if="bookablesFilter && bookablesFilter.quickFilterEnabled"
-      v-model:end-date="bookablesFilterEndDate"
-    />
+    <HourControlButton v-if="!dateFilter.start && quickFilter" v-model:end-date="bookablesFilterEndDate" />
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import dayjs from 'dayjs';
-import { computed, defineComponent } from 'vue';
+import { computed, onMounted } from 'vue';
 
 import HourControlButton from '~/components/buttons/HourControlButton.vue';
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import { ceilDate, useBookables } from '~/compositions/useBookables';
 
-export default defineComponent({
-  name: 'HomeActionButtons',
+const { dateFilter, quickFilter, quickFilterDiffMinutes } = useBookables();
 
-  components: { ToggleBar, HourControlButton },
-
-  setup() {
-    const { bookablesFilter } = useBookables();
-
-    const bookablesFilterEndDate = computed<Date>({
-      get() {
-        return bookablesFilter.value?.end || ceilDate(dayjs().add(2, 'hour').toDate(), 15, 'minutes');
-      },
-      set(value) {
-        bookablesFilter.value = { ...bookablesFilter.value, end: ceilDate(value, 15, 'minutes') };
-      },
-    });
-
-    return {
-      bookablesFilterEndDate,
-      bookablesFilter,
-    };
+const bookablesFilterEndDate = computed<Date>({
+  get() {
+    return quickFilter.value.end || ceilDate(dayjs().add(2, 'hour').toDate(), 15, 'minutes');
   },
+  set(value) {
+    const diff = dayjs(quickFilter.value.end).diff(ceilDate(value, 15, 'minutes'), 'minutes') * -1;
+    quickFilterDiffMinutes.value = (quickFilterDiffMinutes.value || 0) + diff;
+  },
+});
+
+onMounted(() => {
+  if (!quickFilter.value?.start && !dateFilter.value?.start) {
+    quickFilterDiffMinutes.value = 2 * 60;
+  }
 });
 </script>

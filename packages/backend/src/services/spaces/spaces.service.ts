@@ -6,6 +6,7 @@ import { feathersCaslAllowlist } from '~/casl';
 import softDelete from '~/hooks/softDelete';
 
 import addSpaceMemberFields from './hooks/addSpaceMemberFields';
+import { applyFreeBookableFilter } from './hooks/applyFreeBookableFilter';
 import { cleanupUploadedFiles } from './hooks/cleanupUploadedFiles';
 import removePlanFromCreate from './hooks/removePlanFromCreate';
 
@@ -39,13 +40,13 @@ export const SpaceModel = model<Model.Space & Document>(name, SpaceSchema);
 export default (app: Application): void => {
   const options: Partial<MongooseServiceOptions> = {
     Model: SpaceModel,
-    whitelist: ['$elemMatch', '$exists', ...feathersCaslAllowlist],
+    whitelist: ['$elemMatch', '$exists', '$freeBookable', ...feathersCaslAllowlist],
   };
 
   app.use(name, new Service<Model.Space>(options));
   app.service(name).hooks({
     before: {
-      all: [softDelete],
+      all: [softDelete, applyFreeBookableFilter],
       create: [removePlanFromCreate],
     },
     after: {

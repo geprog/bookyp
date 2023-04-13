@@ -39,8 +39,8 @@ describe('useBookables composition', () => {
       template: '<p>Horst</p>',
       setup() {
         // when
-        const { bookablesWithFilterMatched, bookablesFilter } = useBookables.useBookables(ref(sampleBookables));
-        bookablesFilter.value = { start: new Date(), end: new Date() };
+        const { bookablesWithFilterMatched, dateFilter } = useBookables.useBookables(ref(sampleBookables));
+        dateFilter.value = { start: new Date(), end: new Date() };
 
         // then
         expect(bookablesWithFilterMatched.value[0].isFilterMatched).toBe(true);
@@ -58,8 +58,8 @@ describe('useBookables composition', () => {
       template: '<p>Horst</p>',
       setup() {
         // when
-        const { bookablesWithFilterMatched, bookablesFilter } = useBookables.useBookables(ref([sampleBookable]));
-        bookablesFilter.value = {
+        const { bookablesWithFilterMatched, dateFilter } = useBookables.useBookables(ref([sampleBookable]));
+        dateFilter.value = {
           start: new Date('2018-08-08T08:00:00'),
           end: new Date('2018-08-08T08:01:00'),
         };

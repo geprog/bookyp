@@ -27,7 +27,19 @@ describe('BookablesList component', () => {
     prepareUseCurrentSpaceMockOnce();
     vi.mocked(useBookables).mockReturnValueOnce({
       bookablesWithFilterMatched: computed(() => sampleBookables),
-      bookablesFilter: ref(),
+      dateFilter: ref({
+        start: undefined,
+        end: undefined,
+      }),
+      quickFilter: ref({
+        start: undefined,
+        end: undefined,
+      }),
+      combinedFilter: ref({
+        start: undefined,
+        end: undefined,
+      }),
+      quickFilterDiffMinutes: ref(15),
       isFilterMatched: vi.fn(),
       userBookings: ref([]),
       isBookedByMe: vi.fn().mockReturnValue(false),
@@ -56,7 +68,19 @@ describe('BookablesList component', () => {
         bookablesWithFilterMatched[1].isFilterMatched = false;
         return bookablesWithFilterMatched;
       }),
-      bookablesFilter: ref(),
+      dateFilter: ref({
+        start: undefined,
+        end: undefined,
+      }),
+      quickFilter: ref({
+        start: undefined,
+        end: undefined,
+      }),
+      combinedFilter: ref({
+        start: undefined,
+        end: undefined,
+      }),
+      quickFilterDiffMinutes: ref(15),
       isFilterMatched: vi.fn(),
       userBookings: ref([]),
       isBookedByMe: vi.fn().mockReturnValue(false),

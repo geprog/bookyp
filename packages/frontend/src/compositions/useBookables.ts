@@ -4,12 +4,11 @@ import dayjs from 'dayjs';
 import { computed, onBeforeUnmount, onMounted, Ref, ref } from 'vue';
 
 import { user } from '~/compositions/useAuthentication';
+import { DateFilter, useDateFilter } from '~/compositions/useDateFilter';
 import useFind from '~/compositions/useFind';
 
-type BookablesFilter = Partial<{ start: Date; end: Date; quickFilterEnabled: boolean }>;
-
-const bookablesFilter: Ref<BookablesFilter | undefined> = ref();
-
+const now = ref(new Date());
+const quickFilterDiffMinutes = ref<number>();
 const startUpdateInterval = ref<ReturnType<typeof setTimeout>>();
 
 export type BookableWithFilterMatched = Model.Bookable & { isFilterMatched?: boolean };
@@ -25,36 +24,58 @@ export function ceilDate(_date: Date, amount: number, unit: 'minutes'): Date {
 export const useBookables = (
   bookables?: Ref<Model.Bookable[]>,
 ): {
-  bookablesFilter: Ref<BookablesFilter | undefined>;
+  quickFilterDiffMinutes: Ref<number | undefined>;
+  quickFilter: Ref<DateFilter>;
+  dateFilter: Ref<DateFilter>;
+  combinedFilter: Ref<DateFilter>;
   bookablesWithFilterMatched: Ref<BookableWithFilterMatched[]>;
-  isFilterMatched: (bookableID?: Model.Ref<Model.Bookable>) => boolean | null;
   userBookings: Ref<Model.Booking[]>;
+  isFilterMatched: (bookableID?: Model.Ref<Model.Bookable>) => boolean | null;
   isBookedByMe: (bookableID?: Model.Ref<Model.Bookable>) => boolean;
   resetBookablesFilter: () => void;
 } => {
-  const bookingsParams = computed<Params | null>(() => {
-    if (!bookablesFilter.value) {
-      return null;
+  const { dateFilter } = useDateFilter();
+
+  const quickFilter = computed(() => {
+    if (!quickFilterDiffMinutes.value) {
+      return {
+        start: undefined,
+        end: undefined,
+      };
     }
+
+    const start = ceilDate(dayjs(now.value).toDate(), 15, 'minutes');
     return {
-      query: {
-        start: { $lt: bookablesFilter.value.end?.toISOString() },
-        end: { $gt: bookablesFilter.value.start?.toISOString() },
-      },
+      start,
+      end: dayjs(start).add(quickFilterDiffMinutes.value, 'minutes').toDate(),
     };
+  });
+
+  const combinedFilter = computed(() => ({
+    start: dateFilter.value.start || quickFilter.value.start,
+    end: dateFilter.value.end || quickFilter.value.end,
+  }));
+
+  const bookingsParams = computed<Params | null>(() => {
+    if (combinedFilter.value.start && combinedFilter.value.end) {
+      return {
+        query: {
+          start: { $lt: combinedFilter.value.end.toISOString() },
+          end: { $gt: combinedFilter.value.start.toISOString() },
+        },
+      };
+    }
+
+    return null;
   });
 
   const { data: bookings, isLoading } = useFind('bookings', bookingsParams);
 
   const bookablesWithFilterMatched = computed<BookableWithFilterMatched[]>(() => {
-    if (!bookables?.value) {
+    if (!bookables?.value || isLoading.value) {
       return [];
     }
-    if (!bookablesFilter.value) {
-      return bookables.value;
-    }
-
-    if (isLoading.value) {
+    if (combinedFilter.value.start === undefined || combinedFilter.value.end === undefined) {
       return bookables.value;
     }
 
@@ -74,7 +95,7 @@ export const useBookables = (
     ),
   );
 
-  const isFilterMatched = (bookableID?: Model.Ref<Model.Bookable>): boolean | null => {
+  function isFilterMatched(bookableID?: Model.Ref<Model.Bookable>): boolean | null {
     if (
       bookableID === undefined ||
       (bookablesByID.value[bookableID] && bookablesByID.value[bookableID].isFilterMatched === undefined)
@@ -82,47 +103,31 @@ export const useBookables = (
       return null;
     }
     return bookablesByID.value[bookableID] && bookablesByID.value[bookableID].isFilterMatched === true;
-  };
+  }
 
   const userBookings = computed(() =>
     bookings.value?.filter((booking) => user.value?._id && booking.bookedBy === user.value?._id),
   );
 
-  const isBookedByMe = (bookableID?: Model.Ref<Model.Bookable>): boolean => {
+  function isBookedByMe(bookableID?: Model.Ref<Model.Bookable>): boolean {
     if (bookableID === undefined) {
       return false;
     }
     return userBookings.value.some((booking) => booking.bookable === bookableID);
-  };
+  }
 
-  const resetBookablesFilter = () => {
-    bookablesFilter.value = {
-      start: ceilDate(dayjs().toDate(), 15, 'minutes'),
-      end: ceilDate(dayjs().add(2, 'hour').toDate(), 15, 'minutes'),
-      quickFilterEnabled: true,
+  function resetBookablesFilter() {
+    dateFilter.value = {
+      start: undefined,
+      end: undefined,
     };
-  };
+    quickFilterDiffMinutes.value = undefined;
+  }
 
   onMounted(() => {
-    if (bookablesFilter.value === undefined) {
-      resetBookablesFilter();
-    }
-
-    // update start and end of quick filter every minute
     if (startUpdateInterval.value === undefined) {
       startUpdateInterval.value = setInterval(() => {
-        if (!bookablesFilter.value?.quickFilterEnabled) {
-          return;
-        }
-
-        const newStart = ceilDate(dayjs().toDate(), 15, 'minutes');
-        bookablesFilter.value = {
-          ...bookablesFilter.value,
-          start: newStart,
-          end: dayjs(newStart)
-            .add(Math.abs(dayjs(bookablesFilter.value.start).diff(dayjs(bookablesFilter.value.end))))
-            .toDate(),
-        };
+        now.value = new Date();
       }, 1000 * 60);
     }
   });
@@ -135,7 +140,10 @@ export const useBookables = (
   });
 
   return {
-    bookablesFilter,
+    quickFilterDiffMinutes,
+    quickFilter,
+    dateFilter,
+    combinedFilter,
     bookablesWithFilterMatched,
     isFilterMatched,
     userBookings,

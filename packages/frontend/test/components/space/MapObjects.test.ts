@@ -28,7 +28,19 @@ const globalOptions = {
 const prepareUseBookablesOnce = () => {
   vi.mocked(useBookables).mockReturnValueOnce({
     bookablesWithFilterMatched: computed(() => []),
-    bookablesFilter: ref(),
+    dateFilter: ref({
+      start: undefined,
+      end: undefined,
+    }),
+    quickFilter: ref({
+      start: undefined,
+      end: undefined,
+    }),
+    combinedFilter: ref({
+      start: undefined,
+      end: undefined,
+    }),
+    quickFilterDiffMinutes: ref(15),
     isFilterMatched: vi.fn().mockReturnValue(true),
     userBookings: ref([]),
     isBookedByMe: vi.fn().mockReturnValue(false),
@@ -233,7 +245,19 @@ describe('MapObjects component', () => {
 
     vi.mocked(useBookables).mockReturnValueOnce({
       bookablesWithFilterMatched: computed(() => []),
-      bookablesFilter: ref(),
+      dateFilter: ref({
+        start: undefined,
+        end: undefined,
+      }),
+      quickFilter: ref({
+        start: undefined,
+        end: undefined,
+      }),
+      combinedFilter: ref({
+        start: undefined,
+        end: undefined,
+      }),
+      quickFilterDiffMinutes: ref(15),
       isFilterMatched: vi.fn().mockReturnValue(false),
       userBookings: ref([]),
       isBookedByMe: vi.fn().mockReturnValue(false),

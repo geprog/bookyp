@@ -78,7 +78,7 @@ watch(
 
 const title = computed(() => currentSpace.value?.name || t('bookyp').toUpperCase());
 
-const { bookablesFilter } = useBookables();
+const { dateFilter } = useBookables();
 
-const appliedFilters = computed(() => (!bookablesFilter.value || bookablesFilter.value?.quickFilterEnabled ? 0 : 1));
+const appliedFilters = computed(() => (dateFilter.value?.start ? 1 : 0));
 </script>
