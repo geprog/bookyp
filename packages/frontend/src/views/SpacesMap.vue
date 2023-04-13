@@ -1,12 +1,5 @@
 <template>
-  <Header
-    :title="t('bookyp')"
-    :back-fallback="savedSpaceId ? { name: 'space', params: { spaceId: savedSpaceId } } : undefined"
-  >
-    <Button v-if="!user" class="py-1 px-3" :text="t('sign_in')" @click="$router.push({ name: 'auth-login' })" />
-    <IconButton v-else data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
-    <IconButton v-if="user" icon="sign-out" @click="logout" />
-  </Header>
+  <SpacesListHeader />
 
   <div ref="map" class="w-full h-full" />
   <div v-if="selectedSpace" class="fixed bottom-0 flex justify-center w-full">
@@ -37,20 +30,17 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import { Model } from '@bookyp/core';
 import type { FeatureCollection, Point, Position } from 'geojson';
 import { computed, ref, toRef } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
-import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
-import Header from '~/components/headers/Header.vue';
+import SpacesListHeader from '~/components/headers/SpacesListHeader.vue';
 import SpacesActionButtons from '~/components/layout/toolbars/SpacesActionButtons.vue';
-import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
-import { isAuthenticated, logout, user } from '~/compositions/useAuthentication';
+import { isAuthenticated, user } from '~/compositions/useAuthentication';
+import { useDateFilter } from '~/compositions/useDateFilter';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 import { useMap } from '~/compositions/useMap';
 
-const { t } = useI18n();
 const router = useRouter();
 const feathers = useFeathers();
 
@@ -58,9 +48,21 @@ const props = defineProps<{
   selectedSpaceId?: Model.Ref<Model.Space>;
 }>();
 
+const { dateFilter } = useDateFilter();
 const { data: spaces } = useFind(
   'spaces',
-  computed(() => ({ paginate: false })),
+  computed(() => ({
+    paginate: false,
+    query:
+      dateFilter.value.start && dateFilter.value.end
+        ? {
+            $freeBookable: {
+              start: dateFilter.value.start?.toISOString(),
+              end: dateFilter.value.end?.toISOString(),
+            },
+          }
+        : undefined,
+  })),
 );
 
 const selectedSpaceId = toRef(props, 'selectedSpaceId');

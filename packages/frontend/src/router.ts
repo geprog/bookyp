@@ -45,7 +45,7 @@ const routes: RouteRecordRaw[] = [
         path: 'bookables/filter',
         name: 'bookables-filter',
         meta: { accessibleByUserRole: true, authentication: 'ignored' },
-        component: () => import('./views/BookablesFilter.vue'),
+        component: () => import('~/views/BookablesFilter.vue'),
       },
       {
         path: 'bookable/:bookableId/book',
@@ -214,6 +214,12 @@ const routes: RouteRecordRaw[] = [
     meta: { accessibleByUserRole: true, authentication: 'ignored' },
     component: () => import('~/views/SpacesMap.vue'),
     props: true,
+  },
+  {
+    path: '/spaces',
+    name: 'spaces-filter',
+    meta: { accessibleByUserRole: true, authentication: 'ignored' },
+    component: () => import('~/views/SpacesFilter.vue'),
   },
   {
     path: '/spaces/create',

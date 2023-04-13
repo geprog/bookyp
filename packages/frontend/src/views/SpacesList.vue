@@ -1,12 +1,5 @@
 <template>
-  <Header
-    :title="t('bookyp')"
-    :back-fallback="savedSpaceId ? { name: 'space', params: { spaceId: savedSpaceId } } : undefined"
-  >
-    <Button v-if="!user" class="py-1 px-3" :text="t('sign_in')" @click="$router.push({ name: 'auth-login' })" />
-    <IconButton v-else data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
-    <IconButton v-if="user" icon="sign-out" @click="logout" />
-  </Header>
+  <SpacesListHeader />
 
   <AppContent>
     <div class="m-3 flex gap-2">
@@ -84,12 +77,12 @@ import { useRouter } from 'vue-router';
 
 import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
-import Header from '~/components/headers/Header.vue';
+import SpacesListHeader from '~/components/headers/SpacesListHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SpacesActionButtons from '~/components/layout/toolbars/SpacesActionButtons.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
-import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
-import { isAuthenticated, logout, user } from '~/compositions/useAuthentication';
+import { isAuthenticated, user } from '~/compositions/useAuthentication';
+import { useDateFilter } from '~/compositions/useDateFilter';
 import useFeathers from '~/compositions/useFeathers';
 import { useFeatureFlags } from '~/compositions/useFeatureFlags';
 import useFind from '~/compositions/useFind';
@@ -98,9 +91,21 @@ const { t } = useI18n();
 const feathers = useFeathers();
 const router = useRouter();
 
+const { dateFilter } = useDateFilter();
 const { data: spaces } = useFind(
   'spaces',
-  computed(() => ({ paginate: false })),
+  computed(() => ({
+    paginate: false,
+    query:
+      dateFilter.value.start && dateFilter.value.end
+        ? {
+            $freeBookable: {
+              start: dateFilter.value.start?.toISOString(),
+              end: dateFilter.value.end?.toISOString(),
+            },
+          }
+        : undefined,
+  })),
 );
 
 // sort spaces by name and starred

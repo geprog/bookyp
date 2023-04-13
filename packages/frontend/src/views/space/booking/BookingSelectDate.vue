@@ -13,7 +13,7 @@
         v-model:start="start"
         v-model:end="end"
         :bookings="bookings"
-        :initial-date="bookablesFilter?.start"
+        :initial-date="combinedFilter.start"
         @booking:click="openBooking"
       >
         <template #info-box>
@@ -63,7 +63,7 @@ const { data: bookables } = useFind(
   'bookables',
   computed(() => ({})),
 );
-const { bookablesFilter, bookablesWithFilterMatched, resetBookablesFilter } = useBookables(bookables);
+const { bookablesWithFilterMatched, combinedFilter, resetBookablesFilter } = useBookables(bookables);
 const bookable = computed(() =>
   bookablesWithFilterMatched.value.find(
     (bookableWithFilterMatched) => bookableWithFilterMatched._id === bookableId.value,
@@ -84,8 +84,8 @@ const { data: bookings } = useFind(
   }),
 );
 
-const start = ref(bookablesFilter.value?.start || new Date());
-const end = ref(bookablesFilter.value?.end || dayjs().add(1, 'hour').toDate());
+const start = ref(combinedFilter.value?.start || new Date());
+const end = ref(combinedFilter.value?.end || dayjs().add(1, 'hour').toDate());
 
 const description = ref('');
 
