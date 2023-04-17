@@ -24,7 +24,20 @@ const config = defineConfig({
       },
     }),
     WindiCSS(),
-    svgLoader(),
+    svgLoader({
+      svgoConfig: {
+        plugins: [
+          {
+            name: 'preset-default',
+            params: {
+              overrides: {
+                removeViewBox: false,
+              },
+            },
+          },
+        ],
+      },
+    }),
     vueI18n({
       include: path.resolve(__dirname, 'src/locales/**'),
     }),

@@ -12,7 +12,7 @@
           <BookypIcon
             v-else
             data-test="button-spaces"
-            class="cursor-pointer flex-shrink-0"
+            class="cursor-pointer flex-shrink-0 w-6 h-6"
             @click="$router.push({ name: 'spaces-list' })"
           />
         </slot>
@@ -31,7 +31,7 @@
 <script lang="ts" setup>
 import { RouteLocationRaw } from 'vue-router';
 
-import BookypIcon from '~/assets/icons/bookyp.svg?component';
+import BookypIcon from '~/assets/img/bookyp-logo.svg?component';
 import IconButton from '~/components/buttons/IconButton.vue';
 import { useBack } from '~/compositions/useBack';
 
