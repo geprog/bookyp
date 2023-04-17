@@ -20,8 +20,10 @@ describe('useViewBox composition', () => {
     const height = 10;
     const paths = ref([`M${minX} ${minY} l${width} ${height}`]);
     const strokeWidth = 1;
+
     // when
     const viewBox = useViewBox(ref(paths), { strokeWidth });
+
     // then
     expect(viewBox.value).toStrictEqual({
       x: minX - 4 * strokeWidth,
@@ -34,8 +36,10 @@ describe('useViewBox composition', () => {
   it('should calculate empty viewBox for empty paths', () => {
     // given
     const paths = ref([]);
+
     // when
     const viewBox = useViewBox(paths, { strokeWidth: 1 });
+
     // then
     expect(viewBox.value).toStrictEqual({ x: 0, y: 0, width: 0, height: 0 });
   });
@@ -52,8 +56,10 @@ describe('useViewBox composition', () => {
       `M${minX * -2} ${minY * -2} l${width} ${height}`,
     ]);
     const strokeWidth = 1;
+
     // when
     const viewBox = useViewBox(paths, { strokeWidth });
+
     // then
     expect(viewBox.value).toStrictEqual({
       x: minX * -2 - 4 * strokeWidth,
@@ -72,8 +78,10 @@ describe('useViewBox composition', () => {
     const paths = ref([`M${minX} ${minY} l${width} ${height}`]);
     const strokeWidth = 1;
     const viewBox = useViewBox(paths, { strokeWidth });
+
     // when
     paths.value = [`M${minX * 2} ${minY * 2} l${width * 2} ${height * 2}`];
+
     // then
     expect(viewBox.value).toStrictEqual({
       x: minX * 2 - 4 * strokeWidth,
@@ -100,8 +108,10 @@ describe('useViewBox composition', () => {
       },
     ]);
     const strokeWidth = 1;
+
     // when
     const viewBox = useViewBox(paths, { strokeWidth });
+
     // then
     expect(viewBox.value).toStrictEqual({
       x: minX + x - 4 * strokeWidth,
@@ -129,8 +139,10 @@ describe('useViewBox composition', () => {
       },
     ]);
     const strokeWidth = 1;
+
     // when
     const viewBox = useViewBox(paths, { strokeWidth });
+
     // then
     expect(viewBox.value).toStrictEqual({
       x: minY + x - 4 * strokeWidth,
@@ -212,8 +224,10 @@ describe('useViewBox composition', () => {
     it('should handle EMPTY_VIEW_BOX properly as first argument', () => {
       // given
       const viewBox: ViewBox = { x: 10, y: 10, width: 10, height: 10 };
+
       // when
       const combinedViewBox = combineViewBoxes(EMPTY_VIEW_BOX, viewBox);
+
       // then
       expect(combinedViewBox).toBe(viewBox);
     });
@@ -221,8 +235,10 @@ describe('useViewBox composition', () => {
     it('should handle EMPTY_VIEW_BOX properly as second argument', () => {
       // given
       const viewBox: ViewBox = { x: 10, y: 10, width: 10, height: 10 };
+
       // when
       const combinedViewBox = combineViewBoxes(viewBox, EMPTY_VIEW_BOX);
+
       // then
       expect(combinedViewBox).toBe(viewBox);
     });
@@ -231,8 +247,10 @@ describe('useViewBox composition', () => {
       // given
       const viewBox1: ViewBox = { x: 10, y: 10, width: 10, height: 10 };
       const viewBox2: ViewBox = { x: 50, y: 50, width: 10, height: 10 };
+
       // when
       const combinedViewBox = combineViewBoxes(viewBox1, viewBox2);
+
       // then
       expect(combinedViewBox).toStrictEqual({ x: 10, y: 10, width: 50, height: 50 });
     });
@@ -261,12 +279,14 @@ describe('useViewBox composition', () => {
           useAndRegisterViewBox(viewBoxKey, paths, { strokeWidth: 1 });
         },
       };
+
       // when
       mount(component, {
         slots: {
           default: childComponent,
         },
       });
+
       // then
       expect(spaceMapMock.registerViewBox).toHaveBeenCalledWith(
         viewBoxKey,
@@ -301,8 +321,10 @@ describe('useViewBox composition', () => {
           default: childComponent,
         },
       });
+
       // when
       wrapper.unmount();
+
       // then
       expect(spaceMapMock.unregisterViewBox).toHaveBeenCalledWith(viewBoxKey);
     });
@@ -320,8 +342,10 @@ describe('useViewBox composition', () => {
           useAndRegisterViewBox(viewBoxKey, paths, { strokeWidth: 1 });
         },
       };
+
       // when
       shallowMount(component);
+
       // then
       expect(useAndRegisterViewBox).toThrow(`There is no provider for ${SpaceMapKey.toString()} available`);
     });
