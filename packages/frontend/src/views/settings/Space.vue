@@ -237,7 +237,7 @@ async function save() {
 
 async function abort() {
   if (!(await openDialog(Dialog, { description: t('confirm_unsaved_changes'), label: t('discard') }))) {
-    return;
+    return false;
   }
 
   // map objects
@@ -249,6 +249,7 @@ async function abort() {
   }
 
   await reset();
+  return true;
 }
 
 function updateMapObjectsCopy(updateValue: Ref<Model.MapObject[]>) {
@@ -349,7 +350,7 @@ onBeforeRouteLeave(() => {
     return true;
   }
 
-  return confirm();
+  return abort();
 });
 
 onKeyStroke('Delete', (e) => {
