@@ -5,7 +5,6 @@ import ArrowClockwiseIcon from '~/assets/icons/arrow-clockwise.svg';
 import ArrowLeftIcon from '~/assets/icons/arrow-left.svg';
 import ArrowUploadIcon from '~/assets/icons/arrow-upload.svg';
 import BoldIcon from '~/assets/icons/bold.svg';
-import BookypIcon from '~/assets/icons/bookyp.svg';
 import CalendarIcon from '~/assets/icons/calendar.svg';
 import CheckMarkIcon from '~/assets/icons/check-mark.svg';
 import ChevronDownIcon from '~/assets/icons/chevron-down.svg';
@@ -64,7 +63,6 @@ const icons = {
   'arrow-clockwise': ArrowClockwiseIcon,
   'arrow-left': ArrowLeftIcon,
   bold: BoldIcon,
-  bookyp: BookypIcon,
   'check-mark': CheckMarkIcon,
   'chevron-down': ChevronDownIcon,
   'chevron-left': ChevronLeftIcon,

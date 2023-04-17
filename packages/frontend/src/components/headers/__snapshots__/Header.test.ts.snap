@@ -4,7 +4,7 @@ exports[`Header component > should render correctly 1`] = `
 "<header class=\\"shadow-md flex flex-col\\">
   <div class=\\"w-full max-w-5xl mx-auto\\">
     <div class=\\"flex items-center p-2 content-center\\">
-      <bookyp-icon-stub data-test=\\"button-spaces\\" class=\\"cursor-pointer flex-shrink-0\\"></bookyp-icon-stub>
+      <bookyp-icon-stub data-test=\\"button-spaces\\" class=\\"cursor-pointer flex-shrink-0 w-6 h-6\\"></bookyp-icon-stub>
       <h1 class=\\"ml-2 mr-auto text-base font-medium whitespace-nowrap overflow-hidden overflow-ellipsis\\">Home</h1>
       <div class=\\"flex space-x-2\\"></div>
     </div>
