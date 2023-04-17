@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.13.10",
-    "@geprog/eslint-config": "2.1.0",
+    "@geprog/eslint-config": "2.1.1",
     "@geprog/vite-plugin-env-config": "4.0.8",
     "@intlify/vite-plugin-vue-i18n": "6.0.1",
     "@rollup/plugin-replace": "2.4.2",
