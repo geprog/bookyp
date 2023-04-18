@@ -1,22 +1,25 @@
 <template>
-  <span class="pb-2 text-gray-600">{{ $t('general_information') }}</span>
   <div class="flex flex-col border rounded-md border-gray-200 p-2">
     <div class="flex mb-2 border-b border-gray-200">
-      <span
-        class="cursor-pointer border-b-2 border-transparent pb-1 hover:border-gray-200 px-2"
+      <button
+        class="border-b-2 border-transparent pb-1 hover:border-gray-200 px-2"
         :class="{ 'border-gray-300': mode === 'write' }"
+        type="button"
         @click="mode = 'write'"
-        >{{ $t('write') }}</span
       >
-      <span
-        class="cursor-pointer border-b-2 border-transparent pb-1 hover:border-gray-200 px-2"
+        {{ $t('write') }}
+      </button>
+      <button
+        class="border-b-2 border-transparent pb-1 hover:border-gray-200 px-2"
         :class="{ 'border-gray-300': mode === 'preview' }"
+        type="button"
         @click="mode = 'preview'"
-        >{{ $t('preview') }}</span
       >
+        {{ $t('preview') }}
+      </button>
 
       <div v-if="mode === 'write'" class="ml-auto">
-        <markdown-toolbar for="textarea_id" class="flex">
+        <markdown-toolbar for="textarea_id" class="flex flex-wrap">
           <md-bold><IconButton icon="bold" icon-color="text-gray-500 hover:text-primary-normal h-4 w-4" /></md-bold>
           <md-italic
             ><IconButton icon="italic" icon-color="text-gray-500 hover:text-primary-normal h-4 w-4"

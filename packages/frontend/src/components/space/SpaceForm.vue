@@ -10,6 +10,7 @@
       <TextField v-model="spaceCreate.description" data-test="form-description" :placeholder="t('description')" />
     </LabelField>
     <LabelField icon-name="text-box">
+      <span class="pb-2 text-gray-600">{{ $t('general_information') }}</span>
       <MarkdownEditor
         v-model="spaceCreate.generalInformation"
         data-test="form-general-information"
