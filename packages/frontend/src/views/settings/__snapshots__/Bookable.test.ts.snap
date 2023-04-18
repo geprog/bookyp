@@ -3,7 +3,7 @@
 exports[`Bookable view > should render correctly 1`] = `
 "<header-stub title=\\"bookable_details\\" backfallback=\\"[object Object]\\">
   <icon-button-stub icon=\\"delete\\" iconcolor=\\"text-red-text hover:text-red-background\\" disabled=\\"false\\" data-test=\\"delete-button\\"></icon-button-stub>
-  <icon-button-stub icon=\\"check-mark\\" iconcolor=\\"\\" disabled=\\"false\\" type=\\"submit\\" form=\\"bookable\\"></icon-button-stub>
+  <icon-button-stub icon=\\"check-mark\\" disabled=\\"false\\" type=\\"submit\\" form=\\"bookable\\"></icon-button-stub>
 </header-stub>
 <app-content-stub>
   <bookable-form-stub bookable=\\"[object Object]\\" data-test=\\"bookable-form\\"></bookable-form-stub>

@@ -7,26 +7,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import Icon, { IconName } from '~/components/Icon.vue';
 
-import Icon from '~/components/Icon.vue';
-import { ExtractedComponentProp } from '~/vue-helpers';
-
-export default defineComponent({
-  name: 'LabelField',
-
-  components: { Icon },
-
-  props: {
-    iconName: {
-      type: String as ExtractedComponentProp<typeof Icon, 'name'>,
-      required: true,
-    },
-
-    readonly: {
-      type: Boolean,
-    },
-  },
-});
+defineProps<{
+  iconName: IconName;
+  readonly?: boolean;
+}>();
 </script>

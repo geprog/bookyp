@@ -22,27 +22,11 @@
   </button>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import Icon, { IconName } from '~/components/Icon.vue';
 
-import Icon from '~/components/Icon.vue';
-import { ExtractedComponentProp } from '~/vue-helpers';
-
-export default defineComponent({
-  name: 'FloatingButton',
-
-  components: { Icon },
-
-  props: {
-    icon: {
-      type: String as ExtractedComponentProp<typeof Icon, 'name'>,
-      default: null,
-    },
-
-    disabled: {
-      type: Boolean,
-      required: false,
-    },
-  },
-});
+defineProps<{
+  icon?: IconName;
+  disabled?: boolean;
+}>();
 </script>

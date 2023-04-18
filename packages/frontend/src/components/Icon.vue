@@ -2,32 +2,26 @@
   <component :is="icon" data-test="icon-component" :class="[color]" class="icon flex-shrink-0" />
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, PropType, toRef } from 'vue';
+<script lang="ts" setup>
+import { computed, toRef } from 'vue';
 
 import icons from '~/assets/icons';
 
-export default defineComponent({
-  name: 'Icon',
+// TODO: use prop type extraction instead, when available: https://github.com/vuejs/vue-next/pull/2179
+export type IconName = keyof typeof icons;
 
-  props: {
-    name: {
-      type: String as PropType<keyof typeof icons>,
-      required: true,
-    },
-
-    color: {
-      type: String,
-      default: '',
-    },
+const props = withDefaults(
+  defineProps<{
+    name: IconName;
+    color?: string;
+  }>(),
+  {
+    color: '',
   },
+);
 
-  setup(props) {
-    const iconName = toRef(props, 'name');
-    const icon = computed(() => icons[iconName.value]);
-    return { icon };
-  },
-});
+const iconName = toRef(props, 'name');
+const icon = computed(() => icons[iconName.value]);
 </script>
 
 <style scoped>

@@ -10,38 +10,14 @@
   </ListItem>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-import Icon from '~/components/Icon.vue';
+<script lang="ts" setup>
+import Icon, { IconName } from '~/components/Icon.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
-import { ExtractedComponentProp } from '~/vue-helpers';
 
-export default defineComponent({
-  name: 'IconListItem',
-
-  components: { Icon, ListItem },
-
-  props: {
-    label: {
-      type: String,
-      default: '',
-    },
-
-    description: {
-      type: String,
-      default: '',
-    },
-
-    icon: {
-      type: String as ExtractedComponentProp<typeof Icon, 'name'>,
-      required: true,
-    },
-
-    iconColor: {
-      type: String,
-      default: null,
-    },
-  },
-});
+defineProps<{
+  label?: string;
+  description?: string;
+  icon: IconName;
+  iconColor?: string;
+}>();
 </script>
