@@ -34,55 +34,33 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
+<script lang="ts" setup>
+import Icon, { IconName } from '~/components/Icon.vue';
 
-import Icon from '~/components/Icon.vue';
-import { ExtractedComponentProp } from '~/vue-helpers';
+const emit = defineEmits<{
+  (event: 'update:selected', selected: 'start' | 'end'): void;
+  (event: 'selected-start'): void;
+  (event: 'selected-end'): void;
+}>();
 
-export default defineComponent({
-  name: 'ToggleBar',
-
-  components: { Icon },
-
-  props: {
-    selected: {
-      type: String as PropType<'start' | 'end'>,
-      default: 'start',
-    },
-
-    startIcon: {
-      type: String as ExtractedComponentProp<typeof Icon, 'name'>,
-      required: true,
-    },
-
-    endIcon: {
-      type: String as ExtractedComponentProp<typeof Icon, 'name'>,
-      required: true,
-    },
+withDefaults(
+  defineProps<{
+    selected?: 'start' | 'end';
+    startIcon: IconName;
+    endIcon: IconName;
+  }>(),
+  {
+    selected: 'start',
   },
+);
 
-  emits: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    'update:selected': (_selected: string) => true,
-    'selected-start': () => true,
-    'selected-end': () => true,
-  },
+function select(selected: 'start' | 'end') {
+  emit('update:selected', selected);
 
-  setup(_, { emit }) {
-    function select(selected: 'start' | 'end') {
-      emit('update:selected', selected);
-
-      if (selected === 'start') {
-        emit('selected-start');
-      } else {
-        emit('selected-end');
-      }
-    }
-
-    return {
-      select,
-    };
-  },
-});
+  if (selected === 'start') {
+    emit('selected-start');
+  } else {
+    emit('selected-end');
+  }
+}
 </script>
