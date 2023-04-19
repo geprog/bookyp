@@ -67,6 +67,7 @@
     </router-link>
   </AppContent>
   <SpacesActionButtons />
+  <FooterMenu />
 </template>
 
 <script lang="ts" setup>
@@ -79,6 +80,7 @@ import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import SpacesListHeader from '~/components/headers/SpacesListHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import FooterMenu from '~/components/layout/FooterMenu.vue';
 import SpacesActionButtons from '~/components/layout/toolbars/SpacesActionButtons.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';

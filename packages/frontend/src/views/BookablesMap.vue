@@ -9,6 +9,7 @@
   </div>
 
   <HomeActionButtons />
+  <FooterMenu />
 </template>
 
 <script lang="ts" setup>
@@ -16,6 +17,7 @@ import { Model } from '@bookyp/core';
 import { useRouter } from 'vue-router';
 
 import HomeHeader from '~/components/headers/HomeHeader.vue';
+import FooterMenu from '~/components/layout/FooterMenu.vue';
 import HomeActionButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
 import FloorPlan from '~/components/space/FloorPlan.vue';
 import MapObjects from '~/components/space/MapObjects.vue';

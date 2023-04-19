@@ -21,6 +21,7 @@
     </router-link>
   </div>
   <SpacesActionButtons v-else />
+  <FooterMenu />
 </template>
 
 <script lang="ts" setup>
@@ -34,6 +35,7 @@ import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import SpacesListHeader from '~/components/headers/SpacesListHeader.vue';
+import FooterMenu from '~/components/layout/FooterMenu.vue';
 import SpacesActionButtons from '~/components/layout/toolbars/SpacesActionButtons.vue';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';
 import { useDateFilter } from '~/compositions/useDateFilter';

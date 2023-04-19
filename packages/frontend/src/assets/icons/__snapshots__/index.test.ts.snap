@@ -59,5 +59,11 @@ exports[`Icons > should contain all needed icons 1`] = `
   "credit-card",
   "direct-debit",
   "progress",
+  "magnifying-glass",
+  "ticket",
+  "lock",
+  "text-checked",
+  "paper-roll",
+  "three-horizontal-dots",
 ]
 `;

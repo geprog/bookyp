@@ -29,10 +29,13 @@ import InfoIcon from '~/assets/icons/info.svg';
 import ItalicIcon from '~/assets/icons/italic.svg';
 import LinkIcon from '~/assets/icons/link.svg';
 import LocationIcon from '~/assets/icons/location.svg';
+import LockIcon from '~/assets/icons/lock.svg';
+import MagnifyingGlassIcon from '~/assets/icons/magnifying-glass.svg';
 import MapIcon from '~/assets/icons/map.svg';
 import MinusIcon from '~/assets/icons/minus.svg';
 import MoreDotsHorizontalIcon from '~/assets/icons/more-dots-horizontal.svg';
 import OrderedListIcon from '~/assets/icons/ordered-list.svg';
+import PaperRollIcon from '~/assets/icons/paper-roll.svg';
 import PasswordIcon from '~/assets/icons/password.svg';
 import PeopleIcon from '~/assets/icons/people.svg';
 import PersonIcon from '~/assets/icons/person.svg';
@@ -53,6 +56,9 @@ import SvgIcon from '~/assets/icons/svg.svg';
 import TableIcon from '~/assets/icons/table.svg';
 import TaskListIcon from '~/assets/icons/task-list.svg';
 import TextBoxIcon from '~/assets/icons/text-box.svg';
+import TextCheckedIcon from '~/assets/icons/text-checked.svg';
+import ThreeHorizontalDotsIcon from '~/assets/icons/three-horizontal-dots.svg';
+import TicketIcon from '~/assets/icons/ticket.svg';
 import UnorderedListIcon from '~/assets/icons/unordered-list.svg';
 import WallIcon from '~/assets/icons/wall.svg';
 
@@ -114,6 +120,12 @@ const icons = {
   'credit-card': CreditCardIcon,
   'direct-debit': DirectDebitIcon,
   progress: ProgressIcon,
+  'magnifying-glass': MagnifyingGlassIcon,
+  ticket: TicketIcon,
+  lock: LockIcon,
+  'text-checked': TextCheckedIcon,
+  'paper-roll': PaperRollIcon,
+  'three-horizontal-dots': ThreeHorizontalDotsIcon,
 };
 
 export default icons;

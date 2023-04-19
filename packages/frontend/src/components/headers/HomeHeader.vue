@@ -1,5 +1,5 @@
 <template>
-  <Header :title="title" has-logo>
+  <Header :title="title">
     <div class="relative">
       <span
         v-if="appliedFilters > 0"
@@ -24,8 +24,18 @@
       />
     </div>
 
-    <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
-    <IconButton data-test="spaces-button" icon="location" @click="$router.push({ name: 'spaces-list' })" />
+    <IconButton
+      data-test="button-account"
+      icon="person"
+      class="hidden md:block"
+      @click="$router.push({ name: 'account-bookings' })"
+    />
+    <IconButton
+      data-test="spaces-button"
+      icon="location"
+      class="hidden md:block"
+      @click="$router.push({ name: 'spaces-list' })"
+    />
     <IconButton
       v-if="isAdmin"
       icon="diagram"

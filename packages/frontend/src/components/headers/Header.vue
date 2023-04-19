@@ -1,7 +1,7 @@
 <template>
-  <header class="shadow-md flex flex-col">
-    <div class="w-full max-w-5xl mx-auto">
-      <div class="flex items-center p-2 content-center">
+  <header class="z-10 fixed top-0 bg-white w-full h-14 shadow-md flex justify-center">
+    <div class="w-full h-full max-w-5xl">
+      <div class="flex h-full items-center p-2 content-center">
         <slot name="start">
           <IconButton
             v-if="backFallback"
@@ -16,7 +16,7 @@
             @click="$router.push({ name: 'spaces-list' })"
           />
         </slot>
-        <h1 class="ml-2 mr-auto text-base font-medium whitespace-nowrap overflow-hidden overflow-ellipsis">
+        <h1 class="ml-2 mr-auto font-medium whitespace-nowrap overflow-hidden overflow-ellipsis">
           {{ title }}
         </h1>
         <div class="flex space-x-2">
@@ -26,6 +26,7 @@
       <slot name="second" />
     </div>
   </header>
+  <div class="w-full h-14 flex-shrink-0" />
 </template>
 
 <script lang="ts" setup>

@@ -8,5 +8,6 @@ exports[`BookablesMap view > should render correctly 1`] = `
     <map-objects-stub spaceid=\\"60f53bede6f8313dff7f99e0\\" clickable=\\"true\\" considerfilter=\\"true\\"></map-objects-stub>
   </space-map-stub>
 </div>
-<home-action-buttons-stub></home-action-buttons-stub>"
+<home-action-buttons-stub></home-action-buttons-stub>
+<footer-menu-stub></footer-menu-stub>"
 `;

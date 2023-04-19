@@ -19,7 +19,6 @@ const props = withDefaults(
     color: '',
   },
 );
-
 const iconName = toRef(props, 'name');
 const icon = computed(() => icons[iconName.value]);
 </script>

@@ -185,5 +185,16 @@
   "invoices": "Invoices",
   "pdf": "PDF",
   "ok": "OK",
+  "profile": "Profile",
+  "explore": "Explore",
+  "legal": "Legal",
+  "privacy_policy": "Privacy Policy",
+  "terms_of_service": "Terms of Service",
+  "account_information": "Account Information",
+  "change_password": "Change Password",
+  "logout": "Log out",
+  "version": "Version: {version}",
+  "features": "Features",
+  "more": "More",
   "filter_spaces": "Search for a free bookable"
 }

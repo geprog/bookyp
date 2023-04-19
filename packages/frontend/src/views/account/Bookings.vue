@@ -2,16 +2,16 @@
   <Header :title="t('bookings')" :back-fallback="{ name: 'space', params: { spaceId: savedSpaceId } }">
     <router-link
       :to="{ name: 'account-bookings' }"
-      class="flex items-center"
+      class="items-center hidden md:flex"
       :class="{ 'text-primary-normal': $route.name === 'account-bookings' }"
       :aria-label="t('bookings')"
     >
       <Icon name="apps-list" />
     </router-link>
-    <ExternalLink href="https://auth.geprog.com/auth/realms/bookyp/account">
+    <Link href="https://auth.geprog.com/auth/realms/bookyp/account" class="hidden md:flex">
       <Icon name="person" />
-    </ExternalLink>
-    <IconButton icon="sign-out" @click="logout" />
+    </Link>
+    <IconButton icon="sign-out" class="hidden md:block" @click="logout" />
   </Header>
   <AppContent>
     <div v-if="noBookings" class="flex flex-col items-center justify-center gap-2 pt-40">
@@ -47,6 +47,7 @@
       </div>
     </div>
   </AppContent>
+  <FooterMenu />
 </template>
 
 <script lang="ts" setup>
@@ -56,11 +57,12 @@ import { groupBy } from 'lodash';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import ExternalLink from '~/components/buttons/ExternalLink.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
+import Link from '~/components/buttons/Link.vue';
 import Header from '~/components/headers/Header.vue';
 import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import FooterMenu from '~/components/layout/FooterMenu.vue';
 import BookingItem from '~/components/list-items/BookingItem.vue';
 import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
 import { logout, user } from '~/compositions/useAuthentication';
