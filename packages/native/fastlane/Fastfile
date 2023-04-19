@@ -1,0 +1,68 @@
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test", project_dir: './android')
+  end
+
+  desc "Builds a debug APK"
+  lane :buildDebug do
+    gradle(task: "assembleDebug", project_dir: './android')
+  end
+
+  desc "Release next beta version to PlayStore"
+  lane :beta do
+    # TODO: update versionCode and versionName in build.gradle
+    gradle(task: 'bundle', build_type: 'Release', project_dir: './android', properties: {
+      "android.injected.signing.store.file" => "./android.keystore",
+      "android.injected.signing.store.password" => ENV['ANDROID_KEYSTORE_PASSWORD'],
+      "android.injected.signing.key.alias" => "android",
+      "android.injected.signing.key.password" => ENV['ANDROID_KEYSTORE_PASSWORD']
+    })
+    supply(
+      track: 'beta',
+      track_promote_to: 'beta',
+      skip_upload_apk: true,
+      aab: './android/app/build/outputs/bundle/release/app-release.aab'
+    )
+  end
+
+  desc "Release next production version to PlayStore"
+  lane :production do
+    # TODO: update versionCode and versionName in build.gradle
+    gradle(task: 'bundle', build_type: 'Release', project_dir: './android', properties: {
+      "android.injected.signing.store.file" => "./android.keystore",
+      "android.injected.signing.store.password" => ENV['ANDROID_KEYSTORE_PASSWORD'],
+      "android.injected.signing.key.alias" => "android",
+      "android.injected.signing.key.password" => ENV['ANDROID_KEYSTORE_PASSWORD']
+    })
+    supply(
+      skip_upload_apk: true,
+      aab: './android/app/build/outputs/bundle/release/app-release.aab'
+    )
+  end
+end
+
+platform :ios do
+  desc "Runs all the tests"
+  lane :test do
+    run_tests(
+      workspace: "./ios/App/App.xcworkspace"
+    )
+  end
+
+  desc "Release next beta version to AppStore"
+  lane :release do
+    increment_version_number(
+      xcodeproj: './ios/App/App.xcodeproj',
+      version_number: ENV['CI_COMMIT_TAG'],
+    )
+    increment_build_number(xcodeproj: "./ios/App/App.xcodeproj")
+    build_app(
+      workspace: "./ios/App/App.xcworkspace",
+      scheme: "App"
+    )
+    upload_to_testflight
+  end
+end

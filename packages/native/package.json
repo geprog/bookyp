@@ -1,0 +1,28 @@
+{
+  "name": "@bookyp/native",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build-frontend": "pnpm --filter @bookyp/frontend build",
+    "sync": "NODE_ENV=production FRONTEND_BACKEND_URL=https://api.bookyp.de pnpm envsub ../frontend/dist/env-config.template.js ../frontend/dist/env-config.js && cap sync",
+    "build-and-sync": "pnpm build-frontend && pnpm sync",
+    "icons": "capacitor-assets generate --android --ios",
+    "android": "cap run android",
+    "android:debug": "pnpm build-and-sync && bundle exec fastlane android buildDebug",
+    "android:beta": "pnpm build-and-sync && bundle exec fastlane android beta",
+    "android:production": "pnpm build-and-sync && bundle exec fastlane android production",
+    "ios": "cap run ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "4.7.0",
+    "@capacitor/app": "4.1.1",
+    "@capacitor/assets": "2.0.4",
+    "@capacitor/core": "4.7.0",
+    "@capacitor/ios": "4.7.0",
+    "@capgo/capacitor-updater": "4.17.42"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "4.7.0",
+    "envsub": "4.1.0"
+  }
+}

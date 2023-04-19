@@ -41,7 +41,7 @@ const config = defineConfig({
     vueI18n({
       include: path.resolve(__dirname, 'src/locales/**'),
     }),
-    envConfig({ variables: ['FRONTEND_BACKEND_URL'] }),
+    envConfig({ variables: ['FRONTEND_BACKEND_URL', 'NODE_ENV', 'ENVIRONMENT_TYPE'] }),
     // Fix due to a hard coded Object.defineProperty(...) statement in the feathers dist code
     // See also Issue at rollup: https://github.com/rollup/rollup/issues/2332
     // TODO: Remove workaround if issue with feathers got resolved

@@ -1,0 +1,5 @@
+vendor/
+.bundle/
+
+play-store-credentials.json
+report.xml

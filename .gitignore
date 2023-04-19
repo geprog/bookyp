@@ -22,3 +22,5 @@ coverage/
 
 # Jest Junit Reports
 junit.xml
+
+.idea

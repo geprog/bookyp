@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@bookyp/core": "workspace:*",
+    "@capacitor/app": "4.0.1",
+    "@capgo/capacitor-updater": "4.11.4",
     "@casl/ability": "5.4.3",
     "@feathersjs/adapter-commons": "5.0.0-pre.17",
     "@feathersjs/authentication-client": "5.0.0-pre.17",

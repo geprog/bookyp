@@ -21,11 +21,13 @@
     "bufferutil",
     "Buildkit",
     "buildscript",
+    "capgo",
     "casl",
     "certresolver",
     "cobertura",
     "codegen",
     "Codespace",
+    "coworking",
     "datasource",
     "datepicker",
     "daygrid",
@@ -43,6 +45,7 @@
     "eslintcache",
     "eslintignore",
     "fastify",
+    "fastlane",
     "feathersjs",
     "fontsource",
     "formbody",
@@ -94,6 +97,8 @@
     "starrable",
     "stdc",
     "svgpath",
+    "testflight",
+    "thyrlian",
     "timegrid",
     "toastification",
     "traefik",
@@ -113,7 +118,9 @@
     "waterkant",
     "windi",
     "windicss",
-    "WORKDIR"
+    "WORKDIR",
+    "xcodeproj",
+    "xcworkspace"
   ],
   "ignorePaths": [
     "**/node_modules/**/*",
@@ -134,6 +141,13 @@
     "junit.xml",
     ".gitpod.yml",
     "android.keystore",
-    "twa-manifest.json"
-  ]
+    "twa-manifest.json",
+    "packages/native/android",
+    "packages/native/ios",
+    "packages/native/fastlane/report.xml",
+    "packages/native/fastlane/README.md",
+    "Gemfile",
+    "packages/native/fastlane/metadata/android/de-DE/**/*"
+  ],
+  "enableFiletypes": ["ruby"]
 }

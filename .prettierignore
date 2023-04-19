@@ -6,4 +6,6 @@ coverage/
 .ci/charts/
 storageState.json
 assetlinks.json
-twa-manifest.json
+packages/native/fastlane/README.md
+packages/native/ios/
+packages/native/android/

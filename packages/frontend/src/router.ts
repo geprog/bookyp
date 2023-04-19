@@ -1,3 +1,4 @@
+import { App, URLOpenListenerEvent } from '@capacitor/app';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
@@ -291,3 +292,13 @@ router.beforeEach(async (to, _, next) => {
 });
 
 export default router;
+
+void App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
+  const url = new URL(event.url);
+
+  url.hostname = 'localhost';
+  url.protocol = 'http';
+
+  // full reload to prevent issues with broken websocket connections after app was suspended
+  window.location.href = url.toString();
+});

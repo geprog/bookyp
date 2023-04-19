@@ -1,13 +1,12 @@
+import { getEnvConfig } from '@geprog/vite-plugin-env-config';
 import { useStorage } from '@vueuse/core';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function useFeatureFlags() {
-  const isNoneProduction =
-    window.location.hostname === 'localhost' ||
-    window.location.hostname.endsWith('.app.bookyp.de') ||
-    window.location.hostname.endsWith('.gitpod.io');
+  const enableUnstableFeatures =
+    getEnvConfig('NODE_ENV') === 'development' || getEnvConfig('ENVIRONMENT_TYPE') === 'review';
 
   return {
-    allUnstableFeaturesEnabled: useStorage('bookyp.unstable_features', isNoneProduction),
+    allUnstableFeaturesEnabled: useStorage('bookyp.unstable_features', enableUnstableFeatures),
   };
 }

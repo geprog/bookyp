@@ -737,6 +737,68 @@ production-rollback:
       when: manual
       allow_failure: true
 
+################# NATIVE APPS #################
+
+native-android-review:
+  image: thyrlian/android-sdk
+  needs:
+    - build-frontend
+  variables:
+    KUBERNETES_CPU_REQUEST: '0.6'
+    KUBERNETES_CPU_LIMIT: '1'
+    KUBERNETES_MEMORY_REQUEST: '1Gi'
+    KUBERNETES_MEMORY_LIMIT: '2Gi'
+  script:
+    - apt update
+    - apt install -y ruby-dev build-essential curl
+    - gem install bundler
+    - curl https://get.volta.sh | bash
+    - PATH=$PATH:~/.volta/bin
+    - volta install node@16 pnpm@7
+    - pnpm install --unsafe-perm
+    - cd packages/native
+    - pnpm run sync
+    - bundle install
+    - LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 bundle exec fastlane android buildDebug
+  artifacts:
+    paths:
+      - packages/native/android/app/build/outputs/apk/debug/app-debug.apk
+    expire_in: 1 day
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
+      changes:
+        - packages/frontend/**
+        - packages/native/**
+  interruptible: true
+
+native-android-release:
+  image: thyrlian/android-sdk
+  needs:
+    - build-frontend
+  variables:
+    KUBERNETES_CPU_REQUEST: '0.6'
+    KUBERNETES_CPU_LIMIT: '1'
+    KUBERNETES_MEMORY_REQUEST: '1Gi'
+    KUBERNETES_MEMORY_LIMIT: '2Gi'
+  script:
+    - apt update
+    - apt install -y ruby-dev build-essential curl
+    - gem install bundler
+    - curl https://get.volta.sh | bash
+    - PATH=$PATH:~/.volta/bin
+    - volta install node@16 pnpm@7
+    - pnpm install --unsafe-perm
+    - cd packages/native
+    - pnpm run sync
+    - bundle install
+    - LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 bundle exec fastlane android production
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      changes:
+        - packages/frontend/**
+        - packages/native/**
+  interruptible: true
+
 ################# DUMMY JOB #################
 
 dummy:
