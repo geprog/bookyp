@@ -191,17 +191,29 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/account/bookings',
-    name: 'account-bookings',
-    meta: { accessibleByUserRole: true },
-    component: () => import('~/views/account/Bookings.vue'),
-  },
-  {
-    path: '/account/booking/:bookingId',
-    name: 'account-booking',
-    meta: { accessibleByUserRole: true },
-    component: () => import('~/views/account/Booking.vue'),
-    props: true,
+    path: '/account',
+    component: () => import('~/components/layout/RouterView.vue'),
+    children: [
+      {
+        path: '',
+        name: 'account',
+        meta: { accessibleByUserRole: true },
+        component: () => import('~/views/account/Profile.vue'),
+      },
+      {
+        path: 'bookings',
+        name: 'account-bookings',
+        meta: { accessibleByUserRole: true },
+        component: () => import('~/views/account/Bookings.vue'),
+      },
+      {
+        path: 'booking/:bookingId',
+        name: 'account-booking',
+        meta: { accessibleByUserRole: true },
+        component: () => import('~/views/account/Booking.vue'),
+        props: true,
+      },
+    ],
   },
   {
     path: '/spaces',

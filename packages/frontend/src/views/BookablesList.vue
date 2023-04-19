@@ -34,6 +34,7 @@
     </div>
   </AppContent>
   <HomeActionsButtons />
+  <FooterMenu />
 </template>
 
 <script lang="ts">
@@ -42,6 +43,7 @@ import { useI18n } from 'vue-i18n';
 
 import HomeHeader from '~/components/headers/HomeHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import FooterMenu from '~/components/layout/FooterMenu.vue';
 import HomeActionsButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
@@ -51,7 +53,7 @@ import useFind from '~/compositions/useFind';
 export default defineComponent({
   name: 'BookablesList',
 
-  components: { HomeHeader, HomeActionsButtons, ListItem, AppContent },
+  components: { HomeHeader, HomeActionsButtons, ListItem, AppContent, FooterMenu },
 
   setup() {
     const { t } = useI18n();

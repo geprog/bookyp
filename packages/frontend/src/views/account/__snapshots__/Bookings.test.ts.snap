@@ -2,13 +2,13 @@
 
 exports[`Bookings component > should render correctly 1`] = `
 "<header-stub title=\\"bookings\\" backfallback=\\"[object Object]\\">
-  <router-link-stub to=\\"[object Object]\\" class=\\"flex items-center\\" aria-label=\\"bookings\\">
+  <router-link-stub to=\\"[object Object]\\" class=\\"items-center hidden md:flex\\" aria-label=\\"bookings\\">
     <icon-stub name=\\"apps-list\\" color=\\"\\"></icon-stub>
   </router-link-stub>
-  <external-link-stub href=\\"https://auth.geprog.com/auth/realms/bookyp/account\\">
+  <link-stub href=\\"https://auth.geprog.com/auth/realms/bookyp/account\\" class=\\"hidden md:flex\\">
     <icon-stub name=\\"person\\" color=\\"\\"></icon-stub>
-  </external-link-stub>
-  <icon-button-stub icon=\\"sign-out\\" disabled=\\"false\\"></icon-button-stub>
+  </link-stub>
+  <icon-button-stub icon=\\"sign-out\\" disabled=\\"false\\" class=\\"hidden md:block\\"></icon-button-stub>
 </header-stub>
 <app-content-stub>
   <!--v-if-->
@@ -41,5 +41,6 @@ exports[`Bookings component > should render correctly 1`] = `
       </router-link-stub>
     </div>
   </div>
-</app-content-stub>"
+</app-content-stub>
+<footer-menu-stub></footer-menu-stub>"
 `;

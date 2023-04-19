@@ -3,7 +3,6 @@
     :title="t('bookyp')"
     :back-fallback="savedSpaceId ? { name: 'space', params: { spaceId: savedSpaceId } } : undefined"
   >
-    <Button v-if="!user" class="py-1 px-3" :text="t('sign_in')" @click="$router.push({ name: 'auth-login' })" />
     <div class="relative">
       <span
         v-if="appliedFilters > 0"
@@ -27,8 +26,16 @@
         @click="$router.push({ name: 'spaces-filter' })"
       />
     </div>
-    <IconButton v-if="user" icon="sign-out" @click="logout" />
-    <IconButton data-test="button-account" icon="person" @click="$router.push({ name: 'account-bookings' })" />
+    <template v-if="user">
+      <IconButton
+        data-test="button-account"
+        icon="person"
+        class="hidden md:block"
+        @click="$router.push({ name: 'account-bookings' })"
+      />
+      <IconButton icon="sign-out" class="hidden md:block" @click="logout" />
+    </template>
+    <Button v-else class="py-1 px-3" :text="t('sign_in')" @click="$router.push({ name: 'auth-login' })" />
   </Header>
 </template>
 

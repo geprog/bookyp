@@ -2,8 +2,8 @@
   "name": "@bookyp/frontend",
   "version": "0.0.1",
   "scripts": {
-    "start": "vite",
-    "build": "vite build",
+    "start": "VITE_BUILD_DATE=$(date '+%d.%m.%Y %H:%M:%S') vite",
+    "build": "VITE_BUILD_DATE=$(date '+%d.%m.%Y %H:%M:%S') vite build",
     "test": "vitest run --coverage",
     "test:watch": "vitest --ui --open false",
     "lint": "eslint --max-warnings 0 --ext .js,.ts,.vue,.json .",

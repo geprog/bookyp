@@ -54,9 +54,9 @@
         />
 
         <i18n-t keypath="supports_markdown" tag="p" class="flex gap-1 text-sm">
-          <ExternalLink href="https://www.markdownguide.org/basic-syntax" class="text-primary-normal">{{
+          <Link href="https://www.markdownguide.org/basic-syntax" class="text-primary-normal">{{
             $t('markdown')
-          }}</ExternalLink>
+          }}</Link>
         </i18n-t>
       </div>
       <div v-else class="border border-transparent"><MarkdownViewer :source="value" /></div>
@@ -69,8 +69,8 @@ import '@github/markdown-toolbar-element';
 
 import { computed, ref } from 'vue';
 
-import ExternalLink from '~/components/buttons/ExternalLink.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
+import Link from '~/components/buttons/Link.vue';
 
 import MarkdownViewer from './MarkdownViewer.vue';
 
