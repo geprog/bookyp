@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">BookYP</string>
+    <string name="title_activity_main">BookYP</string>
+    <string name="package_name">de.bookyp.app</string>
+    <string name="custom_url_scheme">de.bookyp.app</string>
+</resources>

@@ -34,9 +34,13 @@ export function init(): void {
     // eslint-disable-next-line no-console
     console.log('[socket] connected');
   });
-  socket.on('disconnect', () => {
+  socket.on('disconnect', (reason) => {
     // eslint-disable-next-line no-console
-    console.log('[socket] disconnected');
+    console.log('[socket] disconnected with reason: ', reason);
+    if (reason === 'io server disconnect') {
+      // the disconnection was initiated by the server, you need to reconnect manually
+      socket.connect();
+    }
   });
   socket.on('error', (err) => {
     // eslint-disable-next-line no-console
@@ -65,6 +69,13 @@ export default useFeathers;
 
 export function connect(): Socket {
   return socket.connect();
+}
+
+export function reconnect(): void {
+  if (socket.connected) {
+    socket.disconnect();
+  }
+  socket.connect();
 }
 
 export type PotentialIds = {
