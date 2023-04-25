@@ -2,7 +2,11 @@
   <Header :title="t('profile')" />
 
   <AppContent class="!px-4">
-    <MenuItem :title="user?.name" description="Show profile" href="https://auth.geprog.com/auth/realms/bookyp/account">
+    <MenuItem
+      :title="user?.name"
+      :description="t('show_profile')"
+      href="https://auth.geprog.com/auth/realms/bookyp/account/#/personal-info"
+    >
       <template #icon>
         <div class="rounded-full bg-gray-300 p-4">
           <Icon name="person" />
@@ -18,7 +22,7 @@
     />
     <MenuItem
       icon="password"
-      href="https://auth.geprog.com/auth/realms/bookyp/account/password"
+      href="https://auth.geprog.com/auth/realms/bookyp/account/#/security/signingin"
       :title="t('change_password')"
     />
 
