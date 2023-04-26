@@ -767,8 +767,8 @@ native-android-review:
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes:
-        - packages/frontend/**
-        - packages/native/**
+        - packages/frontend/**/*
+        - packages/native/**/*
   interruptible: true
 
 native-android-release:
@@ -795,8 +795,8 @@ native-android-release:
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       changes:
-        - packages/frontend/**
-        - packages/native/**
+        - packages/frontend/**/*
+        - packages/native/**/*
   interruptible: true
 
 ################# DUMMY JOB #################
