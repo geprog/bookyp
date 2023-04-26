@@ -110,7 +110,10 @@ const extendedMapObjects = computed(() =>
   mapObjects.value.map((mapObject) => {
     const matchesFilter =
       !!considerFilter.value && mapObject.link?.type === 'bookable' && !!isFilterMatched(mapObject.link?.bookable);
-    const isHighlighted = mapObject.link?.type === 'bookable' && highlightedBookableId.value === mapObject.link?.type;
+    const isHighlighted =
+      !!highlightedBookableId.value &&
+      mapObject.link?.type === 'bookable' &&
+      highlightedBookableId.value === mapObject.link?.bookable;
     const isBookedByMe = mapObject.link?.type === 'bookable' && _isBookedByMe(mapObject.link?.bookable);
     const isLinkedToDeletedBookable =
       mapObject.link?.type === 'bookable' &&
