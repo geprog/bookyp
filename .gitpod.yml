@@ -8,6 +8,11 @@ tasks:
       exit 0
   - name: Setup bookyp
     init: |
+      nvm install 16.20
+      nvm use 16.20
+      npm install -g pnpm@8
+      nvm alias default 16.20
+      echo "nvm use default &>/dev/null" >> ~/.bashrc.d/51-nvm-fix
       pnpm install
       pnpm run build:libs
       cp docs/.env.example .env
