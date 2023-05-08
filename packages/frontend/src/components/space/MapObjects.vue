@@ -73,7 +73,7 @@ function getMapObjectStyle(
   isBookedByMe: boolean,
   isLinkedToDeletedBookable: boolean,
 ) {
-  const highlightStyle = 'stroke-2 stroke-primary-normal filter drop-shadow-orange-glow';
+  const highlightStyle = 'stroke-primary-normal filter drop-shadow-orange-glow';
 
   if (mapObject.link?.type === 'url') {
     return 'stroke-black fill-primary-light';
