@@ -1,10 +1,11 @@
 import { DOMWrapper, mount, shallowMount } from '@vue/test-utils';
 import { inject, nextTick, ref } from 'vue';
 
-import SpaceMap from '~/components/space/SpaceMap.vue';
 import { ViewBox } from '~/compositions/space/useViewBox';
 import { SpaceEventTypes, SpaceMapKey, SpaceObjectTypes } from '~/symbols/space-map';
 import { mockSvg } from '$/__helpers__/svg';
+
+import SpaceMap from './SpaceMap.vue';
 
 function prepareCreateSVGPoint(wrapper: { find: (arg0: string) => DOMWrapper<Element> }, count = 1) {
   // simple mock for the SVGSVGElement received by the click event

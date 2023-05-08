@@ -12,10 +12,10 @@ import { Model } from '@bookyp/core';
 import { ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import BookableForm from '~/components/bookables/BookableForm.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import BookableForm from '~/components/space/bookable/BookableForm.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';

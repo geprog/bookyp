@@ -33,9 +33,9 @@
   </AppContent>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { Model } from '@bookyp/core';
-import { defineComponent, ref } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'vue-toastification';
 
@@ -49,49 +49,39 @@ import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
 
-export default defineComponent({
-  name: 'SpaceMemberInvite',
+const { t } = useI18n();
+const toast = useToast();
+const feathers = useFeathers();
+const { spaceId } = useCurrentSpace();
+const { back } = useBack();
 
-  components: { Header, LabelField, TextField, SelectableListItem, AppContent, Button },
-
-  setup() {
-    const { t } = useI18n();
-    const toast = useToast();
-    const feathers = useFeathers();
-    const { spaceId } = useCurrentSpace();
-    const { back } = useBack();
-
-    const invitationForm = ref<Partial<Model.Invitation>>({
-      email: '',
-      role: 'user',
-    });
-
-    const inviteSpaceMember = async () => {
-      if (spaceId.value === null) {
-        throw new Error('Unexpected: A space must be selected');
-      }
-      try {
-        await feathers.service('invitations').create({
-          email: invitationForm.value.email,
-          role: invitationForm.value.role,
-          spaceId: spaceId.value,
-        });
-        void back({ name: 'settings-space-members' });
-      } catch (error) {
-        if (!(error instanceof Error)) {
-          throw error;
-        }
-        if (error.message === 'User already in space') {
-          toast.error(t('invitation.already_in_space'));
-        } else if (error.message === 'email: value already exists.') {
-          toast.error(t('invitation.already_invited'));
-        } else {
-          throw error;
-        }
-      }
-    };
-
-    return { inviteSpaceMember, invitationForm, t };
-  },
+const invitationForm = ref<Partial<Model.Invitation>>({
+  email: '',
+  role: 'user',
 });
+
+const inviteSpaceMember = async () => {
+  if (spaceId.value === null) {
+    throw new Error('Unexpected: A space must be selected');
+  }
+  try {
+    await feathers.service('invitations').create({
+      email: invitationForm.value.email,
+      role: invitationForm.value.role,
+      spaceId: spaceId.value,
+    });
+    void back({ name: 'settings-space-members' });
+  } catch (error) {
+    if (!(error instanceof Error)) {
+      throw error;
+    }
+    if (error.message === 'User already in space') {
+      toast.error(t('invitation.already_in_space'));
+    } else if (error.message === 'email: value already exists.') {
+      toast.error(t('invitation.already_invited'));
+    } else {
+      throw error;
+    }
+  }
+};
 </script>

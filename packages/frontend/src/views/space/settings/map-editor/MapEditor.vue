@@ -113,17 +113,16 @@ import Dialog from '~/components/Dialog.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import Icon from '~/components/Icon.vue';
 import InfoBox from '~/components/InfoBox.vue';
-import FloorPlanEditing from '~/components/space/FloorPlanEditing.vue';
-import MapObject from '~/components/space/MapObject.vue';
-import MapObjectsEditing from '~/components/space/MapObjectsEditing.vue';
+import FloorPlanEditing from '~/components/space/map/FloorPlanEditing.vue';
+import MapObject from '~/components/space/map/MapObject.vue';
+import MapObjectsEditing from '~/components/space/map/MapObjectsEditing.vue';
+import SpaceMap from '~/components/space/map/SpaceMap.vue';
 import SaveAbort from '~/components/space/SaveAbort.vue';
-import SpaceMap from '~/components/space/SpaceMap.vue';
 import { savedSpaceId, useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import getMapObjects from '~/compositions/space/useMapObjects';
 import useNewMapObject, { isNewMapObject, MapObjectType } from '~/compositions/space/useNewMapObject';
 import useFeathers from '~/compositions/useFeathers';
-
-import { EditingMapObject } from './space/EditingMapObject';
+import { EditingMapObject } from '~/views/space/settings/space/EditingMapObject';
 
 export type Mode = 'wall' | 'none';
 

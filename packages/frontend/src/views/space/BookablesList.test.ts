@@ -3,10 +3,11 @@ import { cloneDeep } from 'lodash';
 import { computed, ref } from 'vue';
 
 import { BookableWithFilterMatched, useBookables } from '~/compositions/useBookables';
-import BookablesList from '~/views/BookablesList.vue';
 import { sampleBookables } from '$/__fixtures__/bookable';
 import { i18n } from '$/__helpers__/i18n';
 import { prepareUseCurrentSpaceMockOnce, prepareUseFindMockOnce } from '$/__helpers__/mocks';
+
+import BookablesList from './BookablesList.vue';
 
 vi.mock('~/compositions/useFind');
 vi.mock('~/compositions/useBookables');

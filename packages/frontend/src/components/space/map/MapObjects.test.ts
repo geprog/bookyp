@@ -2,13 +2,14 @@ import { Model } from '@bookyp/core';
 import { shallowMount } from '@vue/test-utils';
 import { computed, nextTick, ref } from 'vue';
 
-import MapObjects from '~/components/space/MapObjects.vue';
 import useViewBox, { mapObjectsToPaths } from '~/compositions/space/useViewBox';
 import { useBookables } from '~/compositions/useBookables';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { sampleBookings } from '$/__fixtures__/booking';
 import { sampleMapObject, sampleMapObjects, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
 import { prepareUseFindMockOnce, prepareUseMapObjectsMockOnce } from '$/__helpers__/mocks';
+
+import MapObjects from './MapObjects.vue';
 
 vi.mock('~/compositions/space/useMapObjects');
 vi.mock('~/compositions/useFind');

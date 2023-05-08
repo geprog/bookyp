@@ -1,8 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
 
-import BookableForm from '~/components/bookables/BookableForm.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
 import { i18n } from '$/__helpers__/i18n';
+
+import BookableForm from './BookableForm.vue';
 
 describe('BookableForm component', () => {
   describe('Template', () => {
