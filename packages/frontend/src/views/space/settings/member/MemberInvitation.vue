@@ -38,8 +38,8 @@
   </AppContent>
 </template>
 
-<script lang="ts">
-import { defineComponent, toRef } from 'vue';
+<script lang="ts" setup>
+import { toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import IconButton from '~/components/buttons/IconButton.vue';
@@ -51,46 +51,33 @@ import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
-export default defineComponent({
-  name: 'SpaceMemberInvitation',
+const props = defineProps<{
+  invitationId: string;
+}>();
 
-  components: { Header, IconButton, LabelField, SelectableListItem, AppContent },
+const { t } = useI18n();
+const feathers = useFeathers();
+const { back } = useBack();
+const invitationId = toRef(props, 'invitationId');
 
-  props: {
-    invitationId: {
-      type: String,
-      required: true,
-    },
-  },
+const { data: invitation } = useGet('invitations', invitationId);
 
-  setup(props) {
-    const { t } = useI18n();
-    const feathers = useFeathers();
-    const { back } = useBack();
-    const invitationId = toRef(props, 'invitationId');
+const saveInvitation = async () => {
+  if (invitation.value === undefined) {
+    throw new Error('Unexpected: An invitation must be loaded');
+  }
+  await feathers.service('invitations').update(invitationId.value, {
+    ...invitation.value,
+    role: invitation.value.role,
+  });
+  void back({ name: 'settings-space-members' });
+};
 
-    const { data: invitation } = useGet('invitations', invitationId);
-
-    const saveInvitation = async () => {
-      if (invitation.value === undefined) {
-        throw new Error('Unexpected: An invitation must be loaded');
-      }
-      await feathers.service('invitations').update(invitationId.value, {
-        ...invitation.value,
-        role: invitation.value.role,
-      });
-      void back({ name: 'settings-space-members' });
-    };
-
-    async function removeInvitation(): Promise<void> {
-      if (invitation.value === undefined) {
-        throw new Error('Unexpected: An invitation must be loaded');
-      }
-      await feathers.service('invitations').remove(invitationId.value);
-      void back({ name: 'settings-space-members' });
-    }
-
-    return { saveInvitation, removeInvitation, t, invitation };
-  },
-});
+async function removeInvitation(): Promise<void> {
+  if (invitation.value === undefined) {
+    throw new Error('Unexpected: An invitation must be loaded');
+  }
+  await feathers.service('invitations').remove(invitationId.value);
+  void back({ name: 'settings-space-members' });
+}
 </script>

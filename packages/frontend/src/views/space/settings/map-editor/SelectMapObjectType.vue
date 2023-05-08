@@ -59,7 +59,7 @@ import { useToast } from 'vue-toastification';
 import Header from '~/components/headers/Header.vue';
 import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
-import MapObject from '~/components/space/MapObject.vue';
+import MapObject from '~/components/space/map/MapObject.vue';
 import { MapObjectType, mapObjectTypes } from '~/compositions/space/useNewMapObject';
 import { useBack } from '~/compositions/useBack';
 

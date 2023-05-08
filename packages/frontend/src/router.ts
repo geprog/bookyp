@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/space/:spaceId',
     name: 'space-loader',
-    component: () => import('~/views/SpaceLoader.vue'),
+    component: () => import('~/views/space/SpaceLoader.vue'),
     props: true,
     children: [
       {
@@ -31,22 +31,29 @@ const routes: RouteRecordRaw[] = [
         redirect: { name: 'bookables-map' },
       },
       {
+        path: 'info',
+        name: 'space-info',
+        component: () => import('~/views/space/SpaceInfo.vue'),
+        meta: { accessibleByUserRole: true, authentication: 'ignored' },
+      },
+
+      {
         path: 'bookables/map',
         name: 'bookables-map',
         meta: { accessibleByUserRole: true, authentication: 'ignored' },
-        component: () => import('~/views/BookablesMap.vue'),
+        component: () => import('~/views/space/BookablesMap.vue'),
       },
       {
         path: 'bookables/list',
         name: 'bookables-list',
         meta: { accessibleByUserRole: true, authentication: 'ignored' },
-        component: () => import('~/views/BookablesList.vue'),
+        component: () => import('~/views/space/BookablesList.vue'),
       },
       {
         path: 'bookables/filter',
         name: 'bookables-filter',
         meta: { accessibleByUserRole: true, authentication: 'ignored' },
-        component: () => import('~/views/BookablesFilter.vue'),
+        component: () => import('~/views/space/BookablesFilter.vue'),
       },
       {
         path: 'bookable/:bookableId/book',
@@ -71,103 +78,110 @@ const routes: RouteRecordRaw[] = [
         ],
       },
       {
-        path: 'settings/bookables',
-        name: 'settings-bookables',
-        component: () => import('~/views/settings/Bookables.vue'),
-      },
-      {
-        path: 'settings/space/members',
-        name: 'settings-space-members',
-        component: () => import('~/views/settings/SpaceMemberList.vue'),
-      },
-      {
-        path: 'settings/space/member/:spaceMemberId',
-        name: 'settings-space-member',
-        component: () => import('~/views/settings/SpaceMember.vue'),
-        props: true,
-      },
-      {
-        path: 'settings/space/member/invite',
-        name: 'settings-space-member-invite',
-        component: () => import('~/views/settings/SpaceMemberInvite.vue'),
-      },
-      {
-        path: 'settings/space/member/invite/:invitationId',
-        name: 'settings-space-member-invitation',
-        component: () => import('~/views/settings/SpaceMemberInvitation.vue'),
-        props: true,
-      },
-      {
-        path: 'settings/bookable/create',
-        name: 'settings-bookable-create',
-        component: () => import('~/views/settings/BookableCreate.vue'),
-      },
-      {
-        path: 'settings/bookable/:bookableId',
-        name: 'settings-bookable',
-        component: () => import('~/views/settings/Bookable.vue'),
-        props: true,
-      },
-      {
-        path: 'settings/space/info',
-        name: 'settings-space-info',
-        component: () => import('~/views/settings/SpaceInfo.vue'),
-      },
-      {
-        path: 'settings/space/subscription',
-        name: 'space-settings-subscription',
-        component: () => import('~/views/settings/SpaceSubscription.vue'),
-      },
-      {
-        path: 'settings/space/subscription/upgrade/:requestPlan',
-        name: 'space-settings-subscription-upgrade',
-        component: () => import('~/views/settings/SpaceSubscriptionUpgrade.vue'),
-        props: true,
-      },
-      {
-        path: 'info',
-        name: 'space-info',
-        component: () => import('~/views/space/SpaceInfo.vue'),
-        meta: { accessibleByUserRole: true, authentication: 'ignored' },
-      },
-      {
-        path: 'settings/space/edit',
-        name: 'settings-space-edit',
-        component: () => import('~/views/settings/SpaceEdit.vue'),
-      },
-      {
-        path: 'settings/space/map/:selectedMapObjectId?',
-        name: 'settings-space-map',
-        component: () => import('./views/settings/Space.vue'),
-        props: true,
+        path: 'settings',
+        component: () => import('~/components/layout/RouterView.vue'),
         children: [
+          // bookable
           {
-            path: 'edit',
-            name: 'settings-map-object',
-            component: () => import('./views/settings/map-object/MapObject.vue'),
+            path: 'bookable',
+            name: 'settings-bookables',
+            component: () => import('~/views/space/settings/bookable/Bookables.vue'),
           },
           {
-            path: 'edit/link',
-            name: 'settings-map-object-link',
-            component: () => import('./views/settings/map-object/MapObject.vue'),
+            path: 'bookable/create',
+            name: 'settings-bookable-create',
+            component: () => import('~/views/space/settings/bookable/BookableCreate.vue'),
           },
           {
-            path: 'edit/link/create-bookable',
-            name: 'settings-map-object-link-create-bookable',
-            component: () => import('~/views/settings/BookableCreate.vue'),
+            path: 'bookable/:bookableId',
+            name: 'settings-bookable',
+            component: () => import('~/views/space/settings/bookable/Bookable.vue'),
+            props: true,
+          },
+          // member
+          {
+            path: 'member',
+            name: 'settings-space-members',
+            component: () => import('~/views/space/settings/member/MemberList.vue'),
           },
           {
-            path: 'edit/link-http',
-            name: 'settings-map-object-url',
-            component: () => import('~/views/settings/map-object/EditURL.vue'),
+            path: 'member/:spaceMemberId',
+            name: 'settings-space-member',
+            component: () => import('~/views/space/settings/member/Member.vue'),
+            props: true,
           },
           {
-            path: 'select-map-object',
-            name: 'settings-map-select-map-object-type',
-            component: () => import('~/views/settings/SelectMapObjectType.vue'),
+            path: 'member/invite',
+            name: 'settings-space-member-invite',
+            component: () => import('~/views/space/settings/member/MemberInvite.vue'),
+          },
+          {
+            path: 'member/invite/:invitationId',
+            name: 'settings-space-member-invitation',
+            component: () => import('~/views/space/settings/member/MemberInvitation.vue'),
+            props: true,
+          },
+          // general settings
+          {
+            path: 'info',
+            name: 'settings-space-info',
+            component: () => import('~/views/space/settings/SpaceInfo.vue'),
+          },
+          {
+            path: 'space/edit',
+            name: 'settings-space-edit',
+            component: () => import('~/views/space/settings/SpaceEdit.vue'),
+          },
+          // subscription
+          {
+            path: 'subscription',
+            name: 'space-settings-subscription',
+            component: () => import('~/views/space/settings/subscription/SpaceSubscription.vue'),
+          },
+          {
+            path: 'subscription/upgrade/:requestPlan',
+            name: 'space-settings-subscription-upgrade',
+            component: () => import('~/views/space/settings/subscription/SpaceSubscriptionUpgrade.vue'),
+            props: true,
+          },
+          // map editor
+          {
+            path: 'map-editor/:selectedMapObjectId?',
+            name: 'settings-space-map',
+            component: () => import('~/views/space/settings/map-editor/MapEditor.vue'),
+            props: true,
+            children: [
+              {
+                path: 'edit',
+                name: 'settings-map-object',
+                component: () => import('~/views/space/settings/map-object/MapObject.vue'),
+              },
+              {
+                path: 'edit/link',
+                name: 'settings-map-object-link',
+                component: () => import('~/views/space/settings/map-object/MapObject.vue'),
+              },
+              {
+                path: 'edit/link/create-bookable',
+                name: 'settings-map-object-link-create-bookable',
+                component: () => import('~/views/space/settings/bookable/BookableCreate.vue'),
+              },
+              {
+                path: 'edit/link-http',
+                name: 'settings-map-object-url',
+                component: () => import('~/views/space/settings/map-object/EditURL.vue'),
+              },
+              {
+                path: 'select-map-object',
+                name: 'settings-map-select-map-object-type',
+                component: () => import('~/views/space/settings/map-editor/SelectMapObjectType.vue'),
+              },
+            ],
           },
         ],
       },
+
+      // bookings / analytics area
       {
         path: 'bookings',
         name: 'space-bookings',
@@ -189,6 +203,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('~/views/space/bookings/SpaceMemberBookings.vue'),
       },
     ],
+  },
+  {
+    path: '/space/create',
+    name: 'space-create',
+    meta: { accessibleByUserRole: true },
+    component: () => import('~/views/SpaceCreate.vue'),
   },
   {
     path: '/account',
@@ -229,22 +249,10 @@ const routes: RouteRecordRaw[] = [
     props: true,
   },
   {
-    path: '/spaces',
+    path: '/spaces/filter',
     name: 'spaces-filter',
     meta: { accessibleByUserRole: true, authentication: 'ignored' },
     component: () => import('~/views/SpacesFilter.vue'),
-  },
-  {
-    path: '/spaces/create',
-    name: 'space-create',
-    meta: { accessibleByUserRole: true },
-    component: () => import('~/views/settings/SpaceCreate.vue'),
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    name: 'not-found',
-    meta: { authentication: 'ignored' },
-    component: NotFound,
   },
   {
     path: '/auth/callback',
@@ -263,6 +271,12 @@ const routes: RouteRecordRaw[] = [
     name: 'features',
     meta: { authentication: 'ignored' },
     component: () => import('~/views/Features.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    meta: { authentication: 'ignored' },
+    component: NotFound,
   },
 ];
 

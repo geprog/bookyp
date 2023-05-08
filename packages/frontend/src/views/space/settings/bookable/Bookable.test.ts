@@ -1,11 +1,12 @@
 import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
-import BookableForm from '~/components/bookables/BookableForm.vue';
-import Bookable from '~/views/settings/Bookable.vue';
+import BookableForm from '~/components/space/bookable/BookableForm.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
 import { i18n } from '$/__helpers__/i18n';
 import { prepareUseBackMockOnce, prepareUseFeathersMockOnce, prepareUseGetMockOnce } from '$/__helpers__/mocks';
+
+import Bookable from './Bookable.vue';
 
 vi.mock('~/compositions/useFeathers');
 vi.mock('~/compositions/useGet');

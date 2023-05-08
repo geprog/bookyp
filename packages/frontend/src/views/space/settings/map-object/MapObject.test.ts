@@ -5,7 +5,6 @@ import { ref } from 'vue';
 
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
 import useFind from '~/compositions/useFind';
-import MapObject from '~/views/settings/map-object/MapObject.vue';
 import { sampleBookable, sampleBookables } from '$/__fixtures__/bookable';
 import { sampleMapObject, sampleMapObjects } from '$/__fixtures__/mapObject';
 import { i18n } from '$/__helpers__/i18n';
@@ -18,6 +17,8 @@ import {
   prepareUseRouteMockOnce,
   prepareUseRouterMockOnce,
 } from '$/__helpers__/mocks';
+
+import MapObject from './MapObject.vue';
 
 vi.mock('~/compositions/useFeathers');
 vi.mock('~/compositions/useGet');

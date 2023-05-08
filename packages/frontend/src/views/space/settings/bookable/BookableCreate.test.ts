@@ -1,8 +1,7 @@
 import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
-import BookableForm from '~/components/bookables/BookableForm.vue';
-import BookableCreate from '~/views/settings/BookableCreate.vue';
+import BookableForm from '~/components/space/bookable/BookableForm.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
 import { i18n } from '$/__helpers__/i18n';
 import {
@@ -10,6 +9,8 @@ import {
   prepareUseCurrentSpaceMockOnce,
   prepareUseFeathersMockOnce,
 } from '$/__helpers__/mocks';
+
+import BookableCreate from './BookableCreate.vue';
 
 vi.mock('~/compositions/useFeathers');
 vi.mock('~/compositions/space/useCurrentSpace');

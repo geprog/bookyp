@@ -21,11 +21,11 @@ import { ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { openDialog } from 'vue3-promise-dialog';
 
-import BookableForm from '~/components/bookables/BookableForm.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Dialog from '~/components/Dialog.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import BookableForm from '~/components/space/bookable/BookableForm.vue';
 import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';

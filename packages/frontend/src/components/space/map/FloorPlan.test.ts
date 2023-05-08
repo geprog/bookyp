@@ -1,11 +1,12 @@
 import { shallowMount } from '@vue/test-utils';
 import { ref } from 'vue';
 
-import FloorPlan from '~/components/space/FloorPlan.vue';
 import useViewBox from '~/compositions/space/useViewBox';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { sampleFloorPlan } from '$/__fixtures__/floorPlan';
 import { prepareUseGetMockOnce } from '$/__helpers__/mocks';
+
+import FloorPlan from './FloorPlan.vue';
 
 vi.mock('~/compositions/useGet');
 

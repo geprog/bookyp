@@ -62,7 +62,7 @@ import { computed, defineComponent, inject, PropType, ref, toRef } from 'vue';
 
 import { useAndRegisterViewBox } from '~/compositions/space/useViewBox';
 import { SpaceMapKey } from '~/symbols/space-map';
-import { Mode } from '~/views/settings/Space.vue';
+import { Mode } from '~/views/space/settings/map-editor/MapEditor.vue';
 
 const wallRegex = /^M(?<x>-?\d+\.?\d*) (?<y>-?\d+\.?\d*)\s*L(?<x2>-?\d+\.?\d*) (?<y2>-?\d+\.?\d*)$/;
 

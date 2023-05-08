@@ -19,9 +19,9 @@ import { useRouter } from 'vue-router';
 import HomeHeader from '~/components/headers/HomeHeader.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import HomeActionButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
-import FloorPlan from '~/components/space/FloorPlan.vue';
-import MapObjects from '~/components/space/MapObjects.vue';
-import SpaceMap from '~/components/space/SpaceMap.vue';
+import FloorPlan from '~/components/space/map/FloorPlan.vue';
+import MapObjects from '~/components/space/map/MapObjects.vue';
+import SpaceMap from '~/components/space/map/SpaceMap.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 
 const router = useRouter();

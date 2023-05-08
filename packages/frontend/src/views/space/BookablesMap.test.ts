@@ -1,10 +1,11 @@
 import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
-import MapObjects from '~/components/space/MapObjects.vue';
-import BookablesMap from '~/views/BookablesMap.vue';
+import MapObjects from '~/components/space/map/MapObjects.vue';
 import { sampleMapObject, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
 import { prepareUseCurrentSpaceMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
+
+import BookablesMap from './BookablesMap.vue';
 
 vi.mock('~/compositions/space/useCurrentSpace');
 vi.mock('vue-router');
