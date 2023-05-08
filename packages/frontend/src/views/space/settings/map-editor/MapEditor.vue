@@ -73,7 +73,7 @@
               <MapObject
                 :paths="selectedMapObjectType.paths"
                 :viewBox="selectedMapObjectType.viewBox"
-                path-style="stroke-white stroke-2"
+                path-style="stroke-white"
               />
             </template>
           </ButtonPair>
