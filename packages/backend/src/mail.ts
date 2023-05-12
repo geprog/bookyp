@@ -40,7 +40,7 @@ Falls du noch keinen Account bei Bookyp hast, kannst du dich dort kostenfrei mit
 
 Daraufhin kannst du sofort loslegen und dir deinen Tisch im Space "{{ space }}" buchen.
 
-Bei Fragen oder Anregungen schreibe uns gerne an bookyp@geprog.com.
+Bei Fragen oder Anregungen schreibe uns gerne an hello@bookyp.de.
 
 Wir wünschen dir viel Spaß mit Bookyp!
 

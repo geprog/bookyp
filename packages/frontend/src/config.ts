@@ -11,6 +11,7 @@ const config = {
     // [west, south, east, north] (currently borders of Germany)
     maxBounds: [5.0, 46.0, 15.0, 57.0] as [number, number, number, number],
   },
+  email: 'hello@bookyp.de',
 };
 
 export function getConfig(): typeof config {
