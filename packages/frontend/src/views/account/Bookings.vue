@@ -1,10 +1,10 @@
 <template>
-  <Header :title="t('bookings')" :back-fallback="{ name: 'space', params: { spaceId: savedSpaceId } }">
+  <Header :title="t('own_bookings')" :back-fallback="{ name: 'space', params: { spaceId: savedSpaceId } }">
     <router-link
       :to="{ name: 'account-bookings' }"
       class="items-center hidden md:flex"
       :class="{ 'text-primary-normal': $route.name === 'account-bookings' }"
-      :aria-label="t('bookings')"
+      :aria-label="t('own_bookings')"
     >
       <Icon name="apps-list" />
     </router-link>
@@ -27,7 +27,7 @@
       </i18n-t>
     </div>
     <div class="mt-4">
-      <div v-for="(bookings, date) in groupedBookings" :key="date">
+      <div v-for="(bookings, date) in upcomingBookings" :key="date">
         <p data-test="groupByDates" class="ml-2">
           <span class="font-bold">
             {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}</span
@@ -45,6 +45,21 @@
           <BookingItem :booking="booking" class="m-3" />
         </router-link>
       </div>
+      <template v-if="Object.values(pastBookings).length > 0">
+        <h2 class="font-bold mt-8 text-lg">{{ t('past_bookings') }}</h2>
+        <div v-for="(bookings, date) in pastBookings" :key="date">
+          <p data-test="groupByDates" class="ml-2 font-bold">
+            {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}
+          </p>
+          <router-link
+            v-for="booking in bookings"
+            :key="booking._id"
+            :to="{ name: 'account-booking', params: { bookingId: booking._id } }"
+          >
+            <BookingItem :booking="booking" status-color="bg-gray-inactive" class="m-3" />
+          </router-link>
+        </div>
+      </template>
     </div>
   </AppContent>
   <FooterMenu />
@@ -73,21 +88,28 @@ const { t } = useI18n();
 const bookingsQuery = computed(() => ({
   query: {
     bookedBy: user.value?._id,
-    end: { $gte: dayjs().toISOString() },
   },
 }));
+
 const { data: rawBookings } = useFind('bookings', bookingsQuery);
 
 const sortedBookings = computed(() =>
   [...rawBookings.value].sort((a, b) => (dayjs(a.start).isBefore(b.start) ? -1 : 1)),
 );
 
-const groupedBookings = computed(() =>
-  groupBy(sortedBookings.value, (booking: Model.Booking) => {
-    const dayDate: string = dayjs(booking.start).format('DD/MM/YYYY');
-    return dayDate;
-  }),
+const upcomingBookings = computed(() =>
+  groupBy(
+    sortedBookings.value.filter((b) => dayjs(b.end).isAfter(new Date())),
+    (booking: Model.Booking) => dayjs(booking.start).format('DD/MM/YYYY'),
+  ),
 );
 
-const noBookings = computed(() => sortedBookings.value.length === 0);
+const pastBookings = computed(() =>
+  groupBy(
+    sortedBookings.value.filter((b) => dayjs(b.end).isBefore(new Date())),
+    (booking: Model.Booking) => dayjs(booking.start).format('DD/MM/YYYY'),
+  ),
+);
+
+const noBookings = computed(() => Object.values(upcomingBookings.value).length === 0);
 </script>
