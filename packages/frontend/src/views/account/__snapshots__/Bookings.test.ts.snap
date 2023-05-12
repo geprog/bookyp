@@ -1,8 +1,8 @@
 // Vitest Snapshot v1
 
 exports[`Bookings component > should render correctly 1`] = `
-"<header-stub title=\\"bookings\\" backfallback=\\"[object Object]\\">
-  <router-link-stub to=\\"[object Object]\\" class=\\"items-center hidden md:flex\\" aria-label=\\"bookings\\">
+"<header-stub title=\\"own_bookings\\" backfallback=\\"[object Object]\\">
+  <router-link-stub to=\\"[object Object]\\" class=\\"items-center hidden md:flex\\" aria-label=\\"own_bookings\\">
     <icon-stub name=\\"apps-list\\" color=\\"\\"></icon-stub>
   </router-link-stub>
   <link-stub href=\\"https://auth.geprog.com/auth/realms/bookyp/account\\" class=\\"hidden md:flex\\">
@@ -11,33 +11,30 @@ exports[`Bookings component > should render correctly 1`] = `
   <icon-button-stub icon=\\"sign-out\\" disabled=\\"false\\" class=\\"hidden md:block\\"></icon-button-stub>
 </header-stub>
 <app-content-stub>
-  <!--v-if-->
+  <div class=\\"flex flex-col items-center justify-center gap-2 pt-40\\"><img src=\\"/src/assets/img/bookyp-logo-text.svg?url\\">
+    <p class=\\"text-gray-900\\">no_bookings</p>
+    <i18n-t-stub keypath=\\"route_to_space.text_without_space\\" tag=\\"p\\" scope=\\"parent\\" class=\\"text-center\\">
+      <router-link-stub to=\\"[object Object]\\" class=\\"underline\\">route_to_space.list_of_spaces</router-link-stub>
+    </i18n-t-stub>
+  </div>
   <div class=\\"mt-4\\">
+    <h2 class=\\"font-bold mt-8 text-lg\\">past_bookings</h2>
     <div>
-      <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">17 Dec.</span>
-        <!--v-if-->
-        <!--v-if-->
-      </p>
+      <p data-test=\\"groupByDates\\" class=\\"ml-2 font-bold\\">17 Dec.</p>
       <router-link-stub to=\\"[object Object]\\">
-        <booking-item-stub booking=\\"[object Object]\\" class=\\"m-3\\"></booking-item-stub>
+        <booking-item-stub booking=\\"[object Object]\\" statuscolor=\\"bg-gray-inactive\\" class=\\"m-3\\"></booking-item-stub>
       </router-link-stub>
     </div>
     <div>
-      <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">18 Dec.</span>
-        <!--v-if-->
-        <!--v-if-->
-      </p>
+      <p data-test=\\"groupByDates\\" class=\\"ml-2 font-bold\\">18 Dec.</p>
       <router-link-stub to=\\"[object Object]\\">
-        <booking-item-stub booking=\\"[object Object]\\" class=\\"m-3\\"></booking-item-stub>
+        <booking-item-stub booking=\\"[object Object]\\" statuscolor=\\"bg-gray-inactive\\" class=\\"m-3\\"></booking-item-stub>
       </router-link-stub>
     </div>
     <div>
-      <p data-test=\\"groupByDates\\" class=\\"ml-2\\"><span class=\\"font-bold\\">8 Aug.</span>
-        <!--v-if-->
-        <!--v-if-->
-      </p>
+      <p data-test=\\"groupByDates\\" class=\\"ml-2 font-bold\\">8 Aug.</p>
       <router-link-stub to=\\"[object Object]\\">
-        <booking-item-stub booking=\\"[object Object]\\" class=\\"m-3\\"></booking-item-stub>
+        <booking-item-stub booking=\\"[object Object]\\" statuscolor=\\"bg-gray-inactive\\" class=\\"m-3\\"></booking-item-stub>
       </router-link-stub>
     </div>
   </div>

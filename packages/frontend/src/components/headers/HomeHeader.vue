@@ -39,7 +39,7 @@
     <IconButton
       v-if="isAdmin"
       icon="diagram"
-      :aria-label="t('bookings')"
+      :aria-label="t('own_bookings')"
       @click="$router.push({ name: 'space-bookings' })"
     />
     <IconButton
