@@ -195,9 +195,15 @@
   "show_profile": "Show profile",
   "account_information": "Account Information",
   "change_password": "Change Password",
+  "support": "Support",
+  "get_help": "Get help",
+  "give_us_feedback": "Give us feedback",
   "logout": "Log out",
   "version": "Version: {version}",
   "features": "Features",
   "more": "More",
-  "filter_spaces": "Search for a free bookable"
+  "filter_spaces": "Search for a free bookable",
+  "mail_for_help": "Get help with Bookyp",
+  "mail_for_feedback": "Give us feedback",
+  "hey_bookyp_team": "Hey Bookyp-Team"
 }
