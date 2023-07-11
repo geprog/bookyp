@@ -49,7 +49,7 @@
     >
       <div class="sm:min-w-1/2 sm:w-1/2">
         <img v-if="space.image" :src="space.image" class="w-full object-cover aspect-video" />
-        <img v-else src="/src/assets/img/bookyp-logo-text.svg?url" class="w-full object-contain aspect-video p-2" />
+        <img v-else src="/src/assets/img/space-placeholder.svg?url" class="w-full object-cover aspect-video" />
       </div>
       <div class="w-full p-4 flex flex-col overflow-hidden">
         <div class="w-full flex flex-row justify-between">
