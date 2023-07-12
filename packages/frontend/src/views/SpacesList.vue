@@ -43,16 +43,20 @@
     <router-link
       v-for="space in sortedSpaces"
       :key="space._id"
-      class="flex flex-col sm:flex-row border-1 border-gray-200 rounded-md overflow-hidden m-3 relative"
+      class="flex flex-col sm:flex-row shadow-md rounded-md overflow-hidden m-3 relative"
       data-test="space-item"
       :to="{ name: 'space', params: { spaceId: space._id } }"
     >
       <div class="sm:min-w-1/2 sm:w-1/2">
-        <img v-if="space.image" :src="space.image" class="w-full object-cover aspect-video" />
-        <img v-else src="/src/assets/img/space-placeholder.svg?url" class="w-full object-cover aspect-video" />
+        <img v-if="space.image" :src="space.image" class="h-32 md:h-full w-full object-cover aspect-video" />
+        <img
+          v-else
+          src="/src/assets/img/space-placeholder.svg?url"
+          class="h-32 md:h-full w-full object-cover aspect-video"
+        />
       </div>
       <div class="w-full p-4 flex flex-col overflow-hidden">
-        <div class="w-full flex flex-row justify-between">
+        <div class="w-full flex flex-row justify-between items-center">
           <span>{{ space.name }}</span>
           <IconButton
             v-if="isAuthenticated"
@@ -62,7 +66,7 @@
             @click.prevent="updateStarForSpace(space._id, !space.starred)"
           />
         </div>
-        <span class="text-gray-500 overflow-hidden overflow-ellipsis line-clamp-5">{{ space.description }}</span>
+        <span class="text-gray-500 overflow-hidden overflow-ellipsis line-clamp-3">{{ space.description }}</span>
       </div>
     </router-link>
   </AppContent>
