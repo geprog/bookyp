@@ -4,9 +4,9 @@ import { computed, Ref } from 'vue';
 
 import useFind from '~/compositions/useFind';
 
-export default function getMapObjects(spaceId: Ref<string | null>): UseFind<Model.MapObject> {
+export default function getMapObjects(spaceId: Ref<string | undefined | null>): UseFind<Model.MapObject> {
   const params = computed(() => {
-    if (spaceId.value === null) {
+    if (spaceId.value === undefined || spaceId.value === null) {
       return undefined;
     }
 

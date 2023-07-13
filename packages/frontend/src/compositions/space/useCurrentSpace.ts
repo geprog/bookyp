@@ -3,7 +3,7 @@ import { computed, inject, InjectionKey, Ref, ref } from 'vue';
 
 const localStorageSpaceIdKey = 'bookyp.spaceId';
 
-const _spaceId = ref<string | null>(localStorage.getItem(localStorageSpaceIdKey));
+const _spaceId = ref(localStorage.getItem(localStorageSpaceIdKey));
 
 export const savedSpaceId = computed<Model.Ref<Model.Space> | null>({
   get() {

@@ -2,11 +2,17 @@ import { config, shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
 import MapObjects from '~/components/space/map/MapObjects.vue';
-import { sampleMapObject, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
-import { prepareUseCurrentSpaceMockOnce, prepareUseRouterMockOnce } from '$/__helpers__/mocks';
+import { sampleMapObject, sampleMapObjects, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
+import { i18n } from '$/__helpers__/i18n';
+import {
+  prepareUseCurrentSpaceMockOnce,
+  prepareUseMapObjectsMockOnce,
+  prepareUseRouterMockOnce,
+} from '$/__helpers__/mocks';
 
 import BookablesMap from './BookablesMap.vue';
 
+vi.mock('~/compositions/space/useMapObjects');
 vi.mock('~/compositions/space/useCurrentSpace');
 vi.mock('vue-router');
 
@@ -22,9 +28,15 @@ describe('BookablesMap view', () => {
   it('should render correctly', () => {
     // given
     prepareUseCurrentSpaceMockOnce(undefined);
+    prepareUseMapObjectsMockOnce(sampleMapObjects);
 
     // when
-    const wrapper = shallowMount(BookablesMap);
+    const wrapper = shallowMount(BookablesMap, {
+      global: {
+        plugins: [i18n],
+        stubs: ['router-link'],
+      },
+    });
 
     // then
     expect(wrapper.html()).toMatchSnapshot();
@@ -34,8 +46,14 @@ describe('BookablesMap view', () => {
     expect.assertions(1);
     // given
     prepareUseCurrentSpaceMockOnce(undefined);
+    prepareUseMapObjectsMockOnce(sampleMapObjects);
     const useRouterMockOnce = prepareUseRouterMockOnce();
-    const wrapper = shallowMount(BookablesMap);
+    const wrapper = shallowMount(BookablesMap, {
+      global: {
+        plugins: [i18n],
+        stubs: ['router-link'],
+      },
+    });
 
     // when
     wrapper.getComponent(MapObjects).vm.$emit('clickOnMapObject', sampleMapObjectWithBookable);
@@ -52,8 +70,14 @@ describe('BookablesMap view', () => {
     expect.assertions(1);
     // given
     prepareUseCurrentSpaceMockOnce(undefined);
+    prepareUseMapObjectsMockOnce(sampleMapObjects);
     const useRouterMockOnce = prepareUseRouterMockOnce();
-    const wrapper = shallowMount(BookablesMap);
+    const wrapper = shallowMount(BookablesMap, {
+      global: {
+        plugins: [i18n],
+        stubs: ['router-link'],
+      },
+    });
 
     // when
     wrapper.getComponent(MapObjects).vm.$emit('clickOnMapObject', sampleMapObject);
