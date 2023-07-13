@@ -3,7 +3,7 @@
     <IconButton type="submit" form="space" icon="save" />
   </Header>
   <AppContent>
-    <SpaceForm v-if="space" v-model:space="space" @save="saveSpace" />
+    <SpaceForm v-if="space" v-model:space="space" create @save="saveSpace" />
   </AppContent>
 </template>
 
@@ -44,9 +44,6 @@ const saveSpace = async () => {
     ],
     ...space.value,
   });
-  await router.push({
-    name: 'space',
-    params: { spaceId: _space._id },
-  });
+  await router.replace({ name: 'settings-space-edit', params: { spaceId: _space._id } });
 };
 </script>
