@@ -205,5 +205,9 @@
   "filter_spaces": "Search for a free bookable",
   "mail_for_help": "Get help with Bookyp",
   "mail_for_feedback": "Give us feedback",
-  "hey_bookyp_team": "Hey Bookyp-Team"
+  "hey_bookyp_team": "Hey Bookyp-Team",
+  "empty_map": "Looks like your map is pretty empty!",
+  "empty_map_desc": "An image depicting the map is empty.",
+  "admin_area_message": "Set up your space in the {0}.",
+  "admin_area": "admin area"
 }
