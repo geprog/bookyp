@@ -3,61 +3,63 @@
     <LabelField icon-name="home">
       <TextField v-model="spaceCreate.name" data-test="form-name" :placeholder="t('name')" required />
     </LabelField>
-    <LabelField icon-name="location">
-      <TextField v-model="spaceCreate.address" :rows="5" data-test="form-address" :placeholder="t('address')" />
-    </LabelField>
-    <LabelField icon-name="text-box">
-      <TextField v-model="spaceCreate.description" data-test="form-description" :placeholder="t('description')" />
-    </LabelField>
-    <LabelField icon-name="text-box">
-      <span class="pb-2 text-gray-600">{{ $t('general_information') }}</span>
-      <MarkdownEditor
-        v-model="spaceCreate.generalInformation"
-        data-test="form-general-information"
-        :placeholder="t('general_information')"
-      />
-    </LabelField>
-    <LabelField icon-name="email">
-      <TextField v-model="spaceCreate.email" :placeholder="t('email_space')" />
-    </LabelField>
+    <template v-if="!create">
+      <LabelField icon-name="location">
+        <TextField v-model="spaceCreate.address" :rows="5" data-test="form-address" :placeholder="t('address')" />
+      </LabelField>
+      <LabelField icon-name="text-box">
+        <TextField v-model="spaceCreate.description" data-test="form-description" :placeholder="t('description')" />
+      </LabelField>
+      <LabelField icon-name="text-box">
+        <span class="pb-2 text-gray-600">{{ $t('general_information') }}</span>
+        <MarkdownEditor
+          v-model="spaceCreate.generalInformation"
+          data-test="form-general-information"
+          :placeholder="t('general_information')"
+        />
+      </LabelField>
+      <LabelField icon-name="email">
+        <TextField v-model="spaceCreate.email" :placeholder="t('email_space')" />
+      </LabelField>
 
-    <div ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
+      <div ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
 
-    <div
-      class="relative flex flex-col w-full border-1 rounded-md overflow-hidden"
-      :class="{ 'border-primary-normal': isOverDropZone }"
-    >
-      <img v-if="spaceCreate.image" :src="spaceCreate.image" class="w-full object-cover aspect-video" />
-      <div v-else class="w-full aspect-video flex flex-col gap-3 justify-center items-center">
-        <Icon name="arrow-upload" />
-        <span>{{ $t('upload_space_image') }}</span>
-      </div>
-      <div class="w-full text-gray-500 border-t-1 p-1">
-        {{ $t('click_or_drag_and_drop_to_upload') }}
-      </div>
-      <button
-        ref="dropZoneRef"
-        type="button"
-        class="absolute top-0 left-0 h-full w-full"
-        @click="floorPlanFileInput?.click()"
-      />
-      <button
-        v-if="spaceCreate.image"
-        type="button"
-        class="absolute bottom-1 right-1"
-        :title="$t('delete')"
-        @click="spaceCreate.image = ''"
+      <div
+        class="relative flex flex-col w-full border-1 rounded-md overflow-hidden"
+        :class="{ 'border-primary-normal': isOverDropZone }"
       >
-        <Icon name="delete" />
-      </button>
-    </div>
-    <input
-      ref="floorPlanFileInput"
-      type="file"
-      class="hidden"
-      accept="image/*"
-      @change="onUpload(($event.target as HTMLInputElement).files)"
-    />
+        <img v-if="spaceCreate.image" :src="spaceCreate.image" class="w-full object-cover aspect-video" />
+        <div v-else class="w-full aspect-video flex flex-col gap-3 justify-center items-center">
+          <Icon name="arrow-upload" />
+          <span>{{ $t('upload_space_image') }}</span>
+        </div>
+        <div class="w-full text-gray-500 border-t-1 p-1">
+          {{ $t('click_or_drag_and_drop_to_upload') }}
+        </div>
+        <button
+          ref="dropZoneRef"
+          type="button"
+          class="absolute top-0 left-0 h-full w-full"
+          @click="floorPlanFileInput?.click()"
+        />
+        <button
+          v-if="spaceCreate.image"
+          type="button"
+          class="absolute bottom-1 right-1"
+          :title="$t('delete')"
+          @click="spaceCreate.image = ''"
+        >
+          <Icon name="delete" />
+        </button>
+      </div>
+      <input
+        ref="floorPlanFileInput"
+        type="file"
+        class="hidden"
+        accept="image/*"
+        @change="onUpload(($event.target as HTMLInputElement).files)"
+      />
+    </template>
   </form>
 </template>
 
@@ -76,6 +78,7 @@ import { useMap } from '~/compositions/useMap';
 
 const props = defineProps<{
   space: Partial<Model.Space>;
+  create?: boolean;
 }>();
 
 const emit = defineEmits<{
