@@ -129,7 +129,7 @@ export default defineComponent({
     }
 
     const selectedPathId = computed(
-      () => newWallId.value || (selectedFloorPlanObjectId.value ? Number(selectedFloorPlanObjectId.value) : null),
+      () => newWallId.value ?? (selectedFloorPlanObjectId.value ? Number(selectedFloorPlanObjectId.value) : null),
     );
 
     const selectedPath = computed<string | null>({
