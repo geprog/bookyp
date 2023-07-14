@@ -6,7 +6,7 @@ exports[`Header component > should render correctly 1`] = `
     <div class=\\"flex h-full items-center p-2 content-center\\">
       <bookyp-icon-stub data-test=\\"button-spaces\\" class=\\"cursor-pointer flex-shrink-0 w-6 h-6\\"></bookyp-icon-stub>
       <h1 class=\\"ml-2 mr-auto font-medium whitespace-nowrap overflow-hidden overflow-ellipsis\\">Home</h1>
-      <div class=\\"flex space-x-2\\"></div>
+      <div class=\\"flex space-x-2 items-center\\"></div>
     </div>
   </div>
 </header>

@@ -30,6 +30,7 @@ import ItalicIcon from '~/assets/icons/italic.svg';
 import LinkIcon from '~/assets/icons/link.svg';
 import LocationIcon from '~/assets/icons/location.svg';
 import LockIcon from '~/assets/icons/lock.svg';
+import LoginIcon from '~/assets/icons/log-in.svg';
 import MagnifyingGlassIcon from '~/assets/icons/magnifying-glass.svg';
 import MapIcon from '~/assets/icons/map.svg';
 import MinusIcon from '~/assets/icons/minus.svg';
@@ -126,6 +127,7 @@ const icons = {
   'text-checked': TextCheckedIcon,
   'paper-roll': PaperRollIcon,
   'three-horizontal-dots': ThreeHorizontalDotsIcon,
+  'log-in': LoginIcon,
 };
 
 export default icons;

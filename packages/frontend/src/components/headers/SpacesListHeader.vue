@@ -35,7 +35,11 @@
       />
       <IconButton icon="sign-out" class="hidden md:block" @click="logout" />
     </template>
-    <Button v-else class="py-1 px-3" :text="t('sign_in')" @click="$router.push({ name: 'auth-login' })" />
+
+    <router-link :to="{ name: 'auth-login' }" class="flex items-center gap-1">
+      <span class="text-md">{{ $t('login') }}</span>
+      <Icon name="log-in" />
+    </router-link>
   </Header>
 </template>
 
@@ -43,9 +47,9 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
+import Icon from '~/components/Icon.vue';
 import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
 import { logout, user } from '~/compositions/useAuthentication';
 import { useDateFilter } from '~/compositions/useDateFilter';

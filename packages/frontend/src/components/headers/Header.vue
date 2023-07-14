@@ -19,7 +19,7 @@
         <h1 class="ml-2 mr-auto font-medium whitespace-nowrap overflow-hidden overflow-ellipsis">
           {{ title }}
         </h1>
-        <div class="flex space-x-2">
+        <div class="flex space-x-2 items-center">
           <slot />
         </div>
       </div>
