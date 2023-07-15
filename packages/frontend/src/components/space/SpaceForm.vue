@@ -22,7 +22,16 @@
         <TextField v-model="spaceCreate.email" :placeholder="t('email_space')" />
       </LabelField>
 
-      <div ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
+      <div class="relative">
+        <div ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
+        <FloatingButton
+          v-if="coordinates"
+          class="absolute fixed top-2 right-2"
+          data-test="clear-map-selection"
+          icon="delete"
+          @click="coordinates = null"
+        />
+      </div>
 
       <div
         class="relative flex flex-col w-full border-1 rounded-md overflow-hidden"
@@ -69,6 +78,7 @@ import { useDropZone } from '@vueuse/core';
 import { computed, reactive, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import Icon from '~/components/Icon.vue';
 import LabelField from '~/components/LabelField.vue';
 import MarkdownEditor from '~/components/markdown/MarkdownEditor.vue';
@@ -145,7 +155,7 @@ const coordinates = computed({
   get() {
     return space.value.coordinates;
   },
-  set(_coordinates?: { lng: number; lat: number }) {
+  set(_coordinates?: { lng: number; lat: number } | null) {
     emit('update:space', { ...space.value, coordinates: _coordinates });
   },
 });

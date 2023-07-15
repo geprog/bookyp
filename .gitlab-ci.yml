@@ -72,6 +72,11 @@ install-dependencies:
 
 build-frontend:
   extends: .node-template
+  variables:
+    KUBERNETES_CPU_REQUEST: '0.6'
+    KUBERNETES_CPU_LIMIT: '1'
+    KUBERNETES_MEMORY_REQUEST: '1Gi'
+    KUBERNETES_MEMORY_LIMIT: '2Gi'
   needs:
     - install-dependencies
   script:

@@ -16,7 +16,7 @@ const isGeoJsonSource = (source?: Source): source is GeoJSONSource => source?.ty
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useMap = (options: {
-  coordinates?: Ref<{ lng: number; lat: number } | undefined>;
+  coordinates?: Ref<{ lng: number; lat: number } | undefined | null>;
   followCoordinates?: Ref<boolean>;
   clickable?: Ref<boolean>;
   clickHandler?: (event: MapMouseEvent) => { continueDefaultClickHandler: boolean };
