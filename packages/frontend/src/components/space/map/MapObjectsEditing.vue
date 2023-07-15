@@ -23,7 +23,8 @@
       :d="path"
       class="stroke-current"
       :class="{
-        'fill-primary-light': mapObject.link !== undefined,
+        'fill-primary-light': mapObject.link?.type === 'bookable',
+        'fill-blue-200': mapObject.link?.type === 'url',
         'fill-white': mapObject.link === undefined,
       }"
     />
