@@ -1,7 +1,7 @@
 <template>
   <Header :title="t('select_map_object_type')" :back-fallback="{ name: 'settings-space-map' }" />
 
-  <AppContent class="flex !flex-row gap-4 p-4 flex-wrap">
+  <AppContent class="flex !flex-row gap-4 p-4 flex-wrap justify-center">
     <div v-for="mapObjectType in mapObjectTypes" :key="mapObjectType.name" class="flex flex-col gap-2 w-min">
       <MapObject
         :viewBox="mapObjectType.viewBox"
