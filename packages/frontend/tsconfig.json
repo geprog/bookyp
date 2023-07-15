@@ -4,7 +4,6 @@
   "compilerOptions": {
     "lib": ["esnext", "dom"],
     "types": ["vite-svg-loader", "vite/client", "vitest/globals"],
-    "typeRoots": ["src/@types", "node_modules/@types"],
     "outDir": "dist",
     "rootDir": ".",
     "baseUrl": "src",

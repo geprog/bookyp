@@ -19,14 +19,13 @@
 <script lang="ts" setup>
 import { ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { openDialog } from 'vue3-promise-dialog';
 
 import IconButton from '~/components/buttons/IconButton.vue';
-import Dialog from '~/components/Dialog.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import BookableForm from '~/components/space/bookable/BookableForm.vue';
 import { useBack } from '~/compositions/useBack';
+import { openDialog } from '~/compositions/useDialog';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
@@ -53,7 +52,7 @@ const saveBookable = async () => {
 
 async function deleteBookable() {
   if (
-    !(await openDialog(Dialog, {
+    !(await openDialog({
       description: t('delete_dialog_description', { objectLabel: t('bookable') }),
       label: t('delete'),
       confirm: t('delete'),

@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 import { Model } from '@bookyp/core';
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
@@ -31,7 +31,7 @@ onMounted(() => {
   booking.value = { bookable: props.bookableId, bookedBy: user.value!._id, space: currentSpace.value?._id };
 });
 
-const bookableId = computed(() => booking.value?.bookable);
+const bookableId = toRef(props, 'bookableId');
 const { data: bookable } = useGet('bookables', bookableId);
 
 async function submit() {

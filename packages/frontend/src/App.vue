@@ -2,14 +2,14 @@
   <div class="app flex flex-col m-auto w-full h-full">
     <router-view />
     <UpdateApp />
-    <DialogWrapper />
+    <PromiseDialogsWrapper />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { onErrorCaptured } from 'vue';
+import { PromiseDialogsWrapper } from 'vue-promise-dialogs';
 import { useToast } from 'vue-toastification';
-import { DialogWrapper } from 'vue3-promise-dialog';
 
 import UpdateApp from '~/components/layout/UpdateApp.vue';
 

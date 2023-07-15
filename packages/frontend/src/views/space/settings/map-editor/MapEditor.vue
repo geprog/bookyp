@@ -105,11 +105,9 @@ import { clone, cloneDeep, isEqual, omit } from 'lodash';
 import { computed, Ref, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { onBeforeRouteLeave, useRouter } from 'vue-router';
-import { openDialog } from 'vue3-promise-dialog';
 
 import ButtonPair from '~/components/buttons/ButtonPair.vue';
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
-import Dialog from '~/components/Dialog.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import Icon from '~/components/Icon.vue';
 import InfoBox from '~/components/InfoBox.vue';
@@ -121,6 +119,7 @@ import SaveAbort from '~/components/space/SaveAbort.vue';
 import { savedSpaceId, useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import getMapObjects from '~/compositions/space/useMapObjects';
 import useNewMapObject, { isNewMapObject, MapObjectType } from '~/compositions/space/useNewMapObject';
+import { openDialog } from '~/compositions/useDialog';
 import useFeathers from '~/compositions/useFeathers';
 import { EditingMapObject } from '~/views/space/settings/space/EditingMapObject';
 
@@ -235,7 +234,7 @@ async function save() {
 }
 
 async function abort() {
-  if (!(await openDialog(Dialog, { description: t('confirm_unsaved_changes'), label: t('discard') }))) {
+  if (!(await openDialog({ description: t('confirm_unsaved_changes'), label: t('discard') }))) {
     return false;
   }
 

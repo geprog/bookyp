@@ -42,10 +42,8 @@
 import dayjs from 'dayjs';
 import { computed, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { openDialog } from 'vue3-promise-dialog';
 
 import IconButton from '~/components/buttons/IconButton.vue';
-import Dialog from '~/components/Dialog.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import FloorPlan from '~/components/space/map/FloorPlan.vue';
@@ -53,6 +51,7 @@ import MapObjects from '~/components/space/map/MapObjects.vue';
 import SpaceMap from '~/components/space/map/SpaceMap.vue';
 import { user } from '~/compositions/useAuthentication';
 import { useBack } from '~/compositions/useBack';
+import { openDialog } from '~/compositions/useDialog';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
@@ -81,7 +80,7 @@ const { data: bookable } = useGet('bookables', bookableId, ref({ query: { $disab
 
 async function deleteBooking() {
   if (
-    !(await openDialog(Dialog, {
+    !(await openDialog({
       description: t('delete_dialog_description', { objectLabel: t('booking') }),
       label: t('delete'),
       confirm: t('delete'),

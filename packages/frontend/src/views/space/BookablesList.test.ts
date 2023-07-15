@@ -1,4 +1,4 @@
-import { config, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import { cloneDeep } from 'lodash';
 import { computed, ref } from 'vue';
 
@@ -14,14 +14,6 @@ vi.mock('~/compositions/useBookables');
 vi.mock('~/compositions/space/useCurrentSpace');
 
 describe('BookablesList component', () => {
-  beforeAll(() => {
-    config.renderStubDefaultSlot = true;
-  });
-
-  afterAll(() => {
-    config.renderStubDefaultSlot = false;
-  });
-
   it('should render correctly without filter', () => {
     // given
     prepareUseFindMockOnce(sampleBookables);
