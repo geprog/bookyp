@@ -16,7 +16,7 @@ variables:
   - pnpm-workspace.yaml
 
 .node-template:
-  image: registry.geprog.com/docker.io/library/node:16.20-bullseye
+  image: registry.geprog.com/docker.io/library/node:20.4-bookworm
   before_script:
     - npm install -g pnpm@8
     - pnpm config set store-dir .pnpm-store
@@ -754,7 +754,7 @@ native-android-review:
     - gem install bundler
     - curl https://get.volta.sh | bash
     - PATH=$PATH:~/.volta/bin
-    - volta install node@16 pnpm@8
+    - volta install node@20 pnpm@8
     - pnpm install --unsafe-perm
     - cd packages/native
     - pnpm run sync
@@ -786,7 +786,7 @@ native-android-release:
     - gem install bundler
     - curl https://get.volta.sh | bash
     - PATH=$PATH:~/.volta/bin
-    - volta install node@16 pnpm@8
+    - volta install node@20 pnpm@8
     - pnpm install --unsafe-perm
     - cd packages/native
     - pnpm run sync
