@@ -76,7 +76,7 @@ function getMapObjectStyle(
   const highlightStyle = 'stroke-primary-normal filter drop-shadow-orange-glow';
 
   if (mapObject.link?.type === 'url') {
-    return 'stroke-black fill-primary-light';
+    return 'stroke-black fill-blue-200';
   }
 
   if (isHighlighted) {
