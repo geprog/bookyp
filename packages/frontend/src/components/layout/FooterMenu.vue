@@ -1,6 +1,19 @@
 <template>
   <footer
-    class="fixed bottom-0 h-14 bg-white border-t-1 w-full flex gap-4 justify-around shadow text-gray-600 md:hidden"
+    class="
+      fixed
+      bottom-0
+      h-14
+      bg-white
+      border-t-1
+      w-full
+      flex
+      gap-4
+      justify-around
+      text-gray-900
+      shadow-top shadow-gray-400
+      md:hidden
+    "
   >
     <router-link :to="{ name: 'spaces-list' }" class="flex flex-col flex-grow items-center py-1.5 px-4">
       <Icon name="magnifying-glass" />

@@ -39,6 +39,7 @@ export default defineConfig({
       boxShadow: {
         full: '0px 0px 4.8px rgb(0, 0, 0, 0.1), 0px 0px 20.8px rgb(0, 0, 0, 0.13)',
         'orange-glow': '-2px -2px 4px rgba(245, 158, 11, 0.5), 2px 2px 4px rgba(245, 162, 11, 0.5)',
+        top: '0px 5px 15px var(--tw-shadow-color)',
       },
     },
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
