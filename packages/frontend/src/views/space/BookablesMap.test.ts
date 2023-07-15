@@ -1,4 +1,4 @@
-import { config, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
 import MapObjects from '~/components/space/map/MapObjects.vue';
@@ -17,14 +17,6 @@ vi.mock('~/compositions/space/useCurrentSpace');
 vi.mock('vue-router');
 
 describe('BookablesMap view', () => {
-  beforeAll(() => {
-    config.renderStubDefaultSlot = true;
-  });
-
-  afterAll(() => {
-    config.renderStubDefaultSlot = false;
-  });
-
   it('should render correctly', () => {
     // given
     prepareUseCurrentSpaceMockOnce(undefined);

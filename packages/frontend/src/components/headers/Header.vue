@@ -11,7 +11,6 @@
           />
           <BookypIcon
             v-else
-            data-test="button-spaces"
             class="cursor-pointer flex-shrink-0 w-6 h-6"
             @click="$router.push({ name: 'spaces-list' })"
           />

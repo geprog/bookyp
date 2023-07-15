@@ -68,10 +68,8 @@
 import { Model } from '@bookyp/core';
 import { computed, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { openDialog } from 'vue3-promise-dialog';
 
 import Button from '~/components/buttons/Button.vue';
-import Dialog from '~/components/Dialog.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import PaymentCustomerForm from '~/components/space/settings/PaymentCustomerForm.vue';
@@ -79,6 +77,7 @@ import PaymentMethodsForm from '~/components/space/settings/PaymentMethodsForm.v
 import SpacePlanCard from '~/components/space/settings/SpacePlanCard.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { useBack } from '~/compositions/useBack';
+import { openDialog } from '~/compositions/useDialog';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
@@ -125,7 +124,7 @@ async function createPaymentMethod() {
   }
 
   if (
-    !(await openDialog(Dialog, {
+    !(await openDialog({
       description: t('subscription.payment_verification_description'),
       label: t('subscription.payment_verification'),
       confirm: t('ok'),
@@ -156,7 +155,7 @@ async function deletePaymentMethod(paymentMethod: Model.PaymentMethod) {
   }
 
   if (
-    !(await openDialog(Dialog, {
+    !(await openDialog({
       description: t('delete_dialog_description', { objectLabel: t('subscription.payment_method') }),
       label: t('delete'),
       confirm: t('ok'),

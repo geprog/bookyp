@@ -1,8 +1,8 @@
-import { config, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import { openDialog } from 'vue3-promise-dialog';
 
 import { user } from '~/compositions/useAuthentication';
+import { openDialog } from '~/compositions/useDialog';
 import Booking from '~/views/account/Booking.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
 import { sampleBooking } from '$/__fixtures__/booking';
@@ -13,7 +13,7 @@ import { prepareUseFeathersMockOnce, prepareUseGetMockOnce } from '$/__helpers__
 
 vi.mock('~/compositions/useGet');
 vi.mock('~/compositions/useFeathers');
-vi.mock('vue3-promise-dialog');
+vi.mock('~/compositions/useDialog');
 vi.mock('~/compositions/useBack', () => ({
   useBack: () => ({
     back: vi.fn(),
@@ -21,14 +21,6 @@ vi.mock('~/compositions/useBack', () => ({
 }));
 
 describe('Booking view', () => {
-  beforeAll(() => {
-    config.renderStubDefaultSlot = true;
-  });
-
-  afterAll(() => {
-    config.renderStubDefaultSlot = false;
-  });
-
   it('should render correctly', () => {
     // given
     prepareUseGetMockOnce(sampleBooking);

@@ -1,4 +1,4 @@
-import { config, mount, shallowMount } from '@vue/test-utils';
+import { mount, shallowMount } from '@vue/test-utils';
 
 import BookingItem from '~/components/list-items/BookingItem.vue';
 import { sampleBookable } from '$/__fixtures__/bookable';
@@ -10,14 +10,6 @@ import { prepareUseGetMockOnce } from '$/__helpers__/mocks';
 vi.mock('~/compositions/useGet');
 
 describe('BookingItem component', () => {
-  beforeAll(() => {
-    config.renderStubDefaultSlot = true;
-  });
-
-  afterAll(() => {
-    config.renderStubDefaultSlot = false;
-  });
-
   it('should render correctly', () => {
     // given
     prepareUseGetMockOnce(sampleSpace);

@@ -27,16 +27,15 @@ import { cloneDeep } from 'lodash';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
-import { openDialog } from 'vue3-promise-dialog';
 
 import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
-import Dialog from '~/components/Dialog.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SpaceForm from '~/components/space/SpaceForm.vue';
 import { savedSpaceId, useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { useBack } from '~/compositions/useBack';
+import { openDialog } from '~/compositions/useDialog';
 import useFeathers from '~/compositions/useFeathers';
 
 const { t } = useI18n();
@@ -66,7 +65,7 @@ async function saveSpace() {
 
 async function deleteSpace() {
   if (
-    !(await openDialog(Dialog, {
+    !(await openDialog({
       description: t('delete_dialog_description', { objectLabel: t('space') }),
       label: t('delete'),
       confirm: t('delete'),

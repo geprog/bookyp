@@ -1,4 +1,4 @@
-import { config, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
 import BookableForm from '~/components/space/bookable/BookableForm.vue';
@@ -17,14 +17,6 @@ vi.mock('~/compositions/space/useCurrentSpace');
 vi.mock('~/compositions/useBack');
 
 describe('BookableCreate view', () => {
-  beforeAll(() => {
-    config.renderStubDefaultSlot = true;
-  });
-
-  afterAll(() => {
-    config.renderStubDefaultSlot = false;
-  });
-
   it('should render correctly', () => {
     // given
     prepareUseFeathersMockOnce();

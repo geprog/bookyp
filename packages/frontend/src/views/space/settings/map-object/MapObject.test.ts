@@ -1,6 +1,6 @@
 import { Model } from '@bookyp/core';
 import { UseFindFunc } from '@geprog/use-feathers';
-import { config, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import { ref } from 'vue';
 
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
@@ -28,16 +28,8 @@ vi.mock('vue-router');
 vi.mock('~/compositions/useBack');
 
 describe('MapObject view', () => {
-  beforeAll(() => {
-    config.renderStubDefaultSlot = true;
-  });
-
   beforeEach(() => {
     prepareUseCurrentSpaceMockOnce();
-  });
-
-  afterAll(() => {
-    config.renderStubDefaultSlot = false;
   });
 
   describe('Template', () => {

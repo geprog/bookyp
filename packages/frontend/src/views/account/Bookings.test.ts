@@ -1,4 +1,4 @@
-import { config, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 
 import Bookings from '~/views/account/Bookings.vue';
 import { sampleBookings } from '$/__fixtures__/booking';
@@ -12,14 +12,6 @@ vi.mock('~/compositions/useAuthentication');
 vi.mock('~/router');
 
 describe('Bookings component', () => {
-  beforeAll(() => {
-    config.renderStubDefaultSlot = true;
-  });
-
-  afterAll(() => {
-    config.renderStubDefaultSlot = false;
-  });
-
   it('should render correctly', () => {
     // given
     const useRouteMock = prepareUseRouteMockOnce();

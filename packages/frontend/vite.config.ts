@@ -106,6 +106,7 @@ const config = defineConfig({
         throw new Error(`Unexpected call to console.warn or console.error: ${log}`);
       }
     },
+    setupFiles: path.resolve(__dirname, 'test/setup.ts'),
   },
 });
 
