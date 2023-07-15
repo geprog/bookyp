@@ -138,8 +138,9 @@ const { data: invitations } = useFind(
   computed(() => (user.value === undefined ? null : { paginate: false, query: { email: user.value.email } })),
 );
 
-function acceptInvitation(invitationId: string) {
-  void feathers.service('invitations').remove(invitationId, { query: { accept: true } });
+async function acceptInvitation(invitationId: string) {
+  const invitation = await feathers.service('invitations').remove(invitationId, { query: { accept: true } });
+  await router.replace({ name: 'space', params: { spaceId: invitation.spaceId } });
 }
 
 function rejectInvitation(invitationId: string) {
