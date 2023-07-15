@@ -155,7 +155,7 @@ payment:
   image:
     repository: ghcr.io/geprog/gringotts
     pullPolicy: IfNotPresent
-    tag: 1.1.0
+    tag: 1.1.1
 
   gotenberg:
     image:

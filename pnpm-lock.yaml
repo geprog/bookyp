@@ -69,8 +69,8 @@ importers:
         specifier: 5.0.0-pre.17
         version: 5.0.0-pre.17
       '@geprog/gringotts-client':
-        specifier: 1.0.2
-        version: 1.0.2
+        specifier: 1.1.1
+        version: 1.1.1
       '@geprog/node-migrate-ts':
         specifier: 3.1.12
         version: 3.1.12(mongodb@4.1.4)
@@ -181,8 +181,8 @@ importers:
         specifier: 5.0.0-pre.17
         version: 5.0.0-pre.17
       '@geprog/gringotts-client':
-        specifier: 1.0.2
-        version: 1.0.2
+        specifier: 1.1.1
+        version: 1.1.1
       bson-objectid:
         specifier: 2.0.3
         version: 2.0.3
@@ -2803,8 +2803,8 @@ packages:
       - typescript
     dev: true
 
-  /@geprog/gringotts-client@1.0.2:
-    resolution: {integrity: sha512-TlcGN1mVgFXQSEkWoGtqj1m22KoFzSD3jRUpn63j7M18g0bT+ycZZta1KgYaLntjfROCBwoNduJLH+0PQe9fPg==}
+  /@geprog/gringotts-client@1.1.1:
+    resolution: {integrity: sha512-Lo9BnS0vKncLI0xGTuHfi5uu6XJlvWAZGpnzYAJAExBJn3pEdSVulQjs9v31thfdhSp932LeSI8/1H5+x7R9sw==}
     dev: false
 
   /@geprog/node-migrate-ts@3.1.12(mongodb@4.1.4):
@@ -12019,6 +12019,7 @@ packages:
 
   /workbox-cacheable-response@6.6.0:
     resolution: {integrity: sha512-JfhJUSQDwsF1Xv3EV1vWzSsCOZn4mQ38bWEBR3LdvOxSPgB65gAM6cS2CX8rkkKHRgiLrN7Wxoyu+TuH67kHrw==}
+    deprecated: workbox-background-sync@6.6.0
     dependencies:
       workbox-core: 6.6.0
     dev: true
