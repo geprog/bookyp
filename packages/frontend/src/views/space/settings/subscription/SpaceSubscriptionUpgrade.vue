@@ -4,7 +4,7 @@
     <template v-if="requestPlan && customer && customer._id !== 'ignore'">
       <div class="my-4">
         <div class="flex flex-wrap md:flex-nowrap w-full gap-8">
-          <div class="flex flex-col md:w-2/3 gap-4">
+          <div class="flex flex-col w-full md:w-2/3 gap-4">
             <div>
               <span class="mb-2">{{ t('subscription.payment_method') }}</span>
               <PaymentMethodsForm
@@ -21,7 +21,7 @@
           </div>
 
           <div class="flex flex-col md:w-1/3 align-center">
-            <span class="mx-auto md:m-0">{{ t('subscription.new_plan') }}</span>
+            <span class="text-center md:m-0">{{ t('subscription.new_plan') }}</span>
             <SpacePlanCard :plan="requestPlan" :space-members="spaceMembers.length" />
 
             <div class="flex flex-col mt-8 pt-4 border-t-1">

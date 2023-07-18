@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
     <div class="flex flex-wrap justify-between -mx-2">
-      <div v-for="paymentMethod in databasePaymentMethods" :key="paymentMethod._id" class="w-1/2 p-2">
+      <div v-for="paymentMethod in databasePaymentMethods" :key="paymentMethod._id" class="w-full md:w-1/2 p-2">
         <SelectableListItem
           :label="paymentMethod.name"
           :selected="selectedPaymentMethod?._id === paymentMethod._id"
@@ -16,7 +16,7 @@
           </template>
         </SelectableListItem>
       </div>
-      <div class="w-1/2 p-2 flex">
+      <div class="w-full md:w-1/2 p-2 flex">
         <Button
           :text="t('subscription.add_payment_method')"
           icon="plus"
