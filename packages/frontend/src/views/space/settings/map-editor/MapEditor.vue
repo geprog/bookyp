@@ -32,6 +32,7 @@
           :selected-map-object-id="selectedMapObjectId"
           @update:map-objects="updateMapObjectsCopy"
           @select-map-object="selectMapObject"
+          @dblclick-map-object="openMapObjectSettings"
         />
       </SpaceMap>
       <div class="m-auto flex flex-row gap-2 mb-4">

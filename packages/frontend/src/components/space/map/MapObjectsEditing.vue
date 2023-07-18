@@ -16,6 +16,7 @@
       'hover:text-primary-dark': !isSelected(mapObject) && mode === 'none',
       'text-primary-normal': isSelected(mapObject),
     }"
+    @dblclick="$emit('dblclickMapObject', mapObject._id)"
   >
     <path
       v-for="path in mapObject.paths"
@@ -49,6 +50,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (event: 'selectMapObject', __id: string | null): void;
   (event: 'update:mapObjects', __mapObjects: Ref<Model.MapObject[]>): void;
+  (event: 'dblclickMapObject', __id: string | null): void;
 }>();
 
 const mapObjects = toRef(props, 'mapObjects');
