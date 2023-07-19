@@ -3,9 +3,10 @@
 
   <AppContent>
     <h2 class="m-3 font-bold">{{ t('members_with_bookings') }}</h2>
-
+    <ProgressIndicator v-if="isLoadingMembers" />
     <ListItem
       v-for="member in spaceMembersWithTheirNewestBooking"
+      v-else
       :key="member._id"
       :description="t('member_newest_booking', { date: member.newestBookingDate })"
       :label="
@@ -30,6 +31,7 @@ import { useI18n } from 'vue-i18n';
 import SpaceBookingsHeader from '~/components/headers/SpaceBookingsHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
@@ -58,7 +60,7 @@ const newestBookingOfMembers = computed(() =>
 
 const spaceMembersWithABookingIDs = computed(() => Array.from(newestBookingOfMembers.value.keys()));
 
-const { data: spaceMembersWithABooking } = useFind(
+const { data: spaceMembersWithABooking, isLoading: isLoadingMembers } = useFind(
   'users',
   computed(() => ({
     query: {

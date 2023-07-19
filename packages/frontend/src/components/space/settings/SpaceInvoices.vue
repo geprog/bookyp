@@ -1,4 +1,5 @@
 <template>
+  <ProgressIndicator v-if="isLoading" />
   <div v-if="invoices.length > 0" class="flex flex-col mt-8">
     <span class="text-xl mb-2">{{ t('invoices') }}</span>
     <ListItem
@@ -26,6 +27,7 @@ import { useI18n } from 'vue-i18n';
 
 import Button from '~/components/buttons/Button.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
@@ -34,7 +36,7 @@ const { t } = useI18n();
 const feathers = useFeathers();
 
 const { currentSpace: space } = useCurrentSpace();
-const { data: _invoices } = useFind(
+const { data: _invoices, isLoading } = useFind(
   'invoices',
   ref({
     query: {

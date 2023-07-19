@@ -14,53 +14,56 @@
     <IconButton icon="sign-out" class="hidden md:block" @click="logout" />
   </Header>
   <AppContent>
-    <div v-if="noBookings" class="flex flex-col items-center justify-center gap-2 pt-40">
-      <img src="/src/assets/img/bookyp-logo-text.svg?url" />
-      <p class="text-gray-900">{{ t('no_bookings') }}</p>
-      <i18n-t v-if="!savedSpaceId" keypath="route_to_space.text_without_space" tag="p" class="text-center">
-        <router-link :to="{ name: 'home' }" class="underline">{{ t('route_to_space.list_of_spaces') }}</router-link>
-      </i18n-t>
-      <i18n-t v-else keypath="route_to_space.text_with_space" tag="p" class="text-center">
-        <router-link :to="{ name: 'space', params: { spaceId: savedSpaceId } }" class="underline">{{
-          t('route_to_space.click_map_object')
-        }}</router-link>
-      </i18n-t>
-    </div>
-    <div class="mt-4">
-      <div v-for="(bookings, date) in upcomingBookings" :key="date">
-        <p data-test="groupByDates" class="ml-2">
-          <span class="font-bold">
-            {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}</span
-          >
-          <span v-if="dayjs().isSame(bookings[0].start, 'day')" class="ml-2 text-sm"> {{ t('today') }}</span>
-          <span v-if="dayjs().add(1, 'day').isSame(bookings[0].start, 'day')" class="ml-2 text-sm">{{
-            t('tomorrow')
-          }}</span>
-        </p>
-        <router-link
-          v-for="booking in bookings"
-          :key="booking._id"
-          :to="{ name: 'account-booking', params: { bookingId: booking._id } }"
-        >
-          <BookingItem :booking="booking" class="m-3" />
-        </router-link>
+    <ProgressIndicator v-if="isLoading" />
+    <template v-else>
+      <div v-if="noBookings" class="flex flex-col items-center justify-center gap-2 pt-40">
+        <img src="/src/assets/img/bookyp-logo-text.svg?url" />
+        <p class="text-gray-900">{{ t('no_bookings') }}</p>
+        <i18n-t v-if="!savedSpaceId" keypath="route_to_space.text_without_space" tag="p" class="text-center">
+          <router-link :to="{ name: 'home' }" class="underline">{{ t('route_to_space.list_of_spaces') }}</router-link>
+        </i18n-t>
+        <i18n-t v-else keypath="route_to_space.text_with_space" tag="p" class="text-center">
+          <router-link :to="{ name: 'space', params: { spaceId: savedSpaceId } }" class="underline">{{
+            t('route_to_space.click_map_object')
+          }}</router-link>
+        </i18n-t>
       </div>
-      <template v-if="Object.values(pastBookings).length > 0">
-        <h2 class="font-bold mt-8 text-lg">{{ t('past_bookings') }}</h2>
-        <div v-for="(bookings, date) in pastBookings" :key="date">
-          <p data-test="groupByDates" class="ml-2 font-bold">
-            {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}
+      <div class="mt-4">
+        <div v-for="(bookings, date) in upcomingBookings" :key="date">
+          <p data-test="groupByDates" class="ml-2">
+            <span class="font-bold">
+              {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}</span
+            >
+            <span v-if="dayjs().isSame(bookings[0].start, 'day')" class="ml-2 text-sm"> {{ t('today') }}</span>
+            <span v-if="dayjs().add(1, 'day').isSame(bookings[0].start, 'day')" class="ml-2 text-sm">{{
+              t('tomorrow')
+            }}</span>
           </p>
           <router-link
             v-for="booking in bookings"
             :key="booking._id"
             :to="{ name: 'account-booking', params: { bookingId: booking._id } }"
           >
-            <BookingItem :booking="booking" status-color="bg-gray-inactive" class="m-3" />
+            <BookingItem :booking="booking" class="m-3" />
           </router-link>
         </div>
-      </template>
-    </div>
+        <template v-if="Object.values(pastBookings).length > 0">
+          <h2 class="font-bold mt-8 text-lg">{{ t('past_bookings') }}</h2>
+          <div v-for="(bookings, date) in pastBookings" :key="date">
+            <p data-test="groupByDates" class="ml-2 font-bold">
+              {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}
+            </p>
+            <router-link
+              v-for="booking in bookings"
+              :key="booking._id"
+              :to="{ name: 'account-booking', params: { bookingId: booking._id } }"
+            >
+              <BookingItem :booking="booking" status-color="bg-gray-inactive" class="m-3" />
+            </router-link>
+          </div>
+        </template>
+      </div>
+    </template>
   </AppContent>
   <FooterMenu />
 </template>
@@ -79,6 +82,7 @@ import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import BookingItem from '~/components/list-items/BookingItem.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
 import { logout, user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
@@ -91,7 +95,7 @@ const bookingsQuery = computed(() => ({
   },
 }));
 
-const { data: rawBookings } = useFind('bookings', bookingsQuery);
+const { data: rawBookings, isLoading } = useFind('bookings', bookingsQuery);
 
 const sortedBookings = computed(() =>
   [...rawBookings.value].sort((a, b) => (dayjs(a.start).isBefore(b.start) ? -1 : 1)),

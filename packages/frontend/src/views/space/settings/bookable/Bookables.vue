@@ -2,24 +2,27 @@
   <SettingsHeader :title="t('bookables')" />
 
   <AppContent>
-    <div class="m-3">
-      <Button
-        class="w-full"
-        icon="add"
-        data-test="button-add-bookable"
-        :text="t('bookable_create').toLocaleUpperCase()"
-        @click="$router.push({ name: 'settings-bookable-create' })"
+    <ProgressIndicator v-if="isLoading" />
+    <template v-else>
+      <div class="m-3">
+        <Button
+          class="w-full"
+          icon="add"
+          data-test="button-add-bookable"
+          :text="t('bookable_create').toLocaleUpperCase()"
+          @click="$router.push({ name: 'settings-bookable-create' })"
+        />
+      </div>
+      <ListItem
+        v-for="bookable in bookables"
+        :key="bookable._id"
+        :label="bookable.name"
+        :description="bookable.description"
+        class="cursor-pointer m-3"
+        data-test="bookable-item"
+        @click="$router.push({ name: 'settings-bookable', params: { bookableId: bookable._id } })"
       />
-    </div>
-    <ListItem
-      v-for="bookable in bookables"
-      :key="bookable._id"
-      :label="bookable.name"
-      :description="bookable.description"
-      class="cursor-pointer m-3"
-      data-test="bookable-item"
-      @click="$router.push({ name: 'settings-bookable', params: { bookableId: bookable._id } })"
-    />
+    </template>
   </AppContent>
 </template>
 
@@ -31,6 +34,7 @@ import Button from '~/components/buttons/Button.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
 
@@ -41,18 +45,19 @@ export default defineComponent({
     SettingsHeader,
     AppContent,
     Button,
+    ProgressIndicator,
   },
 
   setup() {
     const { t } = useI18n();
     const { spaceId } = useCurrentSpace();
 
-    const { data: bookables } = useFind(
+    const { data: bookables, isLoading } = useFind(
       'bookables',
       computed(() => ({ query: { space: spaceId.value } })),
     );
 
-    return { t, bookables };
+    return { t, bookables, isLoading };
   },
 });
 </script>
