@@ -5,7 +5,8 @@
   />
 
   <AppContent>
-    <div class="flex flex-col mx-auto w-full py-3">
+    <ProgressIndicator v-if="isLoading" />
+    <div v-else class="flex flex-col mx-auto w-full py-3">
       <template v-if="isChoosingBookableLink">
         <Button
           icon="plus"
@@ -82,6 +83,7 @@ import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import IconListItem from '~/components/list-items/IconListItem.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { useBack } from '~/compositions/useBack';
 import useFind from '~/compositions/useFind';
@@ -105,7 +107,7 @@ const mapObject = toRef(props, 'mapObject');
 const linkedBookableId = computed(() => (mapObject.value?.link as { bookable?: string })?.bookable);
 const { data: linkedBookable } = useGet('bookables', linkedBookableId, ref({ query: { $disableSoftDelete: true } }));
 
-const { data: bookables } = useFind(
+const { data: bookables, isLoading } = useFind(
   'bookables',
   computed(() => ({ query: { space: spaceId.value } })),
 );

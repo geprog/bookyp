@@ -2,7 +2,8 @@
   <HomeHeader />
 
   <AppContent>
-    <div v-if="bookablesWithFilterMatched.length" class="pb-25">
+    <ProgressIndicator v-if="isLoading" />
+    <div v-else-if="bookablesWithFilterMatched.length" class="pb-25">
       <h2 class="mt-6 font-bold">
         {{ t('available_bookables') }}
       </h2>
@@ -46,6 +47,7 @@ import AppContent from '~/components/layout/AppContent.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import HomeActionsButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { useBookables } from '~/compositions/useBookables';
 import useFind from '~/compositions/useFind';
@@ -53,14 +55,14 @@ import useFind from '~/compositions/useFind';
 export default defineComponent({
   name: 'BookablesList',
 
-  components: { HomeHeader, HomeActionsButtons, ListItem, AppContent, FooterMenu },
+  components: { HomeHeader, HomeActionsButtons, ListItem, ProgressIndicator, AppContent, FooterMenu },
 
   setup() {
     const { t } = useI18n();
 
     const { spaceId } = useCurrentSpace();
 
-    const { data: bookables } = useFind(
+    const { data: bookables, isLoading } = useFind(
       'bookables',
       computed(() => ({ paginate: false, query: { space: spaceId.value } })),
     );
@@ -80,6 +82,7 @@ export default defineComponent({
       availableBookables,
       occupiedBookables,
       isBookedByMe,
+      isLoading,
     };
   },
 });

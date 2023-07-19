@@ -1,5 +1,6 @@
 <template>
-  <div class="flex flex-col">
+  <ProgressIndicator v-if="isLoading" />
+  <div v-else class="flex flex-col">
     <div class="flex flex-wrap justify-between -mx-2">
       <div v-for="paymentMethod in databasePaymentMethods" :key="paymentMethod._id" class="w-full md:w-1/2 p-2">
         <SelectableListItem
@@ -36,6 +37,7 @@ import Button from '~/components/buttons/Button.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Icon from '~/components/Icon.vue';
 import SelectableListItem from '~/components/list-items/SelectableListItem.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import useFind from '~/compositions/useFind';
 
 defineEmits<{
@@ -50,5 +52,5 @@ defineProps<{
 
 const { t } = useI18n();
 
-const { data: databasePaymentMethods } = useFind('payment-methods');
+const { data: databasePaymentMethods, isLoading } = useFind('payment-methods');
 </script>

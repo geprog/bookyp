@@ -2,7 +2,8 @@
   <SettingsHeader :title="t('members')" />
 
   <AppContent>
-    <div class="m-3">
+    <ProgressIndicator v-if="isLoading" />
+    <div v-else class="m-3">
       <Button
         v-if="canAddNewUsers"
         :aria-label="t('invite_new_member')"
@@ -66,6 +67,7 @@ import Button from '~/components/buttons/Button.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
@@ -74,7 +76,7 @@ const { t } = useI18n();
 const router = useRouter();
 const { currentSpace, spaceId } = useCurrentSpace();
 
-const { data: invitations } = useFind(
+const { data: invitations, isLoading } = useFind(
   'invitations',
   computed(() => (spaceId.value === null ? null : { paginate: false, query: { spaceId: spaceId.value } })),
 );

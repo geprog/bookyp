@@ -1,7 +1,7 @@
 <template>
   <HomeHeader />
-
-  <div v-if="mapObjectsExists" class="flex flex-col flex-grow min-h-0">
+  <ProgressIndicator v-if="isLoading" />
+  <div v-else-if="mapObjectsExists" class="flex flex-col flex-grow min-h-0">
     <SpaceMap v-if="spaceId">
       <FloorPlan :space-id="spaceId" />
       <MapObjects clickable consider-filter :space-id="spaceId" @click-on-map-object="clickOnMapObject" />
@@ -28,6 +28,7 @@ import { useRouter } from 'vue-router';
 import HomeHeader from '~/components/headers/HomeHeader.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import HomeActionButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import FloorPlan from '~/components/space/map/FloorPlan.vue';
 import MapObjects from '~/components/space/map/MapObjects.vue';
 import SpaceMap from '~/components/space/map/SpaceMap.vue';
@@ -40,7 +41,7 @@ const router = useRouter();
 const { spaceId, currentSpace } = useCurrentSpace();
 
 const isAdmin = ref(false);
-const { data: mapObjectForCurrentSpace } = getMapObjects(spaceId);
+const { data: mapObjectForCurrentSpace, isLoading } = getMapObjects(spaceId);
 
 watch(
   currentSpace,

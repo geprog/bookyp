@@ -17,8 +17,8 @@
         @click="createSampleSpace"
       />
     </div>
-
-    <template v-if="invitations.length > 0">
+    <ProgressIndicator v-if="isLoadingInvitations" />
+    <template v-else-if="invitations.length > 0">
       <h2 class="m-3 font-bold">
         {{ t('invitation.pending_invitations') }}
       </h2>
@@ -87,6 +87,7 @@ import AppContent from '~/components/layout/AppContent.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import SpacesActionButtons from '~/components/layout/toolbars/SpacesActionButtons.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';
 import { useDateFilter } from '~/compositions/useDateFilter';
 import useFeathers from '~/compositions/useFeathers';
@@ -133,7 +134,7 @@ const sortedSpaces = computed(() => {
     });
 });
 
-const { data: invitations } = useFind(
+const { data: invitations, isLoading: isLoadingInvitations } = useFind(
   'invitations',
   computed(() => (user.value === undefined ? null : { paginate: false, query: { email: user.value.email } })),
 );

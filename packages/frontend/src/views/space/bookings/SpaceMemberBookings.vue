@@ -3,8 +3,8 @@
 
   <AppContent>
     <h2 class="font-bold mt-4">{{ t('bookings_of', { name: spaceMember?.name }) }}</h2>
-
-    <div>
+    <ProgressIndicator v-if="isLoading" />
+    <template v-else>
       <router-link
         v-for="booking in sortedBookings"
         :key="booking._id"
@@ -35,7 +35,7 @@
           </div>
         </ListItem>
       </router-link>
-    </div>
+    </template>
   </AppContent>
 </template>
 
@@ -47,6 +47,7 @@ import { useI18n } from 'vue-i18n';
 import SpaceBookingsHeader from '~/components/headers/SpaceBookingsHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
 import useGet from '~/compositions/useGet';
@@ -69,7 +70,7 @@ const bookingsQuery = computed(() => ({
   },
 }));
 
-const { data: bookings } = useFind('bookings', bookingsQuery);
+const { data: bookings, isLoading } = useFind('bookings', bookingsQuery);
 
 const bookableIds = computed(() =>
   Array.from(
