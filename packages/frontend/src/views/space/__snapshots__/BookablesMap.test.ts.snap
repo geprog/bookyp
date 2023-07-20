@@ -9,5 +9,5 @@ exports[`BookablesMap view > should render correctly 1`] = `
   </space-map-stub>
 </div>
 <home-action-buttons-stub></home-action-buttons-stub>
-<footer-menu-stub></footer-menu-stub>"
+<space-footer-menu-stub></space-footer-menu-stub>"
 `;

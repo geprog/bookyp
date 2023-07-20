@@ -1,5 +1,6 @@
 import AddIcon from '~/assets/icons/add.svg';
 import AddCircleIcon from '~/assets/icons/add-circle.svg';
+import AdminIcon from '~/assets/icons/admin.svg';
 import AppsListIcon from '~/assets/icons/apps-list.svg';
 import ArrowClockwiseIcon from '~/assets/icons/arrow-clockwise.svg';
 import ArrowLeftIcon from '~/assets/icons/arrow-left.svg';
@@ -66,6 +67,7 @@ import WallIcon from '~/assets/icons/wall.svg';
 const icons = {
   'add-circle': AddCircleIcon,
   add: AddIcon,
+  admin: AdminIcon,
   'apps-list': AppsListIcon,
   'arrow-clockwise': ArrowClockwiseIcon,
   'arrow-left': ArrowLeftIcon,

@@ -16,7 +16,7 @@
   </div>
 
   <HomeActionButtons />
-  <FooterMenu />
+  <SpaceFooterMenu />
 </template>
 
 <script lang="ts" setup>
@@ -26,7 +26,7 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import HomeHeader from '~/components/headers/HomeHeader.vue';
-import FooterMenu from '~/components/layout/FooterMenu.vue';
+import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import HomeActionButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
 import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import FloorPlan from '~/components/space/map/FloorPlan.vue';

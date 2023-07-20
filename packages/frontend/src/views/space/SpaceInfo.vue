@@ -9,6 +9,7 @@
       {{ t('claim_space') }}
     </Button>
   </AppContent>
+  <SpaceFooterMenu />
 </template>
 
 <script lang="ts" setup>
@@ -17,6 +18,7 @@ import { useI18n } from 'vue-i18n';
 import Button from '~/components/buttons/Button.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import SpaceInfo from '~/components/space/SpaceInfo.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { getConfig } from '~/config';

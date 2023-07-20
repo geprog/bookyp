@@ -29,9 +29,10 @@
       </div>
       <span class="text-sm">{{ t('bookings') }}</span>
     </router-link>
+    <slot name="space-buttons" />
     <router-link :to="{ name: 'account' }" class="flex flex-col flex-grow items-center py-1.5 px-4">
-      <Icon name="three-horizontal-dots" />
-      <span class="text-sm">{{ t('more') }}</span>
+      <Icon name="person" />
+      <span class="text-sm">{{ t('profile') }}</span>
     </router-link>
   </footer>
   <div class="w-full h-14 flex-shrink-0" />

@@ -4,6 +4,7 @@ exports[`Icons > should contain all needed icons 1`] = `
 [
   "add-circle",
   "add",
+  "admin",
   "apps-list",
   "arrow-clockwise",
   "arrow-left",
