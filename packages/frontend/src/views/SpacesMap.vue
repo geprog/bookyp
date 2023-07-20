@@ -2,22 +2,22 @@
   <SpacesListHeader />
 
   <div ref="map" class="w-full h-full" />
-  <div v-if="selectedSpace" class="fixed bottom-20 flex justify-center w-full">
-    <router-link
-      :to="{ name: 'space', params: { spaceId: selectedSpaceId } }"
-      class="flex flex-row w-3/4 max-w-128 mb-4 p-4 bg-white rounded-md justify-between"
-    >
-      <div class="flex flex-col justify-between w-[calc(100%-2rem)]">
-        <span class="truncate">{{ selectedSpace.name }}</span>
-        <span class="truncate text-gray-500 text-sm h-5">{{ selectedSpace.description }}</span>
-      </div>
-      <IconButton
-        v-if="isAuthenticated"
-        :icon="isSpaceStarred ? 'star-filled' : 'star'"
-        :icon-color="isSpaceStarred ? 'text-primary-normal' : ''"
-        class="p-0"
-        @click.prevent="selectedSpaceId && updateStarForSpace(selectedSpaceId, !isSpaceStarred)"
-      />
+  <div v-if="selectedSpace" class="fixed bottom-20 w-full">
+    <router-link :to="{ name: 'space', params: { spaceId: selectedSpaceId } }" class="flex justify-center">
+      <CardSmall
+        class="h-16 w-3/4 max-w-128 mb-4"
+        :image-url="selectedSpace.image"
+        :title="selectedSpace.name"
+        :subtitle="selectedSpace.address"
+      >
+        <IconButton
+          v-if="isAuthenticated"
+          :icon="isSpaceStarred ? 'star-filled' : 'star'"
+          :icon-color="isSpaceStarred ? 'text-primary-normal' : ''"
+          class="p-0 mr-2"
+          @click.prevent="selectedSpaceId && updateStarForSpace(selectedSpaceId, !isSpaceStarred)"
+        />
+      </CardSmall>
     </router-link>
   </div>
   <SpacesActionButtons v-else />
@@ -35,6 +35,7 @@ import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import SpacesListHeader from '~/components/headers/SpacesListHeader.vue';
+import CardSmall from '~/components/layout/CardSmall.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import SpacesActionButtons from '~/components/layout/toolbars/SpacesActionButtons.vue';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';
