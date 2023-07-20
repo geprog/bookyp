@@ -39,6 +39,7 @@
     <IconButton
       v-if="isAdmin"
       icon="diagram"
+      class="hidden md:block"
       :aria-label="t('own_bookings')"
       @click="$router.push({ name: 'space-bookings' })"
     />
@@ -46,12 +47,14 @@
       v-if="isAdmin"
       data-test="button-settings"
       icon="settings"
+      class="hidden md:block"
       :aria-label="t('settings')"
       @click="$router.push({ name: 'settings-space-map' })"
     />
     <IconButton
       v-if="!isAdmin"
       icon="info"
+      class="hidden md:block"
       :aria-label="t('space_information')"
       data-test="button-space-information"
       @click="$router.push({ name: 'space-info' })"
