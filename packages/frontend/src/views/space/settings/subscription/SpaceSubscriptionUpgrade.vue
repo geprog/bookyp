@@ -20,7 +20,7 @@
             </div>
           </div>
 
-          <div class="flex flex-col md:w-1/3 align-center">
+          <div class="flex flex-col w-full md:w-1/3 align-center">
             <span class="text-center md:m-0">{{ t('subscription.new_plan') }}</span>
             <SpacePlanCard :plan="requestPlan" :space-members="spaceMembers.length" />
 
