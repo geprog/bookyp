@@ -1,21 +1,30 @@
 <template>
-  <Header :title="t('profile')" />
+  <header class="z-10 fixed top-0 bg-white w-full h-14 shadow-md flex justify-center">
+    <div class="w-full h-full max-w-5xl">
+      <div class="flex h-full items-center p-2 content-center">
+        <IconButton icon="close" div @click="$router.replace({ name: 'spaces-list' })" />
+        <h1 class="ml-2 mr-auto font-medium whitespace-nowrap overflow-hidden overflow-ellipsis">
+          {{ t('profile') }}
+        </h1>
+        <div class="flex space-x-2">
+          <img src="/src/assets/img/bookyp-new-logo.svg?url" />
+        </div>
+      </div>
+    </div>
+  </header>
 
   <AppContent class="!px-4 flex-col">
-    <MenuItem
-      :title="user?.name"
-      :description="t('show_profile')"
-      href="https://auth.geprog.com/auth/realms/bookyp/account/#/personal-info"
+    <div
+      class="flex items-center p-4 mt-18 border-2 shadow-full text-center rounded-md gap-3 sm:max-w-3xl <sm:max-w-3xl"
     >
-      <template #icon>
-        <div class="rounded-full bg-gray-300 p-4">
-          <Icon name="person" />
-        </div>
-      </template>
-    </MenuItem>
+      <div class="bg-gray-300 w-12 h-12 rounded-1/2 flex items-center">
+        <Icon class="ml-3" name="person" />
+      </div>
+      <span class="text-xl">{{ user?.name }}</span>
+    </div>
 
-    <span class="text-xl pt-6">{{ t('settings') }}</span>
     <MenuItem
+      class="flex mt-4"
       icon="person"
       href="https://auth.geprog.com/auth/realms/bookyp/account"
       :title="t('account_information')"
@@ -26,22 +35,23 @@
       :title="t('change_password')"
     />
 
-    <span class="text-xl pt-6">{{ t('support') }}</span>
-    <MenuItem icon="person" :href="mailToGetHelp" :title="t('get_help')" />
-    <MenuItem icon="person" :href="mailToGiveFeedback" :title="t('give_us_feedback')" />
+    <MenuItem class="border-t-1 border-gray-500 flex" icon="help" :href="mailToGetHelp" :title="t('get_help')" />
+    <MenuItem icon="feedback" :href="mailToGiveFeedback" :title="t('give_us_feedback')" />
 
-    <span class="text-xl pt-6">{{ t('legal') }}</span>
     <MenuItem icon="text-checked" href="https://bookyp.de/nutzungsbedingungen" :title="t('terms_of_service')" />
     <MenuItem icon="lock" href="https://bookyp.de/datenschutz" :title="t('privacy_policy')" />
+    <div class="flex flex-row border-t-1 border-gray-500 py-2 gap-2">
+      <Icon name="logout" />
+      <button class="underline text-left hover:text-primary-dark" type="button" @click="logout">
+        {{ t('logout') }}
+      </button>
+    </div>
 
-    <button class="underline py-4 text-left hover:text-primary-dark" type="button" @click="logout">
-      {{ t('logout') }}
-    </button>
     <router-link
       :to="{ name: 'features' }"
-      class="cursor-default text-sm border-t-1 border-gray-300 text-gray-500 py-4"
+      class="cursor-default text-sm text-gray-500 gap-2 flex items-center justify-center py-2"
     >
-      <span>{{ t('version', { version }) }}</span>
+      <span class="text-sm">{{ t('version', { version }) }}</span>
     </router-link>
   </AppContent>
 
@@ -51,7 +61,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 
-import Header from '~/components/headers/Header.vue';
+import IconButton from '~/components/buttons/IconButton.vue';
 import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';

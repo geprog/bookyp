@@ -12,6 +12,7 @@ import ChevronDownIcon from '~/assets/icons/chevron-down.svg';
 import ChevronLeftIcon from '~/assets/icons/chevron-left.svg';
 import ChevronRightIcon from '~/assets/icons/chevron-right.svg';
 import ClockIcon from '~/assets/icons/clock.svg';
+import CloseIcon from '~/assets/icons/close.svg';
 import CodeIcon from '~/assets/icons/code.svg';
 import CreditCardIcon from '~/assets/icons/credit-card.svg';
 import DeleteIcon from '~/assets/icons/delete.svg';
@@ -21,9 +22,11 @@ import DismissIcon from '~/assets/icons/dismiss.svg';
 import DocumentOnePageIcon from '~/assets/icons/document-one-page.svg';
 import EditIcon from '~/assets/icons/edit.svg';
 import Email from '~/assets/icons/email.svg';
+import FeedbackIcon from '~/assets/icons/feedback.svg';
 import FilterIcon from '~/assets/icons/filter.svg';
 import FloorPlanIcon from '~/assets/icons/floor-plan.svg';
 import FormatLinkIcon from '~/assets/icons/format-link.svg';
+import HelpIcon from '~/assets/icons/help.svg';
 import HomeIcon from '~/assets/icons/home.svg';
 import ImageIcon from '~/assets/icons/image.svg';
 import InfoIcon from '~/assets/icons/info.svg';
@@ -32,6 +35,7 @@ import LinkIcon from '~/assets/icons/link.svg';
 import LocationIcon from '~/assets/icons/location.svg';
 import LockIcon from '~/assets/icons/lock.svg';
 import LoginIcon from '~/assets/icons/log-in.svg';
+import LogOutIcon from '~/assets/icons/log-out.svg';
 import MagnifyingGlassIcon from '~/assets/icons/magnifying-glass.svg';
 import MapIcon from '~/assets/icons/map.svg';
 import MinusIcon from '~/assets/icons/minus.svg';
@@ -129,6 +133,10 @@ const icons = {
   'text-checked': TextCheckedIcon,
   'paper-roll': PaperRollIcon,
   'three-horizontal-dots': ThreeHorizontalDotsIcon,
+  help: HelpIcon,
+  feedback: FeedbackIcon,
+  logout: LogOutIcon,
+  close: CloseIcon,
   'log-in': LoginIcon,
 };
 

@@ -66,6 +66,10 @@ exports[`Icons > should contain all needed icons 1`] = `
   "text-checked",
   "paper-roll",
   "three-horizontal-dots",
+  "help",
+  "feedback",
+  "logout",
+  "close",
   "log-in",
 ]
 `;
