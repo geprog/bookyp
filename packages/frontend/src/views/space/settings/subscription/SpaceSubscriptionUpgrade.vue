@@ -1,6 +1,6 @@
 <template>
   <Header :title="$t('subscription.change_space_plan')" :back-fallback="{ name: 'space-settings-subscription' }" />
-  <AppContent>
+  <AppContent class="flex-col">
     <template v-if="requestPlan && customer && customer._id !== 'ignore'">
       <div class="my-4">
         <div class="flex flex-wrap md:flex-nowrap w-full gap-8">

@@ -1,5 +1,5 @@
 <template>
-  <form v-if="space" id="space" data-test="form" class="space" @submit.prevent="$emit('save')">
+  <form v-if="space" id="space" data-test="form" class="space w-full" @submit.prevent="$emit('save')">
     <LabelField icon-name="home">
       <TextField v-model="spaceCreate.name" data-test="form-name" :placeholder="t('name')" required />
     </LabelField>

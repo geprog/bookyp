@@ -1,7 +1,7 @@
 <template>
   <SettingsHeader :title="t('bookables')" />
 
-  <AppContent>
+  <AppContent class="flex-col">
     <ProgressIndicator v-if="isLoading" />
     <template v-else>
       <div class="m-3">

@@ -6,24 +6,22 @@
     <IconButton icon="check-mark" @click="$emit('submit')" />
   </Header>
 
-  <AppContent>
+  <AppContent class="flex-col gap-4">
+    <div class="mt-4 p-4 border-2 shadow-full border-gray-200 rounded flex gap-1">
+      <Icon name="info" />
+      <div>
+        <p>{{ t('confirmation.confirm_booking_in_public_space') }}</p>
+        <p>{{ t('confirmation.confirm_personal_data_warning') }}</p>
+      </div>
+    </div>
     <div class="flex flex-col gap-4">
-      <div class="mt-4 p-4 border-2 shadow-full border-gray-200 rounded flex gap-1">
-        <Icon name="info" />
-        <div>
-          <p>{{ t('confirmation.confirm_booking_in_public_space') }}</p>
-          <p>{{ t('confirmation.confirm_personal_data_warning') }}</p>
-        </div>
-      </div>
-      <div class="flex flex-col gap-4">
-        <SpaceInfo :space="currentSpace" />
-        <LabelField readonly icon-name="play">
-          <TextField readonly :model-value="start" />
-        </LabelField>
-        <LabelField readonly icon-name="stop">
-          <TextField readonly :model-value="end" />
-        </LabelField>
-      </div>
+      <SpaceInfo :space="currentSpace" />
+      <LabelField readonly icon-name="play">
+        <TextField readonly :model-value="start" />
+      </LabelField>
+      <LabelField readonly icon-name="stop">
+        <TextField readonly :model-value="end" />
+      </LabelField>
     </div>
   </AppContent>
 </template>

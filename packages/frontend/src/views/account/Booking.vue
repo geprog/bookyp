@@ -9,7 +9,7 @@
     />
   </Header>
 
-  <AppContent>
+  <AppContent class="flex-col">
     <div v-if="bookable" class="flex flex-col p-4 rounded-lg shadow-full bg-white m-4 gap-y-1">
       <h2 class="text-md">{{ bookable?.name }}</h2>
       <p class="italic text-sm text-gray-500">{{ space?.name }}</p>

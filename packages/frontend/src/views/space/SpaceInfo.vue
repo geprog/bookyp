@@ -3,7 +3,7 @@
     :title="t('space_information')"
     :back-fallback="space?.importId ? { name: 'spaces-list' } : { name: 'bookables-map' }"
   />
-  <AppContent>
+  <AppContent class="flex-col">
     <SpaceInfo :space="space" />
     <Button v-if="space?.importId" :href="mailtoUpgrade">
       {{ t('claim_space') }}

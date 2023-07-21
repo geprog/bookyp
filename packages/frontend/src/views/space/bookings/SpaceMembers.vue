@@ -1,7 +1,7 @@
 <template>
   <SpaceBookingsHeader />
 
-  <AppContent>
+  <AppContent class="flex-col">
     <h2 class="m-3 font-bold">{{ t('members_with_bookings') }}</h2>
     <ProgressIndicator v-if="isLoadingMembers" />
     <ListItem

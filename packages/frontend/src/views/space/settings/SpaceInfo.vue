@@ -1,6 +1,6 @@
 <template>
   <SettingsHeader :title="t('space_information')" />
-  <AppContent>
+  <AppContent class="flex-col">
     <SpaceInfo :space="space" />
 
     <Button

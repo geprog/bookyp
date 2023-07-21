@@ -1,7 +1,7 @@
 <template>
   <HomeHeader />
 
-  <AppContent>
+  <AppContent class="flex-col">
     <ProgressIndicator v-if="isLoading" />
     <div v-else-if="bookablesWithFilterMatched.length" class="pb-25">
       <h2 class="mt-6 font-bold">

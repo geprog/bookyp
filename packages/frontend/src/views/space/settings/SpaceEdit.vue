@@ -5,7 +5,7 @@
     </template>
     <IconButton type="submit" form="space" icon="save" />
   </Header>
-  <AppContent>
+  <AppContent class="flex-col">
     <SpaceForm v-if="spaceToSave" v-model:space="spaceToSave" @save="saveSpace" />
 
     <div class="flex flex-col gap-y-6 my-6 sm:max-w-xl <sm:max-w-xs mx-auto">
