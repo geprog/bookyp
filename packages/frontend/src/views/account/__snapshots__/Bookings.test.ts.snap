@@ -10,7 +10,7 @@ exports[`Bookings component > should render correctly 1`] = `
   </link-stub>
   <icon-button-stub icon=\\"sign-out\\" disabled=\\"false\\" class=\\"hidden md:block\\"></icon-button-stub>
 </header-stub>
-<app-content-stub>
+<app-content-stub class=\\"flex-col\\">
   <div class=\\"flex flex-col items-center justify-center gap-2 pt-40\\"><img src=\\"/src/assets/img/bookyp-logo-text.svg?url\\">
     <p class=\\"text-gray-900\\">no_bookings</p>
     <i18n-t-stub keypath=\\"route_to_space.text_without_space\\" tag=\\"p\\" scope=\\"parent\\" class=\\"text-center\\">

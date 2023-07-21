@@ -1,5 +1,5 @@
 <template>
-  <main class="w-full max-w-3xl flex-grow flex flex-col px-2 md:px-4 md:mx-auto">
+  <main class="w-full max-w-3xl flex-grow flex px-2 md:px-4 md:mx-auto">
     <slot />
   </main>
 </template>

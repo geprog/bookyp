@@ -1,7 +1,7 @@
 <template>
   <Header :title="t('profile')" />
 
-  <AppContent class="!px-4">
+  <AppContent class="!px-4 flex-col">
     <MenuItem
       :title="user?.name"
       :description="t('show_profile')"

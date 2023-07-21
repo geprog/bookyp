@@ -2,7 +2,7 @@
 
 exports[`BookablesList component > should render correctly with filter 1`] = `
 "<home-header-stub></home-header-stub>
-<app-content-stub>
+<app-content-stub class=\\"flex-col\\">
   <div class=\\"pb-25\\">
     <h2 class=\\"mt-6 font-bold\\">available_bookables</h2>
     <list-item-stub label=\\"Couch\\" statuscolor=\\"bg-green-text\\" description=\\"Super long description\\" disabled=\\"false\\" class=\\"cursor-pointer my-3\\"></list-item-stub>
@@ -16,7 +16,7 @@ exports[`BookablesList component > should render correctly with filter 1`] = `
 
 exports[`BookablesList component > should render correctly without filter 1`] = `
 "<home-header-stub></home-header-stub>
-<app-content-stub>
+<app-content-stub class=\\"flex-col\\">
   <div class=\\"pb-25\\">
     <h2 class=\\"mt-6 font-bold\\">available_bookables</h2>
     <h2 class=\\"mt-6 font-bold\\">occupied_bookables</h2>

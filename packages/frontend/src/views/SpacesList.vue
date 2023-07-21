@@ -1,7 +1,7 @@
 <template>
   <SpacesListHeader />
 
-  <AppContent>
+  <AppContent class="flex-col">
     <div class="m-3 flex gap-2">
       <Button
         :aria-label="t('space_create')"

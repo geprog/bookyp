@@ -1,7 +1,7 @@
 <template>
   <SettingsHeader :title="t('members')" />
 
-  <AppContent>
+  <AppContent class="flex-col">
     <ProgressIndicator v-if="isLoading" />
     <div v-else class="m-3">
       <Button

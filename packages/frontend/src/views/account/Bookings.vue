@@ -13,7 +13,7 @@
     </Link>
     <IconButton icon="sign-out" class="hidden md:block" @click="logout" />
   </Header>
-  <AppContent>
+  <AppContent class="flex-col">
     <ProgressIndicator v-if="isLoading" />
     <template v-else>
       <div v-if="noBookings" class="flex flex-col items-center justify-center gap-2 pt-40">
