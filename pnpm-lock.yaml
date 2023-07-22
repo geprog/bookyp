@@ -20,6 +20,9 @@ importers:
 
   .:
     devDependencies:
+      '@cspell/dict-de-de':
+        specifier: 3.1.0
+        version: 3.1.0
       cspell:
         specifier: 5.12.3
         version: 5.12.3
@@ -1940,6 +1943,10 @@ packages:
 
   /@cspell/dict-dart@1.1.1:
     resolution: {integrity: sha512-XBOCpezXrgFN18kGEwqMpTUGZdw4BjCoJrNOo6qBdcdZySCrEHLwELraLOkcSba2kM4stmTp0t59FkwtP8TKOA==}
+    dev: true
+
+  /@cspell/dict-de-de@3.1.0:
+    resolution: {integrity: sha512-aWOcBUrl+OkTAvm0XUY7VDV/wjKey27nt+tTTSYWoLQ5Qr1BHl4C9WRrsrWcfCe8504dZybJBmkOO3DX5729tg==}
     dev: true
 
   /@cspell/dict-django@2.0.0:

@@ -1,6 +1,7 @@
 {
   "version": "0.2",
   "language": "en",
+  "import": ["@cspell/dict-de-de/cspell-ext.json"],
   "words": [
     "ADMINPASSWORD",
     "ADMINUSERNAME",
@@ -12,7 +13,7 @@
     "Avenir",
     "Bbox",
     "bitnami",
-    "Bookables",
+    "bookables",
     "bookyp",
     "bracke",
     "browserconfig",
@@ -146,7 +147,25 @@
     "packages/native/fastlane/report.xml",
     "packages/native/fastlane/README.md",
     "Gemfile",
-    "packages/native/fastlane/metadata/android/de-DE/**/*"
+    "packages/native/fastlane/metadata/android/de-DE/**/*",
+    ".cspell.json"
   ],
-  "enableFiletypes": ["ruby"]
+  "enableFiletypes": ["ruby"],
+  "overrides": [
+    {
+      "filename": "**/locales/de.json",
+      "language": "de,en",
+      "words": [
+        "Neues",
+        "Neuen",
+        "Adresse",
+        "Ausstehende",
+        "Neuer",
+        "Passwort",
+        "Businessplan",
+        "Adresszeile",
+        "loslassen"
+      ]
+    }
+  ]
 }
