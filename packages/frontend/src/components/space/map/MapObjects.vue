@@ -6,12 +6,10 @@
     data-test="map-object"
     transform-origin="center"
     :transform="`translate(${mapObject.xPos},${mapObject.yPos}) rotate(${mapObject.rotation})`"
-    class="transform-box-fill"
+    class="transform-box-fill map-object"
     :class="{
-      'cursor-pointer': mapObject.isClickable,
-      'map-object': mapObject.isClickable && !considerFilter,
-      'map-object-filter-matched': mapObject.isClickable && mapObject.matchesFilter,
-      'map-object-filter-unmatched': mapObject.isClickable && !mapObject.matchesFilter,
+      clickable: mapObject.isClickable,
+      [mapObject.style]: true,
     }"
     @click.stop="clickOnMapObject(mapObject)"
   >
@@ -19,6 +17,7 @@
       v-for="path in mapObject.paths"
       :key="path"
       :data-test="mapObject.isHighlighted ? 'highlighted-map-object-path' : 'map-object-path'"
+      :data-availability="mapObject.availability"
       :d="path"
       :class="mapObject.style"
     />
@@ -37,7 +36,7 @@ import useFind from '~/compositions/useFind';
 const props = defineProps<{
   spaceId: string;
   clickable?: boolean;
-  considerFilter?: boolean;
+  mode: 'show-availability' | 'highlight';
   highlightedBookableId?: string;
 }>();
 
@@ -45,10 +44,10 @@ const emit = defineEmits<{
   (event: 'clickOnMapObject', mapObject: Model.MapObject): void;
 }>();
 
+const mode = toRef(props, 'mode');
 const clickable = toRef(props, 'clickable');
 const highlightedBookableId = toRef(props, 'highlightedBookableId');
 const spaceId = toRef(props, 'spaceId');
-const considerFilter = toRef(props, 'considerFilter');
 
 const { data: mapObjects } = getMapObjects(spaceId);
 
@@ -57,7 +56,7 @@ const { data: bookables } = useFind(
   computed(() => ({ paginate: false, query: { space: spaceId.value, $disableSoftDelete: true } })),
 );
 
-const { isFilterMatched, isBookedByMe: _isBookedByMe } = useBookables(bookables);
+const { isFilterMatched, isBookedByMe } = useBookables(bookables);
 
 function clickOnMapObject(mapObject: Model.MapObject & { isClickable: boolean }) {
   if (mapObject.isClickable) {
@@ -69,82 +68,134 @@ useAndRegisterViewBox('MapObjects', mapObjectsToPaths(mapObjects), { strokeWidth
 
 function getMapObjectStyle(
   mapObject: Model.MapObject,
+  _mode: 'show-availability' | 'highlight',
   isHighlighted: boolean,
-  isBookedByMe: boolean,
+  availability: 'free' | 'occupied' | 'occupied-by-me' | null,
   isLinkedToDeletedBookable: boolean,
 ) {
-  const highlightStyle = 'stroke-primary-normal filter drop-shadow-orange-glow';
-
-  if (mapObject.link?.type === 'url') {
-    return 'stroke-black fill-blue-200';
-  }
-
-  if (isHighlighted) {
-    return highlightStyle + ' fill-primary-light';
-  }
-
+  // not linked
   if (!mapObject.link || isLinkedToDeletedBookable) {
-    return 'stroke-black fill-white';
+    return '';
   }
 
-  if (considerFilter.value) {
-    if (isFilterMatched(mapObject.link?.bookable)) {
-      return 'stroke-black fill-green-background';
+  // in highlight mode (e.g. used for booking details)
+  if (_mode === 'highlight') {
+    if (isHighlighted) {
+      return 'highlight';
     }
 
-    if (isBookedByMe) {
-      return highlightStyle + ' stroke-black fill-red-background';
+    return '';
+  }
+
+  // in booking mode
+  if (_mode === 'show-availability') {
+    if (mapObject.link.type === 'url') {
+      return 'linked-to-url';
     }
 
-    return 'stroke-black fill-red-background';
+    if (availability === 'occupied-by-me') {
+      return 'occupied-by-me';
+    }
+
+    if (availability === 'free') {
+      return 'free';
+    }
+
+    return 'occupied';
   }
 
-  if (mapObject.link?.type === 'bookable' && !considerFilter.value) {
-    return 'stroke-black fill-white';
+  return '';
+}
+
+function getMapObjectAvailability(mapObject: Model.MapObject) {
+  if (mapObject.link?.type !== 'bookable') {
+    return null;
   }
 
-  return 'stroke-black fill-primary-light';
+  if (isBookedByMe(mapObject.link?.bookable)) {
+    return 'occupied-by-me';
+  }
+
+  if (isFilterMatched(mapObject.link?.bookable)) {
+    return 'free';
+  }
+
+  return 'occupied';
 }
 
 const extendedMapObjects = computed(() =>
   mapObjects.value.map((mapObject) => {
-    const matchesFilter =
-      !!considerFilter.value && mapObject.link?.type === 'bookable' && !!isFilterMatched(mapObject.link?.bookable);
     const isHighlighted =
       !!highlightedBookableId.value &&
       mapObject.link?.type === 'bookable' &&
       highlightedBookableId.value === mapObject.link?.bookable;
-    const isBookedByMe = mapObject.link?.type === 'bookable' && _isBookedByMe(mapObject.link?.bookable);
     const isLinkedToDeletedBookable =
       mapObject.link?.type === 'bookable' &&
       bookables.value.find((bookable) => bookable._id === (mapObject.link as { bookable: string }).bookable)
-        ?.deleted === true;
+        ?.deleted === true; // TODO: remove after tightly coupling map-object and bookable
     const isClickable = !!clickable.value && !!mapObject.link && !isLinkedToDeletedBookable;
-    const style = getMapObjectStyle(mapObject, isHighlighted, isBookedByMe, isLinkedToDeletedBookable);
+    const availability = mode.value === 'show-availability' ? getMapObjectAvailability(mapObject) : null;
+
+    const style = getMapObjectStyle(mapObject, mode.value, isHighlighted, availability, isLinkedToDeletedBookable);
 
     return {
       ...mapObject,
       isHighlighted,
       style,
+      availability,
       isClickable,
-      matchesFilter,
-      isLinkedToDeletedBookable,
-      isBookedByMe,
     };
   }),
 );
 </script>
 
 <style scoped>
-.map-object:hover path {
+.map-object path {
+  @apply stroke-black fill-white;
+}
+.map-object.clickable {
+  @apply cursor-pointer;
+}
+.map-object.clickable:hover path {
   @apply stroke-primary-dark;
 }
 
-.map-object-filter-matched:hover path {
-  @apply stroke-green-text;
+.map-object.highlight path {
+  @apply stroke-primary-dark fill-primary-light;
 }
 
-.map-object-filter-unmatched:hover path {
+/** map-object linked to an url */
+.map-object.linked-to-url path {
+  @apply stroke-black fill-blue-200;
+}
+.map-object.linked-to-url:hover path {
+  @apply stroke-blue-text;
+}
+
+/** map-object free */
+.map-object.free path {
+  @apply stroke-black fill-green-200;
+}
+.map-object.free:hover path {
+  @apply stroke-green-text fill-green-background;
+}
+
+/** map-object occupied by someone else */
+.map-object.occupied path {
+  @apply stroke-black fill-red-background;
+}
+.map-object.occupied:hover path {
+  @apply stroke-red-text;
+}
+
+/** map-object which is occupied by myself */
+.map-object.occupied-by-me {
+  @apply filter drop-shadow-orangeGlow;
+}
+.map-object.occupied-by-me path {
+  @apply stroke-primary-normal fill-red-background;
+}
+.map-object.occupied-by-me:hover path {
   @apply stroke-red-text;
 }
 </style>

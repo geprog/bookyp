@@ -6,7 +6,12 @@ import useViewBox, { mapObjectsToPaths } from '~/compositions/space/useViewBox';
 import { useBookables } from '~/compositions/useBookables';
 import { SpaceMapKey } from '~/symbols/space-map';
 import { sampleBookings } from '$/__fixtures__/booking';
-import { sampleMapObject, sampleMapObjects, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
+import {
+  sampleMapObject,
+  sampleMapObjects,
+  sampleMapObjectWithBookable,
+  sampleMapObjectWithExternalUrl,
+} from '$/__fixtures__/mapObject';
 import { prepareUseFindMockOnce, prepareUseMapObjectsMockOnce } from '$/__helpers__/mocks';
 
 import MapObjects from './MapObjects.vue';
@@ -57,7 +62,6 @@ describe('MapObjects component', () => {
   it('should render correctly when clickable', () => {
     // given
     prepareUseMapObjectsMockOnce(sampleMapObjects);
-
     prepareUseBookablesOnce();
 
     // when
@@ -65,6 +69,7 @@ describe('MapObjects component', () => {
       props: {
         spaceId: '123',
         clickable: true,
+        mode: 'show-availability',
       },
       global: globalOptions,
     });
@@ -90,6 +95,7 @@ describe('MapObjects component', () => {
       props: {
         spaceId: '123',
         clickable: false,
+        mode: 'show-availability',
       },
       global: globalOptions,
     });
@@ -105,7 +111,7 @@ describe('MapObjects component', () => {
     /* eslint-enable jest/max-expects */
   });
 
-  it('should render correctly with a highlightedBookableId', () => {
+  it('should render correctly with a highlighted bookable', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObject]);
     prepareUseBookablesOnce();
@@ -116,6 +122,7 @@ describe('MapObjects component', () => {
         spaceId: '123',
         clickable: true,
         highlightedBookableId: sampleMapObject._id,
+        mode: 'highlight',
       },
       global: globalOptions,
     });
@@ -137,12 +144,13 @@ describe('MapObjects component', () => {
       props: {
         spaceId: '123',
         clickable: true,
+        mode: 'show-availability',
       },
       global: globalOptions,
     });
 
     // when
-    await wrapper.get('[data-test="map-object"].map-object').trigger('click');
+    await wrapper.get('[data-test="map-object"].map-object.clickable').trigger('click');
     await nextTick();
 
     // then
@@ -163,6 +171,7 @@ describe('MapObjects component', () => {
       props: {
         spaceId: '123',
         clickable: false,
+        mode: 'show-availability',
       },
       global: globalOptions,
     });
@@ -185,17 +194,18 @@ describe('MapObjects component', () => {
       props: {
         spaceId: '123',
         clickable: true,
+        mode: 'show-availability',
       },
       global: globalOptions,
     });
 
     // then
     expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
-    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe('stroke-black fill-white');
-    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('stroke-black fill-white');
+    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe('');
+    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('');
   });
 
-  it('should use white fill color when the object is linked with a bookable, but no filter is checked', () => {
+  it('should use green fill color when the bookable is free', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObjectWithBookable]);
     prepareUseBookablesOnce();
@@ -205,43 +215,18 @@ describe('MapObjects component', () => {
       props: {
         spaceId: '123',
         clickable: true,
-        considerFilter: false,
+        mode: 'show-availability',
       },
       global: globalOptions,
     });
 
     // then
     expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
-    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe('stroke-black fill-white');
-    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('stroke-black fill-white');
+    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe('free');
+    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('free');
   });
 
-  it('should use green fill color when the filter matches', () => {
-    // given
-    prepareUseMapObjectsMockOnce([sampleMapObjectWithBookable]);
-    prepareUseBookablesOnce();
-
-    // when
-    const wrapper = shallowMount(MapObjects, {
-      props: {
-        spaceId: '123',
-        clickable: true,
-        considerFilter: true,
-      },
-      global: globalOptions,
-    });
-
-    // then
-    expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
-    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe(
-      'stroke-black fill-green-background',
-    );
-    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe(
-      'stroke-black fill-green-background',
-    );
-  });
-
-  it('should use red fill color when the filter matches', () => {
+  it('should use red fill color when the bookable is occupied', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObjectWithBookable]);
 
@@ -271,19 +256,56 @@ describe('MapObjects component', () => {
       props: {
         spaceId: '123',
         clickable: true,
-        considerFilter: true,
+        mode: 'show-availability',
       },
       global: globalOptions,
     });
 
     // then
     expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
-    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe(
-      'stroke-black fill-red-background',
-    );
-    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe(
-      'stroke-black fill-red-background',
-    );
+    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe('occupied');
+    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('occupied');
+  });
+
+  it('should use blue fill color when the map-object is linked to an external url', () => {
+    // given
+    prepareUseMapObjectsMockOnce([sampleMapObjectWithExternalUrl]);
+
+    vi.mocked(useBookables).mockReturnValueOnce({
+      bookablesWithFilterMatched: computed(() => []),
+      dateFilter: ref({
+        start: undefined,
+        end: undefined,
+      }),
+      quickFilter: ref({
+        start: undefined,
+        end: undefined,
+      }),
+      combinedFilter: ref({
+        start: undefined,
+        end: undefined,
+      }),
+      quickFilterDiffMinutes: ref(15),
+      isFilterMatched: vi.fn().mockReturnValue(false),
+      userBookings: ref([]),
+      isBookedByMe: vi.fn().mockReturnValue(false),
+      resetBookablesFilter: vi.fn(),
+    });
+
+    // when
+    const wrapper = shallowMount(MapObjects, {
+      props: {
+        spaceId: '123',
+        clickable: true,
+        mode: 'show-availability',
+      },
+      global: globalOptions,
+    });
+
+    // then
+    expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
+    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe('linked-to-url');
+    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('linked-to-url');
   });
 
   describe('view box handling', () => {
@@ -299,6 +321,7 @@ describe('MapObjects component', () => {
         props: {
           spaceId: '123',
           clickable: true,
+          mode: 'highlight',
         },
         global: globalOptions,
       });
@@ -319,6 +342,7 @@ describe('MapObjects component', () => {
         props: {
           spaceId: '123',
           clickable: true,
+          mode: 'highlight',
         },
         global: globalOptions,
       });
