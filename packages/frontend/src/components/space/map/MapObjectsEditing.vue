@@ -14,7 +14,7 @@
       'cursor-move': moving,
       'text-dark-gray': !isSelected(mapObject),
       'hover:text-primary-dark': !isSelected(mapObject) && mode === 'none',
-      'text-primary-normal': isSelected(mapObject),
+      'text-primary-dark': isSelected(mapObject),
     }"
     @dblclick="$emit('dblclickMapObject', mapObject._id)"
   >
@@ -24,8 +24,7 @@
       :d="path"
       class="stroke-current"
       :class="{
-        'fill-primary-light': mapObject.link?.type === 'bookable',
-        'fill-blue-200': mapObject.link?.type === 'url',
+        'fill-primary-light': mapObject.link !== undefined,
         'fill-white': mapObject.link === undefined,
       }"
     />

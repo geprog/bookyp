@@ -9,4 +9,13 @@ module.exports = {
   },
 
   extends: ['@geprog/eslint-config/vue'],
+
+  rules: {
+    '@intlify/vue-i18n/no-unused-keys': [
+      'error',
+      {
+        enableFix: true,
+      },
+    ],
+  },
 };

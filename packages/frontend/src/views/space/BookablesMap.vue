@@ -4,7 +4,7 @@
   <div v-else-if="mapObjectsExists" class="flex flex-col flex-grow min-h-0">
     <SpaceMap v-if="spaceId">
       <FloorPlan :space-id="spaceId" />
-      <MapObjects clickable consider-filter :space-id="spaceId" @click-on-map-object="clickOnMapObject" />
+      <MapObjects clickable mode="show-availability" :space-id="spaceId" @click-on-map-object="clickOnMapObject" />
     </SpaceMap>
   </div>
   <div v-else class="flex flex-col justify-center items-center flex-grow">
