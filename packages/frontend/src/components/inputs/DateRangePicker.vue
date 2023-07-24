@@ -108,7 +108,10 @@ const internalEnd = computed<Date>({
   },
 });
 
-const changeStartDate = (date: Date) => {
+const changeStartDate = (date: Date | undefined) => {
+  if (!date) {
+    return;
+  }
   const oldStart = start.value;
   internalStart.value = date;
   emit(

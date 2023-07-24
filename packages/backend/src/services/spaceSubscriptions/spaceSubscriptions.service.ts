@@ -55,7 +55,7 @@ class SpaceSubscriptionsService extends AdapterService<Model.SpaceSubscription> 
     space.requestedPlan = plan;
 
     if (space.subscription) {
-      await updateSpaceSubscription(this.app, user, space);
+      await updateSpaceSubscription(space);
 
       await this.app.service('spaces').update(space._id, {
         ...space,

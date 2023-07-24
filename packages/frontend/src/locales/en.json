@@ -206,5 +206,11 @@
   "empty_map": "Looks like your map is pretty empty!",
   "empty_map_desc": "An image depicting the map is empty.",
   "admin_area_message": "Set up your space in the {0}.",
-  "admin_area": "admin area"
+  "admin_area": "admin area",
+  "super_admin": "💪 Super admin",
+  "update_subscription": "Update subscription",
+  "updated_subscription": "Updated subscription",
+  "dangerous_super_admin_action": "⚠️⚠️⚠️ Super admin ⚠️⚠️⚠️",
+  "dangerous_super_admin_action_description": "You are executing this action as super admin. Please only proceed if you know what you are doing!",
+  "subscription_update_super_admin_description": "Here you can set the plan type and date until which it will be active as super admin. By changing the plan no one has to actually pay for it until someone upgrades / downgrades the plan through the normal payment process again."
 }

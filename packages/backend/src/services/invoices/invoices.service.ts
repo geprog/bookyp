@@ -28,7 +28,7 @@ class InvoiceService extends AdapterService<Model.Invoice> {
     const space = await this.app.service('spaces').get(spaceId);
 
     if (!space.subscription) {
-      throw new Error('No subscription in space');
+      return [];
     }
 
     const payment = gringottsPayments();

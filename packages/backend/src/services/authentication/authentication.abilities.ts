@@ -11,6 +11,11 @@ const defineRulesFor = async (
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { can, cannot, rules } = new AbilityBuilder(Ability);
 
+  if (user?.isSuperAdmin) {
+    can('manage', 'all'); // read-write access to everything
+    return rules;
+  }
+
   const publicSpaces = (await app.service('spaces').find({
     query: { plan: 'public' },
     paginate: false,
@@ -135,10 +140,6 @@ const defineRulesFor = async (
     can('read', 'users', ['_id', 'email', 'name'], {
       _id: { $in: bookingsAdmin.map((booking) => booking.bookedBy).filter((id) => id !== user._id.toString()) },
     });
-
-    if (user.isAdmin) {
-      can('update', 'spaces', { importId: { $exists: true } });
-    }
   }
 
   return rules;

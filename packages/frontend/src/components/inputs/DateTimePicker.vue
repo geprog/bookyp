@@ -18,73 +18,51 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import dayjs, { ConfigType } from 'dayjs';
 import { DatePicker } from 'v-calendar';
-import { computed, defineComponent, PropType, toRef } from 'vue';
+import { computed, toRef } from 'vue';
 
 import TextField from '~/components/TextField.vue';
 
-export default defineComponent({
-  name: 'DateTimePicker',
-
-  components: {
-    DatePicker,
-    TextField,
+const props = withDefaults(
+  defineProps<{
+    modelValue: ConfigType | undefined;
+    placeholder?: string;
+    minDate?: ConfigType | null;
+  }>(),
+  {
+    placeholder: '',
+    minDate: null,
   },
+);
 
-  props: {
-    modelValue: {
-      type: [Object, String, Number] as PropType<ConfigType>,
-      required: true,
-    },
+const emit = defineEmits<{
+  (event: 'update:modelValue', value: Date | undefined): void;
+}>();
 
-    placeholder: {
-      type: String,
-      default: '',
-    },
+const modelValue = toRef(props, 'modelValue');
+const minDateProp = toRef(props, 'minDate');
 
-    minDate: {
-      type: [Object, String, Number] as PropType<ConfigType | null>,
-      default: null,
-    },
+const dateTime = computed({
+  get() {
+    return modelValue.value ? dayjs(modelValue.value).toDate() : undefined;
   },
-
-  emits: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    'update:modelValue': (__value: Date) => true,
-  },
-
-  setup(props, { emit }) {
-    const modelValue = toRef(props, 'modelValue');
-    const minDateProp = toRef(props, 'minDate');
-
-    const dateTime = computed({
-      get() {
-        return dayjs(modelValue.value).toDate();
-      },
-      set(date: Date) {
-        emit('update:modelValue', dayjs(date).toDate());
-      },
-    });
-
-    const internalMinDate = computed(() => {
-      if (minDateProp.value === null) {
-        return null;
-      }
-      return dayjs(minDateProp.value).toDate();
-    });
-
-    return {
-      dateTime,
-      masks: {
-        inputDateTime24hr: 'DD.MM.YYYY HH:mm',
-      },
-
-      internalMinDate,
-    };
+  set(date: Date | undefined) {
+    emit('update:modelValue', dayjs(date).toDate());
   },
 });
+
+const internalMinDate = computed(() => {
+  if (minDateProp.value === null) {
+    return null;
+  }
+  return dayjs(minDateProp.value).toDate();
+});
+
+const masks = {
+  inputDateTime24hr: 'DD.MM.YYYY HH:mm',
+};
 </script>
 
 <style scoped>
