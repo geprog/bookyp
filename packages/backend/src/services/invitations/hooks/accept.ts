@@ -16,7 +16,7 @@ export default async function accept(
       userId: user._id,
     });
     if (space.subscription) {
-      await updateSpaceSubscription(context.app, user, space);
+      await updateSpaceSubscription(space);
     }
     await context.app.service('spaces').update(invitation.spaceId, space);
   }

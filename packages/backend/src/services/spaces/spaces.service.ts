@@ -4,6 +4,7 @@ import { Document, model, Schema } from 'mongoose';
 
 import { feathersCaslAllowlist } from '~/casl';
 import softDelete from '~/hooks/softDelete';
+import { updateSpaceSubscription } from '~/lib/paymentsApi';
 
 import addSpaceMemberFields from './hooks/addSpaceMemberFields';
 import { applyFreeBookableFilter } from './hooks/applyFreeBookableFilter';
@@ -51,6 +52,20 @@ export default (app: Application): void => {
     },
     after: {
       all: [addSpaceMemberFields, cleanupUploadedFiles],
+      patch: [
+        // update subscription if plan changed by super admin
+        async (ctx) => {
+          const { user } = ctx.params as { user: Model.User };
+          if (user?.isSuperAdmin && !Array.isArray(ctx.data) && ctx.data?.plan && ctx.result) {
+            const space = ctx.result as Model.Space;
+            if (!space.subscription) {
+              return;
+            }
+
+            await updateSpaceSubscription({ ...space, requestedPlan: 'free' });
+          }
+        },
+      ],
     },
   });
 };

@@ -13,7 +13,7 @@ export default function checkUserAlreadyInSpace(
   if (Array.isArray(data)) {
     throw new Error('Multi create not supported');
   }
-  if (!user.isAdmin) {
+  if (!user.isSuperAdmin) {
     delete data.plan;
   }
   return context;

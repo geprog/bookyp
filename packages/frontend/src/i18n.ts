@@ -13,6 +13,7 @@ function getUserLanguage(): string {
 const i18n = createI18n({
   legacy: false,
   locale: getUserLanguage(),
+  fallbackLocale: 'en',
   messages,
 });
 

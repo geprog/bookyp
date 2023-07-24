@@ -54,7 +54,7 @@ export async function createSpaceSubscription(app: Application, user: Model.User
   });
 }
 
-export async function updateSpaceSubscription(app: Application, user: Model.User, space: Model.Space): Promise<void> {
+export async function updateSpaceSubscription(space: Model.Space): Promise<void> {
   const payment = gringottsPayments();
 
   if (!space.subscription) {
@@ -62,7 +62,7 @@ export async function updateSpaceSubscription(app: Application, user: Model.User
   }
 
   if (!space.requestedPlan) {
-    throw new Error('No space requested');
+    throw new Error('No plan requested');
   }
 
   const pricePerUnit = Model.SpacePlans[space.requestedPlan].pricePerUnit;

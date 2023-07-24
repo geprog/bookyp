@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col p-4 sm:max-w-xl <sm:max-w-xs mx-auto border-2 shadow-full text-center rounded-md"
+    class="flex flex-col p-4 w-full sm:max-w-xl <sm:max-w-xs mx-auto border-2 shadow-full text-center rounded-md"
     :class="{
       'border-primary-dark ': active,
       'border-gray-300': !active,

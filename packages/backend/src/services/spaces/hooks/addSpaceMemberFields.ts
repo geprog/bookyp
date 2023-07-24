@@ -8,7 +8,7 @@ export default async function addSpaceMemberFields(
   if (context.result) {
     const spaces = Array.isArray(context.result) ? context.result : [context.result as Model.Space];
     const userIds = spaces.reduce<Set<string>>(
-      (set, space) => new Set([...set, ...space.members.map((member) => member.userId)]),
+      (set, space) => new Set([...set, ...(space.members || []).map((member) => member.userId)]),
       new Set(),
     );
     const users = (await context.app.service('users').find({ query: { _id: { $in: [...userIds] } } })) as Model.User[];
@@ -18,7 +18,7 @@ export default async function addSpaceMemberFields(
     }, new Map());
 
     spaces.forEach((space) => {
-      space.members.map((member) => {
+      (space.members || []).map((member) => {
         const user = userMap.get(member.userId);
         member.name = user?.name;
         member.email = user?.email;
