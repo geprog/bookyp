@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row bg-white rounded-md shadow-md justify-between items-center">
     <div class="w-16 md:w-1/3 md:h-full">
-      <img v-if="imageUrl" :src="imageUrl" />
+      <img v-if="imageUrl" :src="imageUrl" class="w-16 h-16 md:w-full md:h-full rounded-l-md object-contain" />
       <img
         v-else
         src="/src/assets/img/space-placeholder.svg?url"
