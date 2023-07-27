@@ -49,6 +49,14 @@
     >
       <div class="sm:min-w-1/2 sm:w-1/2">
         <img v-if="space.image" :src="space.image" class="h-32 md:h-full w-full object-cover aspect-video" />
+        <SpaceMap
+          v-else-if="space.floorPlan.length || hasMapObjects(space._id)"
+          :disable-control="true"
+          class="h-32 md:h-full w-full object-cover aspect-video"
+        >
+          <FloorPlan :space-id="space._id" />
+          <MapObjects :space-id="space._id" mode="highlight" />
+        </SpaceMap>
         <img
           v-else
           src="/src/assets/img/space-placeholder.svg?url"
@@ -76,7 +84,7 @@
 
 <script lang="ts" setup>
 import { Model } from '@bookyp/core';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -88,6 +96,10 @@ import FooterMenu from '~/components/layout/FooterMenu.vue';
 import SpacesActionButtons from '~/components/layout/toolbars/SpacesActionButtons.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import ProgressIndicator from '~/components/ProgressIndicator.vue';
+import FloorPlan from '~/components/space/map/FloorPlan.vue';
+import MapObjects from '~/components/space/map/MapObjects.vue';
+import SpaceMap from '~/components/space/map/SpaceMap.vue';
+import getMapObjects from '~/compositions/space/useMapObjects';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';
 import { useDateFilter } from '~/compositions/useDateFilter';
 import useFeathers from '~/compositions/useFeathers';
@@ -159,6 +171,10 @@ async function updateStarForSpace(_spaceId: string, starred: boolean) {
     userToUpdate.starredSpaces = (userToUpdate.starredSpaces || []).filter((spaceId) => spaceId !== _spaceId);
   }
   await feathers.service('users').patch(userToUpdate._id, userToUpdate);
+}
+
+function hasMapObjects(spaceId: string): boolean {
+  return getMapObjects(ref<string>(spaceId)).data.value.length ? true : false;
 }
 
 const { allUnstableFeaturesEnabled } = useFeatureFlags();

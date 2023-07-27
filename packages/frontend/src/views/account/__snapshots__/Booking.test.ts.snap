@@ -13,7 +13,7 @@ exports[`Booking view > should render correctly 1`] = `
     <div class=\\"mt-2 grid grid-cols-[auto,1fr] grid-rows-2 text-sm gap-1\\"><span>name:</span><span>Alice Wonderland</span><span>email:</span><a class=\\"text-blue-600 underline-current underline\\" href=\\"mailto:alice@wonderland.xyz\\">alice@wonderland.xyz</a></div>
   </div>
   <div class=\\"flex flex-col p-4 rounded-lg shadow-full bg-white m-4 gap-y-1 max-h-100\\">
-    <space-map-stub disablepanning=\\"false\\">
+    <space-map-stub disablepanning=\\"false\\" disablecontrol=\\"false\\">
       <floor-plan-stub spaceid=\\"first\\"></floor-plan-stub>
       <map-objects-stub mode=\\"highlight\\" highlightedbookableid=\\"123\\" spaceid=\\"first\\" clickable=\\"false\\"></map-objects-stub>
     </space-map-stub>
