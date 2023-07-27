@@ -68,7 +68,9 @@
             primary-left
             data-test="add-map-object-button"
             @left="addMapObject"
-            @right="$router.push({ name: 'settings-map-select-map-object-type' })"
+            @right="
+              $router.push({ name: 'settings-map-select-map-object-type', params: { spaceId: currentSpace?._id } })
+            "
           >
             <template #left>
               <MapObject

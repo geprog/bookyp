@@ -9,6 +9,7 @@ import {
   Invoice,
   InvoiceDownload,
   MapObject,
+  MapObjectType,
   PaymentCustomer,
   PaymentMethod,
   Space,
@@ -23,6 +24,7 @@ export type ServiceModels = {
   spaces: Space;
   mapObjects: MapObject;
   invitations: Invitation;
+  mapObjectTypes: MapObjectType;
 };
 
 export type ServiceTypes = {
@@ -39,4 +41,5 @@ export type ServiceTypes = {
   invoices: AdapterService<Invoice>;
   'invoice-download': AdapterService<InvoiceDownload>;
   'payment-methods': AdapterService<PaymentMethod>;
+  mapObjectTypes: AdapterService<MapObjectType>;
 };

@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'vue-toastification';
 
@@ -60,20 +60,27 @@ import Header from '~/components/headers/Header.vue';
 import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import MapObject from '~/components/space/map/MapObject.vue';
-import { MapObjectType, mapObjectTypes } from '~/compositions/space/useNewMapObject';
+import { getMapObjectTypes, MapObjectType } from '~/compositions/space/useNewMapObject';
 import { useBack } from '~/compositions/useBack';
+import useFeathers from '~/compositions/useFeathers';
 
 const { t } = useI18n();
 const toast = useToast();
 const { back } = useBack();
 
-defineProps<{
+const props = defineProps<{
   selectedMapObjectType: MapObjectType;
+  spaceId: string | undefined;
 }>();
 
 defineEmits<{
   (event: 'update:selectedMapObjectType', mapObjectType: MapObjectType): void;
 }>();
+
+const spaceId = toRef(props, 'spaceId');
+const mapObjectTypes = getMapObjectTypes(spaceId.value);
+
+const feathers = useFeathers();
 
 const newMapObjectTypeFileInput = ref<HTMLInputElement>();
 
@@ -99,10 +106,15 @@ async function uploadNewMapObject(target: HTMLInputElement) {
     return;
   }
 
-  mapObjectTypes.value.push({
+  if (!spaceId.value) {
+    return;
+  }
+
+  await feathers.service('mapObjectTypes').create({
     name,
-    viewBox,
     paths,
+    viewBox,
+    spaceId: spaceId.value,
   });
 }
 </script>
