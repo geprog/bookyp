@@ -40,7 +40,7 @@
 
     <MenuItem icon="text-checked" href="https://bookyp.de/nutzungsbedingungen" :title="t('terms_of_service')" />
     <MenuItem icon="lock" href="https://bookyp.de/datenschutz" :title="t('privacy_policy')" />
-    <div class="flex flex-row border-t-1 border-gray-500 py-2 gap-2">
+    <div class="flex flex-row border-t-1 border-gray-500 py-4 gap-2">
       <Icon name="logout" />
       <button class="underline text-left hover:text-primary-dark" type="button" @click="logout">
         {{ t('logout') }}

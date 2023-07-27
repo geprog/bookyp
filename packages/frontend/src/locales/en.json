@@ -94,6 +94,7 @@
   },
   "booking_drag": "Drag on the calendar to change the time",
   "subscription": {
+    "subscription": "Subscription",
     "plans": "Plans",
     "members": "members",
     "of_ten": " / 10",
@@ -206,7 +207,9 @@
   "empty_map": "Looks like your map is pretty empty!",
   "empty_map_desc": "An image depicting the map is empty.",
   "admin_area_message": "Set up your space in the {0}.",
-  "admin_area": "admin area",
+  "admin_area": "Admin area",
+  "space_analytics": "Space Analytics",
+  "space_editor": "Space Editor",
   "super_admin": "💪 Super admin",
   "update_subscription": "Update subscription",
   "updated_subscription": "Updated subscription",

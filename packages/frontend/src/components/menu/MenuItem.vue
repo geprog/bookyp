@@ -1,5 +1,5 @@
 <template>
-  <Link :href="href" :to="to" class="border-gray-300 flex py-2 gap-2">
+  <Link :href="href" :to="to" class="border-gray-300 flex py-4 gap-2">
     <slot name="icon">
       <Icon v-if="icon" :name="icon" />
     </slot>
