@@ -16,6 +16,7 @@ const BookingSchema = new Schema<Model.Booking>({
   bookable: { type: String, required: true },
   description: { type: String },
   space: { type: String, required: true },
+  request: { type: Boolean, required: false },
 });
 
 export const name = 'bookings';
@@ -33,6 +34,8 @@ export default (app: Application): void => {
     before: {
       all: [softDelete],
       create: [preventInvalidDateRange, preventOverlappingBookings],
+      update: [],
+      patch: [],
     },
     after: {
       create: [sendBookingNotificationMail],

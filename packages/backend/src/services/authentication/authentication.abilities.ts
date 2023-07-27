@@ -87,7 +87,7 @@ const defineRulesFor = async (
     can('read', 'mapObjects', { space: { $in: spaceIdsUser } });
     can('read', 'bookables', { space: { $in: spaceIdsUser } });
     can(['create', 'update'], 'bookings', { bookedBy: user._id, space: { $in: spaceIdsUser } });
-    can('read', 'bookings', ['_id', 'start', 'end', 'bookable', 'space'], {
+    can('read', 'bookings', ['_id', 'start', 'end', 'bookable', 'space', 'request'], {
       bookedBy: { $ne: user._id },
       space: { $in: spaceIdsUser },
     });
@@ -123,7 +123,7 @@ const defineRulesFor = async (
     );
     can(['read', 'create', 'update', 'remove'], 'mapObjects', { space: { $in: spaceIdsAdmin } });
     can(['read', 'create', 'update', 'remove'], 'bookables', { space: { $in: spaceIdsAdmin } });
-    can('read', 'bookings', ['_id', 'start', 'end', 'bookable', 'space', 'bookedBy'], {
+    can('read', 'bookings', ['_id', 'start', 'end', 'bookable', 'space', 'bookedBy', 'request'], {
       bookedBy: { $ne: user._id },
       space: { $in: spaceIdsAdmin },
     });

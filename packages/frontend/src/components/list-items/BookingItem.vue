@@ -7,8 +7,11 @@
         }}</span>
         <span data-test="description" class="w-full text-sm truncate text-gray-500 italic">{{ space?.name }}</span>
       </div>
-      <div data-test="booking-duration" class="flex ml-3 text-gray-500 text-sm">
+      <div data-test="booking-duration" class="flex ml-3 text-gray-500 text-sm flex-col">
         {{ `${dayjs(booking.start).format('HH:mm')} - ${bookingEnd}` }}
+        <span v-if="booking?.request" class="italic text-gray-500 mt-2 flex mr-1 justify-end">{{
+          t('requested')
+        }}</span>
       </div>
     </div>
   </ListItem>

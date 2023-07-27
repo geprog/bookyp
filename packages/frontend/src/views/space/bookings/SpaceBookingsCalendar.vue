@@ -168,7 +168,7 @@ const calendarOptions = computed<CalendarOptions>(() => ({
 
       return <EventInput>{
         id: booking._id,
-        color: 'rgba(248, 113, 113, 1)',
+        color: booking.request ? 'rgba(255, 202, 40, 1)' : 'rgba(248, 113, 113, 1)',
         title: `${booking.bookable?.name || ''} - ${booking.user?.name || booking.user?.email || ''}`,
         start: dayjs(booking.start).toISOString(),
         end: dayjs(booking.end).toISOString(),

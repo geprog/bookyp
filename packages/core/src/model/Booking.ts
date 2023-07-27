@@ -10,6 +10,7 @@ export class Booking extends AbstractEntity {
   bookable!: Ref<Bookable>;
   description!: string;
   space!: Ref<Space>;
+  request?: boolean;
 
   constructor(data: Partial<Booking> = {}) {
     super();

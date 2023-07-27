@@ -38,6 +38,7 @@ const props = defineProps<{
   clickable?: boolean;
   mode: 'show-availability' | 'highlight';
   highlightedBookableId?: string;
+  isAdmin?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -46,6 +47,7 @@ const emit = defineEmits<{
 
 const mode = toRef(props, 'mode');
 const clickable = toRef(props, 'clickable');
+const isAdmin = toRef(props, 'isAdmin');
 const highlightedBookableId = toRef(props, 'highlightedBookableId');
 const spaceId = toRef(props, 'spaceId');
 
@@ -56,7 +58,7 @@ const { data: bookables } = useFind(
   computed(() => ({ paginate: false, query: { space: spaceId.value, $disableSoftDelete: true } })),
 );
 
-const { isFilterMatched, isBookedByMe } = useBookables(bookables);
+const { isFilterMatched, isBookedByMe, isRequested, isRequestedByMe } = useBookables(bookables);
 
 function clickOnMapObject(mapObject: Model.MapObject & { isClickable: boolean }) {
   if (mapObject.isClickable) {
@@ -70,7 +72,7 @@ function getMapObjectStyle(
   mapObject: Model.MapObject,
   _mode: 'show-availability' | 'highlight',
   isHighlighted: boolean,
-  availability: 'free' | 'occupied' | 'occupied-by-me' | null,
+  availability: 'free' | 'occupied' | 'occupied-by-me' | 'requested' | 'requested-by-me' | null,
   isLinkedToDeletedBookable: boolean,
 ) {
   // not linked
@@ -92,6 +94,13 @@ function getMapObjectStyle(
     if (mapObject.link.type === 'url') {
       return 'linked-to-url';
     }
+    if (availability === 'requested-by-me') {
+      return 'requested-by-me';
+    }
+
+    if (availability === 'requested' && isAdmin.value) {
+      return 'requested';
+    }
 
     if (availability === 'occupied-by-me') {
       return 'occupied-by-me';
@@ -110,6 +119,13 @@ function getMapObjectStyle(
 function getMapObjectAvailability(mapObject: Model.MapObject) {
   if (mapObject.link?.type !== 'bookable') {
     return null;
+  }
+  if (isRequestedByMe(mapObject.link?.bookable)) {
+    return 'requested-by-me';
+  }
+
+  if (isRequested(mapObject.link?.bookable)) {
+    return 'requested';
   }
 
   if (isBookedByMe(mapObject.link?.bookable)) {
@@ -135,7 +151,6 @@ const extendedMapObjects = computed(() =>
         ?.deleted === true; // TODO: remove after tightly coupling map-object and bookable
     const isClickable = !!clickable.value && !!mapObject.link && !isLinkedToDeletedBookable;
     const availability = mode.value === 'show-availability' ? getMapObjectAvailability(mapObject) : null;
-
     const style = getMapObjectStyle(mapObject, mode.value, isHighlighted, availability, isLinkedToDeletedBookable);
 
     return {
@@ -195,6 +210,15 @@ const extendedMapObjects = computed(() =>
 .map-object.occupied-by-me path {
   @apply stroke-primary-normal fill-red-background;
 }
+
+.map-object.requested-by-me path {
+  @apply stroke-primary-normal fill-primary-light filter drop-shadow-orangeGlow;
+}
+
+.map-object.requested path {
+  @apply stroke-black fill-primary-light;
+}
+
 .map-object.occupied-by-me:hover path {
   @apply stroke-red-text;
 }

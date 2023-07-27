@@ -11,7 +11,11 @@
 
   <AppContent class="flex-col">
     <div v-if="bookable" class="flex flex-col p-4 rounded-lg shadow-full bg-white m-4 gap-y-1">
-      <h2 class="text-md">{{ bookable?.name }}</h2>
+      <div class="flex justify-between">
+        <p :class="booking?.request ? 'italic text-gray-400' : 'bold'">{{ bookable?.name }}</p>
+        <p v-if="booking?.request" class="italic text-gray-400">{{ t('requested') }}</p>
+      </div>
+
       <p class="italic text-sm text-gray-500">{{ space?.name }}</p>
       <div v-if="booking" class="grid grid-cols-[auto,1fr] grid-rows-2 text-gray-500 text-sm gap-1">
         <span> {{ t('start') }}:</span><span>{{ dayjs(booking.start).format('ddd, DD. MMM. YYYY - HH:mm') }}</span>

@@ -210,6 +210,7 @@
   "super_admin": "💪 Super admin",
   "update_subscription": "Update subscription",
   "updated_subscription": "Updated subscription",
+  "requested": "Requested",
   "dangerous_super_admin_action": "⚠️⚠️⚠️ Super admin ⚠️⚠️⚠️",
   "dangerous_super_admin_action_description": "You are executing this action as super admin. Please only proceed if you know what you are doing!",
   "subscription_update_super_admin_description": "Here you can set the plan type and date until which it will be active as super admin. By changing the plan no one has to actually pay for it until someone upgrades / downgrades the plan through the normal payment process again."

@@ -44,7 +44,7 @@
             :key="booking._id"
             :to="{ name: 'account-booking', params: { bookingId: booking._id } }"
           >
-            <BookingItem :booking="booking" class="m-3" />
+            <BookingItem :booking="booking" class="m-3" :status-color="booking?.request ? 'bg-gray-200' : undefined" />
           </router-link>
         </div>
         <template v-if="Object.values(pastBookings).length > 0">
