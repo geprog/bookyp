@@ -1,13 +1,5 @@
 <template>
   <div class="fixed bottom-16 md:bottom-0 w-full flex justify-center items-end space-x-8 mb-4">
-    <ToggleBar
-      :selected="$route.name === 'bookables-map' ? 'start' : 'end'"
-      start-icon="map"
-      end-icon="apps-list"
-      @selected-start="$router.replace({ name: 'bookables-map' })"
-      @selected-end="$router.replace({ name: 'bookables-list' })"
-    />
-
     <HourControlButton v-if="!dateFilter.start && quickFilter" v-model:end-date="bookablesFilterEndDate" />
   </div>
 </template>
@@ -17,7 +9,6 @@ import dayjs from 'dayjs';
 import { computed, onMounted } from 'vue';
 
 import HourControlButton from '~/components/buttons/HourControlButton.vue';
-import ToggleBar from '~/components/buttons/ToggleBar.vue';
 import { ceilDate, useBookables } from '~/compositions/useBookables';
 
 const { dateFilter, quickFilter, quickFilterDiffMinutes } = useBookables();

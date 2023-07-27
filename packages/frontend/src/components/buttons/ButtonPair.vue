@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex h-12 w-24">
+    <div class="flex h-8 w-24">
       <button
         type="button"
         class="

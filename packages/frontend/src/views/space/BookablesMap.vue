@@ -1,5 +1,6 @@
 <template>
   <HomeHeader />
+  <ToolbarHeader action-for="bookables" />
   <ProgressIndicator v-if="isLoading" />
   <div v-else-if="mapObjectsExists" class="flex flex-col flex-grow min-h-0">
     <SpaceMap v-if="spaceId">
@@ -34,6 +35,7 @@ import { useRouter } from 'vue-router';
 import HomeHeader from '~/components/headers/HomeHeader.vue';
 import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import HomeActionButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
+import ToolbarHeader from '~/components/layout/toolbars/ToolbarHeader.vue';
 import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import FloorPlan from '~/components/space/map/FloorPlan.vue';
 import MapObjects from '~/components/space/map/MapObjects.vue';
