@@ -5,7 +5,7 @@ exports[`BookablesMap view > should render correctly 1`] = `
 <div class=\\"flex flex-col flex-grow min-h-0\\">
   <space-map-stub disablepanning=\\"false\\">
     <floor-plan-stub spaceid=\\"60f53bede6f8313dff7f99e0\\"></floor-plan-stub>
-    <map-objects-stub mode=\\"show-availability\\" spaceid=\\"60f53bede6f8313dff7f99e0\\" clickable=\\"true\\"></map-objects-stub>
+    <map-objects-stub mode=\\"show-availability\\" spaceid=\\"60f53bede6f8313dff7f99e0\\" clickable=\\"true\\" isadmin=\\"false\\"></map-objects-stub>
   </space-map-stub>
 </div>
 <home-action-buttons-stub></home-action-buttons-stub>

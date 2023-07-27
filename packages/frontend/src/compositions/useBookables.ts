@@ -30,9 +30,12 @@ export const useBookables = (
   combinedFilter: Ref<DateFilter>;
   bookablesWithFilterMatched: Ref<BookableWithFilterMatched[]>;
   userBookings: Ref<Model.Booking[]>;
+  allBookings: Ref<Model.Booking[]>;
   isFilterMatched: (bookableID?: Model.Ref<Model.Bookable>) => boolean | null;
   isBookedByMe: (bookableID?: Model.Ref<Model.Bookable>) => boolean;
   resetBookablesFilter: () => void;
+  isRequested: (bookableID?: Model.Ref<Model.Bookable>) => boolean;
+  isRequestedByMe: (bookableID?: Model.Ref<Model.Bookable>) => boolean;
 } => {
   const { dateFilter } = useDateFilter();
 
@@ -109,11 +112,29 @@ export const useBookables = (
     bookings.value?.filter((booking) => user.value?._id && booking.bookedBy === user.value?._id),
   );
 
+  const allBookings = computed(() =>
+    bookings.value?.filter((booking) => bookables?.value.map((bookable) => bookable._id).includes(booking.bookable)),
+  );
+
   function isBookedByMe(bookableID?: Model.Ref<Model.Bookable>): boolean {
     if (bookableID === undefined) {
       return false;
     }
     return userBookings.value.some((booking) => booking.bookable === bookableID);
+  }
+
+  function isRequestedByMe(bookableID?: Model.Ref<Model.Bookable>): boolean {
+    if (bookableID === undefined) {
+      return false;
+    }
+    return userBookings.value.some((booking) => booking.bookable === bookableID && booking.request);
+  }
+
+  function isRequested(bookableID?: Model.Ref<Model.Bookable>): boolean {
+    if (bookableID === undefined) {
+      return false;
+    }
+    return allBookings.value.some((booking) => booking.bookable === bookableID && booking.request);
   }
 
   function resetBookablesFilter() {
@@ -147,7 +168,10 @@ export const useBookables = (
     bookablesWithFilterMatched,
     isFilterMatched,
     userBookings,
+    allBookings,
     isBookedByMe,
     resetBookablesFilter,
+    isRequestedByMe,
+    isRequested,
   };
 };

@@ -24,12 +24,10 @@
         v-for="bookable in occupiedBookables"
         :key="bookable._id"
         :label="bookable.name"
-        status-color="bg-red-text"
+        :status-color="isRequested(bookable._id) ? 'bg-primary-normal' : 'bg-red-text'"
         :description="bookable.description"
         class="cursor-pointer my-3"
-        :class="{
-          'shadow-orange-glow border-1 border-primary-normal': isBookedByMe(bookable._id),
-        }"
+        :class="getBorderStyle(bookable._id)"
         @click="$router.push({ name: 'booking-create', params: { bookableId: bookable._id } })"
       />
     </div>
@@ -66,7 +64,7 @@ export default defineComponent({
       'bookables',
       computed(() => ({ paginate: false, query: { space: spaceId.value } })),
     );
-    const { bookablesWithFilterMatched, isBookedByMe } = useBookables(bookables);
+    const { bookablesWithFilterMatched, isBookedByMe, isRequested, isRequestedByMe } = useBookables(bookables);
 
     const availableBookables = computed(() =>
       bookablesWithFilterMatched.value.filter((bookable) => bookable.isFilterMatched),
@@ -76,13 +74,24 @@ export default defineComponent({
       bookablesWithFilterMatched.value.filter((bookable) => !bookable.isFilterMatched),
     );
 
+    function getBorderStyle(bookableID: string | undefined) {
+      if (isRequestedByMe(bookableID)) {
+        return `shadow-orange-glow border-2 border-primary-normal`;
+      }
+      if (isBookedByMe(bookableID)) {
+        return `shadow-orange-glow border-1 border-primary-normal`;
+      }
+      return undefined;
+    }
+
     return {
       t,
       bookablesWithFilterMatched,
       availableBookables,
       occupiedBookables,
-      isBookedByMe,
+      getBorderStyle,
       isLoading,
+      isRequested,
     };
   },
 });
