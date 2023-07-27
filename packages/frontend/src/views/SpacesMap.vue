@@ -2,6 +2,7 @@
   <SpacesListHeader />
 
   <div ref="map" class="w-full h-full" />
+  <ToolbarHeader action-for="spaces" />
   <div v-if="selectedSpace" class="fixed bottom-20 w-full">
     <router-link :to="{ name: 'space', params: { spaceId: selectedSpaceId } }" class="flex justify-center">
       <CardSmall
@@ -20,7 +21,7 @@
       </CardSmall>
     </router-link>
   </div>
-  <SpacesActionButtons v-else />
+
   <FooterMenu />
 </template>
 
@@ -37,7 +38,7 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import SpacesListHeader from '~/components/headers/SpacesListHeader.vue';
 import CardSmall from '~/components/layout/CardSmall.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
-import SpacesActionButtons from '~/components/layout/toolbars/SpacesActionButtons.vue';
+import ToolbarHeader from '~/components/layout/toolbars/ToolbarHeader.vue';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';
 import { useDateFilter } from '~/compositions/useDateFilter';
 import useFeathers from '~/compositions/useFeathers';

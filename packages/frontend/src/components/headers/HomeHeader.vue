@@ -1,29 +1,5 @@
 <template>
   <Header :title="title">
-    <div class="relative">
-      <span
-        v-if="appliedFilters > 0"
-        class="
-          absolute
-          left-4
-          top-0.5
-          bg-primary-normal
-          rounded-full
-          w-4
-          h-4
-          text-center text-xs text-white
-          cursor-pointer
-        "
-        @click="$router.push({ name: 'bookables-filter' })"
-        >{{ appliedFilters }}</span
-      >
-      <IconButton
-        icon="filter"
-        :class="{ 'text-primary-normal': appliedFilters }"
-        @click="$router.push({ name: 'bookables-filter' })"
-      />
-    </div>
-
     <IconButton
       data-test="button-account"
       icon="person"
@@ -70,7 +46,6 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { isSpaceAdmin } from '~/compositions/useAuthorization';
-import { useBookables } from '~/compositions/useBookables';
 
 const { t } = useI18n();
 
@@ -90,8 +65,4 @@ watch(
 );
 
 const title = computed(() => currentSpace.value?.name || t('bookyp').toUpperCase());
-
-const { dateFilter } = useBookables();
-
-const appliedFilters = computed(() => (dateFilter.value?.start ? 1 : 0));
 </script>

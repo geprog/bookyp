@@ -2,7 +2,7 @@
   <div
     class="
       flex
-      h-12
+      h-8
       w-24
       cursor-pointer
       focus:outline-transparent

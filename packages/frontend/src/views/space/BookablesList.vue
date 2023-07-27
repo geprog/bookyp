@@ -1,6 +1,7 @@
 <template>
   <HomeHeader />
 
+  <ToolbarHeader action-for="bookables" />
   <AppContent class="flex-col">
     <ProgressIndicator v-if="isLoading" />
     <div v-else-if="bookablesWithFilterMatched.length" class="pb-25">
@@ -46,6 +47,7 @@ import HomeHeader from '~/components/headers/HomeHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import HomeActionsButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
+import ToolbarHeader from '~/components/layout/toolbars/ToolbarHeader.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
@@ -55,7 +57,7 @@ import useFind from '~/compositions/useFind';
 export default defineComponent({
   name: 'BookablesList',
 
-  components: { HomeHeader, HomeActionsButtons, ListItem, ProgressIndicator, AppContent, FooterMenu },
+  components: { HomeHeader, HomeActionsButtons, ListItem, ProgressIndicator, AppContent, FooterMenu, ToolbarHeader },
 
   setup() {
     const { t } = useI18n();

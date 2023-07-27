@@ -1,6 +1,8 @@
 <template>
   <SpacesListHeader />
 
+  <ToolbarHeader action-for="spaces" />
+
   <AppContent class="flex-col">
     <div class="m-3 flex gap-2">
       <Button
@@ -70,7 +72,6 @@
       </div>
     </router-link>
   </AppContent>
-  <SpacesActionButtons />
   <FooterMenu />
 </template>
 
@@ -85,7 +86,7 @@ import IconButton from '~/components/buttons/IconButton.vue';
 import SpacesListHeader from '~/components/headers/SpacesListHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
-import SpacesActionButtons from '~/components/layout/toolbars/SpacesActionButtons.vue';
+import ToolbarHeader from '~/components/layout/toolbars/ToolbarHeader.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';
