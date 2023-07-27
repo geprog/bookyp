@@ -1,7 +1,8 @@
 import { Model } from '@bookyp/core';
-import { Ref, ref } from 'vue';
+import { computed, Ref, ref } from 'vue';
 
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import useFind from '~/compositions/useFind';
 
 export type MapObjectType = {
   name: string;
@@ -199,9 +200,26 @@ const defaultMapObjectTypes = [
   },
 ];
 
-export const mapObjectTypes = ref<MapObjectType[]>(defaultMapObjectTypes);
+export function getMapObjectTypes(spaceId: string | undefined): Ref<MapObjectType[]> {
+  if (!spaceId) {
+    return ref(defaultMapObjectTypes);
+  }
+  const { data: customMapObjectTypes } = useFind(
+    'mapObjectTypes',
+    computed(() => ({ query: { spaceId } })),
+  );
 
-const selectedMapObjectType = ref<MapObjectType>(mapObjectTypes.value[1]);
+  const mapObjectTypes = computed<MapObjectType[]>(() => [
+    ...defaultMapObjectTypes,
+    ...customMapObjectTypes.value.map((mapObjectType) => ({
+      name: mapObjectType.name,
+      viewBox: mapObjectType.viewBox,
+      paths: mapObjectType.paths,
+    })),
+  ]);
+
+  return mapObjectTypes;
+}
 
 type UseNewMapObject = {
   addMapObject: () => Promise<void>;
@@ -224,7 +242,7 @@ export default function useNewMapObject(
   selectMapObject: (id: string | null) => Promise<void>,
 ): UseNewMapObject {
   const { spaceId } = useCurrentSpace();
-
+  const selectedMapObjectType = ref<MapObjectType>(getMapObjectTypes(spaceId.value).value[1]);
   async function addMapObject() {
     if (!spaceId.value) {
       throw new Error('Unexpected: A space must be selected');

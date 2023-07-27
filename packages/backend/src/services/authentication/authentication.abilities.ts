@@ -90,6 +90,7 @@ const defineRulesFor = async (
 
     // admin access to spaces you are an admin of
     const spaceIdsAdmin = getSpaceIds('admin');
+    can(['read', 'create', 'remove'], 'mapObjectTypes', { spaceId: { $in: spaceIdsAdmin } });
     // this cannot rule ensures that admins work properly for public spaces
     cannot('read', 'spaces', userReadableSpaceProperties, {
       members: { $elemMatch: { role: 'admin', userId: user._id } },
