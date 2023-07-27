@@ -71,5 +71,8 @@ exports[`Icons > should contain all needed icons 1`] = `
   "logout",
   "close",
   "log-in",
+  "person-tentative",
+  "payment",
+  "pending-requests",
 ]
 `;

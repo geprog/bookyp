@@ -9,11 +9,7 @@
         <Icon name="info" />
         <span class="text-sm">{{ t('info') }}</span>
       </router-link>
-      <router-link
-        v-if="isAdmin"
-        :to="{ name: 'settings-space-map' }"
-        class="flex flex-col flex-grow items-center py-1.5 px-4"
-      >
+      <router-link v-if="isAdmin" :to="{ name: 'admin-area' }" class="flex flex-col flex-grow items-center py-1.5 px-4">
         <Icon name="admin" />
         <span class="text-sm">{{ t('roles.admin.name') }}</span>
       </router-link>

@@ -43,8 +43,11 @@ import MoreDotsHorizontalIcon from '~/assets/icons/more-dots-horizontal.svg';
 import OrderedListIcon from '~/assets/icons/ordered-list.svg';
 import PaperRollIcon from '~/assets/icons/paper-roll.svg';
 import PasswordIcon from '~/assets/icons/password.svg';
+import Payment from '~/assets/icons/payment.svg';
+import PendingRequests from '~/assets/icons/pending-requests.svg';
 import PeopleIcon from '~/assets/icons/people.svg';
 import PersonIcon from '~/assets/icons/person.svg';
+import PersonTentative from '~/assets/icons/person-tentative.svg';
 import PlayIcon from '~/assets/icons/play.svg';
 import PlusICon from '~/assets/icons/plus.svg';
 import ProgressIcon from '~/assets/icons/progress.svg';
@@ -138,6 +141,9 @@ const icons = {
   logout: LogOutIcon,
   close: CloseIcon,
   'log-in': LoginIcon,
+  'person-tentative': PersonTentative,
+  payment: Payment,
+  'pending-requests': PendingRequests,
 };
 
 export default icons;

@@ -36,7 +36,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('~/views/space/SpaceInfo.vue'),
         meta: { accessibleByUserRole: true, authentication: 'ignored' },
       },
-
+      {
+        path: 'adminArea',
+        name: 'admin-area',
+        component: () => import('~/views/space/AdminArea.vue'),
+        meta: { accessibleByUserRole: true, authentication: 'ignored' },
+      },
       {
         path: 'bookables/map',
         name: 'bookables-map',
