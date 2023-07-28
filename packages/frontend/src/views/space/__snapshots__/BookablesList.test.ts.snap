@@ -12,7 +12,7 @@ exports[`BookablesList component > should render correctly with filter 1`] = `
   </div>
 </app-content-stub>
 <home-actions-buttons-stub></home-actions-buttons-stub>
-<footer-menu-stub></footer-menu-stub>"
+<footer-menu-stub ismapspaces=\\"false\\"></footer-menu-stub>"
 `;
 
 exports[`BookablesList component > should render correctly without filter 1`] = `
@@ -27,5 +27,5 @@ exports[`BookablesList component > should render correctly without filter 1`] = 
   </div>
 </app-content-stub>
 <home-actions-buttons-stub></home-actions-buttons-stub>
-<footer-menu-stub></footer-menu-stub>"
+<footer-menu-stub ismapspaces=\\"false\\"></footer-menu-stub>"
 `;

@@ -15,7 +15,10 @@
       md:hidden
     "
   >
-    <router-link :to="{ name: 'spaces-list' }" class="flex flex-col flex-grow items-center py-1.5 px-4">
+    <router-link
+      :to="{ name: isMapSpaces ? 'spaces-map' : 'spaces-list' }"
+      class="flex flex-col flex-grow items-center py-1.5 px-4"
+    >
       <Icon name="magnifying-glass" />
       <span class="text-sm">{{ t('explore') }}</span>
     </router-link>
@@ -46,6 +49,10 @@ import { useI18n } from 'vue-i18n';
 import Icon from '~/components/Icon.vue';
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
+
+defineProps<{
+  isMapSpaces?: boolean;
+}>();
 
 const { t } = useI18n();
 

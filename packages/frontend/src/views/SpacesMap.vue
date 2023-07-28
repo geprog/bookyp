@@ -22,7 +22,7 @@
     </router-link>
   </div>
 
-  <FooterMenu />
+  <FooterMenu is-map-spaces />
 </template>
 
 <script lang="ts" setup>
