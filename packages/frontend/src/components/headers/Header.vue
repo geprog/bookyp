@@ -7,6 +7,7 @@
             v-if="backFallback"
             data-test="back-button"
             icon="arrow-left"
+            :disabled="disableFallback"
             @click="backFallback && back(backFallback)"
           />
           <BookypIcon
@@ -38,6 +39,7 @@ import { useBack } from '~/compositions/useBack';
 defineProps<{
   title: string;
   backFallback?: RouteLocationRaw;
+  disableFallback?: boolean;
 }>();
 
 const { back } = useBack();
