@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`Booking view > should render correctly 1`] = `
-"<header-stub title=\\"booking_details\\" backfallback=\\"[object Object]\\">
+"<header-stub title=\\"booking_details\\" backfallback=\\"[object Object]\\" disablefallback=\\"false\\">
   <!--v-if-->
 </header-stub>
 <app-content-stub class=\\"flex-col\\">

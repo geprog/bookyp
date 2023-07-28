@@ -1,9 +1,13 @@
 <template>
-  <Header :title="t('book_a_bookable', { bookable: bookable?.name })" :back-fallback="{ name: 'bookables-map' }">
-    <IconButton type="submit" form="booking" icon="check-mark" :disabled="isBookingOverlapping" />
+  <Header
+    :title="t('book_a_bookable', { bookable: bookable?.name })"
+    :back-fallback="{ name: 'bookables-map' }"
+    :disable-fallback="isDialogOpen"
+  >
+    <IconButton type="submit" form="booking" icon="check-mark" :disabled="isBookingOverlapping || isDialogOpen" />
   </Header>
 
-  <AppContent>
+  <AppContent class="z-0">
     <form id="booking" class="booking px-4 flex flex-col mb-2 flex-grow" @submit.prevent="submit">
       <LabelField icon-name="document-one-page">
         <TextField v-model="description" :rows="5" :placeholder="t('description')" />
@@ -42,6 +46,7 @@ import AppContent from '~/components/layout/AppContent.vue';
 import TextField from '~/components/TextField.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { useBookables } from '~/compositions/useBookables';
+import { openDialog } from '~/compositions/useDialog';
 import useFind from '~/compositions/useFind';
 
 const props = defineProps<{
@@ -52,6 +57,8 @@ const emit = defineEmits<{
   (event: 'update:booking', booking: Partial<Model.Booking>): void;
   (event: 'submit'): void;
 }>();
+
+const isDialogOpen = ref<boolean>(false);
 
 const { t } = useI18n();
 const router = useRouter();
@@ -98,10 +105,25 @@ const submit = async () => {
   emit('update:booking', { ...booking.value, start: start.value, end: end.value, description: description.value });
   resetBookablesFilter();
   if (currentSpace.value?.plan === 'public') {
-    await router.push({ name: 'booking-confirm' });
-  } else {
-    emit('submit');
+    isDialogOpen.value = true;
+
+    const dialogMessage = `${t('confirmation.confirm_booking_in_public_space')} ${t(
+      'confirmation.confirm_personal_data_warning',
+    )}`;
+    const dialogLabel = t('confirmation.confirm_a_bookable', { bookable: bookable.value?.name });
+
+    if (
+      !(await openDialog({
+        description: dialogMessage,
+        label: dialogLabel,
+      }))
+    ) {
+      isDialogOpen.value = false;
+      return;
+    }
   }
+  isDialogOpen.value = false;
+  emit('submit');
 };
 
 async function openBooking(bookingId: Model.Ref<Model.Booking>) {
