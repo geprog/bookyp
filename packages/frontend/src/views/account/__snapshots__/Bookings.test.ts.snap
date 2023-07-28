@@ -39,5 +39,5 @@ exports[`Bookings component > should render correctly 1`] = `
     </div>
   </div>
 </app-content-stub>
-<footer-menu-stub></footer-menu-stub>"
+<footer-menu-stub ismapspaces=\\"false\\"></footer-menu-stub>"
 `;
