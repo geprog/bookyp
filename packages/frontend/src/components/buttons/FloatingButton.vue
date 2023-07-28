@@ -16,8 +16,8 @@
     :disabled="disabled"
   >
     <slot>
-      <Icon v-if="icon" data-test="floating-button-icon" :name="icon" />
-      <p v-if="text" class="text-sm">{{ text }}</p>
+      <Icon v-if="icon" data-test="floating-button-icon" :name="icon" :color="selectedForegroundColor" />
+      <p v-if="text" :class="[{ 'pl-2': icon }, selectedForegroundColor]">{{ text }}</p>
     </slot>
   </button>
 </template>
@@ -34,8 +34,8 @@ const props = withDefaults(
     text?: string;
     stroke?: boolean;
     isSelected?: boolean;
-    backGroundColor?: 'orange' | 'gray' | 'white';
-    foregroundColor?: 'orange' | 'black' | 'white';
+    backGroundColor?: 'orange' | 'gray' | 'white' | 'red';
+    foregroundColor?: 'orange' | 'black' | 'white' | 'red';
   }>(),
   {
     icon: undefined,
@@ -55,18 +55,19 @@ const shadow = computed(() => (!stroke.value ? 'shadow-lg' : 'shadow-none'));
 const selectedBackgroundColor = computed(() => {
   let color = 'bg-yellow-500 hover:bg-primary-dark';
   if (stroke.value) {
+    color = 'bg-white';
     if (isSelected.value) {
-      return 'border border-yellow-500';
+      return `${color} border border-yellow-500`;
     }
     switch (backGroundColor.value) {
       case 'gray':
-        return 'border border-gray-200';
+        return `${color} border border-gray-200`;
       case 'orange':
-        return 'border border-yellow-500';
+        return `${color} border border-yellow-500`;
       case 'white':
-        return 'border border-white';
+        return `${color} border border-white`;
       default:
-        return 'border border-gray-400 ';
+        return `${color} border border-gray-400`;
     }
   }
   switch (backGroundColor.value) {
@@ -79,11 +80,20 @@ const selectedBackgroundColor = computed(() => {
     case 'white':
       color = 'bg-white';
       break;
+    case 'red':
+      color = 'bg-red-600';
   }
   return color;
 });
 
 const selectedForegroundColor = computed(() => {
+  if (stroke.value) {
+    if (isSelected.value) {
+      return 'text-primary-normal';
+    }
+    return 'text-black';
+  }
+
   if (foregroundColor.value) {
     switch (foregroundColor.value) {
       case 'orange':
@@ -92,15 +102,13 @@ const selectedForegroundColor = computed(() => {
         return 'text-white';
       case 'black':
         return 'text-gray-500';
+      case 'red':
+        return 'text-red-600';
+      default:
+        return foregroundColor.value;
     }
-    return foregroundColor.value;
   }
-  if (stroke.value && isSelected.value) {
-    return 'text-primary-normal';
-  }
-  if (stroke.value) {
-    return 'text-black';
-  }
+
   switch (backGroundColor.value) {
     case 'orange':
       return 'text-white';
@@ -108,7 +116,8 @@ const selectedForegroundColor = computed(() => {
       return 'text-gray-500';
     case 'white':
       return 'text-gray-900';
+    default:
+      return 'text-white';
   }
-  return 'text-white';
 });
 </script>

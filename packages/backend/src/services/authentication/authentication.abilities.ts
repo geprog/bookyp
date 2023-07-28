@@ -34,6 +34,8 @@ const defineRulesFor = async (
     'image',
     'coordinates',
     'importId',
+    'frequency',
+    'isUserMember',
   ];
   // read access public spaces for everyone (authorized and unauthorized)
   can('read', 'spaces', userReadableSpaceProperties, {
