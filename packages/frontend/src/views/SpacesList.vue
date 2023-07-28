@@ -19,6 +19,19 @@
         @click="createSampleSpace"
       />
     </div>
+    <div v-if="user && spaces.length > 0" class="flex flex-row justify-between px-3 overflow-x-auto scrollbar-hide">
+      <template v-for="button in categoryButtons" :key="button.category">
+        <FloatingButton
+          class="w-25 mr-1"
+          :is-selected="selectedCategory === button.category"
+          :text="button.label"
+          foreground-color="black"
+          back-ground-color="gray"
+          stroke
+          @click="selectedCategory = button.category"
+        />
+      </template>
+    </div>
     <ProgressIndicator v-if="isLoadingInvitations" />
     <template v-else-if="invitations.length > 0">
       <h2 class="m-3 font-bold">
@@ -79,17 +92,22 @@
         <span class="text-gray-500 overflow-hidden overflow-ellipsis line-clamp-3">{{ space.description }}</span>
       </div>
     </router-link>
+
+    <div v-if="sortedSpaces.length === 0" class="w-full h-4/5 flex items-center justify-center">
+      <span class="text-gray-400">{{ noSpaceMessage }}</span>
+    </div>
   </AppContent>
   <FooterMenu />
 </template>
 
 <script lang="ts" setup>
 import { Model } from '@bookyp/core';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import Button from '~/components/buttons/Button.vue';
+import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import SpacesListHeader from '~/components/headers/SpacesListHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
@@ -102,6 +120,7 @@ import MapObjects from '~/components/space/map/MapObjects.vue';
 import SpaceMap from '~/components/space/map/SpaceMap.vue';
 import getMapObjects from '~/compositions/space/useMapObjects';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';
+import { Category, useCategory } from '~/compositions/useCategories';
 import { useDateFilter } from '~/compositions/useDateFilter';
 import useFeathers from '~/compositions/useFeathers';
 import { useFeatureFlags } from '~/compositions/useFeatureFlags';
@@ -112,36 +131,98 @@ const feathers = useFeathers();
 const router = useRouter();
 
 const { dateFilter } = useDateFilter();
-const { data: spaces } = useFind(
+const { data: spaces, isLoading: loadingSpaces } = useFind(
   'spaces',
   computed(() => ({
     paginate: false,
-    query:
-      dateFilter.value.start && dateFilter.value.end
+    query: {
+      ...(dateFilter.value.start && dateFilter.value.end
         ? {
             $freeBookable: {
               start: dateFilter.value.start?.toISOString(),
               end: dateFilter.value.end?.toISOString(),
             },
           }
-        : undefined,
+        : {}),
+      $frequency: true,
+      $isUserMember: true,
+    },
   })),
+);
+
+const { selectedCategory } = useCategory();
+
+const categoryButtons: { category: Category; label: string }[] = [
+  { category: 'Frequent', label: t('space_list_categories.frequent') },
+  { category: 'Favorite', label: t('space_list_categories.favorite') },
+  { category: 'Personal', label: t('space_list_categories.personal') },
+  { category: 'All', label: t('space_list_categories.all') },
+];
+
+const noSpaceMessage = computed(() => {
+  let message = '';
+  switch (selectedCategory.value) {
+    case 'Personal':
+      message = t('empty_space_list_message.personal');
+      break;
+    case 'Frequent':
+      message = t('empty_space_list_message.frequent');
+      break;
+    case 'Favorite':
+      message = t('empty_space_list_message.favorite');
+      break;
+    default:
+      message = t('empty_space_list_message.all');
+      break;
+  }
+  return message;
+});
+
+watch(
+  loadingSpaces,
+  () => {
+    if (!loadingSpaces.value && spaces.value && user.value && !selectedCategory.value) {
+      selectedCategory.value = spaces.value.some((space) => space.frequency)
+        ? 'Frequent'
+        : user.value?.starredSpaces.length
+        ? 'Favorite'
+        : spaces.value.some((space) => space.isUserMember)
+        ? 'Personal'
+        : 'All';
+    }
+  },
+  { immediate: true },
 );
 
 // sort spaces by name and starred
 const sortedSpaces = computed(() => {
   const starredSpaces = user.value?.starredSpaces || [];
+
   return [...spaces.value]
     .map((space) => ({
       ...space,
       starred: user.value ? starredSpaces.includes(space._id) : undefined,
     }))
-    .sort((a, b) => {
-      if (a.starred && !b.starred) {
-        return -1;
+    .filter((space) => {
+      if (user.value) {
+        switch (selectedCategory.value) {
+          case 'Personal':
+            return space.isUserMember;
+          case 'Favorite':
+            return space.starred;
+          case 'Frequent':
+            return space.frequency !== undefined;
+          case 'All':
+            return true;
+        }
       }
-      if (!a.starred && b.starred) {
-        return 1;
+    })
+    .sort((a, b) => {
+      if (selectedCategory.value === 'Frequent') {
+        const diff = (b.frequency || 0) - (a.frequency || 0);
+        if (diff !== 0) {
+          return diff;
+        }
       }
       return a.name.localeCompare(b.name);
     });

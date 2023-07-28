@@ -6,6 +6,8 @@ import { feathersCaslAllowlist } from '~/casl';
 import softDelete from '~/hooks/softDelete';
 import { updateSpaceSubscription } from '~/lib/paymentsApi';
 
+import addFrequencyCount from './hooks/addFrequencyCount';
+import addIsUserMember from './hooks/addIsUserMember';
 import addSpaceMemberFields from './hooks/addSpaceMemberFields';
 import { applyFreeBookableFilter } from './hooks/applyFreeBookableFilter';
 import { cleanupUploadedFiles } from './hooks/cleanupUploadedFiles';
@@ -41,7 +43,7 @@ export const SpaceModel = model<Model.Space & Document>(name, SpaceSchema);
 export default (app: Application): void => {
   const options: Partial<MongooseServiceOptions> = {
     Model: SpaceModel,
-    whitelist: ['$elemMatch', '$exists', '$freeBookable', ...feathersCaslAllowlist],
+    whitelist: ['$elemMatch', '$exists', '$freeBookable', '$frequency', '$isUserMember', ...feathersCaslAllowlist],
   };
 
   app.use(name, new Service<Model.Space>(options));
@@ -51,7 +53,7 @@ export default (app: Application): void => {
       create: [removePlanFromCreate],
     },
     after: {
-      all: [addSpaceMemberFields, cleanupUploadedFiles],
+      all: [addSpaceMemberFields, cleanupUploadedFiles, addFrequencyCount, addIsUserMember],
       patch: [
         // update subscription if plan changed by super admin
         async (ctx) => {

@@ -3,6 +3,7 @@ import { defineConfig } from 'windicss/helpers';
 import plugin from 'windicss/plugin';
 import aspectRatio from 'windicss/plugin/aspect-ratio';
 import lineClamp from 'windicss/plugin/line-clamp';
+import scrollSnapPlugin from 'windicss/plugin/scroll-snap';
 import typography from 'windicss/plugin/typography';
 
 export default defineConfig({
@@ -51,6 +52,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    scrollSnapPlugin,
     typography(),
     plugin(({ addUtilities }) => {
       const newUtilities = {

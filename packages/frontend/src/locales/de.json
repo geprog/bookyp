@@ -34,6 +34,18 @@
     "click_map_object": "Karte",
     "list_of_spaces": "Raumliste"
   },
+  "space_list_categories": {
+    "frequent": "Häufig",
+    "favorite": "Favorit",
+    "all": "Alle",
+    "personal": "Persönlich"
+  },
+  "empty_space_list_message": {
+    "frequent": "Sie haben im letzten Monat keinen Platz gebucht",
+    "favorite": "Sie haben keine Leerzeichen markiert",
+    "personal": "Sie sind kein Mitglied eines Spaces",
+    "all": "Es sind keine Plätze für Sie verfügbar"
+  },
   "filter_bookables": "Filter für deinen Arbeitsplatz",
   "address": "Adresse",
   "link_map_objects": "z.B. https://www.example.com",

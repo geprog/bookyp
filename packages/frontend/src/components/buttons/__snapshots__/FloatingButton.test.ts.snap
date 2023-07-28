@@ -2,7 +2,7 @@
 
 exports[`FloatingButton component > should render correctly 1`] = `
 "<button type=\\"button\\" class=\\"flex items-center justify-center rounded-full p-3 h-8 cursor-pointer focus:outline-transparent disabled:bg-gray-background disabled:cursor-not-allowed bg-yellow-500 hover:bg-primary-dark text-white shadow-lg\\">
-  <icon-stub name=\\"settings\\" color=\\"\\" data-test=\\"floating-button-icon\\"></icon-stub>
+  <icon-stub name=\\"settings\\" color=\\"text-white\\" data-test=\\"floating-button-icon\\"></icon-stub>
   <!--v-if-->
 </button>"
 `;
