@@ -95,7 +95,7 @@
   "its_you": "Das bist du!",
   "roles": {
     "admin": {
-      "name": "Inhaber",
+      "name": "Admin",
       "description": "Kann den Raum sehen, buchen, die Karte bearbeiten und Mitglieder hinzufügen."
     },
     "user": {
