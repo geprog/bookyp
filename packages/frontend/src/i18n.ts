@@ -1,20 +1,21 @@
 import { useStorage } from '@vueuse/core';
+import { watch } from 'vue';
 import { createI18n } from 'vue-i18n';
 
 import messages from '~/locales';
 
-function getUserLanguage(): string {
-  const browserLocale = navigator.language.split('-')[0];
-  const selectedLocale = useStorage('bookyp.locale', browserLocale).value;
-
-  return selectedLocale;
-}
+const browserLocale = navigator.language.split('-')[0];
+export const userLanguage = useStorage('bookyp.locale', browserLocale);
 
 const i18n = createI18n({
   legacy: false,
-  locale: getUserLanguage(),
+  locale: userLanguage.value,
   fallbackLocale: 'en',
   messages,
+});
+
+watch(userLanguage, () => {
+  i18n.global.locale.value = userLanguage.value as 'de' | 'en';
 });
 
 export default i18n;

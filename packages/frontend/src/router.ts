@@ -238,6 +238,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('~/views/account/Booking.vue'),
         props: true,
       },
+      {
+        path: 'language',
+        name: 'account-language',
+        meta: { accessibleByUserRole: true },
+        component: () => import('~/views/account/SelectLanguage.vue'),
+      },
     ],
   },
   {

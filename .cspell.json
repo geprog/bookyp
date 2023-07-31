@@ -33,6 +33,8 @@
     "datepicker",
     "daygrid",
     "Dedupe",
+    "deutsch",
+    "Deutsch",
     "devcontainer",
     "devcontainers",
     "dnschallenge",
@@ -164,7 +166,9 @@
         "Passwort",
         "Businessplan",
         "Adresszeile",
-        "loslassen"
+        "loslassen",
+        "Deutsch",
+        "deutsch"
       ]
     }
   ]

@@ -193,6 +193,10 @@
     "using_bookyp": "By using Bookyp you are agreeing to our {0}",
     "terms_and_conditions": "Terms and Conditions"
   },
+  "languages": {
+    "english": "English",
+    "deutsch": "Deutsch"
+  },
   "claim_space": "Claim this space",
   "not_found": "You're lost!",
   "site_not_exist": "This site doesn't exist.",
@@ -207,6 +211,7 @@
   "terms_of_service": "Terms of Service",
   "account_information": "Account Information",
   "change_password": "Change Password",
+  "language": "Language",
   "get_help": "Get help",
   "give_us_feedback": "Give us feedback",
   "logout": "Log out",
