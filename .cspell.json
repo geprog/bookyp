@@ -150,7 +150,8 @@
     "packages/native/fastlane/README.md",
     "Gemfile",
     "packages/native/fastlane/metadata/android/de-DE/**/*",
-    ".cspell.json"
+    ".cspell.json",
+    "lassie.json"
   ],
   "enableFiletypes": ["ruby"],
   "overrides": [
