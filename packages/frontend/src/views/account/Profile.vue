@@ -34,6 +34,7 @@
       href="https://auth.geprog.com/auth/realms/bookyp/account/#/security/signingin"
       :title="t('change_password')"
     />
+    <MenuItem icon="language" :to="{ name: 'account-language' }" :title="t('language')" />
 
     <MenuItem class="border-t-1 border-gray-500 flex" icon="help" :href="mailToGetHelp" :title="t('get_help')" />
     <MenuItem icon="feedback" :href="mailToGiveFeedback" :title="t('give_us_feedback')" />

@@ -191,6 +191,10 @@
     "using_bookyp": "Durch die Nutzung von Bookyp stimmst du unserem {0} zu.",
     "terms_and_conditions": "Geschäftsbedingungen"
   },
+  "languages": {
+    "english": "English",
+    "deutsch": "Deutsch"
+  },
   "claim_space": "Diesen Raum beanspruchen",
   "not_found": "Du hast dich verlaufen.",
   "site_not_exist": "Diese Seite existiert nicht.",
@@ -205,6 +209,7 @@
   "terms_of_service": "Nutzungsbedingungen",
   "account_information": "Kontoinformationen",
   "change_password": "Passwort ändern",
+  "language": "Sprache",
   "get_help": "Nach Hilfe fragen",
   "give_us_feedback": "Feedback geben",
   "logout": "Abmelden",

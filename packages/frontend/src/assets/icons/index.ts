@@ -30,6 +30,7 @@ import HomeIcon from '~/assets/icons/home.svg';
 import ImageIcon from '~/assets/icons/image.svg';
 import InfoIcon from '~/assets/icons/info.svg';
 import ItalicIcon from '~/assets/icons/italic.svg';
+import Language from '~/assets/icons/language.svg';
 import LinkIcon from '~/assets/icons/link.svg';
 import LocationIcon from '~/assets/icons/location.svg';
 import LockIcon from '~/assets/icons/lock.svg';
@@ -139,6 +140,7 @@ const icons = {
   logout: LogOutIcon,
   close: CloseIcon,
   'log-in': LoginIcon,
+  language: Language,
   'person-tentative': PersonTentative,
   payment: Payment,
   'pending-requests': PendingRequests,
