@@ -5,7 +5,20 @@
       "neededLabels": ["Status:: 👀 Ready for Review"],
       "neededApprovals": [
         {
-          "users": ["a.bracke", "l.hass", "r.schwinger", "m.heine", "m.das"],
+          "label": "*",
+          "users": [
+            "a.bracke",
+            "l.hass",
+            "m.heine",
+            "m.das",
+            "a.alamin",
+            "s.zia",
+            "h.mathavan",
+            "a.vaishnav",
+            "t.stier",
+            "j.schoenfeld",
+            "m.bakir"
+          ],
           "atLeast": 1
         },
         {
