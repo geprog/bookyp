@@ -56,6 +56,19 @@ Um die Buchung zu sehen, klicke hier: {{ bookingLink }}
 
 Dein Bookyp-Team
 `);
+
+const spaceBookingRequestAdminMailTemplate = handlebars.compile(`
+Moin!
+
+"{{ user }}" hat den Tisch "{{ table }}" in deinem Space "{{ space }}" von {{ start }} bis {{ end }} angefragt.
+
+Um die Anfrage zu sehen, klicke hier: {{ bookingLink }}.
+
+Du kannst die Anfrage dort akzeptieren oder ablehnen.
+
+Dein Bookyp-Team
+
+`);
 /* spell-checker: enable */
 
 export async function sendSpaceInvitationMail(space: Model.Space, email: string, admin: Model.Member): Promise<void> {
@@ -84,7 +97,7 @@ export async function sendSpaceInvitationMail(space: Model.Space, email: string,
   }
 }
 
-export async function sendBookingNotificationToAdminMail(
+export async function sendNotificationToAdminMail(
   space: Model.Space,
   email: string,
   user: Model.User,
@@ -113,7 +126,8 @@ export async function sendBookingNotificationToAdminMail(
   }
 
   const bookingLink = `${frontendUrl}/account/booking/${booking._id}`;
-  const text = spaceBookingAdminMailTemplate({
+
+  const emailParameters = {
     space: space.name,
     user: user.name,
     table: currentBookable.name,
@@ -121,15 +135,19 @@ export async function sendBookingNotificationToAdminMail(
     end,
     bookingLink,
     email,
-  });
+  };
+
+  const emailMessage = booking.request
+    ? spaceBookingRequestAdminMailTemplate(emailParameters)
+    : spaceBookingAdminMailTemplate(emailParameters);
 
   try {
     await transporter.sendMail({
       from: config().mail.from,
       to: email,
       // cspell:disable-next-line
-      subject: `Neue Buchung in "${space.name}"`,
-      text,
+      subject: `Neue ${booking.request ? 'Buchungsanfrage' : 'Buchung'} in "${space.name}"`,
+      text: emailMessage,
     });
   } catch (error) {
     // eslint-disable-next-line no-console

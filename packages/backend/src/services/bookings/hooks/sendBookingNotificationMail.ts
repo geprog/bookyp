@@ -2,9 +2,9 @@ import { Application, Model } from '@bookyp/core';
 import { AdapterService } from '@feathersjs/adapter-commons';
 import { HookContext } from '@feathersjs/feathers';
 
-import { sendBookingNotificationToAdminMail as _sendBookingNotificationToAdminMail } from '~/mail';
+import { sendNotificationToAdminMail as _sendNotificationToAdminMail } from '~/mail';
 
-async function sendBookingNotificationToAdminMail(
+async function sendNotificationToAdminMail(
   bookings: Model.Booking[],
   context: HookContext<Application, AdapterService<Model.Booking>>,
 ) {
@@ -26,7 +26,7 @@ async function sendBookingNotificationToAdminMail(
       return;
     }
 
-    await _sendBookingNotificationToAdminMail(space, email, user, currentBookable, booking);
+    await _sendNotificationToAdminMail(space, email, user, currentBookable, booking);
   }
 }
 
@@ -42,7 +42,7 @@ export async function sendBookingNotificationMail(
   const bookings = Array.isArray(bookingsData) ? bookingsData : [bookingsData as Model.Booking];
 
   // don't await to send emails in background
-  void sendBookingNotificationToAdminMail(bookings, context);
+  void sendNotificationToAdminMail(bookings, context);
 
   return context;
 }
