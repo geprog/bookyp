@@ -1,0 +1,4 @@
+- german translation
+- old bookings are now shown
+- space map as thumbnail in spaces list
+- new space admin view
