@@ -1,0 +1,4 @@
+- deutsche Übersetzung
+- alte Buchungen sichtbar
+- Raumplan als Bild in der Raumliste
+- neue Raumadministrationsansicht
