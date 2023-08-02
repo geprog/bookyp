@@ -166,10 +166,16 @@ const calendarOptions = computed<CalendarOptions>(() => ({
         classNames.push('filter', 'drop-shadow-orangeGlow');
       }
 
+      const bookedByName = booking.user?.name || booking.user?.email || '';
+      const adminName = user.value?.name || user.value?.email || '';
+      const title = `${booking.bookable?.name || ''} - ${
+        booking.bookedBy === user.value?._id ? adminName : bookedByName
+      }`;
+
       return <EventInput>{
         id: booking._id,
-        color: booking.request ? 'rgba(255, 202, 40, 1)' : 'rgba(248, 113, 113, 1)',
-        title: `${booking.bookable?.name || ''} - ${booking.user?.name || booking.user?.email || ''}`,
+        color: 'rgba(248, 113, 113, 1)',
+        title, // defined above
         start: dayjs(booking.start).toISOString(),
         end: dayjs(booking.end).toISOString(),
         classNames,
