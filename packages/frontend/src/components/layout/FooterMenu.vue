@@ -26,7 +26,7 @@
       <div class="relative">
         <div
           v-if="ongoingBookings"
-          class="absolute top-0 right-0 bg-primary-dark h-3 w-3 rounded-full block flex-shrink-0"
+          class="absolute top-0 right-[-10px] bg-primary-dark h-3 w-3 rounded-full block flex-shrink-0"
         />
         <Icon name="ticket" />
       </div>
