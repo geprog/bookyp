@@ -17,6 +17,7 @@ const BookingSchema = new Schema<Model.Booking>({
   description: { type: String },
   space: { type: String, required: true },
   request: { type: Boolean, required: false },
+  deleted: { type: Boolean },
 });
 
 export const name = 'bookings';
