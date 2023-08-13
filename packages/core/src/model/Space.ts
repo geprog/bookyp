@@ -37,6 +37,7 @@ export class Space extends AbstractEntity {
   image?: string;
   coordinates?: { lng: number; lat: number } | null;
   importId?: string;
+  isPublic?: boolean;
   frequency?: number;
   isUserMember?: boolean;
 

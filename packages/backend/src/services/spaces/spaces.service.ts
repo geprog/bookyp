@@ -34,6 +34,7 @@ const SpaceSchema = new Schema<Model.Space>({
   deleted: { type: Boolean },
   coordinates: { lng: Number, lat: Number },
   importId: { type: String },
+  isPublic: { type: Boolean },
 });
 
 export const name = 'spaces';

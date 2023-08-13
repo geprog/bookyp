@@ -1,8 +1,22 @@
 <template>
-  <form v-if="space" id="space" data-test="form" class="space w-full" @submit.prevent="$emit('save')">
+  <form v-if="space" id="space" data-test="form" class="space w-full" @submit.prevent="$emit('save', space)">
     <LabelField icon-name="home">
       <TextField v-model="spaceCreate.name" data-test="form-name" :placeholder="t('name')" required />
     </LabelField>
+    <RadioButton
+      :name="t('scope.public')"
+      :value="spaceCreate.isPublic === true"
+      :hint="t('scope.public_space_hint')"
+      class="py-4"
+      @update-value="spaceCreate.isPublic = true"
+    />
+    <RadioButton
+      :name="t('scope.private')"
+      :value="spaceCreate.isPublic === false"
+      :hint="t('scope.private_space_hint')"
+      class="pb-4"
+      @update-value="spaceCreate.isPublic = false"
+    />
     <template v-if="!create">
       <LabelField icon-name="location">
         <TextField v-model="spaceCreate.address" :rows="5" data-test="form-address" :placeholder="t('address')" />
@@ -82,6 +96,7 @@ import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import Icon from '~/components/Icon.vue';
 import LabelField from '~/components/LabelField.vue';
 import MarkdownEditor from '~/components/markdown/MarkdownEditor.vue';
+import RadioButton from '~/components/RadioButton.vue';
 import TextField from '~/components/TextField.vue';
 import useFeathers from '~/compositions/useFeathers';
 import { useMap } from '~/compositions/useMap';
@@ -93,7 +108,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (event: 'update:space', _space: Partial<Model.Space>): void;
-  (event: 'save'): void;
+  (event: 'save', space: Model.Space): void;
 }>();
 
 const { t } = useI18n();
@@ -147,6 +162,14 @@ const spaceCreate = reactive({
     },
     set(image?: string) {
       emit('update:space', { ...space.value, image });
+    },
+  }),
+  isPublic: computed({
+    get() {
+      return space.value.isPublic;
+    },
+    set(isPublic?: boolean) {
+      emit('update:space', { ...space.value, isPublic });
     },
   }),
 });
