@@ -105,6 +105,12 @@
     }
   },
   "booking_drag": "Drag on the calendar to change the time",
+  "scope": {
+    "public": "Public space",
+    "private": "Private space",
+    "public_space_hint": "Every user of Bookyp can see your space.",
+    "private_space_hint": "Only the users you have invited can see your space."
+  },
   "subscription": {
     "subscription": "Subscription",
     "plans": "Plans",

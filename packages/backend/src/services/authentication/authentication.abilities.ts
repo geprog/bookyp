@@ -17,7 +17,7 @@ const defineRulesFor = async (
   }
 
   const publicSpaces = (await app.service('spaces').find({
-    query: { plan: 'public' },
+    query: { isPublic: true },
     paginate: false,
   })) as Model.Space[];
 
@@ -39,7 +39,7 @@ const defineRulesFor = async (
   ];
   // read access public spaces for everyone (authorized and unauthorized)
   can('read', 'spaces', userReadableSpaceProperties, {
-    plan: 'public',
+    isPublic: true,
   });
   can('read', 'mapObjects', { space: { $in: publicSpaceIds } });
   can('read', 'bookables', { space: { $in: publicSpaceIds } });
@@ -101,7 +101,7 @@ const defineRulesFor = async (
     // this cannot rule ensures that admins work properly for public spaces
     cannot('read', 'spaces', userReadableSpaceProperties, {
       members: { $elemMatch: { role: 'admin', userId: user._id } },
-      plan: 'public',
+      isPublic: true,
     });
     can(['read', 'delete'], 'spaces', { members: { $elemMatch: { role: 'admin', userId: user._id } } });
     can(

@@ -28,6 +28,7 @@ const space = ref<Partial<Model.Space>>({
   description: '',
   address: '',
   name: '',
+  isPublic: true,
 });
 
 const saveSpace = async () => {
