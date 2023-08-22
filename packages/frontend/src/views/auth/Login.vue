@@ -1,35 +1,35 @@
 <template>
-  <div class="h-full max-h-xl m-auto flex flex-col">
-    <div class="mt-8 flex flex-col items-center">
-      <h1 class="text-center text-3xl">{{ t('bookyp').toUpperCase() }}</h1>
-      <p class="mt-4 text-center">{{ t('bookyp_name') }}</p>
-    </div>
+  <header class="z-10 fixed top-0 bg-white w-full h-14 shadow-md flex justify-center">
+    <LoginHeader />
+  </header>
 
-    <div class="flex my-auto justify-center">
-      <img class="w-48 h-auto ml-8" src="/src/assets/img/bookyp-logo.svg?url" />
-    </div>
+  <AppContent class="flex-col">
+    <div class="flex flex-col items-center pt-6">
+      <img src="/src/assets/img/bookyp-new-logo.svg?url" class="w-29 h-17" />
 
-    <div class="mb-8 flex justify-center">
-      <img class="w-24 h-auto" src="/src/assets/img/geprog-logo.svg?url" />
+      <div class="flex items-center gap-8 text-sm p-4">
+        <router-link :to="{ name: 'auth-login' }" class="text-black">
+          <FloatingButton icon="log-in" text="Log in" back-ground-color="orange" @click="redirectToLogin" />
+        </router-link>
+
+        <router-link :to="{ name: 'auth-login' }" class="text-black">
+          <FloatingButton icon="signature" text="Sign up" back-ground-color="orange" />
+        </router-link>
+      </div>
     </div>
-  </div>
+  </AppContent>
+  <FooterMenu />
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { getEnvConfig } from '@geprog/vite-plugin-env-config';
-import { defineComponent, onMounted } from 'vue';
-import { useI18n } from 'vue-i18n';
 
-export default defineComponent({
-  name: 'Login',
-  setup() {
-    const { t } = useI18n();
+import FloatingButton from '~/components/buttons/FloatingButton.vue';
+import LoginHeader from '~/components/headers/LoginHeader.vue';
+import AppContent from '~/components/layout/AppContent.vue';
+import FooterMenu from '~/components/layout/FooterMenu.vue';
 
-    onMounted(() => {
-      window.location.href = `${getEnvConfig('FRONTEND_BACKEND_URL') || ''}/oauth/keycloak?redirect=auth/callback`;
-    });
-
-    return { t };
-  },
-});
+function redirectToLogin() {
+  window.location.href = `${getEnvConfig('FRONTEND_BACKEND_URL') || ''}/oauth/keycloak?redirect=auth/callback`;
+}
 </script>
