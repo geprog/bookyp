@@ -266,6 +266,12 @@ const routes: RouteRecordRaw[] = [
     component: () => import('~/views/SpacesFilter.vue'),
   },
   {
+    path: '/auth/onboarding',
+    name: 'onboarding',
+    meta: { authentication: 'unauthenticated-only' },
+    component: () => import('~/views/Onboarding.vue'),
+  },
+  {
     path: '/auth/callback',
     name: 'auth-callback',
     meta: { authentication: 'unauthenticated-only' },

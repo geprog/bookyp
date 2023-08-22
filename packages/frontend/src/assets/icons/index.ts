@@ -58,6 +58,7 @@ import Save from '~/assets/icons/save.svg';
 import SendIcon from '~/assets/icons/send.svg';
 import SettingsIcon from '~/assets/icons/settings.svg';
 import SignOutIcon from '~/assets/icons/sign-out.svg';
+import Signature from '~/assets/icons/signature.svg';
 import StarIcon from '~/assets/icons/star.svg';
 import FilledStarIcon from '~/assets/icons/star-filled.svg';
 import StopIcon from '~/assets/icons/stop.svg';
@@ -110,6 +111,7 @@ const icons = {
   location: LocationIcon,
   email: Email,
   save: Save,
+  signature: Signature,
   send: SendIcon,
   'task-list': TaskListIcon,
   'text-box': TextBoxIcon,
