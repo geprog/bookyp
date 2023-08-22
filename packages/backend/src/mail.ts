@@ -76,7 +76,7 @@ export async function sendSpaceInvitationMail(space: Model.Space, email: string,
     return;
   }
 
-  const invitationLink = `${config().app.frontendUrl || ''}/auth/onboarding`;
+  const invitationLink = `${config().app.frontendUrl || ''}/auth/login`;
   const text = invitationMailTemplate({
     space: space.name,
     invitationLink,

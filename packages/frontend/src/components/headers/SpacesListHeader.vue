@@ -13,7 +13,7 @@
       <IconButton icon="sign-out" class="hidden md:block" @click="logout" />
     </template>
 
-    <router-link v-else :to="{ name: 'onboarding' }" class="flex items-center gap-1">
+    <router-link v-else :to="{ name: 'auth-login' }" class="flex items-center gap-1">
       <span class="text-md">{{ $t('login_without_space') }}</span>
       <Icon name="log-in" />
     </router-link>
