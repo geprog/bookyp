@@ -1,9 +1,8 @@
 <template>
-  <Header :title="t('filter_spaces')">
-    <template #start>
-      <IconButton icon="dismiss" @click="$router.back()" />
+  <Header :title="t('filter_spaces')" :back-fallback="{ name: 'spaces-list' }">
+    <template #right>
+      <IconButton type="submit" form="filterBookablesForm" icon="check-mark" />
     </template>
-    <IconButton type="submit" form="filterBookablesForm" icon="check-mark" />
   </Header>
 
   <AppContent>

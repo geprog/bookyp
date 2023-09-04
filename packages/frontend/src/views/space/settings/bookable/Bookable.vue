@@ -3,13 +3,15 @@
     :title="t('bookable_details', { bookable: bookable && bookable.name })"
     :back-fallback="{ name: 'settings-bookables' }"
   >
-    <IconButton
-      data-test="delete-button"
-      icon="delete"
-      icon-color="text-red-text hover:text-red-background"
-      @click="deleteBookable"
-    />
-    <IconButton type="submit" form="bookable" icon="check-mark" />
+    <template #right>
+      <IconButton
+        data-test="delete-button"
+        icon="delete"
+        icon-color="text-red-text hover:text-red-background"
+        @click="deleteBookable"
+      />
+      <IconButton type="submit" form="bookable" icon="check-mark" />
+    </template>
   </Header>
   <AppContent>
     <BookableForm v-if="bookable" v-model:bookable="bookable" data-test="bookable-form" @save="saveBookable" />

@@ -3,7 +3,7 @@
 
   <ToolbarHeader action-for="spaces" />
 
-  <AppContent class="flex-col">
+  <AppContent class="flex-col mt-26">
     <div class="m-3 flex gap-2">
       <Button
         :aria-label="t('space_create')"

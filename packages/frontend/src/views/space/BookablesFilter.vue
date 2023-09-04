@@ -1,9 +1,8 @@
 <template>
-  <Header :title="t('filter_bookables')">
-    <template #start>
-      <IconButton icon="dismiss" @click="back({ name: 'bookables-map' })" />
+  <Header :title="t('filter_bookables')" :back-fallback="{ name: 'bookables-map' }">
+    <template #right>
+      <IconButton type="submit" form="filterBookablesForm" icon="check-mark" />
     </template>
-    <IconButton type="submit" form="filterBookablesForm" icon="check-mark" />
   </Header>
   <AppContent>
     <form id="filterBookablesForm" class="my-2 flex flex-col flex-grow" @submit.prevent="submitBookablesFilter">

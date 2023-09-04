@@ -4,7 +4,9 @@
     :back-fallback="{ name: 'bookables-map' }"
     :disable-fallback="isDialogOpen"
   >
-    <IconButton type="submit" form="booking" icon="check-mark" :disabled="isBookingOverlapping || isDialogOpen" />
+    <template #right>
+      <IconButton type="submit" form="booking" icon="check-mark" :disabled="isBookingOverlapping || isDialogOpen" />
+    </template>
   </Header>
 
   <AppContent class="z-0">

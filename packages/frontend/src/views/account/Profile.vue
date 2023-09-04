@@ -1,22 +1,8 @@
 <template>
-  <header class="z-10 fixed top-0 bg-white w-full h-14 shadow-md flex justify-center">
-    <div class="w-full h-full max-w-5xl">
-      <div class="flex h-full items-center p-2 content-center">
-        <IconButton icon="close" div @click="$router.replace({ name: 'spaces-list' })" />
-        <h1 class="ml-2 mr-auto font-medium whitespace-nowrap overflow-hidden overflow-ellipsis">
-          {{ t('profile') }}
-        </h1>
-        <div class="flex space-x-2">
-          <img src="/src/assets/img/bookyp-new-logo.svg?url" />
-        </div>
-      </div>
-    </div>
-  </header>
+  <Header :title="t('profile')" :back-fallback="{ name: 'spaces-list' }" />
 
   <AppContent class="!px-4 flex-col">
-    <div
-      class="flex items-center p-4 mt-18 border-2 shadow-full text-center rounded-md gap-3 sm:max-w-3xl <sm:max-w-3xl"
-    >
+    <div class="flex items-center p-4 border-2 shadow-full text-center rounded-md gap-3 sm:max-w-3xl <sm:max-w-3xl">
       <div class="bg-gray-300 w-12 h-12 rounded-1/2 flex items-center">
         <Icon class="ml-3" name="person" />
       </div>
@@ -62,7 +48,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 
-import IconButton from '~/components/buttons/IconButton.vue';
+import Header from '~/components/headers/Header.vue';
 import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';

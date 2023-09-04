@@ -1,38 +1,35 @@
 <template>
   <header class="z-10 fixed top-0 bg-white w-full h-14 shadow-md flex justify-center">
-    <div class="w-full h-full max-w-5xl">
-      <div class="flex h-full items-center p-2 content-center">
-        <slot name="start">
-          <IconButton
-            v-if="backFallback"
-            data-test="back-button"
-            icon="arrow-left"
-            :disabled="disableFallback"
-            @click="backFallback && back(backFallback)"
-          />
-          <BookypIcon
-            v-else
-            class="cursor-pointer flex-shrink-0 w-6 h-6"
-            @click="$router.push({ name: 'spaces-list' })"
-          />
-        </slot>
-        <h1 class="ml-2 mr-auto font-medium whitespace-nowrap overflow-hidden overflow-ellipsis">
-          {{ title }}
-        </h1>
-        <div class="flex space-x-2 items-center">
-          <slot />
-        </div>
+    <div
+      class="flex w-full h-full items-center justify-between p-2 max-w-5xl"
+      :class="{ 'justify-end': !backFallback || !title }"
+    >
+      <div class="flex items-center basis-full">
+        <IconButton
+          v-if="backFallback"
+          data-test="back-button"
+          icon="dismiss"
+          :disabled="disableFallback"
+          @click="backFallback && back(backFallback)"
+        />
+        <span v-if="title" class="line-clamp-1">{{ title }}</span>
       </div>
-      <slot name="second" />
+      <BookypIcon
+        class="cursor-pointer flex-shrink-0 w-auto h-8 justify-center"
+        @click="$router.push({ name: 'spaces-list' })"
+      />
+      <div v-if="slot.right" class="flex space-x-2 items-center justify-end basis-full" :class="rightClass">
+        <slot name="right" />
+      </div>
     </div>
   </header>
-  <div class="w-full h-14 flex-shrink-0" />
 </template>
 
 <script lang="ts" setup>
+import { useSlots } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
 
-import BookypIcon from '~/assets/img/bookyp-logo.svg?component';
+import BookypIcon from '~/assets/img/bookyp-logo-text.svg?component';
 import IconButton from '~/components/buttons/IconButton.vue';
 import { useBack } from '~/compositions/useBack';
 
@@ -40,7 +37,10 @@ defineProps<{
   title: string;
   backFallback?: RouteLocationRaw;
   disableFallback?: boolean;
+  rightClass?: string;
 }>();
 
 const { back } = useBack();
+
+const slot = useSlots();
 </script>

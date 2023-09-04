@@ -2,13 +2,12 @@
 
 exports[`Header component > should render correctly 1`] = `
 "<header class=\\"z-10 fixed top-0 bg-white w-full h-14 shadow-md flex justify-center\\">
-  <div class=\\"w-full h-full max-w-5xl\\">
-    <div class=\\"flex h-full items-center p-2 content-center\\">
-      <anonymous-stub class=\\"cursor-pointer flex-shrink-0 w-6 h-6\\"></anonymous-stub>
-      <h1 class=\\"ml-2 mr-auto font-medium whitespace-nowrap overflow-hidden overflow-ellipsis\\">Home</h1>
-      <div class=\\"flex space-x-2 items-center\\"></div>
+  <div class=\\"flex w-full h-full items-center justify-between p-2 max-w-5xl justify-end\\">
+    <div class=\\"flex items-center basis-full\\">
+      <!--v-if--><span class=\\"line-clamp-1\\">Home</span>
     </div>
+    <anonymous-stub class=\\"cursor-pointer flex-shrink-0 w-auto h-8 justify-center\\"></anonymous-stub>
+    <!--v-if-->
   </div>
-</header>
-<div class=\\"w-full h-14 flex-shrink-0\\"></div>"
+</header>"
 `;

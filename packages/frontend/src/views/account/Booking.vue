@@ -1,12 +1,14 @@
 <template>
   <Header :title="t('booking_details')" :back-fallback="{ name: 'account-bookings' }">
-    <IconButton
-      v-if="booking?.bookedBy === user?._id"
-      data-test="delete-button"
-      icon="delete"
-      icon-color="text-red-text hover:text-red-background"
-      @click="deleteBooking"
-    />
+    <template #right>
+      <IconButton
+        v-if="booking?.bookedBy === user?._id"
+        data-test="delete-button"
+        icon="delete"
+        icon-color="text-red-text hover:text-red-background"
+        @click="deleteBooking"
+      />
+    </template>
   </Header>
 
   <AppContent class="flex-col">

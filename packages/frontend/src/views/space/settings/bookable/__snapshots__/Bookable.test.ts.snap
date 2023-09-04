@@ -1,10 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`Bookable view > should render correctly 1`] = `
-"<header-stub title=\\"bookable_details\\" backfallback=\\"[object Object]\\" disablefallback=\\"false\\">
-  <icon-button-stub icon=\\"delete\\" iconcolor=\\"text-red-text hover:text-red-background\\" disabled=\\"false\\" data-test=\\"delete-button\\"></icon-button-stub>
-  <icon-button-stub icon=\\"check-mark\\" disabled=\\"false\\" type=\\"submit\\" form=\\"bookable\\"></icon-button-stub>
-</header-stub>
+"<header-stub title=\\"bookable_details\\" backfallback=\\"[object Object]\\" disablefallback=\\"false\\"></header-stub>
 <app-content-stub>
   <bookable-form-stub bookable=\\"[object Object]\\" data-test=\\"bookable-form\\"></bookable-form-stub>
 </app-content-stub>"

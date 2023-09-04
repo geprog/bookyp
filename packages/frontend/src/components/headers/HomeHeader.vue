@@ -1,40 +1,42 @@
 <template>
-  <Header :title="title">
-    <IconButton
-      data-test="button-account"
-      icon="person"
-      class="hidden md:block"
-      @click="$router.push({ name: 'account-bookings' })"
-    />
-    <IconButton
-      data-test="spaces-button"
-      icon="location"
-      class="hidden md:block"
-      @click="$router.push({ name: 'spaces-list' })"
-    />
-    <IconButton
-      v-if="isAdmin"
-      icon="diagram"
-      class="hidden md:block"
-      :aria-label="t('own_bookings')"
-      @click="$router.push({ name: 'space-bookings' })"
-    />
-    <IconButton
-      v-if="isAdmin"
-      data-test="button-settings"
-      icon="settings"
-      class="hidden md:block"
-      :aria-label="t('settings')"
-      @click="$router.push({ name: 'settings-space-map' })"
-    />
-    <IconButton
-      v-if="!isAdmin"
-      icon="info"
-      class="hidden md:block"
-      :aria-label="t('space_information')"
-      data-test="button-space-information"
-      @click="$router.push({ name: 'space-info' })"
-    />
+  <Header :title="title" right-class="hidden md:flex">
+    <template #right>
+      <IconButton
+        data-test="button-account"
+        icon="person"
+        class="hidden md:block"
+        @click="$router.push({ name: 'account-bookings' })"
+      />
+      <IconButton
+        data-test="spaces-button"
+        icon="location"
+        class="hidden md:block"
+        @click="$router.push({ name: 'spaces-list' })"
+      />
+      <IconButton
+        v-if="isAdmin"
+        icon="diagram"
+        class="hidden md:block"
+        :aria-label="t('own_bookings')"
+        @click="$router.push({ name: 'space-bookings' })"
+      />
+      <IconButton
+        v-if="isAdmin"
+        data-test="button-settings"
+        icon="settings"
+        class="hidden md:block"
+        :aria-label="t('settings')"
+        @click="$router.push({ name: 'settings-space-map' })"
+      />
+      <IconButton
+        v-if="!isAdmin"
+        icon="info"
+        class="hidden md:block"
+        :aria-label="t('space_information')"
+        data-test="button-space-information"
+        @click="$router.push({ name: 'space-info' })"
+      />
+    </template>
   </Header>
 </template>
 
