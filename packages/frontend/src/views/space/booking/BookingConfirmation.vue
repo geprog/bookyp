@@ -3,7 +3,9 @@
     :title="t('confirmation.confirm_a_bookable', { bookable: bookable?.name })"
     :back-fallback="{ name: 'booking-create' }"
   >
-    <IconButton icon="check-mark" @click="$emit('submit')" />
+    <template #right>
+      <IconButton icon="check-mark" @click="$emit('submit')" />
+    </template>
   </Header>
 
   <AppContent class="flex-col gap-4">

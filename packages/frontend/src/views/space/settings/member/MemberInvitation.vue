@@ -1,12 +1,14 @@
 <template>
   <Header :title="t('invitation.edit')" :back-fallback="{ name: 'settings-space-members' }">
-    <IconButton
-      icon="delete"
-      icon-color="text-red-text hover:text-red-background"
-      data-test="icon"
-      @click="removeInvitation"
-    />
-    <IconButton type="submit" form="spaceMemberInvitationForm" icon="save" />
+    <template #right>
+      <IconButton
+        icon="delete"
+        icon-color="text-red-text hover:text-red-background"
+        data-test="icon"
+        @click="removeInvitation"
+      />
+      <IconButton type="submit" form="spaceMemberInvitationForm" icon="save" />
+    </template>
   </Header>
   <AppContent>
     <form

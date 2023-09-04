@@ -11,7 +11,7 @@
   </template>
 
   <template v-else>
-    <SettingsHeader :title="t('map_editor')">
+    <SettingsHeader :title="t('map_editor')" :changed="changed">
       <template v-if="changed" #actions>
         <SaveAbort @save="save" @abort="abort" />
       </template>

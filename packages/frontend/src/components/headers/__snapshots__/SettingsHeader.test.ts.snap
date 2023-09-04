@@ -1,15 +1,5 @@
 // Vitest Snapshot v1
 
-exports[`SettingsHeader component > should allow overwriting actions e.g. for save/cancel actions 1`] = `"<header-stub title=\\"Title\\" backfallback=\\"[object Object]\\" disablefallback=\\"false\\">Custom actions</header-stub>"`;
+exports[`SettingsHeader component > should allow overwriting actions e.g. for save/cancel actions 1`] = `"<header-stub title=\\"Title\\" backfallback=\\"[object Object]\\" rightclass=\\"hidden md:flex\\" disablefallback=\\"false\\"></header-stub>"`;
 
-exports[`SettingsHeader component > should render correctly when active 1`] = `
-"<header-stub title=\\"Title\\" backfallback=\\"[object Object]\\" disablefallback=\\"false\\">
-  <div class=\\"flex gap-x-2\\">
-    <icon-button-stub icon=\\"map\\" disabled=\\"false\\" aria-label=\\"map_editor\\" data-test=\\"button-map-objects\\"></icon-button-stub>
-    <icon-button-stub icon=\\"apps-list\\" disabled=\\"false\\" aria-label=\\"bookables\\" data-test=\\"button-bookables\\"></icon-button-stub>
-    <icon-button-stub icon=\\"people\\" disabled=\\"false\\" aria-label=\\"members\\" data-test=\\"button-space-members\\"></icon-button-stub>
-    <icon-button-stub icon=\\"info\\" disabled=\\"false\\" aria-label=\\"space_information\\" data-test=\\"button-space-information\\"></icon-button-stub>
-    <icon-button-stub icon=\\"credit-card\\" disabled=\\"false\\" aria-label=\\"subscription.space_subscription\\" data-test=\\"button-space-subscription\\"></icon-button-stub>
-  </div>
-</header-stub>"
-`;
+exports[`SettingsHeader component > should render correctly when active 1`] = `"<header-stub title=\\"Title\\" backfallback=\\"[object Object]\\" rightclass=\\"hidden md:flex\\" disablefallback=\\"false\\"></header-stub>"`;

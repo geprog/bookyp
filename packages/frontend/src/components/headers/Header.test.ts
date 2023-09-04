@@ -24,24 +24,6 @@ describe('Header component', () => {
     expect(header.html()).toMatchSnapshot();
   });
 
-  it('should include content for right side', () => {
-    // given
-    const content = '<p>Horst</p>';
-
-    // when
-    const header = mount(Header, {
-      props: {
-        title: '',
-      },
-      slots: {
-        default: content,
-      },
-    });
-
-    // then
-    expect(header.html()).toContain(content);
-  });
-
   it('should include content for second row', () => {
     // given
     const content = '<p>Alice</p>';
@@ -52,7 +34,7 @@ describe('Header component', () => {
         title: '',
       },
       slots: {
-        second: content,
+        right: content,
       },
     });
 

@@ -1,6 +1,8 @@
 <template>
   <Header :title="t('space_create')" :back-fallback="{ name: 'spaces-list' }">
-    <IconButton type="submit" form="space" icon="save" />
+    <template #right>
+      <IconButton type="submit" form="space" icon="save" />
+    </template>
   </Header>
   <AppContent>
     <SpaceForm v-if="space" v-model:space="space" create @save="saveSpace" />

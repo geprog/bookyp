@@ -1,12 +1,14 @@
 <template>
   <Header :title="t('edit_member')" :back-fallback="{ name: 'settings-space-members' }">
-    <IconButton
-      icon="delete"
-      icon-color="text-red-text hover:text-red-background"
-      data-test="icon"
-      @click="removeSpaceMember"
-    />
-    <IconButton type="submit" form="spaceMemberForm" icon="save" />
+    <template #right>
+      <IconButton
+        icon="delete"
+        icon-color="text-red-text hover:text-red-background"
+        data-test="icon"
+        @click="removeSpaceMember"
+      />
+      <IconButton type="submit" form="spaceMemberForm" icon="save" />
+    </template>
   </Header>
   <AppContent>
     <form

@@ -1,17 +1,23 @@
 <template>
-  <Header :title="t('own_bookings')" :back-fallback="{ name: 'space', params: { spaceId: savedSpaceId } }">
-    <router-link
-      :to="{ name: 'account-bookings' }"
-      class="items-center hidden md:flex"
-      :class="{ 'text-primary-normal': $route.name === 'account-bookings' }"
-      :aria-label="t('own_bookings')"
-    >
-      <Icon name="apps-list" />
-    </router-link>
-    <Link href="https://auth.geprog.com/auth/realms/bookyp/account" class="hidden md:flex">
-      <Icon name="person" />
-    </Link>
-    <IconButton icon="sign-out" class="hidden md:block" @click="logout" />
+  <Header
+    :title="t('own_bookings')"
+    :back-fallback="{ name: 'space', params: { spaceId: savedSpaceId } }"
+    right-class="hidden md:flex"
+  >
+    <template #right>
+      <router-link
+        :to="{ name: 'account-bookings' }"
+        class="items-center hidden md:flex"
+        :class="{ 'text-primary-normal': $route.name === 'account-bookings' }"
+        :aria-label="t('own_bookings')"
+      >
+        <Icon name="apps-list" />
+      </router-link>
+      <Link href="https://auth.geprog.com/auth/realms/bookyp/account">
+        <Icon name="person" />
+      </Link>
+      <IconButton icon="sign-out" class="hidden md:block" @click="logout" />
+    </template>
   </Header>
   <AppContent class="flex-col">
     <ProgressIndicator v-if="isLoading" />

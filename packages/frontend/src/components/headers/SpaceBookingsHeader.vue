@@ -1,19 +1,24 @@
 <template>
   <Header :title="t('bookings')" :back-fallback="{ name: 'bookables-map' }">
-    <IconButton
-      icon="calendar"
-      :icon-color="$route.name === 'space-bookings-calendar' ? 'text-primary-normal' : undefined"
-      :aria-label="t('space_information')"
-      data-test="btn-space-bookings-calendar"
-      @click="$router.replace({ name: 'space-bookings-calendar' })"
-    />
-    <IconButton
-      icon="apps-list"
-      :icon-color="$route.name === 'space-bookings-members' ? 'text-primary-normal' : undefined"
-      :aria-label="t('space_information')"
-      data-test="btn-space-bookings-calendar"
-      @click="$router.replace({ name: 'space-bookings-members' })"
-    />
+    <template
+      v-if="['space-bookings-calendar', 'space-bookings-members'].includes($route.name?.toString() || '')"
+      #right
+    >
+      <IconButton
+        icon="calendar"
+        :icon-color="$route.name === 'space-bookings-calendar' ? 'text-primary-normal' : undefined"
+        :aria-label="t('space_information')"
+        data-test="btn-space-bookings-calendar"
+        @click="$router.replace({ name: 'space-bookings-calendar' })"
+      />
+      <IconButton
+        icon="apps-list"
+        :icon-color="$route.name === 'space-bookings-members' ? 'text-primary-normal' : undefined"
+        :aria-label="t('space_information')"
+        data-test="btn-space-bookings-calendar"
+        @click="$router.replace({ name: 'space-bookings-members' })"
+      />
+    </template>
   </Header>
 </template>
 

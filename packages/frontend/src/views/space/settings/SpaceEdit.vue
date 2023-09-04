@@ -1,9 +1,8 @@
 <template>
-  <Header :title="t('space_information')">
-    <template #start>
-      <IconButton icon="dismiss" @click="back({ name: 'settings-space-info' })" />
+  <Header :title="t('space_information')" :back-fallback="{ name: 'settings-space-info' }">
+    <template #right>
+      <IconButton type="submit" form="space" icon="save" />
     </template>
-    <IconButton type="submit" form="space" icon="save" />
   </Header>
   <AppContent class="flex-col">
     <SpaceForm v-if="spaceToSave" v-model:space="spaceToSave" @save="saveSpace" />

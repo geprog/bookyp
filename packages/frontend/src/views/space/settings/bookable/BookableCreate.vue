@@ -1,6 +1,8 @@
 <template>
   <Header :title="t('bookable_create')" :back-fallback="{ name: 'settings-bookables' }">
-    <IconButton type="submit" form="bookable" icon="check-mark" />
+    <template #right>
+      <IconButton type="submit" form="bookable" icon="check-mark" />
+    </template>
   </Header>
   <AppContent>
     <BookableForm v-if="bookable" v-model:bookable="bookable" data-test="bookable-form" @save="saveBookable" />
