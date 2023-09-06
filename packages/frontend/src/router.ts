@@ -226,6 +226,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('~/views/account/Profile.vue'),
       },
       {
+        path: 'account/my-spaces',
+        name: 'account-my-spaces',
+        meta: { accessibleByUserRole: true },
+        component: () => import('~/views/account/MySpaces.vue'),
+      },
+      {
         path: 'bookings',
         name: 'account-bookings',
         meta: { accessibleByUserRole: true },

@@ -228,6 +228,8 @@
   "search_spaces": "Search spaces",
   "mail_for_feedback": "Give us feedback",
   "hey_bookyp_team": "Hey Bookyp-Team",
+  "my_spaces": "My Spaces",
+  "spaces_admin": "Spaces where you are an admin",
   "empty_map": "Looks like your map is pretty empty!",
   "empty_map_desc": "An image depicting the map is empty.",
   "admin_area_message": "Set up your space in the {0}.",

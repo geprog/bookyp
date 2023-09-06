@@ -9,8 +9,10 @@
       <span class="text-xl">{{ user?.name }}</span>
     </div>
 
+    <MenuItem class="flex mt-4" icon="location" :to="{ name: 'account-my-spaces' }" :title="t('my_spaces')" />
+
     <MenuItem
-      class="flex mt-4"
+      class="flex"
       icon="person"
       href="https://auth.geprog.com/auth/realms/bookyp/account"
       :title="t('account_information')"
