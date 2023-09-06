@@ -3,22 +3,13 @@
 
   <ToolbarHeader action-for="spaces" />
 
-  <AppContent class="flex-col mt-26">
-    <div class="m-3 flex gap-2">
-      <Button
-        :aria-label="t('space_create')"
-        icon="add"
-        :text="t('space_create').toLocaleUpperCase()"
-        class="flex-grow"
-        @click="$router.push({ name: 'space-create' })"
-      />
-      <Button
-        v-if="allUnstableFeaturesEnabled && user"
-        class="flex-grow"
-        :text="t('create_sample_space')"
-        @click="createSampleSpace"
-      />
-    </div>
+  <AppContent class="flex-col">
+    <Button
+      v-if="allUnstableFeaturesEnabled && user"
+      class="m-3 flex mt-10"
+      :text="t('create_sample_space')"
+      @click="createSampleSpace"
+    />
     <div v-if="user && spaces.length > 0" class="flex flex-row justify-between px-3 overflow-x-auto scrollbar-hide">
       <template v-for="button in categoryButtons" :key="button.category">
         <FloatingButton
