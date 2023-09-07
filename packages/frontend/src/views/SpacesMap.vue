@@ -1,6 +1,8 @@
 <template>
   <SpacesListHeader />
 
+  <DesktopMenu is-map-spaces />
+
   <div ref="map" class="w-full h-full" />
   <ToolbarHeader action-for="spaces" />
   <div v-if="selectedSpace" class="fixed bottom-20 w-full">
@@ -37,6 +39,7 @@ import { useRouter } from 'vue-router';
 import IconButton from '~/components/buttons/IconButton.vue';
 import SpacesListHeader from '~/components/headers/SpacesListHeader.vue';
 import CardSmall from '~/components/layout/CardSmall.vue';
+import DesktopMenu from '~/components/layout/DesktopMenu.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import ToolbarHeader from '~/components/layout/toolbars/ToolbarHeader.vue';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';

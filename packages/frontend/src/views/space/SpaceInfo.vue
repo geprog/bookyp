@@ -3,6 +3,7 @@
     :title="t('space_information')"
     :back-fallback="space?.importId ? { name: 'spaces-list' } : { name: 'bookables-map' }"
   />
+  <SpaceDesktopMenu />
   <AppContent class="flex-col">
     <SpaceInfo :space="space" />
     <Button v-if="space?.importId" :href="mailtoUpgrade">
@@ -18,6 +19,7 @@ import { useI18n } from 'vue-i18n';
 import Button from '~/components/buttons/Button.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import SpaceDesktopMenu from '~/components/layout/SpaceDesktopMenu.vue';
 import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import SpaceInfo from '~/components/space/SpaceInfo.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';

@@ -1,5 +1,7 @@
 <template>
-  <HomeHeader />
+  <Header :title="title" right-class="hidden md:flex" />
+
+  <SpaceDesktopMenu />
   <ToolbarHeader action-for="bookables" />
   <ProgressIndicator v-if="isLoading" />
   <div v-else-if="mapObjectsExists" class="flex flex-col flex-grow min-h-0">
@@ -32,7 +34,8 @@ import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
-import HomeHeader from '~/components/headers/HomeHeader.vue';
+import Header from '~/components/headers/Header.vue';
+import SpaceDesktopMenu from '~/components/layout/SpaceDesktopMenu.vue';
 import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import HomeActionButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
 import ToolbarHeader from '~/components/layout/toolbars/ToolbarHeader.vue';
@@ -79,4 +82,6 @@ async function clickOnMapObject(mapObject: Model.MapObject) {
     }
   }
 }
+
+const title = computed(() => currentSpace.value?.name || t('bookyp').toUpperCase());
 </script>

@@ -4,7 +4,7 @@
   </header>
 
   <AppContent class="flex-col">
-    <div class="flex flex-col items-center pt-6">
+    <div class="flex flex-col items-center <md:pt-6">
       <img src="/src/assets/img/bookyp-new-logo.svg?url" class="w-29 h-17" />
 
       <div class="flex items-center gap-8 text-sm p-4">

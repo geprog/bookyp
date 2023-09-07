@@ -1,5 +1,6 @@
 <template>
   <SpacesListHeader />
+  <DesktopMenu />
 
   <ToolbarHeader action-for="spaces" />
 
@@ -102,6 +103,7 @@ import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import SpacesListHeader from '~/components/headers/SpacesListHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import DesktopMenu from '~/components/layout/DesktopMenu.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import ToolbarHeader from '~/components/layout/toolbars/ToolbarHeader.vue';
 import ListItem from '~/components/list-items/ListItem.vue';

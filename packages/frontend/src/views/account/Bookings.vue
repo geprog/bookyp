@@ -3,22 +3,8 @@
     :title="t('own_bookings')"
     :back-fallback="{ name: 'space', params: { spaceId: savedSpaceId } }"
     right-class="hidden md:flex"
-  >
-    <template #right>
-      <router-link
-        :to="{ name: 'account-bookings' }"
-        class="items-center hidden md:flex"
-        :class="{ 'text-primary-normal': $route.name === 'account-bookings' }"
-        :aria-label="t('own_bookings')"
-      >
-        <Icon name="apps-list" />
-      </router-link>
-      <Link href="https://auth.geprog.com/auth/realms/bookyp/account">
-        <Icon name="person" />
-      </Link>
-      <IconButton icon="sign-out" class="hidden md:block" @click="logout" />
-    </template>
-  </Header>
+  />
+  <DesktopMenu />
   <AppContent class="flex-col">
     <ProgressIndicator v-if="isLoading" />
     <template v-else>
@@ -81,16 +67,14 @@ import { groupBy } from 'lodash';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import IconButton from '~/components/buttons/IconButton.vue';
-import Link from '~/components/buttons/Link.vue';
 import Header from '~/components/headers/Header.vue';
-import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import DesktopMenu from '~/components/layout/DesktopMenu.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import BookingItem from '~/components/list-items/BookingItem.vue';
 import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
-import { logout, user } from '~/compositions/useAuthentication';
+import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
 
 const { t } = useI18n();
