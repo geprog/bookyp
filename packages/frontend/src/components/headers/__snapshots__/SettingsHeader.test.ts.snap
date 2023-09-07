@@ -1,5 +1,11 @@
 // Vitest Snapshot v1
 
-exports[`SettingsHeader component > should allow overwriting actions e.g. for save/cancel actions 1`] = `"<header-stub title=\\"Title\\" backfallback=\\"[object Object]\\" rightclass=\\"hidden md:flex\\" disablefallback=\\"false\\"></header-stub>"`;
+exports[`SettingsHeader component > should allow overwriting actions e.g. for save/cancel actions 1`] = `
+"<header-stub title=\\"Title\\" backfallback=\\"[object Object]\\" rightclass=\\"hidden md:flex\\" disablefallback=\\"false\\"></header-stub>
+<space-desktop-menu-stub></space-desktop-menu-stub>"
+`;
 
-exports[`SettingsHeader component > should render correctly when active 1`] = `"<header-stub title=\\"Title\\" backfallback=\\"[object Object]\\" rightclass=\\"hidden md:flex\\" disablefallback=\\"false\\"></header-stub>"`;
+exports[`SettingsHeader component > should render correctly when active 1`] = `
+"<header-stub title=\\"Title\\" backfallback=\\"[object Object]\\" rightclass=\\"hidden md:flex\\" disablefallback=\\"false\\"></header-stub>
+<space-desktop-menu-stub></space-desktop-menu-stub>"
+`;

@@ -71,7 +71,6 @@
   "email_space": "E-Mail (wird für die Buchungsinformationen verwendet)",
   "no_bookable": "Es konnte kein buchbares Objekt gefunden werden.",
   "oops": "Oops!",
-  "settings": "Einstellungen",
   "map_editor": "Karteneditor",
   "map_editing": {
     "adding_wall_instruction": "Klicke und ziehe auf der Karte, um eine Wand zu zeichnen."

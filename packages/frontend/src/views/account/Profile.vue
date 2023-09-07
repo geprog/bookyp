@@ -1,6 +1,7 @@
 <template>
   <Header :title="t('profile')" :back-fallback="{ name: 'spaces-list' }" />
 
+  <DesktopMenu />
   <AppContent class="!px-4 flex-col">
     <div class="flex items-center p-4 border-2 shadow-full text-center rounded-md gap-3 sm:max-w-3xl <sm:max-w-3xl">
       <div class="bg-gray-300 w-12 h-12 rounded-1/2 flex items-center">
@@ -53,6 +54,7 @@ import { useI18n } from 'vue-i18n';
 import Header from '~/components/headers/Header.vue';
 import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import DesktopMenu from '~/components/layout/DesktopMenu.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import MenuItem from '~/components/menu/MenuItem.vue';
 import { logout, user } from '~/compositions/useAuthentication';

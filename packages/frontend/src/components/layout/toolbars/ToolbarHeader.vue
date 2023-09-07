@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed place-self-center w-full max-w-3xl flex justify-between p-6 z-50 mt-12">
+  <div class="fixed place-self-center w-full max-w-3xl flex justify-between p-6 z-50 mt-12 md:mt-24">
     <div class="relative">
       <span
         v-if="appliedFilters > 0"

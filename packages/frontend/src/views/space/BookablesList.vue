@@ -1,6 +1,7 @@
 <template>
-  <HomeHeader />
+  <Header :title="title" />
 
+  <DesktopMenu />
   <ToolbarHeader action-for="bookables" />
   <AppContent class="flex-col">
     <ProgressIndicator v-if="isLoading" />
@@ -41,8 +42,9 @@
 import { computed, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import HomeHeader from '~/components/headers/HomeHeader.vue';
+import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import DesktopMenu from '~/components/layout/DesktopMenu.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import HomeActionsButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
 import ToolbarHeader from '~/components/layout/toolbars/ToolbarHeader.vue';
@@ -55,12 +57,21 @@ import useFind from '~/compositions/useFind';
 export default defineComponent({
   name: 'BookablesList',
 
-  components: { HomeHeader, HomeActionsButtons, ListItem, ProgressIndicator, AppContent, FooterMenu, ToolbarHeader },
+  components: {
+    Header,
+    HomeActionsButtons,
+    ListItem,
+    ProgressIndicator,
+    AppContent,
+    FooterMenu,
+    ToolbarHeader,
+    DesktopMenu,
+  },
 
   setup() {
     const { t } = useI18n();
 
-    const { spaceId } = useCurrentSpace();
+    const { spaceId, currentSpace } = useCurrentSpace();
 
     const { data: bookables, isLoading } = useFind(
       'bookables',
@@ -86,8 +97,11 @@ export default defineComponent({
       return undefined;
     }
 
+    const title = computed(() => currentSpace.value?.name || t('bookyp').toUpperCase());
+
     return {
       t,
+      title,
       bookablesWithFilterMatched,
       availableBookables,
       occupiedBookables,
