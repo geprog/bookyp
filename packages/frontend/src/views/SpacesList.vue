@@ -177,7 +177,7 @@ watch(
     if (!loadingSpaces.value && spaces.value && user.value && !selectedCategory.value) {
       selectedCategory.value = spaces.value.some((space) => space.frequency)
         ? 'Frequent'
-        : user.value?.starredSpaces.length
+        : user.value?.starredSpaces?.length
         ? 'Favorite'
         : spaces.value.some((space) => space.isUserMember)
         ? 'Personal'
