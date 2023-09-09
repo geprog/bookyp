@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`BookablesList component > should render correctly with filter 1`] = `
-"<header-stub title=\\"BOOKYP\\" disablefallback=\\"false\\"></header-stub>
+"<header-stub title=\\"BOOKYP\\" backfallback=\\"[object Object]\\" disablefallback=\\"false\\"></header-stub>
 <desktop-menu-stub ismapspaces=\\"false\\"></desktop-menu-stub>
 <toolbar-header-stub actionfor=\\"bookables\\"></toolbar-header-stub>
 <app-content-stub class=\\"flex-col\\">
@@ -17,7 +17,7 @@ exports[`BookablesList component > should render correctly with filter 1`] = `
 `;
 
 exports[`BookablesList component > should render correctly without filter 1`] = `
-"<header-stub title=\\"BOOKYP\\" disablefallback=\\"false\\"></header-stub>
+"<header-stub title=\\"BOOKYP\\" backfallback=\\"[object Object]\\" disablefallback=\\"false\\"></header-stub>
 <desktop-menu-stub ismapspaces=\\"false\\"></desktop-menu-stub>
 <toolbar-header-stub actionfor=\\"bookables\\"></toolbar-header-stub>
 <app-content-stub class=\\"flex-col\\">
