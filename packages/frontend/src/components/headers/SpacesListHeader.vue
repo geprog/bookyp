@@ -1,8 +1,5 @@
 <template>
-  <Header
-    :title="t('search_spaces')"
-    :back-fallback="savedSpaceId ? { name: 'space', params: { spaceId: savedSpaceId } } : undefined"
-  >
+  <Header :title="t('search_spaces')">
     <template v-if="!user" #right>
       <router-link :to="{ name: 'auth-login' }" class="flex items-center gap-1">
         <span class="text-md">{{ $t('login_without_space') }}</span>
@@ -17,7 +14,6 @@ import { useI18n } from 'vue-i18n';
 
 import Header from '~/components/headers/Header.vue';
 import Icon from '~/components/Icon.vue';
-import { savedSpaceId } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 
 const { t } = useI18n();

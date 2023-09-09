@@ -1,5 +1,5 @@
 <template>
-  <Header :title="title" right-class="hidden md:flex" />
+  <Header :title="title" :back-fallback="{ name: 'spaces-list' }" right-class="hidden md:flex" />
 
   <SpaceDesktopMenu />
   <ToolbarHeader action-for="bookables" />

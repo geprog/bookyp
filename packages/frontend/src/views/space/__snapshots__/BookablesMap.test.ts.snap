@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`BookablesMap view > should render correctly 1`] = `
-"<header-stub title=\\"BOOKYP\\" rightclass=\\"hidden md:flex\\" disablefallback=\\"false\\"></header-stub>
+"<header-stub title=\\"BOOKYP\\" backfallback=\\"[object Object]\\" rightclass=\\"hidden md:flex\\" disablefallback=\\"false\\"></header-stub>
 <space-desktop-menu-stub></space-desktop-menu-stub>
 <toolbar-header-stub actionfor=\\"bookables\\"></toolbar-header-stub>
 <div class=\\"flex flex-col flex-grow min-h-0\\">
