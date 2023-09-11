@@ -72,7 +72,10 @@ const { data: rawBookings } = useFind('bookings', bookingsQuery);
 
 const runningBookings = computed(() =>
   [...rawBookings.value].filter(
-    (booking) => dayjs(booking.start).isBefore(currentTime.value) && dayjs(booking.end).isAfter(currentTime.value),
+    (booking) =>
+      dayjs(booking.start).isBefore(currentTime.value) &&
+      dayjs(booking.end).isAfter(currentTime.value) &&
+      !booking.request,
   ),
 );
 const ongoingBookings = computed(() => runningBookings.value.length > 0);
