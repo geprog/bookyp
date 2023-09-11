@@ -183,6 +183,11 @@ const routes: RouteRecordRaw[] = [
               },
             ],
           },
+          {
+            path: 'pendingRequests',
+            name: 'space-pending-requests',
+            component: () => import('~/views/space/settings/request/PendingRequests.vue'),
+          },
         ],
       },
 

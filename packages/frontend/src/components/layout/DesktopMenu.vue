@@ -45,7 +45,8 @@ const bookingsQuery = computed(() => ({
     end: { $gte: dayjs(currentTime.value).toISOString() },
   },
 }));
-const { data: ongoingBookings } = useFind('bookings', bookingsQuery);
+const { data: rawBookings } = useFind('bookings', bookingsQuery);
+const ongoingBookings = computed(() => [...rawBookings.value].filter((booking) => !booking.request));
 </script>
 
 <style scoped>

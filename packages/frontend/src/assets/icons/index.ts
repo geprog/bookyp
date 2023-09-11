@@ -54,6 +54,7 @@ import ProgressIcon from '~/assets/icons/progress.svg';
 import QuoteIcon from '~/assets/icons/quote.svg';
 import RadioChecked from '~/assets/icons/radio-checked.svg';
 import RadioUnchecked from '~/assets/icons/radio-unchecked.svg';
+import RequestIcon from '~/assets/icons/request.svg';
 import Save from '~/assets/icons/save.svg';
 import SendIcon from '~/assets/icons/send.svg';
 import SettingsIcon from '~/assets/icons/settings.svg';
@@ -104,6 +105,7 @@ const icons = {
   quote: QuoteIcon,
   'radio-checked': RadioChecked,
   'radio-unchecked': RadioUnchecked,
+  request: RequestIcon,
   settings: SettingsIcon,
   'sign-out': SignOutIcon,
   stop: StopIcon,

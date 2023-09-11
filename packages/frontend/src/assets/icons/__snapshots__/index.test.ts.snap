@@ -33,6 +33,7 @@ exports[`Icons > should contain all needed icons 1`] = `
   "quote",
   "radio-checked",
   "radio-unchecked",
+  "request",
   "settings",
   "sign-out",
   "stop",
