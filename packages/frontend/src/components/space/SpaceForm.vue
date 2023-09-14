@@ -1,8 +1,13 @@
 <template>
-  <form v-if="space" id="space" data-test="form" class="space w-full" @submit.prevent="$emit('save', space)">
-    <LabelField icon-name="home">
-      <TextField v-model="spaceCreate.name" data-test="form-name" :placeholder="t('name')" required />
-    </LabelField>
+  <form v-if="space" id="space" data-test="form" class="space w-full mb-6" @submit.prevent="$emit('save', space)">
+    <FormTextField
+      v-model="spaceCreate.name"
+      class="py-2"
+      icon="home"
+      data-test="form-name"
+      :placeholder="t('name')"
+      required
+    />
     <RadioButton
       :name="t('scope.public')"
       :value="spaceCreate.isPublic === true"
@@ -18,33 +23,59 @@
       @update-value="spaceCreate.isPublic = false"
     />
     <template v-if="!create">
-      <LabelField icon-name="location">
-        <TextField v-model="spaceCreate.address" :rows="5" data-test="form-address" :placeholder="t('address')" />
-      </LabelField>
-      <LabelField icon-name="text-box">
-        <TextField v-model="spaceCreate.description" data-test="form-description" :placeholder="t('description')" />
-      </LabelField>
-      <LabelField icon-name="text-box">
-        <span class="pb-2 text-gray-600">{{ $t('general_information') }}</span>
-        <MarkdownEditor
-          v-model="spaceCreate.generalInformation"
-          data-test="form-general-information"
-          :placeholder="t('general_information')"
-        />
-      </LabelField>
-      <LabelField icon-name="email">
-        <TextField v-model="spaceCreate.email" :placeholder="t('email_space')" />
-      </LabelField>
-
+      <FormTextField
+        v-model="spaceCreate.address"
+        class="py-2"
+        icon="location"
+        data-test="form-address"
+        :placeholder="t('address')"
+        :rows="7"
+      />
+      <div class="w-full text-gray-500 text-center text-sm pt-2">
+        {{ $t('select_location_on_map') }}
+      </div>
       <div class="relative">
         <div ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
         <FloatingButton
           v-if="coordinates"
           class="absolute fixed top-2 right-2"
+          back-ground-color="white"
           data-test="clear-map-selection"
           icon="delete"
           @click="coordinates = null"
         />
+      </div>
+
+      <FormTextField
+        v-model="spaceCreate.email"
+        class="py-2"
+        icon="email"
+        data-test="form-email"
+        :placeholder="t('email_space')"
+      />
+      <FormTextField
+        v-model="spaceCreate.phone"
+        class="py-2"
+        icon="phone"
+        data-test="form-phone"
+        :placeholder="t('phone')"
+      />
+      <FormTextField
+        v-model="spaceCreate.website"
+        class="py-2"
+        icon="website"
+        data-test="form-website"
+        :placeholder="t('website')"
+      />
+      <FormTextField
+        v-model="spaceCreate.description"
+        class="py-2"
+        icon="text-box"
+        data-test="form-description"
+        :placeholder="t('edit_space_description')"
+      />
+      <div class="w-full text-gray-500 text-center text-sm pt-2">
+        {{ $t('click_or_drag_and_drop_to_upload') }}
       </div>
 
       <div
@@ -56,24 +87,21 @@
           <Icon name="arrow-upload" />
           <span>{{ $t('upload_space_image') }}</span>
         </div>
-        <div class="w-full text-gray-500 border-t-1 p-1">
-          {{ $t('click_or_drag_and_drop_to_upload') }}
-        </div>
         <button
           ref="dropZoneRef"
           type="button"
           class="absolute top-0 left-0 h-full w-full"
           @click="floorPlanFileInput?.click()"
         />
-        <button
+
+        <FloatingButton
           v-if="spaceCreate.image"
-          type="button"
-          class="absolute bottom-1 right-1"
-          :title="$t('delete')"
+          class="absolute fixed top-2 right-2"
+          back-ground-color="white"
+          data-test="clear-map-selection"
+          icon="delete"
           @click="spaceCreate.image = ''"
-        >
-          <Icon name="delete" />
-        </button>
+        />
       </div>
       <input
         ref="floorPlanFileInput"
@@ -94,10 +122,8 @@ import { useI18n } from 'vue-i18n';
 
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import Icon from '~/components/Icon.vue';
-import LabelField from '~/components/LabelField.vue';
-import MarkdownEditor from '~/components/markdown/MarkdownEditor.vue';
+import FormTextField from '~/components/inputs/FormTextField.vue';
 import RadioButton from '~/components/RadioButton.vue';
-import TextField from '~/components/TextField.vue';
 import useFeathers from '~/compositions/useFeathers';
 import { useMap } from '~/compositions/useMap';
 
@@ -140,14 +166,6 @@ const spaceCreate = reactive({
       emit('update:space', { ...space.value, description });
     },
   }),
-  generalInformation: computed({
-    get() {
-      return space.value.generalInformation || '';
-    },
-    set(generalInformation: string) {
-      emit('update:space', { ...space.value, generalInformation });
-    },
-  }),
   email: computed({
     get() {
       return space.value.email || '';
@@ -162,6 +180,22 @@ const spaceCreate = reactive({
     },
     set(image?: string) {
       emit('update:space', { ...space.value, image });
+    },
+  }),
+  phone: computed({
+    get() {
+      return space.value.phone || '';
+    },
+    set(phone?: string) {
+      emit('update:space', { ...space.value, phone });
+    },
+  }),
+  website: computed({
+    get() {
+      return space.value.website || '';
+    },
+    set(website?: string) {
+      emit('update:space', { ...space.value, website });
     },
   }),
   isPublic: computed({

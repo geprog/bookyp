@@ -1,7 +1,7 @@
 <template>
-  <div class="flex my-2 gap-4">
+  <div class="flex gap-4">
     <Icon class="my-2" :name="iconName" data-test="input-field-icon" />
-    <div class="flex flex-col w-full py-2" :class="{ 'border-b-1': readonly === false }">
+    <div class="flex flex-col w-full py-2" :class="{ 'border-b-1 border-gray-500': readonly === false }">
       <slot />
     </div>
   </div>

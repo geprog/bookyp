@@ -1,12 +1,9 @@
 <template>
-  <Header :title="t('space_create')" :back-fallback="{ name: 'spaces-list' }">
-    <template #right>
-      <IconButton type="submit" form="space" icon="save" />
-    </template>
-  </Header>
+  <Header :title="t('space_create')" :back-fallback="{ name: 'spaces-list' }" />
   <AppContent>
     <SpaceForm v-if="space" v-model:space="space" create @save="saveSpace" />
   </AppContent>
+  <SpaceEditActionButtons create @save="saveSpace" />
 </template>
 
 <script lang="ts" setup>
@@ -15,9 +12,9 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
-import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import SpaceEditActionButtons from '~/components/layout/toolbars/SpaceEditActionButtons.vue';
 import SpaceForm from '~/components/space/SpaceForm.vue';
 import { user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';

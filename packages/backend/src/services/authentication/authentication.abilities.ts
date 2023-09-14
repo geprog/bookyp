@@ -36,6 +36,8 @@ const defineRulesFor = async (
     'importId',
     'frequency',
     'isUserMember',
+    'phone',
+    'website',
   ];
   // read access public spaces for everyone (authorized and unauthorized)
   can('read', 'spaces', userReadableSpaceProperties, {
@@ -119,6 +121,8 @@ const defineRulesFor = async (
         'plan',
         'image',
         'coordinates',
+        'phone',
+        'website',
       ],
       {
         members: { $elemMatch: { role: 'admin', userId: user._id } },
