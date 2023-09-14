@@ -8,6 +8,7 @@
       rounded-full
       p-3
       h-8
+      text-sm
       cursor-pointer
       focus:outline-transparent
       disabled:bg-gray-background disabled:cursor-not-allowed
@@ -59,13 +60,15 @@ const selectedBackgroundColor = computed(() => {
     if (isSelected.value) {
       return `${color} border border-yellow-500`;
     }
-    switch (backGroundColor.value) {
-      case 'gray':
-        return `${color} border border-gray-200`;
+    switch (foregroundColor.value) {
+      case 'black':
+        return `border border-gray-200`;
       case 'orange':
-        return `${color} border border-yellow-500`;
+        return `border border-yellow-500`;
       case 'white':
-        return `${color} border border-white`;
+        return `border border-white`;
+      case 'red':
+        return `${color} border border-red-600`;
       default:
         return `${color} border border-gray-400`;
     }

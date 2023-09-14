@@ -6,13 +6,13 @@
   <textarea
     v-else-if="rows && rows > 1"
     v-model="innerValue"
-    class="w-full min-h-6 text-gray-900 placeholder-gray-600 focus:outline-none"
+    class="w-full min-h-6 text-gray-500 placeholder-gray-500 focus:outline-none"
     :placeholder="placeholder"
   />
   <input
     v-else
     v-model="innerValue"
-    class="w-full min-h-6 text-gray-900 placeholder-gray-600 focus:outline-none"
+    class="w-full min-h-6 text-gray-900 placeholder-gray-500 focus:outline-none"
     type="text"
     :placeholder="placeholder"
   />

@@ -1,7 +1,7 @@
 {
   "account_information": "Account Information",
   "address": "Address",
-  "admin_area": "Admin area",
+  "admin_area": "admin area",
   "admin_area_message": "Set up your space in the {0}.",
   "app": {
     "cancel": "Cancel",
@@ -34,7 +34,7 @@
   },
   "change_password": "Change Password",
   "claim_space": "Claim this space",
-  "click_or_drag_and_drop_to_upload": "Click here or drag and drop to upload",
+  "click_or_drag_and_drop_to_upload": "Image: Click here or drag & drop to upload.",
   "confirm_unsaved_changes": "You have unsaved changes. Are you sure you want discard them?",
   "confirmation": {
     "confirm_a_bookable": "Confirm {bookable}",
@@ -55,6 +55,7 @@
   },
   "discard": "Discard",
   "edit_member": "Edit member",
+  "edit_space_description": "Description (shown on spaces overview)",
   "edit_space_information": "Edit space information",
   "email": "E-Mail",
   "email_address": "E-Mail address",
@@ -83,7 +84,6 @@
   },
   "filter_bookables": "Filter for your place",
   "filter_spaces": "Search for a free bookable",
-  "general_information": "General information",
   "get_help": "Get help",
   "give_us_feedback": "Give us feedback",
   "hey_bookyp_team": "Hey Bookyp-Team",
@@ -135,6 +135,7 @@
   "past_requests": "Past requests",
   "pdf": "PDF",
   "pending_requests": "Pending Requests",
+  "phone": "Phone",
   "preview": "Preview",
   "privacy_policy": "Privacy Policy",
   "profile": "Profile",
@@ -155,12 +156,13 @@
     "text_with_space": "Go back to the {0} and click on an object to book it.",
     "text_without_space": "Go back to the {0} and select a space to click on an object to book it."
   },
+  "save_space": "Save space",
+  "search_spaces": "Search spaces",
+  "select_location_on_map": "Select location: Click on the map.",
   "select_map_object_type": "Select a map object type",
   "site_not_exist": "This site doesn't exist.",
   "space": "space",
-  "space_analytics": "Space Analytics",
   "space_create": "Create new space",
-  "space_editor": "Space Editor",
   "space_information": "Space information",
   "spaces": "Spaces",
   "start": "Start",
@@ -225,9 +227,10 @@
     "deutsch": "Deutsch"
   },
   "language": "Language",
-  "search_spaces": "Search spaces",
   "my_spaces": "My Spaces",
   "spaces_admin": "Spaces where you are an admin",
+  "space_analytics": "Space Analytics",
+  "space_editor": "Space Editor",
   "super_admin": "💪 Super admin",
   "supports_markdown": "Supports {0}",
   "terms_and_conditions": {
@@ -243,5 +246,6 @@
   "upload_new_map_object_type": "Upload new type",
   "upload_space_image": "You can upload a space image here!",
   "version": "Version: {version}",
+  "website": "Website",
   "write": "Write"
 }

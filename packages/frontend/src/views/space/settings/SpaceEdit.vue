@@ -1,23 +1,9 @@
 <template>
-  <Header :title="t('space_information')" :back-fallback="{ name: 'settings-space-info' }">
-    <template #right>
-      <IconButton type="submit" form="space" icon="save" />
-    </template>
-  </Header>
+  <Header :title="t('edit_space_information')" :back-fallback="{ name: 'settings-space-info' }" />
   <AppContent class="flex-col">
     <SpaceForm v-if="spaceToSave" v-model:space="spaceToSave" @save="saveSpace" />
-
-    <div class="flex flex-col gap-y-6 my-6 sm:max-w-xl <sm:max-w-xs mx-auto">
-      <Button
-        :aria-label="t('delete_space')"
-        icon="delete"
-        :text="t('delete_space').toLocaleUpperCase()"
-        class="w-full"
-        outlined
-        @click="deleteSpace"
-      />
-    </div>
   </AppContent>
+  <SpaceEditActionButtons @save="saveSpace" @delete="deleteSpace" />
 </template>
 
 <script lang="ts" setup>
@@ -27,10 +13,9 @@ import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
-import Button from '~/components/buttons/Button.vue';
-import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import SpaceEditActionButtons from '~/components/layout/toolbars/SpaceEditActionButtons.vue';
 import SpaceForm from '~/components/space/SpaceForm.vue';
 import { savedSpaceId, useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { useBack } from '~/compositions/useBack';

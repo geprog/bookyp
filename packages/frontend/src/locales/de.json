@@ -1,6 +1,8 @@
 {
   "account_information": "Kontoinformationen",
   "address": "Adresse",
+  "admin_area": "Admin-Bereich",
+  "admin_area_message": "Richte deinen Raum im {0} ein.",
   "app": {
     "cancel": "Abbrechen",
     "install": "Installieren",
@@ -13,7 +15,6 @@
   "bookable_create": "Neues buchbares Objekt hinzufügen.",
   "bookable_details": "Buchbares Objekt: {bookable}",
   "bookables": "buchbare Objekte",
-  "info": "Info",
   "booked": "gebucht",
   "booking": "Buchung",
   "booking_details": "Buchungsdetails",
@@ -42,6 +43,8 @@
   },
   "could_not_find_view_box": "Die hochgeladene SVG Datei hat kein viewBox-Attribut.",
   "create_sample_space": "Neuen Beispiel-Raum erstellen",
+  "dangerous_super_admin_action": "⚠️⚠️⚠️ Gefährliche Super-Admin Aktion ⚠️⚠️⚠️",
+  "dangerous_super_admin_action_description": "Du führst diese Aktion als Super-Admin aus. Bitte fahre nur fort, wenn du weißt, was du tust!",
   "delete": "Löschen",
   "delete_dialog_description": "Möchtest du dieses {objectLabel} löschen?",
   "delete_space": "Raum löschen",
@@ -52,10 +55,19 @@
   },
   "discard": "Verwerfen",
   "edit_member": "Mitglieder verwalten",
+  "edit_space_description": " Beschreibung (wird in der Spaces-Übersicht angezeigt)",
   "edit_space_information": "Rauminformation bearbeiten",
   "email": "E-Mail",
   "email_address": "E-Mail Adresse",
   "email_space": "E-Mail (wird für die Buchungsinformationen verwendet)",
+  "empty_map": "Es sieht so aus, als wäre deine Karte ziemlich leer!",
+  "empty_map_desc": "Ein Bild, das die leere Karte zeigt.",
+  "empty_space_list_message": {
+    "all": "Es sind keine Plätze für Sie verfügbar",
+    "favorite": "Sie haben keine Leerzeichen markiert",
+    "frequent": "Sie haben im letzten Monat keinen Platz gebucht",
+    "personal": "Sie sind kein Mitglied eines Spaces"
+  },
   "end": "Ende",
   "enter_name_for_new_map_object_type": "Bitte gebe einen Namen für den Kartenobjekttypen ein.",
   "explore": "Suchen",
@@ -64,25 +76,13 @@
     "enable_all_unstable_features": "Aktiviere alle instabile Funktionen"
   },
   "features": "Features",
-  "space_list_categories": {
-    "frequent": "Häufig",
-    "favorite": "Favorit",
-    "all": "Alle",
-    "personal": "Persönlich"
-  },
-  "empty_space_list_message": {
-    "frequent": "Sie haben im letzten Monat keinen Platz gebucht",
-    "favorite": "Sie haben keine Leerzeichen markiert",
-    "personal": "Sie sind kein Mitglied eines Spaces",
-    "all": "Es sind keine Plätze für Sie verfügbar"
-  },
   "filter_bookables": "Filter für deinen Arbeitsplatz",
   "filter_spaces": "Nach einem freien buchbaren Objekt suchen",
-  "general_information": "Generelle Informationen",
   "get_help": "Nach Hilfe fragen",
   "give_us_feedback": "Feedback geben",
   "hey_bookyp_team": "Hey Bookyp-Team",
   "hours": "Stunden",
+  "info": "Info",
   "invitation": {
     "already_in_space": "Der Nutzer mit dieser E-Mail Adresse ist schon ein Mitglied in diesem Raum",
     "already_invited": "Der Nutzer mit dieser E-Mail Adresse ist schon in diesen Raum eingeladen worden.",
@@ -94,6 +94,11 @@
   "invited_members": "Eingeladene Mitglieder",
   "invoices": "Rechnungen",
   "its_you": "Das bist du!",
+  "language": "Sprache",
+  "languages": {
+    "deutsch": "Deutsch",
+    "english": "Englisch"
+  },
   "link_map_objects": "z.B. https://www.example.com",
   "login": "Anmelden",
   "logout": "Abmelden",
@@ -129,9 +134,11 @@
   "past_requests": "frühere Anfragen",
   "pdf": "PDF",
   "pending_requests": "offene Anfragen",
+  "phone": "Telefon",
   "preview": "Vorschau",
   "privacy_policy": "Datenschutz",
   "profile": "Profil",
+  "requested": "Angefordert",
   "roles": {
     "admin": {
       "description": "Kann den Raum sehen, buchen, die Karte bearbeiten und Mitglieder hinzufügen.",
@@ -148,17 +155,32 @@
     "text_with_space": "Gehe zurück zum {0} und klicke auf ein Objekt, um es zu buchen.",
     "text_without_space": "Gehe zurück zu {0} und wähle einen Raum, um auf ein Objekt zu buchen."
   },
+  "save_space": "Raum speichern",
+  "scope": {
+    "private": "Privater Raum",
+    "private_space_hint": "Nur eingeladene Nutzer können deinen Raum sehen.",
+    "public": "Öffentlicher Raum",
+    "public_space_hint": "Jeder Nutzer von Bookyp kann deinen Raum sehen."
+  },
+  "select_location_on_map": "Standort auswählen: Klicke auf die Karte.",
   "select_map_object_type": "Wähle einen Kartenobjekttypen",
   "site_not_exist": "Diese Seite existiert nicht.",
   "space": "Raum",
+  "space_analytics": "Raumanalytik",
   "space_create": "Neuen Raum erstellen",
+  "space_editor": "Raum-Editor",
   "space_information": "Rauminformationen",
+  "space_list_categories": {
+    "all": "Alle",
+    "favorite": "Favorit",
+    "frequent": "Häufig",
+    "personal": "Persönlich"
+  },
   "spaces": "Räume",
   "start": "Start",
   "subscription": {
     "add_payment_method": "Zahlungsmethode hinzufügen",
     "billing_details": "Rechnungsdaten",
-    "subscription": "Abonnement",
     "change_plan": "Plan ändern",
     "change_space_plan": "Planänderung des Raumes",
     "current_plan": "Momentaner Plan",
@@ -201,8 +223,11 @@
     "public_plan": "Öffentlicher Plan",
     "save": "Speichern",
     "space_subscription": "Raumbeschreibung",
+    "subscription": "Abonnement",
     "upgrade": "Upgrade"
   },
+  "subscription_update_super_admin_description": "Hier kannst du den Plan-Typ und das Datum festlegen, bis zu dem er als Super-Admin aktiv sein wird. Durch die Änderung des Plans muss niemand tatsächlich dafür bezahlen, bis jemand den Plan im normalen Zahlungsvorgang erneut aktualisiert oder zurückstuft.",
+  "super_admin": "💪 Super-Admin",
   "supports_markdown": "Unterstützt {0}",
   "terms_and_conditions": {
     "terms_and_conditions": "Geschäftsbedingungen",
@@ -212,26 +237,11 @@
   "today": "Heute",
   "tomorrow": "Morgen",
   "try_again": "Versuchs noch einmal!",
-  "upload_new_map_object_type": "Neues SVG hochladen",
-  "upload_space_image": "Hier kannst du ein Bild für deinen Raum hochladen!",
-  "languages": {
-    "english": "Englisch",
-    "deutsch": "Deutsch"
-  },
-  "language": "Sprache",
-  "version": "Version: {version}",
-  "write": "Schreiben",
-  "empty_map": "Es sieht so aus, als wäre deine Karte ziemlich leer!",
-  "empty_map_desc": "Ein Bild, das die leere Karte zeigt.",
-  "admin_area_message": "Richte deinen Raum im {0} ein.",
-  "admin_area": "Admin-Bereich",
-  "space_analytics": "Raumanalytik",
-  "space_editor": "Raum-Editor",
-  "super_admin": "💪 Super-Admin",
   "update_subscription": "Abonnement aktualisieren",
   "updated_subscription": "Aktualisiertes Abonnement",
-  "requested": "Angefordert",
-  "dangerous_super_admin_action": "⚠️⚠️⚠️ Gefährliche Super-Admin Aktion ⚠️⚠️⚠️",
-  "dangerous_super_admin_action_description": "Du führst diese Aktion als Super-Admin aus. Bitte fahre nur fort, wenn du weißt, was du tust!",
-  "subscription_update_super_admin_description": "Hier kannst du den Plan-Typ und das Datum festlegen, bis zu dem er als Super-Admin aktiv sein wird. Durch die Änderung des Plans muss niemand tatsächlich dafür bezahlen, bis jemand den Plan im normalen Zahlungsvorgang erneut aktualisiert oder zurückstuft."
+  "upload_new_map_object_type": "Neues SVG hochladen",
+  "upload_space_image": "Hier kannst du ein Bild für deinen Raum hochladen!",
+  "version": "Version: {version}",
+  "website": "Webseite",
+  "write": "Schreiben"
 }
