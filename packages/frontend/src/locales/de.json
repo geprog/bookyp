@@ -150,10 +150,11 @@
     }
   },
   "route_to_space": {
+    "text_with_space_1": "Gehe zurück zur",
+    "text_with_space_2": "und klicke auf ein Objekt, um es zu buchen.",
+    "text_without_space": "Gehe zurück zu {0} und wähle einen Raum, um auf ein Objekt zu buchen.",
     "click_map_object": "Karte",
-    "list_of_spaces": "Raumliste",
-    "text_with_space": "Gehe zurück zum {0} und klicke auf ein Objekt, um es zu buchen.",
-    "text_without_space": "Gehe zurück zu {0} und wähle einen Raum, um auf ein Objekt zu buchen."
+    "list_of_spaces": "Raumliste"
   },
   "save_space": "Raum speichern",
   "scope": {
