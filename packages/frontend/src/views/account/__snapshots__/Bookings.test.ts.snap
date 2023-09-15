@@ -4,9 +4,9 @@ exports[`Bookings component > should render correctly 1`] = `
 "<header-stub title=\\"own_bookings\\" backfallback=\\"[object Object]\\" rightclass=\\"hidden md:flex\\" disablefallback=\\"false\\"></header-stub>
 <desktop-menu-stub ismapspaces=\\"false\\"></desktop-menu-stub>
 <app-content-stub class=\\"flex-col\\">
-  <div class=\\"flex flex-col items-center justify-center gap-2 pt-40\\"><img src=\\"/src/assets/img/bookyp-logo-text.svg?url\\">
-    <p class=\\"text-gray-900\\">no_bookings</p>
-    <i18n-t-stub keypath=\\"route_to_space.text_without_space\\" tag=\\"p\\" scope=\\"parent\\" class=\\"text-center\\">
+  <div class=\\"flex flex-col items-center justify-center gap-2 pt-8 pl-8 pr-8\\"><img src=\\"/src/assets/img/no-bookings.svg?url\\" class=\\"pb-8\\">
+    <p class=\\"text-lg font-semibold text-gray-900\\">no_bookings</p>
+    <i18n-t-stub keypath=\\"route_to_space.text_without_space\\" tag=\\"p\\" scope=\\"parent\\" class=\\"text-base text-center font-normal\\">
       <router-link-stub to=\\"[object Object]\\" class=\\"underline\\">route_to_space.list_of_spaces</router-link-stub>
     </i18n-t-stub>
   </div>

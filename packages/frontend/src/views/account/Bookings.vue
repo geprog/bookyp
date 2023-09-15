@@ -8,17 +8,25 @@
   <AppContent class="flex-col">
     <ProgressIndicator v-if="isLoading" />
     <template v-else>
-      <div v-if="noBookings" class="flex flex-col items-center justify-center gap-2 pt-40">
-        <img src="/src/assets/img/bookyp-logo-text.svg?url" />
-        <p class="text-gray-900">{{ t('no_bookings') }}</p>
-        <i18n-t v-if="!savedSpaceId" keypath="route_to_space.text_without_space" tag="p" class="text-center">
+      <div v-if="noBookings" class="flex flex-col items-center justify-center gap-2 pt-8 pl-8 pr-8">
+        <img src="/src/assets/img/no-bookings.svg?url" class="pb-8" />
+        <p class="text-lg font-semibold text-gray-900">{{ t('no_bookings') }}</p>
+        <i18n-t
+          v-if="!savedSpaceId"
+          keypath="route_to_space.text_without_space"
+          tag="p"
+          class="text-base text-center font-normal"
+        >
           <router-link :to="{ name: 'home' }" class="underline">{{ t('route_to_space.list_of_spaces') }}</router-link>
         </i18n-t>
-        <i18n-t v-else keypath="route_to_space.text_with_space" tag="p" class="text-center">
+        <p v-else class="text-center text-base font-normal">
+          {{ t('route_to_space.text_with_space_1') }}
           <router-link :to="{ name: 'space', params: { spaceId: savedSpaceId } }" class="underline">{{
             t('route_to_space.click_map_object')
           }}</router-link>
-        </i18n-t>
+          <br />
+          {{ t('route_to_space.text_with_space_2') }}
+        </p>
       </div>
       <div class="mt-4">
         <div v-for="(bookings, date) in upcomingBookings" :key="date">
