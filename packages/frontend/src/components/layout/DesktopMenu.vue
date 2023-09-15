@@ -1,5 +1,5 @@
 <template>
-  <nav class="fixed h-12 bg-gray-200 w-full mt-14 hidden md:flex justify-center gap-4 text-gray-900">
+  <nav class="z-10 fixed h-12 bg-gray-200 w-full mt-14 hidden md:flex justify-center gap-4 text-gray-900">
     <DesktopMenuItem
       :text="t('explore')"
       icon="magnifying-glass"
