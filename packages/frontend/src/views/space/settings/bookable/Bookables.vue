@@ -24,6 +24,7 @@
       />
     </template>
   </AppContent>
+  <SpaceFooterMenu />
 </template>
 
 <script lang="ts">
@@ -33,6 +34,7 @@ import { useI18n } from 'vue-i18n';
 import Button from '~/components/buttons/Button.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
@@ -46,6 +48,7 @@ export default defineComponent({
     AppContent,
     Button,
     ProgressIndicator,
+    SpaceFooterMenu,
   },
 
   setup() {

@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('pending_requests')" :back-fallback="{ name: 'admin-area' }" />
+  <SettingsHeader :title="t('pending_requests')" />
 
   <AppContent class="flex-col pt-2">
     <ProgressIndicator v-if="isLoading" />
@@ -46,7 +46,7 @@ import { groupBy } from 'lodash';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import Header from '~/components/headers/Header.vue';
+import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import RequestItem from '~/components/list-items/RequestItem.vue';

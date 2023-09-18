@@ -20,6 +20,7 @@
       @click="$router.push({ name: 'space-member-bookings', params: { spaceMemberId: member._id } })"
     />
   </AppContent>
+  <SpaceFooterMenu />
 </template>
 
 <script lang="ts" setup>
@@ -30,6 +31,7 @@ import { useI18n } from 'vue-i18n';
 
 import SpaceBookingsHeader from '~/components/headers/SpaceBookingsHeader.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';

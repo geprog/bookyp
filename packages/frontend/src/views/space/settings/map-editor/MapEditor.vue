@@ -99,6 +99,7 @@
       </div>
     </div>
   </template>
+  <SpaceFooterMenu />
 </template>
 
 <script lang="ts" setup>
@@ -114,6 +115,7 @@ import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import Icon from '~/components/Icon.vue';
 import InfoBox from '~/components/InfoBox.vue';
+import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import FloorPlanEditing from '~/components/space/map/FloorPlanEditing.vue';
 import MapObject from '~/components/space/map/MapObject.vue';
 import MapObjectsEditing from '~/components/space/map/MapObjectsEditing.vue';

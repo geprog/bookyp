@@ -44,6 +44,7 @@
       <FullCalendar ref="fullCalendar" :options="calendarOptions" class="full-calendar" />
     </div>
   </div>
+  <SpaceFooterMenu />
 </template>
 
 <script lang="ts" setup>
@@ -64,6 +65,7 @@ import { useRouter } from 'vue-router';
 import Button from '~/components/buttons/Button.vue';
 import ButtonPair from '~/components/buttons/ButtonPair.vue';
 import SpaceBookingsHeader from '~/components/headers/SpaceBookingsHeader.vue';
+import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';

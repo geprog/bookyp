@@ -78,6 +78,7 @@
       </form>
     </div>
   </AppContent>
+  <SpaceFooterMenu />
 </template>
 
 <script lang="ts" setup>
@@ -92,6 +93,7 @@ import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import DateTimePicker from '~/components/inputs/DateTimePicker.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import SpaceInvoices from '~/components/space/settings/SpaceInvoices.vue';
 import SpacePlanCard from '~/components/space/settings/SpacePlanCard.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
