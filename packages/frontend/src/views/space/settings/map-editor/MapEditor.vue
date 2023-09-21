@@ -108,7 +108,7 @@ import { onKeyStroke } from '@vueuse/core';
 import { clone, cloneDeep, isEqual, omit } from 'lodash';
 import { computed, Ref, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { onBeforeRouteLeave, useRouter } from 'vue-router';
+import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router';
 
 import ButtonPair from '~/components/buttons/ButtonPair.vue';
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
@@ -138,6 +138,7 @@ const { t } = useI18n();
 const changed = ref(false);
 
 const router = useRouter();
+const route = useRoute();
 const feathers = useFeathers();
 const { currentSpace } = useCurrentSpace();
 
@@ -357,6 +358,9 @@ onBeforeRouteLeave(() => {
 });
 
 onKeyStroke('Delete', (e) => {
+  if (route.name !== 'settings-space-map') {
+    return;
+  }
   e.preventDefault();
   if (selectedMapObjectId.value !== undefined) {
     void removeSelectedMapObject();
