@@ -105,9 +105,10 @@
   "mail_for_feedback": "Mein Feedback zu Bookyp",
   "mail_for_help": "Ich brauche Hilfe bei Bookyp",
   "map_editing": {
-    "adding_wall_instruction": "Klicke und ziehe auf der Karte, um eine Wand zu zeichnen."
+    "adding_wall_instruction": "Klicke und ziehe auf der Karte, um eine Wand zu zeichnen.",
+    "objects": "Objekte",
+    "walls": "Wände"
   },
-  "map_editor": "Karteneditor",
   "map_object": {
     "change_link": "Link ändern",
     "edit": "Kartenobjekt verändern",
