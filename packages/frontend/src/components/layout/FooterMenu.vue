@@ -22,7 +22,11 @@
       <Icon name="magnifying-glass" />
       <span class="text-sm">{{ t('explore') }}</span>
     </router-link>
-    <router-link :to="{ name: 'account-bookings' }" class="flex flex-col flex-grow items-center py-1.5 px-4">
+    <router-link
+      :to="{ name: 'account-bookings' }"
+      class="flex flex-col flex-grow items-center py-1.5 px-4"
+      :class="{ 'text-primary-normal': isBookingPage }"
+    >
       <div class="relative">
         <div
           v-if="ongoingBookings"
@@ -32,6 +36,7 @@
       </div>
       <span class="text-sm">{{ t('bookings') }}</span>
     </router-link>
+
     <slot name="space-buttons" />
     <router-link :to="{ name: 'account' }" class="flex flex-col flex-grow items-center py-1.5 px-4">
       <Icon name="person" />
@@ -52,6 +57,7 @@ import useFind from '~/compositions/useFind';
 
 defineProps<{
   isMapSpaces?: boolean;
+  isBookingPage?: boolean;
 }>();
 
 const { t } = useI18n();
