@@ -1,7 +1,7 @@
 {
   "account_information": "Account Information",
   "address": "Address",
-  "admin_area": "admin area",
+  "admin_area": "Admin area",
   "admin_area_message": "Set up your space in the {0}.",
   "app": {
     "cancel": "Cancel",
@@ -55,13 +55,18 @@
   },
   "discard": "Discard",
   "edit_member": "Edit member",
-  "edit_space_description": "Description (shown on spaces overview)",
   "edit_space_information": "Edit space information",
   "email": "E-Mail",
   "email_address": "E-Mail address",
   "email_space": "E-Mail (used for booking notifications)",
   "empty_map": "Looks like your map is pretty empty!",
   "empty_map_desc": "An image depicting the map is empty.",
+  "empty_space_list_message": {
+    "all": "There are no spaces available for you",
+    "favorite": "You have not starred any spaces",
+    "frequent": "You have not booked any space in the last month",
+    "personal": "You are not a member of any space"
+  },
   "end": "End",
   "enter_name_for_new_map_object_type": "Please enter a name for the map-object type.",
   "explore": "Explore",
@@ -70,18 +75,6 @@
     "enable_all_unstable_features": "Enable all unstable features"
   },
   "features": "Features",
-  "space_list_categories": {
-    "frequent": "Frequent",
-    "favorite": "Favorite",
-    "all": "All",
-    "personal": "Personal"
-  },
-  "empty_space_list_message": {
-    "frequent": "You have not booked any space in the last month",
-    "favorite": "You have not starred any spaces",
-    "personal": "You are not a member of any space",
-    "all": "There are no spaces available for you"
-  },
   "filter_bookables": "Filter for your place",
   "filter_spaces": "Search for a free bookable",
   "get_help": "Get help",
@@ -100,15 +93,23 @@
   "invited_members": "Invited Members",
   "invoices": "Invoices",
   "its_you": "It's you",
+  "language": "Language",
+  "languages": {
+    "deutsch": "Deutsch",
+    "english": "English"
+  },
   "link_map_objects": "e.g. https://www.example.com",
-  "login": "Login",
+  "login": "Log in",
+  "login_without_space": "Login",
   "logout": "Log out",
   "mail_for_feedback": "Give us feedback",
   "mail_for_help": "I need help with Bookyp",
   "map_editing": {
-    "adding_wall_instruction": "Click and drag on the map to add a wall"
+    "adding_wall_instruction": "Click and drag on the map to add a wall",
+    "floor_plan": "Floorplan",
+    "objects": "Objects",
+    "walls": "Walls"
   },
-  "map_editor": "Map editor",
   "map_object": {
     "change_link": "Change link",
     "edit": "Edit map object",
@@ -151,28 +152,36 @@
     }
   },
   "route_to_space": {
-    "text_with_space_1": "Go back to the",
-    "text_with_space_2": "and click on an object to book it.",
-    "text_without_space": "Go back to the {0} and select a space to click on an object to book it.",
     "click_map_object": "map",
-    "list_of_spaces": "space list"
+    "list_of_spaces": "space list",
+    "text_without_space": "Go back to the {0} and select a space to click on an object to book it.",
+    "text_with_space_1": "Go back to the",
+    "text_with_space_2": "and click on an object to book it."
   },
   "save_space": "Save space",
-  "search_spaces": "Search spaces",
   "select_location_on_map": "Select location: Click on the map.",
+
+  "scope": {
+    "private": "Private space",
+    "private_space_hint": "Only the users you have invited can see your space.",
+    "public": "Public space",
+    "public_space_hint": "Every user of Bookyp can see your space."
+  },
   "select_map_object_type": "Select a map object type",
   "site_not_exist": "This site doesn't exist.",
   "space": "space",
+  "space_analytics": "Space Analytics",
   "space_create": "Create new space",
+  "space_editor": "Space Editor",
   "space_information": "Space information",
+  "space_list_categories": {
+    "all": "All",
+    "favorite": "Favorite",
+    "frequent": "Frequent",
+    "personal": "Personal"
+  },
   "spaces": "Spaces",
   "start": "Start",
-  "scope": {
-    "public": "Public space",
-    "private": "Private space",
-    "public_space_hint": "Every user of Bookyp can see your space.",
-    "private_space_hint": "Only the users you have invited can see your space."
-  },
   "subscription": {
     "add_payment_method": "Add payment method",
     "billing_details": "Billing details",
@@ -221,17 +230,10 @@
     "subscription": "Subscription",
     "upgrade": "Upgrade"
   },
-  "login_without_space": "Login",
+  "search_spaces": "Search spaces",
   "subscription_update_super_admin_description": "Here you can set the plan type and date until which it will be active as super admin. By changing the plan no one has to actually pay for it until someone upgrades / downgrades the plan through the normal payment process again.",
-  "languages": {
-    "english": "English",
-    "deutsch": "Deutsch"
-  },
-  "language": "Language",
   "my_spaces": "My Spaces",
   "spaces_admin": "Spaces where you are an admin",
-  "space_analytics": "Space Analytics",
-  "space_editor": "Space Editor",
   "super_admin": "💪 Super admin",
   "supports_markdown": "Supports {0}",
   "terms_and_conditions": {

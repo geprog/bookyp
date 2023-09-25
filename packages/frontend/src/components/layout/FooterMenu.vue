@@ -43,7 +43,7 @@
       <span class="text-sm">{{ t('profile') }}</span>
     </router-link>
   </footer>
-  <div class="w-full h-14 flex-shrink-0" />
+  <div class="w-full <md:h-14 flex-shrink-0" />
 </template>
 
 <script setup lang="ts">

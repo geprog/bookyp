@@ -11,7 +11,7 @@
   </template>
 
   <template v-else>
-    <SettingsHeader :title="t('map_editor')" :changed="changed">
+    <SettingsHeader :title="t('space_editor')" :changed="changed">
       <template v-if="changed" #actions>
         <SaveAbort @save="save" @abort="abort" />
       </template>
@@ -35,7 +35,7 @@
           @dblclick-map-object="openMapObjectSettings"
         />
       </SpaceMap>
-      <div class="m-auto flex flex-row gap-2 mb-4">
+      <div class="m-auto flex flex-row gap-2 pb-4">
         <template v-if="isMapObjectSelected">
           <FloatingButton data-test="edit-button" icon="edit" @click="openMapObjectSettings" />
           <FloatingButton data-test="delete-button" icon="delete" @click="removeSelectedMapObject" />
@@ -53,7 +53,7 @@
           @click="removeSelectedFloorPlanObject"
         />
         <template v-else-if="mode !== 'none'">
-          <InfoBox>
+          <InfoBox class="h-8">
             {{ t('map_editing.adding_wall_instruction') }}
           </InfoBox>
           <FloatingButton @click.stop="mode = 'none'">
@@ -62,28 +62,15 @@
           </FloatingButton>
         </template>
         <template v-else>
-          <ButtonPair
-            icon-left="table"
-            icon-right="more-dots-horizontal"
-            primary-left
-            data-test="add-map-object-button"
-            @left="addMapObject"
-            @right="
+          <FloatingButton
+            icon="table"
+            :text="t('map_editing.objects')"
+            @click="
               $router.push({ name: 'settings-map-select-map-object-type', params: { spaceId: currentSpace?._id } })
             "
-          >
-            <template #left>
-              <MapObject
-                :paths="selectedMapObjectType.paths"
-                :viewBox="selectedMapObjectType.viewBox"
-                path-style="stroke-white"
-              />
-            </template>
-          </ButtonPair>
-          <FloatingButton @click.stop="mode = 'wall'">
-            <Icon name="add" color="text-white" />
-            <Icon name="wall" color="text-white" />
-          </FloatingButton>
+          />
+          <FloatingButton icon="wall" :text="t('map_editing.walls')" @click.stop="mode = 'wall'" />
+
           <input
             ref="floorPlanFileInput"
             type="file"
@@ -91,10 +78,7 @@
             accept="image/svg+xml"
             @change="uploadFloorPlan($event.target as HTMLInputElement)"
           />
-          <FloatingButton @click.stop="floorPlanFileInput?.click()">
-            <Icon name="arrow-upload" color="text-white" />
-            <Icon name="svg" color="text-white" />
-          </FloatingButton>
+          <FloatingButton icon="svg" :text="t('map_editing.floor_plan')" @click.stop="floorPlanFileInput?.click()" />
         </template>
       </div>
     </div>
@@ -110,14 +94,12 @@ import { computed, Ref, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router';
 
-import ButtonPair from '~/components/buttons/ButtonPair.vue';
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import SettingsHeader from '~/components/headers/SettingsHeader.vue';
 import Icon from '~/components/Icon.vue';
 import InfoBox from '~/components/InfoBox.vue';
 import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import FloorPlanEditing from '~/components/space/map/FloorPlanEditing.vue';
-import MapObject from '~/components/space/map/MapObject.vue';
 import MapObjectsEditing from '~/components/space/map/MapObjectsEditing.vue';
 import SpaceMap from '~/components/space/map/SpaceMap.vue';
 import SaveAbort from '~/components/space/SaveAbort.vue';
