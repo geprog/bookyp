@@ -74,6 +74,13 @@ const routes: RouteRecordRaw[] = [
             props: true,
           },
           {
+            path: 'edit/:bookingId',
+            name: 'booking-edit',
+            meta: { accessibleByUserRole: true },
+            component: () => import('~/views/space/booking/BookingEdit.vue'),
+            props: true,
+          },
+          {
             path: 'confirmation',
             name: 'booking-confirm',
             meta: { accessibleByUserRole: true },
