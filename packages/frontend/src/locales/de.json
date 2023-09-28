@@ -63,11 +63,12 @@
   "empty_map": "Es sieht so aus, als wäre deine Karte ziemlich leer!",
   "empty_map_desc": "Ein Bild, das die leere Karte zeigt.",
   "empty_space_list_message": {
-    "all": "Es sind keine Plätze für Sie verfügbar",
+    "all": "Wir können zur Zeit keine Räume für dich finden.",
     "favorite": "Sie haben keine Leerzeichen markiert",
     "frequent": "Sie haben im letzten Monat keinen Platz gebucht",
     "personal": "Sie sind kein Mitglied eines Spaces"
   },
+  "loading_space": "Nach verfügbaren Räumen wird gesucht.",
   "end": "Ende",
   "enter_name_for_new_map_object_type": "Bitte gebe einen Namen für den Kartenobjekttypen ein.",
   "explore": "Suchen",
@@ -158,6 +159,7 @@
     "list_of_spaces": "Raumliste"
   },
   "save_space": "Raum speichern",
+  "search_spaces": "Räume suchen",
   "scope": {
     "private": "Privater Raum",
     "private_space_hint": "Nur eingeladene Nutzer können deinen Raum sehen.",

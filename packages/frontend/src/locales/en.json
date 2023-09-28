@@ -62,11 +62,12 @@
   "empty_map": "Looks like your map is pretty empty!",
   "empty_map_desc": "An image depicting the map is empty.",
   "empty_space_list_message": {
-    "all": "There are no spaces available for you",
+    "all": "We couldn't find any spaces for you.",
     "favorite": "You have not starred any spaces",
     "frequent": "You have not booked any space in the last month",
     "personal": "You are not a member of any space"
   },
+  "loading_space": "We are searching for available spaces.",
   "end": "End",
   "enter_name_for_new_map_object_type": "Please enter a name for the map-object type.",
   "explore": "Explore",

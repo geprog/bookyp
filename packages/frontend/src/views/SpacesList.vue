@@ -24,7 +24,7 @@
         />
       </template>
     </div>
-    <ProgressIndicator v-if="isLoadingInvitations" />
+
     <template v-else-if="invitations.length > 0">
       <h2 class="m-3 font-bold">
         {{ t('invitation.pending_invitations') }}
@@ -85,8 +85,15 @@
       </div>
     </router-link>
 
-    <div v-if="sortedSpaces.length === 0" class="w-full h-4/5 flex items-center justify-center">
+    <div
+      v-if="!isLoadingInvitations && sortedSpaces.length === 0"
+      class="w-full h-4/5 flex items-center justify-center"
+    >
       <span class="text-gray-400">{{ noSpaceMessage }}</span>
+    </div>
+    <div v-if="isLoadingInvitations" class="w-full h-4/5 flex flex-col items-center justify-center">
+      <ProgressIndicator />
+      <span class="text-gray-400">{{ t('loading_space') }}</span>
     </div>
   </AppContent>
   <FooterMenu />
@@ -174,7 +181,7 @@ const noSpaceMessage = computed(() => {
 watch(
   loadingSpaces,
   () => {
-    if (!loadingSpaces.value && spaces.value && user.value && !selectedCategory.value) {
+    if (!loadingSpaces.value && spaces.value && user.value) {
       selectedCategory.value = spaces.value.some((space) => space.frequency)
         ? 'Frequent'
         : user.value?.starredSpaces?.length
