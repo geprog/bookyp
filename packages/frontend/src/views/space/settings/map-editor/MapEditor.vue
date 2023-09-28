@@ -17,7 +17,7 @@
       </template>
     </SettingsHeader>
 
-    <div class="flex flex-col flex-grow min-h-0">
+    <div class="flex flex-col flex-grow min-h-0 pt-15">
       <SpaceMap data-test="space-map" :disable-panning="mode !== 'none'">
         <FloorPlanEditing
           :mode="mode"
@@ -83,6 +83,7 @@
       </div>
     </div>
   </template>
+
   <SpaceFooterMenu />
 </template>
 

@@ -4,7 +4,7 @@ exports[`BookablesMap view > should render correctly 1`] = `
 "<header-stub title=\\"BOOKYP\\" backfallback=\\"[object Object]\\" rightclass=\\"hidden md:flex\\" disablefallback=\\"false\\"></header-stub>
 <space-desktop-menu-stub></space-desktop-menu-stub>
 <toolbar-header-stub actionfor=\\"bookables\\"></toolbar-header-stub>
-<div class=\\"flex flex-col flex-grow min-h-0\\">
+<div class=\\"flex flex-col flex-grow min-h-0 pt-15\\">
   <space-map-stub disablepanning=\\"false\\" disablecontrol=\\"false\\">
     <floor-plan-stub spaceid=\\"60f53bede6f8313dff7f99e0\\"></floor-plan-stub>
     <map-objects-stub mode=\\"show-availability\\" spaceid=\\"60f53bede6f8313dff7f99e0\\" clickable=\\"true\\" isadmin=\\"false\\"></map-objects-stub>
