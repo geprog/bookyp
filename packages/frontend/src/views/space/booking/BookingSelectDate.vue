@@ -22,9 +22,9 @@
         :initial-date="combinedFilter.start"
         @booking:click="openBooking"
       >
-        <template #info-box>
+        <template v-if="isBookingOverlapping" #info-box>
           <InfoBox class="mr-2 flex flex-col" :class="{ 'bg-red-400 text-white': isBookingOverlapping }">
-            <p v-if="isBookingOverlapping">{{ t('booking_overlaps') }}</p>
+            <p>{{ t('booking_overlaps') }}</p>
           </InfoBox>
         </template>
       </DateRangePicker>
