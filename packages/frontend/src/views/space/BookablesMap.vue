@@ -4,7 +4,7 @@
   <SpaceDesktopMenu />
   <ToolbarHeader action-for="bookables" />
   <ProgressIndicator v-if="isLoading" />
-  <div v-else-if="mapObjectsExists" class="flex flex-col flex-grow min-h-0">
+  <div v-else-if="mapObjectsExists" class="flex flex-col flex-grow min-h-0 pt-15">
     <SpaceMap v-if="spaceId">
       <FloorPlan :space-id="spaceId" />
       <MapObjects
