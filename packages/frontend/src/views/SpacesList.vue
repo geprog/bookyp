@@ -11,7 +11,11 @@
       :text="t('create_sample_space')"
       @click="createSampleSpace"
     />
-    <div v-if="user && spaces.length > 0" class="flex flex-row justify-between px-3 overflow-x-auto scrollbar-hide">
+    <div
+      v-if="user && spaces.length > 0"
+      class="flex flex-row justify-between px-3 overflow-x-auto scrollbar-hide"
+      :class="{ 'pt-12': !allUnstableFeaturesEnabled }"
+    >
       <template v-for="button in categoryButtons" :key="button.category">
         <FloatingButton
           class="w-25 mr-1"
