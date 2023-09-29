@@ -121,6 +121,7 @@ const defineRulesFor = async (
         'plan',
         'image',
         'coordinates',
+        'isPublic',
         'phone',
         'website',
       ],

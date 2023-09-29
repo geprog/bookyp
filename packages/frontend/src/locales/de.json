@@ -123,8 +123,10 @@
   "member_newest_booking": "Neuste Buchung: {date}",
   "members": "Mitglieder",
   "members_with_bookings": "Mitglieder mit einer Buchung",
+  "my_spaces": "Meine Räume",
   "name": "Name",
   "next": "Nächste {count}h",
+  "no_admin_spaces": "Du bist derzeit kein Administrator eines Raums. Klicke auf die Schaltfläche unten. um einen Raum zu erstellen.",
   "no_bookable": "Es konnte kein buchbares Objekt gefunden werden.",
   "no_bookings": "Noch keine Buchungen vorhanden!",
   "not_found": "Du hast dich verlaufen.",
@@ -152,11 +154,11 @@
     }
   },
   "route_to_space": {
+    "click_map_object": "Karte",
+    "list_of_spaces": "Raumliste",
     "text_with_space_1": "Gehe zurück zur",
     "text_with_space_2": "und klicke auf ein Objekt, um es zu buchen.",
-    "text_without_space": "Gehe zurück zu {0} und wähle einen Raum, um auf ein Objekt zu buchen.",
-    "click_map_object": "Karte",
-    "list_of_spaces": "Raumliste"
+    "text_without_space": "Gehe zurück zu {0} und wähle einen Raum, um auf ein Objekt zu buchen."
   },
   "save_space": "Raum speichern",
   "search_spaces": "Räume suchen",
