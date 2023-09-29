@@ -1,7 +1,12 @@
 <template>
   <Header :title="t('my_spaces')" :back-fallback="{ name: 'profile' }" />
+  <DesktopMenu />
 
-  <AppContent class="flex-col pb-10">
+  <div v-if="sortedSpaces.length === 0" class="w-full h-4/5 flex items-center justify-center text-center self-center">
+    <ProgressIndicator v-if="loadingSpaces" />
+    <span v-else class="text-gray-400">{{ t('no_admin_spaces') }}</span>
+  </div>
+  <AppContent v-else class="flex-col">
     <h2 class="m-3 font-bold h-6 text-lg">
       {{ t('spaces_admin') }}
     </h2>
@@ -35,10 +40,10 @@
         <span class="text-gray-500 overflow-hidden overflow-ellipsis line-clamp-3">{{ space.description }}</span>
       </div>
     </router-link>
-    <div class="w-full fixed bottom-12 z-50 md:bottom-0 flex justify-center items-end space-x-8 mb-4">
-      <FloatingButton icon="add" :text="t('space_create')" @click="$router.push({ name: 'space-create' })" />
-    </div>
   </AppContent>
+  <div class="w-full fixed bottom-12 z-50 md:bottom-0 flex justify-center items-end space-x-8 mb-4">
+    <FloatingButton icon="add" :text="t('space_create')" @click="$router.push({ name: 'space-create' })" />
+  </div>
   <FooterMenu />
 </template>
 
@@ -50,7 +55,9 @@ import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
+import DesktopMenu from '~/components/layout/DesktopMenu.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
@@ -58,22 +65,18 @@ import useFind from '~/compositions/useFind';
 const { t } = useI18n();
 const feathers = useFeathers();
 
-const { data: spaces } = useFind(
+const { data: spaces, isLoading: loadingSpaces } = useFind(
   'spaces',
   computed(() => ({
     paginate: false,
     query: {
-      $isUserMember: true,
+      $isUserAdmin: true,
     },
   })),
 );
 
 const adminSpaces = computed(() =>
-  spaces.value.filter(
-    (space) =>
-      space.isUserMember &&
-      space.members.some((member) => member.userId === user.value?._id && member.role === 'admin'),
-  ),
+  user.value && spaces.value ? spaces.value.filter((space) => space.isUserAdmin) : [],
 );
 
 // sort spaces by name and starred

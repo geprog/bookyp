@@ -12,7 +12,12 @@
       :to="{ name: 'account-bookings' }"
     />
     <slot name="space-buttons" />
-    <DesktopMenuItem :text="t('profile')" icon="person" :to="{ name: 'account' }" />
+    <DesktopMenuItem
+      :text="t('profile')"
+      icon="person"
+      :to="{ name: 'account' }"
+      :class="{ 'router-link-exact-active ': highlightProfileButton }"
+    />
   </nav>
   <div class="w-full md:h-14 flex-shrink-0" />
 </template>
@@ -21,6 +26,7 @@
 import dayjs from 'dayjs';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRoute } from 'vue-router';
 
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
@@ -47,6 +53,12 @@ const bookingsQuery = computed(() => ({
 }));
 const { data: rawBookings } = useFind('bookings', bookingsQuery);
 const ongoingBookings = computed(() => [...rawBookings.value].filter((booking) => !booking.request));
+
+const route = useRoute();
+const path = computed(() => route.path);
+const highlightProfileButton = computed<boolean>(
+  () => path.value.includes('/account') && !path.value.includes('booking'),
+);
 </script>
 
 <style scoped>

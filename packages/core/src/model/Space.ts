@@ -42,6 +42,7 @@ export class Space extends AbstractEntity {
   isPublic?: boolean;
   frequency?: number;
   isUserMember?: boolean;
+  isUserAdmin?: boolean;
 
   constructor(data: Partial<Space> = {}) {
     super();

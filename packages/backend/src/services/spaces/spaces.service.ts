@@ -7,6 +7,7 @@ import softDelete from '~/hooks/softDelete';
 import { updateSpaceSubscription } from '~/lib/paymentsApi';
 
 import addFrequencyCount from './hooks/addFrequencyCount';
+import addIsUserAdmin from './hooks/addIsUserAdmin';
 import addIsUserMember from './hooks/addIsUserMember';
 import addSpaceMemberFields from './hooks/addSpaceMemberFields';
 import { applyFreeBookableFilter } from './hooks/applyFreeBookableFilter';
@@ -46,7 +47,15 @@ export const SpaceModel = model<Model.Space & Document>(name, SpaceSchema);
 export default (app: Application): void => {
   const options: Partial<MongooseServiceOptions> = {
     Model: SpaceModel,
-    whitelist: ['$elemMatch', '$exists', '$freeBookable', '$frequency', '$isUserMember', ...feathersCaslAllowlist],
+    whitelist: [
+      '$elemMatch',
+      '$exists',
+      '$freeBookable',
+      '$frequency',
+      '$isUserMember',
+      '$isUserAdmin',
+      ...feathersCaslAllowlist,
+    ],
   };
 
   app.use(name, new Service<Model.Space>(options));
@@ -56,7 +65,7 @@ export default (app: Application): void => {
       create: [removePlanFromCreate],
     },
     after: {
-      all: [addSpaceMemberFields, cleanupUploadedFiles, addFrequencyCount, addIsUserMember],
+      all: [addSpaceMemberFields, cleanupUploadedFiles, addFrequencyCount, addIsUserMember, addIsUserAdmin],
       patch: [
         // update subscription if plan changed by super admin
         async (ctx) => {

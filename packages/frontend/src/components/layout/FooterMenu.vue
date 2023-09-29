@@ -38,7 +38,11 @@
     </router-link>
 
     <slot name="space-buttons" />
-    <router-link :to="{ name: 'account' }" class="flex flex-col flex-grow items-center py-1.5 px-4">
+    <router-link
+      :to="{ name: 'account' }"
+      class="flex flex-col flex-grow items-center py-1.5 px-4"
+      :class="{ 'router-link-exact-active ': highlightProfileButton }"
+    >
       <Icon name="person" />
       <span class="text-sm">{{ t('profile') }}</span>
     </router-link>
@@ -50,6 +54,7 @@
 import dayjs from 'dayjs';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRoute } from 'vue-router';
 
 import Icon from '~/components/Icon.vue';
 import { user } from '~/compositions/useAuthentication';
@@ -85,6 +90,11 @@ const runningBookings = computed(() =>
   ),
 );
 const ongoingBookings = computed(() => runningBookings.value.length > 0);
+const route = useRoute();
+const path = computed(() => route.path);
+const highlightProfileButton = computed<boolean>(
+  () => path.value.includes('/account') && !path.value.includes('booking'),
+);
 </script>
 
 <style scoped>

@@ -124,8 +124,10 @@
   "member_newest_booking": "Newest booking: {date}",
   "members": "Members",
   "members_with_bookings": "Members with bookings",
+  "my_spaces": "My Spaces",
   "name": "Name",
   "next": "Next {count}h",
+  "no_admin_spaces": "You are currently not an admin of any space. Click the button below to create your space",
   "no_bookable": "No bookable found",
   "no_bookings": "No bookings yet!",
   "not_found": "You're lost!",
@@ -155,19 +157,19 @@
   "route_to_space": {
     "click_map_object": "map",
     "list_of_spaces": "space list",
-    "text_without_space": "Go back to the {0} and select a space to click on an object to book it.",
     "text_with_space_1": "Go back to the",
-    "text_with_space_2": "and click on an object to book it."
+    "text_with_space_2": "and click on an object to book it.",
+    "text_without_space": "Go back to the {0} and select a space to click on an object to book it."
   },
   "save_space": "Save space",
-  "select_location_on_map": "Select location: Click on the map.",
-
   "scope": {
     "private": "Private space",
     "private_space_hint": "Only the users you have invited can see your space.",
     "public": "Public space",
     "public_space_hint": "Every user of Bookyp can see your space."
   },
+  "search_spaces": "Search spaces",
+  "select_location_on_map": "Select location: Click on the map.",
   "select_map_object_type": "Select a map object type",
   "site_not_exist": "This site doesn't exist.",
   "space": "space",
@@ -182,6 +184,7 @@
     "personal": "Personal"
   },
   "spaces": "Spaces",
+  "spaces_admin": "Spaces where you are an admin",
   "start": "Start",
   "subscription": {
     "add_payment_method": "Add payment method",
@@ -231,10 +234,7 @@
     "subscription": "Subscription",
     "upgrade": "Upgrade"
   },
-  "search_spaces": "Search spaces",
   "subscription_update_super_admin_description": "Here you can set the plan type and date until which it will be active as super admin. By changing the plan no one has to actually pay for it until someone upgrades / downgrades the plan through the normal payment process again.",
-  "my_spaces": "My Spaces",
-  "spaces_admin": "Spaces where you are an admin",
   "super_admin": "💪 Super admin",
   "supports_markdown": "Supports {0}",
   "terms_and_conditions": {
