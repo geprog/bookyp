@@ -52,7 +52,6 @@ const backGroundColor = toRef(props, 'backGroundColor');
 const foregroundColor = toRef(props, 'foregroundColor');
 
 const shadow = computed(() => (!stroke.value ? 'shadow-lg' : 'shadow-none'));
-
 const selectedBackgroundColor = computed(() => {
   let color = 'bg-yellow-500 hover:bg-primary-dark';
   if (stroke.value) {

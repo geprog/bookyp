@@ -59,6 +59,7 @@ const showAdminButton = computed<boolean>(
       path.value.includes('/bookings/calendar') ||
       path.value.includes('bookings/members') ||
       path.value.includes('settings/pendingRequests') ||
+      path.value.includes('settings/requestDetails') ||
       path.value.includes('/settings/map-editor') ||
       path.value.includes('/settings/bookable') ||
       path.value.includes('settings/member') ||

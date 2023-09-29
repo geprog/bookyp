@@ -29,7 +29,7 @@
       </template>
     </div>
 
-    <template v-else-if="invitations.length > 0">
+    <template v-if="invitations.length > 0">
       <h2 class="m-3 font-bold">
         {{ t('invitation.pending_invitations') }}
       </h2>

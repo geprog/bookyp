@@ -62,12 +62,33 @@ Moin!
 
 "{{ user }}" hat den Tisch "{{ table }}" in deinem Space "{{ space }}" von {{ start }} bis {{ end }} angefragt.
 
-Um die Anfrage zu sehen, klicke hier: {{ bookingLink }}.
+Um die Anfrage zu sehen, klicke hier: {{ bookingLink }} .
 
 Du kannst die Anfrage dort akzeptieren oder ablehnen.
 
 Dein Bookyp-Team
 
+`);
+
+const spaceBookingRequestAcceptMailTemplate = handlebars.compile(`
+Moin!
+
+deine Buchungsanfrage für den Tisch "{{ table }}" im Space "{{ space }}" von {{ start }} bis {{ end }} wurde aktzeptiert.
+
+Um die Buchung zu sehen, klicke hier: {{ bookingLink }} .
+
+Dein Bookyp-Team
+
+`);
+
+const spaceBookingRequestRejectMailTemplate = handlebars.compile(`
+Moin!
+
+deine Buchungsanfrage für den Tisch "{{ table }}" im Space "{{ space }}" von {{ start }} bis {{ end }} wurde abgelehnt.
+
+Um die Buchung zu sehen, klicke hier: {{ bookingLink }} .
+
+Dein Bookyp-Team
 `);
 /* spell-checker: enable */
 
@@ -147,6 +168,62 @@ export async function sendNotificationToAdminMail(
       to: email,
       // cspell:disable-next-line
       subject: `Neue ${booking.request ? 'Buchungsanfrage' : 'Buchung'} in "${space.name}"`,
+      text: emailMessage,
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Problem sending new booking mail', error);
+  }
+}
+
+export async function sendNotificationToUserMail(
+  space: Model.Space,
+  email: string,
+  currentBookable: Model.Bookable,
+  booking: Partial<Model.Booking>,
+  accept: boolean,
+): Promise<void> {
+  if (!transporter) {
+    return;
+  }
+
+  if (booking.start === undefined || booking.end === undefined) {
+    throw new Error('No start and end Date for Booking found.');
+  }
+
+  const start = dayjs(booking.start).format('DD.MM.YYYY HH:mm');
+  const end = dayjs(booking.end).format('DD.MM.YYYY HH:mm');
+
+  const { frontendUrl } = config().app;
+
+  if (!booking._id) {
+    throw new Error('No booking id found.');
+  }
+
+  if (!frontendUrl) {
+    throw new Error('No frontendUrl configured.');
+  }
+
+  const bookingLink = `${frontendUrl}/account/booking/${booking._id}`;
+
+  const emailParameters = {
+    space: space.name,
+    table: currentBookable.name,
+    start,
+    end,
+    bookingLink,
+  };
+
+  const emailMessage = accept
+    ? spaceBookingRequestAcceptMailTemplate(emailParameters)
+    : spaceBookingRequestRejectMailTemplate(emailParameters);
+
+  try {
+    await transporter.sendMail({
+      from: config().mail.from,
+      to: email,
+      // cspell:disable-next-line
+      subject: `${accept ? 'Buchungsanfrage akzeptiert' : 'Buchungsanfrage abgelehnt'}`,
       text: emailMessage,
     });
   } catch (error) {

@@ -195,6 +195,13 @@ const routes: RouteRecordRaw[] = [
             name: 'space-pending-requests',
             component: () => import('~/views/space/settings/request/PendingRequests.vue'),
           },
+          {
+            path: 'requestDetails/:requestId',
+            name: 'request-details',
+            meta: { accessibleByUserRole: true },
+            component: () => import('~/views/space/settings/request/RequestDetails.vue'),
+            props: true,
+          },
         ],
       },
 
