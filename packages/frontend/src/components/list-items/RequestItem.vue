@@ -2,25 +2,30 @@
   <ProgressIndicator v-if="!bookedBy" />
   <ListItem v-else data-test="request-item" :status-color="statusColor">
     <div class="flex ml-3 flex-grow min-w-0 py-1">
-      <div class="flex flex-col min-w-0 flex-grow space-y-1">
-        <span data-test="label" class="text-base truncate text-gray-900" :class="[{ '!text-gray-500': disabled }]">{{
-          bookedBy ? bookedBy.name : t('no_bookable')
-        }}</span>
-        <div
-          data-test="request-duration"
-          class="flex text-gray-500 text-sm flex-col pb-1"
-          :class="[{ '!text-gray-400': disabled }]"
-        >
-          {{ `${dayjs(booking.start).format('HH:mm')} - ${bookingEnd}` }}
+      <router-link
+        :to="{ name: 'request-details', params: { requestId: booking._id } }"
+        class="flex flex-col min-w-0 flex-grow space-y-1"
+      >
+        <div>
+          <span data-test="label" class="text-base truncate text-gray-900" :class="[{ '!text-gray-500': disabled }]">{{
+            bookedBy ? bookedBy.name : t('no_bookable')
+          }}</span>
+          <div
+            data-test="request-duration"
+            class="flex text-gray-500 text-sm flex-col pb-1"
+            :class="[{ '!text-gray-400': disabled }]"
+          >
+            {{ `${dayjs(booking.start).format('HH:mm')} - ${bookingEnd}` }}
+          </div>
+          <span
+            data-test="description"
+            class="w-full text-sm truncate text-gray-500"
+            :class="[{ '!text-gray-400': disabled }]"
+          >
+            {{ bookable ? bookable.name : space?.name }}
+          </span>
         </div>
-        <span
-          data-test="description"
-          class="w-full text-sm truncate text-gray-500"
-          :class="[{ '!text-gray-400': disabled }]"
-        >
-          {{ bookable ? bookable.name : space?.name }}
-        </span>
-      </div>
+      </router-link>
       <div v-if="!disabled" class="flex">
         <IconButton icon="check-mark" @click="emits('accept')" />
         <IconButton icon="dismiss" @click="emits('reject')" />

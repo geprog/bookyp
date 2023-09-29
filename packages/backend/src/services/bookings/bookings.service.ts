@@ -7,6 +7,10 @@ import softDelete from '~/hooks/softDelete';
 
 import { preventInvalidDateRange } from './hooks/preventInvalidDateRange';
 import { preventOverlappingBookings } from './hooks/preventOverlappingBookings';
+import {
+  sendAcceptRequestNotificationMail,
+  sendRejectRequestNotificationMail,
+} from './hooks/sendAcceptRejectRequestMail';
 import { sendBookingNotificationMail } from './hooks/sendBookingNotificationMail';
 
 const BookingSchema = new Schema<Model.Booking>({
@@ -35,7 +39,8 @@ export default (app: Application): void => {
     before: {
       all: [softDelete],
       create: [preventInvalidDateRange, preventOverlappingBookings],
-      update: [],
+      remove: [sendRejectRequestNotificationMail],
+      update: [sendAcceptRequestNotificationMail],
       patch: [],
     },
     after: {

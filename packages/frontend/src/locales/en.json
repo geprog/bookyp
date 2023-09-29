@@ -1,4 +1,5 @@
 {
+  "accept_request": "Accept Request",
   "account_information": "Account Information",
   "address": "Address",
   "admin_area": "Admin area",
@@ -61,6 +62,7 @@
   "email_space": "E-Mail (used for booking notifications)",
   "empty_map": "Looks like your map is pretty empty!",
   "empty_map_desc": "An image depicting the map is empty.",
+  "empty_requests_desc": "An image depicting that there are no requests.",
   "empty_space_list_message": {
     "all": "We couldn't find any spaces for you.",
     "favorite": "You have not starred any spaces",
@@ -130,6 +132,7 @@
   "no_admin_spaces": "You are currently not an admin of any space. Click the button below to create your space",
   "no_bookable": "No bookable found",
   "no_bookings": "No bookings yet!",
+  "no_requests": "No requests yet!",
   "not_found": "You're lost!",
   "occupied_bookables": "Occupied bookables",
   "ok": "OK",
@@ -143,6 +146,9 @@
   "preview": "Preview",
   "privacy_policy": "Privacy Policy",
   "profile": "Profile",
+  "reject_request": "Reject Request",
+  "request": "request",
+  "request_details": "Request details",
   "requested": "Requested",
   "roles": {
     "admin": {
