@@ -12,6 +12,7 @@
       cursor-pointer
       focus:outline-transparent
       disabled:bg-gray-background disabled:cursor-not-allowed
+      pointer-events-auto
     "
     :class="[selectedBackgroundColor, selectedForegroundColor, shadow]"
     :disabled="disabled"

@@ -91,11 +91,11 @@
 
     <div
       v-if="!isLoadingInvitations && sortedSpaces.length === 0"
-      class="w-full h-4/5 flex items-center justify-center"
+      class="w-full h-2/5 flex items-center justify-center"
     >
       <span class="text-gray-400">{{ noSpaceMessage }}</span>
     </div>
-    <div v-if="isLoadingInvitations" class="w-full h-4/5 flex flex-col items-center justify-center">
+    <div v-if="isLoadingInvitations" class="w-full h-2/5 flex flex-col items-center justify-center">
       <ProgressIndicator />
       <span class="text-gray-400">{{ t('loading_space') }}</span>
     </div>

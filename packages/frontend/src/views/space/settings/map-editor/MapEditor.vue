@@ -17,7 +17,7 @@
       </template>
     </SettingsHeader>
 
-    <div class="flex flex-col flex-grow min-h-0 pt-15">
+    <div class="flex flex-col flex-grow min-h-0 pt-12">
       <SpaceMap data-test="space-map" :disable-panning="mode !== 'none'">
         <FloorPlanEditing
           :mode="mode"
@@ -35,7 +35,7 @@
           @dblclick-map-object="openMapObjectSettings"
         />
       </SpaceMap>
-      <div class="m-auto flex flex-row gap-2 pb-4">
+      <div class="m-auto flex flex-row gap-2 pb-4 pointer-events-none fixed bottom-0 place-self-center <md:bottom-14">
         <template v-if="isMapObjectSelected">
           <FloatingButton data-test="edit-button" icon="edit" @click="openMapObjectSettings" />
           <FloatingButton data-test="delete-button" icon="delete" @click="removeSelectedMapObject" />
