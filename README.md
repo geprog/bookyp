@@ -21,3 +21,13 @@
 - build libs: `pnpm build:libs`
 - seed a space with your user as admin with `pnpm run --filter @bookyp/e2e seed`
 - run `pnpm docker:up` BEFORE starting the backend
+
+## Release
+
+### Android
+
+To trigger a release on the Play Store, increment the `versionCode` in `packages/native/android/app/build.gradle`.
+`versionName` is just a human readable version number and can be incremented as well.
+Changelogs can optionally be added.
+
+An example can be found at <https://git.geprog.com/bookyp/bookyp/-/merge_requests/789/diffs>.
