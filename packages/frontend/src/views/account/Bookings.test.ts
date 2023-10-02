@@ -51,6 +51,6 @@ describe('Bookings component', () => {
     });
 
     // then
-    expect(wrapper.findAll('[data-test=groupByDates]')).toHaveLength(3);
+    expect(wrapper.findAll('[data-test=groupByDates]')).toHaveLength(0);
   });
 });

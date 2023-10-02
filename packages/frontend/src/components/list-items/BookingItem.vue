@@ -1,6 +1,7 @@
 <template>
   <ListItem data-test="booking-item" :status-color="statusColor">
-    <div class="flex ml-3 flex-grow min-w-0 py-1">
+    <ProgressIndicator v-if="!bookable" />
+    <div v-else class="flex ml-3 flex-grow min-w-0 py-1">
       <div class="flex flex-col min-w-0 flex-grow space-y-1">
         <span data-test="label" class="text-base truncate text-gray-900">{{
           bookable ? bookable.name : t('no_bookable')
@@ -24,6 +25,7 @@ import { computed, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import ListItem from '~/components/list-items/ListItem.vue';
+import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import useGet from '~/compositions/useGet';
 
 const props = defineProps<{

@@ -10,7 +10,9 @@
     <template v-else>
       <div v-if="noBookings" class="flex flex-col items-center justify-center gap-2 pt-8 pl-8 pr-8">
         <img src="/src/assets/img/no-bookings.svg?url" class="pb-8" />
-        <p class="text-lg font-semibold text-gray-900">{{ t('no_bookings') }}</p>
+        <p class="text-lg font-semibold text-gray-900">
+          {{ t('no_bookings') }}
+        </p>
         <i18n-t
           v-if="!savedSpaceId"
           keypath="route_to_space.text_without_space"
@@ -48,18 +50,28 @@
           </router-link>
         </div>
         <template v-if="Object.values(pastBookings).length > 0">
-          <h2 class="font-bold mt-8 text-lg">{{ t('past_bookings') }}</h2>
-          <div v-for="(bookings, date) in pastBookings" :key="date">
-            <p data-test="groupByDates" class="ml-2 font-bold">
-              {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}
-            </p>
-            <router-link
-              v-for="booking in bookings"
-              :key="booking._id"
-              :to="{ name: 'account-booking', params: { bookingId: booking._id } }"
-            >
-              <BookingItem :booking="booking" status-color="bg-gray-inactive" class="m-3" />
-            </router-link>
+          <div class="flex flex-row justify-between items-center mt-8">
+            <span class="font-bold text-lg">{{ t('past_bookings') }}</span>
+            <Icon
+              name="dropdown"
+              class="cursor-pointer"
+              :class="{ 'transform rotate-180': isDisplay }"
+              @click="togglePastBookings"
+            />
+          </div>
+          <div v-if="isDisplay">
+            <div v-for="(bookings, date) in pastBookings" :key="date">
+              <p data-test="groupByDates" class="ml-2 font-bold">
+                {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}
+              </p>
+              <router-link
+                v-for="booking in bookings"
+                :key="booking._id"
+                :to="{ name: 'account-booking', params: { bookingId: booking._id } }"
+              >
+                <BookingItem :booking="booking" status-color="bg-gray-inactive" class="m-3" />
+              </router-link>
+            </div>
           </div>
         </template>
       </div>
@@ -72,10 +84,11 @@
 import { Model } from '@bookyp/core';
 import dayjs from 'dayjs';
 import { groupBy } from 'lodash';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import Header from '~/components/headers/Header.vue';
+import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import DesktopMenu from '~/components/layout/DesktopMenu.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
@@ -98,6 +111,12 @@ const { data: rawBookings, isLoading } = useFind('bookings', bookingsQuery);
 const sortedBookings = computed(() =>
   [...rawBookings.value].sort((a, b) => (dayjs(a.start).isBefore(b.start) ? -1 : 1)),
 );
+
+const isDisplay = ref<boolean>();
+function togglePastBookings() {
+  isDisplay.value = !isDisplay.value;
+  return isDisplay.value;
+}
 
 const upcomingBookings = computed(() =>
   groupBy(
