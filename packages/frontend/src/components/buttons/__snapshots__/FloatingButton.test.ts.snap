@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`FloatingButton component > should render correctly 1`] = `
-"<button type=\\"button\\" class=\\"flex items-center justify-center rounded-full p-3 h-8 text-sm cursor-pointer focus:outline-transparent disabled:bg-gray-background disabled:cursor-not-allowed bg-yellow-500 hover:bg-primary-dark text-white shadow-lg\\">
+"<button type=\\"button\\" class=\\"flex items-center justify-center rounded-full p-3 h-8 text-sm cursor-pointer focus:outline-transparent disabled:bg-gray-background disabled:cursor-not-allowed pointer-events-auto bg-yellow-500 hover:bg-primary-dark text-white shadow-lg\\">
   <icon-stub name=\\"settings\\" color=\\"text-white\\" data-test=\\"floating-button-icon\\"></icon-stub>
   <!--v-if-->
 </button>"

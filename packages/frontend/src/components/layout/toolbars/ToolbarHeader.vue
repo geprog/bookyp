@@ -1,5 +1,7 @@
 <template>
-  <div class="fixed place-self-center w-full max-w-3xl flex justify-between p-6 z-50 mt-12 md:mt-24">
+  <div
+    class="fixed place-self-center w-full max-w-3xl flex justify-between p-6 z-50 mt-12 md:mt-24 pointer-events-none"
+  >
     <div class="relative">
       <span
         v-if="appliedFilters > 0"
@@ -18,6 +20,7 @@
         >{{ appliedFilters }}</span
       >
       <FloatingButton
+        class="pointer-events-auto"
         icon="filter"
         text="Filter"
         back-ground-color="white"
@@ -26,6 +29,7 @@
     </div>
     <div>
       <ToggleBar
+        class="pointer-events-auto"
         :selected="$route.name === `${actionFor}-map` ? 'start' : 'end'"
         start-icon="map"
         end-icon="apps-list"
