@@ -20,6 +20,7 @@ import DiagramIcon from '~/assets/icons/diagram.svg';
 import DirectDebitIcon from '~/assets/icons/direct-debit.svg';
 import DismissIcon from '~/assets/icons/dismiss.svg';
 import DocumentOnePageIcon from '~/assets/icons/document-one-page.svg';
+import DropdownIcon from '~/assets/icons/dropdown.svg';
 import EditIcon from '~/assets/icons/edit.svg';
 import Email from '~/assets/icons/email.svg';
 import FeedbackIcon from '~/assets/icons/feedback.svg';
@@ -154,6 +155,7 @@ const icons = {
   'person-tentative': PersonTentative,
   payment: Payment,
   'pending-requests': PendingRequests,
+  dropdown: DropdownIcon,
 };
 
 export default icons;

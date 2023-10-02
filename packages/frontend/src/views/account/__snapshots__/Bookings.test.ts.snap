@@ -11,25 +11,10 @@ exports[`Bookings component > should render correctly 1`] = `
     </i18n-t-stub>
   </div>
   <div class=\\"mt-4\\">
-    <h2 class=\\"font-bold mt-8 text-lg\\">past_bookings</h2>
-    <div>
-      <p data-test=\\"groupByDates\\" class=\\"ml-2 font-bold\\">17 Dec.</p>
-      <router-link-stub to=\\"[object Object]\\">
-        <booking-item-stub booking=\\"[object Object]\\" statuscolor=\\"bg-gray-inactive\\" class=\\"m-3\\"></booking-item-stub>
-      </router-link-stub>
+    <div class=\\"flex flex-row justify-between items-center mt-8\\"><span class=\\"font-bold text-lg\\">past_bookings</span>
+      <icon-stub name=\\"dropdown\\" color=\\"\\" class=\\"cursor-pointer\\"></icon-stub>
     </div>
-    <div>
-      <p data-test=\\"groupByDates\\" class=\\"ml-2 font-bold\\">18 Dec.</p>
-      <router-link-stub to=\\"[object Object]\\">
-        <booking-item-stub booking=\\"[object Object]\\" statuscolor=\\"bg-gray-inactive\\" class=\\"m-3\\"></booking-item-stub>
-      </router-link-stub>
-    </div>
-    <div>
-      <p data-test=\\"groupByDates\\" class=\\"ml-2 font-bold\\">8 Aug.</p>
-      <router-link-stub to=\\"[object Object]\\">
-        <booking-item-stub booking=\\"[object Object]\\" statuscolor=\\"bg-gray-inactive\\" class=\\"m-3\\"></booking-item-stub>
-      </router-link-stub>
-    </div>
+    <!--v-if-->
   </div>
 </app-content-stub>
 <footer-menu-stub ismapspaces=\\"false\\" isbookingpage=\\"false\\"></footer-menu-stub>"

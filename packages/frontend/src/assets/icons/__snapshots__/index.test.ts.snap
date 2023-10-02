@@ -79,5 +79,6 @@ exports[`Icons > should contain all needed icons 1`] = `
   "person-tentative",
   "payment",
   "pending-requests",
+  "dropdown",
 ]
 `;
