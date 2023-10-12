@@ -33,6 +33,7 @@
     "@vueuse/core": "9.2.0",
     "dayjs": "1.10.5",
     "events": "3.3.0",
+    "hull.js": "1.0.3",
     "lodash": "4.17.21",
     "maplibre-gl": "3.0.0-pre.3",
     "marked": "4.2.12",

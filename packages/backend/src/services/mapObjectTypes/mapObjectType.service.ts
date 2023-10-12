@@ -7,6 +7,7 @@ import { feathersCaslAllowlist } from '~/casl';
 const MapObjectTypeSchema = new Schema<Model.MapObjectType>({
   name: { type: String, required: true },
   paths: { type: [String], required: true },
+  bgPaths: { type: [String] },
   viewBox: { type: String, required: true },
   spaceId: { type: String, required: true },
 });

@@ -186,7 +186,7 @@ describe('MapObjects component', () => {
     expect(wrapper.emitted('clickOnMapObject')).toBeFalsy();
   });
 
-  it('should use white fill color when the object is not linked with a bookable', () => {
+  it('should not style single paths explicitly', () => {
     // given
     prepareUseMapObjectsMockOnce([sampleMapObject]);
     prepareUseBookablesOnce();
@@ -204,8 +204,30 @@ describe('MapObjects component', () => {
 
     // then
     expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
-    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe('');
-    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('');
+    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe('body');
+    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('body');
+  });
+
+  const BASE_MAP_OBJECT_CLASSES = 'transform-box-fill map-object';
+
+  it('should use white fill color when the object is not linked with a bookable', () => {
+    // given
+    prepareUseMapObjectsMockOnce([sampleMapObject]);
+    prepareUseBookablesOnce();
+    prepareUseFindMockOnce(sampleBookings);
+
+    // when
+    const wrapper = shallowMount(MapObjects, {
+      props: {
+        spaceId: '123',
+        clickable: true,
+        mode: 'show-availability',
+      },
+      global: globalOptions,
+    });
+
+    // then
+    expect(wrapper.find('[data-test="map-object"]').attributes('class')).toBe(BASE_MAP_OBJECT_CLASSES);
   });
 
   it('should use green fill color when the bookable is free', () => {
@@ -224,9 +246,9 @@ describe('MapObjects component', () => {
     });
 
     // then
-    expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
-    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe('free');
-    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('free');
+    expect(wrapper.find('[data-test="map-object"]').attributes('class')).toBe(
+      `${BASE_MAP_OBJECT_CLASSES} clickable free`,
+    );
   });
 
   it('should use red fill color when the bookable is occupied', () => {
@@ -268,9 +290,9 @@ describe('MapObjects component', () => {
     });
 
     // then
-    expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
-    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe('occupied');
-    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('occupied');
+    expect(wrapper.find('[data-test="map-object"]').attributes('class')).toBe(
+      `${BASE_MAP_OBJECT_CLASSES} clickable occupied`,
+    );
   });
 
   it('should use blue fill color when the map-object is linked to an external url', () => {
@@ -312,9 +334,9 @@ describe('MapObjects component', () => {
     });
 
     // then
-    expect(wrapper.findAll('[data-test="map-object-path"]')).toHaveLength(2);
-    expect(wrapper.findAll('[data-test="map-object-path"]')[0].attributes('class')).toBe('linked-to-url');
-    expect(wrapper.findAll('[data-test="map-object-path"]')[1].attributes('class')).toBe('linked-to-url');
+    expect(wrapper.find('[data-test="map-object"]').attributes('class')).toBe(
+      `${BASE_MAP_OBJECT_CLASSES} clickable linked-to-url`,
+    );
   });
 
   describe('view box handling', () => {

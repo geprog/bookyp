@@ -311,6 +311,9 @@ importers:
       events:
         specifier: 3.3.0
         version: 3.3.0
+      hull.js:
+        specifier: 1.0.3
+        version: 1.0.3
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -7728,6 +7731,10 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
+
+  /hull.js@1.0.3:
+    resolution: {integrity: sha512-CM6zaH0+3mdmjmvJnpxfmJ6K7juoF0GnmjE1g+m5JRj+ynP23VwSoUtIuVUePF9icr1J1/1zybhscCltyftAaw==}
+    dev: false
 
   /human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}

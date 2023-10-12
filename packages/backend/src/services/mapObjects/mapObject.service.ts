@@ -8,6 +8,7 @@ const MapObjectSchema = new Schema<Model.MapObject>({
   xPos: { type: Number, required: true },
   yPos: { type: Number, required: true },
   rotation: { type: Number, required: true },
+  bgPaths: { type: [String] },
   paths: { type: [String], required: true },
   type: { type: String, required: true },
   space: { type: String, required: true },

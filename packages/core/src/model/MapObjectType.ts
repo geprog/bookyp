@@ -3,6 +3,7 @@ import { Space } from '~/model/Space';
 
 export class MapObjectType extends AbstractEntity {
   name!: string;
+  bgPaths?: string[];
   paths!: string[];
   viewBox!: string;
   spaceId!: Ref<Space>;

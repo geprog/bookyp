@@ -19,13 +19,22 @@
     @dblclick="$emit('dblclickMapObject', mapObject._id)"
   >
     <path
+      v-for="path in mapObject.bgPaths || []"
+      :key="path"
+      :d="path"
+      :class="{
+        'fill-primary-light': mapObject.link !== undefined,
+        'fill-transparent': mapObject.link === undefined,
+      }"
+    />
+    <path
       v-for="path in mapObject.paths"
       :key="path"
       :d="path"
-      class="stroke-current"
+      class="stroke-current body"
       :class="{
         'fill-primary-light': mapObject.link !== undefined,
-        'fill-white': mapObject.link === undefined,
+        'fill-transparent': mapObject.link === undefined,
       }"
     />
   </g>
@@ -114,3 +123,21 @@ const filteredMapObjects = computed(() => mapObjects.value.filter((mapObject) =>
 
 useAndRegisterViewBox('MapObjects', mapObjectsToPaths(mapObjects), { strokeWidth: 1 });
 </script>
+
+<style scoped>
+.map-object:hover path.body {
+  @apply stroke-primary-dark;
+}
+
+.map-object-filter-matched:hover path.body {
+  @apply stroke-green-text;
+}
+
+.map-object-filter-matched:hover path:not(.body) {
+  @apply fill-green-200;
+}
+
+.map-object-filter-unmatched:hover path.body {
+  @apply stroke-red-text;
+}
+</style>
