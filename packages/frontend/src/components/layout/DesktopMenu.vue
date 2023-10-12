@@ -19,7 +19,7 @@
       :class="{ 'router-link-exact-active ': highlightProfileButton }"
     />
   </nav>
-  <div class="w-full md:h-14 flex-shrink-0" />
+  <div class="w-full md:h-12 flex-shrink-0" />
 </template>
 
 <script setup lang="ts">

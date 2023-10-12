@@ -23,6 +23,7 @@
       </div>
     </div>
   </header>
+  <div class="w-full h-14 flex-shrink-0" />
 </template>
 
 <script lang="ts" setup>
