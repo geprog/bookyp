@@ -200,13 +200,13 @@ const defaultMapObjectTypes = [
   },
 ];
 
-export function getMapObjectTypes(spaceId: string | undefined): Ref<MapObjectType[]> {
+export function getMapObjectTypes(spaceId: Ref<string | undefined>): Ref<MapObjectType[]> {
   if (!spaceId) {
     return ref(defaultMapObjectTypes);
   }
   const { data: customMapObjectTypes } = useFind(
     'mapObjectTypes',
-    computed(() => ({ query: { spaceId } })),
+    computed(() => ({ query: { spaceId: spaceId.value } })),
   );
 
   const mapObjectTypes = computed<MapObjectType[]>(() => [
@@ -242,7 +242,7 @@ export default function useNewMapObject(
   selectMapObject: (id: string | null) => Promise<void>,
 ): UseNewMapObject {
   const { spaceId } = useCurrentSpace();
-  const selectedMapObjectType = ref<MapObjectType>(getMapObjectTypes(spaceId.value).value[1]);
+  const selectedMapObjectType = ref<MapObjectType>(getMapObjectTypes(spaceId).value[1]);
   async function addMapObject() {
     if (!spaceId.value) {
       throw new Error('Unexpected: A space must be selected');
