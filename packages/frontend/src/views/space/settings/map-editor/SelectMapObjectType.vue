@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, toRef } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'vue-toastification';
 
@@ -60,6 +60,7 @@ import Header from '~/components/headers/Header.vue';
 import Icon from '~/components/Icon.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import MapObject from '~/components/space/map/MapObject.vue';
+import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { getMapObjectTypes, MapObjectType } from '~/compositions/space/useNewMapObject';
 import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
@@ -68,17 +69,16 @@ const { t } = useI18n();
 const toast = useToast();
 const { back } = useBack();
 
-const props = defineProps<{
+defineProps<{
   selectedMapObjectType: MapObjectType;
-  spaceId: string | undefined;
 }>();
 
 defineEmits<{
   (event: 'update:selectedMapObjectType', mapObjectType: MapObjectType): void;
 }>();
 
-const spaceId = toRef(props, 'spaceId');
-const mapObjectTypes = getMapObjectTypes(spaceId.value);
+const { spaceId } = useCurrentSpace();
+const mapObjectTypes = getMapObjectTypes(spaceId);
 
 const feathers = useFeathers();
 
