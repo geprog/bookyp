@@ -11,16 +11,11 @@
       clickable: mapObject.isClickable,
       [mapObject.style]: true,
     }"
+    :data-availability="mapObject.availability"
     @click.stop="clickOnMapObject(mapObject)"
   >
-    <path
-      v-for="path in mapObject.paths"
-      :key="path"
-      :data-test="mapObject.isHighlighted ? 'highlighted-map-object-path' : 'map-object-path'"
-      :data-availability="mapObject.availability"
-      :d="path"
-      :class="mapObject.style"
-    />
+    <path v-for="path in mapObject.bgPaths || []" :key="path" :d="path" class="bg" />
+    <path v-for="path in mapObject.paths" :key="path" :d="path" class="body" data-test="map-object-path" />
   </g>
 </template>
 
@@ -165,50 +160,69 @@ const extendedMapObjects = computed(() =>
 </script>
 
 <style scoped>
-.map-object path {
-  @apply stroke-black fill-white;
+.map-object path.body {
+  @apply stroke-black fill-transparent;
 }
 .map-object.clickable {
   @apply cursor-pointer;
 }
-.map-object.clickable:hover path {
+.map-object.clickable:hover path.body {
   @apply stroke-primary-dark;
 }
 
 .map-object.highlight path {
-  @apply stroke-primary-dark fill-primary-light;
+  @apply fill-primary-light;
+}
+.map-object.highlight path.body {
+  @apply stroke-primary-dark;
 }
 
 /** map-object linked to an url */
 .map-object.linked-to-url path {
-  @apply stroke-black fill-blue-200;
+  @apply fill-blue-200;
 }
-.map-object.linked-to-url:hover path {
+.map-object.linked-to-url path.body {
+  @apply stroke-black;
+}
+.map-object.linked-to-url:hover path.body {
   @apply stroke-blue-text;
 }
 
 /** map-object free */
 .map-object.free path {
-  @apply stroke-black fill-green-200;
+  @apply fill-green-background;
 }
-.map-object.free:hover path {
-  @apply stroke-green-text fill-green-background;
+.map-object.free path.body {
+  @apply stroke-black;
+}
+.map-object.free:hover path.body {
+  @apply stroke-green-text;
 }
 
 /** map-object occupied by someone else */
-.map-object.occupied path {
-  @apply stroke-black fill-red-background;
+.map-object.map-object.occupied path {
+  @apply fill-red-background;
 }
-.map-object.occupied:hover path {
+.map-object.occupied path.body {
+  @apply stroke-black;
+}
+.map-object.occupied:hover path.body {
   @apply stroke-red-text;
 }
 
 /** map-object which is occupied by myself */
+
 .map-object.occupied-by-me {
   @apply filter drop-shadow-orangeGlow;
 }
 .map-object.occupied-by-me path {
-  @apply stroke-primary-normal fill-red-background;
+  @apply fill-red-background;
+}
+.map-object.occupied-by-me path.body {
+  @apply stroke-primary-normal;
+}
+.map-object.occupied-by-me:hover path.body {
+  @apply stroke-red-text;
 }
 
 .map-object.requested-by-me path {

@@ -19,6 +19,10 @@ export class MapObject extends AbstractEntity {
    */
   rotation!: number;
   /**
+   * renders the background of the item
+   */
+  bgPaths?: string[];
+  /**
    * each item being the value for the attribute d of one svg-path
    */
   paths!: string[];

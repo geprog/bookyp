@@ -64,6 +64,7 @@ import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { getMapObjectTypes, MapObjectType } from '~/compositions/space/useNewMapObject';
 import { useBack } from '~/compositions/useBack';
 import useFeathers from '~/compositions/useFeathers';
+import { getBgPathsFromPaths } from '~/lib/svgParser';
 
 const { t } = useI18n();
 const toast = useToast();
@@ -94,6 +95,8 @@ async function uploadNewMapObject(target: HTMLInputElement) {
     return;
   }
 
+  const processingInfoToast = toast.info(t('processing_map_object_type'), { timeout: false });
+
   const doc = new DOMParser().parseFromString(await target.files[0].text(), 'image/svg+xml');
   const paths = Array.from(doc.getElementsByTagName('path'))
     .map((path) => path.getAttribute('d'))
@@ -113,8 +116,11 @@ async function uploadNewMapObject(target: HTMLInputElement) {
   await feathers.service('mapObjectTypes').create({
     name,
     paths,
+    bgPaths: getBgPathsFromPaths(paths),
     viewBox,
     spaceId: spaceId.value,
   });
+
+  toast.dismiss(processingInfoToast);
 }
 </script>

@@ -3,11 +3,13 @@ import { computed, Ref, ref } from 'vue';
 
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
+import { getBgPathsFromPaths } from '~/lib/svgParser';
 
 export type MapObjectType = {
   name: string;
   viewBox: string;
   paths: string[];
+  bgPaths?: string[];
 };
 
 const defaultMapObjectTypes = [
@@ -215,6 +217,7 @@ export function getMapObjectTypes(spaceId: Ref<string | undefined>): Ref<MapObje
       name: mapObjectType.name,
       viewBox: mapObjectType.viewBox,
       paths: mapObjectType.paths,
+      bgPaths: mapObjectType.bgPaths,
     })),
   ]);
 
@@ -255,6 +258,7 @@ export default function useNewMapObject(
       yPos: 0,
       rotation: 0,
       paths: selectedMapObjectType.value.paths,
+      bgPaths: selectedMapObjectType.value.bgPaths || getBgPathsFromPaths(selectedMapObjectType.value.paths),
       type: selectedMapObjectType.value.name,
       space: spaceId.value,
     };

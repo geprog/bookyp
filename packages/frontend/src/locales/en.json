@@ -255,6 +255,7 @@
   "updated_subscription": "Updated subscription",
   "upload_new_map_object_type": "Upload new type",
   "upload_space_image": "You can upload a space image here!",
+  "processing_map_object_type": "We will do some processing of the file now. This may take a few seconds...",
   "version": "Version: {version}",
   "website": "Website",
   "write": "Write"
