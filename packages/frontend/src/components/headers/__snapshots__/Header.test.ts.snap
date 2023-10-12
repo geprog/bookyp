@@ -9,5 +9,6 @@ exports[`Header component > should render correctly 1`] = `
     <anonymous-stub class=\\"cursor-pointer flex-shrink-0 w-auto h-8 justify-center\\"></anonymous-stub>
     <!--v-if-->
   </div>
-</header>"
+</header>
+<div class=\\"w-full h-14 flex-shrink-0\\"></div>"
 `;
