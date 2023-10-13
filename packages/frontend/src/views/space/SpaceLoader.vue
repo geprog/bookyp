@@ -1,9 +1,9 @@
 <template>
-  <router-view v-if="space" />
+  <router-view v-if="space && !checkingAvailability" />
 </template>
 
 <script lang="ts" setup>
-import { provide, toRef, watch } from 'vue';
+import { provide, ref, toRef, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { currentSpaceInjectionKey, savedSpaceId } from '~/compositions/space/useCurrentSpace';
@@ -26,13 +26,20 @@ watch(
   { immediate: true },
 );
 
-const redirectOnImportedSpace = () => {
+const checkingAvailability = ref(true);
+
+const redirectOnImportedSpace = async () => {
+  checkingAvailability.value = true;
   if (!space.value) {
     return;
   }
-  if (space.value.importId && route.name !== 'space-info' && route.matched.some((m) => m.name === 'space-loader')) {
-    void router.replace({ name: 'space-info', params: { spaceId: space.value._id } });
+  if (
+    (space.value.importId && route.name !== 'space-info' && route.matched.some((m) => m.name === 'space-loader')) ||
+    (space.value.bookingsAndRequests === 'only_info' && !(await isSpaceAdmin(space.value)))
+  ) {
+    await router.replace({ name: 'space-info', params: { spaceId: space.value._id } });
   }
+  checkingAvailability.value = false;
 };
 
 watch(space, redirectOnImportedSpace);

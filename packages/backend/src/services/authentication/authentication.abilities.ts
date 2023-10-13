@@ -38,6 +38,7 @@ const defineRulesFor = async (
     'isUserMember',
     'phone',
     'website',
+    'bookingsAndRequests',
   ];
   // read access public spaces for everyone (authorized and unauthorized)
   can('read', 'spaces', userReadableSpaceProperties, {
@@ -124,6 +125,7 @@ const defineRulesFor = async (
         'isPublic',
         'phone',
         'website',
+        'bookingsAndRequests',
       ],
       {
         members: { $elemMatch: { role: 'admin', userId: user._id } },

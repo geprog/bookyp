@@ -5,6 +5,7 @@ import { Document, model, Schema } from 'mongoose';
 import { feathersCaslAllowlist } from '~/casl';
 import softDelete from '~/hooks/softDelete';
 
+import { checkIsRequest } from './hooks/checkIsRequest';
 import { preventInvalidDateRange } from './hooks/preventInvalidDateRange';
 import { preventOverlappingBookings } from './hooks/preventOverlappingBookings';
 import {
@@ -38,7 +39,7 @@ export default (app: Application): void => {
   app.service(name).hooks({
     before: {
       all: [softDelete],
-      create: [preventInvalidDateRange, preventOverlappingBookings],
+      create: [checkIsRequest, preventInvalidDateRange, preventOverlappingBookings],
       remove: [sendRejectRequestNotificationMail],
       update: [sendAcceptRequestNotificationMail],
       patch: [],

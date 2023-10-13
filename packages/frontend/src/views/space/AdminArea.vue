@@ -69,6 +69,11 @@ const menuItems: { icon: IconName; route: string; title: string; class?: string 
     title: t('space_information'),
   },
   {
+    icon: 'location',
+    route: 'space-bookings-and-requests-configuration',
+    title: t('booking_and_requests'),
+  },
+  {
     icon: 'payment',
     route: 'space-settings-subscription',
     title: t('subscription.subscription'),

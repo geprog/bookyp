@@ -1,6 +1,6 @@
 <template>
   <label class="flex flex-col cursor-pointer" @click="emits('update-value')">
-    <div class="flex flex-row gap-4">
+    <div class="flex flex-row gap-2">
       <Icon class="my-2" :name="value ? 'radio-checked' : 'radio-unchecked'" data-test="input-field-icon" />
       <div class="flex flex-row w-full py-2">
         <span>{{ name }}</span>

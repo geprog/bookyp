@@ -64,6 +64,7 @@ const showAdminButton = computed<boolean>(
       path.value.includes('/settings/bookable') ||
       path.value.includes('settings/member') ||
       path.value.includes('settings/info') ||
-      path.value.includes('settings/subscription')),
+      path.value.includes('settings/subscription') ||
+      path.value.includes('settings/bookingAndRequestConfig')),
 );
 </script>

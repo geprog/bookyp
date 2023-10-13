@@ -38,6 +38,7 @@ const SpaceSchema = new Schema<Model.Space>({
   isPublic: { type: Boolean },
   phone: { type: String },
   website: { type: String },
+  bookingsAndRequests: { type: String },
 });
 
 export const name = 'spaces';
