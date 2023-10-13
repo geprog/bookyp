@@ -20,6 +20,8 @@ export type Member = {
   email?: User['email'];
 };
 
+export type BookingOrRequest = 'bookings' | 'requests' | 'both' | 'only_info';
+
 export type SpacePlan = keyof typeof SpacePlans;
 
 export class Space extends AbstractEntity {
@@ -42,6 +44,7 @@ export class Space extends AbstractEntity {
   isPublic?: boolean;
   frequency?: number;
   isUserMember?: boolean;
+  bookingsAndRequests: BookingOrRequest = 'bookings';
   isUserAdmin?: boolean;
 
   constructor(data: Partial<Space> = {}) {

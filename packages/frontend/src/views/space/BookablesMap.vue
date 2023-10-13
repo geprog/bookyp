@@ -8,10 +8,10 @@
     <SpaceMap v-if="spaceId">
       <FloorPlan :space-id="spaceId" />
       <MapObjects
-        clickable
-        mode="show-availability"
+        :mode="currentSpace?.bookingsAndRequests === 'only_info' ? 'highlight' : 'show-availability'"
         :space-id="spaceId"
         :is-admin="isAdmin"
+        :clickable="currentSpace?.bookingsAndRequests !== 'only_info'"
         @click-on-map-object="clickOnMapObject"
       />
     </SpaceMap>

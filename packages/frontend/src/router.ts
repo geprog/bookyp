@@ -191,12 +191,18 @@ const routes: RouteRecordRaw[] = [
             ],
           },
           {
-            path: 'pendingRequests',
+            path: 'pending-requests',
             name: 'space-pending-requests',
             component: () => import('~/views/space/settings/request/PendingRequests.vue'),
           },
           {
-            path: 'requestDetails/:requestId',
+            path: 'bookings-and-request-config',
+            name: 'space-bookings-and-requests-configuration',
+            meta: { accessibleByUserRole: true },
+            component: () => import('~/views/space/settings/request/BookingAndRequestConfiguration.vue'),
+          },
+          {
+            path: 'request-details/:requestId',
             name: 'request-details',
             meta: { accessibleByUserRole: true },
             component: () => import('~/views/space/settings/request/RequestDetails.vue'),

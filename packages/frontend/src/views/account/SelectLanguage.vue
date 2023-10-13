@@ -1,7 +1,7 @@
 <template>
   <Header :title="t('language')" :back-fallback="{ name: 'account' }" />
 
-  <AppContent class="!px-4 flex-col">
+  <AppContent class="!px-4 flex-col <md:pt-12">
     <RadioButton :name="t('languages.english')" :value="userLanguage === 'en'" @update-value="userLanguage = 'en'" />
     <RadioButton :name="t('languages.deutsch')" :value="userLanguage === 'de'" @update-value="userLanguage = 'de'" />
   </AppContent>

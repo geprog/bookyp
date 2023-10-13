@@ -1,7 +1,7 @@
 <template>
   <Header :title="t('invite_new_member')" :back-fallback="{ name: 'settings-space-members' }" />
   <AppContent class="flex-col">
-    <form id="spaceMemberInviteForm" data-test="form" class="mx-4" @submit.prevent="inviteSpaceMember">
+    <form id="spaceMemberInviteForm" data-test="form" class="px-4 <md:py-12" @submit.prevent="inviteSpaceMember">
       <LabelField icon-name="email">
         <TextField v-model="invitationForm.email" data-test="form-email" :placeholder="t('email_address')" />
       </LabelField>

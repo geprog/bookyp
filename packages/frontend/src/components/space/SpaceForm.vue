@@ -1,5 +1,11 @@
 <template>
-  <form v-if="space" id="space" data-test="form" class="space w-full mb-6" @submit.prevent="$emit('save', space)">
+  <form
+    v-if="space"
+    id="space"
+    data-test="form"
+    class="space w-full pb-6 <md:pt-12"
+    @submit.prevent="$emit('save', space)"
+  >
     <FormTextField
       v-model="spaceCreate.name"
       class="py-2"
