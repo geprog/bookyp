@@ -98,3 +98,5 @@ ports:
   - name: s3www
     port: 9080
     onOpen: ignore
+  - name: mailhog
+    port: 8025

@@ -15,7 +15,7 @@
           :key="request._id"
           :booking="request"
           class="m-3"
-          @reject="deleteRequest(request._id)"
+          @reject="rejectRequest(request)"
           @accept="acceptRequest(request)"
         />
       </div>
@@ -94,7 +94,7 @@ const pastRequests = computed(() =>
   ),
 );
 
-async function deleteRequest(requestId: string) {
+async function rejectRequest(request: Model.Booking) {
   if (
     !(await openDialog({
       description: t('delete_dialog_description', { objectLabel: t('request') }),
@@ -105,10 +105,10 @@ async function deleteRequest(requestId: string) {
     return;
   }
 
-  await feathers.service('bookings').remove(requestId, { query: { accept: false } });
+  await feathers.service('bookings').remove(request._id, { query: { accept: false } });
 }
 
 async function acceptRequest(request: Model.Booking) {
-  await feathers.service('bookings').update(request._id, { ...request, request: false }, { query: { accept: true } });
+  await feathers.service('bookings').patch(request._id, {}, { query: { accept: true } });
 }
 </script>
