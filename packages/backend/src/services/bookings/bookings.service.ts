@@ -5,14 +5,12 @@ import { Document, model, Schema } from 'mongoose';
 import { feathersCaslAllowlist } from '~/casl';
 import softDelete from '~/hooks/softDelete';
 
+import { acceptRequest } from './hooks/acceptRequest';
 import { checkIsRequest } from './hooks/checkIsRequest';
 import { preventInvalidDateRange } from './hooks/preventInvalidDateRange';
 import { preventOverlappingBookings } from './hooks/preventOverlappingBookings';
-import {
-  sendAcceptRequestNotificationMail,
-  sendRejectRequestNotificationMail,
-} from './hooks/sendAcceptRejectRequestMail';
 import { sendBookingNotificationMail } from './hooks/sendBookingNotificationMail';
+import { sendRequestNotificationMail } from './hooks/sendRequestMail';
 
 const BookingSchema = new Schema<Model.Booking>({
   start: { type: Schema.Types.Date, required: true },
@@ -40,9 +38,9 @@ export default (app: Application): void => {
     before: {
       all: [softDelete],
       create: [checkIsRequest, preventInvalidDateRange, preventOverlappingBookings],
-      remove: [sendRejectRequestNotificationMail],
-      update: [sendAcceptRequestNotificationMail],
-      patch: [],
+      remove: [sendRequestNotificationMail],
+      update: [checkIsRequest],
+      patch: [checkIsRequest, acceptRequest, sendRequestNotificationMail],
     },
     after: {
       create: [sendBookingNotificationMail],

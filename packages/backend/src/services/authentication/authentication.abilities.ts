@@ -144,6 +144,10 @@ const defineRulesFor = async (
     can('read', 'invoices', { space: { $in: spaceIdsAdmin } });
     can('read', 'invoice-download', { space: { $in: spaceIdsAdmin } });
 
+    // booking requests
+    can('patch', 'bookings', { request: true, space: { $in: spaceIdsAdmin } }); // accept booking requests
+    can('remove', 'bookings', { request: true, space: { $in: spaceIdsAdmin } }); // reject bookings requests
+
     const bookingsAdmin = (await app.service('bookings').find({
       query: { space: { $in: spaceIdsAdmin } },
     })) as Model.Booking[];

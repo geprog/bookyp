@@ -11,14 +11,17 @@ export async function checkIsRequest(
   if (Array.isArray(context.data)) {
     throw new Error('Only one booking can be created at a time');
   }
-  const { space: spaceId } = context.data;
+  let booking = context.data as Model.Booking;
+  if (context.id) {
+    booking = await context.app.service('bookings').get(context.id);
+  }
+  const { space: spaceId } = booking;
   if (spaceId === undefined) {
     throw new Error('spaceId should be defined');
   }
 
   const space = await context.app.service('spaces').get(spaceId);
 
-  const booking = context.data as Model.Booking;
   const isUserMember = space.members.some((member) => member.userId === booking.bookedBy);
 
   if (space.bookingsAndRequests === 'only_info') {

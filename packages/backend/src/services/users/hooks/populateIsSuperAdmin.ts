@@ -2,8 +2,8 @@ import { Application, Model } from '@bookyp/core';
 import { AdapterService } from '@feathersjs/adapter-commons';
 import { HookContext, Paginated } from '@feathersjs/feathers';
 
-const SUPER_ADMINS = ['l.hass@geprog.com', 'a.bracke@geprog.com', 'hello@bookyp.de'];
-const DEV_SUPER_ADMINS = ['alice@wonderland.org', 'her@bert.de'];
+const SUPER_ADMINS = ['hello@bookyp.de', 'a.bracke@geprog.com'];
+const DEV_SUPER_ADMINS = ['her@bert.de'];
 
 function isPaginated<T>(result: T | Paginated<T>): result is Paginated<T> {
   return (result as Paginated<T>).total !== undefined;

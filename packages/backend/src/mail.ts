@@ -118,7 +118,7 @@ export async function sendSpaceInvitationMail(space: Model.Space, email: string,
   }
 }
 
-export async function sendNotificationToAdminMail(
+export async function sendAdminNotification(
   space: Model.Space,
   email: string,
   user: Model.User,
@@ -146,7 +146,9 @@ export async function sendNotificationToAdminMail(
     throw new Error('No frontendUrl configured.');
   }
 
-  const bookingLink = `${frontendUrl}/account/booking/${booking._id}`;
+  const bookingLink = booking.request
+    ? `${frontendUrl}/space/${space._id}/settings/request-details/${booking._id}`
+    : `${frontendUrl}/account/booking/${booking._id}`;
 
   const emailParameters = {
     space: space.name,
@@ -176,7 +178,7 @@ export async function sendNotificationToAdminMail(
   }
 }
 
-export async function sendNotificationToUserMail(
+export async function sendRequestReplyNotification(
   space: Model.Space,
   email: string,
   currentBookable: Model.Bookable,

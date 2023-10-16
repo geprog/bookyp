@@ -94,9 +94,7 @@ async function deleteRequest() {
 }
 
 async function acceptRequest() {
-  await feathers
-    .service('bookings')
-    .update(requestId.value, { ...request.value, request: false }, { query: { accept: true } });
+  await feathers.service('bookings').patch(requestId.value, {}, { query: { accept: true } });
   void back({ name: 'space-pending-requests' });
 }
 </script>

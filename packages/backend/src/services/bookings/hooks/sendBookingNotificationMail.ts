@@ -2,7 +2,7 @@ import { Application, Model } from '@bookyp/core';
 import { AdapterService } from '@feathersjs/adapter-commons';
 import { HookContext } from '@feathersjs/feathers';
 
-import { sendNotificationToAdminMail as _sendNotificationToAdminMail } from '~/mail';
+import { sendAdminNotification } from '~/mail';
 
 async function sendNotificationToAdminMail(
   bookings: Model.Booking[],
@@ -26,14 +26,13 @@ async function sendNotificationToAdminMail(
       return;
     }
 
-    await _sendNotificationToAdminMail(space, email, user, currentBookable, booking);
+    await sendAdminNotification(space, email, user, currentBookable, booking);
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/require-await
-export async function sendBookingNotificationMail(
+export function sendBookingNotificationMail(
   context: HookContext<Application, AdapterService<Model.Booking>>,
-): Promise<HookContext<Application, AdapterService<Model.Booking>>> {
+): HookContext<Application, AdapterService<Model.Booking>> {
   const bookingsData = context.result;
 
   if (bookingsData === undefined) {

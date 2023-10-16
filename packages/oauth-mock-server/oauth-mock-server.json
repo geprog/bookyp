@@ -11,13 +11,13 @@
       "id": "2",
       "username": "alice",
       "email": "alice@wonderland.org",
-      "name": "Alice Wonderland (admin)"
+      "name": "Alice Wonderland"
     },
     {
       "id": "3",
       "username": "herbert",
       "email": "her@bert.de",
-      "name": "Herbert (admin)"
+      "name": "Herbert (a super admin, so only use him when testing super admin functionality)"
     }
   ]
 }
