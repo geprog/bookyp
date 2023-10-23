@@ -151,8 +151,8 @@ const defineRulesFor = async (
     const bookingsAdmin = (await app.service('bookings').find({
       query: { space: { $in: spaceIdsAdmin } },
     })) as Model.Booking[];
-    can('read', 'users', ['_id', 'email', 'name'], {
-      _id: { $in: bookingsAdmin.map((booking) => booking.bookedBy).filter((id) => id !== user._id.toString()) },
+    can('find', 'users', ['_id', 'email', 'name'], {
+      _id: { $in: bookingsAdmin.map((booking) => booking.bookedBy) },
     });
   }
 
