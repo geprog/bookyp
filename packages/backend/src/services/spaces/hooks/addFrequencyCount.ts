@@ -3,11 +3,13 @@ import { AdapterService } from '@feathersjs/adapter-commons';
 import { HookContext } from '@feathersjs/feathers';
 import dayjs from 'dayjs';
 
+import { getUser } from '~/utils';
+
 export default async function addFrequencyCount(
   context: HookContext<Application, AdapterService<Model.Space>>,
 ): Promise<HookContext<Application, AdapterService<Model.Space>>> {
   const query = context.params.query as { $frequency?: boolean };
-  const user = context.params.user as Model.User;
+  const user = getUser(context.params);
   if (context.result && query.$frequency && user) {
     const spaces = Array.isArray(context.result) ? context.result : [context.result as Model.Space];
 

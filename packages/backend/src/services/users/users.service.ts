@@ -6,6 +6,7 @@ import { Document, model, Schema } from 'mongoose';
 
 import { feathersCaslAllowlist } from '~/casl';
 import { defineAbilitiesFor } from '~/services/authentication/authentication.abilities';
+import { getUser } from '~/utils';
 
 import emailToLowerCase from './hooks/emailToLowerCase';
 import { populateIsSuperAdmin } from './hooks/populateIsSuperAdmin';
@@ -37,7 +38,7 @@ export default (app: Application): void => {
           if (context.params.ability) {
             return context;
           }
-          const { user } = context.params as { user: Model.User };
+          const user = getUser(context.params);
           if (user) {
             context.params.ability = defineAbilitiesFor(user, context.app);
           }

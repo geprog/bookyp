@@ -1,5 +1,4 @@
 import { createApplication } from '@bookyp/core';
-import { authenticate } from '@feathersjs/authentication';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
 
@@ -54,12 +53,6 @@ export const configureApplication = () => {
   app.hooks({
     before: {
       all: [
-        (ctx) => {
-          if (ctx.params.provider === undefined || ctx.path === 'authentication') {
-            return ctx;
-          }
-          return authenticate('jwt')(ctx);
-        },
         extractSoftDeleteFlag,
         (ctx) => {
           if (ctx.params.provider === undefined || ctx.path === 'authentication') {

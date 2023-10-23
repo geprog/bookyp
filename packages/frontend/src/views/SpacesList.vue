@@ -4,18 +4,14 @@
 
   <ToolbarHeader action-for="spaces" />
 
-  <AppContent class="flex-col">
+  <AppContent class="flex-col pt-10">
     <Button
       v-if="allUnstableFeaturesEnabled && user"
-      class="m-3 flex mt-10"
+      class="m-3 flex"
       :text="t('create_sample_space')"
       @click="createSampleSpace"
     />
-    <div
-      v-if="user && spaces.length > 0"
-      class="flex flex-row justify-between px-3 overflow-x-auto scrollbar-hide"
-      :class="{ 'pt-12': !allUnstableFeaturesEnabled }"
-    >
+    <div v-if="user && spaces.length > 0" class="flex flex-row justify-between px-3 overflow-x-auto scrollbar-hide">
       <template v-for="button in categoryButtons" :key="button.category">
         <FloatingButton
           class="w-25 mr-1"
@@ -185,14 +181,17 @@ const noSpaceMessage = computed(() => {
 watch(
   loadingSpaces,
   () => {
-    if (!loadingSpaces.value && spaces.value && user.value) {
-      selectedCategory.value = spaces.value.some((space) => space.frequency)
-        ? 'Frequent'
-        : user.value?.starredSpaces?.length
-        ? 'Favorite'
-        : spaces.value.some((space) => space.isUserMember)
-        ? 'Personal'
-        : 'All';
+    if (loadingSpaces.value || !spaces.value || !user.value) {
+      return;
+    }
+    if (spaces.value.some((space) => space.frequency)) {
+      selectedCategory.value = 'Frequent';
+    } else if (user.value?.starredSpaces?.length) {
+      selectedCategory.value = 'Favorite';
+    } else if (spaces.value.some((space) => space.isUserMember)) {
+      selectedCategory.value = 'Personal';
+    } else {
+      selectedCategory.value = 'All';
     }
   },
   { immediate: true },
@@ -219,6 +218,8 @@ const sortedSpaces = computed(() => {
           case 'All':
             return true;
         }
+      } else {
+        return true;
       }
     })
     .sort((a, b) => {

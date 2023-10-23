@@ -5,6 +5,7 @@ import { Document, model, Schema } from 'mongoose';
 import { feathersCaslAllowlist } from '~/casl';
 import softDelete from '~/hooks/softDelete';
 import { updateSpaceSubscription } from '~/lib/paymentsApi';
+import { getUser } from '~/utils';
 
 import addFrequencyCount from './hooks/addFrequencyCount';
 import addIsUserAdmin from './hooks/addIsUserAdmin';
@@ -70,7 +71,7 @@ export default (app: Application): void => {
       patch: [
         // update subscription if plan changed by super admin
         async (ctx) => {
-          const { user } = ctx.params as { user: Model.User };
+          const user = getUser(ctx.params);
           if (user?.isSuperAdmin && !Array.isArray(ctx.data) && ctx.data?.plan && ctx.result) {
             const space = ctx.result as Model.Space;
             if (!space.subscription) {

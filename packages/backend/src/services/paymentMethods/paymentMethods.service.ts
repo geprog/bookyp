@@ -3,6 +3,7 @@ import { AdapterService } from '@feathersjs/adapter-commons';
 import { HookContext, Id, NullableId, Paginated, Params } from '@feathersjs/feathers';
 
 import { gringottsPayments } from '~/lib/paymentsApi';
+import { getUser } from '~/utils';
 
 class PaymentMethodService extends AdapterService<Model.PaymentMethod> {
   app: Application;
@@ -13,11 +14,7 @@ class PaymentMethodService extends AdapterService<Model.PaymentMethod> {
   }
 
   async get(_id: Id, params?: Params): Promise<Model.PaymentMethod> {
-    const _user = params?.user as Model.User;
-    if (!_user) {
-      // TODO: use proper feathers error
-      throw new Error('Not found');
-    }
+    const _user = getUser(params, { requireUser: true });
 
     // fix as the user is not updated in the params
     const user = await this.app.service('users').get(_user._id);
@@ -33,11 +30,7 @@ class PaymentMethodService extends AdapterService<Model.PaymentMethod> {
   }
 
   async find(params?: Params): Promise<Model.PaymentMethod[] | Paginated<Model.PaymentMethod>> {
-    const _user = params?.user as Model.User;
-    if (!_user) {
-      // TODO: use proper feathers error
-      throw new Error('Not found');
-    }
+    const _user = getUser(params, { requireUser: true });
 
     // fix as the user is not updated in the params
     const user = await this.app.service('users').get(_user._id);
@@ -63,11 +56,7 @@ class PaymentMethodService extends AdapterService<Model.PaymentMethod> {
       throw new Error('Create one payment method at a time');
     }
 
-    const _user = params?.user as Model.User;
-    if (!_user) {
-      // TODO: use proper feathers error
-      throw new Error('Not found');
-    }
+    const _user = getUser(params, { requireUser: true });
 
     // fix as the user is not updated in the params
     const user = await this.app.service('users').get(_user._id);
@@ -99,11 +88,7 @@ class PaymentMethodService extends AdapterService<Model.PaymentMethod> {
       throw new Error('Please provide an id');
     }
 
-    const _user = params?.user as Model.User;
-    if (!_user) {
-      // TODO: use proper feathers error
-      throw new Error('Not found');
-    }
+    const _user = getUser(params, { requireUser: true });
 
     // fix as the user is not updated in the params
     const user = await this.app.service('users').get(_user._id);
