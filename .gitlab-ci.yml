@@ -338,6 +338,18 @@ spell-check:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
+i18n:
+  extends: .node-template
+  needs:
+    - install-dependencies
+  script:
+    - cd packages/frontend
+    - pnpm run i18n:validate
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  interruptible: true
+
 helm-lint:
   extends:
     - .kubectl-template

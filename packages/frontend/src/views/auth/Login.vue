@@ -9,11 +9,11 @@
 
       <div class="flex items-center gap-8 text-sm p-4">
         <router-link :to="{ name: 'auth-login' }" class="text-black">
-          <FloatingButton icon="log-in" text="Log in" back-ground-color="orange" @click="redirectToLogin" />
+          <FloatingButton icon="log-in" :text="$t('login')" back-ground-color="orange" @click="redirectToLogin" />
         </router-link>
 
         <router-link :to="{ name: 'auth-login' }" class="text-black">
-          <FloatingButton icon="signature" text="Sign up" back-ground-color="orange" />
+          <FloatingButton icon="signature" :text="$t('sign_up')" back-ground-color="orange" />
         </router-link>
       </div>
     </div>

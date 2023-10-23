@@ -206,7 +206,7 @@ const calendarOptions = computed<CalendarOptions>(() => ({
     }),
     {
       color: 'rgba(5,150,105,1)',
-      title: 'Booking',
+      title: t('booking'),
       start: dayjs(start.value).toISOString(),
       end: dayjs(end.value).toISOString(),
       editable: true,

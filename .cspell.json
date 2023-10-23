@@ -6,6 +6,10 @@
     "ADMINPASSWORD",
     "ADMINUSERNAME",
     "anbraten",
+    "aria-label",
+    "aria-placeholder",
+    "aria-roledescription",
+    "aria-valuetext",
     "assetlinks",
     "auths",
     "Automerge",
@@ -160,19 +164,22 @@
       "filename": "**/locales/de.json",
       "language": "de,en",
       "words": [
-        "Neues",
-        "Neuen",
         "Adresse",
-        "Ausstehende",
-        "Neuer",
-        "Passwort",
-        "Businessplan",
         "Adresszeile",
-        "loslassen",
-        "Deutsch",
+        "Anfragedetails",
+        "Ausstehende",
+        "Businessplan",
+        "dass",
+        "dauern",
         "deutsch",
+        "Grundriss",
         "Inkl",
-        "müssen"
+        "loslassen",
+        "müssen",
+        "Neuen",
+        "Neuer",
+        "Neues",
+        "Passwort"
       ]
     }
   ]

@@ -22,8 +22,8 @@ exports[`Booking view > should render correctly 1`] = `
 </app-content-stub>
 <div class=\\"flex w-full justify-center\\">
   <div class=\\"fixed bottom-18 w-full flex px-4 mb-1 justify-between md:bottom-5 max-w-5xl\\">
-    <floating-button-stub icon=\\"delete\\" disabled=\\"false\\" text=\\"Delete Booking\\" stroke=\\"false\\" isselected=\\"false\\" backgroundcolor=\\"white\\" foregroundcolor=\\"red\\" class=\\"text-sm\\" data-test=\\"delete-button\\"></floating-button-stub>
-    <floating-button-stub icon=\\"edit\\" disabled=\\"false\\" text=\\"Edit Booking\\" stroke=\\"false\\" isselected=\\"false\\" backgroundcolor=\\"orange\\" class=\\"text-sm\\"></floating-button-stub>
+    <floating-button-stub icon=\\"delete\\" disabled=\\"false\\" text=\\"delete_booking\\" stroke=\\"false\\" isselected=\\"false\\" backgroundcolor=\\"white\\" foregroundcolor=\\"red\\" class=\\"text-sm\\" data-test=\\"delete-button\\"></floating-button-stub>
+    <floating-button-stub icon=\\"edit\\" disabled=\\"false\\" text=\\"edit_booking\\" stroke=\\"false\\" isselected=\\"false\\" backgroundcolor=\\"orange\\" class=\\"text-sm\\"></floating-button-stub>
   </div>
 </div>
 <footer-menu-stub ismapspaces=\\"false\\" isbookingpage=\\"true\\"></footer-menu-stub>"
