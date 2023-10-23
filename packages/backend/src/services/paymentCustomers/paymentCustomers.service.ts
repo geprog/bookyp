@@ -4,6 +4,7 @@ import { Id, NullableId, Params } from '@feathersjs/feathers';
 import { ContentType } from '@geprog/gringotts-client';
 
 import { gringottsPayments } from '~/lib/paymentsApi';
+import { getUser } from '~/utils';
 
 class PaymentCustomerService extends AdapterService<Model.PaymentCustomer> {
   app: Application;
@@ -14,12 +15,7 @@ class PaymentCustomerService extends AdapterService<Model.PaymentCustomer> {
   }
 
   async get(id: Id, params?: Params): Promise<Model.PaymentCustomer> {
-    const _user = params?.user as Model.User;
-
-    if (!_user) {
-      // TODO: use proper feathers error
-      throw new Error('Not found');
-    }
+    const _user = getUser(params, { requireUser: true });
 
     // fix as the user is not updated in the params
     const user = await this.app.service('users').get(_user._id);
@@ -45,12 +41,7 @@ class PaymentCustomerService extends AdapterService<Model.PaymentCustomer> {
   ): Promise<Model.PaymentCustomer | Model.PaymentCustomer[]> {
     const payment = gringottsPayments();
 
-    const _user = params?.user as Model.User;
-
-    if (!_user) {
-      // TODO: use proper feathers error
-      throw new Error('Not found');
-    }
+    const _user = getUser(params, { requireUser: true });
 
     // fix as the user is not updated in the params
     const user = await this.app.service('users').get(_user._id);

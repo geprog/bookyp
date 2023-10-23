@@ -3,6 +3,7 @@ import { AdapterService } from '@feathersjs/adapter-commons';
 import { Params } from '@feathersjs/feathers';
 
 import { gringottsPayments } from '~/lib/paymentsApi';
+import { getUser } from '~/utils';
 
 class InvoiceService extends AdapterService<Model.Invoice> {
   app: Application;
@@ -13,13 +14,8 @@ class InvoiceService extends AdapterService<Model.Invoice> {
   }
 
   async find(params?: Params): Promise<Model.Invoice[]> {
-    const _user = params?.user as Model.User;
+    getUser(params);
     const { spaceId } = params?.query as { spaceId?: string };
-
-    if (!_user) {
-      // TODO: use proper feathers error
-      throw new Error('Not found');
-    }
 
     if (!spaceId) {
       throw new Error('No spaceId in query');

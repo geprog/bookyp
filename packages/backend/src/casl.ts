@@ -1,8 +1,9 @@
-import { Application, Model } from '@bookyp/core';
+import { Application } from '@bookyp/core';
 import { HookContext } from '@feathersjs/feathers';
 import casl, { authorize } from 'feathers-casl';
 
 import { defineAbilitiesFor } from '~/services/authentication/authentication.abilities';
+import { getUser } from '~/utils';
 
 export const feathersCasl = casl();
 
@@ -19,6 +20,6 @@ export const authorizeWithFreshAbility =
     delete context.params.ability;
     return authorize({
       adapter,
-      ability: async (c: HookContext<Application>) => defineAbilitiesFor(c.params.user as Model.User, c.app),
+      ability: async (c: HookContext<Application>) => defineAbilitiesFor(getUser(c.params), c.app),
     })(context);
   };

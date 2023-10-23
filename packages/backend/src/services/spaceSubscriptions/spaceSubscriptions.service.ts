@@ -3,6 +3,7 @@ import { AdapterService } from '@feathersjs/adapter-commons';
 import { Id, NullableId, Params } from '@feathersjs/feathers';
 
 import { createSpaceSubscription, updateSpaceSubscription } from '~/lib/paymentsApi';
+import { getUser } from '~/utils';
 
 class SpaceSubscriptionsService extends AdapterService<Model.SpaceSubscription> {
   app: Application;
@@ -34,7 +35,7 @@ class SpaceSubscriptionsService extends AdapterService<Model.SpaceSubscription> 
       throw new Error('Please provide a space id');
     }
 
-    const _user = params?.user as Model.User;
+    const _user = getUser(params, { requireUser: true });
     const user = await this.app.service('users').get(_user._id);
 
     const plan = data.plan;
