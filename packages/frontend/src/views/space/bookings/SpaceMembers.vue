@@ -8,7 +8,7 @@
       v-for="member in spaceMembersWithTheirNewestBooking"
       v-else
       :key="member._id"
-      :description="t('member_newest_booking') + formattedDate(member.newestBookingDate)"
+      :description="t('member_newest_booking', { date: member.newestBookingDate })"
       :label="
         t('member_name_and_email', {
           name: member.name,
@@ -60,10 +60,6 @@ const newestBookingOfMembers = computed(() =>
   }, new Map<string, Model.Booking>()),
 );
 
-function formattedDate(date: Date): string {
-  return `${dayjs(date).format('DD.MM.YYYY')}`;
-}
-
 const spaceMembersWithABookingIDs = computed(() => Array.from(newestBookingOfMembers.value.keys()));
 
 const { data: spaceMembersWithABooking, isLoading: isLoadingMembers } = useFind(
@@ -78,17 +74,18 @@ const { data: spaceMembersWithABooking, isLoading: isLoadingMembers } = useFind(
 );
 
 const spaceMembersWithTheirNewestBooking = computed(() => {
-  const membersWithNewestBooking = spaceMembersWithABooking.value.map((member) => {
-    const newestBooking = newestBookingOfMembers.value.get(member._id);
-    const newestBookingDate = newestBooking ? new Date(newestBooking.start) : new Date('DD.MM.YYYY');
-    return {
-      ...member,
-      newestBookingDate,
-    };
-  });
-
-  membersWithNewestBooking.sort((a, b) => b.newestBookingDate.getTime() - a.newestBookingDate.getTime());
-
-  return membersWithNewestBooking;
+  const membersWithNewestBooking = spaceMembersWithABooking.value
+    .map((member) => {
+      const newestBooking = newestBookingOfMembers.value.get(member._id);
+      return {
+        ...member,
+        newestBookingDate: newestBooking ? dayjs(newestBooking.start) : dayjs(0),
+      };
+    })
+    .sort((a, b) => b.newestBookingDate.unix() - a.newestBookingDate.unix());
+  return membersWithNewestBooking.map((member) => ({
+    ...member,
+    newestBookingDate: member.newestBookingDate.format('DD.MM.YYYY'),
+  }));
 });
 </script>
