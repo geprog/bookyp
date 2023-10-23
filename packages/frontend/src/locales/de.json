@@ -1,4 +1,5 @@
 {
+  "accept_request": "Anfrage akzeptieren",
   "account_information": "Kontoinformationen",
   "address": "Adresse",
   "admin_area": "Admin-Bereich",
@@ -49,6 +50,7 @@
   "dangerous_super_admin_action": "⚠️⚠️⚠️ Gefährliche Super-Admin Aktion ⚠️⚠️⚠️",
   "dangerous_super_admin_action_description": "Du führst diese Aktion als Super-Admin aus. Bitte fahre nur fort, wenn du weißt, was du tust!",
   "delete": "Löschen",
+  "delete_booking": "Buchung löschen",
   "delete_dialog_description": "Möchtest du dieses {objectLabel} löschen?",
   "delete_space": "Raum löschen",
   "description": "Beschreibung",
@@ -57,6 +59,7 @@
     "confirm": "OK"
   },
   "discard": "Verwerfen",
+  "edit_booking": "Buchung bearbeiten",
   "edit_member": "Mitglieder verwalten",
   "edit_space_description": " Beschreibung (wird in der Spaces-Übersicht angezeigt)",
   "edit_space_information": "Rauminformation bearbeiten",
@@ -65,11 +68,12 @@
   "email_space": "E-Mail (wird für die Buchungsinformationen verwendet)",
   "empty_map": "Es sieht so aus, als wäre deine Karte ziemlich leer!",
   "empty_map_desc": "Ein Bild, das die leere Karte zeigt.",
+  "empty_requests_desc": "Ein Bild, das zeigt, dass es keine Anfragen gibt.",
   "empty_space_list_message": {
-    "all": "Wir können zur Zeit keine Räume für dich finden.",
-    "favorite": "Sie haben keine Leerzeichen markiert",
-    "frequent": "Sie haben im letzten Monat keinen Platz gebucht",
-    "personal": "Sie sind kein Mitglied eines Spaces"
+    "all": "Wir konnten keine Räume für dich finden.",
+    "favorite": "Du hast keine Räume als Favoriten",
+    "frequent": "Du hast im letzten Monat keinen Raum gebucht",
+    "personal": "Du bist kein Mitglied eines Raumes"
   },
   "loading_space": "Nach verfügbaren Räumen wird gesucht.",
   "end": "Ende",
@@ -80,6 +84,7 @@
     "enable_all_unstable_features": "Aktiviere alle instabile Funktionen"
   },
   "features": "Features",
+  "filter": "Filter",
   "filter_bookables": "Filter für deinen Arbeitsplatz",
   "filter_spaces": "Nach einem freien buchbaren Objekt suchen",
   "get_help": "Nach Hilfe fragen",
@@ -105,11 +110,13 @@
   },
   "link_map_objects": "z.B. https://www.example.com",
   "login": "Anmelden",
+  "login_without_space": "Anmelden",
   "logout": "Abmelden",
   "mail_for_feedback": "Mein Feedback zu Bookyp",
   "mail_for_help": "Ich brauche Hilfe bei Bookyp",
   "map_editing": {
     "adding_wall_instruction": "Klicke und ziehe auf der Karte, um eine Wand zu zeichnen.",
+    "floor_plan": "Grundriss",
     "objects": "Objekte",
     "walls": "Wände"
   },
@@ -132,6 +139,7 @@
   "no_admin_spaces": "Du bist derzeit kein Administrator eines Raums. Klicke auf die Schaltfläche unten. um einen Raum zu erstellen.",
   "no_bookable": "Es konnte kein buchbares Objekt gefunden werden.",
   "no_bookings": "Noch keine Buchungen vorhanden!",
+  "no_requests": "Noch keine Anfragen vorhanden!",
   "not_found": "Du hast dich verlaufen.",
   "occupied_bookables": "belegte Objekte",
   "ok": "OK",
@@ -146,7 +154,11 @@
   "phone": "Telefon",
   "preview": "Vorschau",
   "privacy_policy": "Datenschutz",
+  "processing_map_object_type": "Wir werden die Datei jetzt verarbeiten. Dies kann ein paar Sekunden dauern...",
   "profile": "Profil",
+  "reject_request": "Anfrage ablehnen",
+  "request": "Anfrage",
+  "request_details": "Anfragedetails",
   "request_hint": "Jeder User kann Anfragen senden, die von einem Admin des Raumes beantwortet werden müssen.",
   "requested": "Angefordert",
   "requests": "Anfragen",
@@ -177,6 +189,7 @@
   },
   "select_location_on_map": "Standort auswählen: Klicke auf die Karte.",
   "select_map_object_type": "Wähle einen Kartenobjekttypen",
+  "sign_up": "Registrieren",
   "site_not_exist": "Diese Seite existiert nicht.",
   "space": "Raum",
   "space_analytics": "Raumanalytik",
@@ -190,6 +203,7 @@
     "personal": "Persönlich"
   },
   "spaces": "Räume",
+  "spaces_admin": "Räume, in denen du Administrator bist",
   "start": "Start",
   "subscription": {
     "add_payment_method": "Zahlungsmethode hinzufügen",

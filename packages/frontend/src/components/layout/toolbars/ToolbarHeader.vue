@@ -22,7 +22,7 @@
       <FloatingButton
         class="pointer-events-auto"
         icon="filter"
-        text="Filter"
+        :text="$t('filter')"
         back-ground-color="white"
         @click="$router.push({ name: `${actionFor}-filter` })"
       />

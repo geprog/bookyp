@@ -45,13 +45,19 @@
       <FloatingButton
         class="text-sm"
         icon="delete"
-        text="Delete Booking"
+        :text="$t('delete_booking')"
         back-ground-color="white"
         foreground-color="red"
         data-test="delete-button"
         @click="deleteBooking"
       />
-      <FloatingButton class="text-sm" icon="edit" text="Edit Booking" back-ground-color="orange" @click="editBooking" />
+      <FloatingButton
+        class="text-sm"
+        icon="edit"
+        :text="$t('edit_booking')"
+        back-ground-color="orange"
+        @click="editBooking"
+      />
     </div>
   </div>
 

@@ -17,5 +17,23 @@ module.exports = {
         enableFix: true,
       },
     ],
+    'vue/no-bare-strings-in-template': [
+      'error',
+      {
+        attributes: {
+          '/.+/': [
+            'alt',
+            'aria-label',
+            'aria-placeholder',
+            'aria-roledescription',
+            'aria-valuetext',
+            'label',
+            'placeholder',
+            'text',
+            'title',
+          ],
+        },
+      },
+    ],
   },
 };
