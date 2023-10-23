@@ -10,7 +10,7 @@ exports[`Authentication service > Configuration > should match snapshot 1`] = `
   "jwtOptions": {
     "algorithm": "HS256",
     "audience": "api",
-    "expiresIn": "1d",
+    "expiresIn": "30d",
     "header": {
       "typ": "access",
     },

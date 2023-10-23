@@ -1,11 +1,12 @@
 import { Application, Model } from '@bookyp/core';
-import { AuthenticationService, JWTStrategy } from '@feathersjs/authentication';
+import { AuthenticationService } from '@feathersjs/authentication';
 import { expressOauth } from '@feathersjs/authentication-oauth';
 import { HookContext, ServiceAddons } from '@feathersjs/feathers';
 
 import getConfig from '~/config';
 
 import { defineAbilitiesFor } from './authentication.abilities';
+import { BookypJWTStrategy } from './bookyp-jwt-strategy';
 import { KeycloakStrategy } from './keycloak.auth-strategy';
 import { oauthServerUrl } from './utils';
 
@@ -30,7 +31,7 @@ export default function (app: Application): void {
       },
       audience: 'api',
       algorithm: 'HS256',
-      expiresIn: '1d',
+      expiresIn: '30d',
     },
     oauth: {
       redirect: config.oauth.redirect_url,
@@ -49,7 +50,7 @@ export default function (app: Application): void {
   });
   const authentication = new AuthenticationService(app);
 
-  authentication.register('jwt', new JWTStrategy());
+  authentication.register('jwt', new BookypJWTStrategy());
   authentication.register('keycloak', new KeycloakStrategy());
 
   app.use('authentication', authentication);
