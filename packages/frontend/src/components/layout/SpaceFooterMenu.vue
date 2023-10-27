@@ -11,7 +11,7 @@
       </router-link>
       <router-link
         v-if="isAdmin"
-        :to="{ name: 'admin-area' }"
+        :to="{ name: 'space-settings' }"
         class="flex flex-col flex-grow items-center py-1.5 px-4"
         :class="{ 'router-link-exact-active ': showAdminButton }"
       >

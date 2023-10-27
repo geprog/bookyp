@@ -56,6 +56,10 @@ export async function reAuthenticate(): Promise<void> {
   }
 }
 
+export function login(): void {
+  window.location.href = `${getEnvConfig('FRONTEND_BACKEND_URL') || ''}/oauth/keycloak?redirect=auth/callback`;
+}
+
 export async function logout(): Promise<void> {
   if (!feathers) {
     throw new Error('Unexpected: Please load authentication first before using logout');

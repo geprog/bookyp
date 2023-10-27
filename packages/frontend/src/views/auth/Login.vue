@@ -1,35 +1,29 @@
 <template>
-  <header class="z-10 fixed top-0 bg-white w-full h-14 shadow-md flex justify-center">
-    <LoginHeader />
-  </header>
+  <Header :title="t('login')" :back-fallback="{ name: 'home' }" />
 
   <AppContent class="flex-col">
     <div class="flex flex-col items-center <md:pt-6">
       <img src="/src/assets/img/bookyp-new-logo.svg?url" class="w-29 h-17" />
 
       <div class="flex items-center gap-8 text-sm p-4">
-        <router-link :to="{ name: 'auth-login' }" class="text-black">
-          <FloatingButton icon="log-in" :text="$t('login')" back-ground-color="orange" @click="redirectToLogin" />
-        </router-link>
+        <FloatingButton icon="log-in" :text="$t('login')" back-ground-color="orange" @click="login" />
 
-        <router-link :to="{ name: 'auth-login' }" class="text-black">
-          <FloatingButton icon="signature" :text="$t('sign_up')" back-ground-color="orange" />
-        </router-link>
+        <FloatingButton icon="signature" :text="$t('sign_up')" back-ground-color="orange" @click="login" />
       </div>
     </div>
   </AppContent>
+
   <FooterMenu />
 </template>
 
 <script lang="ts" setup>
-import { getEnvConfig } from '@geprog/vite-plugin-env-config';
+import { useI18n } from 'vue-i18n';
 
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
-import LoginHeader from '~/components/headers/LoginHeader.vue';
+import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
+import { login } from '~/compositions/useAuthentication';
 
-function redirectToLogin() {
-  window.location.href = `${getEnvConfig('FRONTEND_BACKEND_URL') || ''}/oauth/keycloak?redirect=auth/callback`;
-}
+const { t } = useI18n();
 </script>
