@@ -28,6 +28,8 @@ watch(
 
 const checkingAvailability = ref(true);
 
+const isAdmin = isSpaceAdmin(space);
+
 const redirectOnImportedSpace = async () => {
   checkingAvailability.value = true;
   if (!space.value) {
@@ -35,7 +37,7 @@ const redirectOnImportedSpace = async () => {
   }
   if (
     (space.value.importId && route.name !== 'space-info' && route.matched.some((m) => m.name === 'space-loader')) ||
-    (space.value.bookingsAndRequests === 'only_info' && !(await isSpaceAdmin(space.value)))
+    (space.value.bookingsAndRequests === 'only_info' && !isAdmin.value)
   ) {
     await router.replace({ name: 'space-info', params: { spaceId: space.value._id } });
   }
@@ -45,11 +47,11 @@ const redirectOnImportedSpace = async () => {
 watch(space, redirectOnImportedSpace);
 watch(route, redirectOnImportedSpace);
 
-const redirectOnUnauthorized = async () => {
+const redirectOnUnauthorized = () => {
   if (!space.value) {
     return;
   }
-  if (!route.meta.accessibleByUserRole && !(await isSpaceAdmin(space.value))) {
+  if (!route.meta.accessibleByUserRole && !isAdmin.value) {
     void router.replace({ name: 'home' });
   }
 };

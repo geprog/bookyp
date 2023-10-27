@@ -90,6 +90,30 @@ Um die Buchung zu sehen, klicke hier: {{ bookingLink }} .
 
 Dein Bookyp-Team
 `);
+
+const spaceBookingDeletedMailTemplate = handlebars.compile(`
+Moin!
+
+deine Buchung für den Tisch "{{ table }}" im Space "{{ space }}" von {{ start }} bis {{ end }} wurde gelöscht.
+
+Falls du Fragen dazu hast, wende dich bitte an den Spacebetreiber. Die Infos dafür findest du hier: {{ spaceInfoLink }}
+
+Um die Buchung zu sehen, klicke hier: {{ bookingLink }}
+
+Dein Bookyp-Team
+`);
+
+const spaceBookingChangedMailTemplate = handlebars.compile(`
+Moin!
+
+deine Buchung für den Tisch "{{ table }}" im Space "{{ space }}" von {{ oldStart }} bis {{ oldEnd }} wurde auf {{ start }} bis {{ end }} geändert.
+
+Falls du Fragen dazu hast, wende dich bitte an den Spacebetreiber. Die Infos dafür findest du hier: {{ spaceInfoLink }}
+
+Um die Buchung zu sehen, klicke hier: {{ bookingLink }}
+
+Dein Bookyp-Team
+`);
 /* spell-checker: enable */
 
 export async function sendSpaceInvitationMail(space: Model.Space, email: string, admin: Model.Member): Promise<void> {
@@ -226,6 +250,70 @@ export async function sendRequestReplyNotification(
       to: email,
       // cspell:disable-next-line
       subject: `${accept ? 'Buchungsanfrage akzeptiert' : 'Buchungsanfrage abgelehnt'}`,
+      text: emailMessage,
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Problem sending new booking mail', error);
+  }
+}
+
+export async function sendUserBookingNotification(
+  space: Model.Space,
+  user: Model.User,
+  currentBookable: Model.Bookable,
+  oldBooking: Partial<Model.Booking>,
+  booking: Partial<Model.Booking>,
+): Promise<void> {
+  if (!transporter) {
+    return;
+  }
+
+  if (booking.start === undefined || booking.end === undefined) {
+    throw new Error('No start and end Date for Booking found.');
+  }
+
+  const oldStart = dayjs(oldBooking.start).format('DD.MM.YYYY HH:mm');
+  const oldEnd = dayjs(oldBooking.end).format('DD.MM.YYYY HH:mm');
+
+  const start = dayjs(booking.start).format('DD.MM.YYYY HH:mm');
+  const end = dayjs(booking.end).format('DD.MM.YYYY HH:mm');
+
+  const { frontendUrl } = config().app;
+
+  if (!booking._id) {
+    throw new Error('No booking id found.');
+  }
+
+  if (!frontendUrl) {
+    throw new Error('No frontendUrl configured.');
+  }
+
+  const bookingLink = `${frontendUrl}/account/booking/${booking._id}`;
+  const spaceInfoLink = `${frontendUrl}/space/${space._id}/info`;
+
+  const emailParameters = {
+    space: space.name,
+    user: user.name,
+    table: currentBookable.name,
+    start,
+    end,
+    oldStart,
+    oldEnd,
+    bookingLink,
+    spaceInfoLink,
+  };
+
+  const emailMessage = booking.deleted
+    ? spaceBookingDeletedMailTemplate(emailParameters)
+    : spaceBookingChangedMailTemplate(emailParameters);
+
+  try {
+    await transporter.sendMail({
+      from: config().mail.from,
+      to: user.email,
+      // cspell:disable-next-line
+      subject: `Deine Buchung in "${space.name}" wurde ${booking.deleted ? 'gelöscht' : 'geändert'}`,
       text: emailMessage,
     });
   } catch (error) {

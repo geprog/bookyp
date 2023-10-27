@@ -3,7 +3,7 @@ import { AdapterService } from '@feathersjs/adapter-commons';
 import { HookContext } from '@feathersjs/feathers';
 
 import { sendSpaceInvitationMail } from '~/mail';
-import { getUser } from '~/utils';
+import { requireUser } from '~/utils';
 
 export default async function sendInvitationMail(
   context: HookContext<Application, AdapterService<Model.Invitation>>,
@@ -14,7 +14,7 @@ export default async function sendInvitationMail(
   if (Array.isArray(context.data)) {
     throw new Error('Only one invitation can be created at a time');
   }
-  const user = getUser(context.params, { requireUser: true });
+  const user = requireUser(context.params);
   const { spaceId, email } = context.data;
   if (spaceId === undefined) {
     throw new Error('spaceId should be defined');

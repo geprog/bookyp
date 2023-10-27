@@ -3,7 +3,7 @@ import { AdapterService } from '@feathersjs/adapter-commons';
 import { HookContext } from '@feathersjs/feathers';
 
 import { updateSpaceSubscription } from '~/lib/paymentsApi';
-import { getUser } from '~/utils';
+import { requireUser } from '~/utils';
 
 export default async function accept(
   context: HookContext<Application, AdapterService<Model.Invitation>>,
@@ -11,7 +11,7 @@ export default async function accept(
   if (context.id && context.params.query?.accept === true) {
     const invitation = await context.app.service('invitations').get(context.id);
     const space = await context.app.service('spaces').get(invitation.spaceId);
-    const user = getUser(context.params, { requireUser: true });
+    const user = requireUser(context.params);
     space.members.push({
       role: invitation.role,
       userId: user._id,

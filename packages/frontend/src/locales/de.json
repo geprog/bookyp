@@ -53,6 +53,8 @@
   "delete_booking": "Buchung löschen",
   "delete_dialog_description": "Möchtest du dieses {objectLabel} löschen?",
   "delete_space": "Raum löschen",
+  "deleted_booking": "Dies ist eine gelöschte Buchung.",
+  "deleted_request": "Dies ist eine abgelehnte Buchungsanfrage.",
   "description": "Beschreibung",
   "dialog": {
     "cancel": "Abbrechen",

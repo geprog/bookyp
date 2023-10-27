@@ -4,6 +4,7 @@ import { RouteLocationNormalized, Router, useRoute, useRouter } from 'vue-router
 
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useMapObjects from '~/compositions/space/useMapObjects';
+import { isSpaceAdmin } from '~/compositions/useAuthorization';
 import { useBack } from '~/compositions/useBack';
 import useFeathers, { ClientApplication } from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
@@ -56,6 +57,10 @@ export function prepareUseCurrentSpaceMockOnce(space?: Model.Space): void {
     spaceId,
   };
   vi.mocked(useCurrentSpace).mockReturnValueOnce(useCurrentSpaceMock);
+}
+
+export function prepareUseAuthorization(isAdmin: boolean): void {
+  vi.mocked(isSpaceAdmin).mockReturnValueOnce(ref(isAdmin));
 }
 
 export function prepareUseMapObjectsMockOnce(mapObjects: Model.MapObject[]): void {

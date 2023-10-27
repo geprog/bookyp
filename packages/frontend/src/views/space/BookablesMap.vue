@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import { Model } from '@bookyp/core';
-import { computed, ref, watch } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -51,20 +51,8 @@ const { t } = useI18n();
 const router = useRouter();
 const { spaceId, currentSpace } = useCurrentSpace();
 
-const isAdmin = ref(false);
+const isAdmin = isSpaceAdmin();
 const { data: mapObjectForCurrentSpace, isLoading } = getMapObjects(spaceId);
-
-watch(
-  currentSpace,
-  async () => {
-    if (currentSpace.value === undefined) {
-      isAdmin.value = false;
-      return;
-    }
-    isAdmin.value = await isSpaceAdmin(currentSpace.value);
-  },
-  { immediate: true },
-);
 
 const mapObjectsExists = computed(() => mapObjectForCurrentSpace.value.length !== 0);
 

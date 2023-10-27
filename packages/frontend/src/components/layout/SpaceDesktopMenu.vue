@@ -14,11 +14,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 
-import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { isSpaceAdmin } from '~/compositions/useAuthorization';
 
 import DesktopMenu from './DesktopMenu.vue';
@@ -26,22 +25,10 @@ import DesktopMenuItem from './DesktopMenuItem.vue';
 
 const { t } = useI18n();
 
-const { currentSpace } = useCurrentSpace();
-
-const isAdmin = ref(false);
+const isAdmin = isSpaceAdmin();
 const route = useRoute();
 const path = computed(() => route.path);
-watch(
-  currentSpace,
-  async () => {
-    if (currentSpace.value === undefined) {
-      isAdmin.value = false;
-      return;
-    }
-    isAdmin.value = await isSpaceAdmin(currentSpace.value);
-  },
-  { immediate: true },
-);
+
 const showAdminButton = computed<boolean>(
   () =>
     isAdmin.value &&

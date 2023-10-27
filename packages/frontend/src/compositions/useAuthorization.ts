@@ -1,14 +1,18 @@
 import { Model, resolveAction } from '@bookyp/core';
 import { Ability, subject } from '@casl/ability';
-import { ref } from 'vue';
+import { computed, Ref, ref } from 'vue';
 
-import { reAuthenticate } from '~/compositions/useAuthentication';
+import { useCurrentSpace } from './space/useCurrentSpace';
 
 export const ability = ref(new Ability([], { resolveAction }));
 
-export const isSpaceAdmin = async (space: Model.Space): Promise<boolean> => {
-  // update ability
-  await reAuthenticate();
+export const isSpaceAdmin = (space?: Ref<Model.Space | undefined>): Ref<boolean> => {
+  const spaceToCheck = space || useCurrentSpace().currentSpace;
 
-  return ability.value.can('update', subject('spaces', space));
+  return computed(() => {
+    if (spaceToCheck.value === undefined) {
+      return false;
+    }
+    return ability.value.can('update', subject('spaces', spaceToCheck.value));
+  });
 };

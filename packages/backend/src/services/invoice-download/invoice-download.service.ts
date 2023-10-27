@@ -3,7 +3,7 @@ import { AdapterService } from '@feathersjs/adapter-commons';
 import { Id, Params } from '@feathersjs/feathers';
 
 import { gringottsPayments } from '~/lib/paymentsApi';
-import { getUser } from '~/utils';
+import { requireUser } from '~/utils';
 
 class InvoiceDownloadService extends AdapterService<Model.InvoiceDownload> {
   app: Application;
@@ -14,7 +14,7 @@ class InvoiceDownloadService extends AdapterService<Model.InvoiceDownload> {
   }
 
   async get(id: Id, params?: Params): Promise<Model.InvoiceDownload> {
-    getUser(params, { requireUser: true });
+    requireUser(params);
 
     const { spaceId } = params?.query as { spaceId?: string };
     if (!spaceId) {
