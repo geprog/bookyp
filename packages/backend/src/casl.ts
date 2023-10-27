@@ -7,7 +7,7 @@ import { getUser } from '~/utils';
 
 export const feathersCasl = casl();
 
-export const feathersCaslAllowlist = ['$nor', '$and'];
+export const feathersCaslAllowlist = ['$nor', '$and', '$not'];
 
 /**
  * Use this hook for services that are authorized with dynamic rules (that depend on a database call).

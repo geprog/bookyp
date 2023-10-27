@@ -8,6 +8,7 @@ exports[`Booking view > should render correctly 1`] = `
       <p class=\\"bold\\">Couch</p>
       <!--v-if-->
     </div>
+    <!--v-if-->
     <div><span class=\\"text-sm text-gray-500 cursor-pointer italic\\"></span></div>
     <div class=\\"grid grid-cols-[auto,1fr] grid-rows-2 text-gray-500 text-sm gap-1\\"><span class=\\"italic\\">start:</span><span>Wed, 08. Aug. 2018 - 07:43</span><span class=\\"italic\\">end:</span><span>Wed, 08. Aug. 2018 - 08:13</span><span class=\\"italic\\">description:</span><pre>test description</pre>
     </div>
@@ -22,8 +23,8 @@ exports[`Booking view > should render correctly 1`] = `
 </app-content-stub>
 <div class=\\"flex w-full justify-center\\">
   <div class=\\"fixed bottom-18 w-full flex px-4 mb-1 justify-between md:bottom-5 max-w-5xl\\">
-    <floating-button-stub icon=\\"delete\\" disabled=\\"false\\" text=\\"delete_booking\\" stroke=\\"false\\" isselected=\\"false\\" backgroundcolor=\\"white\\" foregroundcolor=\\"red\\" class=\\"text-sm\\" data-test=\\"delete-button\\"></floating-button-stub>
-    <floating-button-stub icon=\\"edit\\" disabled=\\"false\\" text=\\"edit_booking\\" stroke=\\"false\\" isselected=\\"false\\" backgroundcolor=\\"orange\\" class=\\"text-sm\\"></floating-button-stub>
+    <!--v-if-->
+    <!--v-if-->
   </div>
 </div>
 <footer-menu-stub ismapspaces=\\"false\\" isbookingpage=\\"true\\"></footer-menu-stub>"

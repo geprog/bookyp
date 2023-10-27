@@ -23,34 +23,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 
 import Icon from '~/components/Icon.vue';
-import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { isSpaceAdmin } from '~/compositions/useAuthorization';
 
 import FooterMenu from './FooterMenu.vue';
 
 const { t } = useI18n();
 
-const { currentSpace } = useCurrentSpace();
 const route = useRoute();
 
 const path = computed(() => route.path);
-const isAdmin = ref(false);
-watch(
-  currentSpace,
-  async () => {
-    if (currentSpace.value === undefined) {
-      isAdmin.value = false;
-      return;
-    }
-    isAdmin.value = await isSpaceAdmin(currentSpace.value);
-  },
-  { immediate: true },
-);
+const isAdmin = isSpaceAdmin();
 
 const showAdminButton = computed<boolean>(
   () =>

@@ -7,6 +7,11 @@
         <p :class="booking?.request ? 'italic text-gray-400' : 'bold'">{{ bookable?.name }}</p>
         <p v-if="booking?.request" class="italic text-gray-400">{{ t('requested') }}</p>
       </div>
+      <div v-if="booking?.deleted" class="flex flex-row justify-center items-center my-2">
+        <InfoBox class="mr-2 flex flex-col bg-red-400 text-white">
+          <p>{{ booking?.request ? t('deleted_request') : t('deleted_booking') }}</p>
+        </InfoBox>
+      </div>
       <div>
         <span
           class="text-sm text-gray-500 cursor-pointer italic"
@@ -43,6 +48,7 @@
   <div class="flex w-full justify-center">
     <div class="fixed bottom-18 w-full flex px-4 mb-1 justify-between md:bottom-5 max-w-5xl">
       <FloatingButton
+        v-if="canChangeBooking"
         class="text-sm"
         icon="delete"
         :text="$t('delete_booking')"
@@ -52,6 +58,7 @@
         @click="deleteBooking"
       />
       <FloatingButton
+        v-if="canChangeBooking"
         class="text-sm"
         icon="edit"
         :text="$t('edit_booking')"
@@ -71,11 +78,14 @@ import { useI18n } from 'vue-i18n';
 
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import Header from '~/components/headers/Header.vue';
+import InfoBox from '~/components/InfoBox.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import FloorPlan from '~/components/space/map/FloorPlan.vue';
 import MapObjects from '~/components/space/map/MapObjects.vue';
 import SpaceMap from '~/components/space/map/SpaceMap.vue';
+import { user } from '~/compositions/useAuthentication';
+import { isSpaceAdmin } from '~/compositions/useAuthorization';
 import { useBack } from '~/compositions/useBack';
 import { openDialog } from '~/compositions/useDialog';
 import useFeathers from '~/compositions/useFeathers';
@@ -91,11 +101,13 @@ const feathers = useFeathers();
 const { back } = useBack();
 
 const bookingId = toRef(props, 'bookingId');
-const { data: booking } = useGet('bookings', bookingId);
+const { data: booking } = useGet('bookings', bookingId, ref({ query: { $disableSoftDelete: true } }));
 const { data: space } = useGet(
   'spaces',
   computed(() => booking.value?.space),
 );
+
+const isAdmin = isSpaceAdmin(space);
 
 const { data: bookedByUser } = useGet(
   'users',
@@ -130,4 +142,11 @@ async function deleteBooking() {
   await feathers.service('bookings').remove(bookingId.value);
   void back({ name: 'account-bookings' });
 }
+
+const canChangeBooking = computed(() => {
+  if (!user.value) {
+    return false;
+  }
+  return !booking.value?.deleted && (isAdmin.value || user.value._id === bookedByUser.value?._id);
+});
 </script>

@@ -5,6 +5,7 @@ import MapObjects from '~/components/space/map/MapObjects.vue';
 import { sampleMapObject, sampleMapObjects, sampleMapObjectWithBookable } from '$/__fixtures__/mapObject';
 import { i18n } from '$/__helpers__/i18n';
 import {
+  prepareUseAuthorization,
   prepareUseCurrentSpaceMockOnce,
   prepareUseMapObjectsMockOnce,
   prepareUseRouterMockOnce,
@@ -14,12 +15,14 @@ import BookablesMap from './BookablesMap.vue';
 
 vi.mock('~/compositions/space/useMapObjects');
 vi.mock('~/compositions/space/useCurrentSpace');
+vi.mock('~/compositions/useAuthorization');
 vi.mock('vue-router');
 
 describe('BookablesMap view', () => {
   it('should render correctly', () => {
     // given
     prepareUseCurrentSpaceMockOnce(undefined);
+    prepareUseAuthorization(false);
     prepareUseMapObjectsMockOnce(sampleMapObjects);
 
     // when
@@ -38,6 +41,7 @@ describe('BookablesMap view', () => {
     expect.assertions(1);
     // given
     prepareUseCurrentSpaceMockOnce(undefined);
+    prepareUseAuthorization(false);
     prepareUseMapObjectsMockOnce(sampleMapObjects);
     const useRouterMockOnce = prepareUseRouterMockOnce();
     const wrapper = shallowMount(BookablesMap, {
@@ -62,6 +66,7 @@ describe('BookablesMap view', () => {
     expect.assertions(1);
     // given
     prepareUseCurrentSpaceMockOnce(undefined);
+    prepareUseAuthorization(false);
     prepareUseMapObjectsMockOnce(sampleMapObjects);
     const useRouterMockOnce = prepareUseRouterMockOnce();
     const wrapper = shallowMount(BookablesMap, {
