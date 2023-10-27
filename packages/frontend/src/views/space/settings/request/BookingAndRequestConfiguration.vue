@@ -1,5 +1,5 @@
 <template>
-  <Header :title="t('booking_and_requests')" :back-fallback="{ name: 'admin-area' }" />
+  <Header :title="t('booking_and_requests')" :back-fallback="{ name: 'space-settings' }" />
   <AppContent>
     <form v-if="space" id="bookingRequestConfigForm" class="w-full px-4">
       <RadioButton

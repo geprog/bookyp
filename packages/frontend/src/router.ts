@@ -37,12 +37,6 @@ const routes: RouteRecordRaw[] = [
         meta: { accessibleByUserRole: true, authentication: 'ignored' },
       },
       {
-        path: 'adminArea',
-        name: 'admin-area',
-        component: () => import('~/views/space/AdminArea.vue'),
-        meta: { accessibleByUserRole: true, authentication: 'ignored' },
-      },
-      {
         path: 'bookables/map',
         name: 'bookables-map',
         meta: { accessibleByUserRole: true, authentication: 'ignored' },
@@ -61,7 +55,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('~/views/space/BookablesFilter.vue'),
       },
       {
-        path: 'bookable/:bookableId/book',
+        path: 'bookable/:bookableId/booking',
         meta: { accessibleByUserRole: true },
         component: () => import('~/views/space/booking/BookingCreate.vue'),
         props: true,
@@ -93,6 +87,12 @@ const routes: RouteRecordRaw[] = [
         path: 'settings',
         component: () => import('~/components/layout/RouterView.vue'),
         children: [
+          {
+            path: '',
+            name: 'space-settings',
+            component: () => import('~/views/space/settings/SpaceSettings.vue'),
+            meta: { accessibleByUserRole: true, authentication: 'ignored' },
+          },
           // bookable
           {
             path: 'bookable',

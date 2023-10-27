@@ -7,7 +7,7 @@
         :class="{ 'router-link-exact-active ': showAdminButton }"
         :text="t('roles.admin.name')"
         icon="settings"
-        :to="{ name: 'admin-area' }"
+        :to="{ name: 'space-settings' }"
       />
     </template>
   </DesktopMenu>
