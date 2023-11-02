@@ -17,26 +17,36 @@ let feathers: ClientApplication | undefined;
 function init() {
   feathers = useFeathers();
 
-  feathers.on('connect', () => {
+  const reAuthenticator = () => {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    void reAuthenticate();
-  });
+    void reAuthenticate(true);
+  };
+
+  feathers.on('connect', reAuthenticator);
 
   feathers.on('disconnect', () => {
     user.value = undefined;
   });
+
+  // reauthenticate as the member role of the current user might have changed for one or some spaces
+  feathers
+    .service('spaces')
+    .on('created', reAuthenticator)
+    .on('updated', reAuthenticator)
+    .on('patched', reAuthenticator)
+    .on('removed', reAuthenticator);
 }
 
-export async function reAuthenticate(): Promise<void> {
+export async function reAuthenticate(force?: boolean): Promise<void> {
   // if not already initialized re-load and try again
   if (!feathers) {
     init();
-    await reAuthenticate();
+    await reAuthenticate(force);
     return;
   }
 
   try {
-    await feathers.reAuthenticate();
+    await feathers.reAuthenticate(force);
     const authentication = await feathers.get('authentication');
     user.value = authentication ? authentication.user : undefined;
     if (authentication) {
