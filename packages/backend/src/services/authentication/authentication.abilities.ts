@@ -200,7 +200,7 @@ function paymentAndInvoicingServicesAccess({ user, can, adminSpaces }: AbilityCo
 
 function uploadFilesServiceAccess({ can, adminSpaces }: AbilityContext) {
   if (adminSpaces.length > 0) {
-    can('create', 'upload-files', { spaceId: { $in: adminSpaces } });
+    can(['read', 'create'], 'upload-files', { spaceId: { $in: adminSpaces } });
   }
 }
 
