@@ -9,7 +9,7 @@ exports[`Booking view > should render correctly 1`] = `
       <!--v-if-->
     </div>
     <!--v-if-->
-    <div><span class=\\"text-sm text-gray-500 cursor-pointer italic\\"></span></div>
+    <div><span class=\\"text-sm text-gray-500 cursor-pointer italic\\">first sample space</span></div>
     <div class=\\"grid grid-cols-[auto,1fr] grid-rows-2 text-gray-500 text-sm gap-1\\"><span class=\\"italic\\">start:</span><span>Wed, 08. Aug. 2018 - 07:43</span><span class=\\"italic\\">end:</span><span>Wed, 08. Aug. 2018 - 08:13</span><span class=\\"italic\\">description:</span><pre>test description</pre>
     </div>
     <div class=\\"mt-1 md:mt-2 grid grid-cols-[auto,1fr] grid-rows-2 text-sm gap-1\\"><span>name:</span><span>Alice Wonderland</span><span>email:</span><a class=\\"text-blue-600 underline-current underline\\" href=\\"mailto:alice@wonderland.xyz\\">alice@wonderland.xyz</a></div>

@@ -4,7 +4,7 @@
   <SpaceDesktopMenu />
   <ToolbarHeader action-for="bookables" />
   <ProgressIndicator v-if="isLoading" />
-  <div v-else-if="mapObjectsExists" class="flex flex-col flex-grow min-h-0 pt-12">
+  <div v-else-if="!isMapEmpty" class="flex flex-col flex-grow min-h-0 pt-12">
     <SpaceMap v-if="spaceId">
       <FloorPlan :space-id="spaceId" />
       <MapObjects
@@ -54,7 +54,11 @@ const { spaceId, currentSpace } = useCurrentSpace();
 const isAdmin = isSpaceAdmin();
 const { data: mapObjectForCurrentSpace, isLoading } = getMapObjects(spaceId);
 
-const mapObjectsExists = computed(() => mapObjectForCurrentSpace.value.length !== 0);
+const isMapEmpty = computed(
+  () =>
+    currentSpace.value === undefined ||
+    (currentSpace.value.floorPlan.length === 0 && mapObjectForCurrentSpace.value.length === 0),
+);
 
 async function clickOnMapObject(mapObject: Model.MapObject) {
   if (mapObject.link && mapObject.link.type === 'bookable') {
