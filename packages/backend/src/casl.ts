@@ -17,9 +17,8 @@ export const feathersCaslAllowlist = ['$nor', '$and', '$not'];
 export const authorizeWithFreshAbility =
   (adapter: 'feathers-mongoose' | 'feathers-memory' = 'feathers-mongoose') =>
   async (context: HookContext): Promise<HookContext> => {
-    delete context.params.ability;
+    context.params.ability = async (c: HookContext<Application>) => defineAbilitiesFor(getUser(c.params), c.app);
     return authorize({
       adapter,
-      ability: async (c: HookContext<Application>) => defineAbilitiesFor(getUser(c.params), c.app),
     })(context);
   };
