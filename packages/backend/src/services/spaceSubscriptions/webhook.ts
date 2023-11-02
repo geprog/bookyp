@@ -10,8 +10,8 @@ export default function PaymentsWebhookRouter(app: Application): Router {
 
   // endpoint to receive webhooks from gringotts
   router.post('/payments/webhook', (req: Request, res: Response) => {
-    try {
-      void (async () => {
+    void (async () => {
+      try {
         const body = req.body as { subscriptionId: string };
         if (!body?.subscriptionId) {
           res.status(400).send({ error: 'Expected to get a subscriptionId' });
@@ -41,13 +41,13 @@ export default function PaymentsWebhookRouter(app: Application): Router {
         });
 
         res.status(200).send({ ok: true });
-      })();
-    } catch (e) {
-      const error = e as Error;
-      // eslint-disable-next-line no-console
-      console.log(`🔥 Error`, error);
-      res.status(500).send({ error: error.message });
-    }
+      } catch (e) {
+        const error = e as Error;
+        // eslint-disable-next-line no-console
+        console.log(`🔥 Error`, error);
+        res.status(500).send({ error: error.message });
+      }
+    })();
   });
 
   return router;
