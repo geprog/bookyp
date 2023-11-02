@@ -25,7 +25,7 @@ class PaymentMethodService extends AdapterService<Model.PaymentMethod> {
 
     const payment = gringottsPayments();
 
-    const response = await payment.customer.paymentMethodDetail2(user.paymentCustomerId, _id as string);
+    const response = await payment.customer.getPaymentMethod(user.paymentCustomerId, _id as string);
     return response.data;
   }
 
@@ -41,7 +41,7 @@ class PaymentMethodService extends AdapterService<Model.PaymentMethod> {
 
     const payment = gringottsPayments();
 
-    const response = await payment.customer.paymentMethodDetail(user.paymentCustomerId);
+    const response = await payment.customer.listPaymentMethods(user.paymentCustomerId);
     return response.data;
   }
 
@@ -72,7 +72,7 @@ class PaymentMethodService extends AdapterService<Model.PaymentMethod> {
     }
 
     const payment = gringottsPayments();
-    const response = await payment.customer.paymentMethodCreate(user.paymentCustomerId, {
+    const response = await payment.customer.createPaymentMethod(user.paymentCustomerId, {
       redirectUrl,
     });
 
@@ -98,9 +98,9 @@ class PaymentMethodService extends AdapterService<Model.PaymentMethod> {
     }
 
     const payment = gringottsPayments();
-    const response = await payment.customer.paymentMethodDetail2(user.paymentCustomerId, id);
+    const response = await payment.customer.getPaymentMethod(user.paymentCustomerId, id);
 
-    await payment.customer.paymentMethodDelete(user.paymentCustomerId, id);
+    await payment.customer.deletePaymentMethod(user.paymentCustomerId, id);
 
     return response.data;
   }

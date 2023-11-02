@@ -213,7 +213,7 @@
     "change_plan": "Plan ändern",
     "change_space_plan": "Planänderung des Raumes",
     "current_plan": "Momentaner Plan",
-    "currently_upgrading_to_plan": "Gerade wird zu folgendem Plan: '{plan}' plan ein Upgrade durchgeführt.",
+    "currently_upgrading_to_plan": "Gerade wird ein Update zum '{plan}' Plan durchgeführt.",
     "customer": {
       "address_line_1": "Adresszeile 1",
       "address_line_2": "Adresszeile 2",
@@ -224,36 +224,47 @@
       "zip_code": "Postleitzahl"
     },
     "downgrade": "Downgrade",
-    "enterprise_plan": "Businessplan",
     "estimated_total": "berechneter Gesamtwert",
-    "features": {
-      "limited_users": "10 Benutzer",
-      "map_editor": "Karten Editor",
-      "private_space": "1 privater Raum",
-      "public_space": "1 öffentlicher Raum",
-      "unlimited_bookables": "Unbegrenzte buchbare Objekte",
-      "unlimited_users": "Unbegrenzte Nutzer",
-      "visible_invited": "Sichtbar für eingeladene Mitglieder",
-      "visible_public": "Sichtbar für jeden"
-    },
-    "free": "kostenfrei",
     "free_plan": "Kostenfreier Plan",
     "max_members_reached": "Bitte upgrade deinen Plan, um mehr als 10 Mitglieder hinzuzufügen.",
-    "members": "Mitglieder",
     "new_plan": "Neuer Plan",
-    "of_infinity": " / ∞",
-    "of_ten": " / 10",
     "payment_method": "Zahlungsmethode",
     "payment_verification": "Zahlungsüberprüfung",
-    "payment_verification_description": "Wir werden dir einen Euro abziehen, um deine Zahlungsinformationen zu überprüfen. Diesen Euro wirst du als Ermäßigung bei deiner nächsten Rechnung zurückerhalten.",
-    "plans": "Pläne",
-    "price_per_member_per_month": "{price}€ pro Mitglied / Monat",
+    "payment_verification_description": "Wir werden dir einen Euro abziehen, um deine Zahlungsinformationen zu überprüfen. Diesen Euro wirst du als Gutschrift bei deiner nächsten Rechnung zurückerhalten.",
     "price_per_month": "{price}€ pro Monat",
-    "public_plan": "Öffentlicher Plan",
     "save": "Speichern",
-    "space_subscription": "Raumbeschreibung",
+    "space_subscription": "Raum Abonnement",
     "subscription": "Abonnement",
-    "upgrade": "Upgrade"
+    "upgrade": "Upgrade",
+    "standard_plan": "Standard Plan",
+    "plans": {
+      "descriptions": {
+        "free": "Die kostenlose Lizenz ermöglicht es dir, die App in kleinen Teams zu nutzen und sie auszuprobieren.",
+        "standard": "Die Standard-Lizenz ermöglicht es dir, mehr Nutzer und buchbare Objekte zu haben.",
+        "pro": "Die Pro-Lizenz ist für größere Unternehmen oder wenn du mehr zu teilen hast."
+      },
+      "resources": {
+        "users": "{x} Benutzer",
+        "bookables": "{x} buchbare Objekte",
+        "bookings": "{x} Buchungen",
+        "unlimited": "unbegrenzte"
+      },
+      "features": {
+        "free_forever": "kostenlos für immer",
+        "no_credit_card": "keine Kreditkarte erforderlich",
+        "start_at_a_glance": "Schnellstart",
+        "standard_email_support": "Standard E-Mail-Support",
+        "priority_email_support": "priorisierter E-Mail-Support",
+        "request_new_features": "Anfrage neuer Funktionen"
+      }
+    },
+    "euro": "€",
+    "pro_plan": "Pro Plan",
+    "max_bookables_reached": "Bitte upgrade deinen Plan, um mehr buchbare Objekte hinzuzufügen.",
+    "explorer_all_features": "Entdecke alle Funktionen",
+    "upgrade_subscription": "Abonnement upgraden",
+    "used_all_bookings": "Du hast alle deine enthalten Buchungen aufgebraucht. Bitte upgrade deinen Abonnement, damit deine Nutzer wieder buchen können.",
+    "used_all_bookings_member": "Leider sind keine weiteren Buchungen in diesem Raum für diesen Monat verfügbar. Bitte frage einen Admin des Raumes, ob er diesen upgraden kann, damit du wieder buchen kannst."
   },
   "subscription_update_super_admin_description": "Hier kannst du den Plan-Typ und das Datum festlegen, bis zu dem er als Super-Admin aktiv sein wird. Durch die Änderung des Plans muss niemand tatsächlich dafür bezahlen, bis jemand den Plan im normalen Zahlungsvorgang erneut aktualisiert oder zurückstuft.",
   "super_admin": "💪 Super-Admin",
@@ -272,5 +283,9 @@
   "upload_space_image": "Hier kannst du ein Bild für deinen Raum hochladen!",
   "version": "Version: {version}",
   "website": "Webseite",
-  "write": "Schreiben"
+  "write": "Schreiben",
+  "landing_page": {
+    "terms_and_conditions_url": "https://bookyp.de/terms-and-conditions",
+    "privacy_policy_url": "https://bookyp.de/privacy-policy"
+  }
 }

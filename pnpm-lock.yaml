@@ -72,8 +72,8 @@ importers:
         specifier: 5.0.0-pre.17
         version: 5.0.0-pre.17
       '@geprog/gringotts-client':
-        specifier: 1.1.1
-        version: 1.1.1
+        specifier: 2.0.1
+        version: 2.0.1
       '@geprog/node-migrate-ts':
         specifier: 3.1.12
         version: 3.1.12(mongodb@4.1.4)
@@ -184,8 +184,8 @@ importers:
         specifier: 5.0.0-pre.17
         version: 5.0.0-pre.17
       '@geprog/gringotts-client':
-        specifier: 1.1.1
-        version: 1.1.1
+        specifier: 2.0.1
+        version: 2.0.1
       bson-objectid:
         specifier: 2.0.3
         version: 2.0.3
@@ -2817,8 +2817,8 @@ packages:
       - typescript
     dev: true
 
-  /@geprog/gringotts-client@1.1.1:
-    resolution: {integrity: sha512-Lo9BnS0vKncLI0xGTuHfi5uu6XJlvWAZGpnzYAJAExBJn3pEdSVulQjs9v31thfdhSp932LeSI8/1H5+x7R9sw==}
+  /@geprog/gringotts-client@2.0.1:
+    resolution: {integrity: sha512-8VlV8x9BZQquKOaePMdbFS2nR5mUQs7VBfmPDLgxpdOUVcPi3z1N2dervQNLq+qajRHmcdam/zS+8L4xzWZk+g==}
     dev: false
 
   /@geprog/node-migrate-ts@3.1.12(mongodb@4.1.4):
@@ -3011,13 +3011,13 @@ packages:
     engines: {node: '>= 14'}
     dev: true
 
-  /@intlify/shared@9.3.0:
-    resolution: {integrity: sha512-MMGRz6zWxtz7rHtxIIdnyb8SYOIaaseN1IvUhAEs9tOW4u77RD4DFp4qgPXesp2Gxo/5QitH9kwSs0jnxGUNEw==}
+  /@intlify/shared@9.3.0-beta.20:
+    resolution: {integrity: sha512-RucSPqh8O9FFxlYUysQTerSw0b9HIRpyoN1Zjogpm0qLiHK+lBNSa5sh1nCJ4wSsNcjphzgpLQCyR60GZlRV8g==}
     engines: {node: '>= 16'}
     dev: true
 
-  /@intlify/shared@9.3.0-beta.20:
-    resolution: {integrity: sha512-RucSPqh8O9FFxlYUysQTerSw0b9HIRpyoN1Zjogpm0qLiHK+lBNSa5sh1nCJ4wSsNcjphzgpLQCyR60GZlRV8g==}
+  /@intlify/shared@9.4.1:
+    resolution: {integrity: sha512-A51elBmZWf1FS80inf/32diO9DeXoqg9GR9aUDHFcfHoNDuT46Q+fpPOdj8jiJnSHSBh8E1E+6qWRhAZXdK3Ng==}
     engines: {node: '>= 16'}
     dev: true
 
@@ -3037,7 +3037,7 @@ packages:
         optional: true
     dependencies:
       '@intlify/bundle-utils': 7.0.0(vue-i18n@9.2.0-beta.35)
-      '@intlify/shared': 9.3.0
+      '@intlify/shared': 9.4.1
       '@rollup/pluginutils': 4.2.1
       debug: 4.3.4
       fast-glob: 3.3.0

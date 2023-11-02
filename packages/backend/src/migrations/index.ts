@@ -20,6 +20,8 @@ import { v015_updateSponsoredSpaces } from '~/migrations/v015_updateSponsoredSpa
 import { v016_refactorMapObjectLink } from '~/migrations/v016_refactorMapObjectLink';
 import { v017_kitzAndGeprogEnterprise } from '~/migrations/v017_kitzAndGeprogEnterprise';
 import { v018_deleteImportedSpaces } from '~/migrations/v018_deleteImportedSpaces';
+import { v019_addScopeOfSpace } from '~/migrations/v019_addScopeOfSpace';
+import { v020_resetPlansToFree } from '~/migrations/v020_resetPlansToFree';
 
 // migrations are applied in the order defined here
 const migrations: Migration[] = [
@@ -41,6 +43,8 @@ const migrations: Migration[] = [
   v016_refactorMapObjectLink,
   v017_kitzAndGeprogEnterprise,
   v018_deleteImportedSpaces,
+  v019_addScopeOfSpace,
+  v020_resetPlansToFree,
 ];
 
 const migrationStore = new MongoMigrationStore();

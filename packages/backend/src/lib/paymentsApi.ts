@@ -30,7 +30,6 @@ export async function createSpaceSubscription(app: Application, user: Model.User
   }
 
   const pricePerUnit = Model.SpacePlans[space.requestedPlan].pricePerUnit;
-  const units = space.plan === 'public' ? 1 : space.members.length;
 
   const customerId = user.paymentCustomerId;
   if (!customerId) {
@@ -41,9 +40,9 @@ export async function createSpaceSubscription(app: Application, user: Model.User
     throw new Error('Frontend url not configured');
   }
 
-  const response = await payment.subscription.subscriptionCreate({
+  const response = await payment.subscription.createSubscription({
     pricePerUnit,
-    units,
+    units: 1,
     customerId,
   });
 
@@ -66,10 +65,9 @@ export async function updateSpaceSubscription(space: Model.Space): Promise<void>
   }
 
   const pricePerUnit = Model.SpacePlans[space.requestedPlan].pricePerUnit;
-  const units = space.plan === 'public' ? 1 : space.members.length;
 
-  await payment.subscription.subscriptionPartialUpdate(space.subscription, {
+  await payment.subscription.patchSubscription(space.subscription, {
     pricePerUnit,
-    units,
+    units: 1,
   });
 }

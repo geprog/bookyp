@@ -24,11 +24,12 @@
 
 <script setup lang="ts">
 import dayjs from 'dayjs';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 
 import { user } from '~/compositions/useAuthentication';
+import { useCurrentTime } from '~/compositions/useCurrentTime';
 import useFind from '~/compositions/useFind';
 
 import DesktopMenuItem from './DesktopMenuItem.vue';
@@ -38,11 +39,7 @@ defineProps<{
 }>();
 
 const { t } = useI18n();
-
-const currentTime = ref(new Date());
-setInterval(() => {
-  currentTime.value = new Date();
-}, 1000 * 60);
+const { currentTime } = useCurrentTime();
 
 const bookingsQuery = computed(() => ({
   query: {

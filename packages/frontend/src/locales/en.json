@@ -223,36 +223,47 @@
       "zip_code": "Zip code"
     },
     "downgrade": "Downgrade",
-    "enterprise_plan": "Enterprise Plan",
+    "standard_plan": "Standard Plan",
     "estimated_total": "Estimated total",
-    "features": {
-      "limited_users": "10 users",
-      "map_editor": "Map Editor",
-      "private_space": "1 private space",
-      "public_space": "1 public space",
-      "unlimited_bookables": "unlimited bookable items",
-      "unlimited_users": "unlimited users",
-      "visible_invited": "visible for invited members",
-      "visible_public": "visible for everyone"
+    "plans": {
+      "descriptions": {
+        "free": "The free license allows you to use the app as a small team and to try it out.",
+        "standard": "The standard license allows you to have more users and bookables.",
+        "pro": "The pro license is for bigger companies of if you have more to share."
+      },
+      "resources": {
+        "users": "{x} users",
+        "bookables": "{x} bookables",
+        "bookings": "{x} bookings",
+        "unlimited": "unlimited"
+      },
+      "features": {
+        "free_forever": "free forever",
+        "no_credit_card": "no credit card",
+        "start_at_a_glance": "start at a glance",
+        "standard_email_support": "standard email support",
+        "priority_email_support": "priority email support",
+        "request_new_features": "request new features"
+      }
     },
-    "free": "free",
     "free_plan": "Free Plan",
-    "max_members_reached": "Please upgrade your plan to add more than 10 members.",
-    "members": "members",
+    "max_members_reached": "Please upgrade your plan to add more members.",
     "new_plan": "New plan",
-    "of_infinity": " / ∞",
-    "of_ten": " / 10",
     "payment_method": "Payment method",
     "payment_verification": "Payment verification",
     "payment_verification_description": "We will charge you 1€ to verify your payment method. You will get it back as credit for your next invoice.",
-    "plans": "Plans",
-    "price_per_member_per_month": "{price}€ per member / month",
     "price_per_month": "{price}€ per month",
-    "public_plan": "Public Plan",
+    "euro": "€",
+    "pro_plan": "Pro Plan",
     "save": "Save",
     "space_subscription": "Space subscription",
     "subscription": "Subscription",
-    "upgrade": "Upgrade"
+    "upgrade": "Upgrade",
+    "max_bookables_reached": "Please upgrade your plan to add more bookables.",
+    "explorer_all_features": "Explore all features",
+    "upgrade_subscription": "Upgrade subscription",
+    "used_all_bookings": "You have used all of your free bookings. Please upgrade your subscription to allow your users to book again.",
+    "used_all_bookings_member": "There are no more bookings available in this space in this month. Please ask the admin of the space to upgrade the subscription to allow you to book again."
   },
   "subscription_update_super_admin_description": "Here you can set the plan type and date until which it will be active as super admin. By changing the plan no one has to actually pay for it until someone upgrades / downgrades the plan through the normal payment process again.",
   "super_admin": "💪 Super admin",
@@ -269,8 +280,12 @@
   "updated_subscription": "Updated subscription",
   "upload_new_map_object_type": "Upload new type",
   "upload_space_image": "You can upload a space image here!",
-  "processing_map_object_type": "We will do some processing of the file now. This may take a few seconds...",
+  "processing_map_object_type": "We will do some processing of the file now. This may take a few seconds ...",
   "version": "Version: {version}",
   "website": "Website",
-  "write": "Write"
+  "write": "Write",
+  "landing_page": {
+    "terms_and_conditions_url": "https://bookyp.de/en/terms-and-conditions",
+    "privacy_policy_url": "https://bookyp.de/en/privacy-policy"
+  }
 }

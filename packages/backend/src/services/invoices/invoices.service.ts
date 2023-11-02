@@ -29,7 +29,7 @@ class InvoiceService extends AdapterService<Model.Invoice> {
 
     const payment = gringottsPayments();
 
-    const { data: invoices } = await payment.subscription.invoiceDetail(space.subscription);
+    const { data: invoices } = await payment.subscription.listSubscriptionInvoices(space.subscription);
     if (!invoices) {
       // TODO: use proper feathers error
       throw new Error('Invoices not found');

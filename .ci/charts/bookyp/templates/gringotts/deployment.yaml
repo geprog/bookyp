@@ -65,9 +65,10 @@ spec:
           securityContext:
             privileged: false
             runAsUser: 1001
+          args: ["gotenberg", "--api-port=3030"]
           ports:
             - name: http
-              containerPort: 3000
+              containerPort: 3030
               protocol: TCP
       volumes:
         - name: data-volume

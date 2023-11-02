@@ -29,13 +29,13 @@ class InvoiceDownloadService extends AdapterService<Model.InvoiceDownload> {
     const payment = gringottsPayments();
 
     // TODO: improve invoice is part of subscription check
-    const { data: invoices } = await payment.subscription.invoiceDetail(space.subscription);
+    const { data: invoices } = await payment.subscription.listSubscriptionInvoices(space.subscription);
     if (!invoices || !invoices.find((invoice) => invoice._id === id)) {
       // TODO: use proper feathers error
       throw new Error('Invoice not found');
     }
 
-    const { data } = await payment.invoice.generateDownloadLinkDetail(id.toString());
+    const { data } = await payment.invoice.generateInvoiceDownloadLink(id.toString());
     return data;
   }
 }

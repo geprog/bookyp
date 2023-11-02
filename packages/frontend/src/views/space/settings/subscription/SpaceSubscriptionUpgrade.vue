@@ -22,7 +22,7 @@
 
           <div class="flex flex-col w-full md:w-1/3 align-center">
             <span class="text-center md:m-0">{{ t('subscription.new_plan') }}</span>
-            <SpacePlanCard :plan="requestPlan" :space-members="spaceMembers.length" />
+            <SpacePlanCard :plan="requestPlan" />
 
             <div class="flex flex-col mt-8 pt-4 border-t-1">
               <div class="flex justify-between">
@@ -42,7 +42,11 @@
                 tag="p"
                 class="text-sm text-gray-400 text-center mt-2"
               >
-                <a class="text-primary-normal underline" href="https://bookyp.de/nutzungsbedingungen" target="_blank">
+                <a
+                  class="text-primary-normal underline"
+                  :href="t('landing_page.terms_and_conditions_url')"
+                  target="_blank"
+                >
                   {{ t('terms_and_conditions.terms_and_conditions') }}
                 </a>
               </i18n-t>
@@ -90,7 +94,6 @@ const props = defineProps<{
 }>();
 
 const { currentSpace: space } = useCurrentSpace();
-const spaceMembers = computed(() => space.value?.members || []);
 
 const requestPlan = toRef(props, 'requestPlan');
 
@@ -105,18 +108,9 @@ watch(databaseCustomer, (_customer) => {
 const isUpgradeValid = computed(() => selectedPaymentMethod.value && requestPlan.value && customer.value?.name);
 
 // TODO: ask gringotts for forecast https://github.com/geprog/gringotts/issues/15
-const estimatedPrice = computed(() => {
-  if (requestPlan.value === 'public') {
-    return 15;
-  }
-  if (requestPlan.value === 'enterprise') {
-    return 1.5 * spaceMembers.value.length;
-  }
-  if (requestPlan.value === 'free') {
-    return 0;
-  }
-  return undefined;
-});
+const estimatedPrice = computed(() =>
+  requestPlan.value ? Model.SpacePlans[requestPlan.value].pricePerUnit : undefined,
+);
 
 async function createPaymentMethod() {
   if (!requestPlan.value) {

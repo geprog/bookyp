@@ -14,7 +14,7 @@
         @click="$router.push({ name: 'settings-space-member-invite' })"
       />
 
-      <router-link v-else :to="{ name: 'settings-space-edit' }">
+      <router-link v-else :to="{ name: 'space-settings-subscription' }">
         <Button icon="info" class="w-full" :text="t('subscription.max_members_reached')" />
       </router-link>
     </div>
@@ -59,7 +59,6 @@
 </template>
 
 <script lang="ts" setup>
-import dayjs from 'dayjs';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -73,15 +72,12 @@ import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import useFind from '~/compositions/useFind';
+import { useSubscription } from '~/compositions/useSubscription';
 
 const { t } = useI18n();
 const router = useRouter();
-const { currentSpace, spaceId } = useCurrentSpace();
-
-const { data: invitations, isLoading } = useFind(
-  'invitations',
-  computed(() => (spaceId.value === null ? null : { paginate: false, query: { spaceId: spaceId.value } })),
-);
+const { spaceId, currentSpace } = useCurrentSpace();
+const { canAddNewUsers } = useSubscription();
 
 const editSpaceMember = async (spaceMemberId: string) => {
   if (spaceMemberId === user.value?._id) {
@@ -90,23 +86,10 @@ const editSpaceMember = async (spaceMemberId: string) => {
   await router.push({ name: 'settings-space-member', params: { spaceMemberId } });
 };
 
-const currentPlan = computed(() => currentSpace.value?.plan || 'free');
-
-const currentPlanIsActive = computed(
-  () => currentSpace.value?.activeUntil && dayjs(currentSpace.value?.activeUntil).isAfter(dayjs()),
+const { data: invitations, isLoading } = useFind(
+  'invitations',
+  computed(() => (spaceId.value === null ? null : { paginate: false, query: { spaceId: spaceId.value } })),
 );
 
 const spaceMembers = computed(() => currentSpace.value?.members || []);
-
-const canAddNewUsers = computed(() => {
-  if (currentPlan.value === 'free' && spaceMembers.value.length + invitations.value.length < 10) {
-    return true;
-  }
-
-  if (currentPlan.value !== 'free' && currentPlanIsActive.value) {
-    return true;
-  }
-
-  return false;
-});
 </script>
