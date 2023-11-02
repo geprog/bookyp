@@ -5,11 +5,11 @@ export const SpacePlans = {
   free: {
     pricePerUnit: 0,
   },
-  enterprise: {
-    pricePerUnit: 1.5,
+  standard: {
+    pricePerUnit: 39,
   },
-  public: {
-    pricePerUnit: 15,
+  pro: {
+    pricePerUnit: 99,
   },
 };
 

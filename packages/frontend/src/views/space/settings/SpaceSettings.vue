@@ -20,7 +20,9 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
 import Header from '~/components/headers/Header.vue';
 import { IconName } from '~/components/Icon.vue';
@@ -30,10 +32,13 @@ import SpaceDesktopMenu from '~/components/layout/SpaceDesktopMenu.vue';
 import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import MenuItem from '~/components/menu/MenuItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { openDialog } from '~/compositions/useDialog';
+import { useSubscription } from '~/compositions/useSubscription';
 
 const { currentSpace: space } = useCurrentSpace();
-
+const { canAddNewBookings } = useSubscription();
 const { t } = useI18n();
+const router = useRouter();
 
 const menuItems: { icon: IconName; route: string; title: string; class?: string }[] = [
   {
@@ -79,4 +84,27 @@ const menuItems: { icon: IconName; route: string; title: string; class?: string 
     title: t('subscription.subscription'),
   },
 ];
+
+const requestForUpgradeShown = ref(false);
+watch(
+  canAddNewBookings,
+  async (_canAddNewBookings) => {
+    if (_canAddNewBookings || requestForUpgradeShown.value) {
+      return;
+    }
+
+    requestForUpgradeShown.value = true;
+
+    if (
+      await openDialog({
+        label: t('subscription.upgrade_subscription'),
+        description: t('subscription.used_all_bookings'),
+        confirm: t('subscription.upgrade'),
+      })
+    ) {
+      await router.push({ name: 'space-settings-subscription' });
+    }
+  },
+  { immediate: true },
+);
 </script>

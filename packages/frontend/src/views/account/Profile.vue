@@ -28,8 +28,8 @@
     <MenuItem class="border-t-1 border-gray-500 flex" icon="help" :href="mailToGetHelp" :title="t('get_help')" />
     <MenuItem icon="feedback" :href="mailToGiveFeedback" :title="t('give_us_feedback')" />
 
-    <MenuItem icon="text-checked" href="https://bookyp.de/nutzungsbedingungen" :title="t('terms_of_service')" />
-    <MenuItem icon="lock" href="https://bookyp.de/datenschutz" :title="t('privacy_policy')" />
+    <MenuItem icon="text-checked" :href="t('landing_page.terms_and_conditions_url')" :title="t('terms_of_service')" />
+    <MenuItem icon="lock" :href="t('landing_page.privacy_policy_url')" :title="t('privacy_policy')" />
     <div class="flex flex-row border-t-1 border-gray-500 py-4 gap-2">
       <Icon name="logout" />
       <button class="underline text-left hover:text-primary-dark" type="button" @click="logout">

@@ -6,5 +6,4 @@ metadata:
     {{- include "bookyp.labels" . | nindent 4 }}
 data:
   PUBLIC_URL: "https://{{ include "bookyp.paymentURL" . }}"
-  PORT: " 7171" # The leading space is there to cast to string
-  GOTENBERG_URL: "http://localhost:3000"
+  GOTENBERG_URL: "http://localhost:3030"

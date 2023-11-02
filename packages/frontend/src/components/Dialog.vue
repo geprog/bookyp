@@ -8,8 +8,12 @@
       </div>
       <span data-test="description" class="w-full text-gray-700 text-sm">{{ params.description }}</span>
       <div class="flex flex-row gap-x-4 justify-end pt-4">
-        <Button @click.prevent="$emit('resolve', true)">{{ params.confirm || t('dialog.confirm') }}</Button>
-        <Button @click.prevent="$emit('resolve', false)">{{ params.cancel || t('dialog.cancel') }}</Button>
+        <Button v-if="params.confirm !== false" @click.prevent="$emit('resolve', true)">{{
+          params.confirm || t('dialog.confirm')
+        }}</Button>
+        <Button v-if="params.cancel !== false" @click.prevent="$emit('resolve', false)">{{
+          params.cancel || t('dialog.cancel')
+        }}</Button>
       </div>
     </div>
   </div>

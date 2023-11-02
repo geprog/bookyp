@@ -98,7 +98,8 @@ async function init() {
       console.log(`Updating space "${name}"...`);
       await app.service('spaces').patch(existingSpaces[0]._id, {
         name,
-        plan: 'public',
+        plan: 'free',
+        isPublic: true,
         importId: id,
         address,
         description,
@@ -110,7 +111,8 @@ async function init() {
     console.log(`Creating space "${name}"...`);
     await app.service('spaces').create({
       name,
-      plan: 'public',
+      plan: 'free',
+      isPublic: true,
       importId: id,
       address,
       description,

@@ -190,6 +190,7 @@ const routes: RouteRecordRaw[] = [
               },
             ],
           },
+          // booking request
           {
             path: 'pending-requests',
             name: 'space-pending-requests',

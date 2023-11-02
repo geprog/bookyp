@@ -4,15 +4,17 @@
 
 <script lang="ts" setup>
 import { Model } from '@bookyp/core';
-import { onMounted, ref, toRef } from 'vue';
+import { computed, onMounted, ref, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
+import { openDialog } from '~/compositions/useDialog';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
+import { useSubscription } from '~/compositions/useSubscription';
 
 const props = defineProps<{
   bookableId: string;
@@ -33,6 +35,25 @@ onMounted(() => {
 
 const bookableId = toRef(props, 'bookableId');
 const { data: bookable } = useGet('bookables', bookableId);
+
+const { canAddNewBookings } = useSubscription(computed(() => booking.value?.start));
+
+watch(
+  canAddNewBookings,
+  async (_canAddNewBookings) => {
+    if (_canAddNewBookings) {
+      return;
+    }
+
+    await openDialog({
+      label: t('subscription.upgrade_subscription'),
+      description: t('subscription.used_all_bookings_member'),
+      confirm: false,
+    });
+    router.back();
+  },
+  { immediate: true },
+);
 
 async function submit() {
   if (!user.value) {

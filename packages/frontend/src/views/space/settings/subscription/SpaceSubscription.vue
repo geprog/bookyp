@@ -4,7 +4,7 @@
     <div class="my-4">
       <h2 class="text-xl text-center">{{ t('subscription.plans') }}</h2>
       <div class="flex flex-wrap md:flex-nowrap gap-4 mt-4">
-        <SpacePlanCard plan="free" :active="plan === 'free'" :space-members="spaceMembers.length" class="md:w-1/3">
+        <SpacePlanCard plan="free" :active="plan === 'free'" class="md:w-1/3">
           <template #actions>
             <Button v-if="plan === 'free'" :text="t('subscription.current_plan')" disabled />
             <Button
@@ -16,31 +16,26 @@
           </template>
         </SpacePlanCard>
 
-        <SpacePlanCard
-          plan="enterprise"
-          :active="plan === 'enterprise'"
-          :space-members="spaceMembers.length"
-          class="md:w-1/3"
-        >
+        <SpacePlanCard plan="standard" :active="plan === 'standard'" class="md:w-1/3">
           <template #actions>
-            <Button v-if="plan === 'enterprise'" :text="t('subscription.current_plan')" disabled />
+            <Button v-if="plan === 'standard'" :text="t('subscription.current_plan')" disabled />
             <Button
               v-else
               :text="t('subscription.upgrade')"
               :disabled="!!space?.requestedPlan"
-              @click="changePlan('enterprise')"
+              @click="changePlan('standard')"
             />
           </template>
         </SpacePlanCard>
 
-        <SpacePlanCard plan="public" :active="plan === 'public'" :space-members="spaceMembers.length" class="md:w-1/3">
+        <SpacePlanCard plan="pro" :active="plan === 'pro'" class="md:w-1/3">
           <template #actions>
-            <Button v-if="plan === 'public'" :text="t('subscription.current_plan')" disabled />
+            <Button v-if="plan === 'pro'" :text="t('subscription.current_plan')" disabled />
             <Button
               v-else
               :text="t('subscription.upgrade')"
               :disabled="!!space?.requestedPlan"
-              @click="changePlan('public')"
+              @click="changePlan('pro')"
             />
           </template>
         </SpacePlanCard>
@@ -65,8 +60,8 @@
         <LabelField icon-name="credit-card">
           <select v-model="spacePlanFormData.plan">
             <option value="free">{{ t('subscription.free_plan') }}</option>
-            <option value="enterprise">{{ t('subscription.enterprise_plan') }}</option>
-            <option value="public">{{ t('subscription.public_plan') }}</option>
+            <option value="standard">{{ t('subscription.standard_plan') }}</option>
+            <option value="pro">{{ t('subscription.pro_plan') }}</option>
           </select>
         </LabelField>
 
@@ -74,7 +69,7 @@
           <DateTimePicker v-model="spacePlanFormData.activeUntil" />
         </LabelField>
 
-        <Button class="mx-auto" :text="t('update_subscription')" type="submit" />
+        <Button class="mx-auto mt-2" :text="t('update_subscription')" type="submit" />
       </form>
     </div>
   </AppContent>
@@ -107,7 +102,6 @@ const feathers = useFeathers();
 const toast = useToast();
 
 const { currentSpace: space } = useCurrentSpace();
-const spaceMembers = computed(() => space.value?.members || []);
 const plan = computed(() => space.value?.plan);
 
 const spacePlanFormData = reactive({

@@ -26,7 +26,7 @@ class PaymentCustomerService extends AdapterService<Model.PaymentCustomer> {
 
     const payment = gringottsPayments();
 
-    const response = await payment.customer.customerDetail(user.paymentCustomerId);
+    const response = await payment.customer.getCustomer(user.paymentCustomerId);
     const customer = response.data;
 
     return customer;
@@ -47,7 +47,7 @@ class PaymentCustomerService extends AdapterService<Model.PaymentCustomer> {
     const user = await this.app.service('users').get(_user._id);
 
     if (!user.paymentCustomerId) {
-      const response = await payment.customer.customerCreate(
+      const response = await payment.customer.createCustomer(
         {
           name: data?.name || '',
           email: data?.email || '',
@@ -67,7 +67,7 @@ class PaymentCustomerService extends AdapterService<Model.PaymentCustomer> {
       return response.data;
     }
 
-    const response = await payment.customer.customerPartialUpdate(
+    const response = await payment.customer.patchCustomer(
       user.paymentCustomerId,
       {
         name: data?.name || '',

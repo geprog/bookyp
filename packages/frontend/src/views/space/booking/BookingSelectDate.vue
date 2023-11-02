@@ -106,7 +106,7 @@ const { currentSpace } = useCurrentSpace();
 const submit = async () => {
   emit('update:booking', { ...booking.value, start: start.value, end: end.value, description: description.value });
   resetBookablesFilter();
-  if (currentSpace.value?.plan === 'public') {
+  if (currentSpace.value?.isPublic) {
     isDialogOpen.value = true;
 
     const dialogMessage = `${t('confirmation.confirm_booking_in_public_space')} ${t(

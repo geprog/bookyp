@@ -6,12 +6,17 @@
     <template v-else>
       <div class="m-3">
         <Button
+          v-if="canAddNewBookables"
           class="w-full"
           icon="add"
           data-test="button-add-bookable"
           :text="t('bookable_create').toLocaleUpperCase()"
           @click="$router.push({ name: 'settings-bookable-create' })"
         />
+
+        <router-link v-else :to="{ name: 'space-settings-subscription' }">
+          <Button icon="info" class="w-full" :text="t('subscription.max_bookables_reached')" />
+        </router-link>
       </div>
       <ListItem
         v-for="bookable in bookables"
@@ -27,8 +32,8 @@
   <SpaceFooterMenu />
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from 'vue';
+<script lang="ts" setup>
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import Button from '~/components/buttons/Button.vue';
@@ -39,28 +44,14 @@ import ListItem from '~/components/list-items/ListItem.vue';
 import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import useFind from '~/compositions/useFind';
+import { useSubscription } from '~/compositions/useSubscription';
 
-export default defineComponent({
-  name: 'Bookables',
-  components: {
-    ListItem,
-    SettingsHeader,
-    AppContent,
-    Button,
-    ProgressIndicator,
-    SpaceFooterMenu,
-  },
+const { t } = useI18n();
+const { spaceId } = useCurrentSpace();
+const { canAddNewBookables } = useSubscription();
 
-  setup() {
-    const { t } = useI18n();
-    const { spaceId } = useCurrentSpace();
-
-    const { data: bookables, isLoading } = useFind(
-      'bookables',
-      computed(() => ({ query: { space: spaceId.value } })),
-    );
-
-    return { t, bookables, isLoading };
-  },
-});
+const { data: bookables, isLoading } = useFind(
+  'bookables',
+  computed(() => ({ query: { space: spaceId.value } })),
+);
 </script>

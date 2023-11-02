@@ -22,7 +22,7 @@ export default function PaymentsWebhookRouter(app: Application): Router {
         console.log('🪝 Received webhook', body.subscriptionId);
 
         const payment = gringottsPayments();
-        const response = await payment.subscription.subscriptionDetail(body.subscriptionId);
+        const response = await payment.subscription.getSubscription(body.subscriptionId);
         const subscription = response.data;
 
         const spaces = (await app

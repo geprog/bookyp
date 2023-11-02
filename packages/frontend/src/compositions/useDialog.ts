@@ -5,8 +5,8 @@ import Dialog from '~/components/Dialog.vue';
 export interface DialogParams {
   label: string;
   description: string;
-  confirm?: string;
-  cancel?: string;
+  confirm?: string | boolean;
+  cancel?: string | boolean;
 }
 
 export function openDialog(params: DialogParams): Promise<boolean> {
