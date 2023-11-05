@@ -235,7 +235,7 @@ const sortedSpaces = computed(() => {
 
 const { data: invitations, isLoading: isLoadingInvitations } = useFind(
   'invitations',
-  computed(() => (user.value === undefined ? null : { paginate: false, query: { email: user.value.email } })),
+  computed(() => (user.value === undefined ? null : { paginate: false })),
 );
 
 async function acceptInvitation(invitationId: string) {
@@ -244,7 +244,7 @@ async function acceptInvitation(invitationId: string) {
 }
 
 function rejectInvitation(invitationId: string) {
-  void feathers.service('invitations').remove(invitationId);
+  void feathers.service('invitations').remove(invitationId, { query: { accept: false } });
 }
 
 async function updateStarForSpace(_spaceId: string, starred: boolean) {

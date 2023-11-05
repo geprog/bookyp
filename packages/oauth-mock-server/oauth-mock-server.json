@@ -8,6 +8,12 @@
       "name": "Toni Tester"
     },
     {
+      "id": "4",
+      "username": "tina",
+      "email": "tina@test.com",
+      "name": "Tina Tester"
+    },
+    {
       "id": "2",
       "username": "alice",
       "email": "alice@wonderland.org",
@@ -17,7 +23,8 @@
       "id": "3",
       "username": "herbert",
       "email": "her@bert.de",
-      "name": "Herbert (a super admin, so only use him when testing super admin functionality)"
+      "name": "Herbert",
+      "description": "!!!a super admin, so only use him when testing super admin functionality!!!"
     }
   ]
 }

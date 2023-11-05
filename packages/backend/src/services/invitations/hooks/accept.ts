@@ -5,21 +5,32 @@ import { HookContext } from '@feathersjs/feathers';
 import { updateSpaceSubscription } from '~/lib/paymentsApi';
 import { requireUser } from '~/utils';
 
-export default async function accept(
+export default async function acceptInvitation(
   context: HookContext<Application, AdapterService<Model.Invitation>>,
 ): Promise<HookContext<Application, AdapterService<Model.Invitation>>> {
-  if (context.id && context.params.query?.accept === true) {
+  const { accept } = (context.params.query || {}) as { accept?: boolean };
+  if (context.id && accept !== undefined) {
     const invitation = await context.app.service('invitations').get(context.id);
-    const space = await context.app.service('spaces').get(invitation.spaceId);
     const user = requireUser(context.params);
-    space.members.push({
-      role: invitation.role,
-      userId: user._id,
-    });
-    if (space.subscription) {
-      await updateSpaceSubscription(space);
+    if (accept) {
+      const space = await context.app.service('spaces').get(invitation.spaceId);
+      space.members.push({
+        role: invitation.role,
+        userId: user._id,
+      });
+      if (space.subscription) {
+        await updateSpaceSubscription(space);
+      }
+      await context.app.service('spaces').update(invitation.spaceId, space);
+    } else {
+      invitation.rejectedBy.push(user._id);
+      await context.app.service('invitations').update(invitation._id, invitation);
     }
-    await context.app.service('spaces').update(invitation.spaceId, space);
+
+    if (Model.Invitation.isDomainInvitation(invitation)) {
+      // if it is a domain invitation keep invitation open
+      context.result = invitation;
+    }
   }
   return context;
 }

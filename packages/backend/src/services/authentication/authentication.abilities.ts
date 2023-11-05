@@ -140,7 +140,8 @@ function invitationsServiceAccess({ user, can, adminSpaces }: AbilityContext): v
   }
 
   if (user) {
-    can(['read', 'remove'], 'invitations', { email: user.email });
+    can(['read', 'remove'], 'invitations', { email: user.email }); // read all direct invitations
+    can(['read', 'remove'], 'invitations', { email: `@${user.email.split('@')[1]}` }); // read all domain invitations
   }
 }
 

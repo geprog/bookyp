@@ -19,14 +19,14 @@
       </router-link>
     </div>
 
-    <template v-if="invitations.length > 0">
+    <template v-if="extendedInvitations.length > 0">
       <h2 class="m-3 font-bold">
         {{ t('invitation.pending_invitations') }}
       </h2>
       <ListItem
-        v-for="invitation in invitations"
+        v-for="invitation in extendedInvitations"
         :key="invitation._id"
-        :description="t(`roles.${invitation.role}.name`)"
+        :description="invitation.description"
         :label="invitation.email"
         disabled
         class="cursor-pointer m-3 relative italic"
@@ -59,6 +59,7 @@
 </template>
 
 <script lang="ts" setup>
+import { Model } from '@bookyp/core';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -89,6 +90,27 @@ const editSpaceMember = async (spaceMemberId: string) => {
 const { data: invitations, isLoading } = useFind(
   'invitations',
   computed(() => (spaceId.value === null ? null : { paginate: false, query: { spaceId: spaceId.value } })),
+);
+
+const roleLabels = computed(() => {
+  const labels: Record<Model.Space['members'][0]['role'], string> = {
+    admin: t('roles.admin.name'),
+    user: t('roles.user.name'),
+  };
+  return labels;
+});
+
+const extendedInvitations = computed(() =>
+  invitations.value.map((invitation) => {
+    const descriptionParts = [roleLabels.value[invitation.role]];
+    if (Model.Invitation.isDomainInvitation(invitation)) {
+      descriptionParts.push(`(${t('invitation.domain_invitation')})`);
+    }
+    return {
+      ...invitation,
+      description: descriptionParts.join(' '),
+    };
+  }),
 );
 
 const spaceMembers = computed(() => currentSpace.value?.members || []);

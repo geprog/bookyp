@@ -1,7 +1,12 @@
 <template>
   <Header :title="t('invite_new_member')" :back-fallback="{ name: 'settings-space-members' }" />
   <AppContent class="flex-col">
-    <form id="spaceMemberInviteForm" data-test="form" class="px-4 <md:py-12" @submit.prevent="inviteSpaceMember">
+    <form
+      id="spaceMemberInviteForm"
+      data-test="form"
+      class="flex flex-col gap-4 px-4 <md:py-12"
+      @submit.prevent="inviteSpaceMember"
+    >
       <LabelField icon-name="email">
         <TextField v-model="invitationForm.email" data-test="form-email" :placeholder="t('email_address')" />
       </LabelField>
@@ -19,14 +24,12 @@
         :selected="invitationForm.role === 'user'"
         :label="t(`roles.user.name`)"
         :description="t(`roles.user.description`)"
-        class="my-3"
         @click="invitationForm.role = 'user'"
       />
       <SelectableListItem
         :selected="invitationForm.role === 'admin'"
         :label="t(`roles.admin.name`)"
         :description="t(`roles.admin.description`)"
-        class="my-3"
         @click="invitationForm.role = 'admin'"
       />
     </form>

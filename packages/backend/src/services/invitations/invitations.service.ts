@@ -9,12 +9,14 @@ import addSpaceName from './hooks/addSpaceName';
 import canAddNewMembers from './hooks/canAddNewMembers';
 import checkUserAlreadyInSpace from './hooks/checkUserAlreadyInSpace';
 import emailToLowerCase from './hooks/emailToLowerCase';
+import queryForDirectAndDomainInvitations from './hooks/queryForDirectAndDomainInvitations';
 import sendSpaceInvitationMail from './hooks/sendInvitationMail';
 
 const InvitationSchema = new Schema<Model.Invitation>({
   role: { type: String, required: true },
   email: { type: String, required: true },
   spaceId: { type: String, required: true },
+  rejectedBy: [String],
 });
 // order of fields matters for error message
 InvitationSchema.index({ spaceId: 1, email: 1 }, { unique: true });
@@ -32,6 +34,7 @@ export default (app: Application): void => {
   app.use(name, new Service<Model.Invitation>(options));
   app.service(name).hooks({
     before: {
+      find: [queryForDirectAndDomainInvitations],
       create: [emailToLowerCase, canAddNewMembers, checkUserAlreadyInSpace, sendSpaceInvitationMail],
       remove: [accept],
     },
