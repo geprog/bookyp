@@ -99,7 +99,8 @@
     "already_invited": "E-Mail address is already invited to this space",
     "edit": "Edit invitation",
     "pending_invitations": "Pending invitations",
-    "send": "Send invitation"
+    "send": "Send invitation",
+    "domain_invitation": "domain invitation"
   },
   "invite_new_member": "Invite new member",
   "invited_members": "Invited Members",

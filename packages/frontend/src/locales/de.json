@@ -99,7 +99,8 @@
     "already_invited": "Der Nutzer mit dieser E-Mail Adresse ist schon in diesen Raum eingeladen worden.",
     "edit": "Einladung bearbeiten",
     "pending_invitations": "Ausstehende Einladungen",
-    "send": "Einladung senden"
+    "send": "Einladung senden",
+    "domain_invitation": "Einladung per Domain"
   },
   "invite_new_member": "Neues Mitglied einladen",
   "invited_members": "Eingeladene Mitglieder",

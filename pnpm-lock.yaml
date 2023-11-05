@@ -510,8 +510,8 @@ importers:
   packages/oauth-mock-server:
     devDependencies:
       '@geprog/oauth-mock-server':
-        specifier: 1.4.2
-        version: 1.4.2
+        specifier: 1.6.0
+        version: 1.6.0
 
   packages/test-coverage:
     dependencies:
@@ -2832,8 +2832,8 @@ packages:
       mongodb: 4.1.4
     dev: false
 
-  /@geprog/oauth-mock-server@1.4.2:
-    resolution: {integrity: sha512-8THJiqNhq8vynr4q0sKauYvvc6TWzqASJFIOHrAH+kozRxLPd1vV68gtYTuwPeXFKiLBJh4IJIHLf7NplyPg5Q==}
+  /@geprog/oauth-mock-server@1.6.0:
+    resolution: {integrity: sha512-U8ouTb/Lrbmm6fGs21eeT1HfAiX4VqIjCgHmOUNbXWa+0AXItRqCdPlI3yTOX3J63AjXGdm+kIjCqaJzlGFSxg==}
     engines: {pnpm: '7'}
     hasBin: true
     dependencies:

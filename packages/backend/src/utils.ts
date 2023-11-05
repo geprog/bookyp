@@ -1,5 +1,5 @@
 import { Model } from '@bookyp/core';
-import { Params } from '@feathersjs/feathers';
+import { Paginated, Params } from '@feathersjs/feathers';
 
 export function getUser(params: Params | undefined): Model.User | undefined {
   const user = params?.user as Model.User | undefined;
@@ -14,4 +14,8 @@ export function requireUser(params: Params | undefined): Model.User {
   }
 
   return user;
+}
+
+export function isPaginated<T>(result: T | Paginated<T>): result is Paginated<T> {
+  return (result as Paginated<T>).total !== undefined;
 }

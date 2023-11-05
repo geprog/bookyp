@@ -22,6 +22,7 @@ import { v017_kitzAndGeprogEnterprise } from '~/migrations/v017_kitzAndGeprogEnt
 import { v018_deleteImportedSpaces } from '~/migrations/v018_deleteImportedSpaces';
 import { v019_addScopeOfSpace } from '~/migrations/v019_addScopeOfSpace';
 import { v020_resetPlansToFree } from '~/migrations/v020_resetPlansToFree';
+import { v021_addRejectedByToInvitations } from '~/migrations/v021_addRejectedByToInvitations';
 
 // migrations are applied in the order defined here
 const migrations: Migration[] = [
@@ -45,6 +46,7 @@ const migrations: Migration[] = [
   v018_deleteImportedSpaces,
   v019_addScopeOfSpace,
   v020_resetPlansToFree,
+  v021_addRejectedByToInvitations,
 ];
 
 const migrationStore = new MongoMigrationStore();

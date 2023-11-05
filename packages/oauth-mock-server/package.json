@@ -5,6 +5,6 @@
     "start": "oauth-mock-server"
   },
   "devDependencies": {
-    "@geprog/oauth-mock-server": "1.4.2"
+    "@geprog/oauth-mock-server": "1.6.0"
   }
 }
