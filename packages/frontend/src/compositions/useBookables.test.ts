@@ -25,7 +25,9 @@ describe('useBookables composition', () => {
         const { bookablesWithFilterMatched } = useBookables.useBookables(ref(sampleBookables));
 
         // then
-        expect(bookablesWithFilterMatched.value).toStrictEqual(sampleBookables);
+        expect(bookablesWithFilterMatched.value).toStrictEqual(
+          sampleBookables.map((bookable) => ({ ...bookable, isFilterMatched: true })),
+        );
       },
     };
     mount(component);

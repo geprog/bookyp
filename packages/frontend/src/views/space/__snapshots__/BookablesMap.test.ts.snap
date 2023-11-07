@@ -10,7 +10,6 @@ exports[`BookablesMap view > should render correctly 1`] = `
     <map-objects-stub mode=\\"show-availability\\" spaceid=\\"60f53bede6f8313dff7f99e0\\" clickable=\\"true\\" isadmin=\\"false\\"></map-objects-stub>
   </space-map-stub>
 </div>
-<home-action-buttons-stub></home-action-buttons-stub>
 <space-footer-menu-stub></space-footer-menu-stub>"
 `;
 
@@ -22,7 +21,6 @@ exports[`BookablesMap view > should render correctly no-map svg when no floorpla
   <p class=\\"text-center font-bold mt-8\\">empty_map</p>
   <!--v-if-->
 </div>
-<home-action-buttons-stub></home-action-buttons-stub>
 <space-footer-menu-stub></space-footer-menu-stub>"
 `;
 
@@ -34,6 +32,5 @@ exports[`BookablesMap view > should render correctly when no space 1`] = `
   <p class=\\"text-center font-bold mt-8\\">empty_map</p>
   <!--v-if-->
 </div>
-<home-action-buttons-stub></home-action-buttons-stub>
 <space-footer-menu-stub></space-footer-menu-stub>"
 `;

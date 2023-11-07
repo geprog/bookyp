@@ -27,7 +27,7 @@ import { useBack } from '~/compositions/useBack';
 import { useBookables } from '~/compositions/useBookables';
 
 const { t } = useI18n();
-const { combinedFilter, dateFilter, quickFilterDiffMinutes, resetBookablesFilter } = useBookables();
+const { combinedFilter, dateFilter, resetBookablesFilter } = useBookables();
 const { back } = useBack();
 
 const hasActiveBookablesFilter = computed(() => dateFilter.value.start);
@@ -43,7 +43,6 @@ const submitBookablesFilter = () => {
     start: dayjs(start.value).toDate(),
     end: dayjs(end.value).toDate(),
   };
-  quickFilterDiffMinutes.value = undefined;
   void back({ name: 'bookables-map' });
 };
 

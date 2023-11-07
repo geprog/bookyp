@@ -7,8 +7,9 @@ import { user } from '~/compositions/useAuthentication';
 import { DateFilter, useDateFilter } from '~/compositions/useDateFilter';
 import useFind from '~/compositions/useFind';
 
+import { useCurrentTime } from './useCurrentTime';
+
 const now = ref(new Date());
-const quickFilterDiffMinutes = ref<number>();
 const startUpdateInterval = ref<ReturnType<typeof setTimeout>>();
 
 export type BookableWithFilterMatched = Model.Bookable & { isFilterMatched?: boolean };
@@ -24,8 +25,6 @@ export function ceilDate(_date: Date, amount: number, unit: 'minutes'): Date {
 export const useBookables = (
   bookables?: Ref<Model.Bookable[]>,
 ): {
-  quickFilterDiffMinutes: Ref<number | undefined>;
-  quickFilter: Ref<DateFilter>;
   dateFilter: Ref<DateFilter>;
   combinedFilter: Ref<DateFilter>;
   bookablesWithFilterMatched: Ref<BookableWithFilterMatched[]>;
@@ -38,25 +37,19 @@ export const useBookables = (
   isRequestedByMe: (bookableID?: Model.Ref<Model.Bookable>) => boolean;
 } => {
   const { dateFilter } = useDateFilter();
+  const { currentTime } = useCurrentTime();
 
-  const quickFilter = computed(() => {
-    if (!quickFilterDiffMinutes.value) {
-      return {
-        start: undefined,
-        end: undefined,
-      };
-    }
-
-    const start = ceilDate(dayjs(now.value).toDate(), 15, 'minutes');
+  const defaultFilter = computed(() => {
+    const start = ceilDate(dayjs(currentTime.value).toDate(), 15, 'minutes');
     return {
       start,
-      end: dayjs(start).add(quickFilterDiffMinutes.value, 'minutes').toDate(),
+      end: dayjs(start).add(2, 'hours').toDate(),
     };
   });
 
   const combinedFilter = computed(() => ({
-    start: dateFilter.value.start || quickFilter.value.start,
-    end: dateFilter.value.end || quickFilter.value.end,
+    start: dateFilter.value.start || defaultFilter.value.start,
+    end: dateFilter.value.end || defaultFilter.value.end,
   }));
 
   const bookingsParams = computed<Params | null>(() => {
@@ -77,9 +70,6 @@ export const useBookables = (
   const bookablesWithFilterMatched = computed<BookableWithFilterMatched[]>(() => {
     if (!bookables?.value || isLoading.value) {
       return [];
-    }
-    if (combinedFilter.value.start === undefined || combinedFilter.value.end === undefined) {
-      return bookables.value;
     }
 
     return bookables.value.map((bookable: BookableWithFilterMatched) => ({
@@ -142,7 +132,6 @@ export const useBookables = (
       start: undefined,
       end: undefined,
     };
-    quickFilterDiffMinutes.value = undefined;
   }
 
   onMounted(() => {
@@ -161,8 +150,6 @@ export const useBookables = (
   });
 
   return {
-    quickFilterDiffMinutes,
-    quickFilter,
     dateFilter,
     combinedFilter,
     bookablesWithFilterMatched,

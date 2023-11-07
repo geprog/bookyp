@@ -24,7 +24,6 @@
     </i18n-t>
   </div>
 
-  <HomeActionButtons />
   <SpaceFooterMenu />
 </template>
 
@@ -37,7 +36,6 @@ import { useRouter } from 'vue-router';
 import Header from '~/components/headers/Header.vue';
 import SpaceDesktopMenu from '~/components/layout/SpaceDesktopMenu.vue';
 import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
-import HomeActionButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
 import ToolbarHeader from '~/components/layout/toolbars/ToolbarHeader.vue';
 import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import FloorPlan from '~/components/space/map/FloorPlan.vue';

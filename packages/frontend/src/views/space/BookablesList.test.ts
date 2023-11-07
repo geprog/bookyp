@@ -24,15 +24,10 @@ describe('BookablesList component', () => {
         start: undefined,
         end: undefined,
       }),
-      quickFilter: ref({
-        start: undefined,
-        end: undefined,
-      }),
       combinedFilter: ref({
         start: undefined,
         end: undefined,
       }),
-      quickFilterDiffMinutes: ref(15),
       isFilterMatched: vi.fn(),
       userBookings: ref([]),
       isBookedByMe: vi.fn().mockReturnValue(false),
@@ -68,15 +63,10 @@ describe('BookablesList component', () => {
         start: undefined,
         end: undefined,
       }),
-      quickFilter: ref({
-        start: undefined,
-        end: undefined,
-      }),
       combinedFilter: ref({
         start: undefined,
         end: undefined,
       }),
-      quickFilterDiffMinutes: ref(15),
       isFilterMatched: vi.fn(),
       userBookings: ref([]),
       isBookedByMe: vi.fn().mockReturnValue(false),
