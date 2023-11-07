@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, toRef } from 'vue';
+import { computed, toRef } from 'vue';
 
 import FloatingButton from '~/components/buttons/FloatingButton.vue';
 import ToggleBar from '~/components/buttons/ToggleBar.vue';
@@ -57,15 +57,9 @@ const props = withDefaults(
 
 const actionFor = toRef(props, 'actionFor');
 
-const { dateFilter, quickFilter, quickFilterDiffMinutes } = useBookables();
+const { dateFilter } = useBookables();
 
 const { hasActiveFilter } = useDateFilter();
-
-onMounted(() => {
-  if (!quickFilter.value?.start && !dateFilter.value?.start) {
-    quickFilterDiffMinutes.value = 2 * 60;
-  }
-});
 
 const appliedFilters = computed(() => {
   if (actionFor.value === 'bookables') {

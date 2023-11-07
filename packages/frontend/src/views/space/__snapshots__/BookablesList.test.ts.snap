@@ -12,7 +12,6 @@ exports[`BookablesList component > should render correctly with filter 1`] = `
     <list-item-stub label=\\"Table\\" statuscolor=\\"bg-red-text\\" description=\\"Funny bunny description\\" disabled=\\"false\\" class=\\"cursor-pointer my-3\\"></list-item-stub>
   </div>
 </app-content-stub>
-<home-actions-buttons-stub></home-actions-buttons-stub>
 <footer-menu-stub ismapspaces=\\"false\\" isbookingpage=\\"false\\"></footer-menu-stub>"
 `;
 
@@ -28,6 +27,5 @@ exports[`BookablesList component > should render correctly without filter 1`] = 
     <list-item-stub label=\\"Table\\" statuscolor=\\"bg-red-text\\" description=\\"Funny bunny description\\" disabled=\\"false\\" class=\\"cursor-pointer my-3\\"></list-item-stub>
   </div>
 </app-content-stub>
-<home-actions-buttons-stub></home-actions-buttons-stub>
 <footer-menu-stub ismapspaces=\\"false\\" isbookingpage=\\"false\\"></footer-menu-stub>"
 `;

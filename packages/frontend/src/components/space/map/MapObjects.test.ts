@@ -38,15 +38,10 @@ const prepareUseBookablesOnce = () => {
       start: undefined,
       end: undefined,
     }),
-    quickFilter: ref({
-      start: undefined,
-      end: undefined,
-    }),
     combinedFilter: ref({
       start: undefined,
       end: undefined,
     }),
-    quickFilterDiffMinutes: ref(15),
     isFilterMatched: vi.fn().mockReturnValue(true),
     userBookings: ref([]),
     isBookedByMe: vi.fn().mockReturnValue(false),
@@ -261,15 +256,10 @@ describe('MapObjects component', () => {
         start: undefined,
         end: undefined,
       }),
-      quickFilter: ref({
-        start: undefined,
-        end: undefined,
-      }),
       combinedFilter: ref({
         start: undefined,
         end: undefined,
       }),
-      quickFilterDiffMinutes: ref(15),
       isFilterMatched: vi.fn().mockReturnValue(false),
       userBookings: ref([]),
       isBookedByMe: vi.fn().mockReturnValue(false),
@@ -305,15 +295,10 @@ describe('MapObjects component', () => {
         start: undefined,
         end: undefined,
       }),
-      quickFilter: ref({
-        start: undefined,
-        end: undefined,
-      }),
       combinedFilter: ref({
         start: undefined,
         end: undefined,
       }),
-      quickFilterDiffMinutes: ref(15),
       isFilterMatched: vi.fn().mockReturnValue(false),
       userBookings: ref([]),
       isBookedByMe: vi.fn().mockReturnValue(false),

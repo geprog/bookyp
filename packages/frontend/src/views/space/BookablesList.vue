@@ -34,7 +34,6 @@
       />
     </div>
   </AppContent>
-  <HomeActionsButtons />
   <FooterMenu />
 </template>
 
@@ -46,7 +45,6 @@ import Header from '~/components/headers/Header.vue';
 import AppContent from '~/components/layout/AppContent.vue';
 import DesktopMenu from '~/components/layout/DesktopMenu.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
-import HomeActionsButtons from '~/components/layout/toolbars/HomeActionButtons.vue';
 import ToolbarHeader from '~/components/layout/toolbars/ToolbarHeader.vue';
 import ListItem from '~/components/list-items/ListItem.vue';
 import ProgressIndicator from '~/components/ProgressIndicator.vue';
@@ -59,7 +57,6 @@ export default defineComponent({
 
   components: {
     Header,
-    HomeActionsButtons,
     ListItem,
     ProgressIndicator,
     AppContent,
