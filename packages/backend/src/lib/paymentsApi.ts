@@ -44,16 +44,21 @@ export async function createSpaceSubscription(app: Application, user: Model.User
     pricePerUnit,
     units: 1,
     customerId,
+    metadata: {
+      spaceId: space._id,
+    },
   });
 
   const subscription = response.data;
+  const isActive = subscription.status === 'active' || subscription.status === 'processing';
+  const activeUntil = isActive && subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd) : undefined;
   await app.service('spaces').patch(space._id, {
     subscription: subscription._id,
-    activeUntil: subscription.activeUntil ? new Date(subscription.activeUntil) : undefined,
+    activeUntil,
   });
 }
 
-export async function updateSpaceSubscription(space: Model.Space): Promise<void> {
+export async function updateSpaceSubscription(app: Application, space: Model.Space): Promise<void> {
   const payment = gringottsPayments();
 
   if (!space.subscription) {
@@ -69,5 +74,17 @@ export async function updateSpaceSubscription(space: Model.Space): Promise<void>
   await payment.subscription.patchSubscription(space.subscription, {
     pricePerUnit,
     units: 1,
+    metadata: {
+      spaceId: space._id,
+    },
+  });
+
+  // check if a subscription is currently active and set the activeUntil date to the end of the current period
+  const response = await payment.subscription.getSubscription(space.subscription);
+  const subscription = response.data;
+  const isActive = subscription.status === 'active' || subscription.status === 'processing';
+  const activeUntil = isActive && subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd) : undefined;
+  await app.service('spaces').patch(space._id, {
+    activeUntil,
   });
 }

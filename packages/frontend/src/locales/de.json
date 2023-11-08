@@ -239,6 +239,7 @@
     "upgrade": "Upgrade",
     "standard_plan": "Standard Plan",
     "plans": {
+      "plans": "Pläne",
       "descriptions": {
         "free": "Die kostenlose Lizenz ermöglicht es dir, die App in kleinen Teams zu nutzen und sie auszuprobieren.",
         "standard": "Die Standard-Lizenz ermöglicht es dir, mehr Nutzer und buchbare Objekte zu haben.",
@@ -265,7 +266,8 @@
     "explorer_all_features": "Entdecke alle Funktionen",
     "upgrade_subscription": "Abonnement upgraden",
     "used_all_bookings": "Du hast alle deine enthalten Buchungen aufgebraucht. Bitte upgrade deinen Abonnement, damit deine Nutzer wieder buchen können.",
-    "used_all_bookings_member": "Leider sind keine weiteren Buchungen in diesem Raum für diesen Monat verfügbar. Bitte frage einen Admin des Raumes, ob er diesen upgraden kann, damit du wieder buchen kannst."
+    "used_all_bookings_member": "Leider sind keine weiteren Buchungen in diesem Raum für diesen Monat verfügbar. Bitte frage einen Admin des Raumes, ob er diesen upgraden kann, damit du wieder buchen kannst.",
+    "your_subscription_is_inactive": "Oh nein, dein Plan \"{ plan }\" is inaktiv, daher wurde er zum \"{ activePlan }\" heruntergestuft. Dies kann zum Beispiel passieren, wenn eine Zahlung abgelehnt wurde. Bitte kontaktiere uns per E-Mail { email }, wenn du glaubst, dass das ein Fehler ist."
   },
   "subscription_update_super_admin_description": "Hier kannst du den Plan-Typ und das Datum festlegen, bis zu dem er als Super-Admin aktiv sein wird. Durch die Änderung des Plans muss niemand tatsächlich dafür bezahlen, bis jemand den Plan im normalen Zahlungsvorgang erneut aktualisiert oder zurückstuft.",
   "super_admin": "💪 Super-Admin",
@@ -288,5 +290,6 @@
   "landing_page": {
     "terms_and_conditions_url": "https://bookyp.de/terms-and-conditions",
     "privacy_policy_url": "https://bookyp.de/privacy-policy"
-  }
+  },
+  "mail_for_subscription_error": "Ich benötige Hilf mit meinem Bookyp Abonnement"
 }

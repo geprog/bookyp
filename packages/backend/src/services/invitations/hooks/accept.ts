@@ -2,7 +2,6 @@ import { Application, Model } from '@bookyp/core';
 import { AdapterService } from '@feathersjs/adapter-commons';
 import { HookContext } from '@feathersjs/feathers';
 
-import { updateSpaceSubscription } from '~/lib/paymentsApi';
 import { requireUser } from '~/utils';
 
 export default async function acceptInvitation(
@@ -18,9 +17,6 @@ export default async function acceptInvitation(
         role: invitation.role,
         userId: user._id,
       });
-      if (space.subscription) {
-        await updateSpaceSubscription(space);
-      }
       await context.app.service('spaces').update(invitation.spaceId, space);
     } else {
       invitation.rejectedBy.push(user._id);

@@ -158,6 +158,10 @@ async function deletePaymentMethod(paymentMethod: Model.PaymentMethod) {
     return;
   }
 
+  if (selectedPaymentMethod.value?._id === paymentMethod._id) {
+    selectedPaymentMethod.value = undefined;
+  }
+
   await feathers.service('payment-methods').remove(paymentMethod._id);
 }
 

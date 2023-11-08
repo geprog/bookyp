@@ -78,7 +78,7 @@ export default (app: Application): void => {
               return;
             }
 
-            await updateSpaceSubscription({ ...space, requestedPlan: 'free' });
+            await updateSpaceSubscription(ctx.app, { ...space, requestedPlan: 'free' });
           }
         },
       ],
