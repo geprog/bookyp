@@ -10,6 +10,11 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME:-root}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD:-supersecret}
+    ports:
+      - 127.0.0.1:${DB_PORT-27017}:27017
+      - 127.0.0.1:8081:8081
+      - '[::1]:${DB_PORT-27017}:27017'
+      - '[::1]:8081:8081'
 
   mongo-express:
     image: mongo-express
@@ -38,6 +43,11 @@ services:
       MINIO_ROOT_USER: ${S3_ACCESS_KEY:-root}
       MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY:-supersecret}
     command: server /data --console-address ":9001"
+    ports:
+      - 127.0.0.1:9000:9000
+      - 127.0.0.1:9001:9001
+      - '[::1]:9000:9000'
+      - '[::1]:9001:9001'
 
   s3www:
     image: anbraten/s3www:v0.6.8
@@ -47,7 +57,38 @@ services:
       S3WWW_ACCESS_KEY: ${S3_ACCESS_KEY:-root}
       S3WWW_SECRET_KEY: ${S3_SECRET_KEY:-supersecret}
       S3WWW_BUCKET: ${S3_BUCKET:-bookyp-files}
+    ports:
+      - 127.0.0.1:9080:8080
+      - '[::1]:9080:8080'
+
+  postgres:
+    image: postgres:14.2
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 'supersecret'
+
+  gringotts:
+    image: ghcr.io/geprog/gringotts:3.0.1
+    environment:
+      POSTGRES_URL: postgresql://postgres:supersecret@postgres:5432/postgres
+      ADMIN_TOKEN: supersecret
+      JWT_SECRET: supersecret
+      GOTENBERG_URL: http://gotenberg:3000
+      PUBLIC_URL: $PAYMENT_PUBLIC_URL
+      PORT: 7171
+      CREATE_PROJECT_DATA: '{ "name": "Bookyp", "mollieApiKey": "", "paymentProvider": "mocked", "apiToken": "supersecret-with-more-than-32-characters", "webhookUrl": "http://host.docker.internal:4000/payments/webhook", "invoiceData": { "email": "info@geprog.com", "name": "GEPROG GmbH", "addressLine1": "Schauenburgerstr. 116", "addressLine2": "string", "zipCode": "24118", "city": "Kiel", "country": "Germany", "logo": "https://geprog.com/logo.svg" } }'
+    ports:
+      - '127.0.0.1:7171:7171'
+      - '[::1]:7171:7171'
+    depends_on:
+      - postgres
+
+  gotenberg:
+    image: gotenberg/gotenberg:7
 
 volumes:
   mongodb-data:
   minio-data:
+  postgres-data:
