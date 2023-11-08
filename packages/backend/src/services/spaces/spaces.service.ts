@@ -28,7 +28,6 @@ const SpaceSchema = new Schema<Model.Space>({
   generalInformation: { type: String },
   address: { type: String },
   plan: { type: String, default: 'free' },
-  requestedPlan: { type: String },
   subscription: { type: String },
   activeUntil: { type: Date, default: undefined },
   email: { type: String },
@@ -78,7 +77,9 @@ export default (app: Application): void => {
               return;
             }
 
-            await updateSpaceSubscription(ctx.app, { ...space, requestedPlan: 'free' });
+            // set the subscription to 'free' in gringotts to stop the payment
+            // process while still having a higher plan in bookyp itself
+            await updateSpaceSubscription({ ...space, plan: 'free' });
           }
         },
       ],

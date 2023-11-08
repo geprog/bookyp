@@ -25,11 +25,7 @@ export async function createSpaceSubscription(app: Application, user: Model.User
   const config = getConfig();
   const payment = gringottsPayments();
 
-  if (!space.requestedPlan) {
-    throw new Error('No space requested');
-  }
-
-  const pricePerUnit = Model.SpacePlans[space.requestedPlan].pricePerUnit;
+  const pricePerUnit = Model.SpacePlans[space.plan].pricePerUnit;
 
   const customerId = user.paymentCustomerId;
   if (!customerId) {
@@ -58,18 +54,14 @@ export async function createSpaceSubscription(app: Application, user: Model.User
   });
 }
 
-export async function updateSpaceSubscription(app: Application, space: Model.Space): Promise<void> {
+export async function updateSpaceSubscription(space: Model.Space): Promise<Date | undefined> {
   const payment = gringottsPayments();
 
   if (!space.subscription) {
     throw new Error('You first need a subscription for this space');
   }
 
-  if (!space.requestedPlan) {
-    throw new Error('No plan requested');
-  }
-
-  const pricePerUnit = Model.SpacePlans[space.requestedPlan].pricePerUnit;
+  const pricePerUnit = Model.SpacePlans[space.plan].pricePerUnit;
 
   await payment.subscription.patchSubscription(space.subscription, {
     pricePerUnit,
@@ -83,8 +75,5 @@ export async function updateSpaceSubscription(app: Application, space: Model.Spa
   const response = await payment.subscription.getSubscription(space.subscription);
   const subscription = response.data;
   const isActive = subscription.status === 'active' || subscription.status === 'processing';
-  const activeUntil = isActive && subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd) : undefined;
-  await app.service('spaces').patch(space._id, {
-    activeUntil,
-  });
+  return isActive && subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd) : undefined;
 }
