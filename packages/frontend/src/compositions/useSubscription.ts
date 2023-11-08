@@ -29,11 +29,11 @@ const planLimits: Record<'bookings' | 'bookables' | 'users', Record<Model.SpaceP
 export function useSubscription(selectedDate: Ref<Date | undefined> | undefined = undefined) {
   const { currentSpace, spaceId } = useCurrentSpace();
 
-  const currentPlan = computed(() => currentSpace.value?.plan || 'free');
-
-  const currentPlanIsActive = computed(
+  const isPlanActive = computed(
     () => currentSpace.value?.activeUntil && dayjs(currentSpace.value?.activeUntil).isAfter(dayjs()),
   );
+
+  const activePlan = computed(() => (isPlanActive.value ? currentSpace.value?.plan || 'free' : 'free'));
 
   const spaceMembers = computed(() => currentSpace.value?.members || []);
 
@@ -48,7 +48,7 @@ export function useSubscription(selectedDate: Ref<Date | undefined> | undefined 
     }
 
     const currentUser = spaceMembers.value.length + invitations.value.length;
-    if (currentPlanIsActive.value && currentUser <= planLimits.users[currentPlan.value]) {
+    if (currentUser <= planLimits.users[activePlan.value]) {
       return true;
     }
 
@@ -65,11 +65,7 @@ export function useSubscription(selectedDate: Ref<Date | undefined> | undefined 
       return true;
     }
 
-    if (currentPlanIsActive.value && bookables.value.length <= planLimits.bookables[currentPlan.value]) {
-      return true;
-    }
-
-    return bookables.value.length < planLimits.bookables.free;
+    return bookables.value.length <= planLimits.bookables[activePlan.value];
   });
 
   const { currentTime } = useCurrentTime();
@@ -99,12 +95,8 @@ export function useSubscription(selectedDate: Ref<Date | undefined> | undefined 
       return true;
     }
 
-    if (currentPlanIsActive.value && bookings.value.length <= planLimits.bookings[currentPlan.value]) {
-      return true;
-    }
-
-    return bookings.value.length < planLimits.bookings.free;
+    return bookings.value.length <= planLimits.bookings[activePlan.value];
   });
 
-  return { canAddNewUsers, canAddNewBookables, canAddNewBookings };
+  return { activePlan, isPlanActive, canAddNewUsers, canAddNewBookables, canAddNewBookings };
 }

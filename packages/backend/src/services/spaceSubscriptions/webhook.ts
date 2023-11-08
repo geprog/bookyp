@@ -33,9 +33,12 @@ export default function PaymentsWebhookRouter(app: Application): Router {
         }
         const space = spaces[0];
 
+        const isActive = subscription.status === 'active' || subscription.status === 'processing';
+        const activeUntil =
+          isActive && subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd) : undefined;
         await app.service('spaces').update(space._id, {
           ...space,
-          activeUntil: subscription.activeUntil ? new Date(subscription.activeUntil) : undefined,
+          activeUntil,
           plan: space.requestedPlan,
           requestedPlan: undefined,
         });

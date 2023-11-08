@@ -2,11 +2,26 @@
   <SettingsHeader :title="t('subscription.space_subscription')" />
   <AppContent class="flex-col">
     <div class="my-4">
-      <h2 class="text-xl text-center">{{ t('subscription.plans') }}</h2>
+      <h2 class="text-xl text-center">{{ t('subscription.plans.plans') }}</h2>
+
+      <div v-if="space?.requestedPlan" class="text-center mt-8">
+        {{ t('subscription.currently_upgrading_to_plan', { plan: space.requestedPlan }) }}
+      </div>
+
+      <div v-if="activePlan !== space?.plan" class="rounded-lg border-2 border-primary-dark p-2 shadow-full">
+        <i18n-t keypath="subscription.your_subscription_is_inactive" tag="p">
+          <template #plan>{{ space?.plan }}</template>
+          <template #activePlan>{{ activePlan }}</template>
+          <template #email>
+            <a :href="mailToGetHelp" class="underline cursor-pointer">{{ getConfig().email }}</a>
+          </template>
+        </i18n-t>
+      </div>
+
       <div class="flex flex-wrap md:flex-nowrap gap-4 mt-4">
-        <SpacePlanCard plan="free" :active="plan === 'free'" class="md:w-1/3">
+        <SpacePlanCard plan="free" :active="activePlan === 'free'" class="md:w-1/3">
           <template #actions>
-            <Button v-if="plan === 'free'" :text="t('subscription.current_plan')" disabled />
+            <Button v-if="activePlan === 'free'" :text="t('subscription.current_plan')" disabled />
             <Button
               v-else
               :text="t('subscription.downgrade')"
@@ -16,21 +31,21 @@
           </template>
         </SpacePlanCard>
 
-        <SpacePlanCard plan="standard" :active="plan === 'standard'" class="md:w-1/3">
+        <SpacePlanCard plan="standard" :active="activePlan === 'standard'" class="md:w-1/3">
           <template #actions>
-            <Button v-if="plan === 'standard'" :text="t('subscription.current_plan')" disabled />
+            <Button v-if="activePlan === 'standard'" :text="t('subscription.current_plan')" disabled />
             <Button
               v-else
-              :text="t('subscription.upgrade')"
+              :text="activePlan === 'pro' ? t('subscription.downgrade') : t('subscription.upgrade')"
               :disabled="!!space?.requestedPlan"
               @click="changePlan('standard')"
             />
           </template>
         </SpacePlanCard>
 
-        <SpacePlanCard plan="pro" :active="plan === 'pro'" class="md:w-1/3">
+        <SpacePlanCard plan="pro" :active="activePlan === 'pro'" class="md:w-1/3">
           <template #actions>
-            <Button v-if="plan === 'pro'" :text="t('subscription.current_plan')" disabled />
+            <Button v-if="activePlan === 'pro'" :text="t('subscription.current_plan')" disabled />
             <Button
               v-else
               :text="t('subscription.upgrade')"
@@ -39,10 +54,6 @@
             />
           </template>
         </SpacePlanCard>
-      </div>
-
-      <div v-if="space?.requestedPlan" class="text-center mt-8">
-        {{ t('subscription.currently_upgrading_to_plan', { plan: space.requestedPlan }) }}
       </div>
 
       <SpaceInvoices />
@@ -95,6 +106,8 @@ import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
 import { user } from '~/compositions/useAuthentication';
 import { openDialog } from '~/compositions/useDialog';
 import useFeathers from '~/compositions/useFeathers';
+import { useSubscription } from '~/compositions/useSubscription';
+import { getConfig } from '~/config';
 
 const { t } = useI18n();
 const router = useRouter();
@@ -102,7 +115,7 @@ const feathers = useFeathers();
 const toast = useToast();
 
 const { currentSpace: space } = useCurrentSpace();
-const plan = computed(() => space.value?.plan);
+const { activePlan } = useSubscription();
 
 const spacePlanFormData = reactive({
   activeUntil: space.value?.activeUntil,
@@ -113,6 +126,13 @@ watch(space, () => {
   spacePlanFormData.plan = space.value?.plan;
   spacePlanFormData.activeUntil = space.value?.activeUntil;
 });
+
+const mailToGetHelp = computed(
+  () =>
+    `mailto:${getConfig().email}?subject=${encodeURIComponent(t('mail_for_subscription_error'))}%20[user:${
+      user.value?._id || ''
+    }, space:${space.value?._id || ''}]&body=${encodeURIComponent(t('hey_bookyp_team'))},%20`,
+);
 
 async function changePlan(newPlan: Model.SpacePlan) {
   await router.push({

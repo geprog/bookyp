@@ -117,6 +117,7 @@
   "logout": "Log out",
   "mail_for_feedback": "Give us feedback",
   "mail_for_help": "I need help with Bookyp",
+  "mail_for_subscription_error": "I need help with my Bookyp subscription",
   "map_editing": {
     "adding_wall_instruction": "Click and drag on the map to add a wall",
     "floor_plan": "Floorplan",
@@ -227,6 +228,7 @@
     "standard_plan": "Standard Plan",
     "estimated_total": "Estimated total",
     "plans": {
+      "plans": "Plans",
       "descriptions": {
         "free": "The free license allows you to use the app as a small team and to try it out.",
         "standard": "The standard license allows you to have more users and bookables.",
@@ -264,7 +266,8 @@
     "explorer_all_features": "Explore all features",
     "upgrade_subscription": "Upgrade subscription",
     "used_all_bookings": "You have used all of your free bookings. Please upgrade your subscription to allow your users to book again.",
-    "used_all_bookings_member": "There are no more bookings available in this space in this month. Please ask the admin of the space to upgrade the subscription to allow you to book again."
+    "used_all_bookings_member": "There are no more bookings available in this space in this month. Please ask the admin of the space to upgrade the subscription to allow you to book again.",
+    "your_subscription_is_inactive": "Oh no, your plan \"{ plan }\" is inactive, so you got downgraded to the \"{ activePlan }\" plan. This can for example happen if your payment was rejected. Please contact us via {email} if you think this is a mistake."
   },
   "subscription_update_super_admin_description": "Here you can set the plan type and date until which it will be active as super admin. By changing the plan no one has to actually pay for it until someone upgrades / downgrades the plan through the normal payment process again.",
   "super_admin": "💪 Super admin",

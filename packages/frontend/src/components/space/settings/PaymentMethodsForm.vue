@@ -12,7 +12,12 @@
             <div class="flex items-center">
               <Icon v-if="paymentMethod.type === 'credit_card'" name="credit-card" />
               <Icon v-else name="direct-debit" />
-              <IconButton icon="delete" class="ml-2" @click="$emit('delete-payment-method', paymentMethod)" />
+              <IconButton
+                v-if="databasePaymentMethods.length > 1 && selectedPaymentMethod?._id !== paymentMethod._id"
+                icon="delete"
+                class="ml-2"
+                @click.stop="databasePaymentMethods.length > 1 && $emit('delete-payment-method', paymentMethod)"
+              />
             </div>
           </template>
         </SelectableListItem>
