@@ -4,10 +4,6 @@
     <div class="my-4">
       <h2 class="text-xl text-center">{{ t('subscription.plans.plans') }}</h2>
 
-      <div v-if="space?.requestedPlan" class="text-center mt-8">
-        {{ t('subscription.currently_upgrading_to_plan', { plan: space.requestedPlan }) }}
-      </div>
-
       <div v-if="activePlan !== space?.plan" class="rounded-lg border-2 border-primary-dark p-2 shadow-full">
         <i18n-t keypath="subscription.your_subscription_is_inactive" tag="p">
           <template #plan>{{ space?.plan }}</template>
@@ -22,12 +18,7 @@
         <SpacePlanCard plan="free" :active="activePlan === 'free'" class="md:w-1/3">
           <template #actions>
             <Button v-if="activePlan === 'free'" :text="t('subscription.current_plan')" disabled />
-            <Button
-              v-else
-              :text="t('subscription.downgrade')"
-              :disabled="!!space?.requestedPlan"
-              @click="changePlan('free')"
-            />
+            <Button v-else :text="t('subscription.downgrade')" @click="changePlan('free')" />
           </template>
         </SpacePlanCard>
 
@@ -37,7 +28,6 @@
             <Button
               v-else
               :text="activePlan === 'pro' ? t('subscription.downgrade') : t('subscription.upgrade')"
-              :disabled="!!space?.requestedPlan"
               @click="changePlan('standard')"
             />
           </template>
@@ -46,12 +36,7 @@
         <SpacePlanCard plan="pro" :active="activePlan === 'pro'" class="md:w-1/3">
           <template #actions>
             <Button v-if="activePlan === 'pro'" :text="t('subscription.current_plan')" disabled />
-            <Button
-              v-else
-              :text="t('subscription.upgrade')"
-              :disabled="!!space?.requestedPlan"
-              @click="changePlan('pro')"
-            />
+            <Button v-else :text="t('subscription.upgrade')" @click="changePlan('pro')" />
           </template>
         </SpacePlanCard>
       </div>

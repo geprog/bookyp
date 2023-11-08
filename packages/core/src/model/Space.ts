@@ -33,7 +33,6 @@ export class Space extends AbstractEntity {
   address?: string;
   plan: SpacePlan = 'free';
   activeUntil?: Date; // a timestamp until which the plan is valid (undefined / past timestamp sets the plan back to default: free)
-  requestedPlan?: SpacePlan;
   subscription?: string;
   email?: string;
   image?: string;

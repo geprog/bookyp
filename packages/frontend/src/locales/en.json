@@ -214,7 +214,6 @@
     "change_plan": "Change plan",
     "change_space_plan": "Change plan of space",
     "current_plan": "Current plan",
-    "currently_upgrading_to_plan": "Currently upgrading to '{plan}' plan ...",
     "customer": {
       "address_line_1": "AddressLine 1",
       "address_line_2": "AddressLine 2",

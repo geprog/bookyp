@@ -49,18 +49,13 @@ class SpaceSubscriptionsService extends AdapterService<Model.SpaceSubscription> 
 
     const space = await this.app.service('spaces').get(spaceId);
 
-    if (space.requestedPlan) {
-      throw new Error('Already requested an up/downgrade');
-    }
-
-    space.requestedPlan = plan;
-
     if (space.subscription) {
-      await updateSpaceSubscription(this.app, space);
+      const activeUntil = await updateSpaceSubscription(space);
 
-      await this.app.service('spaces').patch(space._id, {
+      await this.app.service('spaces').update(space._id, {
+        ...space,
         plan,
-        requestedPlan: undefined,
+        activeUntil,
       });
 
       return {

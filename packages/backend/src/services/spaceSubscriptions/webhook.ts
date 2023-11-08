@@ -29,7 +29,7 @@ export default function PaymentsWebhookRouter(app: Application): Router {
           .service('spaces')
           .find({ query: { subscription: body.subscriptionId } })) as Model.Space[];
         if (spaces.length !== 1) {
-          throw new Error('No space found or more than one.');
+          throw new Error(`Found ${spaces.length} spaces, but expected exactly one.`);
         }
         const space = spaces[0];
 
@@ -39,8 +39,6 @@ export default function PaymentsWebhookRouter(app: Application): Router {
         await app.service('spaces').update(space._id, {
           ...space,
           activeUntil,
-          plan: space.requestedPlan,
-          requestedPlan: undefined,
         });
 
         res.status(200).send({ ok: true });
