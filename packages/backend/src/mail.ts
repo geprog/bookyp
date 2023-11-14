@@ -1,9 +1,17 @@
 import { Model } from '@bookyp/core';
 import dayjs from 'dayjs';
-import handlebars from 'handlebars';
 import nodemailer from 'nodemailer';
 
 import config from '~/config';
+import {
+  invitationMailTemplate,
+  spaceBookingAdminMailTemplate,
+  spaceBookingChangedMailTemplate,
+  spaceBookingDeletedMailTemplate,
+  spaceBookingRequestAcceptMailTemplate,
+  spaceBookingRequestAdminMailTemplate,
+  spaceBookingRequestRejectMailTemplate,
+} from '~/mail-templates.de';
 
 let transporter: nodemailer.Transporter;
 
@@ -28,101 +36,13 @@ export function init(): void {
   });
 }
 
-/* spell-checker: disable */
-const invitationMailTemplate = handlebars.compile(`
-Moin!
-
-Du wurdest zum Space "{{ space }}" von {{ admin.name }} bei Bookyp eingeladen.
-
-Um dem Space beizutreten, klicke hier: {{ invitationLink }}
-
-Falls du noch keinen Account bei Bookyp hast, kannst du dich dort kostenfrei mit deiner E-Mail ({{ email }}) registrieren.
-
-Daraufhin kannst du sofort loslegen und dir deinen Tisch im Space "{{ space }}" buchen.
-
-Bei Fragen oder Anregungen schreibe uns gerne an hello@bookyp.de.
-
-Wir wünschen dir viel Spaß mit Bookyp!
-
-Dein Bookyp-Team
-`);
-
-const spaceBookingAdminMailTemplate = handlebars.compile(`
-Moin!
-
-"{{ user }}" hat den Tisch "{{ table }}" in deinem Space "{{ space }}" von {{ start }} bis {{ end }} gebucht.
-
-Um die Buchung zu sehen, klicke hier: {{ bookingLink }}
-
-Dein Bookyp-Team
-`);
-
-const spaceBookingRequestAdminMailTemplate = handlebars.compile(`
-Moin!
-
-"{{ user }}" hat den Tisch "{{ table }}" in deinem Space "{{ space }}" von {{ start }} bis {{ end }} angefragt.
-
-Um die Anfrage zu sehen, klicke hier: {{ bookingLink }} .
-
-Du kannst die Anfrage dort akzeptieren oder ablehnen.
-
-Dein Bookyp-Team
-
-`);
-
-const spaceBookingRequestAcceptMailTemplate = handlebars.compile(`
-Moin!
-
-deine Buchungsanfrage für den Tisch "{{ table }}" im Space "{{ space }}" von {{ start }} bis {{ end }} wurde aktzeptiert.
-
-Um die Buchung zu sehen, klicke hier: {{ bookingLink }} .
-
-Dein Bookyp-Team
-
-`);
-
-const spaceBookingRequestRejectMailTemplate = handlebars.compile(`
-Moin!
-
-deine Buchungsanfrage für den Tisch "{{ table }}" im Space "{{ space }}" von {{ start }} bis {{ end }} wurde abgelehnt.
-
-Um die Buchung zu sehen, klicke hier: {{ bookingLink }} .
-
-Dein Bookyp-Team
-`);
-
-const spaceBookingDeletedMailTemplate = handlebars.compile(`
-Moin!
-
-deine Buchung für den Tisch "{{ table }}" im Space "{{ space }}" von {{ start }} bis {{ end }} wurde gelöscht.
-
-Falls du Fragen dazu hast, wende dich bitte an den Spacebetreiber. Die Infos dafür findest du hier: {{ spaceInfoLink }}
-
-Um die Buchung zu sehen, klicke hier: {{ bookingLink }}
-
-Dein Bookyp-Team
-`);
-
-const spaceBookingChangedMailTemplate = handlebars.compile(`
-Moin!
-
-deine Buchung für den Tisch "{{ table }}" im Space "{{ space }}" von {{ oldStart }} bis {{ oldEnd }} wurde auf {{ start }} bis {{ end }} geändert.
-
-Falls du Fragen dazu hast, wende dich bitte an den Spacebetreiber. Die Infos dafür findest du hier: {{ spaceInfoLink }}
-
-Um die Buchung zu sehen, klicke hier: {{ bookingLink }}
-
-Dein Bookyp-Team
-`);
-/* spell-checker: enable */
-
 export async function sendSpaceInvitationMail(space: Model.Space, email: string, admin: Model.Member): Promise<void> {
   if (!transporter) {
     return;
   }
 
   const invitationLink = `${config().app.frontendUrl || ''}/auth/login`;
-  const text = invitationMailTemplate({
+  const text = invitationMailTemplate.body({
     space: space.name,
     invitationLink,
     email,
@@ -133,7 +53,7 @@ export async function sendSpaceInvitationMail(space: Model.Space, email: string,
     await transporter.sendMail({
       from: config().mail.from,
       to: email,
-      subject: `You have been invited to "${space.name}"`,
+      subject: invitationMailTemplate.subject({ space: space.name }),
       text,
     });
   } catch (error) {
@@ -185,15 +105,16 @@ export async function sendAdminNotification(
   };
 
   const emailMessage = booking.request
-    ? spaceBookingRequestAdminMailTemplate(emailParameters)
-    : spaceBookingAdminMailTemplate(emailParameters);
+    ? spaceBookingRequestAdminMailTemplate.body(emailParameters)
+    : spaceBookingAdminMailTemplate.body(emailParameters);
 
   try {
     await transporter.sendMail({
       from: config().mail.from,
       to: email,
-      // cspell:disable-next-line
-      subject: `Neue ${booking.request ? 'Buchungsanfrage' : 'Buchung'} in "${space.name}"`,
+      subject: booking.request
+        ? spaceBookingRequestAdminMailTemplate.subject({ space: space.name })
+        : spaceBookingAdminMailTemplate.subject({ space: space.name }),
       text: emailMessage,
     });
   } catch (error) {
@@ -241,15 +162,14 @@ export async function sendRequestReplyNotification(
   };
 
   const emailMessage = accept
-    ? spaceBookingRequestAcceptMailTemplate(emailParameters)
-    : spaceBookingRequestRejectMailTemplate(emailParameters);
+    ? spaceBookingRequestAcceptMailTemplate.body(emailParameters)
+    : spaceBookingRequestRejectMailTemplate.body(emailParameters);
 
   try {
     await transporter.sendMail({
       from: config().mail.from,
       to: email,
-      // cspell:disable-next-line
-      subject: `${accept ? 'Buchungsanfrage akzeptiert' : 'Buchungsanfrage abgelehnt'}`,
+      subject: accept ? spaceBookingRequestAcceptMailTemplate.subject : spaceBookingRequestRejectMailTemplate.subject,
       text: emailMessage,
     });
   } catch (error) {
@@ -305,15 +225,16 @@ export async function sendUserBookingNotification(
   };
 
   const emailMessage = booking.deleted
-    ? spaceBookingDeletedMailTemplate(emailParameters)
-    : spaceBookingChangedMailTemplate(emailParameters);
+    ? spaceBookingDeletedMailTemplate.body(emailParameters)
+    : spaceBookingChangedMailTemplate.body(emailParameters);
 
   try {
     await transporter.sendMail({
       from: config().mail.from,
       to: user.email,
-      // cspell:disable-next-line
-      subject: `Deine Buchung in "${space.name}" wurde ${booking.deleted ? 'gelöscht' : 'geändert'}`,
+      subject: booking.deleted
+        ? spaceBookingDeletedMailTemplate.subject({ space: space.name })
+        : spaceBookingChangedMailTemplate.subject({ space: space.name }),
       text: emailMessage,
     });
   } catch (error) {

@@ -163,29 +163,9 @@
   "enableFiletypes": ["ruby"],
   "overrides": [
     {
-      "filename": "**/locales/de.json",
+      "filename": "{**/locales/de.json,**/*.de.ts}",
       "language": "de,en",
-      "words": [
-        "Adresse",
-        "Adresszeile",
-        "Anfragedetails",
-        "Ausstehende",
-        "Businessplan",
-        "dass",
-        "dauern",
-        "deutsch",
-        "Grundriss",
-        "Inkl",
-        "loslassen",
-        "müssen",
-        "Neuen",
-        "Neuer",
-        "neuer",
-        "Neues",
-        "Passwort",
-        "upgraden",
-        "passieren"
-      ]
+      "words": ["Anfragedetails", "upgraden", "Spacebetreiber"]
     }
   ]
 }
