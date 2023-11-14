@@ -77,3 +77,15 @@ export async function updateSpaceSubscription(space: Model.Space): Promise<Date 
   const isActive = subscription.status === 'active' || subscription.status === 'processing';
   return isActive && subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd) : undefined;
 }
+
+export async function cancelSubscription(space: Model.Space): Promise<void> {
+  const payment = gringottsPayments();
+
+  if (!space.subscription) {
+    throw new Error('You first need a subscription for this space');
+  }
+
+  await payment.subscription.patchSubscription(space.subscription, {
+    status: 'canceled',
+  });
+}
