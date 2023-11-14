@@ -4,7 +4,7 @@ import { Document, model, Schema } from 'mongoose';
 
 import { feathersCaslAllowlist } from '~/casl';
 import softDelete from '~/hooks/softDelete';
-import { updateSpaceSubscription } from '~/lib/paymentsApi';
+import { cancelSubscription, updateSpaceSubscription } from '~/lib/paymentsApi';
 import { getUser } from '~/utils';
 
 import addFrequencyCount from './hooks/addFrequencyCount';
@@ -64,6 +64,17 @@ export default (app: Application): void => {
     before: {
       all: [softDelete, applyFreeBookableFilter],
       create: [removePlanFromCreate],
+      remove: [
+        async (ctx) => {
+          if (!ctx.id) {
+            throw new Error('No space id provided');
+          }
+          const space = await ctx.service.get(ctx.id);
+          if (space.subscription) {
+            await cancelSubscription(space);
+          }
+        },
+      ],
     },
     after: {
       all: [addSpaceMemberFields, cleanupUploadedFiles, addFrequencyCount, addIsUserMember, addIsUserAdmin],
