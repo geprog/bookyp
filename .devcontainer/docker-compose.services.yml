@@ -70,7 +70,7 @@ services:
       POSTGRES_PASSWORD: 'supersecret'
 
   gringotts:
-    image: ghcr.io/geprog/gringotts:3.0.1
+    image: ghcr.io/geprog/gringotts:3.1.0
     environment:
       POSTGRES_URL: postgresql://postgres:supersecret@postgres:5432/postgres
       ADMIN_TOKEN: supersecret

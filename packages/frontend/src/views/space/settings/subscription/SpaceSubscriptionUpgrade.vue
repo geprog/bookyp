@@ -85,7 +85,7 @@ import { openDialog } from '~/compositions/useDialog';
 import useFeathers from '~/compositions/useFeathers';
 import useGet from '~/compositions/useGet';
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const feathers = useFeathers();
 const { back } = useBack();
 
@@ -179,6 +179,7 @@ async function checkOut() {
   }
 
   customer.value.activePaymentMethod = selectedPaymentMethod.value;
+  customer.value.language = locale.value;
   await feathers.service('paymentCustomers').patch('ignore', customer.value);
 
   const spaceId = space.value?._id;
@@ -196,6 +197,7 @@ async function createCustomer() {
     throw new Error('Customer should be defined');
   }
 
+  customer.value.language = locale.value;
   await feathers.service('paymentCustomers').patch('ignore', customer.value);
   customer.value._id = 'generated-id';
 }
