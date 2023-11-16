@@ -56,6 +56,7 @@ class PaymentCustomerService extends AdapterService<Model.PaymentCustomer> {
           city: data?.city || '',
           country: data?.country || '',
           zipCode: data?.zipCode || '',
+          language: data?.language || 'en',
         },
         { type: ContentType.Json },
       );
@@ -78,6 +79,7 @@ class PaymentCustomerService extends AdapterService<Model.PaymentCustomer> {
         country: data?.country || '',
         zipCode: data?.zipCode || '',
         activePaymentMethod: data?.activePaymentMethod,
+        language: data?.language || 'en',
       },
       { type: ContentType.Json },
     );
