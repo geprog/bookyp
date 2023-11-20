@@ -85,6 +85,7 @@ function spacesServiceAccess({ user, can, publicSpaces, userSpaces, adminSpaces 
     'generalInformation',
     'address',
     'plan',
+    'activeUntil',
     'image',
     'coordinates',
     'importId',
