@@ -74,9 +74,9 @@ backend:
   mail:
     host: 'smtp.office365.com'
     port: 587
-    username: 'bookyp@geprog.com'
+    username: 'hello@bookyp.de'
     password: ''
-    from: 'Bookyp <bookyp@geprog.com>'
+    from: 'Bookyp <hello@bookyp.de>'
     secure: 'false'
     requireTls: 'true'
 
@@ -155,7 +155,7 @@ payment:
   image:
     repository: ghcr.io/geprog/gringotts
     pullPolicy: IfNotPresent
-    tag: 3.1.0
+    tag: 3.1.1
 
   gotenberg:
     image:
@@ -167,6 +167,15 @@ payment:
   mollieToken: ""
   projectToken: ""
   jwtSecret: ""
+
+  mail:
+    host: 'smtp.office365.com'
+    port: 587
+    username: 'hello@bookyp.de'
+    password: ''
+    from: 'Bookyp <hello@bookyp.de>'
+    secure: 'false'
+    requireTls: 'true'
 
   database:
     host: '10.0.0.200'
