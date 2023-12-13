@@ -440,6 +440,7 @@ e2e-deployment:
       --set payment.mollieToken=$MOLLIE_TEST_TOKEN
       --set payment.jwtSecret=$PAYMENT_JWT_SECRET
       --set payment.database.password=$GRINGOTTS_DATABASE_PASSWORD
+      --set payment.mail.password=$DEPLOY_MAIL_PASSWORD
       bookyp-e2e-${CI_ENVIRONMENT_SLUG} .ci/charts/bookyp
 
 e2e-deployment-test:
@@ -594,6 +595,7 @@ review-deployment:
       --set payment.mollieToken=$MOLLIE_TEST_TOKEN
       --set payment.jwtSecret=$PAYMENT_JWT_SECRET
       --set payment.database.password=$GRINGOTTS_DATABASE_PASSWORD
+      --set payment.mail.password=$DEPLOY_MAIL_PASSWORD
       --set gitlab.app=$CI_PROJECT_PATH_SLUG
       --set gitlab.env=$CI_ENVIRONMENT_SLUG
       bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/bookyp
@@ -737,6 +739,7 @@ production-deployment:
       --set payment.mollieToken=$MOLLIE_PRODUCTION_TOKEN
       --set payment.database.password=$GRINGOTTS_DATABASE_PASSWORD
       --set payment.jwtSecret=$PAYMENT_JWT_SECRET
+      --set payment.mail.password=$DEPLOY_MAIL_PASSWORD
       --set gitlab.app=$CI_PROJECT_PATH_SLUG
       --set gitlab.env=$CI_ENVIRONMENT_SLUG
       bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/bookyp

@@ -48,6 +48,7 @@ class SpaceSubscriptionsService extends AdapterService<Model.SpaceSubscription> 
     }
 
     const space = await this.app.service('spaces').get(spaceId);
+    space.plan = plan;
 
     if (space.subscription) {
       const activeUntil = await updateSpaceSubscription(space);

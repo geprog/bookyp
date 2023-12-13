@@ -7,3 +7,9 @@ metadata:
 data:
   PUBLIC_URL: "https://{{ include "bookyp.paymentURL" . }}"
   GOTENBERG_URL: "http://localhost:3030"
+  MAIL_HOST: {{ .Values.payment.mail.host | quote }}
+  MAIL_PORT: {{ .Values.payment.mail.port | quote }}
+  MAIL_USERNAME: {{ .Values.payment.mail.username | quote }}
+  MAIL_FROM: {{ .Values.payment.mail.from | quote }}
+  MAIL_SECURE: {{ .Values.payment.mail.secure | quote }}
+  MAIL_REQUIRE_TLS: {{ .Values.payment.mail.requireTls | quote }}
