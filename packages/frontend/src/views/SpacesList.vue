@@ -12,15 +12,15 @@
       @click="createSampleSpace"
     />
     <div v-if="user && spaces.length > 0" class="flex flex-row justify-between px-3 overflow-x-auto scrollbar-hide">
-      <template v-for="button in categoryButtons" :key="button.category">
+      <template v-for="button in spaceListCategoryButtons" :key="button.category">
         <FloatingButton
           class="w-25 mr-1"
-          :is-selected="selectedCategory === button.category"
+          :is-selected="selectedSpaceListCategory === button.category"
           :text="button.label"
           foreground-color="black"
           back-ground-color="gray"
           stroke
-          @click="selectedCategory = button.category"
+          @click="selectedSpaceListCategory = button.category"
         />
       </template>
     </div>
@@ -101,6 +101,7 @@
 
 <script lang="ts" setup>
 import { Model } from '@bookyp/core';
+import { useStorage } from '@vueuse/core';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -118,9 +119,9 @@ import ProgressIndicator from '~/components/ProgressIndicator.vue';
 import FloorPlan from '~/components/space/map/FloorPlan.vue';
 import MapObjects from '~/components/space/map/MapObjects.vue';
 import SpaceMap from '~/components/space/map/SpaceMap.vue';
+import { recentlyViewedSpaces } from '~/compositions/space/useCurrentSpace';
 import getMapObjects from '~/compositions/space/useMapObjects';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';
-import { Category, useCategory } from '~/compositions/useCategories';
 import { useDateFilter } from '~/compositions/useDateFilter';
 import useFeathers from '~/compositions/useFeathers';
 import { useFeatureFlags } from '~/compositions/useFeatureFlags';
@@ -131,7 +132,7 @@ const feathers = useFeathers();
 const router = useRouter();
 
 const { dateFilter } = useDateFilter();
-const { data: spaces, isLoading: loadingSpaces } = useFind(
+const { data: spaces, isLoading: isLoadingSpaces } = useFind(
   'spaces',
   computed(() => ({
     paginate: false,
@@ -144,58 +145,34 @@ const { data: spaces, isLoading: loadingSpaces } = useFind(
             },
           }
         : {}),
-      $frequency: true,
       $isUserMember: true,
     },
   })),
 );
 
-const { selectedCategory } = useCategory();
+type SpaceListCategory = 'frequent' | 'favorite' | 'personal' | 'all';
 
-const categoryButtons: { category: Category; label: string }[] = [
-  { category: 'Frequent', label: t('space_list_categories.frequent') },
-  { category: 'Favorite', label: t('space_list_categories.favorite') },
-  { category: 'Personal', label: t('space_list_categories.personal') },
-  { category: 'All', label: t('space_list_categories.all') },
+const selectedSpaceListCategory = useStorage<SpaceListCategory>('bookyp.space-list-category', 'all');
+
+const spaceListCategoryButtons: { category: SpaceListCategory; label: string }[] = [
+  { category: 'frequent', label: t('space_list_categories.frequent') },
+  { category: 'favorite', label: t('space_list_categories.favorite') },
+  { category: 'personal', label: t('space_list_categories.personal') },
+  { category: 'all', label: t('space_list_categories.all') },
 ];
 
 const noSpaceMessage = computed(() => {
-  let message = '';
-  switch (selectedCategory.value) {
-    case 'Personal':
-      message = t('empty_space_list_message.personal');
-      break;
-    case 'Frequent':
-      message = t('empty_space_list_message.frequent');
-      break;
-    case 'Favorite':
-      message = t('empty_space_list_message.favorite');
-      break;
+  switch (selectedSpaceListCategory.value) {
+    case 'personal':
+      return t('empty_space_list_message.personal');
+    case 'frequent':
+      return t('empty_space_list_message.frequent');
+    case 'favorite':
+      return t('empty_space_list_message.favorite');
     default:
-      message = t('empty_space_list_message.all');
-      break;
+      return t('empty_space_list_message.all');
   }
-  return message;
 });
-
-watch(
-  loadingSpaces,
-  () => {
-    if (loadingSpaces.value || !spaces.value || !user.value) {
-      return;
-    }
-    if (spaces.value.some((space) => space.frequency)) {
-      selectedCategory.value = 'Frequent';
-    } else if (user.value?.starredSpaces?.length) {
-      selectedCategory.value = 'Favorite';
-    } else if (spaces.value.some((space) => space.isUserMember)) {
-      selectedCategory.value = 'Personal';
-    } else {
-      selectedCategory.value = 'All';
-    }
-  },
-  { immediate: true },
-);
 
 // sort spaces by name and starred
 const sortedSpaces = computed(() => {
@@ -205,33 +182,52 @@ const sortedSpaces = computed(() => {
     .map((space) => ({
       ...space,
       starred: user.value ? starredSpaces.includes(space._id) : undefined,
+      lastAccessedAt: recentlyViewedSpaces.value?.[space._id] || 0,
     }))
     .filter((space) => {
-      if (user.value) {
-        switch (selectedCategory.value) {
-          case 'Personal':
-            return space.isUserMember;
-          case 'Favorite':
-            return space.starred;
-          case 'Frequent':
-            return space.frequency !== undefined;
-          case 'All':
-            return true;
-        }
-      } else {
-        return true;
+      switch (selectedSpaceListCategory.value) {
+        case 'personal':
+          return space.isUserMember;
+        case 'favorite':
+          return space.starred;
+        case 'frequent':
+          return space.frequency !== undefined;
+        case 'all':
+          return true;
       }
     })
-    .sort((a, b) => {
-      if (selectedCategory.value === 'Frequent') {
-        const diff = (b.frequency || 0) - (a.frequency || 0);
-        if (diff !== 0) {
-          return diff;
-        }
-      }
-      return a.name.localeCompare(b.name);
-    });
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .sort((a, b) => (a.starred ? -1 : b.starred ? 1 : 0))
+    .sort((a, b) => b.lastAccessedAt - a.lastAccessedAt);
 });
+
+watch(
+  isLoadingSpaces,
+  () => {
+    if (isLoadingSpaces.value) {
+      return;
+    }
+
+    if (spaces.value.length === 0 || sortedSpaces.value.length !== 0) {
+      return;
+    }
+
+    // in case we got spaces, but the currently shown list is empty
+    // we redirect the user to another category
+    switch (selectedSpaceListCategory.value) {
+      case 'frequent':
+        selectedSpaceListCategory.value = 'favorite';
+        break;
+      case 'favorite':
+        selectedSpaceListCategory.value = 'personal';
+        break;
+      case 'personal':
+        selectedSpaceListCategory.value = 'all';
+        break;
+    }
+  },
+  { immediate: true },
+);
 
 const { data: invitations, isLoading: isLoadingInvitations } = useFind(
   'invitations',

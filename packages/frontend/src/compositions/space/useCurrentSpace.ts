@@ -1,22 +1,26 @@
 import { Model } from '@bookyp/core';
-import { computed, inject, InjectionKey, Ref, ref } from 'vue';
+import { useStorage } from '@vueuse/core';
+import { computed, inject, InjectionKey, Ref, watch } from 'vue';
 
-const localStorageSpaceIdKey = 'bookyp.spaceId';
+const localStoragePrefix = 'bookyp.';
 
-const _spaceId = ref(localStorage.getItem(localStorageSpaceIdKey));
+export const recentlyViewedSpaces = useStorage<Record<Model.Ref<Model.Space>, number>>(
+  `${localStoragePrefix}recently_viewed_spaces`,
+  {},
+);
 
-export const savedSpaceId = computed<Model.Ref<Model.Space> | null>({
-  get() {
-    return _spaceId.value;
-  },
-  set(newSpaceId) {
-    if (newSpaceId === null) {
-      localStorage.removeItem(localStorageSpaceIdKey);
-    } else {
-      localStorage.setItem(localStorageSpaceIdKey, newSpaceId);
-    }
-    _spaceId.value = newSpaceId;
-  },
+export const savedSpaceId = useStorage<Model.Ref<Model.Space> | null>(`${localStoragePrefix}spaceId`, null);
+watch(savedSpaceId, (spaceId) => {
+  if (spaceId) {
+    recentlyViewedSpaces.value = { ...recentlyViewedSpaces.value, [spaceId]: new Date().getTime() };
+
+    // Sort recently viewed spaces by date and keep only the 5 most recent
+    recentlyViewedSpaces.value = Object.entries(recentlyViewedSpaces.value)
+      .map(([_spaceId, accessesAt]) => ({ spaceId: _spaceId, accessesAt }))
+      .sort((a, b) => b.accessesAt - a.accessesAt)
+      .slice(0, 5)
+      .reduce((acc, { spaceId: _spaceId, accessesAt }) => ({ ...acc, [_spaceId]: accessesAt }), {});
+  }
 });
 
 export const currentSpaceInjectionKey: InjectionKey<Ref<Model.Space | undefined>> = Symbol('currentSpace');
