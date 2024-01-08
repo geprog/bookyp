@@ -72,8 +72,8 @@ importers:
         specifier: 5.0.0-pre.17
         version: 5.0.0-pre.17
       '@geprog/gringotts-client':
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.1.2
+        version: 3.1.2
       '@geprog/node-migrate-ts':
         specifier: 3.1.12
         version: 3.1.12(mongodb@4.1.4)
@@ -184,8 +184,8 @@ importers:
         specifier: 5.0.0-pre.17
         version: 5.0.0-pre.17
       '@geprog/gringotts-client':
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.1.2
+        version: 3.1.2
       bson-objectid:
         specifier: 2.0.3
         version: 2.0.3
@@ -2894,8 +2894,8 @@ packages:
       - typescript
     dev: true
 
-  /@geprog/gringotts-client@3.1.1:
-    resolution: {integrity: sha512-q+dgOeo/GUBtjrRoyGq733eScZSimTnif2XwEco9bx0uPSemTwjmm0RMqa0EY18lla/Sj0RBqDSWNsZF0NoAGA==}
+  /@geprog/gringotts-client@3.1.2:
+    resolution: {integrity: sha512-Oh3/wWf60vA7dftbNoXCtGachAQVDA+nK7cKxge4PQuyINlrTDBtDsbTI0uuzSawDs40P+g4T2BMblFV7+Olaw==}
     dev: false
 
   /@geprog/node-migrate-ts@3.1.12(mongodb@4.1.4):
