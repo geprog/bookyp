@@ -33,9 +33,7 @@
       <div class="mt-4">
         <div v-for="(bookings, date) in upcomingBookings" :key="date">
           <p data-test="groupByDates" class="ml-2">
-            <span class="font-bold">
-              {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}</span
-            >
+            <span class="font-bold"> {{ dayjs(bookings[0].start).format('D MMM.') }}</span>
             <span v-if="dayjs().isSame(bookings[0].start, 'day')" class="ml-2 text-sm"> {{ t('today') }}</span>
             <span v-if="dayjs().add(1, 'day').isSame(bookings[0].start, 'day')" class="ml-2 text-sm">{{
               t('tomorrow')
@@ -62,7 +60,7 @@
           <div v-if="isDisplay">
             <div v-for="(bookings, date) in pastBookings" :key="date">
               <p data-test="groupByDates" class="ml-2 font-bold">
-                {{ dayjs(bookings[0].start).format('D') }} {{ dayjs(bookings[0].start).format('MMM.') }}
+                {{ dayjs(bookings[0].start).format('D MMM. YYYY') }}
               </p>
               <router-link
                 v-for="booking in bookings"
@@ -108,26 +106,25 @@ const bookingsQuery = computed(() => ({
 
 const { data: rawBookings, isLoading } = useFind('bookings', bookingsQuery);
 
-const sortedBookings = computed(() =>
-  [...rawBookings.value].sort((a, b) => (dayjs(a.start).isBefore(b.start) ? -1 : 1)),
-);
-
 const isDisplay = ref<boolean>();
 function togglePastBookings() {
   isDisplay.value = !isDisplay.value;
-  return isDisplay.value;
 }
 
 const upcomingBookings = computed(() =>
   groupBy(
-    sortedBookings.value.filter((b) => dayjs(b.end).isAfter(new Date())),
+    [...rawBookings.value]
+      .filter((b) => dayjs(b.end).isAfter(new Date()))
+      .sort((a, b) => (dayjs(a.start).isBefore(b.start) ? -1 : 1)),
     (booking: Model.Booking) => dayjs(booking.start).format('DD/MM/YYYY'),
   ),
 );
 
 const pastBookings = computed(() =>
   groupBy(
-    sortedBookings.value.filter((b) => dayjs(b.end).isBefore(new Date())),
+    [...rawBookings.value]
+      .filter((b) => dayjs(b.end).isBefore(new Date()))
+      .sort((a, b) => (dayjs(a.start).isAfter(b.start) ? -1 : 1)),
     (booking: Model.Booking) => dayjs(booking.start).format('DD/MM/YYYY'),
   ),
 );
