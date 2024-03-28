@@ -276,6 +276,7 @@
     "using_bookyp": "By using Bookyp you are agreeing to our {0}"
   },
   "terms_of_service": "Terms of Service",
+  "delete_data_request": "Delete account and remove user data",
   "today": "Today",
   "tomorrow": "Tomorrow",
   "try_again": "Try again",
@@ -290,5 +291,8 @@
   "landing_page": {
     "terms_and_conditions_url": "https://bookyp.de/en/terms-and-conditions",
     "privacy_policy_url": "https://bookyp.de/en/privacy-policy"
-  }
+  },
+  "delete_account_description": "If you want us to close your Bookyp account and permanently remove all data associated to your user, please contact us by using the button below:",
+  "delete_account_mail": "@:hey_bookyp_team{','}\n\nplease immediately remove my Bookyp account and all data associated to it.\n\nUser-Id: {userId}",
+  "delete_account": "Delete my account and all data"
 }

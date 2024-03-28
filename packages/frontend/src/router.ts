@@ -276,6 +276,12 @@ const routes: RouteRecordRaw[] = [
         meta: { accessibleByUserRole: true },
         component: () => import('~/views/account/SelectLanguage.vue'),
       },
+      {
+        path: 'delete',
+        name: 'delete-account',
+        meta: { accessibleByUserRole: true },
+        component: () => import('~/views/account/DeleteAccount.vue'),
+      },
     ],
   },
   {
