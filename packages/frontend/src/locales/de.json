@@ -260,6 +260,8 @@
       }
     },
     "euro": "€",
+    "subtitle": "monatlich (zzgl. MwSt.)",
+    "subtitle_free": "für immer",
     "pro_plan": "Pro Plan",
     "max_bookables_reached": "Bitte upgrade deinen Plan, um mehr buchbare Objekte hinzuzufügen.",
     "explorer_all_features": "Entdecke alle Funktionen",
