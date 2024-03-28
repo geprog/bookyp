@@ -13,6 +13,10 @@
       <span class="text-4xl">{{ prices[plan] }}</span>
     </div>
 
+    <div>
+      <span class="text-base">{{ subtitle[plan] }}</span>
+    </div>
+
     <div class="mt-4">
       <span>{{ descriptions[plan] }}</span>
     </div>
@@ -50,6 +54,12 @@ const prices = {
   free: 0,
   standard: 39,
   pro: 99,
+};
+
+const subtitle = {
+  free: t('subscription.subtitle_free'),
+  standard: t('subscription.subtitle'),
+  pro: t('subscription.subtitle'),
 };
 
 const titles: Record<Model.SpacePlan, string> = {

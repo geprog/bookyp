@@ -256,6 +256,8 @@
     "payment_verification_description": "We will charge you 1€ to verify your payment method. You will get it back as credit for your next invoice.",
     "price_per_month": "{price}€ per month",
     "euro": "€",
+    "subtitle": "monthly (plus VAT)",
+    "subtitle_free": "forever",
     "pro_plan": "Pro Plan",
     "save": "Save",
     "space_subscription": "Space subscription",
