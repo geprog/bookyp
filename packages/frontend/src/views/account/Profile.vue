@@ -30,6 +30,7 @@
 
     <MenuItem icon="text-checked" :href="t('landing_page.terms_and_conditions_url')" :title="t('terms_of_service')" />
     <MenuItem icon="lock" :href="t('landing_page.privacy_policy_url')" :title="t('privacy_policy')" />
+    <MenuItem icon="delete" :to="{ name: 'delete-account' }" :title="t('delete_account')" />
     <div class="flex flex-row border-t-1 border-gray-500 py-4 gap-2">
       <Icon name="logout" />
       <button class="underline text-left hover:text-primary-dark" type="button" @click="logout">

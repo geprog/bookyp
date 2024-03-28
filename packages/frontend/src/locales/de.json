@@ -278,6 +278,7 @@
     "using_bookyp": "Durch die Nutzung von Bookyp stimmst du unserem {0} zu."
   },
   "terms_of_service": "Nutzungsbedingungen",
+  "delete_data_request": "Entfernung der Nutzerdaten beantragen",
   "today": "Heute",
   "tomorrow": "Morgen",
   "try_again": "Versuchs noch einmal!",
@@ -292,5 +293,8 @@
     "terms_and_conditions_url": "https://bookyp.de/terms-and-conditions",
     "privacy_policy_url": "https://bookyp.de/privacy-policy"
   },
-  "mail_for_subscription_error": "Ich benötige Hilf mit meinem Bookyp Abonnement"
+  "mail_for_subscription_error": "Ich benötige Hilfe mit meinem Bookyp Abonnement",
+  "delete_account_description": "Wenn du deinen Bookyp Account schließen und alle zu deinem Account gehörenden Daten dauerhaft löschen möchtest, kontaktiere uns bitte durch Drücken des folgenden Knopfes:",
+  "delete_account_mail": "@:hey_bookyp_team{','}\n\nbitte löscht umgehend meinen Bookyp Account und alle diesem zugehörigen Daten.\n\nBenutzer-Id: {userId}",
+  "delete_account": "Löschen meines Accounts und meiner Daten"
 }
