@@ -16,9 +16,9 @@ variables:
   - pnpm-workspace.yaml
 
 .node-template:
-  image: registry.geprog.com/docker.io/library/node:20.4-bookworm
+  image: registry.geprog.com/docker.io/library/node:22-bookworm
   before_script:
-    - npm install -g pnpm@8
+    - npm install -g pnpm@9
     - pnpm config set store-dir .pnpm-store
     - time pnpm install --unsafe-perm
   cache:
@@ -52,7 +52,7 @@ variables:
 install-dependencies:
   extends: .node-template
   before_script:
-    - npm install -g pnpm@8
+    - npm install -g pnpm@9
     - pnpm config set store-dir .pnpm-store
   script:
     - time pnpm install --unsafe-perm # install dependencies
@@ -456,7 +456,7 @@ e2e-run:
   extends:
     - .e2e-environment
     - .node-template
-  image: mcr.microsoft.com/playwright:v1.23.0
+  image: mcr.microsoft.com/playwright:v1.46.1
   needs:
     - build-core
     - e2e-deployment-test
@@ -774,7 +774,7 @@ native-android-review:
     - gem install bundler
     - curl https://get.volta.sh | bash
     - PATH=$PATH:~/.volta/bin
-    - volta install node@20 pnpm@8
+    - volta install node@22 pnpm@9
     - pnpm install --unsafe-perm
     - cd packages/native
     - pnpm run sync
@@ -806,7 +806,7 @@ native-android-release:
     - gem install bundler
     - curl https://get.volta.sh | bash
     - PATH=$PATH:~/.volta/bin
-    - volta install node@20 pnpm@8
+    - volta install node@22 pnpm@9
     - pnpm install --unsafe-perm
     - cd packages/native
     - pnpm run sync
