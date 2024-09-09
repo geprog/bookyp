@@ -1,6 +1,6 @@
 import { Application, Model } from '@bookyp/core';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
-import { Document, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 import { feathersCaslAllowlist } from '~/casl';
 import softDelete from '~/hooks/softDelete';
@@ -14,7 +14,7 @@ const BookableSchema = new Schema<Model.Bookable>({
 
 export const name = 'bookables';
 
-export const BookableModel = model<Model.Bookable & Document>(name, BookableSchema);
+export const BookableModel = model<Model.Bookable>(name, BookableSchema);
 
 export default (app: Application): void => {
   const options: Partial<MongooseServiceOptions> = {

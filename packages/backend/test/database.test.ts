@@ -24,7 +24,7 @@ describe('Database', () => {
 
     // then
     expect(mongoose.connect).toHaveBeenCalledTimes(1);
-    expect(mongoose.connect).toHaveBeenCalledWith(uri);
+    expect(mongoose.connect).toHaveBeenCalledWith(uri, { enableUtf8Validation: false });
   });
 
   it('should throw an error if not db uri has been provided', () => {

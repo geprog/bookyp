@@ -1,6 +1,6 @@
 import { Application, Model } from '@bookyp/core';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
-import { Document, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 import { feathersCaslAllowlist } from '~/casl';
 import softDelete from '~/hooks/softDelete';
@@ -43,7 +43,7 @@ const SpaceSchema = new Schema<Model.Space>({
 
 export const name = 'spaces';
 
-export const SpaceModel = model<Model.Space & Document>(name, SpaceSchema);
+export const SpaceModel = model<Model.Space>(name, SpaceSchema);
 
 export default (app: Application): void => {
   const options: Partial<MongooseServiceOptions> = {

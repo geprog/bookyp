@@ -73,7 +73,7 @@ importers:
         version: 3.2.0
       '@geprog/node-migrate-ts':
         specifier: 3.1.12
-        version: 3.1.12(mongodb@4.1.4)
+        version: 3.1.12(mongodb@4.5.0)
       body-parser:
         specifier: 1.20.0
         version: 1.20.0
@@ -91,25 +91,28 @@ importers:
         version: https://codeload.github.com/geprog/feathers-casl/tar.gz/9d62d9cbffe66a8dc7bbeec4cac6c8d9138dd582
       feathers-mongoose:
         specifier: github:GEPROG/feathers-mongoose#c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed
-        version: https://codeload.github.com/GEPROG/feathers-mongoose/tar.gz/c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed(mongoose@6.0.14)
+        version: https://codeload.github.com/GEPROG/feathers-mongoose/tar.gz/c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed(mongoose@6.3.9)
       handlebars:
         specifier: 4.7.7
         version: 4.7.7
       lightship:
         specifier: 6.7.2
         version: 6.7.2
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
       minio:
         specifier: 7.0.32
         version: 7.0.32
       mongodb:
-        specifier: 4.1.4
-        version: 4.1.4
+        specifier: 4.5.0
+        version: 4.5.0
       mongodb-client-encryption:
         specifier: 2.7.1
-        version: 2.7.1(mongodb@4.1.4)
+        version: 2.7.1(mongodb@4.5.0)
       mongoose:
-        specifier: 6.0.14
-        version: 6.0.14
+        specifier: 6.3.9
+        version: 6.3.9
       nodemailer:
         specifier: 6.7.5
         version: 6.7.5
@@ -123,6 +126,9 @@ importers:
       '@types/express':
         specifier: 4.17.13
         version: 4.17.13
+      '@types/lodash':
+        specifier: 4.14.170
+        version: 4.14.170
       '@types/minio':
         specifier: 7.0.15
         version: 7.0.15
@@ -234,8 +240,8 @@ importers:
         specifier: 8.27.0
         version: 8.27.0
       mongodb:
-        specifier: 4.1.4
-        version: 4.1.4
+        specifier: 4.5.0
+        version: 4.5.0
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -1859,8 +1865,8 @@ packages:
     resolution: {integrity: sha512-hwqQXyTnDzAVZ300SU31jO0+3OJbpOdfVU6iBkrmNpS7t2HRnVACo0EwcEXzJa++4EVDreqz5OeqJbt+PeSGGA==}
     engines: {node: '>= 16'}
 
-  '@intlify/shared@10.0.0-beta.6':
-    resolution: {integrity: sha512-Bz5aiS62ovE/27EpKDT+oFhr2ZYLkjKHuVI4NWz2C+bOuqBkFR20CJgBcmdm2GiAHMdyQfuhY+ThBv1XyHXk3A==}
+  '@intlify/shared@10.0.0-rc.1':
+    resolution: {integrity: sha512-Rfw7EDfALlpzJu4COe/CMEmhpFc3o6t6mmACoRd48AI3lLYBQxsnIGSp0XaSrjHYIj8dIbCBCj0ij0s2nrmyoA==}
     engines: {node: '>= 16'}
 
   '@intlify/shared@9.2.0-beta.35':
@@ -4862,8 +4868,8 @@ packages:
   jws@4.0.0:
     resolution: {integrity: sha512-KDncfTmOZoOMTFG4mBlG0qUIOlc03fmzH+ru6RgYVZhPkyiy/92Owlt/8UEN+a4TXR1FQetfIpJE8ApdvdVxTg==}
 
-  kareem@2.3.2:
-    resolution: {integrity: sha512-STHz9P7X2L4Kwn72fA4rGyqyXdmrMSdxqHx9IXon/FXluXieaFA6KJ2upcHAHxQPQ0LeM/OjLrhFxifHewOALQ==}
+  kareem@2.3.5:
+    resolution: {integrity: sha512-qxCyQtp3ioawkiRNQr/v8xw9KIviMSSNmy+63Wubj7KmMn3g7noRXIZB4vPCAP+ETi2SR8eH6CvmlKZuGpoHOg==}
 
   kdbush@3.0.0:
     resolution: {integrity: sha512-hRkd6/XW4HTsA9vjVpY9tuXJYLSlelnkTmVFu4M9/7MIYQtFcHpbugAU7UbOfjOiVSVYl2fqgBuJ32JUmRo5Ew==}
@@ -5233,20 +5239,20 @@ packages:
   mongodb-connection-string-url@2.6.0:
     resolution: {integrity: sha512-WvTZlI9ab0QYtTYnuMLgobULWhokRjtC7db9LtcVfJ+Hsnyr5eo6ZtNAt3Ly24XZScGMelOcGtm7lSn0332tPQ==}
 
-  mongodb@4.1.4:
-    resolution: {integrity: sha512-Cv/sk8on/tpvvqbEvR1h03mdyNdyvvO+WhtFlL4jrZ+DSsN/oSQHVqmJQI/sBCqqbOArFcYCAYDfyzqFwV4GSQ==}
+  mongodb@4.5.0:
+    resolution: {integrity: sha512-A2l8MjEpKojnhbCM0MK3+UOGUSGvTNNSv7AkP1fsT7tkambrkkqN/5F2y+PhzsV0Nbv58u04TETpkaSEdI2zKA==}
     engines: {node: '>=12.9.0'}
 
-  mongoose@6.0.14:
-    resolution: {integrity: sha512-SZ0kBlHrz/G70yWdVXLfM/gH4NsY85+as4MZRdtWxBTDEcmoE3rCFAz1/Ho2ycg5mJAeOBwdGZw4a5sn/WrwUA==}
+  mongoose@6.3.9:
+    resolution: {integrity: sha512-pCvgKr/t9MHTz7w29uCX2g2gQ3iM/8jh8ZdIBawms/E4wv7SCjRnR3o08zZTNT/nORsZSK14P7F4KBVkdbecxA==}
     engines: {node: '>=12.0.0'}
 
-  mpath@0.8.4:
-    resolution: {integrity: sha512-DTxNZomBcTWlrMW76jy1wvV37X/cNNxPW1y2Jzd4DZkAaC5ZGsm8bfGfNOthcDuRJujXLqiuS6o3Tpy0JEoh7g==}
+  mpath@0.9.0:
+    resolution: {integrity: sha512-ikJRQTk8hw5DEoFVxHG1Gn9T/xcjtdnOKIU1JTmGjZZlg9LST2mBLmcX3/ICIbgJydT2GOc15RnNy5mHmzfSew==}
     engines: {node: '>=4.0.0'}
 
-  mquery@4.0.0:
-    resolution: {integrity: sha512-nGjm89lHja+T/b8cybAby6H0YgA4qYC/lx6UlwvHGqvTq8bDaNeCwl1sY8uRELrNbVWJzIihxVd+vphGGn1vBw==}
+  mquery@4.0.3:
+    resolution: {integrity: sha512-J5heI+P08I6VJ2Ky3+33IpCdAvlYGTSUjwTPxkAr8i8EoduPMBX2OY/wa3IKZIQl7MU4SbFk8ndgSKyB/cl1zA==}
     engines: {node: '>=12.0.0'}
 
   mrmime@1.0.1:
@@ -5911,9 +5917,6 @@ packages:
   regenerator-transform@0.15.1:
     resolution: {integrity: sha512-knzmNAcuyxV+gQCufkYcvOqX/qIIfHLv0u5x79kRxuGojfYVky1f15TzZEu2Avte8QGepvUNTnLskf8E6X6Vyg==}
 
-  regexp-clone@1.0.0:
-    resolution: {integrity: sha512-TuAasHQNamyyJ2hb97IuBEif4qBHGjPHBS64sZwytpLEqtBQ1gPJTnOaQ6qmpET16cK14kkjbazl6+p0RRv0yw==}
-
   regexp-to-ast@0.5.0:
     resolution: {integrity: sha512-tlbJqcMHnPKI9zSrystikWKwHkBqu2a/Sgw01h3zFjvYrMxEDYHzzoMZnUrbIfpTFEsoRnnviOXNCzFiSc54Qw==}
 
@@ -6184,11 +6187,11 @@ packages:
   side-channel@1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
 
-  sift@13.5.2:
-    resolution: {integrity: sha512-+gxdEOMA2J+AI+fVsCqeNn7Tgx3M9ZN9jdi95939l1IJ8cZsqS8sqpJyOkic2SJk+1+98Uwryt/gL6XDaV+UZA==}
-
   sift@15.1.3:
     resolution: {integrity: sha512-/JZRQtE1pe4t93jKvAKDCgpOSfFX/tFNoYn5hUB4nuVyihGFp5pS5mQu6p7XOo0oQvj+jrgVyIteAI6lO+EE8A==}
+
+  sift@16.0.0:
+    resolution: {integrity: sha512-ILTjdP2Mv9V1kIxWMXeMTIRbOBrqKc4JAXmFMnFq3fKeyQ2Qwa3Dw1ubcye3vR+Y6ofA0b9gNDr/y2t6eUeIzQ==}
 
   sift@8.5.1:
     resolution: {integrity: sha512-um2rEdXrc4YcRMzIliuip4i2o92mJONh5W1VD9vJlm1e0apVqMK4P2ZUijz8BIe1/oYLWmXwXaKFM+fOaO3Ysg==}
@@ -6225,9 +6228,6 @@ packages:
   slice-ansi@4.0.0:
     resolution: {integrity: sha512-qMCMfhY040cVHT43K9BFygqYbUPFZKHOg7K73mtTWJRb8pyP3fzf4Ixd5SzdEJQ6MRUg/WBnOLxghZtKKurENQ==}
     engines: {node: '>=10'}
-
-  sliced@1.0.1:
-    resolution: {integrity: sha1-CzpmK10Ewxd7GSa+qCsD+Dei70E=}
 
   smart-buffer@4.2.0:
     resolution: {integrity: sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==}
@@ -8662,9 +8662,9 @@ snapshots:
 
   '@geprog/gringotts-client@3.2.0': {}
 
-  '@geprog/node-migrate-ts@3.1.12(mongodb@4.1.4)':
+  '@geprog/node-migrate-ts@3.1.12(mongodb@4.5.0)':
     optionalDependencies:
-      mongodb: 4.1.4
+      mongodb: 4.5.0
 
   '@geprog/oauth-mock-server@1.6.0':
     dependencies:
@@ -8775,7 +8775,7 @@ snapshots:
       '@intlify/shared': 9.3.0-beta.20
       source-map-js: 1.0.2
 
-  '@intlify/shared@10.0.0-beta.6': {}
+  '@intlify/shared@10.0.0-rc.1': {}
 
   '@intlify/shared@9.2.0-beta.35': {}
 
@@ -8786,7 +8786,7 @@ snapshots:
   '@intlify/vite-plugin-vue-i18n@6.0.1(vite@3.1.2(stylus@0.57.0)(terser@5.19.0))(vue-i18n@9.2.0-beta.35(vue@3.3.4))':
     dependencies:
       '@intlify/bundle-utils': 7.0.0(vue-i18n@9.2.0-beta.35(vue@3.3.4))
-      '@intlify/shared': 10.0.0-beta.6
+      '@intlify/shared': 10.0.0-rc.1
       '@rollup/pluginutils': 4.2.1
       debug: 4.3.4
       fast-glob: 3.3.0
@@ -11538,12 +11538,12 @@ snapshots:
       '@feathersjs/errors': 5.0.0-pre.17
       sift: 8.5.1
 
-  feathers-mongoose@https://codeload.github.com/GEPROG/feathers-mongoose/tar.gz/c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed(mongoose@6.0.14):
+  feathers-mongoose@https://codeload.github.com/GEPROG/feathers-mongoose/tar.gz/c6110d57c09344a0bf9c7ab2dc88a9e2caf457ed(mongoose@6.3.9):
     dependencies:
       '@feathersjs/adapter-commons': 5.0.0-pre.17
       '@feathersjs/commons': 5.0.0-pre.17
       '@feathersjs/errors': 5.0.0-pre.17
-      mongoose: 6.0.14
+      mongoose: 6.3.9
 
   feathers-utils@2.1.3:
     dependencies:
@@ -12448,7 +12448,7 @@ snapshots:
       safe-buffer: 5.2.1
     optional: true
 
-  kareem@2.3.2: {}
+  kareem@2.3.5: {}
 
   kdbush@3.0.0: {}
 
@@ -12808,10 +12808,10 @@ snapshots:
 
   modify-values@1.0.1: {}
 
-  mongodb-client-encryption@2.7.1(mongodb@4.1.4):
+  mongodb-client-encryption@2.7.1(mongodb@4.5.0):
     dependencies:
       bindings: 1.5.0
-      mongodb: 4.1.4
+      mongodb: 4.5.0
       node-addon-api: 4.3.0
       prebuild-install: 7.1.1
       socks: 2.7.1
@@ -12821,35 +12821,32 @@ snapshots:
       '@types/whatwg-url': 8.2.2
       whatwg-url: 11.0.0
 
-  mongodb@4.1.4:
+  mongodb@4.5.0:
     dependencies:
       bson: 4.7.2
       denque: 2.1.0
       mongodb-connection-string-url: 2.6.0
+      socks: 2.7.1
     optionalDependencies:
       saslprep: 1.0.3
 
-  mongoose@6.0.14:
+  mongoose@6.3.9:
     dependencies:
       bson: 4.7.2
-      kareem: 2.3.2
-      mongodb: 4.1.4
-      mpath: 0.8.4
-      mquery: 4.0.0
-      ms: 2.1.2
-      regexp-clone: 1.0.0
-      sift: 13.5.2
-      sliced: 1.0.1
+      kareem: 2.3.5
+      mongodb: 4.5.0
+      mpath: 0.9.0
+      mquery: 4.0.3
+      ms: 2.1.3
+      sift: 16.0.0
     transitivePeerDependencies:
       - supports-color
 
-  mpath@0.8.4: {}
+  mpath@0.9.0: {}
 
-  mquery@4.0.0:
+  mquery@4.0.3:
     dependencies:
       debug: 4.3.4
-      regexp-clone: 1.0.0
-      sliced: 1.0.1
     transitivePeerDependencies:
       - supports-color
 
@@ -13516,8 +13513,6 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.22.6
 
-  regexp-clone@1.0.0: {}
-
   regexp-to-ast@0.5.0: {}
 
   regexp.prototype.flags@1.5.0:
@@ -13820,9 +13815,9 @@ snapshots:
       get-intrinsic: 1.2.1
       object-inspect: 1.12.3
 
-  sift@13.5.2: {}
-
   sift@15.1.3: {}
+
+  sift@16.0.0: {}
 
   sift@8.5.1: {}
 
@@ -13863,8 +13858,6 @@ snapshots:
       ansi-styles: 4.3.0
       astral-regex: 2.0.0
       is-fullwidth-code-point: 3.0.0
-
-  sliced@1.0.1: {}
 
   smart-buffer@4.2.0: {}
 
