@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { ConnectOptions } from 'mongoose';
 
 import config from '~/config';
 
@@ -15,5 +15,5 @@ export function getConnectionUri(): string {
 }
 
 export async function connect(): Promise<void> {
-  await mongoose.connect(getConnectionUri());
+  await mongoose.connect(getConnectionUri(), { enableUtf8Validation: false } as ConnectOptions);
 }

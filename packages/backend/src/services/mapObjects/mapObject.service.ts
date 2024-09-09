@@ -1,6 +1,6 @@
 import { Application, Model } from '@bookyp/core';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
-import { Document, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 import { feathersCaslAllowlist } from '~/casl';
 
@@ -17,7 +17,7 @@ const MapObjectSchema = new Schema<Model.MapObject>({
 
 export const name = 'mapObjects';
 
-export const MapObjectModel = model<Model.MapObject & Document>(name, MapObjectSchema);
+export const MapObjectModel = model<Model.MapObject>(name, MapObjectSchema);
 
 export default (app: Application): void => {
   const options: Partial<MongooseServiceOptions> = {

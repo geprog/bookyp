@@ -2,7 +2,7 @@ import { Application, Model } from '@bookyp/core';
 import { HookContext } from '@feathersjs/feathers';
 import { authorize } from 'feathers-casl';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
-import { Document, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 import { feathersCaslAllowlist } from '~/casl';
 import { defineAbilitiesFor } from '~/services/authentication/authentication.abilities';
@@ -21,7 +21,7 @@ const UserSchema = new Schema<Model.User>({
 
 export const name = 'users';
 
-export const UserModel = model<Model.User & Document>(name, UserSchema);
+export const UserModel = model<Model.User>(name, UserSchema);
 
 export default (app: Application): void => {
   const options: Partial<MongooseServiceOptions> = {

@@ -1,6 +1,6 @@
 import { Application, Model } from '@bookyp/core';
 import { MongooseServiceOptions, Service } from 'feathers-mongoose';
-import { Document, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 import { feathersCaslAllowlist } from '~/casl';
 
@@ -23,7 +23,7 @@ InvitationSchema.index({ spaceId: 1, email: 1 }, { unique: true });
 
 export const name = 'invitations';
 
-export const InvitationModel = model<Model.Invitation & Document>(name, InvitationSchema);
+export const InvitationModel = model<Model.Invitation>(name, InvitationSchema);
 
 export default (app: Application): void => {
   const options: Partial<MongooseServiceOptions> = {
