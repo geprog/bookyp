@@ -13,8 +13,6 @@ services:
     ports:
       - 127.0.0.1:${DB_PORT-27017}:27017
       - 127.0.0.1:8081:8081
-      - '[::1]:${DB_PORT-27017}:27017'
-      - '[::1]:8081:8081'
 
   mongo-express:
     image: mongo-express:1.0.0
@@ -32,8 +30,6 @@ services:
     ports:
       - '127.0.0.1:1025:1025'
       - '127.0.0.1:8025:8025'
-      - '[::1]:1025:1025'
-      - '[::1]:8025:8025'
 
   s3:
     image: minio/minio:RELEASE.2024-08-26T15-33-07Z
@@ -46,8 +42,6 @@ services:
     ports:
       - 127.0.0.1:9000:9000
       - 127.0.0.1:9001:9001
-      - '[::1]:9000:9000'
-      - '[::1]:9001:9001'
 
   s3www:
     image: anbraten/s3www:v0.6.8
@@ -59,7 +53,6 @@ services:
       S3WWW_BUCKET: ${S3_BUCKET:-bookyp-files}
     ports:
       - 127.0.0.1:9080:8080
-      - '[::1]:9080:8080'
 
   postgres:
     image: postgres:14.2
@@ -81,7 +74,6 @@ services:
       CREATE_PROJECT_DATA: '{ "name": "Bookyp", "mollieApiKey": "", "paymentProvider": "mocked", "apiToken": "supersecret-with-more-than-32-characters", "webhookUrl": "http://host.docker.internal:4000/payments/webhook", "invoiceData": { "email": "info@geprog.com", "name": "GEPROG GmbH", "addressLine1": "Schauenburgerstr. 116", "addressLine2": "string", "zipCode": "24118", "city": "Kiel", "country": "Germany", "logo": "https://geprog.com/logo.svg" } }'
     ports:
       - '127.0.0.1:7171:7171'
-      - '[::1]:7171:7171'
     depends_on:
       - postgres
 
