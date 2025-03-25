@@ -107,9 +107,6 @@ importers:
       mongodb:
         specifier: 4.5.0
         version: 4.5.0
-      mongodb-client-encryption:
-        specifier: 2.7.1
-        version: 2.7.1(mongodb@4.5.0)
       mongoose:
         specifier: 6.3.9
         version: 6.3.9
@@ -5222,19 +5219,6 @@ packages:
   modify-values@1.0.1:
     resolution: {integrity: sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==}
     engines: {node: '>=0.10.0'}
-
-  mongodb-client-encryption@2.7.1:
-    resolution: {integrity: sha512-LN1udDf9nZ/paUcuY2AATIVWKf7oGHb2IKMQqGu/7iiqpNlV0M6xjbQix0bxEQvzZZW0T9PG6PN8mYeMR+YDnA==}
-    engines: {node: '>=12.9.0'}
-    peerDependencies:
-      '@aws-sdk/credential-providers': ^3.186.0
-      gcp-metadata: ^5.2.0
-      mongodb: '>=3.4.0'
-    peerDependenciesMeta:
-      '@aws-sdk/credential-providers':
-        optional: true
-      gcp-metadata:
-        optional: true
 
   mongodb-connection-string-url@2.6.0:
     resolution: {integrity: sha512-WvTZlI9ab0QYtTYnuMLgobULWhokRjtC7db9LtcVfJ+Hsnyr5eo6ZtNAt3Ly24XZScGMelOcGtm7lSn0332tPQ==}
@@ -12807,14 +12791,6 @@ snapshots:
       ufo: 1.1.2
 
   modify-values@1.0.1: {}
-
-  mongodb-client-encryption@2.7.1(mongodb@4.5.0):
-    dependencies:
-      bindings: 1.5.0
-      mongodb: 4.5.0
-      node-addon-api: 4.3.0
-      prebuild-install: 7.1.1
-      socks: 2.7.1
 
   mongodb-connection-string-url@2.6.0:
     dependencies:
