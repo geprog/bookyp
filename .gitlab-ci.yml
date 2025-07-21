@@ -759,7 +759,7 @@ production-rollback:
 
 ################# NATIVE APPS #################
 
-native-android-review:
+.native-android-review:
   image: thyrlian/android-sdk
   needs:
     - build-frontend
@@ -791,7 +791,7 @@ native-android-review:
         - packages/native/**/*
   interruptible: true
 
-native-android-release:
+.native-android-release:
   image: thyrlian/android-sdk
   needs:
     - build-frontend

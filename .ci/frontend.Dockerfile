@@ -1,4 +1,4 @@
-FROM registry.geprog.com/docker.io/library/nginx:1.19.6-alpine
+FROM registry.geprog.com/docker.io/library/nginx:1.28.0-alpine
 EXPOSE 80
 WORKDIR /usr/share/nginx/html
 COPY ./.ci/frontend/nginx.conf /etc/nginx/conf.d/default.conf
