@@ -1,8 +1,7 @@
 variables:
   GIT_DEPTH: 10
-  REGISTRY: registry.geprog.com
-  REGISTRY_NAMESPACE: bookyp
-  BASE_DOMAIN: 'bookyp.de'
+  REGISTRY: registry.gitlab.com
+  REGISTRY_NAMESPACE: geprog/bookyp
 
 .main-pipeline-files: &main_pipeline_files
   - .ci/**/*
@@ -16,7 +15,7 @@ variables:
   - pnpm-workspace.yaml
 
 .node-template:
-  image: registry.geprog.com/docker.io/library/node:22-bookworm
+  image: node:22-bookworm
   before_script:
     - npm install -g pnpm@9
     - pnpm config set store-dir .pnpm-store
@@ -31,21 +30,18 @@ variables:
 
 .kubectl-template:
   image:
-    name: registry.geprog.com/docker.io/alpine/k8s:1.26.1
+    name: alpine/k8s:1.26.1
     entrypoint: ['']
   dependencies: [] # don't load any artifacts
   before_script:
     - kubectl config use-context bookyp/bookyp:bookyp-k3s-runner
 
-.kaniko-template:
-  image:
-    name: gcr.io/kaniko-project/executor:v1.9.1-debug
-    entrypoint: ['']
-
-.minio-template:
-  image:
-    name: registry.geprog.com/docker.io/minio/mc:RELEASE.2021-03-23T05-46-11Z
-    entrypoint: ['']
+.docker-build-template:
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
 ################# PREPARE #################
 
@@ -72,11 +68,6 @@ install-dependencies:
 
 build-frontend:
   extends: .node-template
-  variables:
-    KUBERNETES_CPU_REQUEST: '0.6'
-    KUBERNETES_CPU_LIMIT: '1'
-    KUBERNETES_MEMORY_REQUEST: '1Gi'
-    KUBERNETES_MEMORY_LIMIT: '2Gi'
   needs:
     - install-dependencies
   script:
@@ -125,32 +116,60 @@ build-core:
 
 build-docker-frontend:
   extends:
-    - .kaniko-template
+    - .docker-build-template
   needs:
     - build-frontend
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_REF_SLUG
   script:
-    - mkdir -p /kaniko/.docker
-    - echo "{\"auths\":{\"$REGISTRY\":{\"username\":\"$REGISTRY_USER\",\"password\":\"$REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/frontend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/frontend:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
+    - docker build -t $IMAGE_TAG -f .ci/frontend.Dockerfile .
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
+build-docker-fronted-release:
+  extends:
+    - .docker-build-template
+  needs:
+    - build-frontend
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_REF_SLUG
+  script:
+    - docker build -t $IMAGE_TAG -f .ci/frontend.Dockerfile .
+    - docker push $IMAGE_TAG
+  rules:
+    - if: '$CI_COMMIT_TAG'
+  interruptible: true
+
 build-docker-backend:
   extends:
-    - .kaniko-template
+    - .docker-build-template
   needs:
     - build-backend
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/backend:$CI_COMMIT_REF_SLUG
   script:
-    - mkdir -p /kaniko/.docker
-    - echo "{\"auths\":{\"$REGISTRY\":{\"username\":\"$REGISTRY_USER\",\"password\":\"$REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/.ci/backend.Dockerfile --destination "$REGISTRY"/"$REGISTRY_NAMESPACE"/backend:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
+    - docker build -t $IMAGE_TAG -f .ci/backend.Dockerfile .
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  interruptible: true
+
+build-docker-backend-release:
+  extends:
+    - .docker-build-template
+  needs:
+    - build-backend
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/backend:$CI_COMMIT_REF_SLUG
+  script:
+    - docker build -t $IMAGE_TAG -f .ci/backend.Dockerfile .
+    - docker push $IMAGE_TAG
+  rules:
+    - if: '$CI_COMMIT_TAG'
   interruptible: true
 
 ################# TEST #################
@@ -163,10 +182,6 @@ build-docker-backend:
     - install-dependencies
   variables:
     NODE_ENV: 'test'
-    KUBERNETES_CPU_REQUEST: '0.6'
-    KUBERNETES_CPU_LIMIT: '1'
-    KUBERNETES_MEMORY_REQUEST: '1Gi'
-    KUBERNETES_MEMORY_LIMIT: '2Gi'
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -206,10 +221,6 @@ typecheck-importer:
     - install-dependencies
   variables:
     NODE_ENV: 'test'
-    KUBERNETES_CPU_REQUEST: '0.6'
-    KUBERNETES_CPU_LIMIT: '1'
-    KUBERNETES_MEMORY_REQUEST: '1Gi'
-    KUBERNETES_MEMORY_LIMIT: '2Gi'
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -255,10 +266,6 @@ lint-importer:
   coverage: '/All\sfiles.*?\s+(\d+.\d+)/'
   variables:
     NODE_ENV: 'test'
-    KUBERNETES_CPU_REQUEST: '0.6'
-    KUBERNETES_CPU_LIMIT: '1'
-    KUBERNETES_MEMORY_REQUEST: '1Gi'
-    KUBERNETES_MEMORY_LIMIT: '2Gi'
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -316,7 +323,7 @@ unit-test-core:
 ### Misc
 renovate-config-validator:
   needs: []
-  image: registry.geprog.com/docker.io/renovate/renovate:25.28.1
+  image: renovate/renovate:25.28.1
   script:
     - renovate-config-validator
   rules:
@@ -363,466 +370,10 @@ helm-lint:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   interruptible: true
 
-################# E2E #################
-
-.e2e-environment:
-  environment:
-    name: e2e/$CI_COMMIT_REF_SLUG
-    deployment_tier: testing
-  variables:
-    KUBE_NAMESPACE: bookyp-e2e
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID'
-      changes: *main_pipeline_files
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-
-e2e-prepare:
-  extends:
-    - .kubectl-template
-    - .e2e-environment
-  needs: []
-  environment:
-    action: prepare
-  script:
-    - kubectl create namespace $KUBE_NAMESPACE || true
-    - >
-      kubectl -n $KUBE_NAMESPACE create secret docker-registry bookyp-registry-secret
-      --docker-server=$REGISTRY
-      --docker-username=$REGISTRY_USER
-      --docker-password=$REGISTRY_PASSWORD
-      --save-config --dry-run=client
-      -o yaml | kubectl apply -f -
-    - kubectl -n $KUBE_NAMESPACE apply -f .ci/kube/review-certificate.yml
-
-e2e-prepare-s3:
-  extends:
-    - .minio-template
-    - .e2e-environment
-  needs: []
-  environment:
-    on_stop: e2e-delete-s3
-  before_script:
-    - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
-  script:
-    - mc mb --ignore-existing geprog/bookyp-$CI_ENVIRONMENT_SLUG
-
-e2e-deployment:
-  extends:
-    - .kubectl-template
-    - .e2e-environment
-  needs:
-    - build-docker-frontend
-    - build-docker-backend
-    - e2e-prepare
-  script:
-    - >
-      helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
-      --set environment.type=review
-      --set environment.name=${CI_ENVIRONMENT_SLUG}
-      --set frontend.ingress.tls.secretName=bookyp-review-frontend-tls
-      --set frontend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
-      --set backend.ingress.tls.secretName=bookyp-review-backend-tls
-      --set backend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
-      --set backend.database.password=$DEPLOY_DATABASE_PASSWORD
-      --set backend.keycloak.subdomain=auth.geprog.com/auth/realms/testing
-      --set backend.keycloak.client=bookyp-testing
-      --set backend.keycloak.secret=$E2E_KEYCLOAK_SECRET
-      --set backend.jwtSecret=$BACKEND_JWT_SECRET
-      --set backend.mail.password=$DEPLOY_MAIL_PASSWORD
-      --set backend.payment.token=$GRINGOTTS_PROJECT_TOKEN
-      --set cdn.ingress.tls.secretName=bookyp-review-cdn-tls
-      --set cdn.s3.accessKey=$S3_ACCESS_KEY
-      --set cdn.s3.secretKey=$S3_SECRET_KEY
-      --set cdn.s3.bucket=bookyp-$CI_ENVIRONMENT_SLUG
-      --set payment.ingress.tls.secretName=bookyp-review-payment-tls
-      --set payment.adminToken=$GRINGOTTS_ADMIN_TOKEN
-      --set payment.projectToken=$GRINGOTTS_PROJECT_TOKEN
-      --set payment.mollieToken=$MOLLIE_TEST_TOKEN
-      --set payment.jwtSecret=$PAYMENT_JWT_SECRET
-      --set payment.database.password=$GRINGOTTS_DATABASE_PASSWORD
-      --set payment.mail.password=$DEPLOY_MAIL_PASSWORD
-      bookyp-e2e-${CI_ENVIRONMENT_SLUG} .ci/charts/bookyp
-
-e2e-deployment-test:
-  extends:
-    - .kubectl-template
-    - .e2e-environment
-  needs:
-    - e2e-deployment
-  script:
-    - helm test --namespace $KUBE_NAMESPACE bookyp-e2e-${CI_ENVIRONMENT_SLUG}
-
-e2e-run:
-  extends:
-    - .e2e-environment
-    - .node-template
-  image: mcr.microsoft.com/playwright:v1.46.1
-  needs:
-    - build-core
-    - e2e-deployment-test
-  variables:
-    E2E_BASE_URL: https://${CI_ENVIRONMENT_SLUG}.app.${BASE_DOMAIN}/
-    E2E_AUTH_USERNAME: bookyp-testing@geprog.com
-    # username and database name are truncated in helm chart, be careful when increasing their length
-    BACKEND_DB_URI: mongodb://bookyp-${CI_ENVIRONMENT_SLUG}:${DEPLOY_DATABASE_PASSWORD}@10.0.0.200/bookyp-${CI_ENVIRONMENT_SLUG}
-  script:
-    - cd packages/e2e
-    # TODO: disable test for now
-    #- pnpm run test
-  artifacts:
-    paths:
-      - packages/e2e/test-results
-    expire_in: 1 day
-    when: on_failure
-
-e2e-delete-s3:
-  extends:
-    - .minio-template
-    - .e2e-environment
-  needs:
-    - e2e-prepare-s3
-  environment:
-    action: stop
-  variables:
-    GIT_STRATEGY: none # Source: https://docs.gitlab.com/ee/ci/yaml/#environmentaction
-  before_script:
-    - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
-  script:
-    - mc rb --force geprog/bookyp-$CI_ENVIRONMENT_SLUG
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
-      changes: *main_pipeline_files
-      when: manual
-      allow_failure: true
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-      when: always
-
-e2e-stop:
-  extends:
-    - .kubectl-template
-    - .e2e-environment
-  needs:
-    - e2e-run
-  script:
-    - helm uninstall --namespace $KUBE_NAMESPACE bookyp-e2e-${CI_ENVIRONMENT_SLUG}
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID'
-      changes: *main_pipeline_files
-      when: always
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-      when: always
-
-################# DEPLOY #################
-
-.review-environment:
-  environment:
-    name: app/$CI_COMMIT_REF_SLUG
-    url: https://${CI_ENVIRONMENT_SLUG}.app.${BASE_DOMAIN}/
-    deployment_tier: development
-    on_stop: review-stop
-  variables:
-    KUBE_NAMESPACE: bookyp-review
-  rules:
-    # if pipeline runs on merge request and is triggered by renovate
-    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^renovate/'
-      changes: *main_pipeline_files
-      when: manual
-      allow_failure: true
-    # if pipeline runs on merge request
-    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME !~ /^renovate/'
-      changes: *main_pipeline_files
-
-review-prepare:
-  extends:
-    - .kubectl-template
-    - .review-environment
-  needs: []
-  environment:
-    action: prepare
-  script:
-    - kubectl create namespace $KUBE_NAMESPACE || true
-    - >
-      kubectl -n $KUBE_NAMESPACE create secret docker-registry bookyp-registry-secret
-      --docker-server=$REGISTRY
-      --docker-username=$REGISTRY_USER
-      --docker-password=$REGISTRY_PASSWORD
-      --save-config --dry-run=client
-      -o yaml | kubectl apply -f -
-    - kubectl -n $KUBE_NAMESPACE apply -f .ci/kube/review-certificate.yml
-
-review-prepare-s3:
-  extends:
-    - .minio-template
-    - .review-environment
-  needs: []
-  environment:
-    on_stop: review-delete-s3
-  before_script:
-    - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
-  script:
-    - mc mb --ignore-existing geprog/bookyp-$CI_ENVIRONMENT_SLUG
-
-review-deployment:
-  extends:
-    - .kubectl-template
-    - .review-environment
-  needs:
-    - build-docker-frontend
-    - build-docker-backend
-    - review-prepare
-  script:
-    - >
-      helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
-      --set environment.type=review
-      --set environment.name=$CI_ENVIRONMENT_SLUG
-      --set environment.url=$CI_ENVIRONMENT_URL
-      --set frontend.ingress.tls.secretName=bookyp-review-frontend-tls
-      --set frontend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
-      --set backend.ingress.tls.secretName=bookyp-review-backend-tls
-      --set backend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
-      --set backend.database.password=$DEPLOY_DATABASE_PASSWORD
-      --set backend.keycloak.secret=$KEYCLOAK_SECRET
-      --set backend.jwtSecret=$BACKEND_JWT_SECRET
-      --set backend.mail.password=$DEPLOY_MAIL_PASSWORD
-      --set backend.payment.token=$GRINGOTTS_PROJECT_TOKEN
-      --set cdn.ingress.tls.secretName=bookyp-review-cdn-tls
-      --set cdn.s3.accessKey=$S3_ACCESS_KEY
-      --set cdn.s3.secretKey=$S3_SECRET_KEY
-      --set cdn.s3.bucket=bookyp-$CI_ENVIRONMENT_SLUG
-      --set payment.ingress.tls.secretName=bookyp-review-payment-tls
-      --set payment.adminToken=$GRINGOTTS_ADMIN_TOKEN
-      --set payment.projectToken=$GRINGOTTS_PROJECT_TOKEN
-      --set payment.mollieToken=$MOLLIE_TEST_TOKEN
-      --set payment.jwtSecret=$PAYMENT_JWT_SECRET
-      --set payment.database.password=$GRINGOTTS_DATABASE_PASSWORD
-      --set payment.mail.password=$DEPLOY_MAIL_PASSWORD
-      --set gitlab.app=$CI_PROJECT_PATH_SLUG
-      --set gitlab.env=$CI_ENVIRONMENT_SLUG
-      bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/bookyp
-
-review-deployment-test:
-  extends:
-    - .kubectl-template
-    - .review-environment
-  needs:
-    - review-deployment
-  environment:
-    action: verify
-  script:
-    - helm test --namespace $KUBE_NAMESPACE bookyp-${CI_ENVIRONMENT_SLUG}
-
-review-stop:
-  extends:
-    - .kubectl-template
-    - .review-environment
-  needs:
-    - review-deployment
-  environment:
-    action: stop
-  variables:
-    GIT_STRATEGY: none # Source: https://docs.gitlab.com/ee/ci/yaml/#environmentaction
-  script:
-    - helm uninstall --namespace $KUBE_NAMESPACE bookyp-${CI_ENVIRONMENT_SLUG}
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
-      changes: *main_pipeline_files
-      when: manual
-      allow_failure: true
-
-review-delete-s3:
-  extends:
-    - .minio-template
-    - .review-environment
-  needs:
-    - review-prepare-s3
-  environment:
-    action: stop
-  variables:
-    GIT_STRATEGY: none # Source: https://docs.gitlab.com/ee/ci/yaml/#environmentaction
-  before_script:
-    - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
-  script:
-    - mc rb --force geprog/bookyp-$CI_ENVIRONMENT_SLUG
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
-      changes: *main_pipeline_files
-      when: manual
-      allow_failure: true
-
-### Production deployment
-
-.production-environment:
-  environment:
-    name: app/production
-    url: https://app.${BASE_DOMAIN}/
-    deployment_tier: production
-  variables:
-    KUBE_NAMESPACE: bookyp-production
-  rules:
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-
-production-prepare:
-  extends:
-    - .kubectl-template
-    - .production-environment
-  needs:
-    # require tests to pass before starting production deployment
-    - unit-test-backend
-    - unit-test-frontend
-    - unit-test-core
-    - typecheck-backend
-    - typecheck-frontend
-    - typecheck-core
-    - lint-formatting
-    - lint-backend
-    - lint-frontend
-    - lint-core
-    - helm-lint
-    - spell-check
-    - e2e-run
-  environment:
-    action: prepare
-  script:
-    - kubectl create namespace $KUBE_NAMESPACE || true
-    - >
-      kubectl -n $KUBE_NAMESPACE create secret docker-registry bookyp-registry-secret
-      --docker-server=$REGISTRY
-      --docker-username=$REGISTRY_USER
-      --docker-password=$REGISTRY_PASSWORD
-      --save-config --dry-run=client
-      -o yaml | kubectl apply -f -
-    - kubectl -n $KUBE_NAMESPACE apply -f .ci/kube/production-certificate.yml
-
-production-prepare-s3:
-  extends:
-    - .minio-template
-    - .production-environment
-  needs:
-    - production-prepare
-  environment:
-    action: prepare
-  before_script:
-    - mc alias set geprog https://s3.geprog.com $S3_ACCESS_KEY $S3_SECRET_KEY
-  script:
-    - mc mb --ignore-existing geprog/bookyp-$CI_ENVIRONMENT_SLUG
-
-production-deployment:
-  extends:
-    - .kubectl-template
-    - .production-environment
-  needs:
-    - build-docker-frontend
-    - build-docker-backend
-    - production-prepare
-  script:
-    - >
-      helm upgrade --namespace $KUBE_NAMESPACE --create-namespace --install
-      --set environment.type=production
-      --set environment.name=$CI_ENVIRONMENT_SLUG
-      --set environment.url=$CI_ENVIRONMENT_URL
-      --set frontend.ingress.tls.secretName=bookyp-production-tls
-      --set frontend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
-      --set backend.ingress.tls.secretName=bookyp-production-tls
-      --set backend.image.tag=${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}
-      --set backend.database.password=$DEPLOY_DATABASE_PASSWORD
-      --set backend.keycloak.secret=$KEYCLOAK_SECRET
-      --set backend.jwtSecret=$BACKEND_JWT_SECRET
-      --set backend.mail.password=$DEPLOY_MAIL_PASSWORD
-      --set backend.payment.token=$GRINGOTTS_PROJECT_TOKEN
-      --set cdn.ingress.tls.secretName=bookyp-production-tls
-      --set cdn.s3.accessKey=$S3_ACCESS_KEY
-      --set cdn.s3.secretKey=$S3_SECRET_KEY
-      --set cdn.s3.bucket=bookyp-$CI_ENVIRONMENT_SLUG
-      --set payment.ingress.tls.secretName=bookyp-production-tls
-      --set payment.adminToken=$GRINGOTTS_ADMIN_TOKEN
-      --set payment.projectToken=$GRINGOTTS_PROJECT_TOKEN
-      --set payment.mollieToken=$MOLLIE_PRODUCTION_TOKEN
-      --set payment.database.password=$GRINGOTTS_DATABASE_PASSWORD
-      --set payment.jwtSecret=$PAYMENT_JWT_SECRET
-      --set payment.mail.password=$DEPLOY_MAIL_PASSWORD
-      --set gitlab.app=$CI_PROJECT_PATH_SLUG
-      --set gitlab.env=$CI_ENVIRONMENT_SLUG
-      bookyp-${CI_ENVIRONMENT_SLUG} .ci/charts/bookyp
-
-production-rollback:
-  extends:
-    - .kubectl-template
-    - .production-environment
-  needs:
-    - production-deployment
-  script:
-    - helm rollback --namespace $KUBE_NAMESPACE bookyp-production 0 # SOURCE: https://github.com/helm/helm/issues/1796
-  rules:
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-      when: manual
-      allow_failure: true
-
-################# NATIVE APPS #################
-
-.native-android-review:
-  image: thyrlian/android-sdk
-  needs:
-    - build-frontend
-  variables:
-    KUBERNETES_CPU_REQUEST: '0.6'
-    KUBERNETES_CPU_LIMIT: '1'
-    KUBERNETES_MEMORY_REQUEST: '1Gi'
-    KUBERNETES_MEMORY_LIMIT: '2Gi'
-  script:
-    - apt update
-    - apt install -y ruby-dev build-essential curl
-    - gem install bundler
-    - curl https://get.volta.sh | bash
-    - PATH=$PATH:~/.volta/bin
-    - volta install node@22 pnpm@9
-    - pnpm install --unsafe-perm
-    - cd packages/native
-    - pnpm run sync
-    - bundle install
-    - LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 bundle exec fastlane android buildDebug
-  artifacts:
-    paths:
-      - packages/native/android/app/build/outputs/apk/debug/app-debug.apk
-    expire_in: 1 day
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
-      changes:
-        - packages/frontend/**/*
-        - packages/native/**/*
-  interruptible: true
-
-.native-android-release:
-  image: thyrlian/android-sdk
-  needs:
-    - build-frontend
-  variables:
-    KUBERNETES_CPU_REQUEST: '0.6'
-    KUBERNETES_CPU_LIMIT: '1'
-    KUBERNETES_MEMORY_REQUEST: '1Gi'
-    KUBERNETES_MEMORY_LIMIT: '2Gi'
-  script:
-    - apt update
-    - apt install -y ruby-dev build-essential curl
-    - gem install bundler
-    - curl https://get.volta.sh | bash
-    - PATH=$PATH:~/.volta/bin
-    - volta install node@22 pnpm@9
-    - pnpm install --unsafe-perm
-    - cd packages/native
-    - pnpm run sync
-    - bundle install
-    - LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 bundle exec fastlane android production
-  rules:
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-      changes:
-        - packages/frontend/**/*
-        - packages/native/**/*
-  interruptible: true
-
 ################# DUMMY JOB #################
 
 dummy:
-  image: registry.geprog.com/docker.io/library/docker:latest
+  image: docker:latest
   script:
     - echo "I'm creating a successful pipeline for changes in files that otherwise don't create a pipeline."
   rules:
