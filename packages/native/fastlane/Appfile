@@ -1,5 +1,5 @@
 # For deployment from a development machine, uncomment the following lines and provide play store credentials in /packages/native/play-store-credentials.json
-# In CI/CD these values are provided by https://git.geprog.com/help/user/project/integrations/google_play
+# In CI/CD these values are provided by https://gitlab.com/help/user/project/integrations/google_play
 
 # json_key_file("play-store-credentials.json")
 # package_name("de.bookyp.app")
