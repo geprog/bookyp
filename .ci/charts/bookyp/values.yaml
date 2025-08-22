@@ -30,8 +30,6 @@ frontend:
   image:
     repository: registry.gitlab.com/geprog/bookyp/frontend
     pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is the chart appVersion.
-    tag: master
 
   podAnnotations: {}
   deploymentAnnotations: {}
@@ -61,7 +59,6 @@ backend:
   image:
     repository: registry.gitlab.com/geprog/bookyp/backend
     pullPolicy: IfNotPresent
-    tag: master
 
   jwtSecret: ''
 

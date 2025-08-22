@@ -120,7 +120,7 @@ build-docker-frontend:
   needs:
     - build-frontend
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_REF_SLUG
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/frontend
   script:
     - docker build -t $IMAGE_TAG -f .ci/frontend.Dockerfile .
   rules:
@@ -135,7 +135,7 @@ build-docker-fronted-release:
   needs:
     - build-frontend
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_REF_SLUG
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_TAG
   script:
     - docker build -t $IMAGE_TAG -f .ci/frontend.Dockerfile .
     - docker push $IMAGE_TAG
@@ -149,7 +149,7 @@ build-docker-backend:
   needs:
     - build-backend
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE/backend:$CI_COMMIT_REF_SLUG
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/backend
   script:
     - docker build -t $IMAGE_TAG -f .ci/backend.Dockerfile .
   rules:
@@ -164,7 +164,7 @@ build-docker-backend-release:
   needs:
     - build-backend
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE/backend:$CI_COMMIT_REF_SLUG
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/backend:$CI_COMMIT_TAG
   script:
     - docker build -t $IMAGE_TAG -f .ci/backend.Dockerfile .
     - docker push $IMAGE_TAG
@@ -384,7 +384,8 @@ helm-release:
     - helm-lint
   script:
     - helm registry login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - helm push .ci/charts/bookyp oci://$CI_REGISTRY_IMAGE/chart:$CI_COMMIT_TAG
+    - helm package --app-version $CI_COMMIT_TAG --version $CI_COMMIT_TAG .ci/charts/bookyp
+    - helm push bookyp-${CI_COMMIT_TAG}.tgz oci://$CI_REGISTRY_IMAGE/chart:$CI_COMMIT_TAG
   rules:
     - if: '$CI_COMMIT_TAG'
   interruptible: true
