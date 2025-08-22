@@ -14,7 +14,7 @@ spec:
   {{- end }}
   containers:
     - name: "{{ include "bookyp.fullname" . }}-backend-test-connection"
-      image: registry.geprog.com/docker.io/curlimages/curl:7.76.1
+      image: curlimages/curl:7.76.1
       args:
         # retry 60 times
         - --connect-timeout

@@ -28,13 +28,11 @@ variables:
       - .pnpm-store
     policy: pull # cache should normally only be read to save time
 
-.kubectl-template:
+.helm-template:
   image:
-    name: alpine/k8s:1.26.1
+    name: alpine/helm:3.18.5
     entrypoint: ['']
   dependencies: [] # don't load any artifacts
-  before_script:
-    - kubectl config use-context bookyp/bookyp:bookyp-k3s-runner
 
 .docker-build-template:
   image: docker:28.3.3
@@ -359,7 +357,7 @@ i18n:
 
 helm-lint:
   extends:
-    - .kubectl-template
+    - .helm-template
   needs: []
   script:
     - helm lint .ci/charts/bookyp
@@ -368,6 +366,19 @@ helm-lint:
       changes:
         - .ci/charts/**/*
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_COMMIT_TAG'
+  interruptible: true
+
+helm-release:
+  extends:
+    - .helm-template
+  needs:
+    - helm-lint
+  script:
+    - helm registry login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - helm push .ci/charts/bookyp $CI_REGISTRY_IMAGE/chart:$CI_COMMIT_TAG
+  rules:
+    - if: '$CI_COMMIT_TAG'
   interruptible: true
 
 ################# DUMMY JOB #################

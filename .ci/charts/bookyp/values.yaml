@@ -28,7 +28,7 @@ gitlab:
 # FRONTEND
 frontend:
   image:
-    repository: registry.geprog.com/bookyp/frontend
+    repository: registry.gitlab.com/geprog/bookyp/frontend
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: master
@@ -59,7 +59,7 @@ frontend:
 # BACKEND
 backend:
   image:
-    repository: registry.geprog.com/bookyp/backend
+    repository: registry.gitlab.com/geprog/bookyp/backend
     pullPolicy: IfNotPresent
     tag: master
 
@@ -117,7 +117,7 @@ backend:
 # S3
 cdn:
   image:
-    repository: registry.geprog.com/docker.io/anbraten/s3www
+    repository: anbraten/s3www
     pullPolicy: IfNotPresent
     tag: v0.6.8
 
