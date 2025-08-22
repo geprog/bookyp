@@ -159,7 +159,8 @@
     "Gemfile",
     "packages/native/fastlane/metadata/android/de-DE/**/*",
     ".cspell.json",
-    "lassie.json"
+    "lassie.json",
+    "**/*.avif"
   ],
   "enableFiletypes": ["ruby"],
   "overrides": [
