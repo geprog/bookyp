@@ -5,4 +5,3 @@ WORKDIR /app
 CMD ["node", "--enable-source-maps", "index.js"]
 COPY ./packages/backend/dist .
 RUN chown -R node:node /app
-RUN ls -la
