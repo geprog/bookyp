@@ -71,7 +71,7 @@ services:
       GOTENBERG_URL: http://gotenberg:3000
       PUBLIC_URL: $PAYMENT_PUBLIC_URL
       PORT: 7171
-      CREATE_PROJECT_DATA: '{ "name": "Bookyp", "mollieApiKey": "", "paymentProvider": "mocked", "apiToken": "supersecret-with-more-than-32-characters", "webhookUrl": "http://host.docker.internal:4000/payments/webhook", "invoiceData": { "email": "info@geprog.com", "name": "GEPROG GmbH", "addressLine1": "Schauenburgerstr. 116", "addressLine2": "string", "zipCode": "24118", "city": "Kiel", "country": "Germany", "logo": "https://geprog.com/logo.svg" } }'
+      CREATE_PROJECT_DATA: '{ "name": "Bookyp", "mollieApiKey": "", "paymentProvider": "mocked", "apiToken": "supersecret-with-more-than-32-characters", "webhookUrl": "http://host.docker.internal:4000/payments/webhook", "invoiceData": { "email": "info@example.com", "name": "Example GmbH", "addressLine1": "Schauenburgerstr. 116", "addressLine2": "string", "zipCode": "24118", "city": "Kiel", "country": "Germany", "logo": "https://example.com/logo.svg" } }'
     ports:
       - '127.0.0.1:7171:7171'
     depends_on:

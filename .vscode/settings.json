@@ -3,7 +3,6 @@
   "javascript.updateImportsOnFileMove.enabled": "never",
   "typescript.updateImportsOnFileMove.enabled": "never",
   "liveshare.populateGitCoAuthors": "never",
-  "gitlab.instanceUrl": "https://git.geprog.com",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "conventionalCommits.scopes": ["frontend", "backend", "core"],
@@ -14,6 +13,5 @@
   "volar.tsPlugin": true,
   "volar.codeLens.pugTools": false,
   "volar.codeLens.references": false,
-  "editor.formatOnSave": true,
-  "gitlens.remotes": [{ "domain": "git.geprog.com", "type": "GitLab" }]
+  "editor.formatOnSave": true
 }
