@@ -4,7 +4,7 @@ Bookyp is an open-source platform for managing and booking spaces, such as rooms
 
 > Try now at: [app.bookyp.com](https://app.bookyp.com)
 
-![Bookyp Demo Screenshots](./docs/screenshots.avif)
+![Bookyp Demo Screenshots](./docs/screenshots.png)
 
 ## Development
 
