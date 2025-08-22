@@ -53,6 +53,9 @@ frontend:
     #   cpu: 100m
     #   memory: 128Mi
 
+  affinity: {}
+  tolerations: []
+
 ###############################################################################
 # BACKEND
 backend:
@@ -63,23 +66,23 @@ backend:
   jwtSecret: ''
 
   database:
-    host: '10.0.0.200'
+    host: ''
     name: ''
     username: ''
     password: ''
 
   mail:
-    host: 'smtp.office365.com'
+    host: 'smtp.example.com'
     port: 587
-    username: 'hello@bookyp.de'
+    username: 'hello@example.com'
     password: ''
-    from: 'Bookyp <hello@bookyp.de>'
+    from: 'Bookyp <hello@example.com>'
     secure: 'false'
     requireTls: 'true'
 
   keycloak:
-    subdomain: 'auth.geprog.com/auth/realms/bookyp'
-    client: 'bookyp'
+    subdomain: ''
+    client: ''
     secret: ''
 
   payment:
@@ -110,6 +113,9 @@ backend:
     #   cpu: 100m
     #   memory: 128Mi
 
+  affinity: {}
+  tolerations: []
+
 ###############################################################################
 # S3
 cdn:
@@ -119,7 +125,7 @@ cdn:
     tag: v0.6.8
 
   s3:
-    address: "s3.geprog.com"
+    address: ""
     accessKey: ""
     secretKey: ""
     bucket: "bookyp-files"
@@ -146,6 +152,9 @@ cdn:
     #   cpu: 100m
     #   memory: 128Mi
 
+  affinity: {}
+  tolerations: []
+
 ###############################################################################
 # Payment (Gringotts)
 payment:
@@ -166,16 +175,16 @@ payment:
   jwtSecret: ""
 
   mail:
-    host: 'smtp.office365.com'
+    host: 'smtp.example.com'
     port: 587
-    username: 'hello@bookyp.de'
+    username: 'hello@example.com'
     password: ''
-    from: 'Bookyp <hello@bookyp.de>'
+    from: 'Bookyp <hello@example.com>'
     secure: 'false'
     requireTls: 'true'
 
   database:
-    host: '10.0.0.200'
+    host: ''
     name: ''
     username: ''
     password: ''
@@ -201,3 +210,6 @@ payment:
     # requests:
     #   cpu: 100m
     #   memory: 128Mi
+
+  affinity: {}
+  tolerations: []
