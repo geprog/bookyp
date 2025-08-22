@@ -385,7 +385,7 @@ helm-release:
   script:
     - helm registry login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - helm package --app-version $CI_COMMIT_TAG --version $CI_COMMIT_TAG .ci/charts/bookyp
-    - helm push bookyp-${CI_COMMIT_TAG}.tgz oci://$CI_REGISTRY_IMAGE/chart:$CI_COMMIT_TAG
+    - helm push bookyp-${CI_COMMIT_TAG}.tgz oci://$CI_REGISTRY_IMAGE/helm-charts
   rules:
     - if: '$CI_COMMIT_TAG'
   interruptible: true
