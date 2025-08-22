@@ -384,7 +384,7 @@ helm-release:
     - helm-lint
   script:
     - helm registry login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - helm push .ci/charts/bookyp $CI_REGISTRY_IMAGE/chart:$CI_COMMIT_TAG
+    - helm push .ci/charts/bookyp oci://$CI_REGISTRY_IMAGE/chart:$CI_COMMIT_TAG
   rules:
     - if: '$CI_COMMIT_TAG'
   interruptible: true
