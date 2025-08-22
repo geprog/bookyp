@@ -37,9 +37,9 @@ variables:
     - kubectl config use-context bookyp/bookyp:bookyp-k3s-runner
 
 .docker-build-template:
-  image: docker:24.0.5
+  image: docker:28.3.3
   services:
-    - docker:24.0.5-dind
+    - docker:28.3.3-dind
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
