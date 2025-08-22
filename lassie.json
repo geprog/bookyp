@@ -6,19 +6,7 @@
       "neededApprovals": [
         {
           "label": "*",
-          "users": [
-            "a.bracke",
-            "l.hass",
-            "m.heine",
-            "m.das",
-            "a.alamin",
-            "s.zia",
-            "h.mathavan",
-            "a.vaishnav",
-            "t.stier",
-            "j.schoenfeld",
-            "m.bakir"
-          ],
+          "users": ["l.hass", "m.heine", "s.zia", "h.mathavan", "a.vaishnav"],
           "atLeast": 1
         },
         {
