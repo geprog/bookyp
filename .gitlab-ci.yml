@@ -15,7 +15,7 @@ variables:
 .node-template:
   image: node:22-bookworm
   before_script:
-    - npm install -g pnpm@9
+    - corepack enable
     - pnpm config set store-dir .pnpm-store
     - time pnpm install --unsafe-perm
   cache:
@@ -44,7 +44,7 @@ variables:
 install-dependencies:
   extends: .node-template
   before_script:
-    - npm install -g pnpm@9
+    - corepack enable
     - pnpm config set store-dir .pnpm-store
   script:
     - time pnpm install --unsafe-perm # install dependencies
