@@ -33,11 +33,25 @@ variables:
   dependencies: [] # don't load any artifacts
 
 .docker-build-template:
-  image: docker:28.3.3
-  services:
-    - docker:28.3.3-dind
+  image:
+    name: moby/buildkit:v0.26.2-rootless@sha256:0ffa2fcf6b8757c47d569b3ef0f03f9d5eb3b9ff5ce68d858f994f89b749da0c
+    entrypoint: ['']
+  needs: [build]
+  variables:
+    DOCKER_AUTH_CONFIG: ''
+    BUILDKITD_FLAGS: --oci-worker-no-process-sandbox
   before_script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - mkdir -p ~/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > ~/.docker/config.json
+  script:
+    - |
+      buildctl-daemonless.sh build \
+        --frontend dockerfile.v0 \
+        --local context=. \
+        --local dockerfile=$DOCKERFILE \
+        --opt platform=linux/amd64 \
+        --output type=image,name=$IMAGE_TAG,push=${PUSH_IMAGE:-false}
+  interruptible: true
 
 ################# PREPARE #################
 
@@ -120,9 +134,8 @@ build-docker-frontend:
   needs:
     - build-frontend
   variables:
+    DOCKERFILE: ./.ci/frontend.Dockerfile
     IMAGE_TAG: $CI_REGISTRY_IMAGE/frontend
-  script:
-    - docker build -t $IMAGE_TAG -f .ci/frontend.Dockerfile .
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -135,10 +148,9 @@ build-docker-fronted-release:
   needs:
     - build-frontend
   variables:
+    DOCKERFILE: ./.ci/frontend.Dockerfile
     IMAGE_TAG: $CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_TAG
-  script:
-    - docker build -t $IMAGE_TAG -f .ci/frontend.Dockerfile .
-    - docker push $IMAGE_TAG
+    PUSH_IMAGE: 'true'
   rules:
     - if: '$CI_COMMIT_TAG'
   interruptible: true
@@ -149,9 +161,8 @@ build-docker-backend:
   needs:
     - build-backend
   variables:
+    DOCKERFILE: ./.ci/backend.Dockerfile
     IMAGE_TAG: $CI_REGISTRY_IMAGE/backend
-  script:
-    - docker build -t $IMAGE_TAG -f .ci/backend.Dockerfile .
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
       changes: *main_pipeline_files
@@ -164,10 +175,9 @@ build-docker-backend-release:
   needs:
     - build-backend
   variables:
+    DOCKERFILE: ./.ci/backend.Dockerfile
     IMAGE_TAG: $CI_REGISTRY_IMAGE/backend:$CI_COMMIT_TAG
-  script:
-    - docker build -t $IMAGE_TAG -f .ci/backend.Dockerfile .
-    - docker push $IMAGE_TAG
+    PUSH_IMAGE: 'true'
   rules:
     - if: '$CI_COMMIT_TAG'
   interruptible: true
