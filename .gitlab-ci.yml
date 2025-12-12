@@ -48,7 +48,8 @@ variables:
       buildctl-daemonless.sh build \
         --frontend dockerfile.v0 \
         --local context=. \
-        --frontend-opt filename=$DOCKERFILE \
+        --local dockerfile=.ci/ \
+        --opt filename=$DOCKERFILE \
         --opt platform=linux/amd64 \
         --output type=image,name=$IMAGE_TAG,push=${PUSH_IMAGE:-false}
   interruptible: true
@@ -134,7 +135,7 @@ build-docker-frontend:
   needs:
     - build-frontend
   variables:
-    DOCKERFILE: ./.ci/frontend.Dockerfile
+    DOCKERFILE: frontend.Dockerfile
     IMAGE_TAG: $CI_REGISTRY_IMAGE/frontend
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
@@ -148,7 +149,7 @@ build-docker-fronted-release:
   needs:
     - build-frontend
   variables:
-    DOCKERFILE: ./.ci/frontend.Dockerfile
+    DOCKERFILE: frontend.Dockerfile
     IMAGE_TAG: $CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_TAG
     PUSH_IMAGE: 'true'
   rules:
@@ -161,7 +162,7 @@ build-docker-backend:
   needs:
     - build-backend
   variables:
-    DOCKERFILE: ./.ci/backend.Dockerfile
+    DOCKERFILE: backend.Dockerfile
     IMAGE_TAG: $CI_REGISTRY_IMAGE/backend
   rules:
     - if: '$CI_MERGE_REQUEST_ID' # if pipeline runs on merge request
@@ -175,7 +176,7 @@ build-docker-backend-release:
   needs:
     - build-backend
   variables:
-    DOCKERFILE: ./.ci/backend.Dockerfile
+    DOCKERFILE: backend.Dockerfile
     IMAGE_TAG: $CI_REGISTRY_IMAGE/backend:$CI_COMMIT_TAG
     PUSH_IMAGE: 'true'
   rules:
