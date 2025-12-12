@@ -8,7 +8,7 @@
   ],
   "engines": {
     "node": ">=22.17.1",
-    "pnpm": "9"
+    "pnpm": "10"
   },
   "scripts": {
     "start": "dotenv -- pnpm --filter @bookyp/frontend --filter @bookyp/backend... --filter @bookyp/oauth-mock-server --parallel start",
@@ -48,10 +48,13 @@
       "feathers-hooks-common@7.0.0-pre.1>@feathersjs/commons": "5.0.0-pre.17",
       "feathers-mongoose>@feathersjs/commons": "5.0.0-pre.17",
       "@feathersjs/errors": "5.0.0-pre.17",
-      "@feathersjs/feathers": "5.0.0-pre.17"
+      "@feathersjs/feathers": "5.0.0-pre.17",
+      "@intlify/vite-plugin-vue-i18n@6.0.1>@intlify/bundle-utils": "7.0.0",
+      "@intlify/vite-plugin-vue-i18n@6.0.1>@intlify/shared": "10.0.0-rc.1"
     },
     "neverBuiltDependencies": [
       "fsevents"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.25.0+sha512.5e82639027af37cf832061bcc6d639c219634488e0f2baebe785028a793de7b525ffcd3f7ff574f5e9860654e098fe852ba8ac5dd5cefe1767d23a020a92f501"
 }
