@@ -48,7 +48,7 @@ variables:
       buildctl-daemonless.sh build \
         --frontend dockerfile.v0 \
         --local context=. \
-        --local dockerfile=$DOCKERFILE \
+        --frontend-opt filename=$DOCKERFILE \
         --opt platform=linux/amd64 \
         --output type=image,name=$IMAGE_TAG,push=${PUSH_IMAGE:-false}
   interruptible: true
