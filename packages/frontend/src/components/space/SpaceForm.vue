@@ -88,7 +88,7 @@
         class="relative flex flex-col w-full border-1 rounded-md overflow-hidden"
         :class="{ 'border-primary-normal': isOverDropZone }"
       >
-        <img v-if="spaceCreate.image" :src="spaceCreate.image" class="w-full object-cover aspect-video" />
+        <img v-if="imagePreviewUrl" :src="imagePreviewUrl" class="w-full object-cover aspect-video" />
         <div v-else class="w-full aspect-video flex flex-col gap-3 justify-center items-center">
           <Icon name="arrow-upload" />
           <span>{{ $t('upload_space_image') }}</span>
@@ -101,12 +101,12 @@
         />
 
         <FloatingButton
-          v-if="spaceCreate.image"
+          v-if="imagePreviewUrl"
           class="absolute fixed top-2 right-2"
           back-ground-color="white"
           data-test="clear-map-selection"
           icon="delete"
-          @click="spaceCreate.image = ''"
+          @click="clearImage"
         />
       </div>
       <input
@@ -180,12 +180,12 @@ const spaceCreate = reactive({
       emit('update:space', { ...space.value, email });
     },
   }),
-  image: computed({
+  imageKey: computed({
     get() {
-      return space.value.image;
+      return space.value.imageKey;
     },
-    set(image?: string) {
-      emit('update:space', { ...space.value, image });
+    set(imageKey?: string) {
+      emit('update:space', { ...space.value, imageKey });
     },
   }),
   phone: computed({
@@ -230,6 +230,13 @@ const feathers = useFeathers();
 
 const floorPlanFileInput = ref<HTMLInputElement>();
 
+// the signed url of a freshly uploaded image, before the space has been saved
+const uploadedImageUrl = ref<string>();
+
+const imagePreviewUrl = computed(() =>
+  spaceCreate.imageKey ? uploadedImageUrl.value || space.value.imageUrl : undefined,
+);
+
 async function onUpload(files: File[] | FileList | null) {
   if (files === null || files.length !== 1) {
     return;
@@ -255,7 +262,14 @@ async function onUpload(files: File[] | FileList | null) {
     return null;
   }
 
-  spaceCreate.image = fileData?.downloadUrl;
+  uploadedImageUrl.value = fileData.downloadUrl;
+  spaceCreate.imageKey = fileData.fileKey;
+}
+
+function clearImage() {
+  uploadedImageUrl.value = undefined;
+  // an empty string instead of undefined, so the cleared value actually reaches the backend
+  spaceCreate.imageKey = '';
 }
 
 const dropZoneRef = ref<HTMLElement>();

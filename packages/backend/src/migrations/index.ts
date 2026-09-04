@@ -23,6 +23,7 @@ import { v018_deleteImportedSpaces } from '~/migrations/v018_deleteImportedSpace
 import { v019_addScopeOfSpace } from '~/migrations/v019_addScopeOfSpace';
 import { v020_resetPlansToFree } from '~/migrations/v020_resetPlansToFree';
 import { v021_addRejectedByToInvitations } from '~/migrations/v021_addRejectedByToInvitations';
+import { v022_spaceImageToKey } from '~/migrations/v022_spaceImageToKey';
 
 // migrations are applied in the order defined here
 const migrations: Migration[] = [
@@ -47,6 +48,7 @@ const migrations: Migration[] = [
   v019_addScopeOfSpace,
   v020_resetPlansToFree,
   v021_addRejectedByToInvitations,
+  v022_spaceImageToKey,
 ];
 
 const migrationStore = new MongoMigrationStore();

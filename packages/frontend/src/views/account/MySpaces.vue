@@ -19,7 +19,12 @@
       :to="{ name: 'space', params: { spaceId: space._id } }"
     >
       <div class="sm:min-w-1/2 sm:w-1/2">
-        <img v-if="space.image" :src="space.image" class="h-32 md:h-full w-full object-cover aspect-video" />
+        <img
+          v-if="space.imageUrl"
+          :src="space.imageUrl"
+          class="h-32 md:h-full w-full object-cover aspect-video"
+          @error="refreshImage(space)"
+        />
         <img
           v-else
           src="/src/assets/img/space-placeholder.svg?url"
@@ -58,10 +63,12 @@ import AppContent from '~/components/layout/AppContent.vue';
 import DesktopMenu from '~/components/layout/DesktopMenu.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import ProgressIndicator from '~/components/ProgressIndicator.vue';
+import { useSpaceImage } from '~/compositions/space/useSpaceImage';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';
 import useFeathers from '~/compositions/useFeathers';
 import useFind from '~/compositions/useFind';
 
+const { refreshImage } = useSpaceImage();
 const { t } = useI18n();
 const feathers = useFeathers();
 

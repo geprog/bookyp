@@ -35,7 +35,8 @@ export class Space extends AbstractEntity {
   activeUntil?: Date; // a timestamp until which the plan is valid (undefined / past timestamp sets the plan back to default: free)
   subscription?: string;
   email?: string;
-  image?: string;
+  imageKey?: string; // s3 object key of the space image
+  imageUrl?: string; // short-lived signed download url for `imageKey`, added on read and never persisted
   coordinates?: { lng: number; lat: number } | null;
   importId?: string;
   phone?: string;

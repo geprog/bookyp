@@ -20,10 +20,7 @@ export async function cleanupUploadedFiles(context: HookContext<Application, Ser
     return;
   }
 
-  const { bucket, publicFileUrlPrefix } = getConfig().s3;
-  if (!publicFileUrlPrefix) {
-    throw new Error('Missing publicFileUrlPrefix in config');
-  }
+  const { bucket } = getConfig().s3;
   if (!bucket) {
     throw new Error('BACKEND_S3_BUCKET not configured');
   }
@@ -36,10 +33,15 @@ export async function cleanupUploadedFiles(context: HookContext<Application, Ser
       continue;
     }
 
-    const imageLink = space.image;
+    // a partial update that does not touch the image must not delete it
+    if (!('imageKey' in space)) {
+      continue;
+    }
+
+    const { imageKey } = space;
     const objectsStream = s3.listObjectsV2(bucket, `${spaceId}/`, true);
     objectsStream.on('data', (obj) => {
-      if (imageLink !== `${publicFileUrlPrefix}/${obj.name}`) {
+      if (imageKey !== obj.name) {
         void s3.removeObject(bucket, obj.name);
       }
     });

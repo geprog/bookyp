@@ -15,7 +15,12 @@
     />
 
     <div v-if="space.coordinates" ref="map" class="w-full h-64 mb-2 rounded-md overflow-hidden" />
-    <img v-if="space.image" :src="space.image" class="w-full object-cover rounded-md aspect-video" />
+    <img
+      v-if="space.imageUrl"
+      :src="space.imageUrl"
+      class="w-full object-cover rounded-md aspect-video"
+      @error="refreshImage(space)"
+    />
   </div>
 </template>
 
@@ -24,10 +29,13 @@ import { Model } from '@bookyp/core';
 import { computed, ref, toRef } from 'vue';
 
 import FormTextField from '~/components/inputs/FormTextField.vue';
+import { useSpaceImage } from '~/compositions/space/useSpaceImage';
 import { useMap } from '~/compositions/useMap';
 
 const props = defineProps<{ space?: Model.Space }>();
 const space = toRef(props, 'space');
+
+const { refreshImage } = useSpaceImage();
 
 const coordinates = computed(() => space.value?.coordinates);
 const map = ref<HTMLElement>();

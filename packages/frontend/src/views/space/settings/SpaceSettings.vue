@@ -6,9 +6,10 @@
   <AppContent v-if="space" class="!px-4 flex-col !h-full">
     <CardSmall
       class="h-16 w-full shadow-full mb-4"
-      :image-url="space.image"
+      :image-url="space.imageUrl"
       :title="space.name"
       :subtitle="space.address"
+      @image-error="refreshImage(space)"
     />
 
     <div v-for="menuItem in menuItems" :key="menuItem.icon">
@@ -32,9 +33,11 @@ import SpaceDesktopMenu from '~/components/layout/SpaceDesktopMenu.vue';
 import SpaceFooterMenu from '~/components/layout/SpaceFooterMenu.vue';
 import MenuItem from '~/components/menu/MenuItem.vue';
 import { useCurrentSpace } from '~/compositions/space/useCurrentSpace';
+import { useSpaceImage } from '~/compositions/space/useSpaceImage';
 import { openDialog } from '~/compositions/useDialog';
 import { useSubscription } from '~/compositions/useSubscription';
 
+const { refreshImage } = useSpaceImage();
 const { currentSpace: space } = useCurrentSpace();
 const { canAddNewBookings } = useSubscription();
 const { t } = useI18n();
