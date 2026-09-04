@@ -43,17 +43,6 @@ services:
       - 127.0.0.1:9000:9000
       - 127.0.0.1:9001:9001
 
-  s3www:
-    image: anbraten/s3www:v0.6.8
-    environment:
-      S3WWW_ADDRESS: '0.0.0.0:8080'
-      S3WWW_ENDPOINT: http://s3:9000
-      S3WWW_ACCESS_KEY: ${S3_ACCESS_KEY:-root}
-      S3WWW_SECRET_KEY: ${S3_SECRET_KEY:-supersecret}
-      S3WWW_BUCKET: ${S3_BUCKET:-bookyp-files}
-    ports:
-      - 127.0.0.1:9080:8080
-
   postgres:
     image: postgres:14.2
     volumes:

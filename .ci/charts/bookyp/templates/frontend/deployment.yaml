@@ -63,6 +63,6 @@ spec:
           resources:
             {{- toYaml .Values.frontend.resources | nindent 12 }}
       affinity:
-        {{- toYaml .Values.cdn.affinity | nindent 8 }}
+        {{- toYaml .Values.frontend.affinity | nindent 8 }}
       tolerations:
-        {{- toYaml .Values.cdn.tolerations | nindent 8 }}
+        {{- toYaml .Values.frontend.tolerations | nindent 8 }}
