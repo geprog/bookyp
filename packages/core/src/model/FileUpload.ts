@@ -5,5 +5,6 @@ export type FileUpload = {
   fileName: string;
   spaceId: Ref<Space>;
   uploadUrl?: string;
-  downloadUrl?: string;
+  fileKey?: string; // s3 object key the file is uploaded to, this is what gets persisted
+  downloadUrl?: string; // short-lived signed download url, only meant for an immediate preview
 };

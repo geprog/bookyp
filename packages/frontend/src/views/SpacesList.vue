@@ -55,7 +55,12 @@
       :to="{ name: 'space', params: { spaceId: space._id } }"
     >
       <div class="sm:min-w-1/2 sm:w-1/2">
-        <img v-if="space.image" :src="space.image" class="h-32 md:h-full w-full object-cover aspect-video" />
+        <img
+          v-if="space.imageUrl"
+          :src="space.imageUrl"
+          class="h-32 md:h-full w-full object-cover aspect-video"
+          @error="refreshImage(space)"
+        />
         <SpaceMap
           v-else-if="space.floorPlan.length || hasMapObjects(space._id)"
           :disable-control="true"
@@ -121,12 +126,14 @@ import MapObjects from '~/components/space/map/MapObjects.vue';
 import SpaceMap from '~/components/space/map/SpaceMap.vue';
 import { recentlyViewedSpaces } from '~/compositions/space/useCurrentSpace';
 import getMapObjects from '~/compositions/space/useMapObjects';
+import { useSpaceImage } from '~/compositions/space/useSpaceImage';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';
 import { useDateFilter } from '~/compositions/useDateFilter';
 import useFeathers from '~/compositions/useFeathers';
 import { useFeatureFlags } from '~/compositions/useFeatureFlags';
 import useFind from '~/compositions/useFind';
 
+const { refreshImage } = useSpaceImage();
 const { t } = useI18n();
 const feathers = useFeathers();
 const router = useRouter();

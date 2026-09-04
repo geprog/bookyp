@@ -44,8 +44,12 @@ const config = {
     accessKey: process.env.BACKEND_S3_ACCESS_KEY,
     secretKey: process.env.BACKEND_S3_SECRET_KEY,
     bucket: process.env.BACKEND_S3_BUCKET,
-    publicFileUrlPrefix: process.env.BACKEND_S3_PUBLIC_FILE_URL_PREFIX,
-    publicUploadUrlPrefix: process.env.BACKEND_S3_PUBLIC_UPLOAD_URL_PREFIX,
+    // endpoint the browser connects to. presigned urls are signed for this host
+    publicEndpoint: process.env.BACKEND_S3_PUBLIC_ENDPOINT || process.env.BACKEND_S3_ENDPOINT,
+    publicPort: parseInt(process.env.BACKEND_S3_PUBLIC_PORT || process.env.BACKEND_S3_PORT || '443'),
+    publicUseSSL: (process.env.BACKEND_S3_PUBLIC_SSL || process.env.BACKEND_S3_SSL || 'true') === 'true',
+    // signing timestamps are pinned to this window (in seconds) so download urls stay stable long enough for the browser to cache the file
+    downloadUrlWindow: parseInt(process.env.BACKEND_S3_DOWNLOAD_URL_WINDOW || '3600'),
   },
 };
 

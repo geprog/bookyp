@@ -1,36 +1,15 @@
 import { Application, Model } from '@bookyp/core';
 import { AdapterParams, AdapterService } from '@feathersjs/adapter-commons';
 import crypto from 'crypto';
-import { Client } from 'minio';
 
-import getConfig from '~/config';
+import { getDownloadUrl, getUploadUrl } from '~/lib/fileUrls';
 
 class UploadFileService extends AdapterService<Model.FileUpload> {
   app: Application;
-  s3: Client;
-  bucket: string;
-  publicFileUrlPrefix: string;
-  publicUploadUrlPrefix?: string;
 
   constructor(app: Application) {
     super({});
     this.app = app;
-    this.s3 = app.get('s3') as Client;
-
-    const config = getConfig();
-    const { bucket, publicFileUrlPrefix, publicUploadUrlPrefix } = config.s3;
-
-    if (!bucket) {
-      throw new Error('BACKEND_S3_BUCKET not configured');
-    }
-    this.bucket = bucket;
-
-    if (!publicFileUrlPrefix) {
-      throw new Error('BACKEND_S3_PUBLIC_FILE_URL_PREFIX not configured');
-    }
-    this.publicFileUrlPrefix = publicFileUrlPrefix;
-
-    this.publicUploadUrlPrefix = publicUploadUrlPrefix;
   }
 
   async create(data: Partial<Model.FileUpload>, params?: AdapterParams): Promise<Model.FileUpload>;
@@ -52,21 +31,14 @@ class UploadFileService extends AdapterService<Model.FileUpload> {
       }
 
       const randomId = crypto.randomBytes(16).toString('hex');
-      const sanitizedFileName = `${file.spaceId}/${randomId}-${file.fileName.replaceAll(/\s/g, '.')}`;
-
-      const expiry = 60 * 15; // 15 minutes
-      let uploadUrl = await this.s3.presignedPutObject(this.bucket, sanitizedFileName, expiry);
-
-      // Fix for gitpod environments
-      if (this.publicUploadUrlPrefix) {
-        uploadUrl = uploadUrl.replace(/^http(s)?:\/\/.+?\//, `${this.publicUploadUrlPrefix}/`);
-      }
+      const fileKey = `${file.spaceId}/${randomId}-${file.fileName.replaceAll(/\s/g, '.')}`;
 
       res.push({
         fileName: file.fileName,
         spaceId: file.spaceId,
-        uploadUrl,
-        downloadUrl: `${this.publicFileUrlPrefix}/${sanitizedFileName}`,
+        fileKey,
+        uploadUrl: await getUploadUrl(this.app, fileKey),
+        downloadUrl: await getDownloadUrl(this.app, fileKey),
       });
     }
 

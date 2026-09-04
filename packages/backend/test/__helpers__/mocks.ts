@@ -54,8 +54,10 @@ export const sampleConfig = <Config>{
     endpoint: 'https://s3.eu-central-1.amazonaws.com',
     port: 443,
     useSSL: true,
-    publicFileUrlPrefix: 'https://s3.eu-central-1.amazonaws.com/bookyp',
-    publicUploadUrlPrefix: 'https://s3.eu-central-1.amazonaws.com/bookyp',
+    publicEndpoint: 'https://s3.eu-central-1.amazonaws.com',
+    publicPort: 443,
+    publicUseSSL: true,
+    downloadUrlWindow: 3600,
     secretKey: 'i-wont-tell-you',
   },
   mail: {

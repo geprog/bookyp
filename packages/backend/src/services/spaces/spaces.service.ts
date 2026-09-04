@@ -8,11 +8,13 @@ import { cancelSubscription, updateSpaceSubscription } from '~/lib/paymentsApi';
 import { getUser } from '~/utils';
 
 import addFrequencyCount from './hooks/addFrequencyCount';
+import addImageUrl from './hooks/addImageUrl';
 import addIsUserAdmin from './hooks/addIsUserAdmin';
 import addIsUserMember from './hooks/addIsUserMember';
 import addSpaceMemberFields from './hooks/addSpaceMemberFields';
 import { applyFreeBookableFilter } from './hooks/applyFreeBookableFilter';
 import { cleanupUploadedFiles } from './hooks/cleanupUploadedFiles';
+import removeImageUrlFromData from './hooks/removeImageUrlFromData';
 import removePlanFromCreate from './hooks/removePlanFromCreate';
 
 const SpaceSchema = new Schema<Model.Space>({
@@ -31,7 +33,7 @@ const SpaceSchema = new Schema<Model.Space>({
   subscription: { type: String },
   activeUntil: { type: Date, default: undefined },
   email: { type: String },
-  image: { type: String },
+  imageKey: { type: String },
   deleted: { type: Boolean },
   coordinates: { lng: Number, lat: Number },
   importId: { type: String },
@@ -62,7 +64,7 @@ export default (app: Application): void => {
   app.use(name, new Service<Model.Space>(options));
   app.service(name).hooks({
     before: {
-      all: [softDelete, applyFreeBookableFilter],
+      all: [softDelete, applyFreeBookableFilter, removeImageUrlFromData],
       create: [removePlanFromCreate],
       remove: [
         async (ctx) => {
@@ -77,7 +79,14 @@ export default (app: Application): void => {
       ],
     },
     after: {
-      all: [addSpaceMemberFields, cleanupUploadedFiles, addFrequencyCount, addIsUserMember, addIsUserAdmin],
+      all: [
+        addSpaceMemberFields,
+        cleanupUploadedFiles,
+        addFrequencyCount,
+        addIsUserMember,
+        addIsUserAdmin,
+        addImageUrl,
+      ],
       patch: [
         // update subscription if plan changed by super admin
         async (ctx) => {

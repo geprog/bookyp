@@ -9,9 +9,10 @@
     <router-link :to="{ name: 'space', params: { spaceId: selectedSpaceId } }" class="flex justify-center">
       <CardSmall
         class="h-16 w-3/4 max-w-128 mb-4"
-        :image-url="selectedSpace.image"
+        :image-url="selectedSpace.imageUrl"
         :title="selectedSpace.name"
         :subtitle="selectedSpace.address"
+        @image-error="selectedSpace && refreshImage(selectedSpace)"
       >
         <IconButton
           v-if="isAuthenticated"
@@ -42,6 +43,7 @@ import CardSmall from '~/components/layout/CardSmall.vue';
 import DesktopMenu from '~/components/layout/DesktopMenu.vue';
 import FooterMenu from '~/components/layout/FooterMenu.vue';
 import ToolbarHeader from '~/components/layout/toolbars/ToolbarHeader.vue';
+import { useSpaceImage } from '~/compositions/space/useSpaceImage';
 import { isAuthenticated, user } from '~/compositions/useAuthentication';
 import { useDateFilter } from '~/compositions/useDateFilter';
 import useFeathers from '~/compositions/useFeathers';
@@ -50,6 +52,7 @@ import { useMap } from '~/compositions/useMap';
 
 const router = useRouter();
 const feathers = useFeathers();
+const { refreshImage } = useSpaceImage();
 
 const props = defineProps<{
   selectedSpaceId?: Model.Ref<Model.Space>;

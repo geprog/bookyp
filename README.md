@@ -8,10 +8,6 @@ Bookyp is an open-source platform for managing and booking spaces, such as rooms
 
 ## Development
 
-The easiest way to start development is to use Gitpod:
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://gitlab.com/geprog/bookyp/)
-
 ### Manual Setup
 
 - copy env-file: `cp docs/.env.example .env`
