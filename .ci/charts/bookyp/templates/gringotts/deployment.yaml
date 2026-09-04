@@ -74,6 +74,6 @@ spec:
         - name: data-volume
           emptyDir:
       affinity:
-        {{- toYaml .Values.cdn.affinity | nindent 8 }}
+        {{- toYaml .Values.payment.affinity | nindent 8 }}
       tolerations:
-        {{- toYaml .Values.cdn.tolerations | nindent 8 }}
+        {{- toYaml .Values.payment.tolerations | nindent 8 }}

@@ -30,6 +30,6 @@ spec:
         - 'https://{{ include "bookyp.frontendURL" . }}'
   restartPolicy: Never
   affinity:
-    {{- toYaml .Values.cdn.affinity | nindent 4 }}
+    {{- toYaml .Values.frontend.affinity | nindent 4 }}
   tolerations:
-    {{- toYaml .Values.cdn.tolerations | nindent 4 }}
+    {{- toYaml .Values.frontend.tolerations | nindent 4 }}

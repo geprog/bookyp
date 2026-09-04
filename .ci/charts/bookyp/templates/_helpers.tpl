@@ -51,14 +51,6 @@ app.kubernetes.io/package: frontend
 {{- end }}
 
 {{/*
-Cdn selector labels
-*/}}
-{{- define "bookyp.selectorLabelsCdn" -}}
-{{ include "bookyp.selectorLabels" . }}
-app.kubernetes.io/package: cdn
-{{- end }}
-
-{{/*
 Payment selector labels
 */}}
 {{- define "bookyp.selectorLabelsPayment" -}}
@@ -100,19 +92,6 @@ because some Kubernetes name fields are limited to this (by the DNS naming spec)
 {{- printf "api.bookyp.de" }}
 {{- else }}
 {{- printf "%s.api.bookyp.de" (.Values.environment.name | trunc 63 | trimSuffix "-") }}
-{{- end }}
-{{- end }}
-
-{{/*
-Create fully qualified cdn URL.
-We truncate the environment name at 63 chars,
-because some Kubernetes name fields are limited to this (by the DNS naming spec).
-*/}}
-{{- define "bookyp.cdnURL" -}}
-{{- if eq .Values.environment.type "production" }}
-{{- printf "cdn.bookyp.de" }}
-{{- else }}
-{{- printf "%s.cdn.bookyp.de" (.Values.environment.name | trunc 63 | trimSuffix "-") }}
 {{- end }}
 {{- end }}
 
