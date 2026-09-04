@@ -15,6 +15,7 @@ export const preventOverlappingBookings = async (
 
   const existingBookings = (await service.find({
     query: {
+      _id: { $ne: data._id },
       bookable: data.bookable,
       start: { $lt: data.end },
       end: { $gt: data.start },
