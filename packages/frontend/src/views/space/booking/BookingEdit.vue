@@ -1,7 +1,7 @@
 <template>
   <Header :title="t('book_a_bookable', { bookable: bookable?.name })" :back-fallback="{ name: 'bookables-map' }">
     <template #right>
-      <IconButton type="submit" form="booking" icon="check-mark" />
+      <IconButton type="submit" form="booking" icon="check-mark" :disabled="isBookingOverlapping" />
     </template>
   </Header>
 
@@ -14,20 +14,30 @@
       <DateRangePicker
         v-model:start="bookingDetails.start"
         v-model:end="bookingDetails.end"
-        :bookings="[]"
+        :bookings="bookings"
         :initial-date="combinedFilter.start"
-      />
+        @booking:click="openBooking"
+      >
+        <template v-if="isBookingOverlapping" #info-box>
+          <InfoBox class="mr-2 flex flex-col" :class="{ 'bg-red-400 text-white': isBookingOverlapping }">
+            <p>{{ t('booking_overlaps') }}</p>
+          </InfoBox>
+        </template>
+      </DateRangePicker>
     </form>
   </AppContent>
 </template>
 
 <script lang="ts" setup>
 import { Model } from '@bookyp/core';
+import dayjs from 'dayjs';
 import { computed, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
 import IconButton from '~/components/buttons/IconButton.vue';
 import Header from '~/components/headers/Header.vue';
+import InfoBox from '~/components/InfoBox.vue';
 import DateRangePicker from '~/components/inputs/DateRangePicker.vue';
 import LabelField from '~/components/LabelField.vue';
 import AppContent from '~/components/layout/AppContent.vue';
@@ -44,6 +54,7 @@ const props = defineProps<{
 }>();
 
 const { t } = useI18n();
+const router = useRouter();
 
 const booking = toRef(props, 'booking');
 const bookingId = toRef(props, 'bookingId');
@@ -60,6 +71,30 @@ const bookable = computed(() =>
   ),
 );
 
+const { data: bookings } = useFind(
+  'bookings',
+  computed(() => {
+    if (!bookableId.value) {
+      return undefined;
+    }
+    return {
+      query: {
+        _id: { $ne: bookingId.value },
+        bookable: bookableId.value,
+      },
+    };
+  }),
+);
+
+const isBookingOverlapping = computed(() =>
+  bookings.value.some(
+    (b) =>
+      bookingDetails.value &&
+      dayjs(b.start).isBefore(bookingDetails.value.end) &&
+      dayjs(b.end).isAfter(bookingDetails.value.start),
+  ),
+);
+
 const { back } = useBack();
 
 const feathers = useFeathers();
@@ -68,4 +103,8 @@ const submit = async () => {
   await feathers.service('bookings').update(bookingId.value, { ...bookingDetails.value });
   void back({ name: 'account-bookings' });
 };
+
+async function openBooking(_bookingId: Model.Ref<Model.Booking>) {
+  await router.push({ name: 'account-booking', params: { bookingId: _bookingId } });
+}
 </script>

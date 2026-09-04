@@ -40,7 +40,7 @@ export default (app: Application): void => {
       all: [softDelete],
       create: [checkIsRequest, preventInvalidDateRange, preventOverlappingBookings],
       remove: [sendUserBookingNotificationMail],
-      update: [checkIsRequest, sendUserBookingNotificationMail],
+      update: [checkIsRequest, preventInvalidDateRange, preventOverlappingBookings, sendUserBookingNotificationMail],
       patch: [checkIsRequest, acceptRequest, sendRequestNotificationMail],
     },
     after: {
