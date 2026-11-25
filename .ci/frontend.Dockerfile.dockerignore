@@ -1,4 +1,0 @@
-*
-!.ci/frontend/
-!packages/frontend/dist/
-!packages/frontend/src/assets/app-config.template.js

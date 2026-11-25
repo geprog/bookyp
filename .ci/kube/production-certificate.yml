@@ -8,8 +8,6 @@ spec:
   commonName: app.bookyp.de
   dnsNames:
     - app.bookyp.de
-    - api.bookyp.de
-    - payment.bookyp.de
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

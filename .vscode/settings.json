@@ -1,17 +1,55 @@
 {
-  "eslint.workingDirectories": ["./packages/*/"],
-  "javascript.updateImportsOnFileMove.enabled": "never",
-  "typescript.updateImportsOnFileMove.enabled": "never",
-  "liveshare.populateGitCoAuthors": "never",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "conventionalCommits.scopes": ["frontend", "backend", "core"],
-  "i18n-ally.keystyle": "nested",
-  "i18n-ally.localesPaths": "packages/frontend/src/locales",
-  "i18n-ally.sortKeys": true,
-  "i18n-ally.enabledFrameworks": ["vue"],
-  "volar.tsPlugin": true,
-  "volar.codeLens.pugTools": false,
-  "volar.codeLens.references": false,
-  "editor.formatOnSave": true
+  // ########## START - eslint formatting options (https://github.com/antfu/eslint-config?tab=readme-ov-file#ide-support-auto-fix-on-save) ##############
+  // Disable the default formatter, use eslint instead
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+
+  // Auto fix
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
+
+  // Enable eslint for all supported languages
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml",
+    "toml",
+    "xml",
+    "gql",
+    "graphql",
+    "astro",
+    "svelte",
+    "css",
+    "less",
+    "scss",
+    "pcss",
+    "postcss"
+  ],
+  // ########## END - eslint formatting options ###############
+
+  // further configs
+  "editor.inlineSuggest.enabled": true,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.classAttributes": ["class", "ui"],
+  "tailwindCSS.experimental.classRegex": [
+    ["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ],
+  "i18n-ally.localesPaths": [
+    "i18n",
+    "i18n/locales"
+  ]
 }

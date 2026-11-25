@@ -1,5 +1,2 @@
-1. Check the frontend by opening these URL:
-https://{{ include "bookyp.frontendURL" . }}
-
-2. Check the backend by opening these URL:
-https://{{ include "bookyp.backendURL" . }}
+Check the app by opening this URL:
+https://{{ include "bookyp.appURL" . }}

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: bookyp
-description: A Helm chart for Kubernetes to deploy the bookyp app and api
+description: A Helm chart for Kubernetes to deploy the bookyp app
 type: application
-version: 0.0.1 # chart semver2 version
-appVersion: "0.0.1" # app version
+version: 2.0.0 # chart semver2 version
+appVersion: 2.0.0 # app version
 icon: https://gitlab.com/uploads/-/system/project/avatar/73551187/pwa-maskable-192x192.png

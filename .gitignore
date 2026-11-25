@@ -1,26 +1,36 @@
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+*.tsbuildinfo
+
+# Node dependencies
+node_modules
+
 # Logs
 logs
 *.log
 
-# Env files
-.env
-!.devcontainer/.env
-
-# Dependency directories
-node_modules
+# Misc
 .pnpm-store
-
-# Build directories
-dist
-*.tsbuildinfo
-
-# eslint stuff
-.eslintcache
-
-# Coverage reports
-coverage/
-
-# Jest Junit Reports
-junit.xml
-
+.pnpm-cache
+.DS_Store
+.fleet
 .idea
+
+# Local env files
+.env
+.env.*
+export.env
+!.env.example
+
+# playwright report
+playwright-report/
+test-results/
+
+
+# playwright auth state
+e2e/.auth/

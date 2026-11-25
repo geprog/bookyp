@@ -35,27 +35,11 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-Backend selector labels
+App selector labels
 */}}
-{{- define "bookyp.selectorLabelsBackend" -}}
+{{- define "bookyp.selectorLabelsApp" -}}
 {{ include "bookyp.selectorLabels" . }}
-app.kubernetes.io/package: backend
-{{- end }}
-
-{{/*
-Frontend selector labels
-*/}}
-{{- define "bookyp.selectorLabelsFrontend" -}}
-{{ include "bookyp.selectorLabels" . }}
-app.kubernetes.io/package: frontend
-{{- end }}
-
-{{/*
-Payment selector labels
-*/}}
-{{- define "bookyp.selectorLabelsPayment" -}}
-{{ include "bookyp.selectorLabels" . }}
-app.kubernetes.io/package: payment
+app.kubernetes.io/package: app
 {{- end }}
 
 {{/*
@@ -70,52 +54,15 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Create fully qualified frontend URL.
+Create fully qualified app URL.
 We truncate the environment name at 63 chars,
 because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "bookyp.frontendURL" -}}
+{{- define "bookyp.appURL" -}}
 {{- if eq .Values.environment.type "production" }}
 {{- printf "app.bookyp.de" }}
 {{- else }}
 {{- printf "%s.app.bookyp.de" (.Values.environment.name | trunc 63 | trimSuffix "-") }}
-{{- end }}
-{{- end }}
-
-{{/*
-Create fully qualified backend URL.
-We truncate the environment name at 63 chars,
-because some Kubernetes name fields are limited to this (by the DNS naming spec).
-*/}}
-{{- define "bookyp.backendURL" -}}
-{{- if eq .Values.environment.type "production" }}
-{{- printf "api.bookyp.de" }}
-{{- else }}
-{{- printf "%s.api.bookyp.de" (.Values.environment.name | trunc 63 | trimSuffix "-") }}
-{{- end }}
-{{- end }}
-
-{{/*
-Create fully qualified payment URL.
-We truncate the environment name at 63 chars,
-because some Kubernetes name fields are limited to this (by the DNS naming spec).
-*/}}
-{{- define "bookyp.paymentURL" -}}
-{{- if eq .Values.environment.type "production" }}
-{{- printf "payment.bookyp.de" }}
-{{- else }}
-{{- printf "%s.payment.bookyp.de" (.Values.environment.name | trunc 63 | trimSuffix "-") }}
-{{- end }}
-{{- end }}
-
-{{/*
-Define the nodeType the environment should run on. Will effect pod affinity and tolerations.
-*/}}
-{{- define "bookyp.nodeType" -}}
-{{- if eq .Values.environment.type "production" }}
-{{- printf "production" }}
-{{- else }}
-{{- printf "development" }}
 {{- end }}
 {{- end }}
 
@@ -132,21 +79,10 @@ app.gitlab.com/env: {{ .Values.gitlab.env | quote }}
 {{/*
 Combine DB credentials to a mongo database URI
 */}}
-{{- define "bookyp.backendDatabaseURI" -}}
-{{- $dbHost := .Values.backend.database.host -}}
-{{- $dbName := default (include "bookyp.fullname" .) .Values.backend.database.name -}}
-{{- $dbUser := default (include "bookyp.fullname" .) .Values.backend.database.username -}}
-{{- $dbPassword := .Values.backend.database.password -}}
+{{- define "bookyp.databaseURI" -}}
+{{- $dbHost := .Values.app.database.host -}}
+{{- $dbName := default (include "bookyp.fullname" .) .Values.app.database.name -}}
+{{- $dbUser := default (include "bookyp.fullname" .) .Values.app.database.username -}}
+{{- $dbPassword := .Values.app.database.password -}}
 {{ printf "mongodb://%s:%s@%s/%s" $dbUser $dbPassword $dbHost $dbName }}
-{{- end }}
-
-{{/*
-Combine DB credentials to a postgres database URI
-*/}}
-{{- define "bookyp.paymentDatabaseURI" -}}
-{{- $dbHost := .Values.payment.database.host -}}
-{{- $dbName := default (include "bookyp.fullname" .) .Values.payment.database.name -}}
-{{- $dbUser := default (include "bookyp.fullname" .) .Values.payment.database.username -}}
-{{- $dbPassword := .Values.payment.database.password -}}
-{{ printf "postgres://%s:%s@%s/%s" $dbUser $dbPassword $dbHost $dbName }}
 {{- end }}
