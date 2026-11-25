@@ -1,8 +1,0 @@
-// Vitest Snapshot v1
-
-exports[`Bookable view > should render correctly 1`] = `
-"<header-stub title=\\"bookable_details\\" backfallback=\\"[object Object]\\" disablefallback=\\"false\\"></header-stub>
-<app-content-stub>
-  <bookable-form-stub bookable=\\"[object Object]\\" data-test=\\"bookable-form\\"></bookable-form-stub>
-</app-content-stub>"
-`;

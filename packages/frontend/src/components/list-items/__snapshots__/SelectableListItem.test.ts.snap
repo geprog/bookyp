@@ -1,3 +1,0 @@
-// Vitest Snapshot v1
-
-exports[`SelectableListItem component > should render correctly 1`] = `"<icon-list-item-stub label=\\"title-value\\" description=\\"description\\" icon=\\"radio-checked\\" iconcolor=\\"text-primary-normal\\" data-test=\\"selectable-list-item\\" class=\\"bg-primary-light\\"></icon-list-item-stub>"`;

@@ -24,46 +24,18 @@ gitlab:
   app: ''
   env: ''
 
-###############################################################################
-# FRONTEND
-frontend:
+# ##############################################################################
+# APP (frontend and api in one deployment)
+app:
   image:
-    repository: registry.gitlab.com/geprog/bookyp/frontend
+    repository: registry.gitlab.com/geprog/bookyp/app
     pullPolicy: IfNotPresent
 
-  podAnnotations: {}
-  deploymentAnnotations: {}
+  # random string with at least 32 characters used to seal the session cookie (required, the chart fails without it)
+  sessionPassword: ''
 
-  ingress:
-    annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: 'true'
-    tls:
-      secretName: bookyp-tls
-
-  resources: {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
-
-  affinity: {}
-  tolerations: []
-
-###############################################################################
-# BACKEND
-backend:
-  image:
-    repository: registry.gitlab.com/geprog/bookyp/backend
-    pullPolicy: IfNotPresent
-
-  jwtSecret: ''
+  # comma separated list of e-mail addresses with super admin rights
+  superAdminEmails: 'hello@bookyp.de,a.bracke@geprog.com'
 
   database:
     host: ''
@@ -72,113 +44,54 @@ backend:
     password: ''
 
   mail:
-    host: 'smtp.example.com'
+    host: smtp.example.com
     port: 587
-    username: 'hello@example.com'
+    username: hello@example.com
     password: ''
-    from: 'Bookyp <hello@example.com>'
+    from: Bookyp <hello@example.com>
     secure: 'false'
     requireTls: 'true'
 
   keycloak:
-    subdomain: ''
+    # e.g. https://auth.geprog.com/auth (the url the browser is redirected to)
+    serverUrl: ''
+    # e.g. http://keycloak.keycloak.svc:8080/auth, optional cluster internal url for the token exchange
+    serverUrlInternal: ''
+    realm: bookyp
     client: ''
     secret: ''
 
   payment:
-    url: ''
-    token: ''
+    # mock | mollie
+    provider: mollie
+    mollieApiKey: ''
+    vatRate: 19
 
   s3:
-    address: ''
+    endpoint: ''
+    port: 443
+    useSsl: 'true'
     accessKey: ''
     secretKey: ''
-    bucket: 'bookyp-files'
-    # window in seconds the signed download urls stay stable (and cacheable) for
-    downloadUrlWindow: 3600
+    bucket: bookyp-files
 
-  timezone: 'Europe/Berlin'
+  timezone: Europe/Berlin
 
   podAnnotations: {}
   deploymentAnnotations: {}
 
   ingress:
     annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: 'true'
     tls:
       secretName: bookyp-tls
 
   resources: {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
-
-  affinity: {}
-  tolerations: []
-
-###############################################################################
-# Payment (Gringotts)
-payment:
-  image:
-    repository: ghcr.io/geprog/gringotts
-    pullPolicy: IfNotPresent
-    tag: 3.2.0
-
-  gotenberg:
-    image:
-      repository: gotenberg/gotenberg
-      pullPolicy: IfNotPresent
-      tag: 7.8.1
-
-  adminToken: ""
-  mollieToken: ""
-  projectToken: ""
-  jwtSecret: ""
-
-  mail:
-    host: 'smtp.example.com'
-    port: 587
-    username: 'hello@example.com'
-    password: ''
-    from: 'Bookyp <hello@example.com>'
-    secure: 'false'
-    requireTls: 'true'
-
-  database:
-    host: ''
-    name: ''
-    username: ''
-    password: ''
-
-  podAnnotations: {}
-  deploymentAnnotations: {}
-
-  ingress:
-    annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: 'true'
-    tls:
-      secretName: bookyp-tls
-
-  resources: {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
+  # limits:
+  #   cpu: 500m
+  #   memory: 512Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 256Mi
 
   affinity: {}
   tolerations: []

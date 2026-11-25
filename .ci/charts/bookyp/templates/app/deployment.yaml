@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ include "bookyp.fullname" . }}-app"
+  labels:
+    {{- include "bookyp.labels" . | nindent 4 }}
+  {{- if or (and .Values.gitlab.app .Values.gitlab.env) .Values.app.deploymentAnnotations }}
+  annotations:
+    {{- with .Values.app.deploymentAnnotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- include "bookyp.gitlabAnnotations" . | nindent 4 }}
+  {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "bookyp.selectorLabelsApp" . | nindent 6 }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/app/configmap.yml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/app/secret.yml") . | sha256sum }}
+        {{- with .Values.app.podAnnotations }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- include "bookyp.gitlabAnnotations" . | nindent 8 }}
+      labels:
+        {{- include "bookyp.selectorLabelsApp" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "bookyp.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.app.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: "{{ include "bookyp.fullname" . }}-app-config"
+            - secretRef:
+                name: "{{ include "bookyp.fullname" . }}-app-secret"
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            initialDelaySeconds: 10
+          resources:
+            {{- toYaml .Values.app.resources | nindent 12 }}
+      affinity:
+        {{- toYaml .Values.app.affinity | nindent 8 }}
+      tolerations:
+        {{- toYaml .Values.app.tolerations | nindent 8 }}

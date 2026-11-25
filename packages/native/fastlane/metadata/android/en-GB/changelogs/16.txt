@@ -1,2 +1,0 @@
-- booking requests for spaces
-- UI improvements

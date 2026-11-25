@@ -1,32 +1,21 @@
 {
   "name": "bookyp",
-  // add compose file "docker-compose.nomount.yml" to the list below to use named volumes instead of local file system mounts
   "dockerComposeFile": ["docker-compose.devcontainer.yml", "docker-compose.services.yml"],
   "service": "app",
-  "remoteUser": "node",
   "workspaceFolder": "/workspace",
-  // Use 'settings' to set *default* container specific settings.json values on container create.
-  // You can edit these settings after create using File > Preferences > Settings > Remote.
-  "settings": {
-    "terminal.integrated.defaultProfile.linux": "zsh"
-  },
-  // Copy the contents to the correct location and set permissions
-  "extensions": [
-    "eamodio.gitlens",
-    "mhutchie.git-graph",
-    "editorconfig.editorconfig",
-    "ms-vsliveshare.vsliveshare",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "ms-azuretools.vscode-docker",
-    "gitlab.gitlab-workflow",
-    "stylelint.vscode-stylelint",
-    "voorjaar.windicss-intellisense",
-    "lokalise.i18n-ally",
-    "Vue.volar",
-    "streetsidesoftware.code-spell-checker",
-    "streetsidesoftware.code-spell-checker-german",
-    "ms-playwright.playwright"
-  ],
-  "forwardPorts": [8081]
+  "remoteUser": "node",
+  "forwardPorts": [3000, 8025, 8081, 9001],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "Vue.volar",
+        "bradlc.vscode-tailwindcss",
+        "lokalise.i18n-ally",
+        "streetsidesoftware.code-spell-checker",
+        "streetsidesoftware.code-spell-checker-german",
+        "ms-playwright.playwright"
+      ]
+    }
+  }
 }

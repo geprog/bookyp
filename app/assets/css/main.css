@@ -1,0 +1,180 @@
+@import 'tailwindcss';
+@import '@nuxt/ui';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/700.css';
+@import 'vue-toastification/dist/index.css';
+
+@theme {
+  --font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
+
+  /* v1 used the Tailwind 2 palette (via WindiCSS), Tailwind 4 colors are slightly different */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-amber-700: #b45309;
+  --color-amber-800: #92400e;
+  --color-amber-900: #78350f;
+  --color-orange-50: #fff7ed;
+  --color-orange-100: #ffedd5;
+  --color-orange-200: #fed7aa;
+  --color-orange-300: #fdba74;
+  --color-orange-400: #fb923c;
+  --color-orange-500: #f97316;
+  --color-orange-600: #ea580c;
+  --color-orange-700: #c2410c;
+  --color-orange-800: #9a3412;
+  --color-orange-900: #7c2d12;
+  --color-red-50: #fef2f2;
+  --color-red-100: #fee2e2;
+  --color-red-200: #fecaca;
+  --color-red-300: #fca5a5;
+  --color-red-400: #f87171;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+  --color-red-700: #b91c1c;
+  --color-red-800: #991b1b;
+  --color-red-900: #7f1d1d;
+  --color-green-50: #ecfdf5;
+  --color-green-100: #d1fae5;
+  --color-green-200: #a7f3d0;
+  --color-green-300: #6ee7b7;
+  --color-green-400: #34d399;
+  --color-green-500: #10b981;
+  --color-green-600: #059669;
+  --color-green-700: #047857;
+  --color-green-800: #065f46;
+  --color-green-900: #064e3b;
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-100: #d1fae5;
+  --color-emerald-200: #a7f3d0;
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065f46;
+  --color-emerald-900: #064e3b;
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-800: #1e40af;
+  --color-blue-900: #1e3a8a;
+  --shadow-full: 0px 0px 4.8px rgb(0, 0, 0, 0.1), 0px 0px 20.8px rgb(0, 0, 0, 0.13);
+  --shadow-orange-glow: -2px -2px 4px rgba(245, 158, 11, 0.5), 2px 2px 4px rgba(245, 162, 11, 0.5);
+  --drop-shadow-orange-glow: -2px -2px 4px rgba(245, 158, 11, 0.5), 2px 2px 4px rgba(245, 162, 11, 0.5);
+}
+
+:root {
+  /* amber 500, the brand color of bookyp */
+  --ui-primary: var(--color-amber-500);
+  --ui-radius: 0.375rem;
+
+  --fc-today-bg-color: rgba(156, 163, 176, 0.15);
+  --fc-now-indicator-color: #f59e0b;
+  --fc-small-font-size: 0.8rem;
+  --fc-highlight-color: rgba(5, 150, 105, 0.4);
+}
+
+html,
+body,
+#__nuxt {
+  height: 100%;
+}
+
+body {
+  /* disable android pull to refresh feature */
+  overscroll-behavior-y: contain;
+  /* v1 had no text color on the body, so text was black */
+  @apply bg-white text-black antialiased;
+}
+
+@layer base {
+  /* Tailwind 2 (v1) preflight: gray placeholders instead of half transparent text */
+  ::placeholder {
+    color: var(--color-gray-400);
+  }
+}
+
+* {
+  scrollbar-width: thin;
+}
+
+/* the scrollbars of v1 for browsers without `scrollbar-width` support */
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  transition: background 0.2s ease-in-out;
+  border: 3px solid transparent;
+  border-radius: 9999px;
+  background-color: var(--color-gray-400);
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-gray-500);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* necessary for proper svg rotation transformation */
+@utility transform-box-fill {
+  transform-box: fill-box;
+}
+
+/* hide scrollbars but keep scrolling */
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* the toasts of v1 (vue-toastification) */
+.Vue-Toastification__container.top-right {
+  top: 3rem;
+}
+
+.Vue-Toastification__toast--success {
+  background-color: var(--color-green-600);
+  color: var(--color-gray-50);
+}
+
+.Vue-Toastification__toast--info {
+  background-color: var(--color-gray-500);
+  color: var(--color-gray-50);
+}
+
+.Vue-Toastification__toast--error {
+  background-color: var(--color-red-600);
+  color: var(--color-gray-50);
+}
+
+.Vue-Toastification__progress-bar {
+  background-color: var(--color-gray-100);
+}

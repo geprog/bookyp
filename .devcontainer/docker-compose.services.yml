@@ -1,26 +1,25 @@
-# This file is used for local development (devcontainer)
-
-version: '3.8'
+# Services needed for local development (database, mail catcher, s3 storage)
 
 services:
   db:
-    image: mongo:4.4-bionic
+    image: mongo:7
     volumes:
       - mongodb-data:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME:-root}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD:-supersecret}
     ports:
-      - 127.0.0.1:${DB_PORT-27017}:27017
-      - 127.0.0.1:8081:8081
+      - 127.0.0.1:${DB_PORT:-27017}:27017
 
   mongo-express:
-    image: mongo-express:1.0.2@sha256:1b23d7976f0210dbec74045c209e52fbb26d29b2e873d6c6fa3d3f0ae32c2a64
+    image: mongo-express:1.0.2
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_USERNAME:-root}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD:-supersecret}
       ME_CONFIG_MONGODB_SERVER: db
-    network_mode: service:db
+      ME_CONFIG_BASICAUTH: 'false'
+    ports:
+      - 127.0.0.1:8081:8081
     restart: unless-stopped
     depends_on:
       - db
@@ -28,11 +27,11 @@ services:
   mail:
     image: mailhog/mailhog
     ports:
-      - '127.0.0.1:1025:1025'
-      - '127.0.0.1:8025:8025'
+      - 127.0.0.1:1025:1025
+      - 127.0.0.1:8025:8025
 
   s3:
-    image: minio/minio:RELEASE.2024-08-26T15-33-07Z
+    image: pgsty/minio:RELEASE.2026-08-04T00-00-00Z
     volumes:
       - minio-data:/data
     environment:
@@ -43,33 +42,6 @@ services:
       - 127.0.0.1:9000:9000
       - 127.0.0.1:9001:9001
 
-  postgres:
-    image: postgres:14.2
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 'supersecret'
-
-  gringotts:
-    image: ghcr.io/geprog/gringotts:3.2.0
-    environment:
-      POSTGRES_URL: postgresql://postgres:supersecret@postgres:5432/postgres
-      ADMIN_TOKEN: supersecret
-      JWT_SECRET: supersecret
-      GOTENBERG_URL: http://gotenberg:3000
-      PUBLIC_URL: $PAYMENT_PUBLIC_URL
-      PORT: 7171
-      CREATE_PROJECT_DATA: '{ "name": "Bookyp", "mollieApiKey": "", "paymentProvider": "mocked", "apiToken": "supersecret-with-more-than-32-characters", "webhookUrl": "http://host.docker.internal:4000/payments/webhook", "invoiceData": { "email": "info@example.com", "name": "Example GmbH", "addressLine1": "Schauenburgerstr. 116", "addressLine2": "string", "zipCode": "24118", "city": "Kiel", "country": "Germany", "logo": "https://example.com/logo.svg" } }'
-    ports:
-      - '127.0.0.1:7171:7171'
-    depends_on:
-      - postgres
-
-  gotenberg:
-    image: gotenberg/gotenberg:7
-
 volumes:
   mongodb-data:
   minio-data:
-  postgres-data:

@@ -1,21 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "lib": ["esnext"],
-    "alwaysStrict": true,
-    "strict": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    // "isolatedModules": true,
-    "noEmit": true, // ensure that nobody can accidentally use this config for a build
-    "sourceMap": true,
-    "removeComments": true,
-    "downlevelIteration": true
-  },
-  "exclude": ["node_modules", "dist"]
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json"
 }
