@@ -1,7 +1,6 @@
 apiVersion: anbraten.github.io/v1alpha1
 kind: Database
 metadata:
-  {{- /* the name of v1 (`-backend`): renaming the resource makes helm delete the old one, and the operator drops the database of a deleted resource */}}
   name: "{{ include "bookyp.fullname" . }}-backend"
   labels:
     {{- include "bookyp.labels" . | nindent 4 }}
